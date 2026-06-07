@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analisi Comparativa Bilancio | AnalisiEBusinessPlan.it</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0B1628;--navy2:#132040;--blue:#2563EB;--cyan:#06B6D4;--green:#10B981;--gold:#F59E0B;--red:#EF4444;--gray:#94A3B8;--white:#fff;--border:rgba(255,255,255,0.08);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);-webkit-font-smoothing:antialiased;}
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 5%;background:rgba(11,22,40,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;text-decoration:none;color:var(--white);}
+    .logo span{color:var(--cyan);}
+    .container{max-width:1200px;margin:0 auto;padding:32px 5%;}
+
+    /* HEADER AZIENDA */
+    .company-header{background:linear-gradient(135deg,var(--navy2),rgba(37,99,235,.15));border:1px solid rgba(37,99,235,.3);border-radius:16px;padding:24px 28px;margin-bottom:28px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+    .company-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px;}
+    .company-sub{font-size:13px;color:var(--gray);}
+    .company-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+    .cbadge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;}
+    .cb-blue{background:rgba(37,99,235,.15);color:var(--cyan);border:1px solid rgba(37,99,235,.3);}
+    .cb-green{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3);}
+    .cb-red{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);}
+    .cb-gold{background:rgba(245,158,11,.15);color:var(--gold);border:1px solid rgba(245,158,11,.3);}
+    .year-selector{display:flex;gap:8px;align-items:center;}
+    .year-pill{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;font-family:'Syne',sans-serif;}
+    .yp-curr{background:var(--blue);color:var(--white);}
+    .yp-prev{background:rgba(255,255,255,.1);color:var(--gray);}
+    .yp-sep{color:var(--gray);font-size:14px;}
+
+    /* TABS */
+    .tabs{display:flex;gap:2px;margin-bottom:24px;background:var(--navy2);border-radius:12px;padding:4px;}
+    .tab{flex:1;padding:10px;background:none;border:none;color:var(--gray);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-radius:9px;transition:all .2s;}
+    .tab.active{background:var(--navy);color:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.3);}
+    .tab-content{display:none;}
+    .tab-content.active{display:block;}
+
+    /* KPI HERO ROW */
+    .kpi-hero{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+    .kpi-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden;}
+    .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .kpi-card.pos::before{background:linear-gradient(90deg,var(--green),var(--cyan));}
+    .kpi-card.neg::before{background:linear-gradient(90deg,var(--red),var(--gold));}
+    .kpi-card.neu::before{background:linear-gradient(90deg,var(--blue),var(--cyan));}
+    .kpi-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+    .kpi-curr{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;line-height:1;}
+    .kpi-prev{font-size:12px;color:var(--gray);margin-top:5px;}
+    .kpi-delta{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:6px;}
+    .delta-pos{background:rgba(16,185,129,.15);color:var(--green);}
+    .delta-neg{background:rgba(239,68,68,.15);color:var(--red);}
+    .delta-neu{background:rgba(148,163,184,.1);color:var(--gray);}
+
+    /* TABELLA COMPARATIVA */
+    .comp-table{width:100%;border-collapse:collapse;font-size:13px;}
+    .comp-table th{background:var(--navy2);padding:10px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);border-bottom:1px solid var(--border);}
+    .comp-table th.right{text-align:right;}
+    .comp-table td{padding:10px 14px;border-bottom:0.5px solid var(--border);vertical-align:middle;}
+    .comp-table td.right{text-align:right;font-variant-numeric:tabular-nums;}
+    .comp-table tr:hover td{background:rgba(255,255,255,.02);}
+    .comp-table tr.section-row td{background:rgba(6,182,212,.06);font-weight:700;font-size:12px;color:var(--cyan);letter-spacing:.04em;}
+    .comp-table tr.total-row td{background:rgba(37,99,235,.08);font-weight:700;font-family:'Syne',sans-serif;}
+    .var-pos{color:var(--green);font-weight:600;}
+    .var-neg{color:var(--red);font-weight:600;}
+    .var-neu{color:var(--gray);}
+    .bar-mini{display:flex;align-items:center;gap:6px;}
+    .bar-m{height:4px;border-radius:2px;min-width:4px;transition:width .4s;}
+
+    /* INDICI VISUAL */
+    .indici-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+    .indice-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;}
+    .indice-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px;}
+    .indice-sub{font-size:11px;color:var(--gray);margin-bottom:16px;}
+    .indice-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+    .indice-year{font-size:11px;color:var(--gray);width:36px;flex-shrink:0;}
+    .indice-bar-track{flex:1;height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;}
+    .indice-bar-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+    .indice-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;width:60px;text-align:right;}
+
+    /* BANCABILITÀ COMPARATIVA */
+    .banc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+    .banc-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:16px;}
+    .banc-name{font-size:12px;font-weight:600;margin-bottom:4px;}
+    .banc-sub{font-size:10px;color:var(--gray);margin-bottom:12px;line-height:1.5;}
+    .banc-compare{display:flex;gap:10px;}
+    .banc-year-block{flex:1;background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center;}
+    .banc-year-lbl{font-size:10px;color:var(--gray);margin-bottom:4px;}
+    .banc-year-val{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
+    .banc-verdict{font-size:10px;padding:2px 7px;border-radius:10px;margin-top:5px;display:inline-block;font-weight:600;}
+    .bv-g{background:rgba(16,185,129,.15);color:var(--green);}
+    .bv-a{background:rgba(245,158,11,.15);color:var(--gold);}
+    .bv-r{background:rgba(239,68,68,.15);color:var(--red);}
+    .trend-arrow{font-size:14px;align-self:center;}
+
+    /* RATING SECTION */
+    .rating-section{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px;}
+    .rating-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;}
+    .rating-block{text-align:center;}
+    .rating-year{font-size:11px;color:var(--gray);margin-bottom:8px;}
+    .rating-letter-big{font-family:'Syne',sans-serif;font-size:64px;font-weight:800;line-height:1;}
+    .rating-desc{font-size:13px;margin-top:8px;}
+    .rating-arrow{font-size:32px;color:var(--gray);}
+    .rating-items{margin-top:20px;border-top:1px solid var(--border);padding-top:16px;}
+    .ri-row{display:grid;grid-template-columns:1fr 80px 80px 60px;gap:8px;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:12px;}
+    .ri-row:last-child{border-bottom:none;}
+    .ri-label{color:var(--gray);}
+    .ri-val{text-align:right;font-weight:600;}
+    .ri-delta{text-align:right;font-size:11px;}
+    .ri-dot{width:8px;height:8px;border-radius:50%;justify-self:center;}
+
+    /* SECTION HEADERS */
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .sec-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;}
+    .sec-line{flex:1;height:1px;background:var(--border);}
+
+    /* ALERT */
+    .alert{border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.65;margin-bottom:20px;}
+    .alert-warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:rgba(255,255,255,.85);}
+    .alert-good{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:rgba(255,255,255,.85);}
+
+    .table-wrapper{background:var(--navy2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px;}
+
+    @media(max-width:900px){.kpi-hero{grid-template-columns:1fr 1fr;}.indici-grid{grid-template-columns:1fr;}.banc-grid{grid-template-columns:1fr;}.rating-compare{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Analisi<span>e</span>BusinessPlan</a>
+  <span style="font-size:12px;color:var(--gray);">Analisi Comparativa Bilancio</span>
+</nav>
+
+<div class="container">
+
+  <!-- HEADER AZIENDA -->
+  <div class="company-header">
+    <div>
+      <div class="company-name">AMEDEO NAPPI INDUSTRIA CERARIA S.P.A.</div>
+      <div class="company-sub">P.IVA 04484731213 · 80030 LIVERI (NA) · REA NA-696830</div>
+      <div class="company-sub" style="margin-top:2px;">ATECO: Fabbricazione di derivati del petrolio (192020) · S.p.A.</div>
+      <div class="company-badges">
+        <span class="cbadge cb-blue">Bilancio XBRL 2024 · Depositato CCIAA</span>
+        <span class="cbadge cb-blue">Tassonomia 2018-11-04</span>
+        <span class="cbadge cb-red">Perdita 2024: -€344.856</span>
+        <span class="cbadge cb-green">EBITDA +74,1% vs 2023</span>
+        <span class="cbadge cb-green">PFN ridotta del 69,3%</span>
+      </div>
+    </div>
+    <div class="year-selector">
+      <div class="year-pill yp-curr">2024</div>
+      <div class="yp-sep">vs</div>
+      <div class="year-pill yp-prev">2023</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('overview',this)">📊 Overview</button>
+    <button class="tab" onclick="switchTab('sp',this)">⚖️ Stato Patrimoniale</button>
+    <button class="tab" onclick="switchTab('ce',this)">📈 Conto Economico</button>
+    <button class="tab" onclick="switchTab('indici',this)">🎯 Indici</button>
+    <button class="tab" onclick="switchTab('banc',this)">🏦 Bancabilità</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="tab-overview" class="tab-content active">
+
+    <div class="kpi-hero">
+      <div class="kpi-card neg">
+        <div class="kpi-label">Ricavi vendite</div>
+        <div class="kpi-curr" style="color:var(--white);">€6,71M</div>
+        <div class="kpi-prev">2023: €9,70M</div>
+        <div class="kpi-delta delta-neg">▼ -30,8%</div>
+      </div>
+      <div class="kpi-card pos">
+        <div class="kpi-label">EBITDA</div>
+        <div class="kpi-curr" style="color:var(--green);">€2,72M</div>
+        <div class="kpi-prev">2023: €1,56M</div>
+        <div class="kpi-delta delta-pos">▲ +74,1%</div>
+      </div>
+      <div class="kpi-card neg">
+        <div class="kpi-label">Utile / Perdita</div>
+        <div class="kpi-curr" style="color:var(--red);">-€344K</div>
+        <div class="kpi-prev">2023: +€302K</div>
+        <div class="kpi-delta delta-neg">▼ -214,3%</div>
+      </div>
+      <div class="kpi-card pos">
+        <div class="kpi-label">Patrimonio Netto</div>
+        <div class="kpi-curr" style="color:var(--cyan);">€4,05M</div>
+        <div class="kpi-prev">2023: €4,39M</div>
+        <div class="kpi-delta delta-neg">▼ -7,9%</div>
+      </div>
+    </div>
+
+    <div class="kpi-hero">
+      <div class="kpi-card pos">
+        <div class="kpi-label">ROI</div>
+        <div class="kpi-curr" style="color:var(--green);">30,43%</div>
+        <div class="kpi-prev">2023: 8,39%</div>
+        <div class="kpi-delta delta-pos">▲ +262,7%</div>
+      </div>
+      <div class="kpi-card pos">
+        <div class="kpi-label">EBITDA margin</div>
+        <div class="kpi-curr" style="color:var(--green);">28,2%</div>
+        <div class="kpi-prev">2023: 15,2%</div>
+        <div class="kpi-delta delta-pos">▲ +85,9%</div>
+      </div>
+      <div class="kpi-card pos">
+        <div class="kpi-label">Leva fin. D/E</div>
+        <div class="kpi-curr" style="color:var(--green);">0,65x</div>
+        <div class="kpi-prev">2023: 1,45x</div>
+        <div class="kpi-delta delta-pos">▼ -55,0% (migliorato)</div>
+      </div>
+      <div class="kpi-card pos">
+        <div class="kpi-label">PFN / EBITDA</div>
+        <div class="kpi-curr" style="color:var(--green);">0,39x</div>
+        <div class="kpi-prev">2023: 2,21x</div>
+        <div class="kpi-delta delta-pos">▼ -82,3% (migliorato)</div>
+      </div>
+    </div>
+
+    <div class="alert alert-warn">
+      <strong>⚠️ Punto di attenzione:</strong> Il calo dei ricavi da vendite (-30,8%) è significativo, ma va contestualizzato con l'importante riduzione dei debiti (-58,5%) e il forte miglioramento dell'EBITDA (+74,1%). La perdita 2024 è principalmente tecnica: EBITDA positivo a €2,72M ma appesantito da ammortamenti elevati (€443K) e oneri finanziari (€134K). La struttura patrimoniale è decisamente migliorata rispetto al 2023.
+    </div>
+    <div class="alert alert-good">
+      <strong>✓ Punti di forza:</strong> Autonomia finanziaria passata dal 37,4% al 54,2% · PFN ridotta da €3,46M a €1,06M (-69%) · Current ratio da 1,62x a 2,41x · ICR (copertura interessi) eccellente a 16,85x · Leva finanziaria dimezzata da 1,45x a 0,65x. Il profilo di bancabilità è notevolmente migliorato nell'anno.
+    </div>
+  </div>
+
+  <!-- STATO PATRIMONIALE -->
+  <div id="tab-sp" class="tab-content">
+    <div class="table-wrapper">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th style="width:45%;">Voce di bilancio</th>
+            <th class="right">2024</th>
+            <th class="right">2023</th>
+            <th class="right">Variazione €</th>
+            <th class="right">Var %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="5">ATTIVO — IMMOBILIZZAZIONI</td></tr>
+          <tr><td>Immobilizzazioni immateriali</td><td class="right">€880.727</td><td class="right">€1.301.984</td><td class="right var-neg">-€421.257</td><td class="right var-neg">-32,4%</td></tr>
+          <tr><td>Immobilizzazioni materiali</td><td class="right">€1.651.640</td><td class="right">€2.265.573</td><td class="right var-neg">-€613.933</td><td class="right var-neg">-27,1%</td></tr>
+          <tr><td>Immobilizzazioni finanziarie</td><td class="right">€69.285</td><td class="right">€141.038</td><td class="right var-neg">-€71.753</td><td class="right var-neg">-50,9%</td></tr>
+          <tr class="total-row"><td>TOTALE IMMOBILIZZAZIONI</td><td class="right">€2.601.652</td><td class="right">€3.708.595</td><td class="right var-neg">-€1.106.943</td><td class="right var-neg">-29,8%</td></tr>
+
+          <tr class="section-row"><td colspan="5">ATTIVO — CIRCOLANTE</td></tr>
+          <tr><td>Rimanenze</td><td class="right">€2.593.319</td><td class="right">€3.691.341</td><td class="right var-neg">-€1.098.022</td><td class="right var-neg">-29,7%</td></tr>
+          <tr><td>Crediti verso clienti</td><td class="right">€1.485.773</td><td class="right">€3.762.332</td><td class="right var-neg">-€2.276.559</td><td class="right var-neg">-60,5%</td></tr>
+          <tr><td>Disponibilità liquide</td><td class="right">€380.665</td><td class="right">€317.837</td><td class="right var-pos">+€62.828</td><td class="right var-pos">+19,8%</td></tr>
+          <tr class="total-row"><td>TOTALE ATTIVO CIRCOLANTE</td><td class="right">€4.693.893</td><td class="right">€7.771.506</td><td class="right var-neg">-€3.077.613</td><td class="right var-neg">-39,6%</td></tr>
+          <tr class="total-row" style="font-size:14px;"><td>▶ TOTALE ATTIVO</td><td class="right" style="color:var(--cyan);">€7.474.307</td><td class="right" style="color:var(--cyan);">€11.754.810</td><td class="right var-neg">-€4.280.503</td><td class="right var-neg">-36,4%</td></tr>
+
+          <tr class="section-row"><td colspan="5">PASSIVO — PATRIMONIO NETTO</td></tr>
+          <tr><td>Capitale sociale</td><td class="right">€2.600.000</td><td class="right">€2.600.000</td><td class="right var-neu">€0</td><td class="right var-neu">0,0%</td></tr>
+          <tr><td>Riserva legale</td><td class="right">€119.783</td><td class="right">€96.544</td><td class="right var-pos">+€23.239</td><td class="right var-pos">+24,1%</td></tr>
+          <tr><td>Altre riserve</td><td class="right">€1.015.245</td><td class="right">€1.015.244</td><td class="right var-neu">+€1</td><td class="right var-neu">0,0%</td></tr>
+          <tr><td>Utili portati a nuovo</td><td class="right">€657.196</td><td class="right">€378.880</td><td class="right var-pos">+€278.316</td><td class="right var-pos">+73,5%</td></tr>
+          <tr><td>Utile / Perdita esercizio</td><td class="right" style="color:var(--red);">-€344.856</td><td class="right" style="color:var(--green);">+€301.583</td><td class="right var-neg">-€646.439</td><td class="right var-neg">-214,3%</td></tr>
+          <tr class="total-row"><td>TOTALE PATRIMONIO NETTO</td><td class="right">€4.047.368</td><td class="right">€4.392.251</td><td class="right var-neg">-€344.883</td><td class="right var-neg">-7,9%</td></tr>
+
+          <tr class="section-row"><td colspan="5">PASSIVO — DEBITI E FONDI</td></tr>
+          <tr><td>Fondi rischi e oneri</td><td class="right">€351.965</td><td class="right">€351.965</td><td class="right var-neu">€0</td><td class="right var-neu">0,0%</td></tr>
+          <tr><td>TFR</td><td class="right">€130.741</td><td class="right">€156.223</td><td class="right var-pos">-€25.482</td><td class="right var-pos">-16,3%</td></tr>
+          <tr><td>Debiti banche (breve)</td><td class="right">€815.241</td><td class="right">€2.345.227</td><td class="right var-pos">-€1.529.986</td><td class="right var-pos">-65,2%</td></tr>
+          <tr><td>Debiti banche (m/l termine)</td><td class="right">€628.483</td><td class="right">€1.429.743</td><td class="right var-pos">-€801.260</td><td class="right var-pos">-56,1%</td></tr>
+          <tr><td>Debiti verso fornitori</td><td class="right">€680.928</td><td class="right">€1.682.697</td><td class="right var-pos">-€1.001.769</td><td class="right var-pos">-59,5%</td></tr>
+          <tr><td>Debiti tributari</td><td class="right">€449.367</td><td class="right">€782.114</td><td class="right var-pos">-€332.747</td><td class="right var-pos">-42,5%</td></tr>
+          <tr class="total-row"><td>TOTALE DEBITI</td><td class="right">€2.632.478</td><td class="right">€6.347.301</td><td class="right var-pos">-€3.714.823</td><td class="right var-pos">-58,5%</td></tr>
+          <tr class="total-row" style="font-size:14px;"><td>▶ TOTALE PASSIVO</td><td class="right" style="color:var(--green);">€7.474.307</td><td class="right" style="color:var(--green);">€11.754.810</td><td class="right var-neg">-€4.280.503</td><td class="right var-neg">-36,4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CONTO ECONOMICO -->
+  <div id="tab-ce" class="tab-content">
+    <div class="table-wrapper">
+      <table class="comp-table">
+        <thead>
+          <tr><th style="width:45%;">Voce</th><th class="right">2024</th><th class="right">2023</th><th class="right">Variazione €</th><th class="right">Var %</th></tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="5">VALORE DELLA PRODUZIONE</td></tr>
+          <tr><td>Ricavi delle vendite</td><td class="right">€6.710.887</td><td class="right">€9.703.066</td><td class="right var-neg">-€2.992.179</td><td class="right var-neg">-30,8%</td></tr>
+          <tr><td>Variazioni rimanenze prod.</td><td class="right" style="color:var(--red);">-€284.525</td><td class="right">€0</td><td class="right">—</td><td class="right">—</td></tr>
+          <tr><td>Altri ricavi e proventi</td><td class="right">€3.195.470</td><td class="right">€569.163</td><td class="right var-pos">+€2.626.307</td><td class="right var-pos">+461,5%</td></tr>
+          <tr class="total-row"><td>TOTALE VALORE PRODUZIONE</td><td class="right">€9.621.832</td><td class="right">€10.272.229</td><td class="right var-neg">-€650.397</td><td class="right var-neg">-6,3%</td></tr>
+
+          <tr class="section-row"><td colspan="5">COSTI DELLA PRODUZIONE</td></tr>
+          <tr><td>Materie prime e merci</td><td class="right">€5.360.489</td><td class="right">€6.801.117</td><td class="right var-pos">-€1.440.628</td><td class="right var-pos">-21,2%</td></tr>
+          <tr><td>Servizi</td><td class="right">€1.108.527</td><td class="right">€1.134.041</td><td class="right var-pos">-€25.514</td><td class="right var-pos">-2,2%</td></tr>
+          <tr><td>Godimento beni di terzi</td><td class="right">€46.922</td><td class="right">€46.922</td><td class="right var-neu">€0</td><td class="right var-neu">0,0%</td></tr>
+          <tr><td>Costi del personale</td><td class="right">€388.076</td><td class="right">€383.404</td><td class="right var-neg">+€4.672</td><td class="right var-neg">+1,2%</td></tr>
+          <tr><td>Ammortamenti</td><td class="right">€443.050</td><td class="right">€919.680</td><td class="right var-pos">-€476.630</td><td class="right var-pos">-51,8%</td></tr>
+          <tr class="total-row"><td>TOTALE COSTI PRODUZIONE</td><td class="right">€9.709.580</td><td class="right">€10.016.432</td><td class="right var-pos">-€306.852</td><td class="right var-pos">-3,1%</td></tr>
+
+          <tr class="section-row"><td colspan="5">RISULTATI INTERMEDI</td></tr>
+          <tr class="total-row" style="color:var(--green);"><td>EBITDA</td><td class="right" style="color:var(--green);">€2.717.818</td><td class="right" style="color:var(--green);">€1.560.785</td><td class="right var-pos">+€1.157.033</td><td class="right var-pos">+74,1%</td></tr>
+          <tr class="total-row"><td>EBIT (Reddito operativo)</td><td class="right">€2.274.768</td><td class="right">€986.260</td><td class="right var-pos">+€1.288.508</td><td class="right var-pos">+130,6%</td></tr>
+
+          <tr class="section-row"><td colspan="5">AREA FINANZIARIA E FISCALE</td></tr>
+          <tr><td>Oneri finanziari</td><td class="right" style="color:var(--red);">-€134.985</td><td class="right" style="color:var(--red);">-€256.348</td><td class="right var-pos">-€121.363</td><td class="right var-pos">-47,3%</td></tr>
+          <tr><td>Proventi finanziari</td><td class="right">€1.885</td><td class="right">€2.157</td><td class="right var-neg">-€272</td><td class="right var-neg">-12,6%</td></tr>
+          <tr><td>Imposte (IRES+IRAP)</td><td class="right" style="color:var(--red);">-€46.987</td><td class="right" style="color:var(--red);">-€43.153</td><td class="right var-neg">+€3.834</td><td class="right var-neg">+8,9%</td></tr>
+          <tr class="total-row" style="font-size:14px;"><td>▶ UTILE / PERDITA ESERCIZIO</td><td class="right" style="color:var(--red);">-€344.856</td><td class="right" style="color:var(--green);">+€301.583</td><td class="right var-neg">-€646.439</td><td class="right var-neg">-214,3%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- INDICI -->
+  <div id="tab-indici" class="tab-content">
+    <div class="indici-grid">
+
+      <div class="indice-card">
+        <div class="indice-title">Indici di Redditività</div>
+        <div class="indice-sub">Misura la capacità dell'azienda di generare reddito</div>
+        <div class="indice-row">
+          <span class="indice-year">2024</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:100%;background:var(--green)"></div></div>
+          <span class="indice-val" style="color:var(--green)">28,2%</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:8px;margin-left:46px;">EBITDA margin</div>
+        <div class="indice-row">
+          <span class="indice-year">2023</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:53%;background:var(--gold)"></div></div>
+          <span class="indice-val" style="color:var(--gold)">15,2%</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:16px;margin-left:46px;">EBITDA margin</div>
+        <div class="indice-row">
+          <span class="indice-year">2024</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:76%;background:var(--green)"></div></div>
+          <span class="indice-val" style="color:var(--green)">30,4%</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:8px;margin-left:46px;">ROI</div>
+        <div class="indice-row">
+          <span class="indice-year">2023</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:21%;background:var(--gold)"></div></div>
+          <span class="indice-val" style="color:var(--gold)">8,4%</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-left:46px;">ROI</div>
+      </div>
+
+      <div class="indice-card">
+        <div class="indice-title">Indici di Liquidità</div>
+        <div class="indice-sub">Misura la capacità di far fronte agli impegni a breve</div>
+        <div class="indice-row">
+          <span class="indice-year">2024</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:80%;background:var(--green)"></div></div>
+          <span class="indice-val" style="color:var(--green)">2,41x</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:8px;margin-left:46px;">Current Ratio (soglia: 1,5x)</div>
+        <div class="indice-row">
+          <span class="indice-year">2023</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:54%;background:var(--gold)"></div></div>
+          <span class="indice-val" style="color:var(--gold)">1,62x</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:16px;margin-left:46px;">Current Ratio</div>
+        <div class="indice-row">
+          <span class="indice-year">2024</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:54%;background:var(--green)"></div></div>
+          <span class="indice-val" style="color:var(--green)">1,08x</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:8px;margin-left:46px;">Acid Test (soglia: 1,0x)</div>
+        <div class="indice-row">
+          <span class="indice-year">2023</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:42%;background:var(--gold)"></div></div>
+          <span class="indice-val" style="color:var(--gold)">0,85x</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-left:46px;">Acid Test</div>
+      </div>
+
+      <div class="indice-card">
+        <div class="indice-title">Indici di Solidità</div>
+        <div class="indice-sub">Misura la struttura finanziaria e la solidità patrimoniale</div>
+        <div class="indice-row">
+          <span class="indice-year">2024</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:54%;background:var(--green)"></div></div>
+          <span class="indice-val" style="color:var(--green)">54,2%</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:8px;margin-left:46px;">Autonomia fin. (soglia: 30%)</div>
+        <div class="indice-row">
+          <span class="indice-year">2023</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:37%;background:var(--gold)"></div></div>
+          <span class="indice-val" style="color:var(--gold)">37,4%</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:16px;margin-left:46px;">Autonomia fin.</div>
+        <div class="indice-row">
+          <span class="indice-year">2024</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:16%;background:var(--green)"></div></div>
+          <span class="indice-val" style="color:var(--green)">0,65x</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-bottom:8px;margin-left:46px;">Leva D/E (soglia: 2x)</div>
+        <div class="indice-row">
+          <span class="indice-year">2023</span>
+          <div class="indice-bar-track"><div class="indice-bar-fill" style="width:36%;background:var(--gold)"></div></div>
+          <span class="indice-val" style="color:var(--gold)">1,45x</span>
+        </div>
+        <div style="font-size:10px;color:var(--gray);margin-left:46px;">Leva D/E</div>
+      </div>
+
+      <div class="indice-card">
+        <div class="indice-title">Riepilogo indici — 2024 vs 2023</div>
+        <div class="indice-sub">Confronto diretto di tutti gli indicatori principali</div>
+        <table style="width:100%;font-size:12px;border-collapse:collapse;">
+          <tr style="border-bottom:0.5px solid var(--border);"><th style="text-align:left;padding:6px 4px;font-size:10px;color:var(--gray);font-weight:500;">Indice</th><th style="text-align:right;padding:6px 4px;font-size:10px;color:var(--gray);font-weight:500;">2024</th><th style="text-align:right;padding:6px 4px;font-size:10px;color:var(--gray);font-weight:500;">2023</th><th style="text-align:right;padding:6px 4px;font-size:10px;color:var(--gray);font-weight:500;">Trend</th></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 4px;color:var(--gray);">ROE</td><td style="text-align:right;padding:7px 4px;" class="var-neg">-8,52%</td><td style="text-align:right;padding:7px 4px;">+6,87%</td><td style="text-align:right;padding:7px 4px;" class="var-neg">▼</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 4px;color:var(--gray);">ROI</td><td style="text-align:right;padding:7px 4px;" class="var-pos">30,43%</td><td style="text-align:right;padding:7px 4px;">8,39%</td><td style="text-align:right;padding:7px 4px;" class="var-pos">▲</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 4px;color:var(--gray);">ROS</td><td style="text-align:right;padding:7px 4px;" class="var-pos">23,64%</td><td style="text-align:right;padding:7px 4px;">9,60%</td><td style="text-align:right;padding:7px 4px;" class="var-pos">▲</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 4px;color:var(--gray);">EBITDA%</td><td style="text-align:right;padding:7px 4px;" class="var-pos">28,25%</td><td style="text-align:right;padding:7px 4px;">15,19%</td><td style="text-align:right;padding:7px 4px;" class="var-pos">▲</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 4px;color:var(--gray);">Current Ratio</td><td style="text-align:right;padding:7px 4px;" class="var-pos">2,41x</td><td style="text-align:right;padding:7px 4px;">1,62x</td><td style="text-align:right;padding:7px 4px;" class="var-pos">▲</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 4px;color:var(--gray);">Acid Test</td><td style="text-align:right;padding:7px 4px;" class="var-pos">1,08x</td><td style="text-align:right;padding:7px 4px;">0,85x</td><td style="text-align:right;padding:7px 4px;" class="var-pos">▲</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 4px;color:var(--gray);">Leva D/E</td><td style="text-align:right;padding:7px 4px;" class="var-pos">0,65x</td><td style="text-align:right;padding:7px 4px;">1,45x</td><td style="text-align:right;padding:7px 4px;" class="var-pos">▼ (migl.)</td></tr>
+          <tr><td style="padding:7px 4px;color:var(--gray);">Autonomia fin.</td><td style="text-align:right;padding:7px 4px;" class="var-pos">54,2%</td><td style="text-align:right;padding:7px 4px;">37,4%</td><td style="text-align:right;padding:7px 4px;" class="var-pos">▲</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANCABILITÀ -->
+  <div id="tab-banc" class="tab-content">
+
+    <!-- RATING COMPARATIVO -->
+    <div class="rating-section" style="margin-bottom:24px;">
+      <div class="sec-header"><span class="sec-title">Rating sintetico di bancabilità</span><div class="sec-line"></div></div>
+      <div class="rating-compare">
+        <div class="rating-block">
+          <div class="rating-year">2023</div>
+          <div class="rating-letter-big" style="color:var(--gold);">C</div>
+          <div class="rating-desc" style="color:var(--gold);">Bancabilità sufficiente</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:6px;">Struttura appesantita, PFN/EBITDA 2,21x</div>
+        </div>
+        <div class="rating-arrow">→</div>
+        <div class="rating-block">
+          <div class="rating-year">2024</div>
+          <div class="rating-letter-big" style="color:var(--green);">A</div>
+          <div class="rating-desc" style="color:var(--green);">Eccellente bancabilità</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:6px;">PFN/EBITDA 0,39x · ICR 16,85x</div>
+        </div>
+      </div>
+      <div class="rating-items">
+        <div class="ri-row" style="font-weight:700;font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;">
+          <span>Indicatore</span><span class="ri-val">2024</span><span class="ri-val">2023</span><span></span>
+        </div>
+        <div class="ri-row"><span class="ri-label">DSCR (solo oneri fin.)</span><span class="ri-val var-pos">16,85x</span><span class="ri-val">n/d</span><div class="ri-dot" style="background:var(--green)"></div></div>
+        <div class="ri-row"><span class="ri-label">PFN / EBITDA</span><span class="ri-val var-pos">0,39x</span><span class="ri-val var-neg">2,21x</span><div class="ri-dot" style="background:var(--green)"></div></div>
+        <div class="ri-row"><span class="ri-label">PFN / Patrimonio Netto</span><span class="ri-val var-pos">0,26x</span><span class="ri-val var-neg">0,79x</span><div class="ri-dot" style="background:var(--green)"></div></div>
+        <div class="ri-row"><span class="ri-label">Current Ratio</span><span class="ri-val var-pos">2,41x</span><span class="ri-val var-gold">1,62x</span><div class="ri-dot" style="background:var(--green)"></div></div>
+        <div class="ri-row"><span class="ri-label">Autonomia finanziaria</span><span class="ri-val var-pos">54,2%</span><span class="ri-val var-gold">37,4%</span><div class="ri-dot" style="background:var(--green)"></div></div>
+      </div>
+    </div>
+
+    <div class="banc-grid">
+      <div class="banc-card">
+        <div class="banc-name">PFN — Posizione Finanziaria Netta</div>
+        <div class="banc-sub">Debiti finanziari netti al netto della liquidità disponibile</div>
+        <div class="banc-compare">
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2024</div>
+            <div class="banc-year-val" style="color:var(--gold);">€1,06M</div>
+            <div class="banc-verdict bv-a">In miglioramento</div>
+          </div>
+          <div style="align-self:center;color:var(--green);font-size:18px;">▼69%</div>
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2023</div>
+            <div class="banc-year-val" style="color:var(--red);">€3,46M</div>
+            <div class="banc-verdict bv-r">Elevata</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banc-card">
+        <div class="banc-name">PFN / EBITDA</div>
+        <div class="banc-sub">Anni necessari per ripagare il debito netto con l'EBITDA. Soglia banca: &lt;3x</div>
+        <div class="banc-compare">
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2024</div>
+            <div class="banc-year-val" style="color:var(--green);">0,39x</div>
+            <div class="banc-verdict bv-g">✓ Ottimo</div>
+          </div>
+          <div style="align-self:center;color:var(--green);font-size:18px;">▼</div>
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2023</div>
+            <div class="banc-year-val" style="color:var(--gold);">2,21x</div>
+            <div class="banc-verdict bv-a">⚠ Accettabile</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banc-card">
+        <div class="banc-name">PFN / Patrimonio Netto</div>
+        <div class="banc-sub">Leva finanziaria netta. Soglia banca: &lt;1x ottimo, &lt;3x accettabile</div>
+        <div class="banc-compare">
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2024</div>
+            <div class="banc-year-val" style="color:var(--green);">0,26x</div>
+            <div class="banc-verdict bv-g">✓ Ottimo</div>
+          </div>
+          <div style="align-self:center;color:var(--green);font-size:18px;">▼</div>
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2023</div>
+            <div class="banc-year-val" style="color:var(--gold);">0,79x</div>
+            <div class="banc-verdict bv-a">⚠ Nella norma</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banc-card">
+        <div class="banc-name">Interest Coverage Ratio (ICR)</div>
+        <div class="banc-sub">EBIT / Oneri finanziari. Capacità di coprire gli interessi. Soglia: &gt;3x</div>
+        <div class="banc-compare">
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2024</div>
+            <div class="banc-year-val" style="color:var(--green);">16,85x</div>
+            <div class="banc-verdict bv-g">✓ Eccellente</div>
+          </div>
+          <div style="align-self:center;color:var(--green);font-size:18px;">▲</div>
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2023</div>
+            <div class="banc-year-val" style="color:var(--gray);">n/d</div>
+            <div class="banc-verdict" style="background:rgba(148,163,184,.1);color:var(--gray);">Dati parziali</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banc-card">
+        <div class="banc-name">Debiti verso banche</div>
+        <div class="banc-sub">Totale esposizione bancaria (breve + m/l termine)</div>
+        <div class="banc-compare">
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2024</div>
+            <div class="banc-year-val" style="color:var(--green);">€1,44M</div>
+            <div class="banc-verdict bv-g">-61,8% vs 2023</div>
+          </div>
+          <div style="align-self:center;color:var(--green);font-size:18px;">▼</div>
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2023</div>
+            <div class="banc-year-val" style="color:var(--red);">€3,77M</div>
+            <div class="banc-verdict bv-r">Elevata</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banc-card">
+        <div class="banc-name">Oneri finanziari</div>
+        <div class="banc-sub">Interessi passivi pagati nell'esercizio</div>
+        <div class="banc-compare">
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2024</div>
+            <div class="banc-year-val" style="color:var(--green);">€134K</div>
+            <div class="banc-verdict bv-g">-47,3%</div>
+          </div>
+          <div style="align-self:center;color:var(--green);font-size:18px;">▼</div>
+          <div class="banc-year-block">
+            <div class="banc-year-lbl">2023</div>
+            <div class="banc-year-val" style="color:var(--gold);">€256K</div>
+            <div class="banc-verdict bv-a">In calo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-good" style="margin-top:20px;">
+      <strong>✓ Giudizio bancabilità 2024 — Rating A:</strong> Il profilo finanziario dell'azienda è notevolmente migliorato rispetto al 2023. Con PFN/EBITDA a 0,39x, ICR a 16,85x e autonomia finanziaria al 54,2%, l'azienda presenta un profilo eccellente per l'accesso al credito. Il DSCR completo richiede le rate capitale dei finanziamenti in essere — con gli oneri finanziari attuali (€134K/anno) il margine è ampio. La perdita netta è un elemento da monitorare ma non pregiudica la bancabilità grazie alla solidità patrimoniale.
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchTab(tab, btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
