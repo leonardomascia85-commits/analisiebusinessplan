@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Acquista Report | AnalisiEBusinessPlan.it</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0B1628;--navy2:#132040;--blue:#2563EB;--cyan:#06B6D4;--green:#10B981;--gold:#F59E0B;--red:#EF4444;--gray:#94A3B8;--white:#fff;--border:rgba(255,255,255,0.08);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased;}
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 5%;background:rgba(11,22,40,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;text-decoration:none;color:var(--white);}
+    .logo span{color:var(--cyan);}
+    .wrap{max-width:900px;margin:0 auto;padding:48px 5%;}
+    h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px;}
+    .sub{font-size:14px;color:var(--gray);margin-bottom:36px;}
+
+    /* PRICING */
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px;}
+    .price-card{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;transition:all .2s;cursor:pointer;}
+    .price-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.3);}
+    .price-card.popular{border-color:var(--cyan);background:rgba(6,182,212,.06);}
+    .price-card.selected{border-color:var(--green);background:rgba(16,185,129,.06);}
+    .pop-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--blue),var(--cyan));color:#fff;font-size:10px;font-weight:700;padding:3px 14px;border-radius:20px;letter-spacing:.05em;white-space:nowrap;}
+    .pc-icon{font-size:32px;margin-bottom:12px;}
+    .pc-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;}
+    .pc-desc{font-size:12px;color:var(--gray);margin-bottom:16px;line-height:1.5;}
+    .pc-price{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;margin-bottom:4px;}
+    .pc-price span{font-size:14px;font-weight:400;color:var(--gray);}
+    .pc-iva{font-size:11px;color:var(--gray);margin-bottom:16px;}
+    .pc-features{list-style:none;margin-bottom:20px;}
+    .pc-features li{font-size:12px;color:var(--gray);padding:4px 0;display:flex;align-items:flex-start;gap:7px;}
+    .pc-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;}
+    .pc-features li.no::before{content:'✕';color:var(--red);}
+    .pc-features li.no{color:rgba(148,163,184,.5);}
+    .btn-select{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;padding:11px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
+    .btn-select:hover{background:rgba(255,255,255,.1);}
+    .price-card.popular .btn-select{background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;}
+    .price-card.selected .btn-select{background:var(--green);border:none;}
+
+    /* CHECKOUT */
+    .checkout-box{background:var(--navy2);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:none;}
+    .checkout-box.show{display:block;}
+    .cb-header{background:rgba(37,99,235,.08);border-bottom:1px solid var(--border);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;}
+    .cb-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;}
+    .cb-total{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--cyan);}
+    .cb-body{padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .cb-section-title{font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;}
+    .fg{display:flex;flex-direction:column;gap:10px;}
+    .fi{display:flex;flex-direction:column;gap:4px;}
+    .fi label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;}
+    .fi input{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:10px 12px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;width:100%;transition:border-color .15s;}
+    .fi input:focus{outline:none;border-color:var(--cyan);background:rgba(6,182,212,.04);}
+
+    /* CARD MOCK */
+    .card-mock{background:linear-gradient(135deg,#1e3a5f,#2563EB);border-radius:12px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden;}
+    .cm-chip{width:32px;height:24px;background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:4px;margin-bottom:14px;}
+    .cm-number{font-size:16px;letter-spacing:.15em;font-family:monospace;color:rgba(255,255,255,.9);margin-bottom:16px;}
+    .cm-footer{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.6);}
+    .cm-logo{position:absolute;top:16px;right:16px;font-size:22px;}
+    .card-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+    /* STRIPE INFO */
+    .stripe-info{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--gray);margin-top:10px;}
+    .stripe-badge{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;color:var(--gray);}
+
+    /* ORDER SUMMARY */
+    .order-summary{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:16px;}
+    .os-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:.5px solid var(--border);font-size:12px;}
+    .os-row:last-child{border:none;}
+    .os-lbl{color:var(--gray);}
+    .os-total{display:flex;justify-content:space-between;padding:12px 0 0;font-weight:700;font-family:'Syne',sans-serif;}
+    .os-total-lbl{font-size:14px;}
+    .os-total-val{font-size:20px;color:var(--cyan);}
+    .incl-iva{font-size:10px;color:var(--gray);margin-top:4px;text-align:right;}
+
+    /* BUTTONS */
+    .cb-footer{padding:20px 24px;border-top:1px solid var(--border);display:flex;gap:10px;}
+    .btn-pay{flex:1;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:none;border-radius:10px;padding:14px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .btn-pay:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.4);}
+    .btn-back{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:10px;padding:14px 20px;color:var(--gray);font-family:'DM Sans',sans-serif;cursor:pointer;}
+    .btn-back:hover{background:rgba(255,255,255,.1);color:#fff;}
+
+    /* SUCCESS */
+    .success-box{display:none;text-align:center;padding:60px 40px;background:var(--navy2);border:1px solid rgba(16,185,129,.2);border-radius:16px;}
+    .success-box.show{display:block;}
+    .sb-icon{font-size:64px;margin-bottom:20px;}
+    .sb-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--green);margin-bottom:8px;}
+    .sb-sub{font-size:14px;color:var(--gray);margin-bottom:28px;line-height:1.7;}
+    .sb-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .btn-primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:none;border-radius:8px;padding:13px 28px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;}
+    .btn-secondary{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;padding:13px 20px;color:var(--gray);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;}
+
+    /* TRUST */
+    .trust-row{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:28px;flex-wrap:wrap;}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray);}
+
+    @media(max-width:700px){.pricing-grid{grid-template-columns:1fr;}.cb-body{grid-template-columns:1fr;}.card-fields{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Analisi<span>e</span>BusinessPlan</a>
+  <span style="font-size:12px;color:var(--gray);">Acquisto sicuro</span>
+</nav>
+
+<div class="wrap">
+  <h1>Scegli il tuo piano</h1>
+  <div class="sub">Pagamento unico, nessun abbonamento. Scarica il report subito dopo il pagamento.</div>
+
+  <!-- PRICING -->
+  <div class="pricing-grid">
+
+    <!-- ANALISI BILANCIO -->
+    <div class="price-card" id="card-0" onclick="selectPlan(0)">
+      <div class="pc-icon">📊</div>
+      <div class="pc-name">Analisi Bilancio</div>
+      <div class="pc-desc">Analisi completa di un esercizio con tutti gli indici e rating bancabilità</div>
+      <div class="pc-price">€34<span>,99</span></div>
+      <div class="pc-iva">+ IVA 22% = €42,69 tot.</div>
+      <ul class="pc-features">
+        <li>Importazione XBRL / PDF automatica</li>
+        <li>SP + CE + Rendiconto finanziario</li>
+        <li>8 indici classici + bancabilità EBA</li>
+        <li>Rating sintetico A-E</li>
+        <li>Report PDF professionale</li>
+        <li class="no">Analisi multi-anno</li>
+        <li class="no">Business Plan</li>
+      </ul>
+      <button class="btn-select" onclick="selectPlan(0)">Seleziona</button>
+    </div>
+
+    <!-- BUSINESS PLAN -->
+    <div class="price-card popular" id="card-1" onclick="selectPlan(1)">
+      <div class="pop-badge">⭐ PIÙ RICHIESTO</div>
+      <div class="pc-icon">📈</div>
+      <div class="pc-name">Business Plan</div>
+      <div class="pc-desc">Business plan completo con proiezioni 3-5 anni e analisi di fattibilità</div>
+      <div class="pc-price">€299<span>,00</span></div>
+      <div class="pc-iva">+ IVA 22% = €364,78 tot.</div>
+      <ul class="pc-features">
+        <li>Tutto del piano Analisi Bilancio</li>
+        <li>Proiezioni economiche 3-5 anni</li>
+        <li>Analisi di mercato e settore</li>
+        <li>Piano investimenti e finanziamenti</li>
+        <li>Break-even analysis</li>
+        <li>Executive summary bancabile</li>
+        <li>Revisioni illimitate 30 giorni</li>
+      </ul>
+      <button class="btn-select">Seleziona</button>
+    </div>
+
+    <!-- BUNDLE -->
+    <div class="price-card" id="card-2" onclick="selectPlan(2)">
+      <div class="pc-icon">💼</div>
+      <div class="pc-name">Bundle Completo</div>
+      <div class="pc-desc">Analisi bilancio multi-anno + Business Plan. La scelta del commercialista</div>
+      <div class="pc-price">€249<span>,00</span></div>
+      <div class="pc-iva">+ IVA 22% = €303,78 tot.</div>
+      <ul class="pc-features">
+        <li>Analisi bilancio 3 anni comparativi</li>
+        <li>Business plan completo</li>
+        <li>Report PDF white-label</li>
+        <li>DSCR e PFN dettagliati</li>
+        <li>Analisi SWOT automatica</li>
+        <li>Supporto prioritario</li>
+        <li>Fattura elettronica inclusa</li>
+      </ul>
+      <button class="btn-select">Seleziona</button>
+    </div>
+
+  </div>
+
+  <!-- CHECKOUT -->
+  <div class="checkout-box" id="checkout-box">
+    <div class="cb-header">
+      <div class="cb-title" id="cb-title">Acquisto — Analisi Bilancio</div>
+      <div class="cb-total" id="cb-total">€42,69</div>
+    </div>
+    <div class="cb-body">
+
+      <!-- LEFT: DATI -->
+      <div>
+        <div class="cb-section-title">Dati di fatturazione</div>
+        <div class="fg">
+          <div class="fi"><label>Nome e cognome / Ragione sociale *</label><input type="text" id="f-nome" placeholder="Mario Rossi" oninput="updateCard()"/></div>
+          <div class="fi"><label>Email *</label><input type="email" id="f-email" placeholder="mario@studio.it"/></div>
+          <div class="fi"><label>Codice Fiscale / P.IVA</label><input type="text" id="f-cf" placeholder="per fattura elettronica"/></div>
+          <div class="fi"><label>SDI / PEC (per fattura)</label><input type="text" id="f-sdi" placeholder="es. XXXXXXX o email@pec.it"/></div>
+        </div>
+
+        <div class="cb-section-title" style="margin-top:20px;">Dati carta di credito</div>
+        <div class="card-mock">
+          <div class="cm-chip"></div>
+          <div class="cm-number" id="card-display">•••• •••• •••• ••••</div>
+          <div class="cm-footer">
+            <div><div style="font-size:8px;opacity:.6;margin-bottom:2px;">INTESTATARIO</div><div id="card-holder">NOME COGNOME</div></div>
+            <div><div style="font-size:8px;opacity:.6;margin-bottom:2px;">SCADENZA</div><div id="card-exp">MM/AA</div></div>
+          </div>
+          <div class="cm-logo">💳</div>
+        </div>
+        <div class="card-fields">
+          <div class="fi" style="grid-column:1/-1;"><label>Numero carta *</label><input type="text" id="card-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)"/></div>
+          <div class="fi"><label>Scadenza *</label><input type="text" id="card-exp-input" placeholder="MM/AA" maxlength="5" oninput="formatExp(this)"/></div>
+          <div class="fi"><label>CVV *</label><input type="text" id="card-cvv" placeholder="•••" maxlength="4"/></div>
+        </div>
+        <div class="stripe-info">
+          🔒 Pagamento sicuro
+          <span class="stripe-badge">SSL 256-bit</span>
+          <span class="stripe-badge">Stripe</span>
+          <span class="stripe-badge">PCI DSS</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: SUMMARY -->
+      <div>
+        <div class="cb-section-title">Riepilogo ordine</div>
+        <div class="order-summary">
+          <div class="os-row"><span class="os-lbl" id="sum-prod">Analisi Bilancio</span><span id="sum-netto">€34,99</span></div>
+          <div class="os-row"><span class="os-lbl">IVA 22%</span><span id="sum-iva">€7,70</span></div>
+          <div class="os-row"><span class="os-lbl">Report PDF incluso</span><span style="color:var(--green);">✓</span></div>
+          <div class="os-row"><span class="os-lbl">Fattura elettronica</span><span style="color:var(--green);">✓</span></div>
+          <div class="os-total"><span class="os-total-lbl">TOTALE</span><span class="os-total-val" id="sum-tot">€42,69</span></div>
+          <div class="incl-iva">IVA 22% inclusa</div>
+        </div>
+
+        <div style="margin-top:16px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:8px;padding:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:8px;">✓ Cosa ricevi subito</div>
+          <div id="what-you-get" style="font-size:11px;color:var(--gray);line-height:1.8;">
+            • Report PDF professionale<br>
+            • Importazione XBRL/PDF automatica<br>
+            • Analisi indici e bancabilità<br>
+            • Rating sintetico A-E<br>
+            • Fattura elettronica via email
+          </div>
+        </div>
+
+        <div style="margin-top:12px;font-size:11px;color:var(--gray);line-height:1.6;">
+          🔄 <strong>Garanzia soddisfatti</strong>: se il report non ti soddisfa entro 24h, rimborso completo senza domande.
+        </div>
+      </div>
+    </div>
+
+    <div class="cb-footer">
+      <button class="btn-back" onclick="hidecheckout()">← Cambia piano</button>
+      <button class="btn-pay" id="btn-pay" onclick="processPayment()">
+        🔒 Paga ora <span id="btn-pay-amount">€42,69</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-box" id="success-box">
+    <div class="sb-icon">🎉</div>
+    <div class="sb-title">Pagamento completato!</div>
+    <div class="sb-sub">
+      Il tuo report è pronto. Hai ricevuto una email di conferma con il link per scaricare il PDF.<br>
+      La fattura elettronica sarà inviata all'SDI entro 24 ore.
+    </div>
+    <div class="sb-actions">
+      <button class="btn-primary" onclick="window.location.href='report-pdf.html'">📄 Scarica Report PDF</button>
+      <button class="btn-secondary" onclick="window.location.href='importa-xbrl.html'">Nuova analisi</button>
+      <button class="btn-secondary" onclick="window.location.href='index.html'">Home</button>
+    </div>
+  </div>
+
+  <!-- TRUST ROW -->
+  <div class="trust-row">
+    <div class="trust-item">🔒 Pagamento sicuro Stripe</div>
+    <div class="trust-item">📄 Fattura elettronica inclusa</div>
+    <div class="trust-item">⚡ Accesso immediato</div>
+    <div class="trust-item">🔄 Rimborso entro 24h</div>
+    <div class="trust-item">🇮🇹 Dati in Italia</div>
+  </div>
+</div>
+
+<script>
+  const plans = [
+    {id:0, name:'Analisi Bilancio', netto:34.99, what:'• Report PDF professionale\n• Importazione XBRL/PDF automatica\n• SP + CE + Rendiconto\n• Indici e bancabilità EBA\n• Rating sintetico A-E\n• Fattura elettronica'},
+    {id:1, name:'Business Plan Completo', netto:299.00, what:'• Business plan 30+ pagine\n• Proiezioni 3-5 anni\n• Analisi di mercato\n• Break-even analysis\n• Report PDF white-label\n• Revisioni illimitate 30 giorni'},
+    {id:2, name:'Bundle Completo', netto:249.00, what:'• Analisi bilancio 3 anni\n• Business plan completo\n• Report PDF white-label\n• DSCR e PFN dettagliati\n• Analisi SWOT\n• Supporto prioritario'},
+  ];
+  let selectedPlan = null;
+
+  function selectPlan(i){
+    selectedPlan = i;
+    document.querySelectorAll('.price-card').forEach((c,j)=>c.classList.toggle('selected',j===i));
+    const p = plans[i];
+    const iva = p.netto*0.22;
+    const tot = p.netto+iva;
+    document.getElementById('cb-title').textContent = `Acquisto — ${p.name}`;
+    document.getElementById('cb-total').textContent = '€'+tot.toFixed(2);
+    document.getElementById('sum-prod').textContent = p.name;
+    document.getElementById('sum-netto').textContent = '€'+p.netto.toFixed(2);
+    document.getElementById('sum-iva').textContent = '€'+iva.toFixed(2);
+    document.getElementById('sum-tot').textContent = '€'+tot.toFixed(2);
+    document.getElementById('btn-pay-amount').textContent = '€'+tot.toFixed(2);
+    document.getElementById('what-you-get').innerHTML = p.what.replace(/\n/g,'<br>');
+    document.getElementById('checkout-box').classList.add('show');
+    document.getElementById('checkout-box').scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('success-box').classList.remove('show');
+  }
+
+  function hidecheckout(){
+    document.getElementById('checkout-box').classList.remove('show');
+    document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('selected'));
+    selectedPlan=null;
+  }
+
+  function formatCard(el){
+    let v=el.value.replace(/\D/g,'').substring(0,16);
+    el.value=v.replace(/(\d{4})/g,'$1 ').trim();
+    document.getElementById('card-display').textContent = (el.value||'•••• •••• •••• ••••').padEnd(19,'•').substring(0,19);
+  }
+
+  function formatExp(el){
+    let v=el.value.replace(/\D/g,'').substring(0,4);
+    if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2);
+    el.value=v;
+    document.getElementById('card-exp').textContent=v||'MM/AA';
+  }
+
+  function updateCard(){
+    const nome=document.getElementById('f-nome').value;
+    document.getElementById('card-holder').textContent=(nome||'NOME COGNOME').toUpperCase().substring(0,20);
+  }
+
+  async function processPayment(){
+    const nome=document.getElementById('f-nome').value.trim();
+    const email=document.getElementById('f-email').value.trim();
+    const num=document.getElementById('card-num').value.replace(/\s/g,'');
+    const exp=document.getElementById('card-exp-input').value;
+    const cvv=document.getElementById('card-cvv').value;
+
+    if(!nome||!email){alert('Inserisci nome ed email per procedere.');return;}
+    if(num.length<16){alert('Inserisci un numero di carta valido.');return;}
+    if(!exp||!cvv){alert('Inserisci scadenza e CVV.');return;}
+    if(!selectedPlan===null){alert('Seleziona un piano.');return;}
+
+    const btn=document.getElementById('btn-pay');
+    btn.disabled=true;
+    btn.innerHTML='<div class="gp-spinner" style="width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;"></div> Elaborazione...';
+
+    // Simula chiamata Stripe (in produzione: fetch a endpoint server con Stripe SDK)
+    await new Promise(r=>setTimeout(r,2200));
+
+    btn.disabled=false;
+    btn.innerHTML='🔒 Paga ora';
+    document.getElementById('checkout-box').classList.remove('show');
+    document.getElementById('success-box').classList.add('show');
+    document.getElementById('success-box').scrollIntoView({behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

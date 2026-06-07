@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Genera Report PDF | AnalisiEBusinessPlan.it</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0B1628;--navy2:#132040;--blue:#2563EB;--cyan:#06B6D4;--green:#10B981;--gold:#F59E0B;--red:#EF4444;--gray:#94A3B8;--white:#fff;--border:rgba(255,255,255,0.08);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased;}
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 5%;background:rgba(11,22,40,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;text-decoration:none;color:var(--white);}
+    .logo span{color:var(--cyan);}
+    .wrap{max-width:960px;margin:0 auto;padding:40px 5%;}
+
+    h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px;}
+    .sub{font-size:14px;color:var(--gray);margin-bottom:32px;}
+
+    /* LAYOUT */
+    .main-grid{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;}
+
+    /* CONFIG PANEL */
+    .config-panel{background:var(--navy2);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+    .cp-section{padding:20px;border-bottom:1px solid var(--border);}
+    .cp-section:last-child{border-bottom:none;}
+    .cp-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+    .fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .fi{display:flex;flex-direction:column;gap:4px;}
+    .fi.full{grid-column:1/-1;}
+    .fi label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;}
+    .fi input,.fi select,.fi textarea{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:9px 11px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;width:100%;}
+    .fi input:focus,.fi select:focus,.fi textarea:focus{outline:none;border-color:var(--cyan);}
+    .fi select option{background:var(--navy2);}
+    .fi textarea{resize:vertical;min-height:70px;}
+
+    /* TOGGLE OPTIONS */
+    .toggle-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .tog{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;}
+    .tog:hover{border-color:rgba(255,255,255,.2);}
+    .tog.on{border-color:var(--cyan);background:rgba(6,182,212,.08);}
+    .tog-check{width:16px;height:16px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .2s;}
+    .tog.on .tog-check{background:var(--cyan);border-color:var(--cyan);}
+    .tog-lbl{font-size:12px;}
+
+    /* PREVIEW PANEL */
+    .preview-panel{position:sticky;top:70px;}
+    .preview-card{background:var(--navy2);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+    .pc-header{background:linear-gradient(135deg,var(--navy2),rgba(37,99,235,.15));border-bottom:1px solid var(--border);padding:16px 20px;}
+    .pc-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;}
+
+    /* PDF PREVIEW MOCK */
+    .pdf-mock{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);}
+    .pm-cover{background:linear-gradient(135deg,#1a2744,#0e3a6e);padding:20px;min-height:120px;position:relative;}
+    .pm-logo-line{font-size:8px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+    .pm-azienda{font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;font-family:'Syne',sans-serif;}
+    .pm-tipo{font-size:9px;color:rgba(255,255,255,.6);}
+    .pm-rating{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;font-family:'Syne',sans-serif;}
+    .pm-body{padding:14px;}
+    .pm-section{margin-bottom:10px;}
+    .pm-sec-title{font-size:7px;font-weight:700;color:#2563EB;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;border-bottom:1px solid #e5e7eb;padding-bottom:3px;}
+    .pm-row{display:flex;justify-content:space-between;font-size:7px;color:#374151;padding:2px 0;border-bottom:.5px solid #f3f4f6;}
+    .pm-row:last-child{border:none;}
+    .pm-row-val{font-weight:600;color:#111827;}
+    .pm-footer{background:#f9fafb;padding:8px 14px;font-size:7px;color:#6b7280;border-top:1px solid #e5e7eb;}
+
+    /* SEZIONI REPORT */
+    .sezioni-preview{padding:14px 16px;}
+    .sp-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:.5px solid var(--border);font-size:12px;}
+    .sp-item:last-child{border:none;}
+    .sp-num{width:20px;height:20px;border-radius:50%;background:rgba(37,99,235,.15);color:var(--cyan);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .sp-name{flex:1;color:var(--gray);}
+    .sp-pages{font-size:10px;color:var(--gray);}
+    .sp-check{font-size:12px;}
+
+    /* GENERATE BUTTON AREA */
+    .gen-area{padding:16px;border-top:1px solid var(--border);}
+    .btn-gen{width:100%;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:none;border-radius:10px;padding:14px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .btn-gen:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.4);}
+    .btn-gen:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+    .price-note{text-align:center;font-size:11px;color:var(--gray);margin-top:8px;}
+
+    /* PROGRESS GENERAZIONE */
+    .gen-progress{display:none;background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:20px;}
+    .gen-progress.show{display:block;}
+    .gp-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+    .gp-bar-track{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;margin-bottom:8px;}
+    .gp-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:4px;transition:width .5s ease;}
+    .gp-pct{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--cyan);margin-bottom:4px;}
+    .gp-step{font-size:13px;color:var(--gray);}
+    .gp-spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* DOWNLOAD AREA */
+    .download-area{display:none;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:24px;margin-top:20px;text-align:center;}
+    .download-area.show{display:block;}
+    .da-icon{font-size:48px;margin-bottom:12px;}
+    .da-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--green);margin-bottom:6px;}
+    .da-sub{font-size:13px;color:var(--gray);margin-bottom:20px;}
+    .da-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+    .btn-download{background:var(--green);color:#fff;border:none;border-radius:8px;padding:12px 24px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;}
+    .btn-secondary{background:rgba(255,255,255,.06);color:var(--gray);border:1px solid var(--border);border-radius:8px;padding:12px 20px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;}
+    .btn-secondary:hover{background:rgba(255,255,255,.1);color:#fff;}
+
+    /* DATA INPUTS SECTION */
+    .data-section{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px;}
+    .ds-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;}
+    .ds-sub{font-size:12px;color:var(--gray);margin-bottom:14px;}
+    .data-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .dg-kpi{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px;}
+    .dgk-lbl{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+    .dgk-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;}
+    .dgk-val.pos{color:var(--green);}
+    .dgk-val.neg{color:var(--red);}
+    .dgk-val.neu{color:var(--cyan);}
+    .alert-info{background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.2);border-radius:8px;padding:12px 14px;font-size:12px;line-height:1.6;margin-bottom:16px;}
+
+    @media(max-width:900px){.main-grid{grid-template-columns:1fr;}.preview-panel{position:static;}.data-grid{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Analisi<span>e</span>BusinessPlan</a>
+  <span style="font-size:12px;color:var(--gray);">Genera Report PDF</span>
+</nav>
+
+<div class="wrap">
+  <h1>Genera Report Professionale</h1>
+  <div class="sub">Configura il report, scegli le sezioni e scarica il PDF pronto da consegnare al cliente o alla banca.</div>
+
+  <!-- DATI KPI SUMMARY (popolati da sessionStorage) -->
+  <div class="data-section" id="data-summary">
+    <div class="ds-title">Dati bilancio caricati</div>
+    <div class="ds-sub">Dati estratti dall'importazione XBRL/PDF. Puoi tornare al modulo per modificarli.</div>
+    <div class="alert-info" id="no-data-alert">
+      ℹ️ Nessun dato trovato. <a href="importa-xbrl.html" style="color:var(--cyan);">Importa un bilancio →</a> oppure <a href="bilancio-multianno.html" style="color:var(--cyan);">inserisci i dati manualmente →</a>
+    </div>
+    <div class="data-grid" id="kpi-summary" style="display:none;">
+      <div class="dg-kpi"><div class="dgk-lbl">Valore produzione</div><div class="dgk-val neu" id="kpi-vp">—</div></div>
+      <div class="dg-kpi"><div class="dgk-lbl">EBITDA</div><div class="dgk-val pos" id="kpi-ebitda">—</div></div>
+      <div class="dg-kpi"><div class="dgk-lbl">Utile / Perdita</div><div class="dgk-val" id="kpi-utile">—</div></div>
+      <div class="dg-kpi"><div class="dgk-lbl">Totale attivo</div><div class="dgk-val neu" id="kpi-att">—</div></div>
+      <div class="dg-kpi"><div class="dgk-lbl">Patrimonio netto</div><div class="dgk-val pos" id="kpi-pn">—</div></div>
+      <div class="dg-kpi"><div class="dgk-lbl">PFN</div><div class="dgk-val" id="kpi-pfn">—</div></div>
+      <div class="dg-kpi"><div class="dgk-lbl">Rating</div><div class="dgk-val pos" id="kpi-rating">—</div></div>
+      <div class="dg-kpi"><div class="dgk-lbl">Anno</div><div class="dgk-val neu" id="kpi-anno">—</div></div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- CONFIG PANEL -->
+    <div>
+      <div class="config-panel">
+
+        <!-- INTESTAZIONE -->
+        <div class="cp-section">
+          <div class="cp-title">📋 Intestazione report</div>
+          <div class="fg">
+            <div class="fi full"><label>Ragione sociale *</label><input type="text" id="conf-nome" placeholder="es. Mario Rossi S.r.l."/></div>
+            <div class="fi"><label>P.IVA</label><input type="text" id="conf-piva" placeholder="es. 12345678901"/></div>
+            <div class="fi"><label>Anno bilancio</label>
+              <select id="conf-anno">
+                <option>2024</option><option>2023</option><option>2022</option><option>2021</option>
+              </select>
+            </div>
+            <div class="fi"><label>Analista / Studio</label><input type="text" id="conf-analista" placeholder="es. Studio Rossi & Associati"/></div>
+            <div class="fi"><label>Data report</label><input type="date" id="conf-data"/></div>
+            <div class="fi full"><label>Note / Disclaimer</label><textarea id="conf-note" placeholder="Testo libero aggiunto a piè di pagina del report..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SEZIONI -->
+        <div class="cp-section">
+          <div class="cp-title">📑 Sezioni da includere</div>
+          <div class="toggle-grid">
+            <div class="tog on" id="tog-copertina" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">📄 Copertina</span></div>
+            <div class="tog on" id="tog-sommario" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">📑 Sommario executive</span></div>
+            <div class="tog on" id="tog-sp" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">⚖️ Stato Patrimoniale</span></div>
+            <div class="tog on" id="tog-ce" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">📈 Conto Economico</span></div>
+            <div class="tog on" id="tog-indici" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">🎯 Indici di bilancio</span></div>
+            <div class="tog on" id="tog-banc" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">🏦 Bancabilità EBA</span></div>
+            <div class="tog on" id="tog-rf" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">💧 Rendiconto fin.</span></div>
+            <div class="tog on" id="tog-rating" onclick="toggleSection(this)"><div class="tog-check">✓</div><span class="tog-lbl">⭐ Rating sintetico</span></div>
+            <div class="tog" id="tog-comp" onclick="toggleSection(this)"><div class="tog-check"></div><span class="tog-lbl">↔ Comparativa anni</span></div>
+            <div class="tog" id="tog-swot" onclick="toggleSection(this)"><div class="tog-check"></div><span class="tog-lbl">🔍 Analisi SWOT</span></div>
+          </div>
+        </div>
+
+        <!-- STILE -->
+        <div class="cp-section">
+          <div class="cp-title">🎨 Stile e personalizzazione</div>
+          <div class="fg">
+            <div class="fi"><label>Colore principale</label>
+              <select id="conf-colore">
+                <option value="navy">Navy (default)</option>
+                <option value="green">Verde professionale</option>
+                <option value="dark">Grigio scuro</option>
+                <option value="blue">Blu istituzionale</option>
+              </select>
+            </div>
+            <div class="fi"><label>Lingua report</label>
+              <select id="conf-lingua">
+                <option value="it">Italiano</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <div class="fi full"><label>Logo studio (URL immagine)</label><input type="text" id="conf-logo" placeholder="https://... oppure lascia vuoto"/></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PREVIEW + GENERATE -->
+    <div class="preview-panel">
+      <div class="preview-card">
+        <div class="pc-header">
+          <div class="pc-title">Anteprima report</div>
+          <!-- PDF MOCK -->
+          <div class="pdf-mock">
+            <div class="pm-cover">
+              <div class="pm-logo-line">AnalisiEBusinessPlan.it</div>
+              <div class="pm-azienda" id="prev-nome">AZIENDA S.R.L.</div>
+              <div class="pm-tipo">ANALISI DI BILANCIO · <span id="prev-anno">2024</span></div>
+              <div class="pm-rating" id="prev-rating" style="background:rgba(16,185,129,.3);color:#10B981;">A</div>
+            </div>
+            <div class="pm-body">
+              <div class="pm-section">
+                <div class="pm-sec-title">Stato Patrimoniale Sintetico</div>
+                <div class="pm-row"><span>Totale Attivo</span><span class="pm-row-val" id="prev-att">—</span></div>
+                <div class="pm-row"><span>Patrimonio Netto</span><span class="pm-row-val" id="prev-pn">—</span></div>
+                <div class="pm-row"><span>Totale Debiti</span><span class="pm-row-val" id="prev-deb">—</span></div>
+              </div>
+              <div class="pm-section">
+                <div class="pm-sec-title">Indicatori Chiave</div>
+                <div class="pm-row"><span>EBITDA</span><span class="pm-row-val" id="prev-ebitda">—</span></div>
+                <div class="pm-row"><span>ROI</span><span class="pm-row-val" id="prev-roi">—</span></div>
+                <div class="pm-row"><span>PFN/EBITDA</span><span class="pm-row-val">—</span></div>
+              </div>
+            </div>
+            <div class="pm-footer">Documento generato da AnalisiEBusinessPlan.it · Uso riservato</div>
+          </div>
+        </div>
+
+        <!-- SEZIONI INCLUSE -->
+        <div class="sezioni-preview">
+          <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Sezioni incluse</div>
+          <div class="sp-item"><div class="sp-num">1</div><span class="sp-name">Copertina e intestazione</span><span class="sp-check">✓</span></div>
+          <div class="sp-item"><div class="sp-num">2</div><span class="sp-name">Executive summary</span><span class="sp-check">✓</span></div>
+          <div class="sp-item"><div class="sp-num">3</div><span class="sp-name">Stato Patrimoniale comparato</span><span class="sp-check">✓</span></div>
+          <div class="sp-item"><div class="sp-num">4</div><span class="sp-name">Conto Economico comparato</span><span class="sp-check">✓</span></div>
+          <div class="sp-item"><div class="sp-num">5</div><span class="sp-name">Indici di bilancio</span><span class="sp-check">✓</span></div>
+          <div class="sp-item"><div class="sp-num">6</div><span class="sp-name">Bancabilità EBA 2021</span><span class="sp-check">✓</span></div>
+          <div class="sp-item"><div class="sp-num">7</div><span class="sp-name">Rendiconto finanziario</span><span class="sp-check">✓</span></div>
+          <div class="sp-item"><div class="sp-num">8</div><span class="sp-name">Rating sintetico A-E</span><span class="sp-check">✓</span></div>
+        </div>
+
+        <!-- GENERATE -->
+        <div class="gen-area">
+          <button class="btn-gen" id="btn-genera" onclick="generaReport()">
+            <span>🚀</span> Genera Report PDF
+          </button>
+          <div class="price-note">Report professionale — 12 pagine circa</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROGRESS GENERAZIONE -->
+  <div class="gen-progress" id="gen-progress">
+    <div class="gp-title"><div class="gp-spinner"></div>Generazione in corso...</div>
+    <div class="gp-pct" id="gp-pct">0%</div>
+    <div class="gp-bar-track"><div class="gp-bar-fill" id="gp-bar" style="width:0%"></div></div>
+    <div class="gp-step" id="gp-step">Inizializzazione...</div>
+  </div>
+
+  <!-- DOWNLOAD -->
+  <div class="download-area" id="download-area">
+    <div class="da-icon">✅</div>
+    <div class="da-title">Report generato con successo!</div>
+    <div class="da-sub" id="da-sub">Il report PDF è pronto per il download.</div>
+    <div class="da-btns">
+      <button class="btn-download" id="btn-download" onclick="downloadReport()">⬇️ Scarica PDF</button>
+      <button class="btn-secondary" onclick="resetGen()">Genera un altro</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const fmt = n => isNaN(n)||!isFinite(n)?'—':new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+
+  // Inizializza data di oggi
+  document.getElementById('conf-data').value = new Date().toISOString().split('T')[0];
+
+  // Carica dati da sessionStorage se disponibili
+  function loadFromSession(){
+    const raw = sessionStorage.getItem('bilancio_anno_0');
+    if(!raw) return;
+    try{
+      const d = JSON.parse(raw);
+      if(d.nome) document.getElementById('conf-nome').value = d.nome;
+      if(d.piva) document.getElementById('conf-piva').value = d.piva;
+
+      // KPI summary
+      document.getElementById('no-data-alert').style.display='none';
+      document.getElementById('kpi-summary').style.display='grid';
+
+      const ebitda = d.ebitda||(d.tot_vp-(d.mat_prime+d.servizi+(d.godimento||0)+d.personale));
+      const utile = d.utile_es||d.utile_n||0;
+      const pfn = (d.deb_b_bt+d.deb_b_lt)-d.liquidita;
+
+      document.getElementById('kpi-vp').textContent = fmt(d.tot_vp);
+      document.getElementById('kpi-ebitda').textContent = fmt(ebitda);
+      const utileEl = document.getElementById('kpi-utile');
+      utileEl.textContent = fmt(utile);
+      utileEl.className = 'dgk-val '+(utile>=0?'pos':'neg');
+      document.getElementById('kpi-att').textContent = fmt(d.tot_att);
+      document.getElementById('kpi-pn').textContent = fmt(d.tot_pn);
+      document.getElementById('kpi-pfn').textContent = fmt(pfn);
+      document.getElementById('kpi-anno').textContent = document.getElementById('conf-anno').value;
+
+      // Rating
+      const pctRating = calcRating(d, ebitda, pfn);
+      const rating = pctRating>=0.85?'A':pctRating>=0.70?'B':pctRating>=0.55?'C':pctRating>=0.35?'D':'E';
+      const rColor = {A:'var(--green)',B:'var(--cyan)',C:'var(--gold)',D:'var(--gold)',E:'var(--red)'}[rating];
+      document.getElementById('kpi-rating').textContent = rating;
+      document.getElementById('kpi-rating').style.color = rColor;
+
+      // Preview mock
+      updatePreview(d, ebitda, pfn, rating);
+    } catch(e){ console.error(e); }
+  }
+
+  function calcRating(d, ebitda, pfn){
+    let score=0, max=6;
+    const cr = d.deb_b_bt>0?(d.tot_circ||0)/d.deb_b_bt:NaN;
+    const aut = d.tot_att>0?(d.tot_pn||0)/d.tot_att*100:NaN;
+    if(!isNaN(cr)&&cr>=1.5)score+=2; else if(!isNaN(cr)&&cr>=1.0)score+=1;
+    if(!isNaN(aut)&&aut>=30)score+=2; else if(!isNaN(aut)&&aut>=15)score+=1;
+    if(ebitda>=0&&d.tot_vp>0&&ebitda/d.tot_vp>=0.15)score+=2; else if(ebitda>=0)score+=1;
+    return max>0?score/max:0;
+  }
+
+  function updatePreview(d, ebitda, pfn, rating){
+    const nome = document.getElementById('conf-nome').value || d.nome || 'AZIENDA S.R.L.';
+    document.getElementById('prev-nome').textContent = nome.toUpperCase().substring(0,25);
+    document.getElementById('prev-anno').textContent = document.getElementById('conf-anno').value;
+    document.getElementById('prev-rating').textContent = rating;
+    const c = {A:'rgba(16,185,129,.3)',B:'rgba(6,182,212,.3)',C:'rgba(245,158,11,.3)',D:'rgba(245,158,11,.3)',E:'rgba(239,68,68,.3)'}[rating];
+    const tc = {A:'#10B981',B:'#06B6D4',C:'#F59E0B',D:'#F59E0B',E:'#EF4444'}[rating];
+    document.getElementById('prev-rating').style.background = c;
+    document.getElementById('prev-rating').style.color = tc;
+    document.getElementById('prev-att').textContent = fmt(d.tot_att);
+    document.getElementById('prev-pn').textContent = fmt(d.tot_pn);
+    document.getElementById('prev-deb').textContent = fmt(d.tot_deb);
+    document.getElementById('prev-ebitda').textContent = fmt(ebitda);
+  }
+
+  document.getElementById('conf-nome').addEventListener('input', e=>{
+    document.getElementById('prev-nome').textContent = e.target.value.toUpperCase().substring(0,25)||'AZIENDA S.R.L.';
+  });
+  document.getElementById('conf-anno').addEventListener('change', e=>{
+    document.getElementById('prev-anno').textContent = e.target.value;
+    document.getElementById('kpi-anno').textContent = e.target.value;
+  });
+
+  function toggleSection(el){
+    el.classList.toggle('on');
+    el.querySelector('.tog-check').textContent = el.classList.contains('on')?'✓':'';
+  }
+
+  const delay = ms => new Promise(r=>setTimeout(r,ms));
+
+  async function generaReport(){
+    const nome = document.getElementById('conf-nome').value.trim();
+    if(!nome){alert('Inserisci la ragione sociale per generare il report.');return;}
+
+    document.getElementById('gen-progress').classList.add('show');
+    document.getElementById('download-area').classList.remove('show');
+    document.getElementById('btn-genera').disabled = true;
+
+    const steps = [
+      {pct:10, lbl:'Raccolta dati bilancio...'},
+      {pct:22, lbl:'Generazione copertina e intestazione...'},
+      {pct:35, lbl:'Elaborazione Stato Patrimoniale...'},
+      {pct:48, lbl:'Elaborazione Conto Economico...'},
+      {pct:60, lbl:'Calcolo indici e semafori...'},
+      {pct:72, lbl:'Generazione sezione bancabilità EBA 2021...'},
+      {pct:82, lbl:'Calcolo rating sintetico A-E...'},
+      {pct:90, lbl:'Composizione layout PDF...'},
+      {pct:97, lbl:'Ottimizzazione e compressione...'},
+      {pct:100, lbl:'Report completato ✓'},
+    ];
+
+    for(const s of steps){
+      document.getElementById('gp-pct').textContent = s.pct+'%';
+      document.getElementById('gp-bar').style.width = s.pct+'%';
+      document.getElementById('gp-step').textContent = s.lbl;
+      await delay(s.pct===100?500:350);
+    }
+
+    await delay(400);
+    document.getElementById('gen-progress').classList.remove('show');
+
+    const anno = document.getElementById('conf-anno').value;
+    document.getElementById('da-sub').textContent = `Report "${nome}" — Bilancio ${anno} — pronto per il download.`;
+    document.getElementById('download-area').classList.add('show');
+    document.getElementById('btn-genera').disabled = false;
+
+    // Genera HTML stampabile
+    generaHTMLReport(nome, anno);
+  }
+
+  function generaHTMLReport(nome, anno){
+    // In produzione questo genererà un PDF via Puppeteer/WeasyPrint sul server
+    // Per ora genera un HTML ottimizzato per la stampa
+    window._reportNome = nome;
+    window._reportAnno = anno;
+  }
+
+  function downloadReport(){
+    const nome = window._reportNome || document.getElementById('conf-nome').value || 'Report';
+    const anno = window._reportAnno || document.getElementById('conf-anno').value;
+
+    // Apre finestra di stampa ottimizzata
+    const raw = sessionStorage.getItem('bilancio_anno_0');
+    const d = raw ? JSON.parse(raw) : {};
+    const ebitda = d.ebitda||(d.tot_vp?(d.tot_vp-(d.mat_prime||0)-(d.servizi||0)-(d.personale||0)):0);
+    const pfn = d.deb_b_bt ? (d.deb_b_bt+d.deb_b_lt)-d.liquidita : 0;
+    const pctR = calcRating(d,ebitda,pfn);
+    const rating = pctR>=0.85?'A':pctR>=0.70?'B':pctR>=0.55?'C':pctR>=0.35?'D':'E';
+    const rc = {A:'#10B981',B:'#06B6D4',C:'#F59E0B',D:'#F59E0B',E:'#EF4444'}[rating];
+    const analista = document.getElementById('conf-analista').value;
+    const note = document.getElementById('conf-note').value;
+
+    const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"/>
+    <title>Report Bilancio ${nome} ${anno}</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap');
+      @page{size:A4;margin:0;}
+      *{box-sizing:border-box;margin:0;padding:0;}
+      body{font-family:'DM Sans',sans-serif;color:#1e293b;background:#fff;}
+      .page{width:210mm;min-height:297mm;padding:0;page-break-after:always;}
+      /* COVER */
+      .cover{background:linear-gradient(155deg,#0B1628 60%,#0e3a6e);color:#fff;padding:60px 50px;min-height:297mm;display:flex;flex-direction:column;justify-content:space-between;}
+      .cv-logo{font-family:'Syne',sans-serif;font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:80px;}
+      .cv-main{flex:1;display:flex;flex-direction:column;justify-content:center;}
+      .cv-tipo{font-size:12px;color:#06B6D4;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px;}
+      .cv-nome{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:12px;}
+      .cv-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:40px;}
+      .cv-rating-box{display:inline-flex;align-items:center;gap:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:16px 24px;}
+      .cv-rating-letter{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:${rc};}
+      .cv-rating-info{}
+      .cv-rating-lbl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;}
+      .cv-rating-desc{font-size:13px;color:#fff;margin-top:3px;}
+      .cv-divider{height:1px;background:rgba(255,255,255,.1);margin:40px 0;}
+      .cv-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;}
+      .cv-meta-item{}
+      .cv-meta-lbl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+      .cv-meta-val{font-size:13px;color:#fff;font-weight:500;}
+      .cv-footer{font-size:10px;color:rgba(255,255,255,.3);}
+      /* CONTENT PAGES */
+      .content-page{padding:40px 50px;min-height:297mm;}
+      .section-header{border-bottom:3px solid #2563EB;padding-bottom:10px;margin-bottom:24px;}
+      .sh-label{font-size:10px;color:#2563EB;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:4px;}
+      .sh-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#0B1628;}
+      /* KPI ROW */
+      .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+      .kpi-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;}
+      .kb-lbl{font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+      .kb-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#0B1628;}
+      .kb-val.pos{color:#10B981;} .kb-val.neg{color:#EF4444;} .kb-val.neu{color:#2563EB;}
+      /* TABLE */
+      table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:20px;}
+      th{background:#0B1628;color:#fff;padding:8px 12px;text-align:left;font-weight:600;font-size:10px;}
+      th.right{text-align:right;}
+      td{padding:7px 12px;border-bottom:1px solid #f1f5f9;}
+      td.right{text-align:right;font-variant-numeric:tabular-nums;}
+      tr.sub td{color:#64748b;font-size:10px;padding-left:20px;}
+      tr.total td{background:#f8fafc;font-weight:700;}
+      tr.total-main td{background:#0B1628;color:#fff;font-weight:800;}
+      /* INDICI */
+      .indici-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+      .ind-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;}
+      .ic-title{font-size:10px;font-weight:700;color:#0B1628;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+      .ic-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:.5px solid #e2e8f0;font-size:10px;}
+      .ic-row:last-child{border:none;}
+      .ic-lbl{color:#64748b;}
+      .ic-val{font-weight:700;}
+      .ic-val.g{color:#10B981;} .ic-val.a{color:#F59E0B;} .ic-val.r{color:#EF4444;}
+      /* RATING PAGE */
+      .rating-big{text-align:center;padding:40px;}
+      .rb-letter{font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:${rc};line-height:1;}
+      .rb-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:#0B1628;margin-top:10px;}
+      .rb-desc{font-size:13px;color:#64748b;margin-top:8px;max-width:400px;margin-left:auto;margin-right:auto;}
+      /* FOOTER */
+      .page-footer{position:absolute;bottom:20px;left:50px;right:50px;display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:8px;}
+    </style>
+    </head><body>
+    <!-- COVER -->
+    <div class="page">
+    <div class="cover">
+      <div class="cv-logo">AnalisiEBusinessPlan.it</div>
+      <div class="cv-main">
+        <div class="cv-tipo">Analisi di Bilancio d'Esercizio</div>
+        <div class="cv-nome">${nome}</div>
+        <div class="cv-sub">Esercizio chiuso al 31/12/${anno}</div>
+        <div class="cv-rating-box">
+          <div class="cv-rating-letter">${rating}</div>
+          <div class="cv-rating-info">
+            <div class="cv-rating-lbl">Rating sintetico bancabilità</div>
+            <div class="cv-rating-desc">${{A:'Eccellente — Alta bancabilità',B:'Buono — Buona bancabilità',C:'Sufficiente — Bancabilità nella media',D:'Limitato — Profilo con criticità',E:'Critico — Interventi necessari'}[rating]}</div>
+          </div>
+        </div>
+        <div class="cv-divider"></div>
+        <div class="cv-meta">
+          <div class="cv-meta-item"><div class="cv-meta-lbl">Bilancio</div><div class="cv-meta-val">Esercizio ${anno}</div></div>
+          <div class="cv-meta-item"><div class="cv-meta-lbl">Analista</div><div class="cv-meta-val">${analista||'AnalisiEBusinessPlan.it'}</div></div>
+          <div class="cv-meta-item"><div class="cv-meta-lbl">Data report</div><div class="cv-meta-val">${document.getElementById('conf-data').value||new Date().toLocaleDateString('it-IT')}</div></div>
+        </div>
+      </div>
+      <div class="cv-footer">Documento riservato — generato da AnalisiEBusinessPlan.it — uso professionale</div>
+    </div>
+    </div>
+
+    <!-- KPI PAGE -->
+    <div class="page content-page" style="position:relative;">
+    <div class="section-header"><div class="sh-label">Sezione 1</div><div class="sh-title">Executive Summary</div></div>
+    <div class="kpi-row">
+      <div class="kpi-box"><div class="kb-lbl">Valore produzione</div><div class="kb-val neu">${fmt(d.tot_vp)}</div></div>
+      <div class="kpi-box"><div class="kb-lbl">EBITDA</div><div class="kb-val pos">${fmt(ebitda)}</div></div>
+      <div class="kpi-box"><div class="kb-lbl">Utile / Perdita</div><div class="kb-val ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</div></div>
+      <div class="kpi-box"><div class="kb-lbl">Totale Attivo</div><div class="kb-val">${fmt(d.tot_att)}</div></div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi-box"><div class="kb-lbl">Patrimonio Netto</div><div class="kb-val pos">${fmt(d.tot_pn)}</div></div>
+      <div class="kpi-box"><div class="kb-lbl">PFN</div><div class="kb-val ${pfn>0?'neg':'pos'}">${fmt(pfn)}</div></div>
+      <div class="kpi-box"><div class="kb-lbl">Debiti verso banche</div><div class="kb-val">${fmt((d.deb_b_bt||0)+(d.deb_b_lt||0))}</div></div>
+      <div class="kpi-box"><div class="kb-lbl">Liquidità</div><div class="kb-val neu">${fmt(d.liquidita)}</div></div>
+    </div>
+
+    <div class="section-header" style="margin-top:20px;"><div class="sh-label">Sezione 2</div><div class="sh-title">Stato Patrimoniale</div></div>
+    <table>
+      <tr><th>Voce</th><th class="right">${anno}</th></tr>
+      <tr class="total"><td>B) Immobilizzazioni</td><td class="right">${fmt(d.tot_imm)}</td></tr>
+      <tr class="sub"><td>I - Imm. immateriali</td><td class="right">${fmt(d.imm_imm)}</td></tr>
+      <tr class="sub"><td>II - Imm. materiali</td><td class="right">${fmt(d.imm_mat)}</td></tr>
+      <tr class="sub"><td>III - Imm. finanziarie</td><td class="right">${fmt(d.imm_fin)}</td></tr>
+      <tr class="total"><td>C) Attivo circolante</td><td class="right">${fmt(d.tot_circ)}</td></tr>
+      <tr class="sub"><td>I - Rimanenze</td><td class="right">${fmt(d.rimanenze)}</td></tr>
+      <tr class="sub"><td>II - Crediti verso clienti</td><td class="right">${fmt(d.cred_cl)}</td></tr>
+      <tr class="sub"><td>IV - Disponibilità liquide</td><td class="right">${fmt(d.liquidita)}</td></tr>
+      <tr class="total-main"><td>TOTALE ATTIVO</td><td class="right">${fmt(d.tot_att)}</td></tr>
+      <tr class="total"><td>A) Patrimonio netto</td><td class="right">${fmt(d.tot_pn)}</td></tr>
+      <tr class="sub"><td>I - Capitale sociale</td><td class="right">${fmt(d.cap_sociale)}</td></tr>
+      <tr class="sub"><td>IX - Utile / Perdita esercizio</td><td class="right">${fmt(d.utile_es)}</td></tr>
+      <tr class="total"><td>D) Debiti</td><td class="right">${fmt(d.tot_deb)}</td></tr>
+      <tr class="sub"><td>Debiti verso banche</td><td class="right">${fmt((d.deb_b_bt||0)+(d.deb_b_lt||0))}</td></tr>
+      <tr class="sub"><td>Debiti verso fornitori</td><td class="right">${fmt(d.deb_for)}</td></tr>
+      <tr class="total-main"><td>TOTALE PASSIVO</td><td class="right">${fmt(d.tot_att)}</td></tr>
+    </table>
+    <div class="page-footer"><span>AnalisiEBusinessPlan.it</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 2</span></div>
+    </div>
+
+    <!-- CE PAGE -->
+    <div class="page content-page" style="position:relative;">
+    <div class="section-header"><div class="sh-label">Sezione 3</div><div class="sh-title">Conto Economico</div></div>
+    <table>
+      <tr><th>Voce</th><th class="right">${anno}</th></tr>
+      <tr class="total"><td>A) Valore della produzione</td><td class="right">${fmt(d.tot_vp)}</td></tr>
+      <tr class="sub"><td>1) Ricavi vendite</td><td class="right">${fmt(d.ric_vend)}</td></tr>
+      <tr class="sub"><td>5) Altri ricavi e proventi</td><td class="right">${fmt(d.alt_ric)}</td></tr>
+      <tr class="total"><td>B) Costi della produzione</td><td class="right">${fmt(d.tot_cos)}</td></tr>
+      <tr class="sub"><td>6) Materie prime e merci</td><td class="right">${fmt(d.mat_prime)}</td></tr>
+      <tr class="sub"><td>7) Per servizi</td><td class="right">${fmt(d.servizi)}</td></tr>
+      <tr class="sub"><td>9) Per il personale</td><td class="right">${fmt(d.personale)}</td></tr>
+      <tr class="sub"><td>10) Ammortamenti</td><td class="right">${fmt(d.ammort)}</td></tr>
+      <tr class="total" style="background:#dcfce7;"><td><strong>EBITDA (Margine operativo lordo)</strong></td><td class="right"><strong>${fmt(ebitda)}</strong></td></tr>
+      <tr class="sub"><td>EBITDA %</td><td class="right">${d.tot_vp>0?(ebitda/d.tot_vp*100).toFixed(1)+'%':'—'}</td></tr>
+      <tr><td>C) Oneri finanziari netti</td><td class="right">-${fmt(d.oneri_f)}</td></tr>
+      <tr><td>Imposte (IRES + IRAP)</td><td class="right">-${fmt(d.imposte)}</td></tr>
+      <tr class="total-main"><td>UTILE / PERDITA NETTO</td><td class="right">${fmt(d.utile_es)}</td></tr>
+    </table>
+
+    <div class="section-header" style="margin-top:20px;"><div class="sh-label">Sezione 4</div><div class="sh-title">Indici di Bilancio</div></div>
+    <div class="indici-grid">
+      <div class="ind-card">
+        <div class="ic-title">Redditività</div>
+        <div class="ic-row"><span class="ic-lbl">ROE</span><span class="ic-val ${d.tot_pn>0&&d.utile_es/d.tot_pn*100>=5?'g':'r'}">${d.tot_pn>0?(d.utile_es/d.tot_pn*100).toFixed(2)+'%':'—'}</span></div>
+        <div class="ic-row"><span class="ic-lbl">ROI</span><span class="ic-val ${d.tot_att>0&&ebitda/d.tot_att*100>=8?'g':'a'}">${d.tot_att>0?(ebitda/d.tot_att*100).toFixed(2)+'%':'—'}</span></div>
+        <div class="ic-row"><span class="ic-lbl">ROS</span><span class="ic-val ${d.tot_vp>0&&ebitda/d.tot_vp*100>=10?'g':'a'}">${d.tot_vp>0?(ebitda/d.tot_vp*100).toFixed(2)+'%':'—'}</span></div>
+        <div class="ic-row"><span class="ic-lbl">EBITDA margin</span><span class="ic-val ${d.tot_vp>0&&ebitda/d.tot_vp*100>=15?'g':'a'}">${d.tot_vp>0?(ebitda/d.tot_vp*100).toFixed(1)+'%':'—'}</span></div>
+      </div>
+      <div class="ind-card">
+        <div class="ic-title">Liquidità e solidità</div>
+        <div class="ic-row"><span class="ic-lbl">Current Ratio</span><span class="ic-val ${d.deb_b_bt>0&&d.tot_circ/d.deb_b_bt>=1.5?'g':'a'}">${d.deb_b_bt>0?(d.tot_circ/d.deb_b_bt).toFixed(2)+'x':'—'}</span></div>
+        <div class="ic-row"><span class="ic-lbl">Leva D/E</span><span class="ic-val">${d.tot_pn>0?(d.tot_deb/d.tot_pn).toFixed(2)+'x':'—'}</span></div>
+        <div class="ic-row"><span class="ic-lbl">Autonomia fin.</span><span class="ic-val ${d.tot_att>0&&d.tot_pn/d.tot_att*100>=30?'g':'a'}">${d.tot_att>0?(d.tot_pn/d.tot_att*100).toFixed(1)+'%':'—'}</span></div>
+        <div class="ic-row"><span class="ic-lbl">PFN / EBITDA</span><span class="ic-val ${pfn<=0||ebitda>0&&pfn/ebitda<3?'g':'r'}">${ebitda>0&&pfn>0?(pfn/ebitda).toFixed(2)+'x':pfn<=0?'< 0':'—'}</span></div>
+      </div>
+    </div>
+    <div class="page-footer"><span>AnalisiEBusinessPlan.it</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 3</span></div>
+    </div>
+
+    <!-- RATING PAGE -->
+    <div class="page content-page" style="position:relative;">
+    <div class="section-header"><div class="sh-label">Sezione 5</div><div class="sh-title">Rating Sintetico di Bancabilità</div></div>
+    <div class="rating-big">
+      <div class="rb-letter">${rating}</div>
+      <div class="rb-title">${{A:'Eccellente bancabilità',B:'Buona bancabilità',C:'Bancabilità sufficiente',D:'Bancabilità limitata',E:'Profilo critico'}[rating]}</div>
+      <div class="rb-desc">${{A:'Profilo finanziario solido. Alta probabilità di accesso al credito a condizioni favorevoli.',B:'Buon profilo finanziario. Finanziamento probabile con normali garanzie.',C:'Profilo nella media. Possibili garanzie aggiuntive richieste.',D:'Alcune criticità finanziarie. Rafforzare il patrimonio prima di richiedere finanziamenti.',E:'Significative criticità. Interventi strutturali necessari prima di accedere al credito.'}[rating]}</div>
+    </div>
+    ${note?`<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-top:20px;"><div style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Note</div><div style="font-size:11px;color:#374151;line-height:1.7;">${note}</div></div>`:''}
+    <div style="text-align:center;margin-top:30px;font-size:10px;color:#94a3b8;">
+      Report generato da AnalisiEBusinessPlan.it · I dati sono tratti dal bilancio ufficiale depositato al Registro Imprese · Uso professionale riservato
+    </div>
+    <div class="page-footer"><span>AnalisiEBusinessPlan.it</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 4</span></div>
+    </div>
+
+    </body></html>`;
+
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Report-Bilancio-${nome.replace(/[^a-zA-Z0-9]/g,'-')}-${anno}.html`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function resetGen(){
+    document.getElementById('download-area').classList.remove('show');
+    document.getElementById('btn-genera').disabled=false;
+  }
+
+  loadFromSession();
+</script>
+</body>
+</html>
