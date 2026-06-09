@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/genera-pdf.js": {
+    "api/*.js": {
       "memory": 1024,
       "maxDuration": 30
     }
