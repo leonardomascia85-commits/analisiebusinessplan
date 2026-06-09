@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- GOOGLE SEARCH CONSOLE VERIFICATION -->
+  <meta name="google-site-verification" content="FmQLww73ZdbCUbK8Z16ovNnbm9Z8-Xw1hXS4nyUSFNc"/>
+
+  <!-- SEO PRIMARIO -->
+  <title>Analisi di Bilancio Online | Indici, DSCR, PFN e Report PDF | AnalisiEBusinessPlan.it</title>
+  <meta name="description" content="Software online per analisi di bilancio professionale: importa XBRL o PDF, calcola automaticamente ROE, ROI, DSCR, PFN e ottieni un report PDF per banche e commercialisti. Prova gratis."/>
+  <meta name="keywords" content="analisi bilancio online, indici di bilancio, DSCR calcolo, PFN bilancio, software analisi bilancio commercialisti, report bilancio PDF, analisi XBRL, business plan online, bancabilità impresa, rating bilancio"/>
+  <meta name="author" content="AnalisiEBusinessPlan.it"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://analisiebusinessplan.it/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://analisiebusinessplan.it/"/>
+  <meta property="og:title" content="Analisi di Bilancio Online Professionale | AnalisiEBusinessPlan.it"/>
+  <meta property="og:description" content="Importa il file XBRL o PDF del bilancio CCIAA e ottieni in 10 secondi: indici di bilancio, rating bancabilità A-E, DSCR, PFN e report PDF professionale."/>
+  <meta property="og:locale" content="it_IT"/>
+  <meta property="og:site_name" content="AnalisiEBusinessPlan.it"/>
+
+  <!-- Google Analytics GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L58FLY4JKJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L58FLY4JKJ');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --white: #FAFAF8;
+      --bg: #F4F1EA;
+      --bg2: #EDE9DF;
+      --ink: #0F172A;
+      --ink2: #334155;
+      --ink3: #64748B;
+      --ink4: #94A3B8;
+      --blue: #1D4ED8;
+      --blue-light: #3B82F6;
+      --blue-bg: #EFF6FF;
+      --green: #059669;
+      --green-bg: #ECFDF5;
+      --red: #DC2626;
+      --red-bg: #FEF2F2;
+      --gold: #D97706;
+      --gold-bg: #FFFBEB;
+      --border: #E2E8F0;
+      --border2: #CBD5E1;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow: 0 4px 16px rgba(0,0,0,.07), 0 2px 6px rgba(0,0,0,.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 64px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif; font-weight: 700; font-size: 18px;
+      color: var(--ink); text-decoration: none; letter-spacing: -.3px;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--ink3); text-decoration: none; transition: color .15s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--blue); color: var(--white); border: none;
+      border-radius: var(--radius-sm); padding: 9px 20px;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: background .15s, transform .1s; text-decoration: none;
+    }
+    .nav-cta:hover { background: #1E40AF; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 96px 6% 80px;
+      background: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+    }
+    .hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--blue-bg); color: var(--blue); border: 1px solid #BFDBFE;
+      border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero-eyebrow::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .hero h1 {
+      font-family: 'Fraunces', serif; font-weight: 700;
+      font-size: clamp(36px, 4.5vw, 56px); line-height: 1.08;
+      letter-spacing: -.5px; color: var(--ink); margin-bottom: 22px;
+    }
+    .hero h1 em { font-style: italic; color: var(--blue); }
+    .hero-sub {
+      font-size: 17px; color: var(--ink2); line-height: 1.7;
+      margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--blue); color: var(--white); border: none;
+      border-radius: var(--radius-sm); padding: 13px 28px;
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: all .15s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: #1E40AF; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(29,78,216,.25); }
+    .btn-outline {
+      background: transparent; color: var(--ink2); border: 1.5px solid var(--border2);
+      border-radius: var(--radius-sm); padding: 12px 22px;
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
+      cursor: pointer; transition: all .15s; text-decoration: none;
+    }
+    .btn-outline:hover { border-color: var(--ink3); color: var(--ink); background: var(--bg); }
+    .hero-trust { margin-top: 28px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink3); }
+    .trust-item svg { color: var(--green); }
+
+    /* DASHBOARD MOCKUP */
+    .hero-visual { position: relative; }
+    .dashboard-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .dc-header {
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .dc-dots { display: flex; gap: 6px; }
+    .dc-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dc-title { font-size: 12px; font-weight: 600; color: var(--ink3); }
+    .dc-body { padding: 20px; }
+    .dc-company { font-size: 11px; color: var(--ink4); margin-bottom: 3px; }
+    .dc-rating-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .dc-rating-badge {
+      font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700;
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--green-bg); color: var(--green);
+    }
+    .dc-rating-info { text-align: right; }
+    .dc-rating-lbl { font-size: 10px; color: var(--ink4); text-transform: uppercase; letter-spacing: .05em; }
+    .dc-rating-desc { font-size: 13px; font-weight: 600; color: var(--green); }
+    .dc-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .dc-kpi { background: var(--bg); border-radius: var(--radius-sm); padding: 11px 13px; }
+    .dc-kpi-lbl { font-size: 10px; color: var(--ink4); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+    .dc-kpi-val { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .dc-kpi-val.green { color: var(--green); }
+    .dc-kpi-val.blue { color: var(--blue); }
+    .dc-kpi-val.red { color: var(--red); }
+    .dc-semafori { display: flex; flex-direction: column; gap: 7px; }
+    .dc-sem { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .sem-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .sem-name { flex: 1; color: var(--ink3); }
+    .sem-val { font-weight: 600; font-size: 12px; }
+    .floating-tag {
+      position: absolute; background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 8px 12px; box-shadow: var(--shadow);
+      font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 6px;
+    }
+    .ft-1 { top: -16px; right: -20px; }
+    .ft-2 { bottom: 20px; left: -24px; }
+
+    /* ── LOGHI ── */
+    .logos-section { padding: 40px 6%; background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .logos-inner { max-width: 960px; margin: 0 auto; text-align: center; }
+    .logos-label { font-size: 12px; color: var(--ink4); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 24px; }
+    .logos-row { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .logo-item { font-size: 14px; font-weight: 600; color: var(--ink4); letter-spacing: -.2px; }
+
+    /* ── COME FUNZIONA ── */
+    .section { padding: 88px 6%; }
+    .section-inner { max-width: 1160px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 12px; font-weight: 600; color: var(--blue);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif; font-size: clamp(28px, 3vw, 40px);
+      font-weight: 700; color: var(--ink); line-height: 1.15;
+      letter-spacing: -.3px; margin-bottom: 16px;
+    }
+    .section-sub { font-size: 16px; color: var(--ink2); max-width: 520px; line-height: 1.7; margin-bottom: 56px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .step-card { background: var(--white); padding: 32px 28px; position: relative; }
+    .step-num {
+      font-family: 'Fraunces', serif; font-size: 11px; font-weight: 700;
+      color: var(--blue); text-transform: uppercase; letter-spacing: .1em;
+      margin-bottom: 16px; display: block;
+    }
+    .step-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .step-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .step-desc { font-size: 14px; color: var(--ink3); line-height: 1.65; }
+    .step-arrow { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--ink4); font-size: 20px; z-index: 2; }
+
+    /* ── FEATURES ── */
+    .features-section { background: var(--bg); }
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .feat-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 26px;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .feat-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .feat-icon-wrap {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 16px;
+    }
+    .feat-icon-wrap.blue { background: var(--blue-bg); }
+    .feat-icon-wrap.green { background: var(--green-bg); }
+    .feat-icon-wrap.gold { background: var(--gold-bg); }
+    .feat-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .feat-desc { font-size: 14px; color: var(--ink3); line-height: 1.65; }
+    .feat-tag {
+      display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 600;
+      padding: 2px 9px; border-radius: 20px;
+    }
+    .feat-tag.blue { background: var(--blue-bg); color: var(--blue); }
+    .feat-tag.green { background: var(--green-bg); color: var(--green); }
+    .feat-tag.gold { background: var(--gold-bg); color: var(--gold); }
+
+    /* ── INDICI SHOWCASE ── */
+    .indici-section { background: var(--white); }
+    .indici-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .indici-list { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
+    .indice-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; background: var(--bg);
+      border-radius: var(--radius-sm); border: 1px solid var(--border);
+      transition: border-color .15s;
+    }
+    .indice-item:hover { border-color: var(--blue-light); }
+    .indice-badge {
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+      padding: 3px 9px; border-radius: 6px; flex-shrink: 0; min-width: 52px; text-align: center;
+    }
+    .ib-blue { background: var(--blue-bg); color: var(--blue); }
+    .ib-green { background: var(--green-bg); color: var(--green); }
+    .ib-gold { background: var(--gold-bg); color: var(--gold); }
+    .indice-info { flex: 1; }
+    .indice-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .indice-desc { font-size: 12px; color: var(--ink3); margin-top: 1px; }
+    .indice-soglia { font-size: 12px; font-weight: 600; color: var(--ink2); }
+
+    /* REPORT PREVIEW */
+    .report-preview {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .rp-top { background: linear-gradient(135deg, #0F172A, #1E3A5F); padding: 28px; color: white; }
+    .rp-logo-line { font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+    .rp-nome { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .rp-tipo { font-size: 11px; color: rgba(255,255,255,.5); }
+    .rp-rating-badge {
+      float: right; width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(5,150,105,.3); color: #6EE7B7;
+      font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rp-body { padding: 20px; }
+    .rp-sec { margin-bottom: 16px; }
+    .rp-sec-title { font-size: 10px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+    .rp-row { display: flex; justify-content: space-between; font-size: 11px; padding: 3px 0; color: var(--ink2); }
+    .rp-row-val { font-weight: 600; color: var(--ink); }
+
+    /* ── PREZZI ── */
+    .pricing-section { background: var(--bg); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+    .price-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      position: relative; transition: box-shadow .2s, transform .2s;
+    }
+    .price-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .price-card.featured {
+      border-color: var(--blue); background: var(--white);
+      box-shadow: 0 0 0 4px rgba(29,78,216,.08), var(--shadow-lg);
+    }
+    .featured-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--blue); color: var(--white);
+      font-size: 11px; font-weight: 700; padding: 3px 14px; border-radius: 20px;
+      letter-spacing: .04em; white-space: nowrap;
+    }
+    .pc-icon { font-size: 28px; margin-bottom: 16px; }
+    .pc-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .pc-desc { font-size: 14px; color: var(--ink3); margin-bottom: 24px; line-height: 1.6; }
+    .pc-price { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+    .pc-price sup { font-size: 20px; vertical-align: super; }
+    .pc-price sub { font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 400; color: var(--ink3); }
+    .pc-iva { font-size: 12px; color: var(--ink4); margin-bottom: 24px; }
+    .pc-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .pc-features li { font-size: 14px; color: var(--ink2); display: flex; align-items: flex-start; gap: 9px; }
+    .pc-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .pc-features li.no { color: var(--ink4); }
+    .pc-features li.no::before { content: '—'; color: var(--ink4); }
+    .btn-card {
+      width: 100%; padding: 13px; border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: all .15s; text-decoration: none; display: block; text-align: center;
+    }
+    .btn-card-outline { background: transparent; border: 1.5px solid var(--border2); color: var(--ink2); }
+    .btn-card-outline:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
+    .btn-card-primary { background: var(--blue); border: none; color: var(--white); }
+    .btn-card-primary:hover { background: #1E40AF; box-shadow: 0 6px 20px rgba(29,78,216,.3); }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--white); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; cursor: pointer; transition: border-color .15s;
+    }
+    .faq-item:hover { border-color: var(--blue-light); }
+    .faq-q { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 10px; display: flex; justify-content: space-between; gap: 12px; }
+    .faq-a { font-size: 14px; color: var(--ink3); line-height: 1.7; }
+
+    /* ── CTA FINALE ── */
+    .cta-section {
+      background: var(--ink); padding: 88px 6%;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner { max-width: 640px; margin: 0 auto; position: relative; }
+    .cta-section h2 {
+      font-family: 'Fraunces', serif; font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700; color: var(--white); line-height: 1.1;
+      letter-spacing: -.4px; margin-bottom: 16px;
+    }
+    .cta-section h2 em { font-style: italic; color: #93C5FD; }
+    .cta-sub { font-size: 17px; color: rgba(255,255,255,.6); margin-bottom: 36px; line-height: 1.7; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-white { background: var(--white); color: var(--ink); border: none; border-radius: var(--radius-sm); padding: 14px 32px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .15s; text-decoration: none; }
+    .btn-white:hover { background: var(--bg); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .btn-ghost { background: transparent; color: rgba(255,255,255,.7); border: 1.5px solid rgba(255,255,255,.2); border-radius: var(--radius-sm); padding: 13px 24px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all .15s; text-decoration: none; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.5); color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 48px 6% 32px; }
+    .footer-inner { max-width: 1160px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-brand-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+    .footer-brand-name span { color: var(--blue); }
+    .footer-brand-desc { font-size: 14px; color: var(--ink3); line-height: 1.7; max-width: 260px; }
+    .footer-col-title { font-size: 12px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--ink3); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: var(--ink4); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--ink4); text-decoration: none; }
+    .footer-legal a:hover { color: var(--ink3); }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: var(--border); max-width: 1160px; margin: 0 auto; }
+
+    @media(max-width:900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .indici-layout { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
+  <div class="nav-links">
+    <a href="#come-funziona">Come funziona</a>
+    <a href="#funzionalita">Funzionalità</a>
+    <a href="#prezzi">Prezzi</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="importa-xbrl.html" class="nav-cta">Inizia ora →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Software professionale per PMI e commercialisti</div>
+      <h1>Analisi di bilancio<br/><em>precisa e immediata</em></h1>
+      <p class="hero-sub">Importa il file XBRL o PDF dal Registro Imprese e ottieni in 10 secondi tutti gli indici, il rating bancabilità e il report PDF pronto per la banca.</p>
+      <div class="hero-actions">
+        <a href="importa-xbrl.html" class="btn-primary">Importa bilancio gratis →</a>
+        <a href="#come-funziona" class="btn-outline">Come funziona</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Nessun abbonamento
+        </div>
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Compatibile XBRL 2018-11-04
+        </div>
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Dati in Italia
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD MOCKUP -->
+    <div class="hero-visual">
+      <div class="floating-tag ft-1">
+        <span style="color:var(--green);font-size:16px;">↑</span>
+        <span style="font-size:11px;color:var(--ink2);">EBITDA +68% vs anno prec.</span>
+      </div>
+      <div class="dashboard-card">
+        <div class="dc-header">
+          <div class="dc-dots">
+            <div class="dc-dot" style="background:#FF5F57"></div>
+            <div class="dc-dot" style="background:#FEBC2E"></div>
+            <div class="dc-dot" style="background:#28C840"></div>
+          </div>
+          <div class="dc-title">Analisi Bilancio 2024</div>
+          <div style="font-size:11px;color:var(--ink4);">Live</div>
+        </div>
+        <div class="dc-body">
+          <div class="dc-company">ESEMPIO S.R.L. — Bilancio 2024</div>
+          <div class="dc-rating-row">
+            <div>
+              <div style="font-size:11px;color:var(--ink4);margin-bottom:2px;">Rating bancabilità</div>
+              <div style="font-size:13px;font-weight:700;color:var(--green);">Eccellente</div>
+            </div>
+            <div class="dc-rating-badge">A</div>
+          </div>
+          <div class="dc-kpis">
+            <div class="dc-kpi">
+              <div class="dc-kpi-lbl">EBITDA</div>
+              <div class="dc-kpi-val green">€1,84M</div>
+            </div>
+            <div class="dc-kpi">
+              <div class="dc-kpi-lbl">PFN/EBITDA</div>
+              <div class="dc-kpi-val blue">0,42x</div>
+            </div>
+            <div class="dc-kpi">
+              <div class="dc-kpi-lbl">Autonomia fin.</div>
+              <div class="dc-kpi-val blue">51,3%</div>
+            </div>
+            <div class="dc-kpi">
+              <div class="dc-kpi-lbl">ICR</div>
+              <div class="dc-kpi-val green">12,40x</div>
+            </div>
+          </div>
+          <div class="dc-semafori">
+            <div class="dc-sem">
+              <div class="sem-dot" style="background:var(--green)"></div>
+              <span class="sem-name">Liquidità aziendale</span>
+              <span class="sem-val" style="color:var(--green)">2,18x</span>
+            </div>
+            <div class="dc-sem">
+              <div class="sem-dot" style="background:var(--green)"></div>
+              <span class="sem-name">Solidità patrimoniale</span>
+              <span class="sem-val" style="color:var(--green)">51,3%</span>
+            </div>
+            <div class="dc-sem">
+              <div class="sem-dot" style="background:var(--gold)"></div>
+              <span class="sem-name">Redditività</span>
+              <span class="sem-val" style="color:var(--gold)">24,6%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="floating-tag ft-2">
+        <span>📄</span>
+        <span style="font-size:11px;color:var(--ink2);">Report PDF pronto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGHI -->
+<div class="logos-section">
+  <div class="logos-inner">
+    <div class="logos-label">Compatibile con i dati ufficiali di</div>
+    <div class="logos-row">
+      <div class="logo-item">Registro Imprese</div>
+      <div class="logo-item">CCIAA</div>
+      <div class="logo-item">InfoCamere</div>
+      <div class="logo-item">Tassonomia XBRL 2018</div>
+      <div class="logo-item">EBA Guidelines 2021</div>
+    </div>
+  </div>
+</div>
+
+<!-- COME FUNZIONA -->
+<section class="section" id="come-funziona">
+  <div class="section-inner">
+    <div class="section-eyebrow">Come funziona</div>
+    <h2 class="section-title">Dall'XBRL al report PDF<br/>in meno di 60 secondi</h2>
+    <p class="section-sub">Nessun inserimento manuale. Il software legge il file ufficiale e calcola tutto automaticamente.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">Passo 01</span>
+        <span class="step-icon">📥</span>
+        <div class="step-title">Importa il file</div>
+        <p class="step-desc">Carica il file XBRL o PDF scaricato dal Registro Imprese. Compatibile con tutta la tassonomia italiana.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Passo 02</span>
+        <span class="step-icon">⚡</span>
+        <div class="step-title">Analisi automatica</div>
+        <p class="step-desc">SP, CE, Rendiconto finanziario e tutti gli indici vengono calcolati in tempo reale senza inserimento manuale.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Passo 03</span>
+        <span class="step-icon">🏦</span>
+        <div class="step-title">Rating bancabilità</div>
+        <p class="step-desc">DSCR, PFN, ICR e rating A-E conforme alle linee guida EBA 2021 per la concessione del credito.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Passo 04</span>
+        <span class="step-icon">📄</span>
+        <div class="step-title">Scarica il PDF</div>
+        <p class="step-desc">Report professionale di 12+ pagine pronto per banche, soci e investitori. Personalizzabile con logo studio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNZIONALITÀ -->
+<section class="section features-section" id="funzionalita">
+  <div class="section-inner">
+    <div class="section-eyebrow">Funzionalità</div>
+    <h2 class="section-title">Tutto quello che serve<br/>all'analista professionista</h2>
+    <p class="section-sub">Strumenti pensati per commercialisti, CFO e consulenti aziendali che lavorano con i bilanci ogni giorno.</p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon-wrap blue">📋</div>
+        <div class="feat-title">Importazione XBRL automatica</div>
+        <p class="feat-desc">Parser nativo della tassonomia italiana itcc-ci-2018-11-04. Estrae SP, CE, Rendiconto e Nota Integrativa con precisione del 99%.</p>
+        <span class="feat-tag blue">Precisione 99%</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap gold">🤖</div>
+        <div class="feat-title">Lettura PDF con AI</div>
+        <p class="feat-desc">Carica qualsiasi PDF di bilancio CCIAA e l'AI estrae automaticamente tutti i valori numerici e li compila nel modulo.</p>
+        <span class="feat-tag gold">AI-powered</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap green">📊</div>
+        <div class="feat-title">Analisi multi-anno comparativa</div>
+        <p class="feat-desc">Confronta fino a 3 esercizi in parallelo. Variazioni percentuali, trend grafici e tabella riepilogativa automatica.</p>
+        <span class="feat-tag green">Fino a 3 anni</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap blue">🏦</div>
+        <div class="feat-title">Bancabilità EBA 2021</div>
+        <p class="feat-desc">DSCR, PFN/EBITDA, PFN/PN, ICR e simulazione nuovo finanziamento. Conforme alle linee guida EBA per la concessione del credito.</p>
+        <span class="feat-tag blue">Standard EBA</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap green">⭐</div>
+        <div class="feat-title">Rating sintetico A-E</div>
+        <p class="feat-desc">Algoritmo proprietario che aggrega tutti gli indici in un unico rating di bancabilità da A (eccellente) a E (critico).</p>
+        <span class="feat-tag green">Algoritmo proprietario</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap gold">📄</div>
+        <div class="feat-title">Report PDF professionale</div>
+        <p class="feat-desc">12+ pagine con copertina, SP, CE, indici con semafori, bancabilità, rating e rendiconto finanziario. White-label con logo studio.</p>
+        <span class="feat-tag gold">White-label</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDICI SHOWCASE -->
+<section class="section indici-section">
+  <div class="section-inner">
+    <div class="indici-layout">
+      <div>
+        <div class="section-eyebrow">Indici calcolati</div>
+        <h2 class="section-title">16 indici calcolati<br/>automaticamente</h2>
+        <p class="section-sub">Da ROE e ROI agli indici di bancabilità EBA 2021 — tutto calcolato in tempo reale mentre inserisci i dati.</p>
+        <a href="bilancio.html" class="btn-primary" style="margin-top:8px;">Prova il calcolatore →</a>
+      </div>
+      <div>
+        <div class="indici-list">
+          <div class="indice-item">
+            <div class="indice-badge ib-blue">ROE</div>
+            <div class="indice-info">
+              <div class="indice-name">Return on Equity</div>
+              <div class="indice-desc">Redditività del capitale proprio</div>
+            </div>
+            <div class="indice-soglia">soglia &gt; 5%</div>
+          </div>
+          <div class="indice-item">
+            <div class="indice-badge ib-blue">ROI</div>
+            <div class="indice-info">
+              <div class="indice-name">Return on Investment</div>
+              <div class="indice-desc">Redditività degli investimenti</div>
+            </div>
+            <div class="indice-soglia">soglia &gt; 8%</div>
+          </div>
+          <div class="indice-item">
+            <div class="indice-badge ib-green">DSCR</div>
+            <div class="indice-info">
+              <div class="indice-name">Debt Service Coverage</div>
+              <div class="indice-desc">Copertura servizio del debito</div>
+            </div>
+            <div class="indice-soglia">soglia &gt; 1,25x</div>
+          </div>
+          <div class="indice-item">
+            <div class="indice-badge ib-green">PFN</div>
+            <div class="indice-info">
+              <div class="indice-name">Posizione Finanziaria Netta</div>
+              <div class="indice-desc">Debiti finanziari netti</div>
+            </div>
+            <div class="indice-soglia">soglia &lt; 3x EBITDA</div>
+          </div>
+          <div class="indice-item">
+            <div class="indice-badge ib-gold">CR</div>
+            <div class="indice-info">
+              <div class="indice-name">Current Ratio</div>
+              <div class="indice-desc">Liquidità corrente aziendale</div>
+            </div>
+            <div class="indice-soglia">soglia &gt; 1,5x</div>
+          </div>
+          <div class="indice-item">
+            <div class="indice-badge ib-gold">ICR</div>
+            <div class="indice-info">
+              <div class="indice-name">Interest Coverage Ratio</div>
+              <div class="indice-desc">Copertura degli oneri finanziari</div>
+            </div>
+            <div class="indice-soglia">soglia &gt; 3x</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREZZI -->
+<section class="section pricing-section" id="prezzi">
+  <div class="section-inner">
+    <div class="section-eyebrow">Prezzi</div>
+    <h2 class="section-title">Un report, un pagamento.<br/>Nessun abbonamento.</h2>
+    <p class="section-sub">Paghi solo quando generi il report. Nessun costo fisso, nessun vincolo.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="pc-icon">📊</div>
+        <div class="pc-name">Analisi Bilancio</div>
+        <p class="pc-desc">Analisi completa di un esercizio con tutti gli indici e rating.</p>
+        <div class="pc-price"><sup>€</sup>34<sub>,99</sub></div>
+        <div class="pc-iva">+ IVA · €42,69 totale</div>
+        <ul class="pc-features">
+          <li>Importazione XBRL / PDF</li>
+          <li>SP + CE + Rendiconto</li>
+          <li>Indici classici e bancabilità EBA</li>
+          <li>Rating sintetico A-E</li>
+          <li>Report PDF 12 pagine</li>
+          <li class="no">Analisi comparativa multi-anno</li>
+        </ul>
+        <a href="pagamento.html" class="btn-card btn-card-outline">Acquista</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="featured-badge">⭐ Più richiesto</div>
+        <div class="pc-icon">💼</div>
+        <div class="pc-name">Bundle Completo</div>
+        <p class="pc-desc">Analisi bilancio 3 anni + business plan. La scelta del commercialista.</p>
+        <div class="pc-price"><sup>€</sup>249<sub>,00</sub></div>
+        <div class="pc-iva">+ IVA · €303,78 totale</div>
+        <ul class="pc-features">
+          <li>Analisi bilancio 3 anni comparativi</li>
+          <li>Business plan completo</li>
+          <li>Report PDF white-label</li>
+          <li>DSCR e PFN dettagliati</li>
+          <li>Analisi SWOT automatica</li>
+          <li>Fattura elettronica inclusa</li>
+        </ul>
+        <a href="pagamento.html" class="btn-card btn-card-primary">Acquista</a>
+      </div>
+
+      <div class="price-card">
+        <div class="pc-icon">📈</div>
+        <div class="pc-name">Business Plan</div>
+        <p class="pc-desc">Business plan completo con proiezioni 3-5 anni e analisi di fattibilità.</p>
+        <div class="pc-price"><sup>€</sup>299<sub>,00</sub></div>
+        <div class="pc-iva">+ IVA · €364,78 totale</div>
+        <ul class="pc-features">
+          <li>Proiezioni economiche 3-5 anni</li>
+          <li>Analisi di mercato e settore</li>
+          <li>Break-even analysis</li>
+          <li>Executive summary bancabile</li>
+          <li>Revisioni illimitate 30 giorni</li>
+          <li>Supporto prioritario</li>
+        </ul>
+        <a href="pagamento.html" class="btn-card btn-card-outline">Acquista</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section" id="faq">
+  <div class="section-inner">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Domande frequenti</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Come ottengo il file XBRL del bilancio? <span>→</span></div>
+        <p class="faq-a">Vai su registroimprese.it, cerca l'azienda, sezione Bilanci e scarica il file XBRL. In alternativa il tuo commercialista può fornirtelo dal software gestionale.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Cosa succede se non ho il file XBRL? <span>→</span></div>
+        <p class="faq-a">Puoi caricare il PDF del bilancio CCIAA oppure inserire i dati manualmente nel modulo. L'AI estrae automaticamente i valori dal PDF con precisione ~92%.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Il DSCR è conforme alle linee guida EBA? <span>→</span></div>
+        <p class="faq-a">Sì. Il calcolo del DSCR e di tutti gli indici di bancabilità è conforme alle EBA Guidelines on loan origination and monitoring del 29 maggio 2020, recepite in Italia nel 2021.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Posso analizzare più anni? <span>→</span></div>
+        <p class="faq-a">Sì, il modulo multi-anno supporta fino a 3 esercizi in parallelo con confronto automatico anno su anno, variazioni percentuali e grafico trend EBITDA.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Posso personalizzare il report con il mio logo? <span>→</span></div>
+        <p class="faq-a">Sì, il report PDF è white-label: puoi aggiungere il logo del tuo studio, il nome dell'analista e note personalizzate. Ideale per commercialisti e consulenti.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">I miei dati sono al sicuro? <span>→</span></div>
+        <p class="faq-a">I dati sono elaborati in tempo reale nel browser — non vengono salvati sui nostri server. Il report viene generato localmente e scaricato direttamente sul tuo computer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Pronto a <em>fare chiarezza</em><br/>sui numeri?</h2>
+    <p class="cta-sub">Importa il primo bilancio gratis e scopri in 10 secondi il profilo finanziario dell'azienda.</p>
+    <div class="cta-btns">
+      <a href="importa-xbrl.html" class="btn-white">Importa bilancio gratis →</a>
+      <a href="bilancio-multianno.html" class="btn-ghost">Inserisci dati manualmente</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Analisi<span>e</span>BusinessPlan</div>
+        <p class="footer-brand-desc">Software professionale per analisi di bilancio, bancabilità e business plan. Pensato per commercialisti e PMI italiane.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Strumenti</div>
+        <div class="footer-links">
+          <a href="importa-xbrl.html">Importa XBRL / PDF</a>
+          <a href="bilancio-multianno.html">Analisi multi-anno</a>
+          <a href="bilancio.html">Calcolatore indici</a>
+          <a href="report-pdf.html">Genera report PDF</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Prodotti</div>
+        <div class="footer-links">
+          <a href="pagamento.html">Analisi Bilancio €34,99</a>
+          <a href="pagamento.html">Business Plan €299</a>
+          <a href="pagamento.html">Bundle Completo €249</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Legale</div>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Termini di servizio</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Contatti</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 AnalisiEBusinessPlan.it — P.IVA in fase di registrazione</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Termini</a>
+        <a href="#">Cookie</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
