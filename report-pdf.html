@@ -410,34 +410,86 @@
 
     const steps = [
       {pct:10, lbl:'Raccolta dati bilancio...'},
-      {pct:22, lbl:'Generazione copertina e intestazione...'},
-      {pct:35, lbl:'Elaborazione Stato Patrimoniale...'},
-      {pct:48, lbl:'Elaborazione Conto Economico...'},
-      {pct:60, lbl:'Calcolo indici e semafori...'},
-      {pct:72, lbl:'Generazione sezione bancabilità EBA 2021...'},
-      {pct:82, lbl:'Calcolo rating sintetico A-E...'},
-      {pct:90, lbl:'Composizione layout PDF...'},
-      {pct:97, lbl:'Ottimizzazione e compressione...'},
+      {pct:25, lbl:'Calcolo indici e bancabilità...'},
+      {pct:40, lbl:'Composizione layout PDF...'},
+      {pct:60, lbl:'Rendering copertina e sezioni...'},
+      {pct:80, lbl:'Generazione PDF su server...'},
+      {pct:95, lbl:'Ottimizzazione e compressione...'},
       {pct:100, lbl:'Report completato ✓'},
     ];
 
-    for(const s of steps){
-      document.getElementById('gp-pct').textContent = s.pct+'%';
-      document.getElementById('gp-bar').style.width = s.pct+'%';
-      document.getElementById('gp-step').textContent = s.lbl;
-      await delay(s.pct===100?500:350);
+    // Avanza barra visivamente mentre aspettiamo il server
+    let stepIdx = 0;
+    const advanceBar = setInterval(()=>{
+      if(stepIdx < steps.length - 1){
+        const s = steps[stepIdx++];
+        document.getElementById('gp-pct').textContent = s.pct+'%';
+        document.getElementById('gp-bar').style.width = s.pct+'%';
+        document.getElementById('gp-step').textContent = s.lbl;
+      }
+    }, 800);
+
+    try {
+      const raw = sessionStorage.getItem('bilancio_anno_0');
+      const bilancioData = raw ? JSON.parse(raw) : {};
+      const prevRaw = sessionStorage.getItem('bilancio_anno_1');
+      if(prevRaw) bilancioData._prev = JSON.parse(prevRaw);
+
+      const config = {
+        nome: nome,
+        anno: document.getElementById('conf-anno').value,
+        analista: document.getElementById('conf-analista').value || 'AnalisiEBusinessPlan.it',
+        dataReport: document.getElementById('conf-data').value,
+        note: document.getElementById('conf-note').value,
+        colore: document.getElementById('conf-colore').value,
+        lingua: document.getElementById('conf-lingua').value,
+      };
+
+      const response = await fetch('/api/genera-pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: bilancioData, config })
+      });
+
+      clearInterval(advanceBar);
+
+      if(!response.ok){
+        const err = await response.json();
+        throw new Error(err.error || 'Errore server');
+      }
+
+      // Scarica il PDF
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Analisi-Bilancio-${nome.replace(/[^a-zA-Z0-9]/g,'-')}-${config.anno}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      document.getElementById('gp-pct').textContent = '100%';
+      document.getElementById('gp-bar').style.width = '100%';
+      document.getElementById('gp-step').textContent = 'Report completato ✓';
+      await new Promise(r=>setTimeout(r,500));
+
+      document.getElementById('gen-progress').classList.remove('show');
+      document.getElementById('da-sub').textContent = `Report "${nome}" — Bilancio ${config.anno} — scaricato con successo.`;
+      document.getElementById('download-area').classList.add('show');
+      window._lastConfig = config;
+      window._lastData = bilancioData;
+
+    } catch(err) {
+      clearInterval(advanceBar);
+      console.error(err);
+      document.getElementById('gen-progress').classList.remove('show');
+      // Fallback: genera HTML stampabile
+      alert('Server non disponibile. Genero versione HTML stampabile come fallback.');
+      const anno = document.getElementById('conf-anno').value;
+      generaHTMLReport(nome, anno);
+      document.getElementById('download-area').classList.add('show');
+    } finally {
+      document.getElementById('btn-genera').disabled = false;
     }
-
-    await delay(400);
-    document.getElementById('gen-progress').classList.remove('show');
-
-    const anno = document.getElementById('conf-anno').value;
-    document.getElementById('da-sub').textContent = `Report "${nome}" — Bilancio ${anno} — pronto per il download.`;
-    document.getElementById('download-area').classList.add('show');
-    document.getElementById('btn-genera').disabled = false;
-
-    // Genera HTML stampabile
-    generaHTMLReport(nome, anno);
   }
 
   function generaHTMLReport(nome, anno){
@@ -448,6 +500,11 @@
   }
 
   function downloadReport(){
+    // Se abbiamo già il PDF scaricato, ri-genera
+    if(window._lastConfig && window._lastData){
+      generaReport();
+      return;
+    }
     const nome = window._reportNome || document.getElementById('conf-nome').value || 'Report';
     const anno = window._reportAnno || document.getElementById('conf-anno').value;
 
