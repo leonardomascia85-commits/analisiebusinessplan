@@ -18,7 +18,9 @@
   <meta name="twitter:description" content="Inserisci i dati di bilancio su 3 anni e ottieni l'analisi comparativa completa con indici, rendiconto finanziario, bancabilita EBA 2021 e rating A-E. Ideale per commercialisti e PMI."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root{
       --navy:#0B1628;--navy2:#132040;--navy3:#1c2f52;
@@ -28,11 +30,11 @@
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;}
+    body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;}
 
     /* NAV */
-    nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:12px 4%;background:rgba(11,22,40,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;text-decoration:none;color:var(--white);}
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;}
     .logo span{color:var(--cyan);}
     .nav-steps{display:flex;align-items:center;gap:6px;font-size:12px;}
     .ns{display:flex;align-items:center;gap:5px;color:var(--gray);}
@@ -228,7 +230,7 @@
 <body>
 
 <nav>
-  <a href="index.html" class="logo">Analisi<span>e</span>BusinessPlan</a>
+  <a href="index.html" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
   <div class="nav-steps">
     <div class="ns"><div class="ns-num done">✓</div><span style="font-size:11px;">Azienda</span></div>
     <span class="ns-sep">›</span>
