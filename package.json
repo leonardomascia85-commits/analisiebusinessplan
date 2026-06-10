@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "description": "Software SaaS analisi bilancio professionale",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "echo 'No build needed'"
   },
   "dependencies": {
-    "next": "14.2.3",
     "@sparticuz/chromium": "123.0.1",
     "puppeteer-core": "22.6.5"
   },
