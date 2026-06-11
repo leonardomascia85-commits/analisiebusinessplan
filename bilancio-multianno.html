@@ -1024,11 +1024,28 @@ function generaReport(){
     }catch(e){console.warn('Errore caricamento anno '+i,e);}
   }
   if(loaded){
+    // Popola campi anagrafici dal primo anno disponibile
+    const rawFirst=sessionStorage.getItem('bilancio_anno_0')||sessionStorage.getItem('bilancio_anno_1');
+    if(rawFirst){
+      try{
+        const first=JSON.parse(rawFirst);
+        if(first.nome){const el=document.getElementById('rag_soc');if(el)el.value=first.nome;}
+        if(first.forma){
+          const el=document.getElementById('forma');
+          if(el){
+            const f=first.forma.toLowerCase();
+            if(f.includes('spa')||f.includes('s.p.a'))el.value='spa';
+            else if(f.includes('snc')||f.includes('s.n.c'))el.value='snc';
+            else el.value='srl';
+          }
+        }
+        if(first.ateco){const el=document.getElementById('ateco');if(el){const opt=[...el.options].find(o=>first.ateco.startsWith(o.value));if(opt)el.value=opt.value;}}
+      }catch(e){}
+    }
     loadYearIntoForm(0);
     updateDisplayTotals();
     [0,1,2].forEach(y=>updateResultsForYear(y));
     updateStatusBadge();
-    // Rimuovi i dati dal sessionStorage dopo il caricamento
     for(let i=0;i<3;i++)sessionStorage.removeItem('bilancio_anno_'+i);
   }
 })();
