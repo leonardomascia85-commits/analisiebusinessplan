@@ -6,8 +6,8 @@
     "build": "echo 'No build needed'"
   },
   "dependencies": {
-    "@sparticuz/chromium": "132.0.0",
-    "puppeteer-core": "22.6.5"
+    "@sparticuz/chromium": "111.0.0",
+    "puppeteer-core": "19.7.2"
   },
   "engines": {
     "node": ">=18.0.0"
