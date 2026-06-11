@@ -477,6 +477,7 @@
         setStep(0,'done');
         setStep(1,'active');se('sl1','Ricerca struttura bilancio...');await delay(300);setStep(1,'done');
         setStep(2,'active');se('sl2','Estrazione dati anagrafici...');await delay(300);
+        console.log('PDF TEXT ESTRATTO:\n',pdfText.substring(0,3000));
         data=parsePDFText(pdfText);
         setStep(2,'done');
         setStep(3,'active');se('sl3','Parsing Stato Patrimoniale...');await delay(400);setStep(3,'done');
