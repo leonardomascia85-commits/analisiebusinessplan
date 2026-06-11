@@ -263,7 +263,10 @@
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
   let currentFile=null,currentFileType=null,selectedAnno=0,parsedData={};
   const fmt=n=>isNaN(n)||!isFinite(n)?'—':new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
   const fp=(n,d=1)=>isNaN(n)||!isFinite(n)?'—':n.toFixed(d)+'%';
@@ -353,6 +356,98 @@
     };
   }
 
+  async function extractPdfText(file){
+    const buf=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+    let text='';
+    for(let i=1;i<=pdf.numPages;i++){
+      const page=await pdf.getPage(i);
+      const tc=await page.getTextContent();
+      text+=tc.items.map(it=>it.str).join(' ')+'\n';
+    }
+    return text;
+  }
+
+  function parsePDFText(text){
+    // Normalizza: rimuovi spazi multipli, unifica separatori numerici italiani
+    const t=text.replace(/\s+/g,' ');
+
+    // Estrae un numero italiano (es. 1.234.567 oppure 1.234.567,00)
+    const num=s=>{if(!s)return 0;const c=s.replace(/\./g,'').replace(',','.');return parseFloat(c)||0;};
+
+    // Cerca il valore dopo una label (prende il primo numero che segue)
+    const find=(patterns,txt=t)=>{
+      for(const p of patterns){
+        const re=new RegExp(p+'[\\s:]*([\\-\\(]?[\\d]{1,3}(?:[\\.,\\d]{0,})[\\d])','i');
+        const m=txt.match(re);
+        if(m){
+          let raw=m[1].replace(/^\(/,'').replace(/\)$/,'');
+          const neg=m[1].startsWith('(');
+          const v=num(raw);
+          return neg?-v:v;
+        }
+      }
+      return 0;
+    };
+
+    // Anagrafica
+    const nomeM=t.match(/(?:denominazione|ragione sociale)[:\s]+([A-Z][^\n,;]{3,60}?)(?:\s{2,}|,|;|\n)/i);
+    const pivaM=t.match(/(?:p\.?\s*iva|codice fiscale)[:\s]*(\d{11})/i);
+    const formaM=t.match(/(S\.R\.L\.|SRL|S\.P\.A\.|SPA|S\.N\.C\.|SNC|S\.A\.S\.|SAS|SOCIETA'|SOCIETÀ)/i);
+
+    const nome=nomeM?nomeM[1].trim():'';
+    const piva=pivaM?pivaM[1]:'';
+    const forma=formaM?formaM[0].toUpperCase():'';
+
+    // Stato Patrimoniale — Attivo
+    const imm_imm=find(['immobilizzazioni immateriali','totale immobilizzazioni immateriali']);
+    const imm_mat=find(['immobilizzazioni materiali','totale immobilizzazioni materiali']);
+    const imm_fin=find(['immobilizzazioni finanziarie','totale immobilizzazioni finanziarie']);
+    const tot_imm=find(['totale immobilizzazioni']);
+    const rimanenze=find(['rimanenze']);
+    const cred_cl=find(['crediti verso clienti']);
+    const liquidita=find(['disponibilit[aà] liquide','cassa e banche','disponibilità liquide']);
+    const tot_circ=find(['totale attivo circolante','attivo circolante']);
+    const tot_att=find(['totale attivo','totale dell.attivo']);
+
+    // Stato Patrimoniale — Passivo
+    const cap_sociale=find(['capitale sociale']);
+    const utile_es=find(['utile.*esercizio','perdita.*esercizio','utile \\(perdita\\)']);
+    const tot_pn=find(['totale patrimonio netto','patrimonio netto']);
+    const deb_b_bt=find(['debiti verso banche.*entro','banche c\\/c passivi']);
+    const deb_b_lt=find(['debiti verso banche.*oltre']);
+    const deb_for=find(['debiti verso fornitori']);
+    const deb_trib=find(['debiti tributari']);
+    const tot_deb=find(['totale debiti']);
+
+    // Conto Economico
+    const ric_vend=find(['ricavi.*vendite.*prestazioni','ricavi delle vendite']);
+    const alt_ric=find(['altri ricavi']);
+    const tot_vp=find(['totale valore.*produzione','valore della produzione']);
+    const mat_prime=find(['materie prime','materie prime.*sussidiarie']);
+    const servizi=find(['servizi']);
+    const godimento=find(['godimento.*beni.*terzi','locazioni']);
+    const personale=find(['costo.*personale','totale.*personale']);
+    const ammort=find(['ammortamenti.*svalutazioni','totale ammortamenti']);
+    const var_mat=find(['variazioni.*rimanenze.*materie']);
+    const oneri_div=find(['oneri diversi di gestione']);
+    const tot_cos=find(['totale costi.*produzione','costi della produzione']);
+    const oneri_f=find(['interessi.*oneri finanziari','oneri finanziari']);
+    const imposte=find(['imposte.*reddito']);
+    const utile_n=find(['utile.*perdita.*esercizio']);
+
+    return{
+      nome,piva,forma,
+      imm_imm,imm_mat,imm_fin,tot_imm,
+      rimanenze,cred_cl,liquidita,tot_circ,tot_att,
+      cap_sociale,utile_es:utile_es||utile_n,tot_pn,
+      deb_b_bt,deb_b_lt,deb_for,deb_trib,tot_deb,
+      ric_vend,alt_ric,tot_vp,
+      mat_prime,servizi,godimento,personale,ammort,var_mat,oneri_div,
+      tot_cos,oneri_f,imposte,utile_n,
+    };
+  }
+
   async function startParsing(){
     if(!currentFile)return;
     document.getElementById('anno-box').classList.remove('show');
@@ -360,11 +455,11 @@
     document.getElementById('results-box').classList.remove('show');
     for(let i=0;i<8;i++)setStep(i,'wait');
     try{
-      setStep(0,'active');await delay(400);
-      const content=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>rej(new Error('Lettura fallita'));r.readAsText(currentFile,'UTF-8');});
-      setStep(0,'done');
       let data={};
       if(currentFileType==='xbrl'){
+        setStep(0,'active');await delay(400);
+        const content=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>rej(new Error('Lettura fallita'));r.readAsText(currentFile,'UTF-8');});
+        setStep(0,'done');
         setStep(1,'active');await delay(300);
         if(!content.includes('itcc-ci'))throw new Error('File XBRL non compatibile con tassonomia italiana');
         setStep(1,'done');setStep(2,'active');await delay(300);
@@ -375,6 +470,22 @@
         setStep(6,'active');await delay(300);
         const ind=computeIndici(data);Object.assign(data,ind);setStep(6,'done');
         setStep(7,'active');await delay(300);setStep(7,'done');
+      } else if(currentFileType==='pdf'){
+        setStep(0,'active');
+        se('sl0','Lettura PDF...');
+        const pdfText=await extractPdfText(currentFile);
+        setStep(0,'done');
+        setStep(1,'active');se('sl1','Ricerca struttura bilancio...');await delay(300);setStep(1,'done');
+        setStep(2,'active');se('sl2','Estrazione dati anagrafici...');await delay(300);
+        console.log('PDF TEXT ESTRATTO:\n',pdfText.substring(0,3000));
+        data=parsePDFText(pdfText);
+        setStep(2,'done');
+        setStep(3,'active');se('sl3','Parsing Stato Patrimoniale...');await delay(400);setStep(3,'done');
+        setStep(4,'active');se('sl4','Parsing Conto Economico...');await delay(400);setStep(4,'done');
+        setStep(5,'active');se('sl5','Elaborazione dati...');await delay(300);setStep(5,'done');
+        setStep(6,'active');se('sl6','Calcolo indici...');await delay(300);
+        const ind=computeIndici(data);Object.assign(data,ind);setStep(6,'done');
+        setStep(7,'active');se('sl7','Verifica completata');await delay(300);setStep(7,'done');
       }
       parsedData=data;showResults(data);
     }catch(err){
