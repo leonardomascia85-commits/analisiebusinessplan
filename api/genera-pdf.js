@@ -941,3 +941,4 @@ module.exports = async function handler(req, res) {
     if (browser) await browser.close();
   }
 };
+module.exports.config = { maxDuration: 60 };
