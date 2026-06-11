@@ -1,4 +1,6 @@
 const chromium = require('@sparticuz/chromium');
+chromium.setHeadlessMode = true;
+chromium.setGraphicsMode = false;
 const puppeteer = require('puppeteer-core');
 
 // ── FORMATTERS ──
