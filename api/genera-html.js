@@ -948,7 +948,6 @@ module.exports = function handler(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.status(200).send(html);
   } catch (error) {
-    res.status(500).json({ error: 'Errore generazione HTML: ' + error.stack || error.message });
+    res.status(500).json({ error: String(error.message || error) });
   }
 };
-module.exports.config = { maxDuration: 30 };
