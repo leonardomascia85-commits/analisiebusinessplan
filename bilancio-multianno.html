@@ -709,8 +709,8 @@ function calcYear(y) {
   const acid= dbt_bt>0?(t_circ-d.rimanenze)/dbt_bt:NaN;
   const leva= t_pn>0?t_deb/t_pn:NaN;
   const aut = t_att>0?t_pn/t_att*100:NaN;
-  // BANCABILITÀ
-  const servizio = d.rate_cap+d.interessi;
+  // BANCABILITÀ — usa oneri_f come fallback se bancabilità non compilata
+  const servizio = (d.rate_cap||0)+(d.interessi||d.oneri_f||0);
   const pfn = (d.pfn_bt+d.pfn_lt)-(d.pfn_liq+d.pfn_tit);
   const dscr = servizio>0&&ebitda>0?ebitda/servizio:NaN;
   const pfn_ebitda = ebitda>0&&pfn>0?pfn/ebitda:NaN;
@@ -761,7 +761,7 @@ function setBanc(valId,lblId,barId,val,lbl,thG,thA,higher=true){
 
 function calcRating(c){
   let score=0,max=0;
-  const add=(val,g,a,h=true,w=1)=>{max+=w*2;if(!isNaN(val)&&isFinite(val)){const ok=h?val>=g:val<=g,med=h?val>=a:val<=a;score+=ok?w*2:med?w:0;}};
+  const add=(val,g,a,h=true,w=1)=>{if(!isNaN(val)&&isFinite(val)){max+=w*2;const ok=h?val>=g:val<=g,med=h?val>=a:val<=a;score+=ok?w*2:med?w:0;}};
   add(c.dscr,1.25,1.0,true,3);
   add(c.pfn_ebitda,3,5,false,2);
   add(c.cr,1.5,1.0,true,2);
@@ -769,10 +769,12 @@ function calcRating(c){
   add(c.roe,10,5,true,1);
   const pct=max>0?score/max:0;
   if(max===0)return{l:'—',color:'var(--gray)',title:'Dati insufficienti',desc:'Compila SP, CE e Dati Bancabilità.'};
-  if(pct>=0.85)return{l:'A',color:'var(--green)',title:'Eccellente bancabilità',desc:'Profilo solido. Alta probabilità di finanziamento a condizioni favorevoli.'};
-  if(pct>=0.70)return{l:'B',color:'var(--cyan)',title:'Buona bancabilità',desc:'Buon profilo. Finanziamento probabile con normali garanzie.'};
-  if(pct>=0.55)return{l:'C',color:'var(--gold)',title:'Bancabilità sufficiente',desc:'Profilo nella media. Possibili garanzie aggiuntive richieste.'};
-  if(pct>=0.35)return{l:'D',color:'var(--gold)',title:'Bancabilità limitata',desc:'Alcune criticità. Rafforzare patrimonio prima di richiedere finanziamenti.'};
+  if(pct>=0.92)return{l:'A+',color:'var(--green)',title:'Eccellente',desc:'Profilo solido. Alta probabilità di finanziamento a condizioni favorevoli.'};
+  if(pct>=0.80)return{l:'A',color:'var(--green)',title:'Ottima',desc:'Buon profilo complessivo. Finanziamento molto probabile.'};
+  if(pct>=0.68)return{l:'B+',color:'var(--cyan)',title:'Buona',desc:'Buon profilo. Finanziamento probabile con normali garanzie.'};
+  if(pct>=0.55)return{l:'B',color:'var(--cyan)',title:'Discreta',desc:'Profilo nella media. Alcune aree da migliorare.'};
+  if(pct>=0.40)return{l:'C',color:'var(--gold)',title:'Sufficiente',desc:'Profilo nella media. Possibili garanzie aggiuntive richieste.'};
+  if(pct>=0.25)return{l:'D',color:'#F97316',title:'Bancabilità limitata',desc:'Alcune criticità. Rafforzare patrimonio prima di richiedere finanziamenti.'};
   return{l:'E',color:'var(--red)',title:'Profilo critico',desc:'Significative criticità. Interventi strutturali necessari.'};
 }
 
