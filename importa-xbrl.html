@@ -294,6 +294,12 @@
       const m=content.match(p);return m?parseFloat(m[1]):0;
     };
     const getStr=tag=>{const m=content.match(new RegExp(`<itcc-ci:${tag}[^>]*>([^<]+)<`,'i'));return m?m[1].trim():'';};
+    // Estrai anno esercizio dal contesto istantaneo (es. 2023-12-31)
+    const ctxAnnoPrev=content.match(/<xbrli:context[^>]*id="cntxPrec_i"[\s\S]*?<xbrli:instant>(\d{4})-\d{2}-\d{2}<\/xbrli:instant>/i);
+    const ctxAnnoCorr=content.match(/<xbrli:context[^>]*id="cntxCorr_i"[\s\S]*?<xbrli:instant>(\d{4})-\d{2}-\d{2}<\/xbrli:instant>/i)
+      ||content.match(/<xbrli:instant>(\d{4})-\d{2}-\d{2}<\/xbrli:instant>/i);
+    const _annoEsercizio=ctxAnnoCorr?ctxAnnoCorr[1]:null;
+    const _annoPrecedente=ctxAnnoPrev?ctxAnnoPrev[1]:(_annoEsercizio?String(parseInt(_annoEsercizio)-1):null);
     return{
       nome:getStr('DatiAnagraficiDenominazione'),piva:getStr('DatiAnagraficiPartitaIva'),
       forma:getStr('DatiAnagraficiFormaGiuridica'),ateco:getStr('DatiAnagraficiSettoreAttivitaPrevalenteAteco'),
@@ -319,6 +325,7 @@
       oneri_f:get('TotaleInteressiAltriOneriFinanziari','cntxCorr_d'),
       imposte:get('ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate','cntxCorr_d'),
       utile_n:get('UtilePerditaEsercizio','cntxCorr_d'),
+      _annoEsercizio,_annoPrecedente,
     };
   }
 
@@ -478,7 +485,7 @@
     document.getElementById('progress-box').classList.remove('show');
     document.getElementById('results-box').classList.add('show');
     se('rb-nome',d.nome||'—');se('rb-piva',d.piva||'—');
-    se('rb-forma',d.forma||'—');se('rb-anno',['2024','2023','2022'][selectedAnno]||'—');
+    se('rb-forma',d.forma||'—');se('rb-anno',d._annoEsercizio||['2024','2023','2022'][selectedAnno]||'—');
     se('rb-att',fmt(d.tot_att));se('rb-pn',fmt(d.tot_pn));
     se('rb-deb',fmt(d.tot_deb));se('rb-liq',fmt(d.liquidita));
     se('rb-vp',fmt(d.tot_vp));se('rb-ebitda',fmt(d.ebitda));
