@@ -1046,7 +1046,6 @@ async function generaReport(){
     win.document.write(html);
     win.document.close();
     win.focus();
-    setTimeout(() => { win.print(); }, 800);
   } catch(err) {
     alert('Errore generazione PDF: ' + err.message);
   } finally {

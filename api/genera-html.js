@@ -471,6 +471,8 @@ function buildReportHTML(data, config) {
   .ind-bench span{font-weight:600;color:#0F172A;}
   .ind-desc{font-size:8.5px;color:#475569;line-height:1.6;}
   .ind-interp{font-size:8.5px;color:#475569;line-height:1.6;margin-top:4px;padding-top:4px;border-top:.5px solid #F1F5F9;}
+  .ind-action{font-size:8px;color:#1D4ED8;line-height:1.5;margin-top:5px;padding:5px 7px;background:#EFF6FF;border-radius:4px;border-left:2px solid #3B82F6;}
+  .ind-intro{font-size:9px;color:#334155;line-height:1.7;padding:10px 12px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px 6px 0 0;margin-bottom:0;}
 
   .banc-intro{font-size:9px;color:#475569;line-height:1.7;margin-bottom:12px;padding:9px 12px;background:#F8FAFC;border-left:3px solid ${colore};border-radius:0 5px 5px 0;}
   .banc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
@@ -681,14 +683,31 @@ function buildReportHTML(data, config) {
     <div><div class="ph-ey">Sezione 4</div><div class="ph-ti">Indici di Bilancio — Redditività e Liquidità</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
+  <div class="ind-intro">Gli <strong>indici di redditività</strong> misurano la capacità dell'azienda di generare profitto in relazione alle risorse impiegate. Sono gli indicatori più osservati da soci, investitori e banche per valutare la qualità del business e la sostenibilità nel tempo. Un'azienda redditizia non è necessariamente liquida, ma un'azienda strutturalmente in perdita non è finanziabile.</div>
   <div class="ind-hd">📊 Indici di Redditività</div>
   <div class="ind-cards">
     ${[
-      ['Return on Equity','ROE',c.roe,fp(c.roe),c.roe>=10,c.roe>=5,'ROE = Utile Netto / Patrimonio Netto × 100',`> 5%`,`> 10%`,'Redditività del capitale proprio: quanti euro di utile per ogni 100€ di patrimonio investito.',c.roe>=10?`Ottimo (${fp(c.roe)}): i soci ottengono un rendimento eccellente.`:c.roe>=5?`Sufficiente (${fp(c.roe)}): nella media PMI italiane.`:c.roe>=0?`Basso (${fp(c.roe)}): rendimento insufficiente.`:`Negativo (${fp(c.roe)}): perdita d'esercizio. Verificare se straordinaria.`],
-      ['Return on Investment','ROI',c.roi,fp(c.roi),c.roi>=8,c.roi>=3,'ROI = EBIT / Totale Attivo × 100',`> 3%`,`> 8%`,'Redditività del capitale investito totale. Misura l\'efficienza gestionale indipendente dalla struttura finanziaria.',c.roi>=8?`Ottimo (${fp(c.roi)}): eccellente efficienza nell\'utilizzo del capitale.`:c.roi>=3?`Sufficiente (${fp(c.roi)}): margine di miglioramento possibile.`:`Insufficiente (${fp(c.roi)}): l\'azienda non remunera adeguatamente il capitale.`],
-      ['Return on Sales','ROS',c.ros,fp(c.ros),c.ros>=10,c.ros>=3,'ROS = EBIT / Ricavi × 100',`> 3%`,`> 10%`,'Marginalità operativa sulle vendite: quota di ogni euro di fatturato che diventa reddito operativo.',c.ros>=10?`Eccellente (${fp(c.ros)}): alta capacità di trasformare ricavi in reddito.`:c.ros>=3?`Nella norma (${fp(c.ros)}): migliorabile.`:`Basso (${fp(c.ros)}): struttura costi da rivedere.`],
-      ['EBITDA Margin','MOL%',c.ebitda_pct,fp(c.ebitda_pct),c.ebitda_pct>=15,c.ebitda_pct>=5,'EBITDA Margin = EBITDA / Valore Produzione × 100',`> 5%`,`> 15%`,'Proxy della capacità di generare cassa operativa. Preferito da banche e investitori: non influenzato da ammortamenti né oneri finanziari.',c.ebitda_pct>=15?`Eccellente (${fp(c.ebitda_pct)}): il business genera cassa abbondante.`:c.ebitda_pct>=5?`Sufficiente (${fp(c.ebitda_pct)}): margine accettabile.`:`Critico (${fp(c.ebitda_pct)}): difficoltà a generare cassa operativa.`],
-    ].map(([name,acro,val,disp,verde,giallo,formula,sogMin,sogOtt,desc,interp])=>`
+      ['Return on Equity','ROE',c.roe,fp(c.roe),c.roe>=10,c.roe>=5,
+       'ROE = Utile Netto / Patrimonio Netto × 100',`> 5%`,`> 10%`,
+       'Misura la redditività del capitale proprio: quanti euro di utile netto produce ogni 100€ investito dai soci. È il principale indicatore di convenienza per i soci rispetto ad investimenti alternativi (es. BTP, fondi).',
+       c.roe>=10?`Ottimo (${fp(c.roe)}): i soci ottengono un rendimento eccellente, superiore alla media PMI italiana.`:c.roe>=5?`Sufficiente (${fp(c.roe)}): nella media PMI italiane. Verificare se il trend è in crescita.`:c.roe>=0?`Basso (${fp(c.roe)}): rendimento insufficiente rispetto al rischio imprenditoriale.`:`Negativo (${fp(c.roe)}): perdita d'esercizio. Analizzare se straordinaria o strutturale.`,
+       c.roe>=10?'Mantenere la gestione attuale. Valutare distribuzione dividendi o reinvestimento per crescita.':c.roe>=5?'Lavorare su riduzione costi o aumento ricavi per incrementare la marginalità.':c.roe>=0?'Priorità: ridurre i costi fissi e aumentare i ricavi. Valutare la redditività per linea di prodotto.':'Analisi urgente delle perdite. Piano di risanamento necessario se il trend è confermato.'],
+      ['Return on Investment','ROI',c.roi,fp(c.roi),c.roi>=8,c.roi>=3,
+       'ROI = EBIT / Totale Attivo × 100',`> 3%`,`> 8%`,
+       'Misura l\'efficienza con cui l\'azienda utilizza tutti gli asset (propri e di terzi) per generare reddito operativo. È indipendente dalla struttura finanziaria: confronta aziende con diversa leva. Se ROI < costo del debito, la leva finanziaria distrugge valore.',
+       c.roi>=8?`Ottimo (${fp(c.roi)}): eccellente efficienza nell\'utilizzo del capitale investito.`:c.roi>=3?`Sufficiente (${fp(c.roi)}): nella norma, con margine di miglioramento.`:`Insufficiente (${fp(c.roi)}): il capitale non viene remunerato adeguatamente.`,
+       c.roi>=8?'Ottima gestione degli asset. Valutare se espandere gli investimenti per crescere.':c.roi>=3?'Verificare asset inattivi o sottoutilizzati. Possibile miglioramento con razionalizzazione investimenti.':'Analizzare asset non produttivi. Considerare dismissione di immobilizzazioni non strategiche.'],
+      ['Return on Sales','ROS',c.ros,fp(c.ros),c.ros>=10,c.ros>=3,
+       'ROS = EBIT / Valore Produzione × 100',`> 3%`,`> 10%`,
+       'Indica quanta parte del fatturato si trasforma in reddito operativo dopo aver coperto tutti i costi di produzione (esclusi oneri finanziari e imposte). Un ROS basso indica un\'elevata incidenza dei costi operativi sui ricavi.',
+       c.ros>=10?`Eccellente (${fp(c.ros)}): alta capacità di trasformare ricavi in reddito operativo.`:c.ros>=3?`Nella norma (${fp(c.ros)}): migliorabile agendo sui costi variabili.`:`Basso (${fp(c.ros)}): struttura dei costi da rivedere con urgenza.`,
+       c.ros>=10?'Ottima marginalità. Monitorare per difenderla dalla pressione competitiva.':c.ros>=3?'Analizzare le singole voci di costo (personale, servizi, materie prime) per trovare inefficienze.':'Revisione urgente del pricing e/o dei costi. Valutare outsourcing di attività non core.'],
+      ['EBITDA Margin','MOL%',c.ebitda_pct,fp(c.ebitda_pct),c.ebitda_pct>=15,c.ebitda_pct>=5,
+       'EBITDA Margin = EBITDA / Valore Produzione × 100',`> 5%`,`> 15%`,
+       'Misura la capacità di generare cassa operativa al lordo di ammortamenti, oneri finanziari e imposte. È l\'indicatore preferito dalle banche per valutare la capacità di rimborso (DSCR). Non risente delle politiche di ammortamento né della struttura del debito.',
+       c.ebitda_pct>=15?`Eccellente (${fp(c.ebitda_pct)}): il business genera cassa operativa abbondante.`:c.ebitda_pct>=5?`Sufficiente (${fp(c.ebitda_pct)}): margine accettabile, da migliorare.`:`Critico (${fp(c.ebitda_pct)}): difficoltà a generare cassa operativa per servire il debito.`,
+       c.ebitda_pct>=15?'Azienda bancabile. Utilizzare l\'EBITDA come leva per negoziare condizioni migliori con le banche.':c.ebitda_pct>=5?'Lavorare sulla riduzione dei costi variabili (materie prime, servizi) prima di espandersi.':'Emergenza: l\'azienda non genera cassa sufficiente. Rinegoziare il debito e tagliare i costi fissi.'],
+    ].map(([name,acro,val,disp,verde,giallo,formula,sogMin,sogOtt,desc,interp,action])=>`
     <div class="ind-card">
       <div class="ind-name">${name}</div><div class="ind-acro">${acro}</div>
       <div class="ind-val" style="color:${verde?'#059669':giallo?'#D97706':'#DC2626'}">${disp}</div>
@@ -697,8 +716,10 @@ function buildReportHTML(data, config) {
       <div class="ind-bench">Minima: <span>${sogMin}</span> · Ottimale: <span>${sogOtt}</span></div>
       <div class="ind-desc">${desc}</div>
       <div class="ind-interp">${interp}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${action}</div>
     </div>`).join('')}
   </div>
+  <div class="ind-intro">Gli <strong>indici di liquidità</strong> misurano la capacità dell'azienda di far fronte agli impegni a breve termine senza ricorrere a nuove fonti di finanziamento. Un'azienda redditizia può comunque trovarsi in crisi di liquidità se i tempi di incasso e pagamento non sono bilanciati. Questi indici sono fondamentali per la valutazione EBA Stage 2.</div>
   <div class="ind-hd">💧 Indici di Liquidità</div>
   <div class="ind-cards">
     <div class="ind-card">
@@ -707,8 +728,9 @@ function buildReportHTML(data, config) {
       <span class="ind-badge ${c.cr>=1.5?'ib-g':c.cr>=1.0?'ib-a':'ib-r'}">${c.cr>=1.5?'✓ Ottimo':c.cr>=1.0?'⚠ Sufficiente':'✗ Critico'}</span>
       <div class="ind-formula">Attivo Circolante / Passività a Breve</div>
       <div class="ind-bench">Critico: <span>&lt;1,0x</span> · Ottimale: <span>&gt;1,5x</span></div>
-      <div class="ind-desc">Capacità di far fronte agli impegni a breve con le risorse circolanti. Valore &lt;1 = segnale di allerta EBA Stage 2.</div>
-      <div class="ind-interp">${isNaN(c.cr)?'n.d.':c.cr>=1.5?`Ottimale (${fx(c.cr)}): nessun rischio tensioni a breve.`:c.cr>=1.0?`Sufficiente (${fx(c.cr)}): da monitorare.`:`Critico (${fx(c.cr)}): le passività a breve superano l'attivo circolante.`}</div>
+      <div class="ind-desc">Indica quante volte l'attivo circolante (cassa, crediti, rimanenze) copre i debiti in scadenza entro l'anno. Un valore inferiore a 1 significa che le uscite a breve superano le entrate disponibili: segnale di allerta EBA Stage 2 che può precludere l'accesso al credito.</div>
+      <div class="ind-interp">${isNaN(c.cr)?'n.d.':c.cr>=1.5?`Ottimale (${fx(c.cr)}): nessun rischio di tensioni di liquidità nel breve.`:c.cr>=1.0?`Sufficiente (${fx(c.cr)}): da monitorare mensilmente. Evitare investimenti che immobilizzino liquidità.`:`Critico (${fx(c.cr)}): le passività a breve superano l'attivo circolante. Rischio insolvenza a breve.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${c.cr>=1.5?'Situazione solida. Ottimizzare il circolante per massimizzare i rendimenti.':c.cr>=1.0?'Accelerare i tempi di incasso, allungare i termini di pagamento fornitori, valutare utilizzo di linee di credito a breve.':'Urgente: rinegoziare le scadenze dei debiti a breve, cercare liquidità straordinaria, valutare factoring sui crediti.'}</div>
     </div>
     <div class="ind-card">
       <div class="ind-name">Acid Test (Quick Ratio)</div><div class="ind-acro">Liquidità immediata</div>
@@ -716,8 +738,9 @@ function buildReportHTML(data, config) {
       <span class="ind-badge ${c.acid>=1.0?'ib-g':c.acid>=0.7?'ib-a':'ib-r'}">${c.acid>=1.0?'✓ Ottimo':c.acid>=0.7?'⚠ Sufficiente':'✗ Basso'}</span>
       <div class="ind-formula">(Att. Circ. − Rimanenze) / Passività a Breve</div>
       <div class="ind-bench">Critico: <span>&lt;0,7x</span> · Ottimale: <span>&gt;1,0x</span></div>
-      <div class="ind-desc">Versione conservativa del Current Ratio: esclude le rimanenze (meno liquide). Misura la liquidità con sole attività prontamente liquidabili.</div>
-      <div class="ind-interp">${isNaN(c.acid)?'n.d.':c.acid>=1.0?`Ottimale (${fx(c.acid)}): liquidità adeguata anche senza smobilizzare il magazzino.`:c.acid>=0.7?`Accettabile (${fx(c.acid)}): le rimanenze pesano sulla liquidità immediata.`:`Basso (${fx(c.acid)}): dipendenza dalla vendita del magazzino per i debiti a breve.`}</div>
+      <div class="ind-desc">Versione più severa del Current Ratio: esclude le rimanenze perché non sono immediatamente liquidabili (richiedono tempo per la vendita). Misura la capacità di far fronte ai debiti a breve con sole disponibilità liquide e crediti commerciali. È il test preferito dalle banche per valutare la liquidità reale.</div>
+      <div class="ind-interp">${isNaN(c.acid)?'n.d.':c.acid>=1.0?`Ottimale (${fx(c.acid)}): liquidità solida anche senza smobilizzare il magazzino.`:c.acid>=0.7?`Accettabile (${fx(c.acid)}): le rimanenze pesano sulla liquidità immediata. Monitorare la rotazione del magazzino.`:`Basso (${fx(c.acid)}): l'azienda dipende dalla vendita del magazzino per pagare i debiti a breve.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${c.acid>=1.0?'Ottima posizione. Mantenere una gestione prudente del magazzino.':c.acid>=0.7?'Ridurre le scorte di magazzino e velocizzare gli incassi. Valutare anticipo fatture.':'Riduzione urgente del magazzino (sconti, promozioni), accelerare gli incassi, sospendere nuovi acquisti di stock.'}</div>
     </div>
   </div>
   <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 5</span></div>
@@ -729,6 +752,7 @@ function buildReportHTML(data, config) {
     <div><div class="ph-ey">Sezione 4 (continua)</div><div class="ph-ti">Indici di Bilancio — Solidità ed Efficienza</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
+  <div class="ind-intro">Gli <strong>indici di solidità patrimoniale</strong> misurano la stabilità strutturale dell'azienda nel lungo periodo e la sua capacità di assorbire perdite o shock economici. Sono determinanti per le banche nella valutazione del merito creditizio secondo le Linee Guida EBA: un'azienda con bassa autonomia finanziaria è considerata ad alto rischio sistemico.</div>
   <div class="ind-hd">🏛️ Indici di Solidità Patrimoniale</div>
   <div class="ind-cards">
     <div class="ind-card">
@@ -737,8 +761,9 @@ function buildReportHTML(data, config) {
       <span class="ind-badge ${c.aut>=30?'ib-g':c.aut>=15?'ib-a':'ib-r'}">${c.aut>=30?'✓ Ottimo EBA':c.aut>=15?'⚠ Sufficiente':'✗ Sotto soglia'}</span>
       <div class="ind-formula">Patrimonio Netto / Totale Attivo × 100</div>
       <div class="ind-bench">Soglia EBA: <span>&gt;30%</span> · Ottimale: <span>&gt;40%</span></div>
-      <div class="ind-desc">Quota degli impieghi finanziata con capitale proprio. Indicatore cardine EBA: esprime indipendenza dai creditori e capacità di assorbire perdite.</div>
-      <div class="ind-interp">${isNaN(c.aut)?'n.d.':c.aut>=40?`Eccellente (${fp(c.aut)}): struttura patrimoniale robusta, ampiamente sopra la soglia EBA.`:c.aut>=30?`Sufficiente (${fp(c.aut)}): soddisfa le soglie EBA minime.`:`Sotto soglia EBA (${fp(c.aut)}): struttura patrimoniale da rafforzare.`}</div>
+      <div class="ind-desc">Indica quanta parte degli impieghi totali è finanziata con capitale proprio (non rimborsabile). È l'indicatore cardine EBA/GL/2020/06: esprime l'indipendenza dai creditori e la capacità di assorbire perdite senza compromettere la continuità aziendale. Sotto il 30% l'azienda viene classificata come strutturalmente fragile.</div>
+      <div class="ind-interp">${isNaN(c.aut)?'n.d.':c.aut>=40?`Eccellente (${fp(c.aut)}): struttura patrimoniale robusta, ampiamente sopra la soglia EBA del 30%.`:c.aut>=30?`Sufficiente (${fp(c.aut)}): soddisfa le soglie EBA minime. Lavorare per avvicinarsi al 40%.`:`Sotto soglia EBA (${fp(c.aut)}): struttura patrimoniale fragile. Rischio classificazione Stage 2.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${c.aut>=40?'Struttura solida. Valutare investimenti strategici o distribuzione di utili ai soci.':c.aut>=30?'Accantonare gli utili a riserva invece di distribuirli. Evitare nuovi indebitamenti non strettamente necessari.':'Urgente rafforzamento patrimoniale: versamenti soci, conversione finanziamenti soci in capitale, riduzione debiti. Evitare distribuzione di utili.'}</div>
     </div>
     <div class="ind-card">
       <div class="ind-name">Leva Finanziaria</div><div class="ind-acro">D/E Ratio</div>
@@ -746,10 +771,13 @@ function buildReportHTML(data, config) {
       <span class="ind-badge ${c.leva<=2?'ib-g':c.leva<=4?'ib-a':'ib-r'}">${c.leva<=2?'✓ Conservativo':c.leva<=4?'⚠ Moderato':'✗ Elevato'}</span>
       <div class="ind-formula">Totale Debiti / Patrimonio Netto</div>
       <div class="ind-bench">Attenzione: <span>&gt;2x</span> · Critico: <span>&gt;4x</span></div>
-      <div class="ind-desc">Rapporto tra capitale di terzi e capitale proprio. Valore elevato = alta dipendenza dal debito. Amplifica rendimenti e rischi.</div>
-      <div class="ind-interp">${isNaN(c.leva)?'n.d.':c.leva<=2?`Conservativo (${fx(c.leva)}): ampi margini per nuova finanza.`:c.leva<=4?`Moderato (${fx(c.leva)}): da monitorare.`:`Elevato (${fx(c.leva)}): ridurre il debito è prioritario.`}</div>
+      <div class="ind-desc">Esprime quanti euro di debiti (verso banche, fornitori, erario) esistono per ogni euro di patrimonio netto. Una leva alta amplifica sia i rendimenti (in fase positiva) che i rischi (in fase negativa). Con leva >4x la maggior parte del valore aziendale appartiene ai creditori, non ai soci.</div>
+      <div class="ind-interp">${isNaN(c.leva)?'n.d.':c.leva<=2?`Conservativo (${fx(c.leva)}): ampi margini di manovra per nuova finanza se necessario.`:c.leva<=4?`Moderato (${fx(c.leva)}): da monitorare. Evitare ulteriore indebitamento senza crescita dell'EBITDA.`:`Elevato (${fx(c.leva)}): ridurre il debito è priorità assoluta. Le banche potrebbero rifiutare nuovi fidi.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${c.leva<=2?'Ottima posizione. Possibile utilizzare leva per finanziare crescita mantenendo un profilo conservativo.':c.leva<=4?'Non aumentare il debito. Destinare parte degli utili alla riduzione del debito bancario.':'Piano di riduzione del debito urgente: cessione asset non strategici, aumento capitale, rinegoziazione scadenze.'}</div>
     </div>
   </div>
+  <div class="ind-intro" style="margin-top:16px">Gli <strong>indici di efficienza operativa</strong> (ciclo del circolante) misurano la velocità con cui l'azienda trasforma le sue attività operative in liquidità. Il ciclo del capitale circolante netto (CCN) indica quanti giorni di fatturato l'azienda deve "anticipare" prima di incassare: più è lungo, più fabbisogno finanziario genera.</div>
+  <div class="ind-hd">⚙️ Efficienza Operativa — Ciclo del Circolante</div>
   <div class="ind-hd">⚙️ Efficienza Operativa — Ciclo del Circolante</div>
   <div class="ind-cards">
     <div class="ind-card">
@@ -759,7 +787,8 @@ function buildReportHTML(data, config) {
       <div class="ind-formula">(Rimanenze / Costo del Venduto) × 365</div>
       <div class="ind-bench">Manifattura: <span>45–90 gg</span> · Commercio: <span>30–60 gg</span></div>
       <div class="ind-desc">Ogni quanti giorni il magazzino viene rinnovato. Alta rotazione = efficienza. Bassa rotazione = capitale immobilizzato.</div>
-      <div class="ind-interp">${isNaN(c.dsi)?'Inserire rimanenze e costo del venduto.':c.dsi<=60?`Buona rotazione (${fgg(c.dsi)}).`:c.dsi<=90?`Nella norma (${fgg(c.dsi)}): monitorare.`:`Lento (${fgg(c.dsi)}): liberare liquidità riducendo scorte.`}</div>
+      <div class="ind-interp">${isNaN(c.dsi)?'Inserire rimanenze e costo del venduto.':c.dsi<=60?`Buona rotazione (${fgg(c.dsi)}): magazzino efficiente.`:c.dsi<=90?`Nella norma (${fgg(c.dsi)}): monitorare per evitare accumulo scorte obsolete.`:`Lento (${fgg(c.dsi)}): capitale immobilizzato in magazzino. Valutare promozioni o razionalizzazione dell'assortimento.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${isNaN(c.dsi)?'Inserire i dati di rimanenze e costo del venduto per calcolare questo indice.':c.dsi<=60?'Buona gestione. Mantenere il livello di scorte attuale.':c.dsi<=90?'Analizzare le referenze a bassa rotazione e ridurre gli ordini di riassortimento.':'Liquidazione scorte obsolete con sconti, revisione politica acquisti, adozione sistema just-in-time.'}</div>
     </div>
     <div class="ind-card">
       <div class="ind-name">Giorni Credito Clienti (DSO)</div><div class="ind-acro">Days Sales Outstanding</div>
@@ -768,7 +797,8 @@ function buildReportHTML(data, config) {
       <div class="ind-formula">(Crediti Clienti / Ricavi) × 365</div>
       <div class="ind-bench">Ottimale: <span>&lt;60 gg</span> · Media Italia PMI: <span>75–90 gg</span></div>
       <div class="ind-desc">Tempo medio tra vendita e incasso. Più è alto, più capitale è congelato nei crediti commerciali.</div>
-      <div class="ind-interp">${isNaN(c.dso)?'Inserire crediti clienti e ricavi.':c.dso<=60?`Ottimo (${fgg(c.dso)}): incasso rapido.`:c.dso<=90?`Nella norma italiana (${fgg(c.dso)}): valutare credit management più stringente.`:`Elevato (${fgg(c.dso)}): potenziali difficoltà di incasso.`}</div>
+      <div class="ind-interp">${isNaN(c.dso)?'Inserire crediti clienti e ricavi.':c.dso<=60?`Ottimo (${fgg(c.dso)}): incasso rapido, basso fabbisogno finanziario.`:c.dso<=90?`Nella norma italiana (${fgg(c.dso)}): valutare credit management più stringente per ridurre l'esposizione.`:`Elevato (${fgg(c.dso)}): potenziali difficoltà di incasso o clienti con ritardi sistematici.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${isNaN(c.dso)?'Inserire i dati di crediti verso clienti e ricavi per calcolare questo indice.':c.dso<=60?'Eccellente. Mantenere le condizioni di pagamento attuali.':c.dso<=90?'Introdurre sconti per pagamento anticipato, bonifici bancari invece di assegni, monitorare gli insoluti.':'Analisi clienti per anzianità credito, solleciti sistematici, valutare factoring o cessione crediti, rivedere fidi concessi.'}</div>
     </div>
     <div class="ind-card ind-card-full">
       <div class="ind-name">Giorni Debito Fornitori (DPO)</div><div class="ind-acro">Days Payable Outstanding — Ciclo CCN: ${fgg(c.ccn_giorni)}</div>
@@ -777,7 +807,8 @@ function buildReportHTML(data, config) {
       <div class="ind-formula">DPO = (Debiti Fornitori / Acquisti) × 365 · Ciclo CCN = DSI + DSO − DPO</div>
       <div class="ind-bench">Ottimale: <span>60–90 gg</span> · Ciclo CCN ottimale: <span>&lt;60 gg</span></div>
       <div class="ind-desc">Ogni quanti giorni si pagano i fornitori. DPO elevato = uso del credito fornitori come fonte di finanziamento gratuita. Il ciclo CCN indica il fabbisogno netto di finanziamento del circolante.</div>
-      <div class="ind-interp">${isNaN(c.dpo)?'Inserire debiti fornitori e acquisti.':`DPO ${fgg(c.dpo)}: ${c.dpo>=60?'buona gestione del credito fornitori.':c.dpo>=30?'possibilità di negoziare termini più dilazionati.':'l\'azienda paga troppo rapidamente.'}${!isNaN(c.ccn_giorni)?' Ciclo CCN: '+fgg(c.ccn_giorni)+' — fabbisogno '+(c.ccn_giorni>90?'elevato.':c.ccn_giorni>60?'moderato.':'contenuto.'):''}` }</div>
+      <div class="ind-interp">${isNaN(c.dpo)?'Inserire debiti fornitori e acquisti.':`DPO ${fgg(c.dpo)}: ${c.dpo>=60?'buona gestione del credito fornitori — finanziamento gratuito.':c.dpo>=30?'possibilità di negoziare termini più dilazionati con i fornitori.':'l\'azienda paga troppo rapidamente, rinunciando a liquidità gratuita.'}${!isNaN(c.ccn_giorni)?' Ciclo CCN: '+fgg(c.ccn_giorni)+' — fabbisogno finanziario '+(c.ccn_giorni>90?'elevato: richiede linee di credito consistenti.':c.ccn_giorni>60?'moderato: ottimizzare incassi e pagamenti.':'contenuto: gestione circolante efficiente.'):''}` }</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${isNaN(c.dpo)?'Inserire i dati di debiti verso fornitori e acquisti per calcolare questo indice.':c.dpo>=60?'Ottima gestione. Mantenere i termini negoziati con i fornitori.':c.dpo>=30?'Negoziare con i fornitori principali dilazioni a 60-90 gg. Offrire garanzie o volumi per ottenere condizioni migliori.':'Rinegoziare immediatamente i termini di pagamento. Ogni giorno in più è liquidità gratuita.'}</div>
     </div>
   </div>
   <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 6</span></div>
@@ -881,37 +912,6 @@ ${hasRF ? `
         ${rating.triggers.length===0?'<div style="font-size:8.5px;color:#059669;">Nessuno dei 7 indicatori di allerta del Codice della Crisi risulta attivo.</div>':rating.triggers.map(t=>`<div class="trigger-item">⚠ ${t}</div>`).join('')}
       </div>
       <div class="chart-box">
-        <div class="chart-title">Radar — Profilo Finanziario Complessivo</div>
-        ${svgRadar(rating.radarScores)}
-      </div>
-    </div>
-  </div>
-  <div class="score-table">
-    <div class="score-grid">
-      <div>Indicatore EBA</div><div>Valore</div><div>Soglia</div><div>Giudizio</div><div>Score</div>
-    </div>
-    ${rating.ebaDetails.map((e,i)=>`
-    <div class="score-row${i%2===0?' hi':''}">
-      <div>${e.nome}</div>
-      <div>${isNaN(e.val)||!isFinite(e.val)?'n.d.':e.g<10&&e.g>-10?fx(e.val):fp(e.val)}</div>
-      <div>${e.higher?'≥':'≤'} ${e.g}${e.g<10?'x':'%'}</div>
-      <div style="color:${e.colore};font-weight:700;">${e.giudizio}</div>
-      <div style="color:${e.colore};font-weight:700;">${e.punti}/${e.peso*2}</div>
-    </div>`).join('')}
-    <div class="score-row" style="background:#F0F9FF;">
-      <div style="font-weight:700;color:#0369A1;">Totale scorecard EBA (peso 70%)</div>
-      <div></div><div></div>
-      <div style="font-weight:700;color:#0369A1;">${(rating.pctEBA*100).toFixed(0)}%</div>
-      <div style="font-weight:700;color:#0369A1;">${rating.scoreEBA}/${rating.maxEBA}</div>
-    </div>
-  </div>
-  ${note?`<div class="note-box"><div class="note-title">Note analista</div><div class="note-text">${note}</div></div>`:''}
-  <div class="disclaimer">Report generato da AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + verifica trigger CCII (D.Lgs. 14/2019) · Generato il ${dataReport} · Basato esclusivamente su dati di bilancio (non include componente andamentale Centrale Rischi).</div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Ultima pagina</span></div>
-</div>
-
-</body></html>`;
-}
 
 module.exports = function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
