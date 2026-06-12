@@ -289,17 +289,41 @@
   }
 
   function parseXBRL(content){
-    const get=(tag,ctx='cntxCorr')=>{
-      const p=new RegExp(`<itcc-ci:${tag}[^>]*contextRef="${ctx}[^"]*"[^>]*>([\\-\\d\\.]+)<`,'i');
+    // Rileva dinamicamente i context ID per instant e duration, corrente e precedente
+    // Raccoglie tutti i context con una data instant
+    const ctxInstants=[];
+    const rCtx=/<xbrli:context\s[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/xbrli:context>/gi;
+    let mCtx;
+    while((mCtx=rCtx.exec(content))!==null){
+      const id=mCtx[1];const body=mCtx[2];
+      const mi=body.match(/<xbrli:instant>(\d{4}-\d{2}-\d{2})<\/xbrli:instant>/i);
+      if(mi)ctxInstants.push({id,date:mi[1],year:parseInt(mi[1])});
+    }
+    // Ordina per data discendente: il primo è corrente, il secondo è precedente
+    ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
+    const ctxCorrI=ctxInstants[0]?.id||'cntxCorr_i';
+    const ctxPrecI=ctxInstants[1]?.id||'cntxPrec_i';
+    const _annoEsercizio=ctxInstants[0]?String(ctxInstants[0].year):null;
+    const _annoPrecedente=ctxInstants[1]?String(ctxInstants[1].year):(_annoEsercizio?String(parseInt(_annoEsercizio)-1):null);
+
+    // Rileva context duration (startDate/endDate) accoppiati agli instant
+    const ctxDurations=[];
+    const rCtxD=/<xbrli:context\s[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/xbrli:context>/gi;
+    let mCtxD;
+    while((mCtxD=rCtxD.exec(content))!==null){
+      const id=mCtxD[1];const body=mCtxD[2];
+      const me=body.match(/<xbrli:endDate>(\d{4}-\d{2}-\d{2})<\/xbrli:endDate>/i);
+      if(me)ctxDurations.push({id,endDate:me[1],year:parseInt(me[1])});
+    }
+    ctxDurations.sort((a,b)=>b.endDate.localeCompare(a.endDate));
+    const ctxCorrD=ctxDurations[0]?.id||'cntxCorr_d';
+    const ctxPrecD=ctxDurations[1]?.id||'cntxPrec_d';
+
+    const get=(tag,ctx)=>{
+      const p=new RegExp(`<itcc-ci:${tag}[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.]+)<`,'i');
       const m=content.match(p);return m?parseFloat(m[1]):0;
     };
     const getStr=tag=>{const m=content.match(new RegExp(`<itcc-ci:${tag}[^>]*>([^<]+)<`,'i'));return m?m[1].trim():'';};
-    // Estrai anno esercizio dal contesto istantaneo (es. 2023-12-31)
-    const ctxAnnoPrev=content.match(/<xbrli:context[^>]*id="cntxPrec_i"[\s\S]*?<xbrli:instant>(\d{4})-\d{2}-\d{2}<\/xbrli:instant>/i);
-    const ctxAnnoCorr=content.match(/<xbrli:context[^>]*id="cntxCorr_i"[\s\S]*?<xbrli:instant>(\d{4})-\d{2}-\d{2}<\/xbrli:instant>/i)
-      ||content.match(/<xbrli:instant>(\d{4})-\d{2}-\d{2}<\/xbrli:instant>/i);
-    const _annoEsercizio=ctxAnnoCorr?ctxAnnoCorr[1]:null;
-    const _annoPrecedente=ctxAnnoPrev?ctxAnnoPrev[1]:(_annoEsercizio?String(parseInt(_annoEsercizio)-1):null);
     const buildAnno=(ctxI,ctxD)=>({
       imm_imm:get('TotaleImmobilizzazioniImmateriali',ctxI),imm_mat:get('TotaleImmobilizzazioniMateriali',ctxI),
       imm_fin:get('TotaleImmobilizzazioniFinanziarie',ctxI),tot_imm:get('TotaleImmobilizzazioni',ctxI),
@@ -324,8 +348,8 @@
       imposte:get('ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate',ctxD),
       utile_n:get('UtilePerditaEsercizio',ctxD),
     });
-    const corr=buildAnno('cntxCorr_i','cntxCorr_d');
-    const prec=buildAnno('cntxPrec_i','cntxPrec_d');
+    const corr=buildAnno(ctxCorrI,ctxCorrD);
+    const prec=buildAnno(ctxPrecI,ctxPrecD);
     const hasPrev=prec.tot_att>0||prec.tot_vp>0;
     return{
       nome:getStr('DatiAnagraficiDenominazione'),piva:getStr('DatiAnagraficiPartitaIva'),
