@@ -1,8 +1,3 @@
-const chromium = require('@sparticuz/chromium-min');
-chromium.setHeadlessMode = true;
-chromium.setGraphicsMode = false;
-const puppeteer = require('puppeteer-core');
-
 // ── FORMATTERS ──
 const fmt = (n) => {
   if (n === undefined || n === null || isNaN(n) || !isFinite(n) || n === 0) return '—';
@@ -922,7 +917,7 @@ module.exports = function handler(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.status(200).send(html);
   } catch (error) {
-    res.status(500).json({ error: 'Errore generazione HTML: ' + error.message });
+    res.status(500).json({ error: 'Errore generazione HTML: ' + error.stack || error.message });
   }
 };
 module.exports.config = { maxDuration: 30 };
