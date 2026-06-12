@@ -988,8 +988,73 @@ function resetAll(){
   updateStatusBadge();
 }
 
-function generaReport(){
-  alert('🚀 Sprint 3 — Generazione PDF in arrivo!\n\nTutti i dati sono stati elaborati:\n• Analisi comparativa multi-anno\n• Indici classici e bancabilità\n• Rendiconto finanziario\n• Rating sintetico\n\nIl PDF professionale sarà disponibile nella prossima versione.');
+async function generaReport(){
+  const d = DATA[0];
+  const calc = calcYear(0);
+  // Costruisce l'oggetto data compatibile con api/genera-pdf
+  const payload = {
+    data: {
+      nome: document.getElementById('rag_soc')?.value || '',
+      forma: document.getElementById('forma')?.value || '',
+      // SP
+      imm_imm: d.imm_imm, imm_mat: d.imm_mat, imm_fin: d.imm_fin,
+      tot_imm: calc.t_imm,
+      rimanenze: d.rimanenze, cred_cl: d.cred_cl, alt_cr: d.alt_cr,
+      liquidita: d.liquidita, ratei_att: d.ratei_att,
+      tot_circ: calc.t_circ, tot_att: calc.t_att,
+      cap_sociale: d.cap_soc, riserve: d.riserve, utili_pn: d.utili_pn,
+      utile_es: d.utile_es, tot_pn: calc.t_pn,
+      deb_b_bt: d.deb_b_bt, deb_b_lt: d.deb_b_lt, deb_for: d.deb_for,
+      deb_trib: d.deb_trib, alt_deb: d.alt_deb, fondi: d.fondi,
+      tfr: d.tfr, ratei_pass: d.ratei_pass, tot_deb: calc.t_deb,
+      // CE
+      ric_vend: d.ric_vend, var_rim: d.var_rim, alt_ric: d.alt_ric,
+      tot_vp: calc.t_vp,
+      mat_prime: d.mat_prime, servizi: d.servizi, godimento: d.godimento,
+      personale: d.personale, ammort: d.ammort, var_mat: d.var_mat,
+      oneri_div: d.oneri_div, tot_cos: calc.t_cos,
+      oneri_f: d.oneri_f, prov_f: d.prov_f, rettifiche: d.rettifiche,
+      imposte: d.imposte, utile_n: calc.utile_n,
+      // Bancabilità
+      rate_cap: d.rate_cap, interessi: d.interessi,
+      pfn_bt: d.pfn_bt, pfn_lt: d.pfn_lt, pfn_liq: d.pfn_liq, pfn_tit: d.pfn_tit,
+    },
+    config: {
+      nome: document.getElementById('rag_soc')?.value || 'Azienda',
+      anno: document.getElementById('ysel-0')?.value || '2024',
+      dataReport: new Date().toLocaleDateString('it-IT'),
+    }
+  };
+
+  const btn = document.getElementById('btn-report');
+  const origText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Generazione in corso...';
+
+  try {
+    const res = await fetch('/api/genera-pdf', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(()=>({error:'Errore sconosciuto'}));
+      throw new Error(err.error || 'Errore API');
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const nome = (payload.config.nome||'Report').replace(/[^a-zA-Z0-9]/g,'-');
+    a.download = `Analisi-Bilancio-${nome}-${payload.config.anno}.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch(err) {
+    alert('Errore generazione PDF: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = origText;
+  }
 }
 
 // ── INIT: carica dati da importa-xbrl.html via sessionStorage ──
