@@ -251,17 +251,6 @@
 
     <div class="azienda-strip" style="margin-bottom:16px;">
       <div class="af"><label>Ragione sociale *</label><input type="text" id="rag_soc" placeholder="es. Mario Rossi S.r.l." oninput="updateHeader()"/></div>
-      <div class="af"><label>Settore ATECO *</label>
-        <select id="ateco" onchange="updateHeader()">
-          <option value="">Seleziona</option>
-          <option value="A">A — Agricoltura</option><option value="C">C — Manifatturiero</option>
-          <option value="F">F — Costruzioni</option><option value="G">G — Commercio</option>
-          <option value="H">H — Trasporti</option><option value="I">I — Ristorazione</option>
-          <option value="J">J — ICT/Tecnologia</option><option value="K">K — Finanza</option>
-          <option value="L">L — Immobiliare</option><option value="M">M — Professionale</option>
-          <option value="Q">Q — Sanità</option>
-        </select>
-      </div>
       <div class="af"><label>Forma giuridica</label>
         <select id="forma">
           <option value="srl">S.r.l.</option><option value="spa">S.p.A.</option>
@@ -284,7 +273,7 @@
       <div class="year-card" id="ycard-1" onclick="selectYear(1)">
         <div class="yc-label">Anno precedente</div>
         <div class="yc-year" id="ylabel-1">2023</div>
-        <div class="yc-status empty" id="ystatus-1">Facoltativo</div>
+        <div class="yc-status empty" id="ystatus-1"></div>
         <select id="ysel-1" style="background:none;border:none;color:var(--cyan);font-size:11px;margin-top:6px;cursor:pointer;padding:0;" onchange="updateYearLabel(1)">
           <option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option>
         </select>
@@ -292,7 +281,7 @@
       <div class="year-card" id="ycard-2" onclick="selectYear(2)">
         <div class="yc-label">Anno precedente -2</div>
         <div class="yc-year" id="ylabel-2">2022</div>
-        <div class="yc-status empty" id="ystatus-2">Facoltativo</div>
+        <div class="yc-status empty" id="ystatus-2"></div>
         <select id="ysel-2" style="background:none;border:none;color:var(--cyan);font-size:11px;margin-top:6px;cursor:pointer;padding:0;" onchange="updateYearLabel(2)">
           <option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option>
         </select>
@@ -1098,7 +1087,6 @@ async function generaReport(){
             else el.value='srl';
           }
         }
-        if(first.ateco){const el=document.getElementById('ateco');if(el){const opt=[...el.options].find(o=>first.ateco.startsWith(o.value));if(opt)el.value=opt.value;}}
         // Imposta anni dai dati estratti dal file
         if(first._annoEsercizio){
           const sel0=document.getElementById('ysel-0');if(sel0)sel0.value=first._annoEsercizio;
@@ -1121,7 +1109,7 @@ setInterval(()=>{
     const btn=document.getElementById(`ryt-${y}`);
     const ystatus=document.getElementById(`ystatus-${y}`);
     if(btn)btn.disabled=!filled[y];
-    if(ystatus){ystatus.textContent=filled[y]?'✓ Dati inseriti':'Facoltativo';ystatus.className='yc-status '+(filled[y]?'ok':'empty');}
+    if(ystatus){ystatus.textContent=filled[y]?'✓ Dati inseriti':'';ystatus.className='yc-status '+(filled[y]?'ok':'empty');}
     const fcard=document.getElementById(`ycard-${y}`);
     if(fcard){if(filled[y])fcard.classList.add('filled');else fcard.classList.remove('filled');}
     const compBtn=document.getElementById('ryt-comp');
