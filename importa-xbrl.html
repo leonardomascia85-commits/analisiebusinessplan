@@ -289,35 +289,30 @@
   }
 
   function parseXBRL(content){
-    // Rileva dinamicamente i context ID per instant e duration, corrente e precedente
-    // Raccoglie tutti i context con una data instant
+    // Rileva dinamicamente i context ID — supporta sia namespace esplicito (xbrli:context)
+    // sia namespace di default (<context id="...">) come usato dalla tassonomia InfoCamere
     const ctxInstants=[];
-    const rCtx=/<xbrli:context\s[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/xbrli:context>/gi;
+    const ctxDurations=[];
+    // Regex che matcha sia <context che <xbrli:context
+    const rCtx=/(?:xbrli:)?context\s[^>]*id="([^"]+)"[^>]*>([\s\S]*?)(?:xbrli:)?context>/gi;
     let mCtx;
     while((mCtx=rCtx.exec(content))!==null){
       const id=mCtx[1];const body=mCtx[2];
-      const mi=body.match(/<xbrli:instant>(\d{4}-\d{2}-\d{2})<\/xbrli:instant>/i);
+      // instant: <instant> o <xbrli:instant>
+      const mi=body.match(/(?:xbrli:)?instant>(\d{4}-\d{2}-\d{2})</i);
       if(mi)ctxInstants.push({id,date:mi[1],year:parseInt(mi[1])});
-    }
-    // Ordina per data discendente: il primo è corrente, il secondo è precedente
-    ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
-    const ctxCorrI=ctxInstants[0]?.id||'cntxCorr_i';
-    const ctxPrecI=ctxInstants[1]?.id||'cntxPrec_i';
-    const _annoEsercizio=ctxInstants[0]?String(ctxInstants[0].year):null;
-    const _annoPrecedente=ctxInstants[1]?String(ctxInstants[1].year):(_annoEsercizio?String(parseInt(_annoEsercizio)-1):null);
-
-    // Rileva context duration (startDate/endDate) accoppiati agli instant
-    const ctxDurations=[];
-    const rCtxD=/<xbrli:context\s[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/xbrli:context>/gi;
-    let mCtxD;
-    while((mCtxD=rCtxD.exec(content))!==null){
-      const id=mCtxD[1];const body=mCtxD[2];
-      const me=body.match(/<xbrli:endDate>(\d{4}-\d{2}-\d{2})<\/xbrli:endDate>/i);
+      // endDate: <endDate> o <xbrli:endDate>
+      const me=body.match(/(?:xbrli:)?endDate>(\d{4}-\d{2}-\d{2})</i);
       if(me)ctxDurations.push({id,endDate:me[1],year:parseInt(me[1])});
     }
+    ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
     ctxDurations.sort((a,b)=>b.endDate.localeCompare(a.endDate));
+    const ctxCorrI=ctxInstants[0]?.id||'cntxCorr_i';
+    const ctxPrecI=ctxInstants[1]?.id||'cntxPrev_i';
     const ctxCorrD=ctxDurations[0]?.id||'cntxCorr_d';
-    const ctxPrecD=ctxDurations[1]?.id||'cntxPrec_d';
+    const ctxPrecD=ctxDurations[1]?.id||'cntxPrev_d';
+    const _annoEsercizio=ctxInstants[0]?String(ctxInstants[0].year):null;
+    const _annoPrecedente=ctxInstants[1]?String(ctxInstants[1].year):(_annoEsercizio?String(parseInt(_annoEsercizio)-1):null);
 
     const get=(tag,ctx)=>{
       const p=new RegExp(`<itcc-ci:${tag}[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.]+)<`,'i');
