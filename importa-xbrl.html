@@ -273,7 +273,7 @@
     document.getElementById('fl-'+type)?.classList.remove('show');
     document.getElementById('drop-'+type)?.classList.remove('active');
     document.getElementById('input-'+type).value='';
-    document.getElementById('anno-box').classList.remove('show');
+    document.getElementById('anno-box')?.classList.remove('show');
   }
   function selectAnno(i){
     selectedAnno=i;
@@ -430,7 +430,7 @@
 
   async function startParsing(){
     if(!currentFile)return;
-    document.getElementById('anno-box').classList.remove('show');
+    document.getElementById('anno-box')?.classList.remove('show');
     document.getElementById('progress-box').classList.add('show');
     document.getElementById('results-box').classList.remove('show');
     for(let i=0;i<8;i++)setStep(i,'wait');
@@ -490,7 +490,7 @@
 
   function caricaAltro(){
     document.getElementById('results-box').classList.remove('show');
-    document.getElementById('anno-box').classList.add('show');
+    document.getElementById('anno-box')?.classList.add('show');
     if(selectedAnno<2)selectAnno(selectedAnno+1);
   }
   function resetAll(){
@@ -502,7 +502,7 @@
     });
     document.getElementById('results-box').classList.remove('show');
     document.getElementById('progress-box').classList.remove('show');
-    document.getElementById('anno-box').classList.remove('show');
+    document.getElementById('anno-box')?.classList.remove('show');
     selectAnno(0);
   }
 </script>
