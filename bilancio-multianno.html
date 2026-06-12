@@ -988,37 +988,31 @@ function resetAll(){
   updateStatusBadge();
 }
 
+function buildAnnoData(yi){
+  const d=DATA[yi]; const c=calcYear(yi);
+  return{
+    nome: document.getElementById('rag_soc')?.value||'',
+    forma: document.getElementById('forma')?.value||'',
+    imm_imm:d.imm_imm,imm_mat:d.imm_mat,imm_fin:d.imm_fin,tot_imm:c.t_imm,
+    rimanenze:d.rimanenze,cred_cl:d.cred_cl,alt_cr:d.alt_cr,liquidita:d.liquidita,ratei_att:d.ratei_att,
+    tot_circ:c.t_circ,tot_att:c.t_att,
+    cap_sociale:d.cap_soc,riserve:d.riserve,utili_pn:d.utili_pn,utile_es:d.utile_es,tot_pn:c.t_pn,
+    deb_b_bt:d.deb_b_bt,deb_b_lt:d.deb_b_lt,deb_for:d.deb_for,deb_trib:d.deb_trib,
+    alt_deb:d.alt_deb,fondi:d.fondi,tfr:d.tfr,ratei_pass:d.ratei_pass,tot_deb:c.t_deb,
+    ric_vend:d.ric_vend,var_rim:d.var_rim,alt_ric:d.alt_ric,tot_vp:c.t_vp,
+    mat_prime:d.mat_prime,servizi:d.servizi,godimento:d.godimento,
+    personale:d.personale,ammort:d.ammort,var_mat:d.var_mat,oneri_div:d.oneri_div,tot_cos:c.t_cos,
+    oneri_f:d.oneri_f,prov_f:d.prov_f,rettifiche:d.rettifiche,imposte:d.imposte,utile_n:c.utile_n,
+    rate_cap:d.rate_cap,interessi:d.interessi,
+    pfn_bt:d.pfn_bt,pfn_lt:d.pfn_lt,pfn_liq:d.pfn_liq,pfn_tit:d.pfn_tit,
+  };
+}
+
 async function generaReport(){
-  const d = DATA[0];
-  const calc = calcYear(0);
-  // Costruisce l'oggetto data compatibile con api/genera-pdf
+  const mainData = buildAnnoData(0);
+  if(filled[1]) mainData._prev = buildAnnoData(1);
   const payload = {
-    data: {
-      nome: document.getElementById('rag_soc')?.value || '',
-      forma: document.getElementById('forma')?.value || '',
-      // SP
-      imm_imm: d.imm_imm, imm_mat: d.imm_mat, imm_fin: d.imm_fin,
-      tot_imm: calc.t_imm,
-      rimanenze: d.rimanenze, cred_cl: d.cred_cl, alt_cr: d.alt_cr,
-      liquidita: d.liquidita, ratei_att: d.ratei_att,
-      tot_circ: calc.t_circ, tot_att: calc.t_att,
-      cap_sociale: d.cap_soc, riserve: d.riserve, utili_pn: d.utili_pn,
-      utile_es: d.utile_es, tot_pn: calc.t_pn,
-      deb_b_bt: d.deb_b_bt, deb_b_lt: d.deb_b_lt, deb_for: d.deb_for,
-      deb_trib: d.deb_trib, alt_deb: d.alt_deb, fondi: d.fondi,
-      tfr: d.tfr, ratei_pass: d.ratei_pass, tot_deb: calc.t_deb,
-      // CE
-      ric_vend: d.ric_vend, var_rim: d.var_rim, alt_ric: d.alt_ric,
-      tot_vp: calc.t_vp,
-      mat_prime: d.mat_prime, servizi: d.servizi, godimento: d.godimento,
-      personale: d.personale, ammort: d.ammort, var_mat: d.var_mat,
-      oneri_div: d.oneri_div, tot_cos: calc.t_cos,
-      oneri_f: d.oneri_f, prov_f: d.prov_f, rettifiche: d.rettifiche,
-      imposte: d.imposte, utile_n: calc.utile_n,
-      // Bancabilità
-      rate_cap: d.rate_cap, interessi: d.interessi,
-      pfn_bt: d.pfn_bt, pfn_lt: d.pfn_lt, pfn_liq: d.pfn_liq, pfn_tit: d.pfn_tit,
-    },
+    data: mainData,
     config: {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
       anno: document.getElementById('ysel-0')?.value || '2024',
@@ -1104,6 +1098,12 @@ async function generaReport(){
           }
         }
         if(first.ateco){const el=document.getElementById('ateco');if(el){const opt=[...el.options].find(o=>first.ateco.startsWith(o.value));if(opt)el.value=opt.value;}}
+        // Imposta anni dai dati estratti dal file
+        if(first._annoEsercizio){
+          const sel0=document.getElementById('ysel-0');if(sel0)sel0.value=first._annoEsercizio;
+          const sel1=document.getElementById('ysel-1');if(sel1&&first._annoPrecedente)sel1.value=first._annoPrecedente;
+          const sel2=document.getElementById('ysel-2');if(sel2&&first._annoPrecedente)sel2.value=String(parseInt(first._annoPrecedente)-1);
+        }
       }catch(e){}
     }
     loadYearIntoForm(0);
