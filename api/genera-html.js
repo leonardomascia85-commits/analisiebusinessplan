@@ -525,6 +525,46 @@ function buildReportHTML(data, config) {
   .note-title{font-size:8.5px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
   .note-text{font-size:9.5px;color:#334155;line-height:1.8;}
   .disclaimer{font-size:7.5px;color:#94A3B8;line-height:1.6;border-top:1px solid #F1F5F9;padding-top:8px;margin-top:8px;}
+
+  /* INTRO PAGE */
+  .intro-section{margin-bottom:20px;}
+  .intro-section-title{font-size:9px;font-weight:700;color:${colore};text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #E2E8F0;}
+  .intro-text{font-size:9.5px;color:#334155;line-height:1.85;}
+  .intro-box{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:14px 16px;margin-bottom:14px;}
+  .intro-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;}
+  .rating-scale-intro{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px;}
+  .rsi-item{border-radius:6px;padding:8px 4px;text-align:center;}
+  .rsi-letter{font-family:'Fraunces',serif;font-size:15px;font-weight:700;line-height:1;}
+  .rsi-lbl{font-size:7px;color:#64748B;margin-top:2px;}
+  .meth-row{display:flex;gap:10px;margin-bottom:10px;}
+  .meth-box{flex:1;border:1px solid #E2E8F0;border-radius:8px;padding:10px 12px;}
+  .meth-pct{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:${colore};line-height:1;margin-bottom:3px;}
+  .meth-name{font-size:9px;font-weight:700;color:#0F172A;margin-bottom:3px;}
+  .meth-desc{font-size:8px;color:#64748B;line-height:1.6;}
+  .toc-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:.5px solid #F1F5F9;font-size:9px;}
+  .toc-num{font-size:8px;font-weight:700;color:${colore};width:18px;flex-shrink:0;}
+  .toc-title{flex:1;color:#0F172A;font-weight:500;}
+  .toc-desc{font-size:8px;color:#94A3B8;text-align:right;}
+
+  /* EVOLUZIONE PAGE */
+  .evo-header{background:#0F172A;color:#fff;border-radius:8px;padding:12px 16px;margin-bottom:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .evo-h-lbl{font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;}
+  .evo-h-val{font-size:13px;font-weight:700;}
+  .evo-section{margin-bottom:16px;}
+  .evo-section-title{font-size:9px;font-weight:700;color:${colore};text-transform:uppercase;letter-spacing:.1em;padding:6px 10px;background:#F0F9FF;border-left:3px solid ${colore};border-radius:0 4px 4px 0;margin-bottom:8px;}
+  .evo-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4px;align-items:center;padding:5px 8px;border-bottom:.5px solid #F1F5F9;font-size:9px;}
+  .evo-row.head{background:#0F172A;color:#fff;font-size:8px;font-weight:700;border-radius:5px 5px 0 0;border:none;}
+  .evo-row.head div{color:rgba(255,255,255,.7);}
+  .evo-row.head div:first-child{color:#fff;}
+  .evo-row.tot{background:#F8FAFC;font-weight:700;}
+  .evo-lbl{color:#475569;}
+  .evo-val{text-align:right;font-variant-numeric:tabular-nums;}
+  .evo-delta{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;}
+  .evo-comment{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px 14px;margin-top:12px;}
+  .evo-comment-title{font-size:8.5px;font-weight:700;color:#0F172A;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
+  .evo-comment-text{font-size:9px;color:#334155;line-height:1.85;}
+  .evo-bullet{display:flex;gap:8px;margin-bottom:5px;font-size:9px;color:#334155;line-height:1.7;}
+  .evo-bullet-icon{flex-shrink:0;font-size:11px;}
 </style>
 </head>
 <body>
@@ -552,7 +592,77 @@ function buildReportHTML(data, config) {
   </div>
 </div>
 
-<!-- PAG 2: EXECUTIVE SUMMARY + GRAFICI -->
+<!-- PAG 2: INTRODUZIONE -->
+<div class="page">
+  <div class="ph">
+    <div><div class="ph-ey">Presentazione del documento</div><div class="ph-ti">Guida alla lettura del report</div></div>
+    <div class="ph-az">${nome}<br/>${anno}</div>
+  </div>
+
+  <div class="intro-section">
+    <div class="intro-section-title">Finalità del documento</div>
+    <div class="intro-box">
+      <div class="intro-text">
+        Questo report è uno strumento di analisi professionale del bilancio d'esercizio redatto secondo i principi contabili italiani (OIC). È destinato a imprenditori, soci, consulenti e istituti di credito che necessitano di una valutazione sintetica e obiettiva della situazione economico-finanziaria e patrimoniale dell'azienda.<br/><br/>
+        Il documento non sostituisce la relazione del collegio sindacale né il giudizio del revisore contabile. I dati sono elaborati esclusivamente a partire dal bilancio depositato e non includono informazioni andamentali (Centrale Rischi, estratti conto, segnalazioni), valutazioni qualitative del settore o componenti prospettiche non desumibili dal bilancio storico.
+      </div>
+    </div>
+  </div>
+
+  <div class="intro-cols">
+    <div>
+      <div class="intro-section-title">Struttura del report</div>
+      <div style="border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;">
+        ${[
+          ['1','Executive Summary','KPI chiave, rating e commento sintetico'],
+          ['2','Stato Patrimoniale','Riclassificazione attivo/passivo'+(d1?` — confronto ${anno}/${annoPrev}`:'')],
+          ['3','Conto Economico','Analisi ricavi, costi e margini'+(d1?` — confronto ${anno}/${annoPrev}`:'')],
+          ['4','Evoluzione biennale','Commento all\'evoluzione dei dati'+(d1?` ${anno} vs ${annoPrev}`:'')],
+          ['5','Indici di bilancio','Redditività, liquidità, solidità, efficienza'],
+          ['6','Bancabilità EBA','DSCR, PFN/EBITDA, ICR — Linee guida EBA/GL/2020/06'],
+          ['7','Rating sintetico','Z\'-Score Altman + Scorecard EBA + Trigger CCII'],
+        ].map(([n,t,d])=>`<div class="toc-row"><div class="toc-num">${n}</div><div class="toc-title">${t}</div><div class="toc-desc">${d}</div></div>`).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="intro-section-title">Scala di rating</div>
+      <div class="intro-box" style="padding:10px;">
+        <div class="intro-text" style="margin-bottom:8px;">Il rating sintetico di bancabilità esprime la probabilità che l'azienda ottenga finanziamenti bancari a condizioni standard, su una scala a 7 livelli:</div>
+        <div class="rating-scale-intro">
+          ${[
+            ['A+','#059669','Eccellente'],['A','#10B981','Ottima'],['B+','#3B82F6','Buona'],
+            ['B','#60A5FA','Discreta'],['C','#D97706','Sufficiente'],['D','#F97316','Limitata'],['E','#DC2626','Critica']
+          ].map(([l,col,t])=>`<div class="rsi-item" style="background:${l===rating.l?'#0F172A':'#F8FAFC'};border:1px solid ${l===rating.l?col:'#E2E8F0'}"><div class="rsi-letter" style="color:${col}">${l}</div><div class="rsi-lbl">${t}</div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro-section">
+    <div class="intro-section-title">Metodologia di calcolo del rating</div>
+    <div class="meth-row">
+      <div class="meth-box">
+        <div class="meth-pct">30%</div>
+        <div class="meth-name">Z'-Score Altman (adattato PMI Italia)</div>
+        <div class="meth-desc">Modello statistico multivariato sviluppato da Edward Altman per la previsione dell'insolvenza. La versione PMI utilizza 5 variabili di bilancio. Soglie: Z'&gt;2,9 zona sicura · 1,23–2,9 zona grigia · Z'&lt;1,23 zona insolvenza.</div>
+      </div>
+      <div class="meth-box">
+        <div class="meth-pct">70%</div>
+        <div class="meth-name">Scorecard EBA/GL/2020/06</div>
+        <div class="meth-desc">Linee guida dell'Autorità Bancaria Europea sulla concessione e il monitoraggio dei prestiti. Valuta 6 indicatori chiave (DSCR, PFN/EBITDA, Autonomia fin., Current Ratio, ROI, ICR) con soglie quantitative obbligatorie per gli istituti di credito UE.</div>
+      </div>
+      <div class="meth-box">
+        <div class="meth-pct">+</div>
+        <div class="meth-name">Trigger CCII D.Lgs. 14/2019</div>
+        <div class="meth-desc">Verifica dei segnali di allerta previsti dal Codice della Crisi d'Impresa e dell'Insolvenza. La presenza di trigger non determina il rating ma viene segnalata separatamente per consentire interventi preventivi.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 2</span></div>
+</div>
+
+<!-- PAG 3: EXECUTIVE SUMMARY + GRAFICI -->
 <div class="page">
   <div class="ph">
     <div><div class="ph-ey">Sezione 1</div><div class="ph-ti">Executive Summary</div></div>
@@ -599,10 +709,10 @@ function buildReportHTML(data, config) {
       <span class="sem-val" style="color:${color}">${val}</span>
     </div>`).join('')}
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 2</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 3</span></div>
 </div>
 
-<!-- PAG 3: STATO PATRIMONIALE -->
+<!-- PAG 4: STATO PATRIMONIALE -->
 <div class="page">
   <div class="ph">
     <div><div class="ph-ey">Sezione 2</div><div class="ph-ti">Stato Patrimoniale Riclassificato</div></div>
@@ -629,10 +739,10 @@ function buildReportHTML(data, config) {
       <tr class="tot-main"><td>TOTALE PASSIVO</td><td class="r">${fmt(d.tot_att)}</td>${d1?`<td class="r">${fmt(d1.tot_att)}</td><td></td>`:''}</tr>
     </tbody>
   </table>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 3</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 4</span></div>
 </div>
 
-<!-- PAG 4: CONTO ECONOMICO + WATERFALL -->
+<!-- PAG 5: CONTO ECONOMICO + WATERFALL -->
 <div class="page">
   <div class="ph">
     <div><div class="ph-ey">Sezione 3</div><div class="ph-ti">Conto Economico Riclassificato</div></div>
@@ -669,13 +779,151 @@ function buildReportHTML(data, config) {
       </div>
     </div>
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 4</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 5</span></div>
 </div>
 
-<!-- PAG 5: INDICI DETTAGLIATI -->
+<!-- PAG 6: EVOLUZIONE BIENNALE (solo se _prev disponibile) -->
+${d1 ? (() => {
+  const deltaRicavi = d.tot_vp - d1.tot_vp;
+  const deltaEbitda = c.ebitda - c1.ebitda;
+  const deltaUtile = (d.utile_es||0) - (d1.utile_es||0);
+  const deltaAtt = d.tot_att - d1.tot_att;
+  const deltaPn = d.tot_pn - d1.tot_pn;
+  const deltaDeb = d.tot_deb - d1.tot_deb;
+  const deltaRoe = c.roe - c1.roe;
+  const deltaRoi = c.roi - c1.roi;
+  const deltaCr = c.cr - c1.cr;
+  const deltaAut = c.aut - c1.aut;
+  const sign = (v) => v >= 0 ? '+' : '';
+  const pct = (curr, prev) => prev && prev !== 0 ? ((curr - prev) / Math.abs(prev) * 100).toFixed(1) + '%' : '—';
+  const clr = (v, inv=false) => {
+    const pos = inv ? v <= 0 : v >= 0;
+    return pos ? '#059669' : '#DC2626';
+  };
+  const arr = (v, inv=false) => {
+    const pos = inv ? v <= 0 : v >= 0;
+    return pos ? '▲' : '▼';
+  };
+
+  // Commento narrativo ricavi
+  const ricaviTrend = deltaRicavi >= 0
+    ? `Il valore della produzione è cresciuto da ${fmt(d1.tot_vp)} a ${fmt(d.tot_vp)} (+${pct(d.tot_vp,d1.tot_vp)}), segnalando un trend commerciale positivo.`
+    : `Il valore della produzione si è ridotto da ${fmt(d1.tot_vp)} a ${fmt(d.tot_vp)} (${pct(d.tot_vp,d1.tot_vp)}), riflettendo una contrazione dell'attività commerciale che merita attenzione.`;
+
+  const ebitdaTrend = deltaEbitda >= 0
+    ? `L'EBITDA è migliorato da ${fmt(c1.ebitda)} a ${fmt(c.ebitda)}, con il margine EBITDA che sale da ${fp(c1.ebitda_pct)} a ${fp(c.ebitda_pct)}: l'efficienza operativa è in crescita.`
+    : `L'EBITDA si è deteriorato da ${fmt(c1.ebitda)} a ${fmt(c.ebitda)}, con il margine che scende da ${fp(c1.ebitda_pct)} a ${fp(c.ebitda_pct)}: occorre intervenire sui costi operativi.`;
+
+  const utileTrend = deltaUtile >= 0
+    ? `Il risultato netto è migliorato (da ${fmt(d1.utile_es||0)} a ${fmt(d.utile_es||0)}), contribuendo al rafforzamento del patrimonio netto.`
+    : `Il risultato netto si è deteriorato (da ${fmt(d1.utile_es||0)} a ${fmt(d.utile_es||0)}). Se il trend si confermasse, potrebbe impattare negativamente l'autonomia finanziaria.`;
+
+  const patrimonioTrend = deltaPn >= 0
+    ? `Il patrimonio netto è cresciuto da ${fmt(d1.tot_pn)} a ${fmt(d.tot_pn)}, rafforzando la struttura patrimoniale e migliorando l'autonomia finanziaria (da ${fp(c1.aut)} a ${fp(c.aut)}).`
+    : `Il patrimonio netto si è ridotto da ${fmt(d1.tot_pn)} a ${fmt(d.tot_pn)}, con l'autonomia finanziaria che scende da ${fp(c1.aut)} a ${fp(c.aut)}${c.aut < 30 ? ' — sotto la soglia EBA del 30%' : ''}.`;
+
+  const debitoTrend = deltaDeb >= 0
+    ? `L'indebitamento complessivo è aumentato da ${fmt(d1.tot_deb)} a ${fmt(d.tot_deb)} (+${pct(d.tot_deb,d1.tot_deb)}). Verificare se il maggior debito è correlato a investimenti produttivi.`
+    : `L'indebitamento complessivo si è ridotto da ${fmt(d1.tot_deb)} a ${fmt(d.tot_deb)} (${pct(d.tot_deb,d1.tot_deb)}): la struttura finanziaria sta migliorando.`;
+
+  const liquiditaTrend = deltaCr >= 0
+    ? `La liquidità corrente è migliorata (Current Ratio da ${c1.cr.toFixed(2)}x a ${c.cr.toFixed(2)}x), segnalando una maggiore capacità di far fronte ai debiti a breve.`
+    : `La liquidità corrente si è ridotta (Current Ratio da ${c1.cr.toFixed(2)}x a ${c.cr.toFixed(2)}x)${c.cr < 1 ? ' — valore sotto 1: segnale di allerta EBA Stage 2' : ''}.`;
+
+  return `<div class="page">
+  <div class="ph">
+    <div><div class="ph-ey">Sezione 4</div><div class="ph-ti">Evoluzione Biennale — Analisi comparativa</div></div>
+    <div class="ph-az">${nome}<br/>${anno} vs ${annoPrev}</div>
+  </div>
+
+  <div class="evo-header">
+    <div>
+      <div class="evo-h-lbl">Periodo analizzato</div>
+      <div class="evo-h-val">${annoPrev} → ${anno}</div>
+    </div>
+    <div>
+      <div class="evo-h-lbl">Variazione valore produzione</div>
+      <div class="evo-h-val" style="color:${clr(deltaRicavi)}">${sign(deltaRicavi)}${pct(d.tot_vp,d1.tot_vp)}</div>
+    </div>
+    <div>
+      <div class="evo-h-lbl">Variazione EBITDA</div>
+      <div class="evo-h-val" style="color:${clr(deltaEbitda)}">${sign(deltaEbitda)}${pct(c.ebitda,c1.ebitda)}</div>
+    </div>
+  </div>
+
+  <div class="evo-section">
+    <div class="evo-section-title">Conto Economico — Indicatori chiave</div>
+    <div style="border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;">
+      <div class="evo-row head"><div>Indicatore</div><div class="evo-val">${annoPrev}</div><div class="evo-val">${anno}</div><div class="evo-delta">Var.</div></div>
+      ${[
+        ['Valore produzione', fmt(d1.tot_vp), fmt(d.tot_vp), pct(d.tot_vp,d1.tot_vp), clr(deltaRicavi), true],
+        ['Ricavi vendite', fmt(d1.ric_vend), fmt(d.ric_vend), pct(d.ric_vend,d1.ric_vend), clr(d.ric_vend-d1.ric_vend), false],
+        ['EBITDA', fmt(c1.ebitda), fmt(c.ebitda), pct(c.ebitda,c1.ebitda), clr(deltaEbitda), true],
+        ['EBITDA Margin', fp(c1.ebitda_pct), fp(c.ebitda_pct), sign(c.ebitda_pct-c1.ebitda_pct)+(c.ebitda_pct-c1.ebitda_pct).toFixed(1)+'pp', clr(c.ebitda_pct-c1.ebitda_pct), false],
+        ['EBIT', fmt(c1.ebit), fmt(c.ebit), pct(c.ebit,c1.ebit), clr(c.ebit-c1.ebit), false],
+        ['Oneri finanziari', fmt(d1.oneri_f), fmt(d.oneri_f), pct(d.oneri_f,d1.oneri_f), clr(-(d.oneri_f-d1.oneri_f)), false],
+        ['Utile / Perdita', fmt(d1.utile_es||0), fmt(d.utile_es||0), pct(d.utile_es||0,d1.utile_es||0), clr(deltaUtile), true],
+      ].map(([l,v1,v0,va,c,bold])=>`<div class="evo-row${bold?' tot':''}"><div class="evo-lbl">${l}</div><div class="evo-val">${v1}</div><div class="evo-val">${v0}</div><div class="evo-delta" style="color:${c}">${arr(parseFloat(va)||0)} ${va}</div></div>`).join('')}
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+    <div class="evo-section" style="margin-bottom:0">
+      <div class="evo-section-title">Stato Patrimoniale — Struttura</div>
+      <div style="border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;">
+        <div class="evo-row head"><div>Voce</div><div class="evo-val">${annoPrev}</div><div class="evo-val">${anno}</div><div class="evo-delta">Var.</div></div>
+        ${[
+          ['Totale Attivo', d1.tot_att, d.tot_att, true],
+          ['Patrimonio Netto', d1.tot_pn, d.tot_pn, true],
+          ['Totale Debiti', d1.tot_deb, d.tot_deb, false],
+          ['Liquidità', d1.liquidita||0, d.liquidita||0, true],
+          ['Crediti clienti', d1.cred_cl||0, d.cred_cl||0, false],
+          ['Debiti banche', (d1.deb_b_bt||0)+(d1.deb_b_lt||0), (d.deb_b_bt||0)+(d.deb_b_lt||0), false],
+        ].map(([l,v1,v0,isPos])=>`<div class="evo-row"><div class="evo-lbl">${l}</div><div class="evo-val">${fmt(v1)}</div><div class="evo-val">${fmt(v0)}</div><div class="evo-delta" style="color:${clr(v0-v1,!isPos)}">${arr(v0-v1,!isPos)} ${pct(v0,v1)}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="evo-section" style="margin-bottom:0">
+      <div class="evo-section-title">Indici chiave — Confronto</div>
+      <div style="border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;">
+        <div class="evo-row head"><div>Indice</div><div class="evo-val">${annoPrev}</div><div class="evo-val">${anno}</div><div class="evo-delta">Trend</div></div>
+        ${[
+          ['ROE', fp(c1.roe), fp(c.roe), c.roe-c1.roe, false],
+          ['ROI', fp(c1.roi), fp(c.roi), c.roi-c1.roi, false],
+          ['ROS', fp(c1.ros), fp(c.ros), c.ros-c1.ros, false],
+          ['EBITDA Margin', fp(c1.ebitda_pct), fp(c.ebitda_pct), c.ebitda_pct-c1.ebitda_pct, false],
+          ['Current Ratio', fx(c1.cr), fx(c.cr), c.cr-c1.cr, false],
+          ['Autonomia fin.', fp(c1.aut), fp(c.aut), c.aut-c1.aut, false],
+          ['Leva D/E', fx(c1.leva), fx(c.leva), -(c.leva-c1.leva), false],
+          [!isNaN(c1.dscr)&&!isNaN(c.dscr)?'DSCR':'ICR', !isNaN(c1.dscr)?fx(c1.dscr):fx(c1.icr), !isNaN(c.dscr)?fx(c.dscr):fx(c.icr), !isNaN(c.dscr)?(c.dscr-c1.dscr):(c.icr-c1.icr), false],
+        ].map(([l,v1,v0,delta])=>`<div class="evo-row"><div class="evo-lbl">${l}</div><div class="evo-val">${v1}</div><div class="evo-val">${v0}</div><div class="evo-delta" style="color:${clr(delta)}">${arr(delta)} ${isNaN(delta)?'—':(delta>=0?'+':'')+delta.toFixed(1)}</div></div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  <div class="evo-comment">
+    <div class="evo-comment-title">📝 Commento all'evoluzione — ${annoPrev} → ${anno}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div class="evo-bullet"><div class="evo-bullet-icon">${deltaRicavi>=0?'📈':'📉'}</div><div><strong>Ricavi e volume d'affari:</strong> ${ricaviTrend}</div></div>
+        <div class="evo-bullet"><div class="evo-bullet-icon">${deltaEbitda>=0?'✅':'⚠️'}</div><div><strong>Marginalità operativa:</strong> ${ebitdaTrend}</div></div>
+        <div class="evo-bullet"><div class="evo-bullet-icon">${deltaUtile>=0?'💰':'🔴'}</div><div><strong>Risultato netto:</strong> ${utileTrend}</div></div>
+      </div>
+      <div>
+        <div class="evo-bullet"><div class="evo-bullet-icon">${deltaPn>=0?'🏛️':'⚠️'}</div><div><strong>Patrimonio e solidità:</strong> ${patrimonioTrend}</div></div>
+        <div class="evo-bullet"><div class="evo-bullet-icon">${deltaDeb<=0?'✅':'⚠️'}</div><div><strong>Struttura del debito:</strong> ${debitoTrend}</div></div>
+        <div class="evo-bullet"><div class="evo-bullet-icon">${deltaCr>=0?'💧':'🔴'}</div><div><strong>Liquidità:</strong> ${liquiditaTrend}</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 6</span></div>
+</div>`;
+})() : ''}
+
+<!-- PAG 7+: INDICI DETTAGLIATI -->
 <div class="page">
   <div class="ph">
-    <div><div class="ph-ey">Sezione 4</div><div class="ph-ti">Indici di Bilancio — Redditività e Liquidità</div></div>
+    <div><div class="ph-ey">Sezione 5</div><div class="ph-ti">Indici di Bilancio — Redditività e Liquidità</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
   <div class="ind-intro">Gli <strong>indici di redditività</strong> misurano la capacità dell'azienda di generare profitto in relazione alle risorse impiegate. Sono gli indicatori più osservati da soci, investitori e banche per valutare la qualità del business e la sostenibilità nel tempo. Un'azienda redditizia non è necessariamente liquida, ma un'azienda strutturalmente in perdita non è finanziabile.</div>
@@ -744,7 +992,7 @@ function buildReportHTML(data, config) {
 <!-- PAG 6: SOLIDITÀ + EFFICIENZA -->
 <div class="page">
   <div class="ph">
-    <div><div class="ph-ey">Sezione 4 (continua)</div><div class="ph-ti">Indici di Bilancio — Solidità ed Efficienza</div></div>
+    <div><div class="ph-ey">Sezione 5 (continua)</div><div class="ph-ti">Indici di Bilancio — Solidità ed Efficienza</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
   <div class="ind-intro">Gli <strong>indici di solidità patrimoniale</strong> misurano la stabilità strutturale dell'azienda nel lungo periodo e la sua capacità di assorbire perdite o shock economici. Sono determinanti per le banche nella valutazione del merito creditizio secondo le Linee Guida EBA: un'azienda con bassa autonomia finanziaria è considerata ad alto rischio sistemico.</div>
@@ -812,7 +1060,7 @@ function buildReportHTML(data, config) {
 <!-- PAG 7: BANCABILITÀ EBA -->
 <div class="page">
   <div class="ph">
-    <div><div class="ph-ey">Sezione 5</div><div class="ph-ti">Analisi Bancabilità EBA/GL/2020/06</div></div>
+    <div><div class="ph-ey">Sezione 6</div><div class="ph-ti">Analisi Bancabilità EBA/GL/2020/06</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
   <div class="banc-intro">Le <strong>Linee Guida EBA/GL/2020/06</strong> (in vigore dal 30/06/2021) obbligano gli istituti bancari europei a valutare il merito creditizio tramite indicatori standardizzati. Il superamento delle soglie critiche classifica l'impresa in <strong>Stage 2</strong> (watch list) con impatto diretto su tassi, garanzie e accesso al credito.</div>
@@ -840,7 +1088,7 @@ ${hasRF ? `
 <!-- PAG 8: RENDICONTO -->
 <div class="page">
   <div class="ph">
-    <div><div class="ph-ey">Sezione 6</div><div class="ph-ti">Rendiconto Finanziario</div></div>
+    <div><div class="ph-ey">Sezione 7</div><div class="ph-ti">Rendiconto Finanziario</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
   <div class="rf-box">
