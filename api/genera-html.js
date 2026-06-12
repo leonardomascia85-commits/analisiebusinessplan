@@ -668,6 +668,7 @@ function buildReportHTML(data, config) {
     <div><div class="ph-ey">Sezione 1</div><div class="ph-ti">Executive Summary</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
+  <div class="banc-intro">L'<strong>Executive Summary</strong> offre una visione immediata della situazione economico-finanziaria dell'azienda attraverso gli indicatori chiave. I KPI nella riga superiore rappresentano i valori assoluti di conto economico e stato patrimoniale; il rating sintetico e il radar finanziario restituiscono il posizionamento complessivo dell'azienda rispetto alle soglie bancarie e di mercato. Il semaforo degli indici consente di identificare in un colpo d'occhio le aree di forza e le criticità su cui intervenire.</div>
   <div class="kpi-row">
     <div class="kpi-box"><div class="kpi-lbl">Valore produzione</div><div class="kpi-val neu">${fmt(d.tot_vp)}</div></div>
     <div class="kpi-box"><div class="kpi-lbl">EBITDA</div><div class="kpi-val ${c.ebitda>=0?'pos':'neg'}">${fmt(c.ebitda)}</div></div>
@@ -718,6 +719,7 @@ function buildReportHTML(data, config) {
     <div><div class="ph-ey">Sezione 2</div><div class="ph-ti">Stato Patrimoniale Riclassificato</div></div>
     <div class="ph-az">${nome}<br/>${anno}${d1?` vs ${annoPrev}`:''}</div>
   </div>
+  <div class="banc-intro">Lo <strong>Stato Patrimoniale riclassificato</strong> riorganizza le voci di bilancio secondo criteri funzionali — liquidità crescente per l'attivo, esigibilità crescente per il passivo — rendendo immediata la lettura della struttura finanziaria. La separazione tra attivo immobilizzato e circolante consente di valutare il grado di rigidità degli impieghi; la distinzione tra patrimonio netto, debiti a lungo e debiti a breve evidenzia le fonti di finanziamento e il loro equilibrio temporale.${d1?` Il confronto con l'esercizio ${annoPrev} permette di rilevare le variazioni strutturali intervenute nel periodo.`:''}</div>
   <table>
     <thead><tr><th>Voce</th><th class="r">${anno}</th>${d1?`<th class="r">${annoPrev}</th><th class="r">Var%</th>`:''}</tr></thead>
     <tbody>
@@ -748,6 +750,7 @@ function buildReportHTML(data, config) {
     <div><div class="ph-ey">Sezione 3</div><div class="ph-ti">Conto Economico Riclassificato</div></div>
     <div class="ph-az">${nome}<br/>${anno}${d1?` vs ${annoPrev}`:''}</div>
   </div>
+  <div class="banc-intro">Il <strong>Conto Economico riclassificato</strong> espone i risultati economici dell'esercizio secondo uno schema che mette in evidenza i margini intermedi: dal Valore della Produzione si sottraggono progressivamente i costi operativi per arrivare all'<strong>EBITDA</strong> (margine operativo lordo, indicatore chiave per le banche), poi all'EBIT, al risultato ante imposte e infine all'utile netto. Il grafico a cascata (waterfall) rende visibile il peso relativo di ogni componente di costo sul risultato finale.${d1?` La variazione percentuale rispetto al ${annoPrev} segnala le voci con maggiore impatto sull'evoluzione della redditività.`:''}</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
     <table style="margin-bottom:0;">
       <thead><tr><th>Voce</th><th class="r">${anno}</th>${d1?`<th class="r">Var%</th>`:''}</tr></thead>
@@ -835,6 +838,7 @@ ${d1 ? (() => {
     <div><div class="ph-ey">Sezione 4</div><div class="ph-ti">Evoluzione Biennale — Analisi comparativa</div></div>
     <div class="ph-az">${nome}<br/>${anno} vs ${annoPrev}</div>
   </div>
+  <div class="banc-intro">L'<strong>analisi dell'evoluzione biennale</strong> mette a confronto i principali indicatori economici, patrimoniali e finanziari dei due esercizi analizzati, quantificando le variazioni in valore assoluto e percentuale. L'obiettivo è identificare trend positivi da consolidare e aree di deterioramento su cui intervenire. Il commento narrativo interpreta i dati in linguaggio accessibile, evidenziando le implicazioni pratiche di ogni variazione per la gestione aziendale e la bancabilità futura.</div>
 
   <div class="evo-header">
     <div>
@@ -1091,6 +1095,7 @@ ${hasRF ? `
     <div><div class="ph-ey">Sezione 7</div><div class="ph-ti">Rendiconto Finanziario</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
+  <div class="banc-intro">Il <strong>Rendiconto Finanziario</strong> mostra i flussi di cassa reali generati o assorbiti dall'azienda nel corso dell'esercizio, distinti per area: attività operativa (il motore del business), attività di investimento (immobilizzazioni acquistate o dismesse) e attività di finanziamento (nuovi debiti, rimborsi, apporti di capitale). A differenza del Conto Economico — che segue il principio di competenza — il rendiconto risponde alla domanda fondamentale: <em>quanta cassa ha prodotto l'azienda?</em> Il <strong>Free Cash Flow operativo</strong> è l'indicatore preferito dalle banche per calcolare il DSCR e valutare la sostenibilità del debito nel lungo periodo.</div>
   <div class="rf-box">
     <div class="rf-title">A) Flussi da attività operativa</div>
     <div class="rf-row"><span class="rf-lbl">Utile/perdita esercizio</span><span class="${(d.rf_utile||d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.rf_utile||d.utile_es)}</span></div>
@@ -1124,6 +1129,7 @@ ${hasRF ? `
     <div><div class="ph-ey">Sezione ${hasRF?'7':'6'}</div><div class="ph-ti">Rating Sintetico di Bancabilità</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
+  <div class="banc-intro">Il <strong>Rating Sintetico di Bancabilità</strong> rappresenta la valutazione complessiva del profilo finanziario dell'azienda su una scala da <strong>A+</strong> (Eccellente) a <strong>E</strong> (Critico). È calcolato combinando il modello statistico <strong>Z'-Score di Altman</strong> (30% del peso), calibrato per le PMI italiane, con la <strong>Scorecard EBA/GL/2020/06</strong> (70% del peso), che replica i criteri obbligatori adottati dalle banche europee per la concessione del credito. Vengono inoltre verificati i <strong>trigger del Codice della Crisi d'Impresa</strong> (D.Lgs. 14/2019), la cui attivazione non modifica il rating ma costituisce un segnale di allerta da gestire con priorità.</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px;">
     <div>
       <div class="rating-center">
