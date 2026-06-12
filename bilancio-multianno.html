@@ -1032,7 +1032,7 @@ async function generaReport(){
   btn.textContent = 'Generazione in corso...';
 
   try {
-    const res = await fetch('/api/genera-pdf', {
+    const res = await fetch('/api/genera-html', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payload),
@@ -1041,14 +1041,12 @@ async function generaReport(){
       const err = await res.json().catch(()=>({error:'Errore sconosciuto'}));
       throw new Error(err.error || 'Errore API');
     }
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    const nome = (payload.config.nome||'Report').replace(/[^a-zA-Z0-9]/g,'-');
-    a.download = `Analisi-Bilancio-${nome}-${payload.config.anno}.pdf`;
-    a.click();
-    URL.revokeObjectURL(url);
+    const html = await res.text();
+    const win = window.open('', '_blank');
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    setTimeout(() => { win.print(); }, 800);
   } catch(err) {
     alert('Errore generazione PDF: ' + err.message);
   } finally {
