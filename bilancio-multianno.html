@@ -1129,6 +1129,9 @@ setInterval(()=>{
     if(compBtn)compBtn.disabled=filled.filter(f=>f).length<2;
     document.getElementById(`fyt-${y}`)?.classList.toggle('filled',filled[y]);
   });
+  // Mostra ycard-2 solo se anno 1 ha dati
+  const ycard2=document.getElementById('ycard-2');
+  if(ycard2)ycard2.style.display=filled[1]?'':'none';
   if(filled[0]){
     document.getElementById('ystatus-0').textContent='✓ Dati inseriti';
     document.getElementById('ystatus-0').className='yc-status ok';
