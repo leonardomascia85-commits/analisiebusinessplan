@@ -907,6 +907,37 @@ ${hasRF ? `
         ${rating.triggers.length===0?'<div style="font-size:8.5px;color:#059669;">Nessuno dei 7 indicatori di allerta del Codice della Crisi risulta attivo.</div>':rating.triggers.map(t=>`<div class="trigger-item">⚠ ${t}</div>`).join('')}
       </div>
       <div class="chart-box">
+        <div class="chart-title">Radar — Profilo Finanziario Complessivo</div>
+        ${svgRadar(rating.radarScores)}
+      </div>
+    </div>
+  </div>
+  <div class="score-table">
+    <div class="score-grid">
+      <div>Indicatore EBA</div><div>Valore</div><div>Soglia</div><div>Giudizio</div><div>Score</div>
+    </div>
+    ${rating.ebaDetails.map((e,i)=>`
+    <div class="score-row${i%2===0?' hi':''}">
+      <div>${e.nome}</div>
+      <div>${isNaN(e.val)||!isFinite(e.val)?'n.d.':e.g<10&&e.g>-10?fx(e.val):fp(e.val)}</div>
+      <div>${e.higher?'≥':'≤'} ${e.g}${e.g<10?'x':'%'}</div>
+      <div style="color:${e.colore};font-weight:700;">${e.giudizio}</div>
+      <div style="color:${e.colore};font-weight:700;">${e.punti}/${e.peso*2}</div>
+    </div>`).join('')}
+    <div class="score-row" style="background:#F0F9FF;">
+      <div style="font-weight:700;color:#0369A1;">Totale scorecard EBA (peso 70%)</div>
+      <div></div><div></div>
+      <div style="font-weight:700;color:#0369A1;">${(rating.pctEBA*100).toFixed(0)}%</div>
+      <div style="font-weight:700;color:#0369A1;">${rating.scoreEBA}/${rating.maxEBA}</div>
+    </div>
+  </div>
+  ${note?`<div class="note-box"><div class="note-title">Note analista</div><div class="note-text">${note}</div></div>`:''}
+  <div class="disclaimer">Report generato da AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + verifica trigger CCII (D.Lgs. 14/2019) · Generato il ${dataReport} · Basato esclusivamente su dati di bilancio (non include componente andamentale Centrale Rischi).</div>
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Ultima pagina</span></div>
+</div>
+
+</body></html>`;
+}
 
 module.exports = function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -917,7 +948,6 @@ module.exports = function handler(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.status(200).send(html);
   } catch (error) {
-    res.status(500).json({ error: 'Errore generazione HTML: ' + error.stack || error.message });
+    res.status(500).json({ error: String(error.message || error) });
   }
 };
-module.exports.config = { maxDuration: 30 };
