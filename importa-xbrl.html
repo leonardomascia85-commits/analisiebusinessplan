@@ -179,26 +179,6 @@
     </div>
   </div>
 
-  <div class="anno-box" id="anno-box">
-    <div class="anno-title">A quale anno si riferisce questo bilancio?</div>
-    <div class="anno-sub">Seleziona la posizione nell'analisi comparativa.</div>
-    <div class="anno-grid">
-      <div class="anno-card sel" id="as-0" onclick="selectAnno(0)">
-        <div class="anno-year">2024</div><div class="anno-ctx">Anno corrente *</div>
-      </div>
-      <div class="anno-card" id="as-1" onclick="selectAnno(1)">
-        <div class="anno-year">2023</div><div class="anno-ctx">Anno precedente</div>
-      </div>
-      <div class="anno-card" id="as-2" onclick="selectAnno(2)">
-        <div class="anno-year">2022</div><div class="anno-ctx">Anno precedente -2</div>
-      </div>
-    </div>
-    <div class="anno-actions">
-      <button class="btn-secondary" onclick="document.getElementById('anno-box').classList.remove('show')">Annulla</button>
-      <button class="btn-primary" onclick="startParsing()">Estrai dati →</button>
-    </div>
-  </div>
-
   <div class="progress-box" id="progress-box">
     <div class="pb-header">
       <div class="pb-spinner" id="pb-spinner"></div>
@@ -286,7 +266,7 @@
     se('fl-'+type+'-size',(file.size/1024).toFixed(0)+' KB');
     fl?.classList.add('show');
     document.getElementById('drop-'+type)?.classList.add('active');
-    document.getElementById('anno-box').classList.add('show');
+    startParsing();
   }
   function removeFile(type){
     currentFile=null;currentFileType=null;
