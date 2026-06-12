@@ -1038,8 +1038,10 @@ async function generaReport(){
       body: JSON.stringify(payload),
     });
     if (!res.ok) {
-      const err = await res.json().catch(()=>({error:'Errore sconosciuto'}));
-      throw new Error(err.error || 'Errore API');
+      const rawText = await res.text().catch(()=>'');
+      let errMsg = `HTTP ${res.status}`;
+      try { errMsg += ': ' + JSON.parse(rawText).error; } catch(e) { if(rawText) errMsg += ': ' + rawText.substring(0,200); }
+      throw new Error(errMsg);
     }
     const html = await res.text();
     const win = window.open('', '_blank');
