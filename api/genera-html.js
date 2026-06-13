@@ -724,21 +724,21 @@ function buildReportHTML(data, config) {
     <thead><tr><th>Voce</th><th class="r">${anno}</th>${d1?`<th class="r">${annoPrev}</th><th class="r">Var%</th>`:''}</tr></thead>
     <tbody>
       <tr class="tot"><td>B) Immobilizzazioni</td><td class="r">${fmt(d.tot_imm)}</td>${d1?`<td class="r">${fmt(d1.tot_imm)}</td><td class="r ${varCls(d.tot_imm,d1.tot_imm)}">${varPct(d.tot_imm,d1.tot_imm)}</td>`:''}</tr>
-      <tr class="sub"><td>Immobilizzazioni immateriali</td><td class="r">${fmt(d.imm_imm)}</td>${d1?`<td class="r">${fmt(d1.imm_imm)}</td><td></td>`:''}</tr>
-      <tr class="sub"><td>Immobilizzazioni materiali</td><td class="r">${fmt(d.imm_mat)}</td>${d1?`<td class="r">${fmt(d1.imm_mat)}</td><td></td>`:''}</tr>
-      <tr class="sub"><td>Immobilizzazioni finanziarie</td><td class="r">${fmt(d.imm_fin)}</td>${d1?`<td class="r">${fmt(d1.imm_fin)}</td><td></td>`:''}</tr>
+      <tr class="sub"><td>Immobilizzazioni immateriali</td><td class="r">${fmt(d.imm_imm)}</td>${d1?`<td class="r">${fmt(d1.imm_imm)}</td><td class="r ${varCls(d.imm_imm,d1.imm_imm)}">${varPct(d.imm_imm,d1.imm_imm)}</td>`:''}</tr>
+      <tr class="sub"><td>Immobilizzazioni materiali</td><td class="r">${fmt(d.imm_mat)}</td>${d1?`<td class="r">${fmt(d1.imm_mat)}</td><td class="r ${varCls(d.imm_mat,d1.imm_mat)}">${varPct(d.imm_mat,d1.imm_mat)}</td>`:''}</tr>
+      <tr class="sub"><td>Immobilizzazioni finanziarie</td><td class="r">${fmt(d.imm_fin)}</td>${d1?`<td class="r">${fmt(d1.imm_fin)}</td><td class="r ${varCls(d.imm_fin,d1.imm_fin)}">${varPct(d.imm_fin,d1.imm_fin)}</td>`:''}</tr>
       <tr class="tot"><td>C) Attivo circolante</td><td class="r">${fmt(d.tot_circ)}</td>${d1?`<td class="r">${fmt(d1.tot_circ)}</td><td class="r ${varCls(d.tot_circ,d1.tot_circ)}">${varPct(d.tot_circ,d1.tot_circ)}</td>`:''}</tr>
-      <tr class="sub"><td>Rimanenze</td><td class="r">${fmt(d.rimanenze)}</td>${d1?`<td class="r">${fmt(d1.rimanenze)}</td><td></td>`:''}</tr>
-      <tr class="sub"><td>Crediti verso clienti</td><td class="r">${fmt(d.cred_cl)}</td>${d1?`<td class="r">${fmt(d1.cred_cl)}</td><td></td>`:''}</tr>
-      <tr class="sub"><td>Disponibilità liquide</td><td class="r">${fmt(d.liquidita)}</td>${d1?`<td class="r">${fmt(d1.liquidita)}</td><td></td>`:''}</tr>
+      <tr class="sub"><td>Rimanenze</td><td class="r">${fmt(d.rimanenze)}</td>${d1?`<td class="r">${fmt(d1.rimanenze)}</td><td class="r ${varCls(d.rimanenze,d1.rimanenze)}">${varPct(d.rimanenze,d1.rimanenze)}</td>`:''}</tr>
+      <tr class="sub"><td>Crediti verso clienti</td><td class="r">${fmt(d.cred_cl)}</td>${d1?`<td class="r">${fmt(d1.cred_cl)}</td><td class="r ${varCls(d.cred_cl,d1.cred_cl)}">${varPct(d.cred_cl,d1.cred_cl)}</td>`:''}</tr>
+      <tr class="sub"><td>Disponibilità liquide</td><td class="r">${fmt(d.liquidita)}</td>${d1?`<td class="r">${fmt(d1.liquidita)}</td><td class="r ${varCls(d.liquidita,d1.liquidita)}">${varPct(d.liquidita,d1.liquidita)}</td>`:''}</tr>
       <tr class="tot-main"><td>TOTALE ATTIVO</td><td class="r">${fmt(d.tot_att)}</td>${d1?`<td class="r">${fmt(d1.tot_att)}</td><td class="r ${varCls(d.tot_att,d1.tot_att)}">${varPct(d.tot_att,d1.tot_att)}</td>`:''}</tr>
       <tr class="tot"><td>A) Patrimonio netto</td><td class="r">${fmt(d.tot_pn)}</td>${d1?`<td class="r">${fmt(d1.tot_pn)}</td><td class="r ${varCls(d.tot_pn,d1.tot_pn)}">${varPct(d.tot_pn,d1.tot_pn)}</td>`:''}</tr>
-      <tr class="sub"><td>Capitale sociale</td><td class="r">${fmt(d.cap_sociale)}</td>${d1?`<td class="r">${fmt(d1.cap_sociale)}</td><td></td>`:''}</tr>
-      <tr class="sub"><td>Utile / Perdita esercizio</td><td class="r ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</td>${d1?`<td class="r">${fmt(d1.utile_es)}</td><td></td>`:''}</tr>
+      <tr class="sub"><td>Capitale sociale</td><td class="r">${fmt(d.cap_sociale)}</td>${d1?`<td class="r">${fmt(d1.cap_sociale)}</td><td class="r ${varCls(d.cap_sociale,d1.cap_sociale)}">${varPct(d.cap_sociale,d1.cap_sociale)}</td>`:''}</tr>
+      <tr class="sub"><td>Utile / Perdita esercizio</td><td class="r ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</td>${d1?`<td class="r">${fmt(d1.utile_es)}</td><td class="r ${varCls(d.utile_es,d1.utile_es)}">${varPct(d.utile_es,d1.utile_es)}</td>`:''}</tr>
       <tr class="tot"><td>D) Debiti totali</td><td class="r">${fmt(d.tot_deb)}</td>${d1?`<td class="r">${fmt(d1.tot_deb)}</td><td class="r ${varCls(d.tot_deb,d1.tot_deb,true)}">${varPct(d.tot_deb,d1.tot_deb)}</td>`:''}</tr>
-      <tr class="sub"><td>Debiti verso banche (bt+lt)</td><td class="r">${fmt((d.deb_b_bt||0)+(d.deb_b_lt||0))}</td>${d1?`<td class="r">${fmt((d1.deb_b_bt||0)+(d1.deb_b_lt||0))}</td><td></td>`:''}</tr>
-      <tr class="sub"><td>Debiti verso fornitori</td><td class="r">${fmt(d.deb_for)}</td>${d1?`<td class="r">${fmt(d1.deb_for)}</td><td></td>`:''}</tr>
-      <tr class="tot-main"><td>TOTALE PASSIVO</td><td class="r">${fmt(d.tot_att)}</td>${d1?`<td class="r">${fmt(d1.tot_att)}</td><td></td>`:''}</tr>
+      <tr class="sub"><td>Debiti verso banche (bt+lt)</td><td class="r">${fmt((d.deb_b_bt||0)+(d.deb_b_lt||0))}</td>${d1?`<td class="r">${fmt((d1.deb_b_bt||0)+(d1.deb_b_lt||0))}</td><td class="r ${varCls((d.deb_b_bt||0)+(d.deb_b_lt||0),(d1.deb_b_bt||0)+(d1.deb_b_lt||0),true)}">${varPct((d.deb_b_bt||0)+(d.deb_b_lt||0),(d1.deb_b_bt||0)+(d1.deb_b_lt||0))}</td>`:''}</tr>
+      <tr class="sub"><td>Debiti verso fornitori</td><td class="r">${fmt(d.deb_for)}</td>${d1?`<td class="r">${fmt(d1.deb_for)}</td><td class="r ${varCls(d.deb_for,d1.deb_for,true)}">${varPct(d.deb_for,d1.deb_for)}</td>`:''}</tr>
+      <tr class="tot-main"><td>TOTALE PASSIVO</td><td class="r">${fmt(d.tot_att)}</td>${d1?`<td class="r">${fmt(d1.tot_att)}</td><td class="r ${varCls(d.tot_att,d1.tot_att)}">${varPct(d.tot_att,d1.tot_att)}</td>`:''}</tr>
     </tbody>
   </table>
   <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 4</span></div>
@@ -757,17 +757,17 @@ function buildReportHTML(data, config) {
       <tbody>
         <tr class="tot"><td>A) Valore produzione</td><td class="r">${fmt(d.tot_vp)}</td>${d1?`<td class="r ${varCls(d.tot_vp,d1.tot_vp)}">${varPct(d.tot_vp,d1.tot_vp)}</td>`:''}</tr>
         <tr class="sub"><td>Ricavi delle vendite</td><td class="r">${fmt(d.ric_vend)}</td>${d1?`<td class="r ${varCls(d.ric_vend,d1.ric_vend)}">${varPct(d.ric_vend,d1.ric_vend)}</td>`:''}</tr>
-        <tr class="sub"><td>Altri ricavi</td><td class="r">${fmt(d.alt_ric)}</td>${d1?`<td class="r"></td>`:''}</tr>
+        <tr class="sub"><td>Altri ricavi</td><td class="r">${fmt(d.alt_ric)}</td>${d1?`<td class="r ${varCls(d.alt_ric,d1.alt_ric)}">${varPct(d.alt_ric,d1.alt_ric)}</td>`:''}</tr>
         <tr class="tot"><td>B) Costi produzione</td><td class="r">${fmt(d.tot_cos)}</td>${d1?`<td class="r ${varCls(d.tot_cos,d1.tot_cos,true)}">${varPct(d.tot_cos,d1.tot_cos)}</td>`:''}</tr>
-        <tr class="sub"><td>Materie prime</td><td class="r">${fmt(d.mat_prime)}</td>${d1?`<td class="r"></td>`:''}</tr>
-        <tr class="sub"><td>Servizi</td><td class="r">${fmt(d.servizi)}</td>${d1?`<td class="r"></td>`:''}</tr>
-        <tr class="sub"><td>Personale</td><td class="r">${fmt(d.personale)}</td>${d1?`<td class="r"></td>`:''}</tr>
-        <tr class="sub"><td>Ammortamenti</td><td class="r">${fmt(d.ammort)}</td>${d1?`<td class="r"></td>`:''}</tr>
+        <tr class="sub"><td>Materie prime</td><td class="r">${fmt(d.mat_prime)}</td>${d1?`<td class="r ${varCls(d.mat_prime,d1.mat_prime,true)}">${varPct(d.mat_prime,d1.mat_prime)}</td>`:''}</tr>
+        <tr class="sub"><td>Servizi</td><td class="r">${fmt(d.servizi)}</td>${d1?`<td class="r ${varCls(d.servizi,d1.servizi,true)}">${varPct(d.servizi,d1.servizi)}</td>`:''}</tr>
+        <tr class="sub"><td>Personale</td><td class="r">${fmt(d.personale)}</td>${d1?`<td class="r ${varCls(d.personale,d1.personale,true)}">${varPct(d.personale,d1.personale)}</td>`:''}</tr>
+        <tr class="sub"><td>Ammortamenti</td><td class="r">${fmt(d.ammort)}</td>${d1?`<td class="r ${varCls(d.ammort,d1.ammort,true)}">${varPct(d.ammort,d1.ammort)}</td>`:''}</tr>
         <tr class="ebitda-row"><td><strong>EBITDA</strong></td><td class="r">${fmt(c.ebitda)}</td>${d1?`<td class="r ${varCls(c.ebitda,c1.ebitda)}">${varPct(c.ebitda,c1.ebitda)}</td>`:''}</tr>
-        <tr class="sub"><td>EBITDA margin</td><td class="r">${fp(c.ebitda_pct)}</td>${d1?`<td class="r"></td>`:''}</tr>
-        <tr><td>EBIT</td><td class="r ${c.ebit>=0?'pos':'neg'}">${fmt(c.ebit)}</td>${d1?`<td class="r"></td>`:''}</tr>
-        <tr><td>Oneri finanziari</td><td class="r neg">−${fmt(d.oneri_f)}</td>${d1?`<td class="r"></td>`:''}</tr>
-        <tr><td>Imposte</td><td class="r neg">−${fmt(d.imposte)}</td>${d1?`<td class="r"></td>`:''}</tr>
+        <tr class="sub"><td>EBITDA margin</td><td class="r">${fp(c.ebitda_pct)}</td>${d1?`<td class="r ${c.ebitda_pct>=c1.ebitda_pct?'pos':'neg'}">${((c.ebitda_pct-c1.ebitda_pct)>=0?'+':'')+((c.ebitda_pct-c1.ebitda_pct).toFixed(1))}pp</td>`:''}</tr>
+        <tr><td>EBIT</td><td class="r ${c.ebit>=0?'pos':'neg'}">${fmt(c.ebit)}</td>${d1?`<td class="r ${varCls(c.ebit,c1.ebit)}">${varPct(c.ebit,c1.ebit)}</td>`:''}</tr>
+        <tr><td>Oneri finanziari</td><td class="r neg">−${fmt(d.oneri_f)}</td>${d1?`<td class="r ${varCls(d.oneri_f,d1.oneri_f,true)}">${varPct(d.oneri_f,d1.oneri_f)}</td>`:''}</tr>
+        <tr><td>Imposte</td><td class="r neg">−${fmt(d.imposte)}</td>${d1?`<td class="r ${varCls(d.imposte,d1.imposte,true)}">${varPct(d.imposte,d1.imposte)}</td>`:''}</tr>
         <tr class="tot-main"><td>UTILE / PERDITA</td><td class="r ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</td>${d1?`<td class="r ${varCls(d.utile_es,d1.utile_es)}">${varPct(d.utile_es,d1.utile_es)}</td>`:''}</tr>
       </tbody>
     </table>
