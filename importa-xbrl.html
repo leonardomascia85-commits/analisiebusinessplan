@@ -408,16 +408,21 @@
     // Estrae numero italiano (es. 1.234.567 o 1.234.567,00)
     const num=s=>{if(!s)return 0;const c=s.replace(/\./g,'').replace(',','.');return parseFloat(c)||0;};
 
-    // Cerca il valore dopo una label
+    // Cerca il valore dopo una label — ammette fino a 100 caratteri non-numerici tra label e numero
     const find=(patterns,txt=t)=>{
       for(const p of patterns){
-        const re=new RegExp(p+'[\\s:]*([\\-\\(]?[\\d]{1,3}(?:[\\.,\\d]{0,})[\\d])','i');
-        const m=txt.match(re);
-        if(m){
-          let raw=m[1].replace(/^\(/,'').replace(/\)$/,'');
-          const neg=m[1].startsWith('(');
-          const v=num(raw);
-          return neg?-v:v;
+        // Prima prova: numero direttamente vicino al label (max 20 char intermedi)
+        const re1=new RegExp(p+'[^\\d\\-\\(]{0,20}([\\-\\(]?\\d{1,3}(?:[\\.]\\d{3})*(?:,\\d{1,2})?)','i');
+        // Seconda prova: numero più lontano (fino a 100 char, no altre cifre in mezzo)
+        const re2=new RegExp(p+'[^\\d\\-\\(]{0,100}([\\-\\(]?\\d{1,3}(?:[\\.]\\d{3})*(?:,\\d{1,2})?)','i');
+        for(const re of[re1,re2]){
+          const m=txt.match(re);
+          if(m){
+            let raw=m[1].replace(/^\(/,'').replace(/\)$/,'');
+            const neg=m[1].startsWith('(');
+            const v=num(raw);
+            if(v!==0)return neg?-v:v;
+          }
         }
       }
       return 0;
@@ -496,19 +501,20 @@
     const tot_deb=find(['totale debiti(?! v)']);
 
     // Conto Economico
-    const ric_vend=find(['ricavi.*vendite.*prestazioni','ricavi delle vendite']);
-    const alt_ric=find(['altri ricavi e proventi','altri ricavi']);
-    const tot_vp=find(['totale valore.*produzione','valore della produzione','totale ricavi']);
-    const mat_prime=find(['materie prime.*sussidiarie','materie prime e sussid','acquisti di materie']);
-    const servizi=find(['costi per servizi','per servizi','servizi']);
-    const godimento=find(['godimento.*beni.*terzi','locazioni e noleggi']);
-    const personale=find(['totale.*costo.*personale','costi.*personale','spese.*personale']);
-    const ammort=find(['totale ammortamenti','ammortamenti e svalutazioni','ammortamenti']);
-    const oneri_div=find(['oneri diversi di gestione']);
-    const tot_cos=find(['totale costi.*produzione','costi della produzione']);
-    const oneri_f=find(['totale interessi.*oneri','oneri finanziari','interessi passivi']);
-    const imposte=find(['imposte.*reddito.*esercizio','imposte sul reddito','ires.*irap']);
-    const utile_n=find(['utile.*perdita.*esercizio','risultato.*esercizio']);
+    const ric_vend=find(['ricavi.*vendite.*prestazioni','ricavi delle vendite','A1\\)','A1 \\)']);
+    const alt_ric=find(['altri ricavi e proventi','A5\\)','altri ricavi']);
+    const tot_vp=find(['totale valore.*produzione','valore della produzione','totale.*produzione\\)','A\\).*valore']);
+    const mat_prime=find(['B6\\)','materie prime.*sussidiarie','materie prime.*consumo','acquisti di materie','materie prime e']);
+    const servizi=find(['B7\\)','costi per servizi','per prestazioni di servizi']);
+    const godimento=find(['B8\\)','godimento.*beni.*terzi','locazioni e noleggi']);
+    // Personale: cerca "totale" prima per evitare di prendere n° dipendenti
+    const personale=find(['totale costo del lavoro','totale.*personale(?!.*\\.?\\d{1,2}\\b)','B9\\).*costo del lavoro','spese per.*personale','costo del lavoro']);
+    const ammort=find(['totale ammortamenti','B10\\)','ammortamenti e svalutazioni','ammortamenti']);
+    const oneri_div=find(['B14\\)','oneri diversi di gestione']);
+    const tot_cos=find(['totale costi.*produzione','B\\).*costi della produzione','costi della produzione']);
+    const oneri_f=find(['C17\\)','totale interessi.*oneri','oneri e proventi finanziari','interessi e oneri','oneri finanziari','interessi passivi']);
+    const imposte=find(['20\\)','imposte.*reddito.*esercizio','imposte sul reddito','ires.*irap']);
+    const utile_n=find(['21\\)','utile.*perdita.*esercizio','risultato.*esercizio']);
 
     return{
       nome,piva,forma,_annoEsercizio,

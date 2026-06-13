@@ -781,8 +781,8 @@ function buildReportHTML(data, config) {
         <tr class="ebitda-row"><td><strong>EBITDA</strong></td><td class="r">${fmt(c.ebitda)}</td>${d1?`<td class="r ${varCls(c.ebitda,c1.ebitda)}">${varPct(c.ebitda,c1.ebitda)}</td>`:''}</tr>
         <tr class="sub"><td>EBITDA margin</td><td class="r">${fp(c.ebitda_pct)}</td>${d1?`<td class="r ${c.ebitda_pct>=c1.ebitda_pct?'pos':'neg'}">${((c.ebitda_pct-c1.ebitda_pct)>=0?'+':'')+((c.ebitda_pct-c1.ebitda_pct).toFixed(1))}pp</td>`:''}</tr>
         <tr><td>EBIT</td><td class="r ${c.ebit>=0?'pos':'neg'}">${fmt(c.ebit)}</td>${d1?`<td class="r ${varCls(c.ebit,c1.ebit)}">${varPct(c.ebit,c1.ebit)}</td>`:''}</tr>
-        <tr><td>Oneri finanziari</td><td class="r neg">−${fmt(d.oneri_f)}</td>${d1?`<td class="r ${varCls(d.oneri_f,d1.oneri_f,true)}">${varPct(d.oneri_f,d1.oneri_f)}</td>`:''}</tr>
-        <tr><td>Imposte</td><td class="r neg">−${fmt(d.imposte)}</td>${d1?`<td class="r ${varCls(d.imposte,d1.imposte,true)}">${varPct(d.imposte,d1.imposte)}</td>`:''}</tr>
+        <tr><td>Oneri finanziari</td><td class="r neg">−${fmt(Math.abs(d.oneri_f||0))}</td>${d1?`<td class="r ${varCls(d.oneri_f,d1.oneri_f,true)}">${varPct(d.oneri_f,d1.oneri_f)}</td>`:''}</tr>
+        <tr><td>Imposte</td><td class="r neg">−${fmt(Math.abs(d.imposte||0))}</td>${d1?`<td class="r ${varCls(d.imposte,d1.imposte,true)}">${varPct(d.imposte,d1.imposte)}</td>`:''}</tr>
         <tr class="tot-main"><td>UTILE / PERDITA</td><td class="r ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</td>${d1?`<td class="r ${varCls(d.utile_es,d1.utile_es)}">${varPct(d.utile_es,d1.utile_es)}</td>`:''}</tr>
       </tbody>
     </table>
