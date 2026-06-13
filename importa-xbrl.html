@@ -384,7 +384,18 @@
     for(let i=1;i<=pdf.numPages;i++){
       const page=await pdf.getPage(i);
       const tc=await page.getTextContent();
-      text+=tc.items.map(it=>it.str).join(' ')+'\n';
+      // Ricostruisce righe usando coordinata Y (ogni cambio Y = nuova riga)
+      let lastY=null;
+      for(const item of tc.items){
+        const y=item.transform?Math.round(item.transform[5]):null;
+        if(lastY!==null&&y!==null&&Math.abs(y-lastY)>3){
+          text+='\n';
+        }
+        text+=(item.str||'');
+        if(item.str&&!item.str.endsWith(' '))text+=' ';
+        if(y!==null)lastY=y;
+      }
+      text+='\n';
     }
     return text;
   }
