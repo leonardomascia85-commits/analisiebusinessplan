@@ -1120,20 +1120,41 @@ async function generaReport(){
       try{
         const first=JSON.parse(rawFirst);
         if(first.nome){const el=document.getElementById('rag_soc');if(el)el.value=first.nome;}
+        // Imposta settore ATECO — mappa codice numerico (es. "23.99") alla lettera sezione
+        if(first.ateco){
+          const n=parseInt(first.ateco);
+          let letra='';
+          if(n>=1&&n<=3)letra='A';
+          else if(n>=5&&n<=9)letra='B';
+          else if(n>=10&&n<=33)letra='C';
+          else if(n===35)letra='D';
+          else if(n>=36&&n<=39)letra='E';
+          else if(n>=41&&n<=43)letra='F';
+          else if(n>=45&&n<=47)letra='G';
+          else if(n>=49&&n<=53)letra='H';
+          else if(n>=55&&n<=56)letra='I';
+          else if(n>=58&&n<=63)letra='J';
+          else if(n>=64&&n<=66)letra='K';
+          else if(n===68)letra='L';
+          else if(n>=69&&n<=75)letra='M';
+          else if(n>=77&&n<=82)letra='N';
+          else if(n===85)letra='P';
+          else if(n>=86&&n<=88)letra='Q';
+          else if(n>=90&&n<=93)letra='R';
+          else if(n>=94&&n<=96)letra='S';
+          const sel=document.getElementById('settore');
+          if(sel&&letra&&[...sel.options].some(o=>o.value===letra))sel.value=letra;
+        }
+        // Forma giuridica con mappatura estesa
         if(first.forma){
           const el=document.getElementById('forma');
           if(el){
             const f=first.forma.toLowerCase();
-            if(f.includes('spa')||f.includes('s.p.a'))el.value='spa';
-            else if(f.includes('snc')||f.includes('s.n.c'))el.value='snc';
+            if(f.includes('spa')||f.includes('s.p.a')||f.includes('per azioni'))el.value='spa';
+            else if(f.includes('snc')||f.includes('s.n.c')||f.includes('nome collettivo'))el.value='snc';
+            else if(f.includes('sas')||f.includes('s.a.s')||f.includes('accomandita semplice'))el.value='sas';
             else el.value='srl';
           }
-        }
-        // Imposta settore ATECO se disponibile (lettera iniziale del codice ATECO)
-        if(first.ateco){
-          const letra=first.ateco.trim().charAt(0).toUpperCase();
-          const sel=document.getElementById('settore');
-          if(sel&&[...sel.options].some(o=>o.value===letra))sel.value=letra;
         }
         // Imposta anni dai dati estratti dal file
         if(first._annoEsercizio){
