@@ -63,7 +63,7 @@
     .yc-btn{position:absolute;top:12px;right:12px;font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;border:none;cursor:pointer;}
     .yc-btn.add{background:rgba(37,99,235,.2);color:var(--cyan);}
     .yc-btn.edit{background:rgba(16,185,129,.15);color:var(--green);}
-    .azienda-strip{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;}
+    .azienda-strip{display:grid;grid-template-columns:2fr 1fr 1fr 2fr;gap:12px;}
     .af{display:flex;flex-direction:column;gap:4px;}
     .af label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;}
     .af input,.af select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:8px 11px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;width:100%;}
@@ -1128,6 +1128,12 @@ async function generaReport(){
             else if(f.includes('snc')||f.includes('s.n.c'))el.value='snc';
             else el.value='srl';
           }
+        }
+        // Imposta settore ATECO se disponibile (lettera iniziale del codice ATECO)
+        if(first.ateco){
+          const letra=first.ateco.trim().charAt(0).toUpperCase();
+          const sel=document.getElementById('settore');
+          if(sel&&[...sel.options].some(o=>o.value===letra))sel.value=letra;
         }
         // Imposta anni dai dati estratti dal file
         if(first._annoEsercizio){
