@@ -567,11 +567,119 @@
         const ind=computeIndici(data);Object.assign(data,ind);setStep(6,'done');
         setStep(7,'active');se('sl7','Verifica completata');await delay(300);setStep(7,'done');
       }
-      parsedData=data;showResults(data);
+      parsedData=data;
+      if(currentFileType==='pdf'){showPDFVerify(data);}else{showResults(data);}
     }catch(err){
       console.error(err);se('pb-title','Errore: '+err.message);
       document.getElementById('pb-spinner').style.display='none';
     }
+  }
+
+  // ── VERIFICA PDF: schermata con campi editabili prima di salvare ──
+  function showPDFVerify(d){
+    document.getElementById('progress-box').classList.remove('show');
+    // Crea il pannello se non esiste
+    let box=document.getElementById('pdf-verify-box');
+    if(!box){
+      box=document.createElement('div');box.id='pdf-verify-box';
+      box.style.cssText='background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;';
+      document.getElementById('results-box').insertAdjacentElement('beforebegin',box);
+    }
+    const fmtV=n=>(!n||isNaN(n))?'':Math.round(n);
+    const row=(lbl,key,section)=>`<tr>
+      <td style="padding:6px 8px;font-size:13px;color:#64748b">${lbl}</td>
+      <td style="padding:4px"><input type="number" style="width:140px;padding:4px 8px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;"
+        data-key="${key}" value="${fmtV(d[key])}" oninput="pdfVerifyUpdate(this)"/></td>
+    </tr>`;
+    box.innerHTML=`
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div style="font-size:24px">⚠️</div>
+        <div>
+          <div style="font-weight:700;font-size:16px;color:#0f172a">Verifica i dati estratti dal PDF</div>
+          <div style="font-size:13px;color:#64748b;margin-top:2px">Il parser PDF può commettere errori. Controlla tutti i valori prima di procedere. Modifica quelli errati.</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:20px;">
+        <div>
+          <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#1d4ed8;margin-bottom:8px">STATO PATRIMONIALE ATTIVO</div>
+          <table style="width:100%;border-collapse:collapse">
+            ${row('Immobil. immateriali','imm_imm')}
+            ${row('Immobil. materiali','imm_mat')}
+            ${row('Immobil. finanziarie','imm_fin')}
+            ${row('Rimanenze','rimanenze')}
+            ${row('Crediti verso clienti','cred_cl')}
+            ${row('Liquidità','liquidita')}
+            ${row('TOTALE ATTIVO','tot_att')}
+          </table>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#dc2626;margin-bottom:8px">STATO PATRIMONIALE PASSIVO</div>
+          <table style="width:100%;border-collapse:collapse">
+            ${row('Capitale sociale','cap_sociale')}
+            ${row('Riserve','riserve')}
+            ${row('Utile / Perdita esercizio','utile_es')}
+            ${row('TOTALE PATRIMONIO NETTO','tot_pn')}
+            ${row('Debiti banche b/t','deb_b_bt')}
+            ${row('Debiti banche m/l','deb_b_lt')}
+            ${row('Debiti verso fornitori','deb_for')}
+            ${row('Debiti tributari','deb_trib')}
+            ${row('TOTALE DEBITI','tot_deb')}
+          </table>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#16a34a;margin-bottom:8px">CONTO ECONOMICO</div>
+          <table style="width:100%;border-collapse:collapse">
+            ${row('Ricavi delle vendite','ric_vend')}
+            ${row('Altri ricavi','alt_ric')}
+            ${row('VALORE PRODUZIONE','tot_vp')}
+            ${row('Materie prime','mat_prime')}
+            ${row('Servizi','servizi')}
+            ${row('Personale','personale')}
+            ${row('Ammortamenti','ammort')}
+            ${row('Oneri finanziari','oneri_f')}
+            ${row('Imposte','imposte')}
+            ${row('UTILE / PERDITA','utile_es')}
+          </table>
+        </div>
+      </div>
+      <div id="pv-balance" style="padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:16px;"></div>
+      <div style="display:flex;gap:12px">
+        <button onclick="confirmPDFImport()" style="padding:12px 28px;background:#1d4ed8;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer">✓ Confermo i dati — Procedi all'analisi</button>
+        <button onclick="resetAll()" style="padding:12px 20px;background:#f1f5f9;color:#64748b;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;cursor:pointer">✕ Ricomincia</button>
+      </div>`;
+    pdfVerifyBalance();
+  }
+
+  function pdfVerifyUpdate(inp){
+    parsedData[inp.dataset.key]=parseFloat(inp.value)||0;
+    pdfVerifyBalance();
+  }
+
+  function pdfVerifyBalance(){
+    const d=parsedData;
+    const attivo=d.tot_att||0;
+    const passivo=(d.tot_pn||0)+(d.tot_deb||0);
+    const diff=Math.abs(attivo-passivo);
+    const pct=attivo>0?diff/attivo*100:100;
+    const el=document.getElementById('pv-balance');
+    if(!el)return;
+    if(attivo===0){
+      el.style.background='#fef9c3';el.style.color='#92400e';
+      el.textContent='⚠️ Inserisci il Totale Attivo per verificare la quadratura del bilancio.';
+    }else if(pct<1){
+      el.style.background='#dcfce7';el.style.color='#166534';
+      el.textContent=`✅ Bilancio quadrato — Attivo ${new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(attivo)} = PN + Debiti ${new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(passivo)}`;
+    }else{
+      el.style.background='#fee2e2';el.style.color='#991b1b';
+      el.textContent=`❌ Bilancio NON quadrato — Differenza: ${new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(diff)} (${pct.toFixed(1)}%). Correggi i valori.`;
+    }
+  }
+
+  function confirmPDFImport(){
+    // Ricalcola indici con i dati verificati
+    const ind=computeIndici(parsedData);Object.assign(parsedData,ind);
+    document.getElementById('pdf-verify-box').style.display='none';
+    showResults(parsedData);
   }
 
   function showResults(d){
