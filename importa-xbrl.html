@@ -289,21 +289,29 @@
   }
 
   function parseXBRL(content){
-    // Rileva dinamicamente i context ID — supporta sia namespace esplicito (xbrli:context)
-    // sia namespace di default (<context id="...">) come usato dalla tassonomia InfoCamere
-    const ctxInstants=[];
-    const ctxDurations=[];
-    // Regex che matcha sia <context che <xbrli:context
-    const rCtx=/(?:xbrli:)?context\s[^>]*id="([^"]+)"[^>]*>([\s\S]*?)(?:xbrli:)?context>/gi;
-    let mCtx;
-    while((mCtx=rCtx.exec(content))!==null){
-      const id=mCtx[1];const body=mCtx[2];
-      // instant: <instant> o <xbrli:instant>
-      const mi=body.match(/(?:xbrli:)?instant>(\d{4}-\d{2}-\d{2})</i);
-      if(mi)ctxInstants.push({id,date:mi[1],year:parseInt(mi[1])});
-      // endDate: <endDate> o <xbrli:endDate>
-      const me=body.match(/(?:xbrli:)?endDate>(\d{4}-\d{2}-\d{2})</i);
-      if(me)ctxDurations.push({id,endDate:me[1],year:parseInt(me[1])});
+    // Rileva context ID cercando direttamente id="X" vicino a instant/endDate
+    // Approccio lineare per evitare backtracking su file grandi
+    const ctxInstants=[], ctxDurations=[];
+    // Estrai tutti i blocchi <context ...>...</context> con regex semplice
+    let pos=0;
+    while(pos<content.length){
+      // Trova prossimo tag context (con o senza prefisso xbrli:)
+      const start=content.indexOf('<context ',pos);
+      if(start===-1)break;
+      // Estrai id="..."
+      const idM=content.slice(start,start+120).match(/id="([^"]+)"/);
+      if(!idM){pos=start+1;continue;}
+      const ctxId=idM[1];
+      // Trova fine del blocco context
+      const end=content.indexOf('</context>',start);
+      if(end===-1)break;
+      const body=content.slice(start,end+10);
+      // Cerca instant o endDate nel corpo
+      const mInst=body.match(/<instant>(\d{4}-\d{2}-\d{2})<\/instant>/i);
+      if(mInst)ctxInstants.push({id:ctxId,date:mInst[1],year:parseInt(mInst[1])});
+      const mEnd=body.match(/<endDate>(\d{4}-\d{2}-\d{2})<\/endDate>/i);
+      if(mEnd)ctxDurations.push({id:ctxId,endDate:mEnd[1],year:parseInt(mEnd[1])});
+      pos=end+10;
     }
     ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
     ctxDurations.sort((a,b)=>b.endDate.localeCompare(a.endDate));
