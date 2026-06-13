@@ -150,12 +150,12 @@
     </div>
   </div>
 
-  <div class="upload-grid">
-    <div class="upload-card" id="drop-xbrl" ondragover="dragOver(event,'drop-xbrl')" ondragleave="dragLeave('drop-xbrl')" ondrop="dropFile(event,'xbrl')">
-      <span class="uc-badge badge-blue">✓ Consigliato</span>
+  <div style="max-width:640px;margin:0 auto 24px;">
+    <div class="upload-card" id="drop-xbrl" ondragover="dragOver(event,'drop-xbrl')" ondragleave="dragLeave('drop-xbrl')" ondrop="dropFile(event,'xbrl')" style="border:2px dashed #3b82f6;">
+      <span class="uc-badge badge-blue">✓ Dati certificati — 100% accurato</span>
       <div class="uc-icon">🗂️</div>
-      <div class="uc-title">Importa da XBRL</div>
-      <p class="uc-desc">Trascina qui il file <strong>.xbrl</strong> oppure clicca per selezionarlo. Compatibile con tassonomia italiana 2018-11-04.</p>
+      <div class="uc-title">Importa file XBRL</div>
+      <p class="uc-desc">Il file XBRL è il <strong>bilancio ufficiale depositato alla Camera di Commercio</strong> in formato strutturato. Garantisce dati esatti, verificati e pronti all'analisi senza errori di interpretazione.</p>
       <button class="btn-upload" onclick="document.getElementById('input-xbrl').click()">Scegli file .xbrl</button>
       <input type="file" id="input-xbrl" accept=".xbrl,.xml" onchange="handleFile(this,'xbrl')"/>
       <div class="file-loaded" id="fl-xbrl">
@@ -164,20 +164,19 @@
         <button class="fl-remove" onclick="removeFile('xbrl')">✕</button>
       </div>
     </div>
-    <div class="upload-card" id="drop-pdf" ondragover="dragOver(event,'drop-pdf')" ondragleave="dragLeave('drop-pdf')" ondrop="dropFile(event,'pdf')">
-      <span class="uc-badge badge-gold">🤖 AI-powered</span>
-      <div class="uc-icon">📑</div>
-      <div class="uc-title">Importa da PDF</div>
-      <p class="uc-desc">Trascina il <strong>PDF del bilancio</strong> CCIAA oppure clicca per selezionarlo. L'AI legge e interpreta i valori.</p>
-      <button class="btn-upload" onclick="document.getElementById('input-pdf').click()">Scegli file .pdf</button>
-      <input type="file" id="input-pdf" accept=".pdf" onchange="handleFile(this,'pdf')"/>
-      <div class="file-loaded" id="fl-pdf">
-        <span>✅</span><span class="fl-name" id="fl-pdf-name">—</span>
-        <span class="fl-size" id="fl-pdf-size">—</span>
-        <button class="fl-remove" onclick="removeFile('pdf')">✕</button>
-      </div>
-    </div>
   </div>
+
+  <div style="max-width:640px;margin:0 auto 8px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:16px 20px;">
+    <div style="font-weight:700;color:#0369a1;margin-bottom:6px">📥 Come ottenere il file XBRL in 3 passi</div>
+    <ol style="margin:0;padding-left:18px;font-size:13px;color:#0c4a6e;line-height:1.8">
+      <li>Vai su <strong>registroimprese.it</strong> e cerca l'azienda per ragione sociale o P.IVA</li>
+      <li>Clicca su <strong>Bilanci</strong> → seleziona l'anno → <strong>Scarica XBRL</strong></li>
+      <li>Trascina qui il file scaricato (estensione <code>.xbrl</code>)</li>
+    </ol>
+  </div>
+  <!-- Input PDF nascosto ma mantenuto per retrocompatibilità JS -->
+  <input type="file" id="input-pdf" accept=".pdf" style="display:none" onchange="handleFile(this,'pdf')"/>
+  <div id="fl-pdf" style="display:none"><span class="fl-name" id="fl-pdf-name"></span><span class="fl-size" id="fl-pdf-size"></span></div>
 
   <div class="progress-box" id="progress-box">
     <div class="pb-header">
