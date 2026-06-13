@@ -700,9 +700,9 @@ function buildReportHTML(data, config) {
 <div class="cover">
   <div style="position:relative;z-index:1;">
     <div class="cv-brand">AnalisiEBusinessPlan.it — Software professionale di analisi bilancio</div>
-    <div class="cv-tipo">Analisi di Bilancio d'Esercizio</div>
+    <div class="cv-tipo">Analisi di Bilancio d'Esercizio${settore && SETTORI[settore] ? ` · Settore ${settore}` : ''}</div>
     <div class="cv-nome">${nome}</div>
-    <div class="cv-sub">Esercizio chiuso al 31/12/${anno}</div>
+    <div class="cv-sub">Esercizio chiuso al 31/12/${anno}${settore && SETTORI[settore] ? `<br/><span style="font-size:13px;opacity:.6">${SETTORI[settore].nome}</span>` : ''}</div>
     <div class="cv-chip">
       <div class="cv-r-letter">${rating.l}</div>
       <div><div class="cv-r-lbl">Rating sintetico di bancabilità</div><div class="cv-r-title">${rating.title}</div></div>
@@ -747,7 +747,8 @@ function buildReportHTML(data, config) {
           ['4','Evoluzione biennale','Commento all\'evoluzione dei dati'+(d1?` ${anno} vs ${annoPrev}`:'')],
           ['5','Indici di bilancio','Redditività, liquidità, solidità, efficienza'],
           ['6','Bancabilità EBA','DSCR, PFN/EBITDA, ICR — Linee guida EBA/GL/2020/06'],
-          ['7','Rating sintetico','Z\'-Score Altman + Scorecard EBA + Trigger CCII'],
+          ...(settore && SETTORI[settore] ? [['7',`Confronto Settoriale — ${settore}`,`Benchmark PMI vs mediana settore: ${SETTORI[settore].nome}`]] : []),
+          [settore && SETTORI[settore] ? '8' : '7','Rating sintetico','Z\'-Score Altman + Scorecard EBA + Trigger CCII'],
         ].map(([n,t,d])=>`<div class="toc-row"><div class="toc-num">${n}</div><div class="toc-title">${t}</div><div class="toc-desc">${d}</div></div>`).join('')}
       </div>
     </div>
