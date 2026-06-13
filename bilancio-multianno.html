@@ -623,6 +623,7 @@
       <div class="rcard">
         <div class="actions">
           <button class="btn-p" id="btn-report" onclick="generaReport()" disabled>Genera Report PDF →</button>
+          <button class="btn-p" id="btn-scarica" onclick="scaricaReport()" style="display:none;background:#16a34a">⬇ Scarica Report</button>
           <button class="btn-g" onclick="resetAll()">Reset</button>
         </div>
       </div>
@@ -999,6 +1000,19 @@ function buildAnnoData(yi){
   };
 }
 
+let _lastReportHTML = null;
+
+function scaricaReport(){
+  if(!_lastReportHTML) return;
+  const nome = (document.getElementById('rag_soc')?.value||'report').replace(/[^a-z0-9]/gi,'_');
+  const anno = document.getElementById('ysel-0')?.value||'2024';
+  const blob = new Blob([_lastReportHTML], {type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `report_${nome}_${anno}.html`; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 5000);
+}
+
 async function generaReport(){
   const mainData = buildAnnoData(0);
   if(filled[1]) mainData._prev = buildAnnoData(1);
@@ -1012,9 +1026,11 @@ async function generaReport(){
   };
 
   const btn = document.getElementById('btn-report');
+  const btnScarica = document.getElementById('btn-scarica');
   const origText = btn.textContent;
   btn.disabled = true;
   btn.textContent = 'Generazione in corso...';
+  btnScarica.style.display = 'none';
 
   try {
     const res = await fetch('/api/genera-html', {
@@ -1029,6 +1045,8 @@ async function generaReport(){
       throw new Error(errMsg);
     }
     const html = await res.text();
+    _lastReportHTML = html;
+    btnScarica.style.display = '';
     const win = window.open('', '_blank');
     win.document.write(html);
     win.document.close();

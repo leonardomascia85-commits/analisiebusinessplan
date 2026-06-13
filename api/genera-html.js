@@ -17,8 +17,11 @@ const fmtK = (n) => {
 function calcIndici(d) {
   const ebitda = (d.tot_vp || 0) - ((d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0) + (d.personale || 0) + (d.var_mat || 0) + (d.oneri_div || 0));
   const ebit = ebitda - (d.ammort || 0);
-  const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0);
-  const pfn = ((d.deb_b_bt || 0) + (d.deb_b_lt || 0)) - (d.liquidita || 0);
+  const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0) + (d.alt_deb || 0);
+  // PFN: usa campi bancabilità se compilati, altrimenti usa SP
+  const pfn = ((d.pfn_bt || 0) + (d.pfn_lt || 0)) > 0
+    ? ((d.pfn_bt || 0) + (d.pfn_lt || 0)) - ((d.pfn_liq || 0) + (d.pfn_tit || 0))
+    : ((d.deb_b_bt || 0) + (d.deb_b_lt || 0)) - (d.liquidita || 0);
   const roe = d.tot_pn > 0 ? (d.utile_es || 0) / d.tot_pn * 100 : NaN;
   const roi = d.tot_att > 0 ? ebit / d.tot_att * 100 : NaN;
   const ros = d.tot_vp > 0 ? ebit / d.tot_vp * 100 : NaN;
@@ -45,7 +48,7 @@ function calcRating(c, d) {
   let zScore = null, zLabel = '—', zClass = 'neu';
   const totAtt = d.tot_att || 0;
   if (totAtt > 0) {
-    const ccn = (d.tot_circ || 0) - ((d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0));
+    const ccn = (d.tot_circ || 0) - ((d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0) + (d.alt_deb || 0));
     const riserve = (d.tot_pn || 0) - (d.cap_sociale || 0) - (d.utile_es || 0);
     const X1 = ccn / totAtt;
     const X2 = riserve / totAtt;
@@ -566,8 +569,20 @@ function buildReportHTML(data, config) {
   .evo-bullet{display:flex;gap:8px;margin-bottom:5px;font-size:9px;color:#334155;line-height:1.7;}
   .evo-bullet-icon{flex-shrink:0;font-size:11px;}
 </style>
+<style>
+@media print{.no-print{display:none!important}}
+.print-bar{position:fixed;top:16px;right:16px;z-index:9999;display:flex;gap:8px;}
+.print-bar button{padding:10px 20px;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;}
+.btn-stampa{background:#1d4ed8;color:#fff;}
+.btn-scarica-r{background:#16a34a;color:#fff;}
+</style>
 </head>
 <body>
+
+<div class="print-bar no-print">
+  <button class="btn-stampa" onclick="window.print()">🖨 Stampa / Salva PDF</button>
+  <button class="btn-scarica-r" onclick="(function(){const b=new Blob([document.documentElement.outerHTML],{type:'text/html'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='report.html';a.click();setTimeout(()=>URL.revokeObjectURL(u),5000)})()">⬇ Scarica HTML</button>
+</div>
 
 <!-- COPERTINA -->
 <div class="cover">
