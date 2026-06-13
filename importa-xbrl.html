@@ -430,15 +430,21 @@
     let nome='', forma='';
     // 1) Cerca riga in MAIUSCOLO che termina con forma giuridica (pattern tipico visura camerale)
     const formaAtEnd=/(S\.P\.A\.|SPA|S\.R\.L\.|SRL|S\.N\.C\.|SNC|S\.A\.S\.|SAS|S\.C\.A\.R\.L\.|SCARL|S\.C\.R\.L\.|SCRL|COOPERATIVA)\s*\.?\s*$/i;
-    for(const line of lines){
-      if(formaAtEnd.test(line)&&line.length>12&&line.length<150&&!labelWords.test(line)){
-        const upper=(line.match(/[A-ZÀÈÌÒÙ]/g)||[]).length;
-        const alpha=(line.match(/[A-Za-zÀ-ú]/g)||[]).length;
-        if(alpha>0&&upper/alpha>0.55){
-          nome=line.replace(/^\s*\d+\s*/,'').trim();
-          const fm=line.match(formaRe);if(fm)forma=fm[0].toUpperCase();
-          break;
+    const isUpperLine=l=>{const up=(l.match(/[A-ZÀÈÌÒÙ]/g)||[]).length,al=(l.match(/[A-Za-zÀ-ú]/g)||[]).length;return al>0&&up/al>0.55;};
+    for(let i=0;i<lines.length;i++){
+      const line=lines[i];
+      if(formaAtEnd.test(line)&&line.length>5&&line.length<150&&!labelWords.test(line)&&isUpperLine(line)){
+        let candidate=line.replace(/^\s*\d+\s*/,'').trim();
+        // Se la riga è corta (<40 car), potrebbe essere la seconda metà del nome — prendi anche quella precedente
+        if(candidate.length<40&&i>0){
+          const prev=lines[i-1].trim();
+          if(prev.length>3&&!labelWords.test(prev)&&isUpperLine(prev)&&!/\d/.test(prev)){
+            candidate=(prev+' '+candidate).trim();
+          }
         }
+        nome=candidate;
+        const fm=line.match(formaRe);if(fm)forma=fm[0].toUpperCase();
+        break;
       }
     }
     // 2) Fallback: qualsiasi riga con forma giuridica, prevalentemente uppercase, non etichetta
