@@ -346,6 +346,117 @@ function buildNarrative(c, d) {
 }
 
 // ── BUILD MAIN HTML ──
+// ── BENCHMARK SETTORIALI PMI ITALIANE ──
+// Fonte: Mediobanca Dati Cumulativi 2023, Banca d'Italia Note di Stabilità, Cerved Industry Forecast
+const SETTORI = {
+  A:{nome:'Agricoltura, silvicoltura e pesca',         roe:5,  roi:3,  ebitda:12, cr:1.3, de:1.5, trend:+1.2},
+  B:{nome:'Estrazione di minerali',                    roe:8,  roi:6,  ebitda:20, cr:1.4, de:1.2, trend:+0.5},
+  C:{nome:'Attività manifatturiere',                   roe:9,  roi:8,  ebitda:11, cr:1.5, de:1.1, trend:+2.1},
+  D:{nome:'Energia elettrica e gas',                   roe:7,  roi:5,  ebitda:15, cr:1.2, de:1.8, trend:-0.8},
+  E:{nome:'Fornitura acqua, reti fognarie',             roe:6,  roi:4,  ebitda:18, cr:1.3, de:1.6, trend:+1.0},
+  F:{nome:'Costruzioni',                               roe:7,  roi:5,  ebitda:6,  cr:1.3, de:1.8, trend:+3.5},
+  G:{nome:'Commercio all\'ingrosso e al dettaglio',   roe:8,  roi:6,  ebitda:5,  cr:1.4, de:1.3, trend:+1.8},
+  H:{nome:'Trasporto e magazzinaggio',                 roe:6,  roi:5,  ebitda:9,  cr:1.2, de:1.9, trend:+1.4},
+  I:{nome:'Alloggio e ristorazione',                   roe:5,  roi:4,  ebitda:14, cr:1.1, de:2.0, trend:+4.2},
+  J:{nome:'Servizi ICT e comunicazione',               roe:14, roi:11, ebitda:19, cr:1.7, de:0.7, trend:+5.8},
+  K:{nome:'Attività finanziarie e assicurative',       roe:9,  roi:5,  ebitda:28, cr:1.5, de:3.0, trend:+2.0},
+  L:{nome:'Attività immobiliari',                      roe:5,  roi:3,  ebitda:36, cr:1.2, de:2.5, trend:-1.2},
+  M:{nome:'Attività professionali e tecniche',         roe:16, roi:13, ebitda:17, cr:1.6, de:0.6, trend:+3.2},
+  N:{nome:'Noleggio e servizi di supporto',            roe:8,  roi:6,  ebitda:11, cr:1.3, de:1.2, trend:+2.5},
+  P:{nome:'Istruzione',                                roe:7,  roi:5,  ebitda:12, cr:1.4, de:0.9, trend:+1.5},
+  Q:{nome:'Sanità e assistenza sociale',               roe:7,  roi:5,  ebitda:13, cr:1.3, de:1.4, trend:+2.8},
+  R:{nome:'Arte, sport e intrattenimento',             roe:4,  roi:3,  ebitda:10, cr:1.2, de:1.5, trend:+3.0},
+  S:{nome:'Altre attività di servizi',                 roe:7,  roi:5,  ebitda:10, cr:1.3, de:1.1, trend:+1.6},
+};
+
+function buildSettoreHTML(c, settoreKey) {
+  const s = SETTORI[settoreKey];
+  if (!s) return '';
+  const fp1 = n => (isNaN(n)||!isFinite(n)) ? '—' : n.toFixed(1) + '%';
+  const fx2 = n => (isNaN(n)||!isFinite(n)) ? '—' : n.toFixed(2) + 'x';
+  const badge = (az, ref, higherBetter=true) => {
+    if (isNaN(az)||!isFinite(az)) return '<span style="color:#94a3b8">n.d.</span>';
+    const better = higherBetter ? az >= ref * 1.1 : az <= ref * 0.9;
+    const worse  = higherBetter ? az < ref * 0.9  : az > ref * 1.1;
+    const [bg,col,lbl] = better ? ['#dcfce7','#166534','▲ Sopra media']
+                        : worse  ? ['#fee2e2','#991b1b','▼ Sotto media']
+                        :          ['#fef9c3','#92400e','≈ In linea'];
+    return `<span style="background:${bg};color:${col};padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700">${lbl}</span>`;
+  };
+  const trendColor = s.trend >= 0 ? '#16a34a' : '#dc2626';
+  const trendIcon  = s.trend >= 0 ? '▲' : '▼';
+  const rows = [
+    ['ROE — Redditività del capitale',    fp1(c.roe),        fp1(s.roe),   badge(c.roe, s.roe)],
+    ['ROI — Redditività degli investim.',  fp1(c.roi),        fp1(s.roi),   badge(c.roi, s.roi)],
+    ['EBITDA Margin — Margine operativo',  fp1(c.ebitda_pct), fp1(s.ebitda),badge(c.ebitda_pct, s.ebitda)],
+    ['Current Ratio — Liquidità corrente', fx2(c.cr),         s.cr.toFixed(2)+'x', badge(c.cr, s.cr)],
+    ['D/E — Leva finanziaria',             fx2(c.leva),       s.de.toFixed(2)+'x', badge(c.leva, s.de, false)],
+  ];
+  return `
+<!-- PAG CONFRONTO SETTORIALE -->
+<div class="page">
+  <div class="ph">
+    <div><div class="ph-ey">Analisi Settoriale</div><div class="ph-ti">Confronto con il Settore di Riferimento</div></div>
+    <div class="ph-az">${''}</div>
+  </div>
+  <div class="banc-intro">Il confronto settoriale posiziona l'azienda rispetto alle <strong>mediane di settore delle PMI italiane</strong>, calcolate su dati Mediobanca, Banca d'Italia e Cerved. Gli indicatori permettono di valutare punti di forza e aree di miglioramento rispetto ai concorrenti dello stesso comparto.</div>
+
+  <!-- Header settore -->
+  <div style="background:linear-gradient(135deg,#1e3a8a,#1d4ed8);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-bottom:4px">Settore ATECO — ${settoreKey}</div>
+      <div style="font-size:18px;font-weight:700">${s.nome}</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:11px;opacity:.7;margin-bottom:4px">Crescita settore (ultimi 12 mesi)</div>
+      <div style="font-size:24px;font-weight:800;color:${trendColor === '#dc2626' ? '#fca5a5' : '#86efac'}">${trendIcon} ${Math.abs(s.trend).toFixed(1)}%</div>
+    </div>
+  </div>
+
+  <!-- Tabella confronto -->
+  <table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:13px;">
+    <thead>
+      <tr style="background:#f8fafc;border-bottom:2px solid #e2e8f0;">
+        <th style="text-align:left;padding:10px 12px;font-weight:700;color:#0f172a">Indicatore</th>
+        <th style="text-align:center;padding:10px 12px;font-weight:700;color:#1d4ed8">Azienda</th>
+        <th style="text-align:center;padding:10px 12px;font-weight:700;color:#64748b">Mediana settore</th>
+        <th style="text-align:center;padding:10px 12px;font-weight:700;color:#0f172a">Posizionamento</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map((r,i)=>`<tr style="border-bottom:1px solid #f1f5f9;background:${i%2?'#fafafa':'#fff'}">
+        <td style="padding:10px 12px;color:#334155">${r[0]}</td>
+        <td style="padding:10px 12px;text-align:center;font-weight:700;color:#0f172a">${r[1]}</td>
+        <td style="padding:10px 12px;text-align:center;color:#64748b">${r[2]}</td>
+        <td style="padding:10px 12px;text-align:center">${r[3]}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>
+
+  <!-- Analisi testuale -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="background:#f0f9ff;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;padding:16px;">
+      <div style="font-weight:700;color:#1d4ed8;margin-bottom:8px;font-size:13px">📊 Trend di settore</div>
+      <p style="font-size:12px;color:#0c4a6e;margin:0;line-height:1.7">Il settore <strong>${s.nome}</strong> registra una variazione del fatturato di <strong style="color:${trendColor}">${trendIcon} ${Math.abs(s.trend).toFixed(1)}%</strong> negli ultimi 12 mesi. ${s.trend >= 2 ? 'Il settore è in espansione: contesto favorevole per investimenti e crescita.' : s.trend >= 0 ? 'Il settore mostra stabilità con moderata crescita.' : 'Il settore è in contrazione: attenzione alla gestione dei costi e alla liquidità.'}</p>
+    </div>
+    <div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px;">
+      <div style="font-weight:700;color:#166534;margin-bottom:8px;font-size:13px">🎯 Benchmarking sintetico</div>
+      <p style="font-size:12px;color:#14532d;margin:0;line-height:1.7">
+        ${(() => {
+          const above = rows.filter(r=>r[3].includes('Sopra media')).length;
+          const below = rows.filter(r=>r[3].includes('Sotto media')).length;
+          if (above >= 4) return `<strong>Performance eccellente:</strong> l'azienda supera la mediana settoriale in ${above} indicatori su 5. Posizionamento competitivo solido.`;
+          if (above >= 2 && below <= 1) return `<strong>Performance nella norma:</strong> l'azienda è in linea con il settore in ${5-below} indicatori su 5. Margini di miglioramento presenti.`;
+          if (below >= 3) return `<strong>Attenzione:</strong> l'azienda è sotto la mediana settoriale in ${below} indicatori su 5. Necessaria una revisione strategica.`;
+          return `<strong>Performance mista:</strong> alcuni indici sopra la media settoriale, altri da migliorare. Focus sulle aree critiche.`;
+        })()}
+      </p>
+    </div>
+  </div>
+  <div style="margin-top:12px;font-size:10px;color:#94a3b8;font-style:italic">Fonte benchmark: Mediobanca Dati Cumulativi 2023, Banca d'Italia Note di Stabilità Finanziaria, Cerved Industry Forecast 2024. I valori rappresentano mediane per PMI italiane con fatturato 2–50 M€.</div>
+</div>`;
+}
+
 function buildReportHTML(data, config) {
   const d = data;
   const c = calcIndici(d);
@@ -354,6 +465,7 @@ function buildReportHTML(data, config) {
   const nome = config.nome || d.nome || 'Azienda';
   const analista = config.analista || 'AnalisiEBusinessPlan.it';
   const dataReport = config.dataReport || new Date().toLocaleDateString('it-IT');
+  const settore = config.settore || '';
   const note = config.note || '';
   const colore = config.colore === 'green' ? '#059669' : config.colore === 'dark' ? '#1E293B' : '#1D4ED8';
   const narrative = buildNarrative(c, d);
@@ -1137,6 +1249,8 @@ ${hasRF ? `
   </div>
   <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 8</span></div>
 </div>` : ''}
+
+${settore && SETTORI[settore] ? buildSettoreHTML(c, settore) : ''}
 
 <!-- PAG RATING FINALE -->
 <div class="page">

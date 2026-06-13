@@ -259,6 +259,29 @@
         </select>
       </div>
       <div class="af"><label>N° dipendenti</label><input type="number" id="dipendenti" placeholder="es. 18"/></div>
+      <div class="af"><label>Settore (ATECO)</label>
+        <select id="settore">
+          <option value="">— Seleziona settore —</option>
+          <option value="A">A — Agricoltura, silvicoltura e pesca</option>
+          <option value="B">B — Estrazione di minerali</option>
+          <option value="C">C — Attività manifatturiere</option>
+          <option value="D">D — Fornitura energia elettrica e gas</option>
+          <option value="E">E — Fornitura acqua, reti fognarie</option>
+          <option value="F">F — Costruzioni</option>
+          <option value="G">G — Commercio all'ingrosso e al dettaglio</option>
+          <option value="H">H — Trasporto e magazzinaggio</option>
+          <option value="I">I — Alloggio e ristorazione</option>
+          <option value="J">J — Servizi di informazione e comunicazione (ICT)</option>
+          <option value="K">K — Attività finanziarie e assicurative</option>
+          <option value="L">L — Attività immobiliari</option>
+          <option value="M">M — Attività professionali, scientifiche e tecniche</option>
+          <option value="N">N — Noleggio, agenzie di viaggio, servizi di supporto</option>
+          <option value="P">P — Istruzione</option>
+          <option value="Q">Q — Sanità e assistenza sociale</option>
+          <option value="R">R — Attività artistiche, sportive e di intrattenimento</option>
+          <option value="S">S — Altre attività di servizi</option>
+        </select>
+      </div>
     </div>
 
     <div class="year-cards">
@@ -1022,6 +1045,7 @@ async function generaReport(){
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
       anno: document.getElementById('ysel-0')?.value || '2024',
       dataReport: new Date().toLocaleDateString('it-IT'),
+      settore: document.getElementById('settore')?.value || '',
     }
   };
 
