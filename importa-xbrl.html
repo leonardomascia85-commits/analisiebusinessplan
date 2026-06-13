@@ -412,21 +412,41 @@
       return 0;
     };
 
-    // Nome azienda: cerca la riga con la forma giuridica (più affidabile di "ragione sociale")
+    // Nome azienda: in visura camerale la ragione sociale è in MAIUSCOLO e termina con la forma giuridica
     const formaRe=/(S\.P\.A\.|SPA|S\.R\.L\.|SRL|S\.N\.C\.|SNC|S\.A\.S\.|SAS|S\.C\.A\.R\.L\.|SCARL|S\.C\.R\.L\.|SCRL|COOPERATIVA)/i;
+    // Parole che indicano etichette di campo (da escludere)
+    const labelWords=/^(citt[aà]|indirizzo|cap|forma|sede|domicilio|codice|numero|tipo|partita|provincia|via|piazza|corso|frazione)/i;
     let nome='', forma='';
-    // Prima cerca una riga intera che contenga la forma giuridica
+    // 1) Cerca riga in MAIUSCOLO che termina con forma giuridica (pattern tipico visura camerale)
+    const formaAtEnd=/(S\.P\.A\.|SPA|S\.R\.L\.|SRL|S\.N\.C\.|SNC|S\.A\.S\.|SAS|S\.C\.A\.R\.L\.|SCARL|S\.C\.R\.L\.|SCRL|COOPERATIVA)\s*\.?\s*$/i;
     for(const line of lines){
-      if(formaRe.test(line)&&line.length>8&&line.length<120){
-        nome=line.replace(/^\s*\d+\s*/,'').trim();
-        const fm=line.match(formaRe);
-        if(fm)forma=fm[0].toUpperCase();
-        break;
+      if(formaAtEnd.test(line)&&line.length>12&&line.length<150&&!labelWords.test(line)){
+        const upper=(line.match(/[A-ZÀÈÌÒÙ]/g)||[]).length;
+        const alpha=(line.match(/[A-Za-zÀ-ú]/g)||[]).length;
+        if(alpha>0&&upper/alpha>0.55){
+          nome=line.replace(/^\s*\d+\s*/,'').trim();
+          const fm=line.match(formaRe);if(fm)forma=fm[0].toUpperCase();
+          break;
+        }
       }
     }
-    // Fallback: regex su testo normalizzato
+    // 2) Fallback: qualsiasi riga con forma giuridica, prevalentemente uppercase, non etichetta
     if(!nome){
-      const nM=t.match(/(?:denominazione|ditta)[:\s]+([A-ZÀÈÌÒÙ][^,;\d]{5,80}?(?:S\.P\.A\.|SPA|S\.R\.L\.|SRL|S\.N\.C\.|SNC|S\.A\.S\.|SAS))/i);
+      for(const line of lines){
+        if(formaRe.test(line)&&line.length>12&&line.length<150&&!labelWords.test(line)){
+          const upper=(line.match(/[A-ZÀÈÌÒÙ]/g)||[]).length;
+          const alpha=(line.match(/[A-Za-zÀ-ú]/g)||[]).length;
+          if(alpha>0&&upper/alpha>0.6){
+            nome=line.replace(/^\s*\d+\s*/,'').trim();
+            const fm=line.match(formaRe);if(fm)forma=fm[0].toUpperCase();
+            break;
+          }
+        }
+      }
+    }
+    // 3) Fallback: cerca etichetta "denominazione" o "ditta" nel testo normalizzato
+    if(!nome){
+      const nM=t.match(/(?:denominazione|ditta)[:\s]+([A-ZÀÈÌÒÙ][^,;\d\n]{5,80}?(?:S\.P\.A\.|SPA|S\.R\.L\.|SRL|S\.N\.C\.|SNC|S\.A\.S\.|SAS))/i);
       if(nM){nome=nM[1].trim();const fm=nome.match(formaRe);if(fm)forma=fm[0].toUpperCase();}
     }
     // Anno esercizio: cerca "esercizio al 31/12/YYYY" o "bilancio YYYY" o "anno YYYY"
