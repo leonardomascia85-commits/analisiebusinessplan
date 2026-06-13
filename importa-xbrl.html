@@ -390,13 +390,14 @@
   }
 
   function parsePDFText(text){
-    // Normalizza: rimuovi spazi multipli, unifica separatori numerici italiani
+    // Normalizza spazi ma preserva righe per nome
+    const lines=text.split('\n').map(l=>l.trim()).filter(l=>l.length>2);
     const t=text.replace(/\s+/g,' ');
 
-    // Estrae un numero italiano (es. 1.234.567 oppure 1.234.567,00)
+    // Estrae numero italiano (es. 1.234.567 o 1.234.567,00)
     const num=s=>{if(!s)return 0;const c=s.replace(/\./g,'').replace(',','.');return parseFloat(c)||0;};
 
-    // Cerca il valore dopo una label (prende il primo numero che segue)
+    // Cerca il valore dopo una label
     const find=(patterns,txt=t)=>{
       for(const p of patterns){
         const re=new RegExp(p+'[\\s:]*([\\-\\(]?[\\d]{1,3}(?:[\\.,\\d]{0,})[\\d])','i');
@@ -411,60 +412,75 @@
       return 0;
     };
 
-    // Anagrafica
-    const nomeM=t.match(/(?:denominazione|ragione sociale)[:\s]+([A-Z][^\n,;]{3,60}?)(?:\s{2,}|,|;|\n)/i);
-    const pivaM=t.match(/(?:p\.?\s*iva|codice fiscale)[:\s]*(\d{11})/i);
-    const formaM=t.match(/(S\.R\.L\.|SRL|S\.P\.A\.|SPA|S\.N\.C\.|SNC|S\.A\.S\.|SAS|SOCIETA'|SOCIETÀ)/i);
+    // Nome azienda: cerca la riga con la forma giuridica (più affidabile di "ragione sociale")
+    const formaRe=/(S\.P\.A\.|SPA|S\.R\.L\.|SRL|S\.N\.C\.|SNC|S\.A\.S\.|SAS|S\.C\.A\.R\.L\.|SCARL|S\.C\.R\.L\.|SCRL|COOPERATIVA)/i;
+    let nome='', forma='';
+    // Prima cerca una riga intera che contenga la forma giuridica
+    for(const line of lines){
+      if(formaRe.test(line)&&line.length>8&&line.length<120){
+        nome=line.replace(/^\s*\d+\s*/,'').trim();
+        const fm=line.match(formaRe);
+        if(fm)forma=fm[0].toUpperCase();
+        break;
+      }
+    }
+    // Fallback: regex su testo normalizzato
+    if(!nome){
+      const nM=t.match(/(?:denominazione|ditta)[:\s]+([A-ZÀÈÌÒÙ][^,;\d]{5,80}?(?:S\.P\.A\.|SPA|S\.R\.L\.|SRL|S\.N\.C\.|SNC|S\.A\.S\.|SAS))/i);
+      if(nM){nome=nM[1].trim();const fm=nome.match(formaRe);if(fm)forma=fm[0].toUpperCase();}
+    }
+    // Anno esercizio: cerca "esercizio al 31/12/YYYY" o "bilancio YYYY" o "anno YYYY"
+    const annoM=t.match(/(?:esercizio(?:\s+chiuso)?(?:\s+al)?|bilancio(?:\s+al)?|al\s+31\/12\/)\s*(?:\d{2}\/\d{2}\/)?(\d{4})/i)
+      ||t.match(/(?:anno\s+di\s+riferimento|esercizio)[:\s]+(\d{4})/i)
+      ||t.match(/31\/12\/(\d{4})/);
+    const _annoEsercizio=annoM?annoM[1]:null;
 
-    const nome=nomeM?nomeM[1].trim():'';
-    const piva=pivaM?pivaM[1]:'';
-    const forma=formaM?formaM[0].toUpperCase():'';
+    const piva=(t.match(/(?:p\.?\s*iva|codice fiscale)[:\s]*(\d{11})/i)||[])[1]||'';
 
     // Stato Patrimoniale — Attivo
     const imm_imm=find(['immobilizzazioni immateriali','totale immobilizzazioni immateriali']);
     const imm_mat=find(['immobilizzazioni materiali','totale immobilizzazioni materiali']);
     const imm_fin=find(['immobilizzazioni finanziarie','totale immobilizzazioni finanziarie']);
-    const tot_imm=find(['totale immobilizzazioni']);
-    const rimanenze=find(['rimanenze']);
+    const tot_imm=find(['totale immobilizzazioni(?! [im])']);
+    const rimanenze=find(['totale rimanenze','rimanenze']);
     const cred_cl=find(['crediti verso clienti']);
-    const liquidita=find(['disponibilit[aà] liquide','cassa e banche','disponibilità liquide']);
+    const liquidita=find(['disponibilit[aà] liquide','cassa e banche']);
     const tot_circ=find(['totale attivo circolante','attivo circolante']);
     const tot_att=find(['totale attivo','totale dell.attivo']);
 
     // Stato Patrimoniale — Passivo
     const cap_sociale=find(['capitale sociale']);
-    const utile_es=find(['utile.*esercizio','perdita.*esercizio','utile \\(perdita\\)']);
+    const utile_es=find(['utile.*esercizio','perdita.*esercizio','utile \\(perdita\\) dell']);
     const tot_pn=find(['totale patrimonio netto','patrimonio netto']);
-    const deb_b_bt=find(['debiti verso banche.*entro','banche c\\/c passivi']);
-    const deb_b_lt=find(['debiti verso banche.*oltre']);
-    const deb_for=find(['debiti verso fornitori']);
+    const deb_b_bt=find(['debiti verso banche.*entro','banche c\\/c passivi','debiti v\\.? banche.*breve']);
+    const deb_b_lt=find(['debiti verso banche.*oltre','debiti v\\.? banche.*lungo']);
+    const deb_for=find(['debiti verso fornitori','fornitori']);
     const deb_trib=find(['debiti tributari']);
-    const tot_deb=find(['totale debiti']);
+    const tot_deb=find(['totale debiti(?! v)']);
 
     // Conto Economico
     const ric_vend=find(['ricavi.*vendite.*prestazioni','ricavi delle vendite']);
-    const alt_ric=find(['altri ricavi']);
-    const tot_vp=find(['totale valore.*produzione','valore della produzione']);
-    const mat_prime=find(['materie prime','materie prime.*sussidiarie']);
-    const servizi=find(['servizi']);
-    const godimento=find(['godimento.*beni.*terzi','locazioni']);
-    const personale=find(['costo.*personale','totale.*personale']);
-    const ammort=find(['ammortamenti.*svalutazioni','totale ammortamenti']);
-    const var_mat=find(['variazioni.*rimanenze.*materie']);
+    const alt_ric=find(['altri ricavi e proventi','altri ricavi']);
+    const tot_vp=find(['totale valore.*produzione','valore della produzione','totale ricavi']);
+    const mat_prime=find(['materie prime.*sussidiarie','materie prime e sussid','acquisti di materie']);
+    const servizi=find(['costi per servizi','per servizi','servizi']);
+    const godimento=find(['godimento.*beni.*terzi','locazioni e noleggi']);
+    const personale=find(['totale.*costo.*personale','costi.*personale','spese.*personale']);
+    const ammort=find(['totale ammortamenti','ammortamenti e svalutazioni','ammortamenti']);
     const oneri_div=find(['oneri diversi di gestione']);
     const tot_cos=find(['totale costi.*produzione','costi della produzione']);
-    const oneri_f=find(['interessi.*oneri finanziari','oneri finanziari']);
-    const imposte=find(['imposte.*reddito']);
-    const utile_n=find(['utile.*perdita.*esercizio']);
+    const oneri_f=find(['totale interessi.*oneri','oneri finanziari','interessi passivi']);
+    const imposte=find(['imposte.*reddito.*esercizio','imposte sul reddito','ires.*irap']);
+    const utile_n=find(['utile.*perdita.*esercizio','risultato.*esercizio']);
 
     return{
-      nome,piva,forma,
+      nome,piva,forma,_annoEsercizio,
       imm_imm,imm_mat,imm_fin,tot_imm,
       rimanenze,cred_cl,liquidita,tot_circ,tot_att,
       cap_sociale,utile_es:utile_es||utile_n,tot_pn,
       deb_b_bt,deb_b_lt,deb_for,deb_trib,tot_deb,
       ric_vend,alt_ric,tot_vp,
-      mat_prime,servizi,godimento,personale,ammort,var_mat,oneri_div,
+      mat_prime,servizi,godimento,personale,ammort,oneri_div,
       tot_cos,oneri_f,imposte,utile_n,
     };
   }
