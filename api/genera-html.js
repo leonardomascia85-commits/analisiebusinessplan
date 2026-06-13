@@ -463,7 +463,7 @@ function buildReportHTML(data, config) {
   const rating = calcRating(c, d);
   const anno = config.anno || '2024';
   const nome = config.nome || d.nome || 'Azienda';
-  const analista = config.analista || 'AnalisiEBusinessPlan.it';
+  const analista = config.analista || 'Dr. Leonardo Mascia';
   const dataReport = config.dataReport || new Date().toLocaleDateString('it-IT');
   const settore = config.settore || '';
   const note = config.note || '';
