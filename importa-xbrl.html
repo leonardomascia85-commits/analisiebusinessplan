@@ -127,35 +127,67 @@
 
 <div class="wrap">
   <div class="page-header">
-    <div class="page-eyebrow">Importazione automatica</div>
-    <h1 class="page-title">Importa il bilancio<br/>in 10 secondi</h1>
-    <p class="page-sub">Carica il file XBRL o PDF del bilancio depositato alla CCIAA — tutti i dati vengono estratti e compilati automaticamente.</p>
+    <div class="page-eyebrow">Importazione dati certificati</div>
+    <h1 class="page-title">Analisi dal bilancio ufficiale<br/>depositato alla CCIAA</h1>
+    <p class="page-sub">Il file XBRL è il bilancio in formato digitale strutturato, obbligatorio per legge per tutte le SRL e SPA. Caricarlo garantisce dati esatti al 100%.</p>
   </div>
 
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="info-icon">📋</div>
-      <div class="info-title">File XBRL</div>
-      <p class="info-desc">Formato obbligatorio per tutte le società che depositano il bilancio al Registro Imprese. Precisione 99%.</p>
+  <!-- COSA CONTIENE L'XBRL -->
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
+    <div style="font-weight:700;font-size:15px;color:#0f172a;margin-bottom:16px">📋 Cosa contiene il file XBRL</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;font-size:13px;">
+      <div style="background:#f0f9ff;border-radius:10px;padding:14px;">
+        <div style="font-weight:700;color:#0369a1;margin-bottom:8px">🏢 Anagrafica</div>
+        <ul style="margin:0;padding-left:16px;color:#0c4a6e;line-height:1.9">
+          <li>Ragione sociale</li>
+          <li>Codice fiscale / P.IVA</li>
+          <li>Forma giuridica</li>
+          <li>Sede legale e REA</li>
+          <li>Anno di esercizio</li>
+        </ul>
+      </div>
+      <div style="background:#fef9c3;border-radius:10px;padding:14px;">
+        <div style="font-weight:700;color:#92400e;margin-bottom:8px">📊 Stato Patrimoniale</div>
+        <ul style="margin:0;padding-left:16px;color:#78350f;line-height:1.9">
+          <li>Tutte le immobilizzazioni</li>
+          <li>Attivo circolante (crediti, liquidità)</li>
+          <li>Patrimonio netto (capitale, riserve)</li>
+          <li>Debiti per natura e scadenza</li>
+          <li>TFR e fondi rischi</li>
+        </ul>
+      </div>
+      <div style="background:#f0fdf4;border-radius:10px;padding:14px;">
+        <div style="font-weight:700;color:#166534;margin-bottom:8px">📈 Conto Economico</div>
+        <ul style="margin:0;padding-left:16px;color:#14532d;line-height:1.9">
+          <li>Ricavi e valore della produzione</li>
+          <li>Costi per materie, servizi, personale</li>
+          <li>EBITDA, EBIT, ammortamenti</li>
+          <li>Oneri e proventi finanziari</li>
+          <li>Imposte e utile netto</li>
+        </ul>
+      </div>
+      <div style="background:#fdf2f8;border-radius:10px;padding:14px;">
+        <div style="font-weight:700;color:#86198f;margin-bottom:8px">📅 Dati comparativi</div>
+        <ul style="margin:0;padding-left:16px;color:#701a75;line-height:1.9">
+          <li>Anno corrente <strong>e anno precedente</strong></li>
+          <li>Confronto biennale automatico</li>
+          <li>Variazioni percentuali calcolate</li>
+          <li>Dati certificati e firmati digitalmente</li>
+        </ul>
+      </div>
     </div>
-    <div class="info-card">
-      <div class="info-icon">📄</div>
-      <div class="info-title">File PDF</div>
-      <p class="info-desc">Il PDF del bilancio ufficiale CCIAA. L'AI estrae automaticamente tutti i valori numerici. Precisione ~92%.</p>
-    </div>
-    <div class="info-card">
-      <div class="info-icon">⚡</div>
-      <div class="info-title">Risultati immediati</div>
-      <p class="info-desc">SP, CE, Rendiconto finanziario e indici compilati automaticamente. Correggibile manualmente prima del report.</p>
+    <div style="margin-top:14px;padding:10px 14px;background:#dcfce7;border-radius:8px;font-size:13px;color:#166534;font-weight:600;">
+      ✅ L'XBRL è obbligatorio per legge (D.Lgs. 32/2007) per tutte le SRL, SPA e società di capitali italiane. È sempre disponibile sul Registro Imprese.
     </div>
   </div>
 
+  <!-- UPLOAD XBRL -->
   <div style="max-width:640px;margin:0 auto 24px;">
     <div class="upload-card" id="drop-xbrl" ondragover="dragOver(event,'drop-xbrl')" ondragleave="dragLeave('drop-xbrl')" ondrop="dropFile(event,'xbrl')" style="border:2px dashed #3b82f6;">
       <span class="uc-badge badge-blue">✓ Dati certificati — 100% accurato</span>
       <div class="uc-icon">🗂️</div>
-      <div class="uc-title">Importa file XBRL</div>
-      <p class="uc-desc">Il file XBRL è il <strong>bilancio ufficiale depositato alla Camera di Commercio</strong> in formato strutturato. Garantisce dati esatti, verificati e pronti all'analisi senza errori di interpretazione.</p>
+      <div class="uc-title">Carica il file XBRL</div>
+      <p class="uc-desc">Trascina qui il file <strong>.xbrl</strong> oppure clicca per selezionarlo. Compatibile con la tassonomia italiana InfoCamere 2018.</p>
       <button class="btn-upload" onclick="document.getElementById('input-xbrl').click()">Scegli file .xbrl</button>
       <input type="file" id="input-xbrl" accept=".xbrl,.xml" onchange="handleFile(this,'xbrl')"/>
       <div class="file-loaded" id="fl-xbrl">
@@ -166,13 +198,37 @@
     </div>
   </div>
 
-  <div style="max-width:640px;margin:0 auto 8px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:16px 20px;">
-    <div style="font-weight:700;color:#0369a1;margin-bottom:6px">📥 Come ottenere il file XBRL in 3 passi</div>
-    <ol style="margin:0;padding-left:18px;font-size:13px;color:#0c4a6e;line-height:1.8">
-      <li>Vai su <strong>registroimprese.it</strong> e cerca l'azienda per ragione sociale o P.IVA</li>
-      <li>Clicca su <strong>Bilanci</strong> → seleziona l'anno → <strong>Scarica XBRL</strong></li>
-      <li>Trascina qui il file scaricato (estensione <code>.xbrl</code>)</li>
-    </ol>
+  <!-- COME OTTENERLO -->
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
+    <div style="font-weight:700;font-size:15px;color:#0f172a;margin-bottom:16px">📥 Come ottenere il file XBRL — 3 metodi</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;font-size:13px;">
+      <div style="border:1px solid #e2e8f0;border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:#1d4ed8;margin-bottom:6px">🌐 Metodo 1 — Registro Imprese</div>
+        <div style="color:#475569;line-height:1.8">
+          <strong>Gratuito</strong> per la propria azienda, ~€2 per altre.<br/>
+          1. Vai su <strong>registroimprese.it</strong><br/>
+          2. Cerca per P.IVA o ragione sociale<br/>
+          3. Sezione <em>Bilanci e depositi</em><br/>
+          4. Seleziona anno → <strong>Scarica XBRL</strong>
+        </div>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:#1d4ed8;margin-bottom:6px">👨‍💼 Metodo 2 — Commercialista</div>
+        <div style="color:#475569;line-height:1.8">
+          <strong>Sempre disponibile</strong> presso lo studio.<br/>
+          Il software gestionale (Zucchetti, TeamSystem, Datev) esporta direttamente il file XBRL depositato.<br/>
+          Chiedi: <em>"Il file XBRL del bilancio 20XX"</em>
+        </div>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:#1d4ed8;margin-bottom:6px">🏛️ Metodo 3 — CCIAA locale</div>
+        <div style="color:#475569;line-height:1.8">
+          <strong>Sportello fisico o PEC</strong>.<br/>
+          Rivolgiti alla Camera di Commercio della provincia della sede legale.<br/>
+          Rilasciano il file XBRL su richiesta anche per visure di terze aziende.
+        </div>
+      </div>
+    </div>
   </div>
   <!-- Input PDF nascosto ma mantenuto per retrocompatibilità JS -->
   <input type="file" id="input-pdf" accept=".pdf" style="display:none" onchange="handleFile(this,'pdf')"/>
