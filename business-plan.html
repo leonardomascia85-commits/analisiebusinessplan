@@ -101,8 +101,6 @@ input.has-suffix{padding-right:36px}
 
 /* Output section */
 #output-section{display:none}
-.output-card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:24px}
-.output-title{font-size:1.1rem;font-weight:700;color:var(--blu);margin-bottom:16px;border-bottom:2px solid var(--bordo);padding-bottom:10px}
 .proj-table{width:100%;border-collapse:collapse;font-size:.88rem}
 .proj-table th{background:var(--blu);color:#fff;padding:10px 12px;text-align:right}
 .proj-table th:first-child{text-align:left}
@@ -1035,37 +1033,11 @@ input.has-suffix{padding-right:36px}
 
   <!-- OUTPUT -->
   <div id="output-section">
-    <div id="alerts-container"></div>
-
-    <div class="output-card">
-      <div class="output-title">📊 Conto Economico Proiettato (3 anni)</div>
-      <div id="ce-table-container"></div>
-    </div>
-
-    <div class="output-card">
-      <div class="output-title">🏦 Stato Patrimoniale Proiettato (3 anni)</div>
-      <div id="sp-table-container"></div>
-    </div>
-
-    <div class="output-card">
-      <div class="output-title">💸 Cash Flow Statement (3 anni)</div>
-      <div id="cf-table-container"></div>
-    </div>
-
-    <div class="output-card">
-      <div class="output-title">📐 Analisi del Break-Even</div>
-      <div id="be-container"></div>
-    </div>
-
-    <div class="output-card">
-      <div class="output-title">📋 Indici Chiave e DSCR</div>
-      <div id="kpi-container"></div>
-    </div>
-
-    <div style="text-align:center;margin-top:20px">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 20px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;flex-wrap:wrap">
       <button class="btn btn-genera" onclick="scaricaReport()">⬇ Scarica Business Plan (HTML)</button>
       <button class="btn btn-scarica" onclick="window.print()">🖨 Stampa / Salva PDF</button>
     </div>
+    <iframe id="report-frame" style="width:100%;height:88vh;border:none;background:#fff;display:block"></iframe>
   </div>
 
 </div>
@@ -1803,74 +1775,14 @@ function raccogliDati(){
   };
 }
 
-// ─── Render output (client-side preview) ─────────────────
+// ─── Render output ───────────────────────────────────────
 function renderOutput(data, payload){
-  const {ce, sp, cf, be, kpi, alerts} = data;
-
-  // Alerts
-  const ac = document.getElementById('alerts-container');
-  ac.innerHTML = '';
-  (alerts||[]).forEach(a=>{
-    ac.innerHTML += `<div class="alert-box ${a.type}"><span>${a.icon}</span><div>${a.msg}</div></div>`;
-  });
-
-  // CE
-  document.getElementById('ce-table-container').innerHTML = buildProjTable(ce, ['Storico','Anno 1','Anno 2','Anno 3']);
-  // SP
-  document.getElementById('sp-table-container').innerHTML = buildProjTable(sp, ['Storico','Anno 1','Anno 2','Anno 3']);
-  // CF
-  document.getElementById('cf-table-container').innerHTML = buildProjTable(cf, ['Storico','Anno 1','Anno 2','Anno 3']);
-  // BE
-  document.getElementById('be-container').innerHTML = buildBE(be);
-  // KPI
-  document.getElementById('kpi-container').innerHTML = buildKPI(kpi, payload.anno_base);
-
-  // Store for download
   _lastReportHTML = data.html || '';
+  const frame = document.getElementById('report-frame');
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  doc.open(); doc.write(_lastReportHTML); doc.close();
 }
 
-function buildProjTable(rows, headers){
-  let h = `<table class="proj-table"><thead><tr><th>${headers[0]}</th>`;
-  for(let i=1;i<headers.length;i++) h+=`<th>${headers[i]}</th>`;
-  h+='</tr></thead><tbody>';
-  (rows||[]).forEach(r=>{
-    const cls = [r.section?'section-header':'', r.total?'total-row':'', r.sub?'sub':'',
-      r.positive?'positive':'', r.negative?'negative':''].filter(Boolean).join(' ');
-    h+=`<tr class="${cls}"><td>${r.label}</td>`;
-    ['s','a1','a2','a3'].forEach(k=>{
-      const val = r[k];
-      h+=`<td>${val===null||val===undefined?'—':fmtEuro(val)}</td>`;
-    });
-    h+='</tr>';
-  });
-  h+='</tbody></table>';
-  return h;
-}
-
-function buildBE(be){
-  if(!be) return '<p>Dati insufficienti per il break-even.</p>';
-  return `
-    <div class="be-box">
-      <div class="be-item"><div class="be-value">${fmtEuro(be.ricavi_be)}</div><div class="be-label">Ricavi Break-Even</div></div>
-      <div class="be-item"><div class="be-value">${be.utilizzo_cap.toFixed(1)}%</div><div class="be-label">% Utilizzo capacità</div></div>
-      <div class="be-item"><div class="be-value">${fmtEuro(be.margine_sicurezza)}</div><div class="be-label">Margine di sicurezza</div></div>
-    </div>
-    <p style="margin-top:12px;font-size:.83rem;color:var(--muted)">Il break-even viene raggiunto a <strong>${fmtEuro(be.ricavi_be)}</strong> di fatturato. Con i ricavi proiettati dell'Anno 1 (${fmtEuro(be.ricavi_a1)}), il margine di sicurezza è <strong>${be.margine_perc.toFixed(1)}%</strong>.</p>`;
-}
-
-function buildKPI(kpi, anno){
-  if(!kpi||!kpi.length) return '';
-  let h = '<table class="proj-table"><thead><tr><th>Indicatore</th><th>Storico</th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Soglia banca</th></tr></thead><tbody>';
-  kpi.forEach(k=>{
-    const ok = k.ok!==undefined ? (k.ok ? '✅' : '⚠️') : '';
-    h+=`<tr><td>${k.label} ${ok}</td><td>${fmtKpi(k.s)}</td><td>${fmtKpi(k.a1)}</td><td>${fmtKpi(k.a2)}</td><td>${fmtKpi(k.a3)}</td><td style="color:var(--muted);font-size:.8rem">${k.soglia||''}</td></tr>`;
-  });
-  h+='</tbody></table>';
-  return h;
-}
-
-function fmtKpi(v){ return v===null||v===undefined?'—':(typeof v==='number'?v.toFixed(2):v); }
-function fmtEuro(v){ if(v===null||v===undefined) return '—'; return (v<0?'− ':'')+(Math.abs(v)/1000>=1?fmt(Math.abs(v)):Math.abs(v).toLocaleString('it-IT'))+' €'; }
 function fmt(n){ return Math.round(n).toLocaleString('it-IT'); }
 function v(id){ const el=document.getElementById(id); return el?el.value:''; }
 
