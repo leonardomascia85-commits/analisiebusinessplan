@@ -223,26 +223,185 @@ input.has-suffix{padding-right:36px}
         <div class="xbrl-result" id="xbrl-result"></div>
         <div class="xbrl-error" id="xbrl-error"></div>
 
-        <!-- Conferma anno dopo import XBRL -->
-        <div id="xbrl-anno-box" style="display:none;margin-top:16px">
-          <div class="form-row">
-            <div>
-              <label>Anno di riferimento (rilevato dal file)</label>
-              <input type="text" id="anno_base_xbrl" readonly style="background:#f0fdf4;font-weight:700;color:var(--verde)">
+        <!-- Riepilogo dati estratti + fast-track -->
+        <div id="xbrl-anno-box" style="display:none;margin-top:20px">
+
+          <!-- Riepilogo azienda -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px">
+              <div style="font-size:.72rem;font-weight:600;color:var(--verde);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Azienda</div>
+              <div style="font-weight:700;font-size:.95rem;color:var(--testo)" id="nome_xbrl_display">—</div>
             </div>
-            <div>
-              <label>Ragione Sociale (rilevata dal file)</label>
-              <input type="text" id="nome_xbrl_display" readonly style="background:#f0fdf4;font-weight:700;color:var(--verde)">
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px">
+              <div style="font-size:.72rem;font-weight:600;color:var(--verde);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Anno bilancio</div>
+              <div style="font-weight:700;font-size:.95rem;color:var(--testo)" id="anno_base_xbrl">—</div>
+            </div>
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px">
+              <div style="font-size:.72rem;font-weight:600;color:var(--verde);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Settore</div>
+              <input type="text" id="settore_bp" placeholder="Es. Manifattura…" style="border:none;background:transparent;font-weight:700;font-size:.95rem;color:var(--testo);width:100%;padding:0;outline:none">
             </div>
           </div>
-          <div class="form-row">
+
+          <!-- ═══ FAST-TRACK: solo 3 domande ═══ -->
+          <div style="background:#eff6ff;border:1.5px solid rgba(37,99,235,.15);border-radius:14px;padding:24px 26px;margin-bottom:20px">
+            <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Tre domande e generiamo il piano</div>
+            <div style="font-size:.83rem;color:var(--muted);margin-bottom:20px">I costi, il personale e il working capital vengono proiettati automaticamente dai dati del bilancio.</div>
+
+            <!-- 1. Scenario crescita -->
+            <div style="margin-bottom:20px">
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Tipologia di crescita attesa</label>
+              <div class="scenario-grid" style="margin-bottom:8px">
+                <div class="scenario-card" id="sc-bassa" onclick="selectScenario('bassa')">
+                  <div class="scenario-icon">🐢</div>
+                  <div class="scenario-name">Bassa</div>
+                  <div class="scenario-range">+2% – +4%</div>
+                  <div class="scenario-desc">Mercato maturo</div>
+                </div>
+                <div class="scenario-card" id="sc-moderata" onclick="selectScenario('moderata')">
+                  <div class="scenario-icon">🚀</div>
+                  <div class="scenario-name">Moderata</div>
+                  <div class="scenario-range">+5% – +8%</div>
+                  <div class="scenario-desc">Crescita organica</div>
+                </div>
+                <div class="scenario-card" id="sc-alta" onclick="selectScenario('alta')">
+                  <div class="scenario-icon">⚡</div>
+                  <div class="scenario-name">Alta</div>
+                  <div class="scenario-range">+9% – +15%</div>
+                  <div class="scenario-desc">Espansione mercato</div>
+                </div>
+                <div class="scenario-card" id="sc-custom" onclick="selectScenario('custom')">
+                  <div class="scenario-icon">✏️</div>
+                  <div class="scenario-name">Personalizzata</div>
+                  <div class="scenario-range">Libera</div>
+                  <div class="scenario-desc">Inserisci % manualmente</div>
+                </div>
+              </div>
+              <div id="custom-growth-row" style="display:none" class="form-row cols3">
+                <div>
+                  <label>Anno 1 (%)</label>
+                  <div class="input-group"><input type="number" id="g1" class="has-suffix" placeholder="0" step="0.5"><span class="input-suffix">%</span></div>
+                </div>
+                <div>
+                  <label>Anno 2 (%)</label>
+                  <div class="input-group"><input type="number" id="g2" class="has-suffix" placeholder="0" step="0.5"><span class="input-suffix">%</span></div>
+                </div>
+                <div>
+                  <label>Anno 3 (%)</label>
+                  <div class="input-group"><input type="number" id="g3" class="has-suffix" placeholder="0" step="0.5"><span class="input-suffix">%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Marginalità -->
+            <div style="margin-bottom:20px">
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">2. Marginalità attesa nel periodo</label>
+              <div class="form-row cols3" style="margin-bottom:0">
+                <div>
+                  <label>EBITDA Margin atteso (%)</label>
+                  <div class="input-group">
+                    <input type="number" id="ebitda_margin" class="has-suffix" placeholder="Es. 12" step="0.5">
+                    <span class="input-suffix">%</span>
+                  </div>
+                  <div id="xbrl-ebitda-hint" style="font-size:.75rem;color:var(--verde);margin-top:4px"></div>
+                </div>
+                <div>
+                  <label>Margine Lordo atteso (%)</label>
+                  <div class="input-group">
+                    <input type="number" id="margine_lordo" class="has-suffix" placeholder="Es. 40" step="0.5">
+                    <span class="input-suffix">%</span>
+                  </div>
+                </div>
+                <div>
+                  <label>Incremento costi fissi/anno (%)</label>
+                  <div class="input-group">
+                    <input type="number" id="incr_fissi" class="has-suffix" value="2" step="0.5">
+                    <span class="input-suffix">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Nuovo finanziamento -->
             <div>
-              <label>Settore / ATECO <small style="font-weight:400;color:var(--muted)">(completa se necessario)</small></label>
-              <input type="text" id="settore_bp" placeholder="Es. Manifattura, Commercio, Servizi…">
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">3. Nuovo finanziamento bancario?</label>
+              <div class="toggle-row" style="margin-bottom:12px">
+                <label class="toggle">
+                  <input type="checkbox" id="toggle-fin" onchange="toggleFinanziamento()">
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Sì, verrà richiesto un nuovo finanziamento</span>
+              </div>
+              <div id="finanziamento-block" class="hidden">
+                <div class="form-row cols3" style="margin-bottom:12px">
+                  <div>
+                    <label>Importo (€)</label>
+                    <div class="input-group">
+                      <input type="number" id="fin_importo" class="has-suffix" placeholder="0">
+                      <span class="input-suffix">€</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label>N. rate annue (durata anni)</label>
+                    <input type="number" id="fin_durata" placeholder="Es. 5" min="1" max="30">
+                  </div>
+                  <div>
+                    <label>Tasso interesse (%)</label>
+                    <div class="input-group">
+                      <input type="number" id="fin_tasso" class="has-suffix" placeholder="Es. 4.5" step="0.1">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row cols3" style="margin-bottom:0">
+                  <div>
+                    <label>Tipologia</label>
+                    <select id="fin_tipo">
+                      <option value="mutuo">Mutuo chirografario</option>
+                      <option value="mutuo_ipot">Mutuo ipotecario</option>
+                      <option value="sabatini">Nuova Sabatini</option>
+                      <option value="garantito">Garanzia MCC/SACE</option>
+                      <option value="finanziamento">Finanziamento ordinario</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Pre-ammortamento (mesi)</label>
+                    <input type="number" id="pre_amm" placeholder="0" min="0" max="24">
+                  </div>
+                  <div></div>
+                </div>
+                <div class="alert-box warning" style="margin-top:12px">
+                  <span>⚠️</span>
+                  <div>Il DSCR deve essere ≥ 1,1x (EBA/GL/2020/06). Calcolato automaticamente considerando anche i debiti esistenti dal bilancio.</div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+
+          <!-- Analista e note (opzionali) -->
+          <div style="background:#f8fafc;border-radius:10px;padding:16px 18px;border:1px solid var(--bordo)">
+            <div style="font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:12px">📝 Note opzionali</div>
+            <div class="form-row">
+              <div>
+                <label>Nome analista</label>
+                <input type="text" id="analista_xbrl" value="Dr. Leonardo Mascia" placeholder="Nome e cognome">
+              </div>
+              <div>
+                <label>Note sul piano</label>
+                <input type="text" id="note_xbrl" placeholder="Es. Piano per richiesta finanziamento…">
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottone genera diretto -->
+          <div style="text-align:center;margin-top:24px">
+            <button class="btn btn-genera" style="font-size:1.05rem;padding:16px 48px" onclick="generaBPdaXBRL()">
+              🚀 Genera Business Plan
+            </button>
+            <div style="font-size:.78rem;color:var(--muted);margin-top:8px">I costi vengono proiettati automaticamente dai dati del bilancio XBRL</div>
+          </div>
+
+        </div><!-- /xbrl-anno-box -->
+      </div><!-- /block-xbrl -->
 
       <!-- PERCORSO MANUALE -->
       <div class="percorso-block" id="block-manuale">
@@ -306,50 +465,50 @@ input.has-suffix{padding-right:36px}
       <div class="card-title">📈 Scenario di crescita</div>
       <div class="card-sub">Seleziona il tasso di crescita annuo previsto dei ricavi. Le banche valutano sempre anche lo scenario prudenziale (−20%).</div>
       <div class="scenario-grid">
-        <div class="scenario-card" id="sc-bassa" onclick="selectScenario('bassa')">
+        <div class="scenario-card" id="m-sc-bassa" onclick="selectScenario('bassa')">
           <div class="scenario-icon">🐢</div>
           <div class="scenario-name">Bassa</div>
           <div class="scenario-range">+2% – +4%</div>
           <div class="scenario-desc">Mercato maturo, consolidamento</div>
         </div>
-        <div class="scenario-card" id="sc-moderata" onclick="selectScenario('moderata')">
+        <div class="scenario-card" id="m-sc-moderata" onclick="selectScenario('moderata')">
           <div class="scenario-icon">🚀</div>
           <div class="scenario-name">Moderata</div>
           <div class="scenario-range">+5% – +8%</div>
           <div class="scenario-desc">Crescita organica sostenuta</div>
         </div>
-        <div class="scenario-card" id="sc-alta" onclick="selectScenario('alta')">
+        <div class="scenario-card" id="m-sc-alta" onclick="selectScenario('alta')">
           <div class="scenario-icon">⚡</div>
           <div class="scenario-name">Alta</div>
           <div class="scenario-range">+9% – +15%</div>
           <div class="scenario-desc">Espansione mercato/prodotto</div>
         </div>
-        <div class="scenario-card" id="sc-custom" onclick="selectScenario('custom')">
+        <div class="scenario-card" id="m-sc-custom" onclick="selectScenario('custom')">
           <div class="scenario-icon">✏️</div>
           <div class="scenario-name">Personalizzato</div>
           <div class="scenario-range">Libero</div>
           <div class="scenario-desc">Inserisci % manualmente</div>
         </div>
       </div>
-      <div id="custom-growth-row" style="display:none" class="form-row cols3">
+      <div id="m-custom-growth-row" style="display:none" class="form-row cols3">
         <div>
           <label>Crescita Anno 1 (%)</label>
           <div class="input-group">
-            <input type="number" id="g1" class="has-suffix" placeholder="0" step="0.5">
+            <input type="number" id="m-g1" class="has-suffix" placeholder="0" step="0.5">
             <span class="input-suffix">%</span>
           </div>
         </div>
         <div>
           <label>Crescita Anno 2 (%)</label>
           <div class="input-group">
-            <input type="number" id="g2" class="has-suffix" placeholder="0" step="0.5">
+            <input type="number" id="m-g2" class="has-suffix" placeholder="0" step="0.5">
             <span class="input-suffix">%</span>
           </div>
         </div>
         <div>
           <label>Crescita Anno 3 (%)</label>
           <div class="input-group">
-            <input type="number" id="g3" class="has-suffix" placeholder="0" step="0.5">
+            <input type="number" id="m-g3" class="has-suffix" placeholder="0" step="0.5">
             <span class="input-suffix">%</span>
           </div>
         </div>
@@ -964,6 +1123,16 @@ function handleXbrlFile(file){
       drop.querySelector('.xbrl-drop-title').textContent = file.name + ' — caricato';
       drop.querySelector('.xbrl-drop-sub').textContent = 'Clicca per caricare un file diverso';
       document.getElementById('xbrl-anno-box').style.display = 'block';
+      // Hint marginalità storica
+      if(parsed.ebitda_margin > 0){
+        const hint = document.getElementById('xbrl-ebitda-hint');
+        if(hint) hint.textContent = `Storico ${parsed.anno}: ${parsed.ebitda_margin.toFixed(1)}%`;
+      }
+      // Testo nome/anno nelle card riepilogo
+      const ndv = document.getElementById('nome_xbrl_display');
+      const adv = document.getElementById('anno_base_xbrl');
+      if(ndv) ndv.textContent = parsed.nome || '—';
+      if(adv) adv.textContent = parsed.anno || '—';
 
       const fmtM = n => n ? (Math.abs(n)>=1000000 ? (n/1000000).toFixed(2)+'M €' : fmt(n)+' €') : '—';
       const pct  = n => n ? n.toFixed(1)+'%' : '—';
@@ -1298,19 +1467,131 @@ function goStep(n){
 // ─── Scenario ────────────────────────────────────────────
 function selectScenario(key){
   selectedScenario = key;
+  // Aggiorna entrambi i set di card (XBRL fast-track + manuale)
   document.querySelectorAll('.scenario-card').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('sc-'+key).classList.add('selected');
-  const custom = document.getElementById('custom-growth-row');
+  ['sc-','m-sc-'].forEach(pfx=>{
+    const el = document.getElementById(pfx+key);
+    if(el) el.classList.add('selected');
+  });
+  // Mostra/nascondi custom row in entrambi i contesti
+  const custom  = document.getElementById('custom-growth-row');
+  const mCustom = document.getElementById('m-custom-growth-row');
   if(key==='custom'){
-    custom.style.display='grid';
+    if(custom)  custom.style.display='grid';
+    if(mCustom) mCustom.style.display='grid';
   } else {
-    custom.style.display='none';
-    // Set default values
+    if(custom)  custom.style.display='none';
+    if(mCustom) mCustom.style.display='none';
     const ranges = {bassa:[3,3,3], moderata:[6,7,7], alta:[10,12,12]};
     const [g1,g2,g3] = ranges[key] || [0,0,0];
-    document.getElementById('g1').value = g1;
-    document.getElementById('g2').value = g2;
-    document.getElementById('g3').value = g3;
+    // Setta valori in entrambi i set
+    ['g1','g2','g3','m-g1','m-g2','m-g3'].forEach((id,i)=>{
+      const el=document.getElementById(id); if(el) el.value=[g1,g2,g3,g1,g2,g3][i];
+    });
+  }
+}
+
+// ─── FAST-TRACK: genera BP da XBRL con 3 domande ─────────
+async function generaBPdaXBRL(){
+  if(!_xbrlData){ alert('Carica prima un file XBRL.'); return; }
+  if(!selectedScenario){ alert('Seleziona la tipologia di crescita.'); return; }
+  const em = parseFloat(document.getElementById('ebitda_margin')?.value)||0;
+  if(!em){ alert('Inserisci la marginalità EBITDA attesa.'); return; }
+
+  const p = _xbrlData;
+  const ranges = {bassa:[3,3,3], moderata:[6,7,7], alta:[10,12,12]};
+  const [g1,g2,g3] = selectedScenario==='custom'
+    ? [parseFloat(v('g1'))||3, parseFloat(v('g2'))||3, parseFloat(v('g3'))||3]
+    : (ranges[selectedScenario]||[3,3,3]);
+
+  // Proietta costi fissi con incremento annuo
+  const incr = parseFloat(document.getElementById('incr_fissi')?.value)||2;
+
+  const payload = {
+    // Anagrafica
+    nome:         p.nome,
+    settore:      document.getElementById('settore_bp')?.value || '',
+    anno_base:    parseInt(p.anno)||2024,
+    analista:     document.getElementById('analista_xbrl')?.value || 'Dr. Leonardo Mascia',
+    data_report:  document.getElementById('data_report')?.value || '',
+    nota_metodologica: `Business plan generato automaticamente da bilancio XBRL ${p.anno}. Proiezioni basate su dati certificati. Conforme EBA/GL/2020/06 e D.Lgs. 14/2019 (CCII).`,
+    ipotesi_stress: `Scenario stress: ricavi -20%, EBITDA margin -3pp. Analisi DSCR su finanziamenti esistenti e nuovi.`,
+    note_xbrl:    document.getElementById('note_xbrl')?.value || '',
+    // Dati storici da XBRL
+    ricavi_base:       Math.round(p.ricavi),
+    ebitda_storico:    Math.round(p.ebitda),
+    costo_pers_storico:Math.round(p.costo_pers),
+    pfn_storico:       Math.round(p.pfn),
+    pn_attuale:        Math.round(p.pn),
+    // Scenario
+    scenario: selectedScenario,
+    g1, g2, g3,
+    // Costi proiettati da XBRL (auto)
+    margine_lordo:  parseFloat(document.getElementById('margine_lordo')?.value) || Math.max(p.margine_lordo,0),
+    ebitda_margin:  em,
+    costi_fissi:    Math.round(p.costi_fissi),
+    perc_var:       parseFloat(p.perc_var.toFixed(1)),
+    incr_fissi:     incr,
+    var_materie:    2,
+    ammortamenti:   Math.round(p.ammortamenti),
+    tax_rate:       27.9,
+    dso:            p.dso,
+    dpo:            p.dpo,
+    dio:            p.dio,
+    perc_ccn:       p.ricavi>0 ? parseFloat(((p.crediti_clienti+p.rimanenze-p.debiti_fornitori)/p.ricavi*100).toFixed(1)) : 8,
+    // Ricavi aggiuntivi (nessuno in fast-track)
+    perc_ricorrenti: 70,
+    new_products_rev: 0,
+    new_markets_rev:  0,
+    note_ricavi: '',
+    // Personale da XBRL
+    n_dip:          p.n_dip || 0,
+    costo_medio_dip:p.costo_medio_dip || (p.n_dip>0 ? Math.round(p.costo_pers/p.n_dip) : 35000),
+    incr_pers:      2,
+    tfr_perc:       6.91,
+    consulenze:     0,
+    assunzioni:     [],
+    // Capex (nessuno in fast-track — si proietta solo manutenzione)
+    capex:          [],
+    fonte_capex:    'autofinanziamento',
+    perc_fin_capex: 0,
+    // Finanza — debiti esistenti da XBRL
+    deb_bt:              Math.round(p.deb_bt),
+    deb_mlt:             Math.round(p.deb_mlt),
+    rata_esistente:      Math.round(p.deb_mlt / 5) || 0, // stima rata: MLT / 5 anni
+    interessi_esistenti: Math.round(p.oneri_fin),
+    anni_residui:        5,
+    // Nuovo finanziamento
+    nuovo_fin:   document.getElementById('toggle-fin')?.checked || false,
+    fin_importo: parseFloat(v('fin_importo'))||0,
+    fin_durata:  parseFloat(v('fin_durata'))||5,
+    fin_tasso:   parseFloat(v('fin_tasso'))||4.5,
+    fin_tipo:    v('fin_tipo')||'mutuo',
+    rata_capitale:0,
+    pre_amm:     parseFloat(v('pre_amm'))||0,
+    aum_capitale: 0,
+    dividendi:    0,
+    // Flag per identificare origine
+    fonte: 'xbrl',
+  };
+
+  const btn = document.querySelector('.btn-genera');
+  if(btn){ btn.textContent='⏳ Generazione in corso…'; btn.disabled=true; }
+
+  try {
+    const res = await fetch('/api/genera-bp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error||'Errore API');
+    renderOutput(data, payload);
+    document.getElementById('output-section').style.display='block';
+    document.getElementById('output-section').scrollIntoView({behavior:'smooth'});
+  } catch(err){
+    alert('Errore nella generazione: '+err.message);
+  } finally {
+    if(btn){ btn.textContent='🚀 Genera Business Plan'; btn.disabled=false; }
   }
 }
 
