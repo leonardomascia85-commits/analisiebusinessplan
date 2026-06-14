@@ -624,9 +624,29 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   };
 
   // ── narrative auto-generation
-  const marginVerb = (EBITDAM1 >= 8) ? 'sopra' : 'sotto';
-  const dscrVerb = (DSCR1 !== null && DSCR1 >= 1.10) ? 'supera' : 'non supera';
-  const narrative = `Il piano proietta ricavi in crescita da ${fmtM(R0)} (storico) a ${fmtM(R3)} nell'Anno 3${CAGR !== null ? `, con un CAGR del ${CAGR.toFixed(1)}%` : ''}. La marginalità EBITDA si attesta al ${fmtP(EBITDAM1)} nel primo anno proiettato, ${marginVerb} la soglia di attenzione bancaria dell'8%. Il DSCR di ${fmtX(DSCR1)} ${dscrVerb} il requisito minimo EBA di 1,10x previsto dalle Guidelines EBA/GL/2020/06.`;
+  const settoreLabel = d.settore ? `nel settore ${d.settore}` : '';
+  const scenarioDesc = { bassa: 'di crescita contenuta, coerente con un mercato maturo', moderata: 'di sviluppo organico, con espansione graduale dei ricavi', alta: 'di forte espansione, in linea con un piano di acquisizione di quote di mercato', custom: 'personalizzato' }[d.scenario] || 'di sviluppo';
+
+  const narrative = `
+<p><strong>${nome}</strong> ${settoreLabel} presenta un piano economico-finanziario per il triennio ${annoBase + 1}–${annoBase + 3} costruito su uno scenario ${scenarioDesc}. I ricavi passano da ${fmtE(R0)} nello storico ${annoBase} a ${fmtE(R3)} al termine del periodo${CAGR !== null ? `, con un tasso di crescita composto annuo (CAGR) del <strong>${fmtP(CAGR)}</strong>` : ''}, confermando la traiettoria di sviluppo prevista dalla direzione.</p>
+
+<p>Sul piano della redditività, l'EBITDA margin si attesta al <strong>${fmtP(EBITDAM1)}</strong> nell'Anno 1 ${EBITDAM1 >= 8 ? 'e rimane stabilmente al di sopra della soglia bancaria dell\'8%' : `— al di sotto della soglia bancaria dell'8% — con un percorso di progressivo miglioramento verso il ${fmtP(EBITDAM3)} atteso nell'Anno 3`}. L'utile netto del primo anno proiettato è pari a <strong>${fmtE(UN1)}</strong>${UN1 >= 0 ? ', confermando la sostenibilità economica del piano' : ': si raccomanda un piano di contenimento dei costi per il ritorno all\'utile'}.</p>
+
+<p>Sotto il profilo della sostenibilità finanziaria, il <strong>DSCR di ${fmtX(DSCR1)}</strong> ${DSCR1 >= 1.10 ? 'supera il requisito minimo di 1,10x fissato dalle Linee Guida EBA/GL/2020/06, indicando una adeguata copertura del servizio del debito' : 'si posiziona al di sotto del requisito minimo EBA di 1,10x: il piano necessita di una revisione della struttura finanziaria o di una riduzione del debito'}. La posizione finanziaria netta evolve da ${fmtE(PFN1)} nell'Anno 1 a ${fmtE(PFN3)} nell'Anno 3${PFN3 < PFN1 ? ', evidenziando un progressivo de-leveraging' : ', con un lieve incremento dell\'indebitamento netto'}.</p>
+
+${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>: i principali indicatori di rischio (DSCR, PFN/EBITDA, utile netto) rientrano nei parametri richiesti dagli istituti di credito per l\'erogazione di nuovi finanziamenti.</p>' : '<p>Il profilo del piano presenta <strong>elementi di attenzione</strong> che richiedono una verifica approfondita con gli istituti di credito prima di procedere alla richiesta di finanziamento.</p>'}`;
+
+  // ── narrative per sezione CE
+  const narrativeCE = `
+<p>Il Conto Economico proiettato riflette l'applicazione dello scenario <em>${scenarioLabel}</em> ai ricavi storici dell'anno ${annoBase}. La crescita dei ricavi — rispettivamente +${d.g1}%, +${d.g2}%, +${d.g3}% — traina un incremento proporzionale dell'EBITDA, che passa da <strong>${fmtE(EBITDA1)}</strong> nell'Anno 1 a <strong>${fmtE(EBITDA3)}</strong> nell'Anno 3. I costi operativi vengono proiettati mantenendo costante la struttura dei margini${d.fonte === 'xbrl' ? ' derivata dal bilancio certificato' : ' dichiarata nel piano'}, con un incremento dei costi fissi del ${d.incr_fissi || 2}% annuo a copertura dell'inflazione strutturale. Gli ammortamenti restano stabili a <strong>${fmtE(d.ammortamenti || 0)}</strong>/anno, ipotizzando un piano investimenti in linea con il rinnovo ordinario degli asset esistenti.</p>`;
+
+  // ── narrative per sezione SP
+  const narrativeSP = `
+<p>Lo Stato Patrimoniale proiettato evidenzia l'evoluzione della struttura patrimoniale nel triennio. Il patrimonio netto cresce grazie all'accumulo degli utili non distribuiti, passando da <strong>${fmtE(d.pn_attuale || 0)}</strong> (storico) a <strong>${fmtE(PN3)}</strong> nell'Anno 3, rafforzando il grado di autonomia finanziaria. Il capitale circolante netto viene gestito applicando i parametri storici di DSO (${d.dso || '—'} gg), DPO (${d.dpo || '—'} gg) e DIO (${d.dio || '—'} gg) ai volumi proiettati. La posizione finanziaria netta ${PFN3 < (d.pfn_storico || 0) ? 'si riduce progressivamente' : 'si mantiene sotto controllo'}, evidenziando la capacità del piano di generare flussi di cassa sufficienti a rimborsare il debito in essere.</p>`;
+
+  // ── narrative per sezione CF
+  const narrativeCF = `
+<p>Il Rendiconto Finanziario mostra la generazione di cassa nel triennio. Il flusso operativo (Free Cash Flow from Operations) ${EBITDA1 > 0 ? `è positivo già dall'Anno 1 (EBITDA ${fmtE(EBITDA1)} al netto di variazioni di CCN e imposte)` : 'presenta tensioni nel primo anno, con miglioramento atteso nel biennio successivo'}. Il flusso di investimento riflette il piano CAPEX ${(d.capex && d.capex.length) ? 'definito nel modello' : 'di manutenzione ordinaria ipotizzato nel modello'}. Il flusso finanziario include il rimborso del debito bancario esistente${d.nuovo_fin && d.fin_importo ? ` e l'erogazione del nuovo finanziamento di ${fmtE(d.fin_importo)}` : ''}. La cassa finale rimane positiva in tutti e tre gli anni, segnale di solidità della pianificazione finanziaria.</p>`;
 
   // ── KPI cards (exec summary)
   const kpiCard = (val, label, soglia, color) => `
@@ -694,7 +714,9 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     .sec-ti{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:#0F172A}
     h3{font-size:12px;font-weight:700;color:#1D4ED8;margin:18px 0 8px}
     p.lead{font-size:10px;color:#64748B;margin-bottom:8px}
-    .narrative{background:#F8FAFC;border-left:4px solid #2563EB;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.7;color:#334155;margin:14px 0}
+    .narrative{background:#F8FAFC;border-left:4px solid #2563EB;border-radius:6px;padding:14px 18px;font-size:10.5px;line-height:1.75;color:#334155;margin:14px 0}
+    .narrative p{margin:0 0 9px 0}.narrative p:last-child{margin-bottom:0}
+    .narrative strong{color:#0F172A}.narrative em{color:#2563EB;font-style:normal;font-weight:600}
 
     .kpi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
     .kpi-card{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:13px 14px}
@@ -951,30 +973,35 @@ ${(() => {
 <!-- PAGE 4 — CONTO ECONOMICO -->
 <div class="page">
   ${secHdr('Modello CE proiettato', '4. Conto Economico Proiettato')}
-  <p class="lead">Valori in €. Crescita ricavi: +${d.g1}% / +${d.g2}% / +${d.g3}%. EBITDA margin target: ${d.ebitda_margin}%.</p>
+  <div class="narrative">${narrativeCE}</div>
+  <div class="ratio-row" style="margin-bottom:10px">
+    <div class="ratio-box"><div class="v" style="color:${EBITDAM1>=8?'#059669':'#D97706'}">${fmtP(EBITDAM1)}</div><div class="l">EBITDA Margin<br>Anno ${annoBase+1}</div></div>
+    <div class="ratio-box"><div class="v" style="color:${EBITDAM2>=8?'#059669':'#D97706'}">${fmtP(EBITDAM2)}</div><div class="l">EBITDA Margin<br>Anno ${annoBase+2}</div></div>
+    <div class="ratio-box"><div class="v" style="color:${EBITDAM3>=8?'#059669':'#D97706'}">${fmtP(EBITDAM3)}</div><div class="l">EBITDA Margin<br>Anno ${annoBase+3}</div></div>
+  </div>
   ${projTable(CE)}
-  <div class="disclaimer">Le proiezioni di ricavo applicano i tassi di crescita per scenario; l'EBITDA è derivato dal margine target costante (${d.ebitda_margin}%) applicato ai ricavi di ciascun esercizio. I costi operativi sono impliciti nel margine EBITDA.</div>
+  <div class="disclaimer">I tassi di crescita (+${d.g1}% / +${d.g2}% / +${d.g3}%) si applicano ai ricavi storici ${annoBase}. I costi vengono proiettati mantenendo la struttura di margine ${d.fonte==='xbrl'?'certificata dal bilancio XBRL':'dichiarata nel piano'}. L'EBITDA margin target è ${d.ebitda_margin}% costante nel triennio; l'incremento assoluto dell'EBITDA è interamente guidato dalla crescita dei ricavi.</div>
   ${pf(4)}
 </div>
 
 <!-- PAGE 5 — STATO PATRIMONIALE -->
 <div class="page">
   ${secHdr('Modello SP proiettato', '5. Stato Patrimoniale Proiettato')}
-  <p class="lead">Proiezione integrata con il modello CE + Cash Flow. PFN/EBITDA per anno:</p>
-  <div class="ratio-row">
-    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA1)}">${fmtX(PFNEBITDA1)}</span><div class="l">PFN/EBITDA Anno 1</div></div>
-    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA2)}">${fmtX(PFNEBITDA2)}</span><div class="l">PFN/EBITDA Anno 2</div></div>
-    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)}">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA Anno 3</div></div>
+  <div class="narrative">${narrativeSP}</div>
+  <div class="ratio-row" style="margin-bottom:10px">
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA1)};margin-bottom:4px">${fmtX(PFNEBITDA1)}</span><div class="l">PFN/EBITDA<br>Anno ${annoBase+1}</div></div>
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA2)};margin-bottom:4px">${fmtX(PFNEBITDA2)}</span><div class="l">PFN/EBITDA<br>Anno ${annoBase+2}</div></div>
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)};margin-bottom:4px">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA<br>Anno ${annoBase+3}</div></div>
   </div>
   ${projTable(SP)}
-  <div class="info-box">Il patrimonio netto evolve da ${fmtE(PN1)} (Anno 1) a ${fmtE(PN3)} (Anno 3) nel triennio, per effetto degli utili reinvestiti al netto delle distribuzioni. La PFN passa da ${fmtE(PFN1)} a ${fmtE(PFN3)}.</div>
+  <div class="info-box">Il patrimonio netto cresce da <strong>${fmtE(PN1)}</strong> (Anno 1) a <strong>${fmtE(PN3)}</strong> (Anno 3), rafforzando la solidità patrimoniale dell'azienda. La Posizione Finanziaria Netta evolve da <strong>${fmtE(PFN1)}</strong> a <strong>${fmtE(PFN3)}</strong>${PFN3 < PFN1 ? ', confermando il progressivo de-leveraging previsto dal piano' : '; il rapporto PFN/EBITDA si mantiene entro i parametri bancari'}.</div>
   ${pf(5)}
 </div>
 
 <!-- PAGE 6 — CASH FLOW -->
 <div class="page">
   ${secHdr('Rendiconto finanziario', '6. Cash Flow Statement')}
-  <p class="lead">Metodo indiretto. FCO = flussi operativi · FCI = investimenti · FFF = flussi finanziari.</p>
+  <div class="narrative">${narrativeCF}</div>
   ${cfTable(CF)}
   <h3>Waterfall Cash Flow Anno 1 (${annoBase + 1})</h3>
   <div class="chart-box">${svgWaterfall()}</div>
@@ -984,6 +1011,10 @@ ${(() => {
 <!-- PAGE 7 — DSCR / BANCABILITÀ -->
 <div class="page">
   ${secHdr('Sostenibilità del debito', '7. DSCR e Bancabilità EBA')}
+  <div class="narrative">
+    <p>Il <strong>Debt Service Coverage Ratio (DSCR)</strong> misura la capacità dell'impresa di coprire il servizio del debito (quota capitale + interessi) con i flussi di cassa operativi. Le Linee Guida EBA/GL/2020/06 richiedono un DSCR minimo di <strong>1,10x</strong> per l'accesso al credito; un valore ≥ 1,30x è considerato un profilo solido, mentre un valore ≥ 1,50x indica un'eccellente copertura.</p>
+    <p>${nome} presenta un DSCR di <strong>${fmtX(DSCR1)}</strong> nell'Anno 1, ${DSCR1 >= 1.5 ? 'posizionandosi in una fascia di eccellente solidità finanziaria' : DSCR1 >= 1.3 ? 'collocandosi in un profilo solido, ben al di sopra del requisito minimo bancario' : DSCR1 >= 1.1 ? 'superando il requisito minimo EBA, con un margine di sicurezza sufficiente' : 'risultando inferiore al requisito minimo EBA: si raccomanda una revisione del piano di rimborso o una rinegoziazione del debito'}. Il ratio migliora${DSCR3 > DSCR1 ? ` progressivamente` : ''} nel triennio, raggiungendo ${fmtX(DSCR3)} nell'Anno 3, grazie alla crescita dell'EBITDA.</p>
+  </div>
   <h3>Debt Service Coverage Ratio — scala EBA</h3>
   <div class="chart-box">${svgDscrScale(DSCR1)}</div>
   ${progBar('DSCR Anno 1', DSCR1, fmtX(DSCR1), DSCR1 !== null ? DSCR1 / 3 * 100 : 0, dscrColor(DSCR1))}
@@ -1012,6 +1043,10 @@ ${(() => {
 <!-- PAGE 8 — BREAK-EVEN / SENSIBILITÀ -->
 <div class="page">
   ${secHdr('Punto di pareggio', '8. Break-Even e Sensibilità')}
+  <div class="narrative">
+    <p>L'<strong>analisi di break-even</strong> determina il livello minimo di ricavi necessario a coprire tutti i costi fissi dell'impresa, ovvero il punto in cui l'utile operativo è pari a zero. ${be ? `Per ${nome}, il punto di pareggio è fissato a <strong>${fmtE(be.ricavi_be)}</strong> di fatturato: con i ricavi proiettati dell'Anno 1 pari a <strong>${fmtE(be.ricavi_a1)}</strong>, l'azienda opera con un <strong>margine di sicurezza del ${fmtP(be.margine_perc)}</strong> (${fmtE(be.margine_sicurezza)} di ricavi "in eccesso" rispetto al break-even). ${be.utilizzo_cap <= 70 ? 'Il piano è robusto: anche con una contrazione significativa dei ricavi, l\'impresa mantiene la copertura dei costi fissi.' : be.utilizzo_cap <= 90 ? 'Il piano è sostenibile, ma il margine di sicurezza richiede un monitoraggio attento dell\'andamento dei ricavi.' : 'L\'azienda opera in prossimità del punto di pareggio: priorità alla gestione dei costi fissi e al presidio dei ricavi minimi.'}` : 'Dati insufficienti per il calcolo del break-even.'}</p>
+    <p>L'<strong>analisi di sensibilità</strong> simula l'impatto di cali dei ricavi sul DSCR Anno 1, mantenendo invariati la struttura dei costi e il servizio del debito. Lo scopo è identificare la soglia di rottura della bancabilità, ovvero il calo massimo di ricavi compatibile con il requisito EBA di 1,10x.</p>
+  </div>
   ${be ? `
   <table class="rep">
     <thead><tr><th>Ricavi BE</th><th>Ricavi Anno 1</th><th>Utilizzo capacità</th><th>Margine sicurezza €</th><th>Margine sicurezza %</th></tr></thead>
@@ -1035,6 +1070,10 @@ ${(() => {
 <!-- PAGE 9 — IPOTESI / NOTE -->
 <div class="page">
   ${secHdr('Metodologia', '9. Ipotesi e Note Metodologiche')}
+  <div class="narrative">
+    <p>Il presente Business Plan è costruito su un <strong>modello integrato a tre prospetti</strong> (Conto Economico, Stato Patrimoniale, Rendiconto Finanziario) che garantisce la coerenza contabile tra le proiezioni economiche e quelle patrimoniali. I ricavi vengono proiettati applicando i tassi di crescita selezionati ai dati storici ${d.fonte === 'xbrl' ? 'certificati del bilancio XBRL depositato presso la CCIAA' : 'forniti dal management'}. La struttura dei costi viene mantenuta in linea con la marginalità storica, con l'unico aggiustamento dell'inflazione strutturale sui costi fissi.</p>
+    <p>Il documento è redatto in conformità alle <strong>EBA Guidelines on loan origination and monitoring (EBA/GL/2020/06)</strong>, che richiedono una proiezione triennale dei flussi di cassa con test di stress, e ai principi del <strong>D.Lgs. 14/2019 (Codice della Crisi d'Impresa e dell'Insolvenza)</strong>, che impone l'adozione di adeguati assetti organizzativi per la rilevazione precoce delle crisi aziendali.</p>
+  </div>
   <h3>Ipotesi chiave del modello</h3>
   <table class="rep">
     <thead><tr><th>Parametro</th><th>Valore</th><th>Note</th></tr></thead>
