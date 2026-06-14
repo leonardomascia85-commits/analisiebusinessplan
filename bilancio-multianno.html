@@ -63,7 +63,7 @@
     .yc-btn{position:absolute;top:12px;right:12px;font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;border:none;cursor:pointer;}
     .yc-btn.add{background:rgba(37,99,235,.2);color:var(--cyan);}
     .yc-btn.edit{background:rgba(16,185,129,.15);color:var(--green);}
-    .azienda-strip{display:grid;grid-template-columns:2fr 1fr 1fr 2fr;gap:12px;}
+    .azienda-strip{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;}
     .af{display:flex;flex-direction:column;gap:4px;}
     .af label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;}
     .af input,.af select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:8px 11px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;width:100%;}
@@ -259,58 +259,6 @@
         </select>
       </div>
       <div class="af"><label>N° dipendenti</label><input type="number" id="dipendenti" placeholder="es. 18"/></div>
-      <div class="af"><label>Settore (ATECO)</label>
-        <select id="settore">
-          <option value="">— Seleziona settore —</option>
-          <optgroup label="── Agricoltura e Risorse ──">
-            <option value="A">A — Agricoltura, silvicoltura e pesca (01-03)</option>
-            <option value="B">B — Estrazione di minerali (05-09)</option>
-          </optgroup>
-          <optgroup label="── Manifatturiero ──">
-            <option value="C10">Industria alimentare e bevande (10-11)</option>
-            <option value="C13">Tessile e abbigliamento (13-15)</option>
-            <option value="C16">Legno, carta e stampa (16-18)</option>
-            <option value="C20">Chimica e farmaceutica (20-21)</option>
-            <option value="C22">Gomma e materie plastiche (22)</option>
-            <option value="C23">Minerali non metalliferi, ceramica, vetro (23)</option>
-            <option value="C24">Metallurgia e prodotti in metallo (24-25)</option>
-            <option value="C28">Macchinari e apparecchi (28)</option>
-            <option value="C29">Autoveicoli e componentistica (29-30)</option>
-            <option value="C32">Altre industrie manifatturiere (32-33)</option>
-            <option value="C">C — Manifatturiero generico (10-33)</option>
-          </optgroup>
-          <optgroup label="── Energia e Utilities ──">
-            <option value="D">D — Energia elettrica e gas (35)</option>
-            <option value="E">E — Acqua, rifiuti, bonifica (36-39)</option>
-          </optgroup>
-          <optgroup label="── Costruzioni ──">
-            <option value="F41">Costruzione di edifici (41)</option>
-            <option value="F42">Ingegneria civile, infrastrutture (42)</option>
-            <option value="F43">Lavori specializzati di costruzione (43)</option>
-            <option value="F">F — Costruzioni generico (41-43)</option>
-          </optgroup>
-          <optgroup label="── Commercio ──">
-            <option value="G45">Commercio autoveicoli (45)</option>
-            <option value="G46">Commercio all'ingrosso (46)</option>
-            <option value="G47">Commercio al dettaglio (47)</option>
-          </optgroup>
-          <optgroup label="── Servizi ──">
-            <option value="H49">Trasporto terrestre e su condotta (49)</option>
-            <option value="H52">Magazzinaggio e logistica (52)</option>
-            <option value="H">H — Trasporto generico (49-53)</option>
-            <option value="I">I — Alloggio e ristorazione (55-56)</option>
-            <option value="J">J — ICT e comunicazione (58-63)</option>
-            <option value="K">K — Finanza e assicurazioni (64-66)</option>
-            <option value="L">L — Attività immobiliari (68)</option>
-            <option value="M">M — Professionali e tecniche (69-75)</option>
-            <option value="N">N — Noleggio e servizi di supporto (77-82)</option>
-            <option value="P">P — Istruzione (85)</option>
-            <option value="Q">Q — Sanità e assistenza (86-88)</option>
-            <option value="R">R — Arte, sport e intrattenimento (90-93)</option>
-            <option value="S">S — Altre attività di servizi (94-96)</option>
-          </optgroup>
-        </select>
-      </div>
     </div>
 
     <div class="year-cards">
@@ -675,7 +623,7 @@
       <div class="rcard">
         <div class="actions">
           <button class="btn-p" id="btn-report" onclick="generaReport()" disabled>Genera Report PDF →</button>
-          <button class="btn-p" id="btn-scarica" onclick="scaricaReport()" style="display:none;background:#16a34a">⬇ Scarica Report</button>
+          <button class="btn-p" id="btn-bp" onclick="apriBusinessPlan()" disabled style="background:linear-gradient(135deg,#16a34a,#15803d)">📊 Crea Business Plan →</button>
           <button class="btn-g" onclick="resetAll()">Reset</button>
         </div>
       </div>
@@ -1052,19 +1000,6 @@ function buildAnnoData(yi){
   };
 }
 
-let _lastReportHTML = null;
-
-function scaricaReport(){
-  if(!_lastReportHTML) return;
-  const nome = (document.getElementById('rag_soc')?.value||'report').replace(/[^a-z0-9]/gi,'_');
-  const anno = document.getElementById('ysel-0')?.value||'2024';
-  const blob = new Blob([_lastReportHTML], {type:'text/html;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = `report_${nome}_${anno}.html`; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url), 5000);
-}
-
 async function generaReport(){
   const mainData = buildAnnoData(0);
   if(filled[1]) mainData._prev = buildAnnoData(1);
@@ -1074,16 +1009,13 @@ async function generaReport(){
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
       anno: document.getElementById('ysel-0')?.value || '2024',
       dataReport: new Date().toLocaleDateString('it-IT'),
-      settore: document.getElementById('settore')?.value || '',
     }
   };
 
   const btn = document.getElementById('btn-report');
-  const btnScarica = document.getElementById('btn-scarica');
   const origText = btn.textContent;
   btn.disabled = true;
   btn.textContent = 'Generazione in corso...';
-  btnScarica.style.display = 'none';
 
   try {
     const res = await fetch('/api/genera-html', {
@@ -1098,8 +1030,6 @@ async function generaReport(){
       throw new Error(errMsg);
     }
     const html = await res.text();
-    _lastReportHTML = html;
-    btnScarica.style.display = '';
     const win = window.open('', '_blank');
     win.document.write(html);
     win.document.close();
@@ -1149,57 +1079,12 @@ async function generaReport(){
       try{
         const first=JSON.parse(rawFirst);
         if(first.nome){const el=document.getElementById('rag_soc');if(el)el.value=first.nome;}
-        // Imposta settore ATECO — mappa codice numerico (es. "23.99") al sub-settore più affine
-        if(first.ateco){
-          const n=parseInt(first.ateco);
-          let key='';
-          if(n===10||n===11)key='C10';
-          else if(n>=13&&n<=15)key='C13';
-          else if(n>=16&&n<=19||n===31)key='C16';
-          else if(n===20||n===21)key='C20';
-          else if(n===22)key='C22';
-          else if(n===23)key='C23';
-          else if(n===24||n===25)key='C24';
-          else if(n===28)key='C28';
-          else if(n===29||n===30)key='C29';
-          else if(n===32||n===33)key='C32';
-          else if(n===41)key='F41';
-          else if(n===42)key='F42';
-          else if(n===43)key='F43';
-          else if(n===45)key='G45';
-          else if(n===46)key='G46';
-          else if(n===47)key='G47';
-          else if(n===49)key='H49';
-          else if(n===52)key='H52';
-          else if(n>=1&&n<=3)key='A';
-          else if(n>=5&&n<=9)key='B';
-          else if(n>=10&&n<=33)key='C';
-          else if(n===35)key='D';
-          else if(n>=36&&n<=39)key='E';
-          else if(n>=41&&n<=43)key='F';
-          else if(n>=45&&n<=47)key='G';
-          else if(n>=49&&n<=53)key='H';
-          else if(n>=55&&n<=56)key='I';
-          else if(n>=58&&n<=63)key='J';
-          else if(n>=64&&n<=66)key='K';
-          else if(n===68)key='L';
-          else if(n>=69&&n<=75)key='M';
-          else if(n>=77&&n<=82)key='N';
-          else if(n===85)key='P';
-          else if(n>=86&&n<=88)key='Q';
-          else if(n>=90&&n<=93)key='R';
-          else if(n>=94&&n<=96)key='S';
-          const sel=document.getElementById('settore');
-          if(sel&&key&&[...sel.options].some(o=>o.value===key))sel.value=key;
-        }
-        // Forma giuridica con mappatura estesa
         if(first.forma){
           const el=document.getElementById('forma');
           if(el){
             const f=first.forma.toLowerCase();
-            if(f.includes('spa')||f.includes('s.p.a')||f.includes('per azioni'))el.value='spa';
-            else if(f.includes('snc')||f.includes('s.n.c')||f.includes('nome collettivo'))el.value='snc';
-            else if(f.includes('sas')||f.includes('s.a.s')||f.includes('accomandita semplice'))el.value='sas';
+            if(f.includes('spa')||f.includes('s.p.a'))el.value='spa';
+            else if(f.includes('snc')||f.includes('s.n.c'))el.value='snc';
             else el.value='srl';
           }
         }
@@ -1219,6 +1104,26 @@ async function generaReport(){
   }
 })();
 
+function apriBusinessPlan(){
+  const d = buildAnnoData(0);
+  const nome = document.getElementById('rag_soc')?.value || '';
+  const anno = document.getElementById('ysel-0')?.value || '2024';
+  const settore = document.getElementById('settore')?.value || '';
+  const ebitda = (d.ric_vend||0)+(d.alt_ric||0)-(d.mat_prime||0)-(d.servizi||0)-(d.godimento||0)-(d.personale||0);
+  const pfn = (d.deb_b_bt||0)+(d.deb_b_lt||0)-(d.liquidita||0);
+  const pn = (d.cap_soc||0)+(d.riserve||0)+(d.utile_es||0);
+  sessionStorage.setItem('bpData', JSON.stringify({
+    nome, anno, settore,
+    ricavi: (d.ric_vend||0)+(d.alt_ric||0),
+    ebitda: ebitda,
+    costo_pers: d.personale||0,
+    pfn, pn,
+    deb_bt: d.deb_b_bt||0,
+    deb_mlt: d.deb_b_lt||0,
+  }));
+  window.location.href = 'business-plan.html';
+}
+
 // Abilita tab risultati anno 1 e 2 quando si compilano
 setInterval(()=>{
   [1,2].forEach(y=>{
@@ -1230,6 +1135,8 @@ setInterval(()=>{
     if(fcard){if(filled[y])fcard.classList.add('filled');else fcard.classList.remove('filled');}
     const compBtn=document.getElementById('ryt-comp');
     if(compBtn)compBtn.disabled=filled.filter(f=>f).length<2;
+    const bpBtn=document.getElementById('btn-bp');
+    if(bpBtn)bpBtn.disabled=!filled[0];
     document.getElementById(`fyt-${y}`)?.classList.toggle('filled',filled[y]);
   });
   // Mostra ycard-2 solo se anno 1 ha dati

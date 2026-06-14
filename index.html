@@ -92,7 +92,7 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 96px 6% 80px;
+      padding: 80px 6% 72px;
       background: var(--white);
       position: relative; overflow: hidden;
     }
@@ -101,7 +101,7 @@
       position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
     }
-    .hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .hero-inner { max-width: 900px; margin: 0 auto; text-align: center; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 6px;
       background: var(--blue-bg); color: var(--blue); border: 1px solid #BFDBFE;
@@ -112,15 +112,80 @@
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
     .hero h1 {
       font-family: 'Fraunces', serif; font-weight: 700;
-      font-size: clamp(36px, 4.5vw, 56px); line-height: 1.08;
-      letter-spacing: -.5px; color: var(--ink); margin-bottom: 22px;
+      font-size: clamp(32px, 4vw, 52px); line-height: 1.1;
+      letter-spacing: -.5px; color: var(--ink); margin-bottom: 16px;
     }
     .hero h1 em { font-style: italic; color: var(--blue); }
     .hero-sub {
       font-size: 17px; color: var(--ink2); line-height: 1.7;
-      margin-bottom: 36px; max-width: 480px;
+      margin-bottom: 48px; max-width: 620px; margin-left: auto; margin-right: auto;
     }
-    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+    /* ── PRODUCT CHOICE CARDS ── */
+    .choice-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+      max-width: 860px; margin: 0 auto 40px;
+    }
+    .choice-card {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 20px; padding: 36px 32px;
+      text-align: left; text-decoration: none; color: inherit;
+      transition: all .2s; position: relative; overflow: hidden;
+      cursor: pointer; display: block;
+    }
+    .choice-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(29,78,216,.03) 0%, transparent 60%);
+      opacity: 0; transition: opacity .2s;
+    }
+    .choice-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(29,78,216,.12); }
+    .choice-card:hover::after { opacity: 1; }
+    .choice-card.green-card:hover { border-color: var(--green); box-shadow: 0 16px 48px rgba(5,150,105,.12); }
+    .choice-card.green-card::after { background: linear-gradient(135deg, rgba(5,150,105,.03) 0%, transparent 60%); }
+    .choice-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 8px; padding: 5px 11px;
+      font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .badge-blue { background: var(--blue-bg); color: var(--blue); }
+    .badge-green { background: var(--green-bg); color: var(--green); }
+    .choice-icon { font-size: 2.4rem; margin-bottom: 14px; display: block; }
+    .choice-title {
+      font-family: 'Fraunces', serif; font-size: 1.55rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 10px; line-height: 1.2;
+    }
+    .choice-desc { font-size: 14px; color: var(--ink3); line-height: 1.65; margin-bottom: 22px; }
+    .choice-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 7px; }
+    .choice-features li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--ink2); }
+    .choice-features li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .green-card .choice-features li::before { color: var(--green); }
+    .choice-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #fff; border: none;
+      border-radius: 10px; padding: 12px 22px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: all .15s;
+    }
+    .choice-cta:hover { background: #1E40AF; }
+    .choice-cta.green-cta { background: var(--green); }
+    .choice-cta.green-cta:hover { background: #047857; }
+    .choice-price {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 4px 10px;
+      font-size: 12px; font-weight: 700; color: var(--ink3);
+    }
+    .choice-divider {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--ink4); gap: 10px; margin-bottom: 32px;
+    }
+    .choice-divider::before, .choice-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 100px; }
+
+    .hero-trust { margin-top: 0; display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink3); }
+    .trust-item svg { color: var(--green); }
+
     .btn-primary {
       background: var(--blue); color: var(--white); border: none;
       border-radius: var(--radius-sm); padding: 13px 28px;
@@ -135,12 +200,13 @@
       cursor: pointer; transition: all .15s; text-decoration: none;
     }
     .btn-outline:hover { border-color: var(--ink3); color: var(--ink); background: var(--bg); }
-    .hero-trust { margin-top: 28px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .trust-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink3); }
-    .trust-item svg { color: var(--green); }
 
-    /* DASHBOARD MOCKUP */
-    .hero-visual { position: relative; }
+    @media(max-width: 680px) {
+      .choice-grid { grid-template-columns: 1fr; }
+      .choice-card { padding: 28px 22px; }
+    }
+
+    /* DASHBOARD MOCKUP — usato nelle sezioni sotto */
     .dashboard-card {
       background: var(--white); border: 1px solid var(--border);
       border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
@@ -162,9 +228,6 @@
       display: flex; align-items: center; justify-content: center;
       background: var(--green-bg); color: var(--green);
     }
-    .dc-rating-info { text-align: right; }
-    .dc-rating-lbl { font-size: 10px; color: var(--ink4); text-transform: uppercase; letter-spacing: .05em; }
-    .dc-rating-desc { font-size: 13px; font-weight: 600; color: var(--green); }
     .dc-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .dc-kpi { background: var(--bg); border-radius: var(--radius-sm); padding: 11px 13px; }
     .dc-kpi-lbl { font-size: 10px; color: var(--ink4); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
@@ -177,13 +240,6 @@
     .sem-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
     .sem-name { flex: 1; color: var(--ink3); }
     .sem-val { font-weight: 600; font-size: 12px; }
-    .floating-tag {
-      position: absolute; background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 8px 12px; box-shadow: var(--shadow);
-      font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 6px;
-    }
-    .ft-1 { top: -16px; right: -20px; }
-    .ft-2 { bottom: 20px; left: -24px; }
 
     /* ── LOGHI ── */
     .logos-section { padding: 40px 6%; background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -408,6 +464,7 @@
   <div class="nav-links">
     <a href="#come-funziona">Come funziona</a>
     <a href="#funzionalita">Funzionalità</a>
+    <a href="business-plan.html">Business Plan</a>
     <a href="#prezzi">Prezzi</a>
     <a href="#faq">FAQ</a>
   </div>
@@ -417,95 +474,67 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Software professionale per PMI e commercialisti</div>
-      <h1>Analisi di bilancio<br/><em>precisa e immediata</em></h1>
-      <p class="hero-sub">Carica il file XBRL dal Registro Imprese e ottieni in 10 secondi: indici, rating bancabilità EBA, confronto settoriale e report professionale pronto per la banca.</p>
-      <div class="hero-actions">
-        <a href="importa-xbrl.html" class="btn-primary">Importa bilancio gratis →</a>
-        <a href="#come-funziona" class="btn-outline">Come funziona</a>
-      </div>
-      <div class="hero-trust">
-        <div class="trust-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Nessun abbonamento
-        </div>
-        <div class="trust-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Compatibile XBRL 2018-11-04
-        </div>
-        <div class="trust-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Dati in Italia
-        </div>
-      </div>
+    <div class="hero-eyebrow">Software professionale per PMI e commercialisti</div>
+    <h1>Cosa vuoi fare<br/><em>oggi?</em></h1>
+    <p class="hero-sub">Scegli il servizio di cui hai bisogno. Entrambi pensati per PMI italiane, commercialisti e consulenti finanziari.</p>
+
+    <!-- CHOICE CARDS -->
+    <div class="choice-grid">
+
+      <!-- ANALISI DI BILANCIO -->
+      <a href="importa-xbrl.html" class="choice-card">
+        <span class="choice-badge badge-blue">📊 Analisi</span>
+        <div class="choice-price">da € 34,99</div>
+        <span class="choice-icon">🏦</span>
+        <div class="choice-title">Analisi di Bilancio</div>
+        <p class="choice-desc">Importa il file XBRL dal Registro Imprese e ottieni in 10 secondi tutti gli indici, il rating bancabilità e il report PDF.</p>
+        <ul class="choice-features">
+          <li>12+ indici di bilancio (ROE, ROI, DSCR, PFN…)</li>
+          <li>Rating bancabilità A–E con semaforo</li>
+          <li>Confronto settoriale 18 settori ATECO</li>
+          <li>Analisi multi-anno con trend</li>
+          <li>Report PDF professionale pronto per la banca</li>
+        </ul>
+        <span class="choice-cta">Inizia l'analisi →</span>
+      </a>
+
+      <!-- BUSINESS PLAN -->
+      <a href="business-plan.html" class="choice-card green-card">
+        <span class="choice-badge badge-green">📋 Pianificazione</span>
+        <div class="choice-price">da € 149,00</div>
+        <span class="choice-icon">🚀</span>
+        <div class="choice-title">Business Plan<br/>Finanziario</div>
+        <p class="choice-desc">Costruisci proiezioni a 3 anni con modello CE+SP+CF integrato. Conforme EBA/GL/2020/06 per presentazioni bancarie.</p>
+        <ul class="choice-features">
+          <li>Proiezioni 3 anni (CE, Stato Patrimoniale, Cash Flow)</li>
+          <li>Scenari crescita bassa / moderata / alta</li>
+          <li>DSCR, ICR, PFN/EBITDA proiettati</li>
+          <li>Piano investimenti CAPEX e personale</li>
+          <li>Analisi break-even e scenario stress −20%</li>
+        </ul>
+        <span class="choice-cta green-cta">Crea il business plan →</span>
+      </a>
+
     </div>
 
-    <!-- DASHBOARD MOCKUP -->
-    <div class="hero-visual">
-      <div class="floating-tag ft-1">
-        <span style="color:var(--green);font-size:16px;">↑</span>
-        <span style="font-size:11px;color:var(--ink2);">EBITDA +68% vs anno prec.</span>
+    <div class="choice-divider">oppure scopri di più</div>
+
+    <div class="hero-trust">
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Nessun abbonamento
       </div>
-      <div class="dashboard-card">
-        <div class="dc-header">
-          <div class="dc-dots">
-            <div class="dc-dot" style="background:#FF5F57"></div>
-            <div class="dc-dot" style="background:#FEBC2E"></div>
-            <div class="dc-dot" style="background:#28C840"></div>
-          </div>
-          <div class="dc-title">Analisi Bilancio 2024</div>
-          <div style="font-size:11px;color:var(--ink4);">Live</div>
-        </div>
-        <div class="dc-body">
-          <div class="dc-company">ESEMPIO S.R.L. — Bilancio 2024</div>
-          <div class="dc-rating-row">
-            <div>
-              <div style="font-size:11px;color:var(--ink4);margin-bottom:2px;">Rating bancabilità</div>
-              <div style="font-size:13px;font-weight:700;color:var(--green);">Eccellente</div>
-            </div>
-            <div class="dc-rating-badge">A</div>
-          </div>
-          <div class="dc-kpis">
-            <div class="dc-kpi">
-              <div class="dc-kpi-lbl">EBITDA</div>
-              <div class="dc-kpi-val green">€1,84M</div>
-            </div>
-            <div class="dc-kpi">
-              <div class="dc-kpi-lbl">PFN/EBITDA</div>
-              <div class="dc-kpi-val blue">0,42x</div>
-            </div>
-            <div class="dc-kpi">
-              <div class="dc-kpi-lbl">Autonomia fin.</div>
-              <div class="dc-kpi-val blue">51,3%</div>
-            </div>
-            <div class="dc-kpi">
-              <div class="dc-kpi-lbl">ICR</div>
-              <div class="dc-kpi-val green">12,40x</div>
-            </div>
-          </div>
-          <div class="dc-semafori">
-            <div class="dc-sem">
-              <div class="sem-dot" style="background:var(--green)"></div>
-              <span class="sem-name">Liquidità aziendale</span>
-              <span class="sem-val" style="color:var(--green)">2,18x</span>
-            </div>
-            <div class="dc-sem">
-              <div class="sem-dot" style="background:var(--green)"></div>
-              <span class="sem-name">Solidità patrimoniale</span>
-              <span class="sem-val" style="color:var(--green)">51,3%</span>
-            </div>
-            <div class="dc-sem">
-              <div class="sem-dot" style="background:var(--gold)"></div>
-              <span class="sem-name">Redditività</span>
-              <span class="sem-val" style="color:var(--gold)">24,6%</span>
-            </div>
-          </div>
-        </div>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        XBRL 2018 · EBA/GL/2020/06
       </div>
-      <div class="floating-tag ft-2">
-        <span>📄</span>
-        <span style="font-size:11px;color:var(--ink2);">Report PDF pronto</span>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Dati elaborati in Italia
+      </div>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        D.Lgs. 14/2019 CCII
       </div>
     </div>
   </div>
@@ -514,14 +543,13 @@
 <!-- LOGHI -->
 <div class="logos-section">
   <div class="logos-inner">
-    <div class="logos-label">Standard di riferimento adottati</div>
+    <div class="logos-label">Compatibile con i dati ufficiali di</div>
     <div class="logos-row">
-      <div class="logo-item">Registro Imprese CCIAA</div>
-      <div class="logo-item">InfoCamere XBRL 2018</div>
-      <div class="logo-item">EBA/GL/2020/06</div>
-      <div class="logo-item">D.Lgs. 14/2019 CCII</div>
-      <div class="logo-item">Altman Z'-Score PMI</div>
-      <div class="logo-item">Mediobanca Benchmark</div>
+      <div class="logo-item">Registro Imprese</div>
+      <div class="logo-item">CCIAA</div>
+      <div class="logo-item">InfoCamere</div>
+      <div class="logo-item">Tassonomia XBRL 2018</div>
+      <div class="logo-item">EBA Guidelines 2021</div>
     </div>
   </div>
 </div>
@@ -575,10 +603,10 @@
         <span class="feat-tag blue">Precisione 99%</span>
       </div>
       <div class="feat-card">
-        <div class="feat-icon-wrap gold">📈</div>
-        <div class="feat-title">Confronto settoriale</div>
-        <p class="feat-desc">Benchmark automatico con le mediane di settore per 18 macro-categorie ATECO. ROE, ROI, EBITDA margin, Current Ratio e D/E a confronto con i competitor del comparto.</p>
-        <span class="feat-tag gold">18 settori ATECO</span>
+        <div class="feat-icon-wrap gold">🤖</div>
+        <div class="feat-title">Lettura PDF con AI</div>
+        <p class="feat-desc">Carica qualsiasi PDF di bilancio CCIAA e l'AI estrae automaticamente tutti i valori numerici e li compila nel modulo.</p>
+        <span class="feat-tag gold">AI-powered</span>
       </div>
       <div class="feat-card">
         <div class="feat-icon-wrap green">📊</div>
@@ -688,11 +716,11 @@
         <div class="pc-price"><sup>€</sup>34<sub>,99</sub></div>
         <div class="pc-iva">+ IVA · €42,69 totale</div>
         <ul class="pc-features">
-          <li>Importazione XBRL ufficiale CCIAA</li>
-          <li>SP + CE + Rendiconto finanziario</li>
-          <li>16 indici + bancabilità EBA 2021</li>
-          <li>Rating sintetico A+ → E</li>
-          <li>Confronto settoriale 18 ATECO</li>
+          <li>Importazione XBRL / PDF</li>
+          <li>SP + CE + Rendiconto</li>
+          <li>Indici classici e bancabilità EBA</li>
+          <li>Rating sintetico A-E</li>
+          <li>Report PDF 12 pagine</li>
           <li class="no">Analisi comparativa multi-anno</li>
         </ul>
         <a href="pagamento.html" class="btn-card btn-card-outline">Acquista</a>
@@ -795,6 +823,7 @@
         <div class="footer-links">
           <a href="importa-xbrl.html">Importa XBRL / PDF</a>
           <a href="bilancio-multianno.html">Analisi multi-anno</a>
+          <a href="business-plan.html">Business Plan Finanziario</a>
           <a href="bilancio.html">Calcolatore indici</a>
           <a href="report-pdf.html">Genera report PDF</a>
         </div>

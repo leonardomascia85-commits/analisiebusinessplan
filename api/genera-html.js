@@ -17,11 +17,8 @@ const fmtK = (n) => {
 function calcIndici(d) {
   const ebitda = (d.tot_vp || 0) - ((d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0) + (d.personale || 0) + (d.var_mat || 0) + (d.oneri_div || 0));
   const ebit = ebitda - (d.ammort || 0);
-  const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0) + (d.alt_deb || 0);
-  // PFN: usa campi bancabilità se compilati, altrimenti usa SP
-  const pfn = ((d.pfn_bt || 0) + (d.pfn_lt || 0)) > 0
-    ? ((d.pfn_bt || 0) + (d.pfn_lt || 0)) - ((d.pfn_liq || 0) + (d.pfn_tit || 0))
-    : ((d.deb_b_bt || 0) + (d.deb_b_lt || 0)) - (d.liquidita || 0);
+  const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0);
+  const pfn = ((d.deb_b_bt || 0) + (d.deb_b_lt || 0)) - (d.liquidita || 0);
   const roe = d.tot_pn > 0 ? (d.utile_es || 0) / d.tot_pn * 100 : NaN;
   const roi = d.tot_att > 0 ? ebit / d.tot_att * 100 : NaN;
   const ros = d.tot_vp > 0 ? ebit / d.tot_vp * 100 : NaN;
@@ -48,7 +45,7 @@ function calcRating(c, d) {
   let zScore = null, zLabel = '—', zClass = 'neu';
   const totAtt = d.tot_att || 0;
   if (totAtt > 0) {
-    const ccn = (d.tot_circ || 0) - ((d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0) + (d.alt_deb || 0));
+    const ccn = (d.tot_circ || 0) - ((d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0));
     const riserve = (d.tot_pn || 0) - (d.cap_sociale || 0) - (d.utile_es || 0);
     const X1 = ccn / totAtt;
     const X2 = riserve / totAtt;
@@ -346,199 +343,14 @@ function buildNarrative(c, d) {
 }
 
 // ── BUILD MAIN HTML ──
-// ── BENCHMARK SETTORIALI PMI ITALIANE ──
-// Fonte: Mediobanca Dati Cumulativi 2023, Banca d'Italia Note di Stabilità Finanziaria 2024, Cerved Industry Forecast 2024
-// Valori mediani per PMI italiane con fatturato 2–50 M€
-const SETTORI = {
-  // Macro-sezioni ATECO
-  A:{nome:'Agricoltura, silvicoltura e pesca',              ateco:'01-03', roe:5,  roi:3,  ebitda:12, cr:1.3, de:1.5, trend:+1.2},
-  B:{nome:'Estrazione di minerali da cave e miniere',       ateco:'05-09', roe:8,  roi:6,  ebitda:20, cr:1.4, de:1.2, trend:+0.5},
-  C:{nome:'Attività manifatturiere',                        ateco:'10-33', roe:9,  roi:8,  ebitda:11, cr:1.5, de:1.1, trend:+2.1},
-  D:{nome:'Fornitura energia elettrica, gas, vapore',       ateco:'35',    roe:7,  roi:5,  ebitda:15, cr:1.2, de:1.8, trend:-0.8},
-  E:{nome:'Fornitura acqua, reti fognarie, rifiuti',        ateco:'36-39', roe:6,  roi:4,  ebitda:18, cr:1.3, de:1.6, trend:+1.0},
-  F:{nome:'Costruzioni',                                    ateco:'41-43', roe:7,  roi:5,  ebitda:6,  cr:1.3, de:1.8, trend:+3.5},
-  G:{nome:'Commercio all\'ingrosso e al dettaglio',         ateco:'45-47', roe:8,  roi:6,  ebitda:5,  cr:1.4, de:1.3, trend:+1.8},
-  H:{nome:'Trasporto e magazzinaggio',                      ateco:'49-53', roe:6,  roi:5,  ebitda:9,  cr:1.2, de:1.9, trend:+1.4},
-  I:{nome:'Attività dei servizi di alloggio e ristorazione',ateco:'55-56', roe:5,  roi:4,  ebitda:14, cr:1.1, de:2.0, trend:+4.2},
-  J:{nome:'Servizi di informazione e comunicazione (ICT)',  ateco:'58-63', roe:14, roi:11, ebitda:19, cr:1.7, de:0.7, trend:+5.8},
-  K:{nome:'Attività finanziarie e assicurative',            ateco:'64-66', roe:9,  roi:5,  ebitda:28, cr:1.5, de:3.0, trend:+2.0},
-  L:{nome:'Attività immobiliari',                           ateco:'68',    roe:5,  roi:3,  ebitda:36, cr:1.2, de:2.5, trend:-1.2},
-  M:{nome:'Attività professionali, scientifiche e tecniche',ateco:'69-75', roe:16, roi:13, ebitda:17, cr:1.6, de:0.6, trend:+3.2},
-  N:{nome:'Noleggio, agenzie di viaggio, servizi di supporto',ateco:'77-82',roe:8, roi:6,  ebitda:11, cr:1.3, de:1.2, trend:+2.5},
-  P:{nome:'Istruzione',                                     ateco:'85',    roe:7,  roi:5,  ebitda:12, cr:1.4, de:0.9, trend:+1.5},
-  Q:{nome:'Sanità e assistenza sociale',                    ateco:'86-88', roe:7,  roi:5,  ebitda:13, cr:1.3, de:1.4, trend:+2.8},
-  R:{nome:'Attività artistiche, sportive, intrattenimento', ateco:'90-93', roe:4,  roi:3,  ebitda:10, cr:1.2, de:1.5, trend:+3.0},
-  S:{nome:'Altre attività di servizi',                      ateco:'94-96', roe:7,  roi:5,  ebitda:10, cr:1.3, de:1.1, trend:+1.6},
-  // Sub-settori manifatturieri più comuni (ATECO 2 cifre)
-  C10:{nome:'Industria alimentare (10)',                     ateco:'10',    roe:8,  roi:7,  ebitda:9,  cr:1.4, de:1.3, trend:+2.5},
-  C13:{nome:'Industria tessile e abbigliamento (13-14)',     ateco:'13-14', roe:6,  roi:5,  ebitda:8,  cr:1.5, de:1.2, trend:-0.5},
-  C16:{nome:'Industria legno e mobili (16-31)',              ateco:'16-31', roe:7,  roi:6,  ebitda:9,  cr:1.4, de:1.2, trend:+1.0},
-  C20:{nome:'Industria chimica e farmaceutica (20-21)',      ateco:'20-21', roe:12, roi:10, ebitda:15, cr:1.6, de:0.9, trend:+3.0},
-  C22:{nome:'Gomma, materie plastiche (22)',                 ateco:'22',    roe:9,  roi:8,  ebitda:11, cr:1.5, de:1.1, trend:+1.8},
-  C23:{nome:'Lavorazione minerali non metalliferi (23)',     ateco:'23',    roe:8,  roi:7,  ebitda:12, cr:1.4, de:1.2, trend:+1.5},
-  C24:{nome:'Metallurgia e prodotti in metallo (24-25)',     ateco:'24-25', roe:9,  roi:8,  ebitda:10, cr:1.5, de:1.2, trend:+2.0},
-  C28:{nome:'Fabbricazione macchinari e apparecchi (28)',    ateco:'28',    roe:11, roi:9,  ebitda:13, cr:1.6, de:1.0, trend:+3.5},
-  C29:{nome:'Fabbricazione autoveicoli e componentistica (29-30)',ateco:'29-30',roe:8,roi:7,ebitda:10,cr:1.4,de:1.3,trend:+1.2},
-  C32:{nome:'Altre industrie manifatturiere (32)',           ateco:'32',    roe:8,  roi:7,  ebitda:10, cr:1.4, de:1.2, trend:+1.5},
-  // Sub-settori costruzioni
-  F41:{nome:'Costruzione di edifici (41)',                   ateco:'41',    roe:8,  roi:6,  ebitda:7,  cr:1.3, de:1.7, trend:+4.0},
-  F42:{nome:'Ingegneria civile (42)',                        ateco:'42',    roe:6,  roi:5,  ebitda:8,  cr:1.2, de:1.9, trend:+2.5},
-  F43:{nome:'Lavori specializzati costruzioni (43)',         ateco:'43',    roe:9,  roi:7,  ebitda:9,  cr:1.4, de:1.4, trend:+3.8},
-  // Sub-settori commercio
-  G45:{nome:'Commercio autoveicoli (45)',                    ateco:'45',    roe:7,  roi:5,  ebitda:4,  cr:1.3, de:1.5, trend:+1.5},
-  G46:{nome:'Commercio all\'ingrosso (46)',                  ateco:'46',    roe:9,  roi:7,  ebitda:5,  cr:1.4, de:1.2, trend:+2.0},
-  G47:{nome:'Commercio al dettaglio (47)',                   ateco:'47',    roe:7,  roi:5,  ebitda:6,  cr:1.4, de:1.4, trend:+1.5},
-  // Trasporti
-  H49:{nome:'Trasporto terrestre (49)',                      ateco:'49',    roe:6,  roi:5,  ebitda:8,  cr:1.2, de:2.0, trend:+1.5},
-  H52:{nome:'Magazzinaggio e logistica (52)',                ateco:'52',    roe:8,  roi:6,  ebitda:12, cr:1.3, de:1.6, trend:+3.5},
-};
-
-// Mappa ATECO numerico → chiave settore più affine
-function atecoCodiceToKey(ateco) {
-  if (!ateco) return null;
-  const n = parseInt(ateco);
-  if (isNaN(n)) return null;
-  // Sub-settori precisi prima (priorità)
-  if (n === 10 || n === 11) return 'C10';
-  if (n === 13 || n === 14 || n === 15) return 'C13';
-  if (n >= 16 && n <= 19) return 'C16'; if (n === 31) return 'C16';
-  if (n === 20 || n === 21) return 'C20';
-  if (n === 22) return 'C22';
-  if (n === 23) return 'C23';
-  if (n === 24 || n === 25) return 'C24';
-  if (n === 28) return 'C28';
-  if (n === 29 || n === 30) return 'C29';
-  if (n === 32 || n === 33) return 'C32';
-  if (n === 41) return 'F41';
-  if (n === 42) return 'F42';
-  if (n === 43) return 'F43';
-  if (n === 45) return 'G45';
-  if (n === 46) return 'G46';
-  if (n === 47) return 'G47';
-  if (n === 49) return 'H49';
-  if (n === 52) return 'H52';
-  // Macro-sezioni
-  if (n >= 1  && n <= 3)  return 'A';
-  if (n >= 5  && n <= 9)  return 'B';
-  if (n >= 10 && n <= 33) return 'C';
-  if (n === 35)            return 'D';
-  if (n >= 36 && n <= 39) return 'E';
-  if (n >= 41 && n <= 43) return 'F';
-  if (n >= 45 && n <= 47) return 'G';
-  if (n >= 49 && n <= 53) return 'H';
-  if (n >= 55 && n <= 56) return 'I';
-  if (n >= 58 && n <= 63) return 'J';
-  if (n >= 64 && n <= 66) return 'K';
-  if (n === 68)            return 'L';
-  if (n >= 69 && n <= 75) return 'M';
-  if (n >= 77 && n <= 82) return 'N';
-  if (n === 85)            return 'P';
-  if (n >= 86 && n <= 88) return 'Q';
-  if (n >= 90 && n <= 93) return 'R';
-  if (n >= 94 && n <= 96) return 'S';
-  return null;
-}
-
-function buildSettoreHTML(c, settoreKey, nome, anno) {
-  const s = SETTORI[settoreKey];
-  if (!s) return '';
-  const fp1 = n => (isNaN(n)||!isFinite(n)) ? '—' : n.toFixed(1) + '%';
-  const fx2 = n => (isNaN(n)||!isFinite(n)) ? '—' : n.toFixed(2) + 'x';
-  const badge = (az, ref, higherBetter=true) => {
-    if (isNaN(az)||!isFinite(az)) return '<span style="color:#94a3b8">n.d.</span>';
-    const better = higherBetter ? az >= ref * 1.1 : az <= ref * 0.9;
-    const worse  = higherBetter ? az < ref * 0.9  : az > ref * 1.1;
-    const [bg,col,lbl] = better ? ['#dcfce7','#166534','▲ Sopra media']
-                        : worse  ? ['#fee2e2','#991b1b','▼ Sotto media']
-                        :          ['#fef9c3','#92400e','≈ In linea'];
-    return `<span style="background:${bg};color:${col};padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700">${lbl}</span>`;
-  };
-  const trendColor = s.trend >= 0 ? '#16a34a' : '#dc2626';
-  const trendIcon  = s.trend >= 0 ? '▲' : '▼';
-  const rows = [
-    ['ROE — Redditività del capitale',    fp1(c.roe),        fp1(s.roe),   badge(c.roe, s.roe)],
-    ['ROI — Redditività degli investim.',  fp1(c.roi),        fp1(s.roi),   badge(c.roi, s.roi)],
-    ['EBITDA Margin — Margine operativo',  fp1(c.ebitda_pct), fp1(s.ebitda),badge(c.ebitda_pct, s.ebitda)],
-    ['Current Ratio — Liquidità corrente', fx2(c.cr),         s.cr.toFixed(2)+'x', badge(c.cr, s.cr)],
-    ['D/E — Leva finanziaria',             fx2(c.leva),       s.de.toFixed(2)+'x', badge(c.leva, s.de, false)],
-  ];
-  return `
-<!-- PAG CONFRONTO SETTORIALE -->
-<div class="page">
-  <div class="ph">
-    <div><div class="ph-ey">Analisi Settoriale</div><div class="ph-ti">Confronto con il Settore di Riferimento</div></div>
-    <div class="ph-az">${''}</div>
-  </div>
-  <div class="banc-intro">Il confronto settoriale posiziona l'azienda rispetto alle <strong>mediane di settore delle PMI italiane</strong>, calcolate su dati Mediobanca, Banca d'Italia e Cerved. Gli indicatori permettono di valutare punti di forza e aree di miglioramento rispetto ai concorrenti dello stesso comparto.</div>
-
-  <!-- Header settore -->
-  <div style="background:linear-gradient(135deg,#1e3a8a,#1d4ed8);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
-    <div>
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-bottom:4px">Settore ATECO — ${settoreKey}</div>
-      <div style="font-size:18px;font-weight:700">${s.nome}</div>
-    </div>
-    <div style="text-align:right">
-      <div style="font-size:11px;opacity:.7;margin-bottom:4px">Crescita settore (ultimi 12 mesi)</div>
-      <div style="font-size:24px;font-weight:800;color:${trendColor === '#dc2626' ? '#fca5a5' : '#86efac'}">${trendIcon} ${Math.abs(s.trend).toFixed(1)}%</div>
-    </div>
-  </div>
-
-  <!-- Tabella confronto -->
-  <table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:13px;">
-    <thead>
-      <tr style="background:#f8fafc;border-bottom:2px solid #e2e8f0;">
-        <th style="text-align:left;padding:10px 12px;font-weight:700;color:#0f172a">Indicatore</th>
-        <th style="text-align:center;padding:10px 12px;font-weight:700;color:#1d4ed8">Azienda</th>
-        <th style="text-align:center;padding:10px 12px;font-weight:700;color:#64748b">Mediana settore</th>
-        <th style="text-align:center;padding:10px 12px;font-weight:700;color:#0f172a">Posizionamento</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${rows.map((r,i)=>`<tr style="border-bottom:1px solid #f1f5f9;background:${i%2?'#fafafa':'#fff'}">
-        <td style="padding:10px 12px;color:#334155">${r[0]}</td>
-        <td style="padding:10px 12px;text-align:center;font-weight:700;color:#0f172a">${r[1]}</td>
-        <td style="padding:10px 12px;text-align:center;color:#64748b">${r[2]}</td>
-        <td style="padding:10px 12px;text-align:center">${r[3]}</td>
-      </tr>`).join('')}
-    </tbody>
-  </table>
-
-  <!-- Analisi testuale -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-    <div style="background:#f0f9ff;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;padding:16px;">
-      <div style="font-weight:700;color:#1d4ed8;margin-bottom:8px;font-size:13px">📊 Trend di settore</div>
-      <p style="font-size:12px;color:#0c4a6e;margin:0;line-height:1.7">Il settore <strong>${s.nome}</strong> registra una variazione del fatturato di <strong style="color:${trendColor}">${trendIcon} ${Math.abs(s.trend).toFixed(1)}%</strong> negli ultimi 12 mesi. ${s.trend >= 2 ? 'Il settore è in espansione: contesto favorevole per investimenti e crescita.' : s.trend >= 0 ? 'Il settore mostra stabilità con moderata crescita.' : 'Il settore è in contrazione: attenzione alla gestione dei costi e alla liquidità.'}</p>
-    </div>
-    <div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px;">
-      <div style="font-weight:700;color:#166534;margin-bottom:8px;font-size:13px">🎯 Benchmarking sintetico</div>
-      <p style="font-size:12px;color:#14532d;margin:0;line-height:1.7">
-        ${(() => {
-          const above = rows.filter(r=>r[3].includes('Sopra media')).length;
-          const below = rows.filter(r=>r[3].includes('Sotto media')).length;
-          if (above >= 4) return `<strong>Performance eccellente:</strong> l'azienda supera la mediana settoriale in ${above} indicatori su 5. Posizionamento competitivo solido.`;
-          if (above >= 2 && below <= 1) return `<strong>Performance nella norma:</strong> l'azienda è in linea con il settore in ${5-below} indicatori su 5. Margini di miglioramento presenti.`;
-          if (below >= 3) return `<strong>Attenzione:</strong> l'azienda è sotto la mediana settoriale in ${below} indicatori su 5. Necessaria una revisione strategica.`;
-          return `<strong>Performance mista:</strong> alcuni indici sopra la media settoriale, altri da migliorare. Focus sulle aree critiche.`;
-        })()}
-      </p>
-    </div>
-  </div>
-  <div style="margin-top:12px;font-size:10px;color:#94a3b8;font-style:italic">Fonte benchmark: Mediobanca Dati Cumulativi 2023, Banca d'Italia Note di Stabilità Finanziaria, Cerved Industry Forecast 2024. I valori rappresentano mediane per PMI italiane con fatturato 2–50 M€.</div>
-</div>`;
-}
-
 function buildReportHTML(data, config) {
   const d = data;
   const c = calcIndici(d);
   const rating = calcRating(c, d);
   const anno = config.anno || '2024';
   const nome = config.nome || d.nome || 'Azienda';
-  const analista = config.analista || 'Dr. Leonardo Mascia';
+  const analista = config.analista || 'AnalisiEBusinessPlan.it';
   const dataReport = config.dataReport || new Date().toLocaleDateString('it-IT');
-  // settore: può essere lettera macro (A-S) o codice ATECO numerico (es. "23.99")
-  const settoreRaw = config.settore || d.ateco || '';
-  const settoreKey = SETTORI[settoreRaw] ? settoreRaw : atecoCodiceToKey(settoreRaw);
-  const settore = settoreKey || '';
   const note = config.note || '';
   const colore = config.colore === 'green' ? '#059669' : config.colore === 'dark' ? '#1E293B' : '#1D4ED8';
   const narrative = buildNarrative(c, d);
@@ -754,28 +566,16 @@ function buildReportHTML(data, config) {
   .evo-bullet{display:flex;gap:8px;margin-bottom:5px;font-size:9px;color:#334155;line-height:1.7;}
   .evo-bullet-icon{flex-shrink:0;font-size:11px;}
 </style>
-<style>
-@media print{.no-print{display:none!important}}
-.print-bar{position:fixed;top:16px;right:16px;z-index:9999;display:flex;gap:8px;}
-.print-bar button{padding:10px 20px;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;}
-.btn-stampa{background:#1d4ed8;color:#fff;}
-.btn-scarica-r{background:#16a34a;color:#fff;}
-</style>
 </head>
 <body>
-
-<div class="print-bar no-print">
-  <button class="btn-stampa" onclick="window.print()">🖨 Stampa / Salva PDF</button>
-  <button class="btn-scarica-r" onclick="(function(){const b=new Blob([document.documentElement.outerHTML],{type:'text/html'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='report.html';a.click();setTimeout(()=>URL.revokeObjectURL(u),5000)})()">⬇ Scarica HTML</button>
-</div>
 
 <!-- COPERTINA -->
 <div class="cover">
   <div style="position:relative;z-index:1;">
     <div class="cv-brand">AnalisiEBusinessPlan.it — Software professionale di analisi bilancio</div>
-    <div class="cv-tipo">Analisi di Bilancio d'Esercizio${settore && SETTORI[settore] ? ` · Settore ${settore}` : ''}</div>
+    <div class="cv-tipo">Analisi di Bilancio d'Esercizio</div>
     <div class="cv-nome">${nome}</div>
-    <div class="cv-sub">Esercizio chiuso al 31/12/${anno}${settore && SETTORI[settore] ? `<br/><span style="font-size:13px;opacity:.6">${SETTORI[settore].nome}</span>` : ''}</div>
+    <div class="cv-sub">Esercizio chiuso al 31/12/${anno}</div>
     <div class="cv-chip">
       <div class="cv-r-letter">${rating.l}</div>
       <div><div class="cv-r-lbl">Rating sintetico di bancabilità</div><div class="cv-r-title">${rating.title}</div></div>
@@ -820,8 +620,7 @@ function buildReportHTML(data, config) {
           ['4','Evoluzione biennale','Commento all\'evoluzione dei dati'+(d1?` ${anno} vs ${annoPrev}`:'')],
           ['5','Indici di bilancio','Redditività, liquidità, solidità, efficienza'],
           ['6','Bancabilità EBA','DSCR, PFN/EBITDA, ICR — Linee guida EBA/GL/2020/06'],
-          ...(settore && SETTORI[settore] ? [['7',`Confronto Settoriale — ${settore}`,`Benchmark PMI vs mediana settore: ${SETTORI[settore].nome}`]] : []),
-          [settore && SETTORI[settore] ? '8' : '7','Rating sintetico','Z\'-Score Altman + Scorecard EBA + Trigger CCII'],
+          ['7','Rating sintetico','Z\'-Score Altman + Scorecard EBA + Trigger CCII'],
         ].map(([n,t,d])=>`<div class="toc-row"><div class="toc-num">${n}</div><div class="toc-title">${t}</div><div class="toc-desc">${d}</div></div>`).join('')}
       </div>
     </div>
@@ -967,8 +766,8 @@ function buildReportHTML(data, config) {
         <tr class="ebitda-row"><td><strong>EBITDA</strong></td><td class="r">${fmt(c.ebitda)}</td>${d1?`<td class="r ${varCls(c.ebitda,c1.ebitda)}">${varPct(c.ebitda,c1.ebitda)}</td>`:''}</tr>
         <tr class="sub"><td>EBITDA margin</td><td class="r">${fp(c.ebitda_pct)}</td>${d1?`<td class="r ${c.ebitda_pct>=c1.ebitda_pct?'pos':'neg'}">${((c.ebitda_pct-c1.ebitda_pct)>=0?'+':'')+((c.ebitda_pct-c1.ebitda_pct).toFixed(1))}pp</td>`:''}</tr>
         <tr><td>EBIT</td><td class="r ${c.ebit>=0?'pos':'neg'}">${fmt(c.ebit)}</td>${d1?`<td class="r ${varCls(c.ebit,c1.ebit)}">${varPct(c.ebit,c1.ebit)}</td>`:''}</tr>
-        <tr><td>Oneri finanziari</td><td class="r neg">−${fmt(Math.abs(d.oneri_f||0))}</td>${d1?`<td class="r ${varCls(d.oneri_f,d1.oneri_f,true)}">${varPct(d.oneri_f,d1.oneri_f)}</td>`:''}</tr>
-        <tr><td>Imposte</td><td class="r neg">−${fmt(Math.abs(d.imposte||0))}</td>${d1?`<td class="r ${varCls(d.imposte,d1.imposte,true)}">${varPct(d.imposte,d1.imposte)}</td>`:''}</tr>
+        <tr><td>Oneri finanziari</td><td class="r neg">−${fmt(d.oneri_f)}</td>${d1?`<td class="r ${varCls(d.oneri_f,d1.oneri_f,true)}">${varPct(d.oneri_f,d1.oneri_f)}</td>`:''}</tr>
+        <tr><td>Imposte</td><td class="r neg">−${fmt(d.imposte)}</td>${d1?`<td class="r ${varCls(d.imposte,d1.imposte,true)}">${varPct(d.imposte,d1.imposte)}</td>`:''}</tr>
         <tr class="tot-main"><td>UTILE / PERDITA</td><td class="r ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</td>${d1?`<td class="r ${varCls(d.utile_es,d1.utile_es)}">${varPct(d.utile_es,d1.utile_es)}</td>`:''}</tr>
       </tbody>
     </table>
@@ -1388,10 +1187,8 @@ ${hasRF ? `
   </div>
   ${note?`<div class="note-box"><div class="note-title">Note analista</div><div class="note-text">${note}</div></div>`:''}
   <div class="disclaimer">Report generato da AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + verifica trigger CCII (D.Lgs. 14/2019) · Generato il ${dataReport} · Basato esclusivamente su dati di bilancio (non include componente andamentale Centrale Rischi).</div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>${settore && SETTORI[settore] ? 'Pag. penultima' : 'Ultima pagina'}</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Ultima pagina</span></div>
 </div>
-
-${settore && SETTORI[settore] ? buildSettoreHTML(c, settore, nome, anno) : ''}
 
 </body></html>`;
 }

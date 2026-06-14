@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Plan Finanziario – AnalisieBBusinessPlan.it</title>
+<style>
+:root{
+  --blu:#1a3a5c;--blu-light:#2563eb;--verde:#16a34a;--arancio:#ea580c;
+  --grigio:#f8fafc;--bordo:#e2e8f0;--testo:#1e293b;--muted:#64748b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f1f5f9;color:var(--testo);min-height:100vh}
+header{background:linear-gradient(135deg,var(--blu) 0%,#2563eb 100%);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:16px}
+header h1{font-size:1.3rem;font-weight:700}
+header p{font-size:.85rem;opacity:.85}
+.badge-eba{background:rgba(255,255,255,.15);border-radius:6px;padding:4px 10px;font-size:.75rem;font-weight:600;white-space:nowrap}
+
+.container{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+
+/* Progress bar */
+.progress-bar{display:flex;gap:0;margin-bottom:32px;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.step{flex:1;padding:12px 6px;text-align:center;background:#fff;border-right:1px solid var(--bordo);cursor:pointer;transition:.2s}
+.step:last-child{border-right:none}
+.step.active{background:var(--blu-light);color:#fff}
+.step.done{background:#dcfce7;color:var(--verde)}
+.step-num{font-size:1.1rem;font-weight:700}
+.step-label{font-size:.7rem;margin-top:2px;opacity:.8}
+
+/* Sections */
+.section{display:none}
+.section.visible{display:block}
+
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:24px}
+.card-title{font-size:1.15rem;font-weight:700;color:var(--blu);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card-sub{font-size:.85rem;color:var(--muted);margin-bottom:20px}
+
+/* Form elements */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-row.cols3{grid-template-columns:1fr 1fr 1fr}
+.form-row.cols1{grid-template-columns:1fr}
+label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+input[type=number],input[type=text],select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--bordo);border-radius:8px;font-size:.95rem;color:var(--testo);transition:.2s;background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blu-light);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.input-group{position:relative}
+.input-suffix{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+input.has-suffix{padding-right:36px}
+
+/* Scenario cards */
+.scenario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.scenario-card{border:2px solid var(--bordo);border-radius:10px;padding:16px 12px;text-align:center;cursor:pointer;transition:.2s;background:#fff}
+.scenario-card:hover{border-color:var(--blu-light);background:#eff6ff}
+.scenario-card.selected{border-color:var(--blu-light);background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.scenario-icon{font-size:1.8rem;margin-bottom:6px}
+.scenario-name{font-weight:700;font-size:.95rem;color:var(--blu)}
+.scenario-range{font-size:.78rem;color:var(--verde);font-weight:600;margin-top:2px}
+.scenario-desc{font-size:.72rem;color:var(--muted);margin-top:4px}
+
+/* Toggle switch */
+.toggle-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#cbd5e1;border-radius:24px;cursor:pointer;transition:.3s}
+.slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.slider{background:var(--blu-light)}
+.toggle input:checked+.slider:before{transform:translateX(20px)}
+.toggle-label{font-size:.95rem;font-weight:600}
+
+/* Collapsible financing block */
+#finanziamento-block{transition:.3s;overflow:hidden}
+#finanziamento-block.hidden{max-height:0;opacity:0;pointer-events:none;margin:0;padding:0}
+#finanziamento-block.visible{max-height:600px;opacity:1}
+
+/* Capex table */
+.capex-table{width:100%;border-collapse:collapse}
+.capex-table th{background:var(--grigio);padding:10px 12px;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:left;border-bottom:2px solid var(--bordo)}
+.capex-table td{padding:8px 12px;border-bottom:1px solid var(--bordo)}
+.capex-table td input{border:1px solid var(--bordo);border-radius:6px;padding:7px 10px;font-size:.9rem;width:100%}
+.capex-table .total-row td{font-weight:700;background:#f0fdf4;color:var(--verde)}
+.btn-add-row{background:none;border:1.5px dashed var(--bordo);border-radius:8px;padding:8px 16px;color:var(--muted);cursor:pointer;font-size:.85rem;width:100%;margin-top:8px;transition:.2s}
+.btn-add-row:hover{border-color:var(--blu-light);color:var(--blu-light)}
+
+/* Personale table */
+.pers-table{width:100%;border-collapse:collapse}
+.pers-table th{background:var(--grigio);padding:10px 12px;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:left;border-bottom:2px solid var(--bordo)}
+.pers-table td{padding:8px 12px;border-bottom:1px solid var(--bordo)}
+.pers-table td input,
+.pers-table td select{border:1px solid var(--bordo);border-radius:6px;padding:7px 10px;font-size:.9rem;width:100%}
+
+/* Navigation buttons */
+.nav-btns{display:flex;justify-content:space-between;margin-top:28px}
+.btn{padding:12px 28px;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;border:none;transition:.2s}
+.btn-next{background:var(--blu-light);color:#fff}
+.btn-next:hover{background:#1d4ed8}
+.btn-prev{background:#fff;border:1.5px solid var(--bordo);color:var(--testo)}
+.btn-prev:hover{border-color:var(--blu-light);color:var(--blu-light)}
+.btn-genera{background:linear-gradient(135deg,var(--verde),#15803d);color:#fff;padding:14px 40px;font-size:1.1rem;border-radius:12px}
+.btn-genera:hover{opacity:.9}
+.btn-scarica{background:#fff;border:2px solid var(--verde);color:var(--verde);margin-left:12px}
+.btn-scarica:hover{background:#f0fdf4}
+
+/* Output section */
+#output-section{display:none}
+.output-card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:24px}
+.output-title{font-size:1.1rem;font-weight:700;color:var(--blu);margin-bottom:16px;border-bottom:2px solid var(--bordo);padding-bottom:10px}
+.proj-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.proj-table th{background:var(--blu);color:#fff;padding:10px 12px;text-align:right}
+.proj-table th:first-child{text-align:left}
+.proj-table td{padding:9px 12px;border-bottom:1px solid var(--bordo);text-align:right}
+.proj-table td:first-child{text-align:left;font-weight:500}
+.proj-table tr.sub td:first-child{padding-left:24px;color:var(--muted);font-weight:400}
+.proj-table tr.total-row td{font-weight:700;background:#f8fafc;border-top:2px solid var(--bordo)}
+.proj-table tr.positive td:last-child,.proj-table tr.positive td:nth-child(2),.proj-table tr.positive td:nth-child(3){color:var(--verde)}
+.proj-table tr.negative td:last-child,.proj-table tr.negative td:nth-child(2),.proj-table tr.negative td:nth-child(3){color:#dc2626}
+.proj-table .section-header td{background:#f1f5f9;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+
+.be-box{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+.be-item{background:var(--grigio);border-radius:10px;padding:16px;text-align:center}
+.be-value{font-size:1.5rem;font-weight:800;color:var(--blu)}
+.be-label{font-size:.78rem;color:var(--muted);margin-top:4px}
+
+.alert-box{border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:.88rem;display:flex;gap:10px;align-items:flex-start}
+.alert-box.warning{background:#fef3c7;border-left:4px solid #f59e0b;color:#92400e}
+.alert-box.success{background:#dcfce7;border-left:4px solid var(--verde);color:#166534}
+.alert-box.danger{background:#fee2e2;border-left:4px solid #dc2626;color:#991b1b}
+
+.dati-storici{background:#eff6ff;border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:.85rem;color:#1e40af}
+
+/* Responsive */
+@media(max-width:680px){
+  .form-row,.form-row.cols3{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:1fr 1fr}
+  .be-box{grid-template-columns:1fr}
+  .card{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📊 Business Plan Finanziario</h1>
+    <p>Proiezioni 3 anni · Modello CE+SP+CF integrato · EBA/GL/2020/06 compliant</p>
+  </div>
+  <span class="badge-eba">EBA/GL/2020/06</span>
+</header>
+
+<div class="container">
+
+  <!-- Progress -->
+  <div class="progress-bar">
+    <div class="step active" id="st1" onclick="goStep(1)"><div class="step-num">1</div><div class="step-label">Scenario</div></div>
+    <div class="step" id="st2" onclick="goStep(2)"><div class="step-num">2</div><div class="step-label">Ricavi</div></div>
+    <div class="step" id="st3" onclick="goStep(3)"><div class="step-num">3</div><div class="step-label">Costi</div></div>
+    <div class="step" id="st4" onclick="goStep(4)"><div class="step-num">4</div><div class="step-label">Personale</div></div>
+    <div class="step" id="st5" onclick="goStep(5)"><div class="step-num">5</div><div class="step-label">Investimenti</div></div>
+    <div class="step" id="st6" onclick="goStep(6)"><div class="step-num">6</div><div class="step-label">Finanza</div></div>
+    <div class="step" id="st7" onclick="goStep(7)"><div class="step-num">7</div><div class="step-label">Riepilogo</div></div>
+  </div>
+
+  <!-- SECTION 1: Scenario & Dati di base -->
+  <div class="section visible" id="sec1">
+    <div class="card">
+      <div class="card-title">🏢 Dati aziendali di base</div>
+      <div class="card-sub">Inserisci le informazioni principali dell'azienda per personalizzare il business plan</div>
+      <div id="dati-storici-info"></div>
+      <div class="form-row">
+        <div>
+          <label>Ragione Sociale</label>
+          <input type="text" id="nome_azienda" placeholder="Es. ROSSI S.R.L.">
+        </div>
+        <div>
+          <label>Anno di riferimento storico</label>
+          <select id="anno_base">
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Settore / ATECO</label>
+          <input type="text" id="settore_bp" placeholder="Es. Manifattura, Commercio, Servizi…">
+        </div>
+        <div>
+          <label>Fatturato storico (€)</label>
+          <div class="input-group">
+            <input type="number" id="ricavi_storici" class="has-suffix" placeholder="0" min="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row cols3">
+        <div>
+          <label>EBITDA storico (€)</label>
+          <div class="input-group">
+            <input type="number" id="ebitda_storico" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Costo del personale (€)</label>
+          <div class="input-group">
+            <input type="number" id="costo_pers_storico" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Debiti finanziari netti (PFN) €</label>
+          <div class="input-group">
+            <input type="number" id="pfn_storico" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📈 Scenario di crescita</div>
+      <div class="card-sub">Seleziona il tasso di crescita annuo previsto dei ricavi. Le banche valutano sempre anche lo scenario prudenziale (−20%).</div>
+      <div class="scenario-grid">
+        <div class="scenario-card" id="sc-bassa" onclick="selectScenario('bassa')">
+          <div class="scenario-icon">🐢</div>
+          <div class="scenario-name">Bassa</div>
+          <div class="scenario-range">+2% – +4%</div>
+          <div class="scenario-desc">Mercato maturo, consolidamento</div>
+        </div>
+        <div class="scenario-card" id="sc-moderata" onclick="selectScenario('moderata')">
+          <div class="scenario-icon">🚀</div>
+          <div class="scenario-name">Moderata</div>
+          <div class="scenario-range">+5% – +8%</div>
+          <div class="scenario-desc">Crescita organica sostenuta</div>
+        </div>
+        <div class="scenario-card" id="sc-alta" onclick="selectScenario('alta')">
+          <div class="scenario-icon">⚡</div>
+          <div class="scenario-name">Alta</div>
+          <div class="scenario-range">+9% – +15%</div>
+          <div class="scenario-desc">Espansione mercato/prodotto</div>
+        </div>
+        <div class="scenario-card" id="sc-custom" onclick="selectScenario('custom')">
+          <div class="scenario-icon">✏️</div>
+          <div class="scenario-name">Personalizzato</div>
+          <div class="scenario-range">Libero</div>
+          <div class="scenario-desc">Inserisci % manualmente</div>
+        </div>
+      </div>
+      <div id="custom-growth-row" style="display:none" class="form-row cols3">
+        <div>
+          <label>Crescita Anno 1 (%)</label>
+          <div class="input-group">
+            <input type="number" id="g1" class="has-suffix" placeholder="0" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>Crescita Anno 2 (%)</label>
+          <div class="input-group">
+            <input type="number" id="g2" class="has-suffix" placeholder="0" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>Crescita Anno 3 (%)</label>
+          <div class="input-group">
+            <input type="number" id="g3" class="has-suffix" placeholder="0" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <div></div>
+      <button class="btn btn-next" onclick="goStep(2)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Ricavi -->
+  <div class="section" id="sec2">
+    <div class="card">
+      <div class="card-title">💰 Struttura dei Ricavi</div>
+      <div class="card-sub">Definisci la composizione e l'andamento atteso dei ricavi per i tre anni di piano</div>
+
+      <div class="form-row cols3">
+        <div>
+          <label>% ricavi da clienti ricorrenti</label>
+          <div class="input-group">
+            <input type="number" id="perc_ricorrenti" class="has-suffix" value="60" min="0" max="100">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>% ricavi da nuovi clienti</label>
+          <div class="input-group">
+            <input type="number" id="perc_nuovi" class="has-suffix" value="40" min="0" max="100">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>Stagionalità</label>
+          <select id="stagionalita">
+            <option value="uniforme">Uniforme</option>
+            <option value="estate">Picco estate</option>
+            <option value="inverno">Picco inverno</option>
+            <option value="q4">Picco Q4</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>Nuovi prodotti/servizi (anno 1)?</label>
+          <select id="new_products">
+            <option value="no">No</option>
+            <option value="si">Sì</option>
+          </select>
+        </div>
+        <div>
+          <label>Ricavi da nuovi prodotti/servizi (€ ann.)</label>
+          <div class="input-group">
+            <input type="number" id="new_products_rev" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>Apertura nuovi mercati/aree geografiche?</label>
+          <select id="new_markets">
+            <option value="no">No</option>
+            <option value="si">Sì</option>
+          </select>
+        </div>
+        <div>
+          <label>Ricavi attesi da nuovi mercati (€ ann.)</label>
+          <div class="input-group">
+            <input type="number" id="new_markets_rev" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row cols1">
+        <div>
+          <label>Note e ipotesi sui ricavi</label>
+          <textarea id="note_ricavi" rows="3" placeholder="Es. Contratto quadro con cliente principale, incremento prezzi del 3%, ecc."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goStep(1)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(3)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Costi operativi -->
+  <div class="section" id="sec3">
+    <div class="card">
+      <div class="card-title">📦 Costi Operativi e Marginalità</div>
+      <div class="card-sub">Definisci la struttura dei costi e la marginalità attesa. Fondamentale per la banca per valutare la sostenibilità.</div>
+
+      <div class="form-row cols3">
+        <div>
+          <label>Margine Lordo atteso (%)</label>
+          <div class="input-group">
+            <input type="number" id="margine_lordo" class="has-suffix" placeholder="Es. 40" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>EBITDA Margin atteso (%)</label>
+          <div class="input-group">
+            <input type="number" id="ebitda_margin" class="has-suffix" placeholder="Es. 12" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>% variazione costi materie prime</label>
+          <div class="input-group">
+            <input type="number" id="var_materie" class="has-suffix" placeholder="Es. 2" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row cols3">
+        <div>
+          <label>Costi fissi strutturali (€/anno)</label>
+          <div class="input-group">
+            <input type="number" id="costi_fissi" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>% costi variabili su ricavi</label>
+          <div class="input-group">
+            <input type="number" id="perc_var" class="has-suffix" placeholder="Es. 45" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>% incremento costi fissi/anno</label>
+          <div class="input-group">
+            <input type="number" id="incr_fissi" class="has-suffix" placeholder="Es. 2" step="0.5">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row cols3">
+        <div>
+          <label>Ammortamenti previsti (€/anno)</label>
+          <div class="input-group">
+            <input type="number" id="ammortamenti" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Aliquota fiscale effettiva (%)</label>
+          <div class="input-group">
+            <input type="number" id="tax_rate" class="has-suffix" value="27.9" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>Giorni medi di incasso (DSO)</label>
+          <input type="number" id="dso" placeholder="Es. 60" min="0">
+        </div>
+      </div>
+
+      <div class="form-row cols3">
+        <div>
+          <label>Giorni medi di pagamento fornitori (DPO)</label>
+          <input type="number" id="dpo" placeholder="Es. 45" min="0">
+        </div>
+        <div>
+          <label>Giorni medi di giacenza magazzino</label>
+          <input type="number" id="dio" placeholder="Es. 30" min="0">
+        </div>
+        <div>
+          <label>Variazione % CCN su ricavi</label>
+          <div class="input-group">
+            <input type="number" id="perc_ccn" class="has-suffix" placeholder="Es. 8" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goStep(2)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(4)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Personale -->
+  <div class="section" id="sec4">
+    <div class="card">
+      <div class="card-title">👥 Piano del Personale</div>
+      <div class="card-sub">Il costo del personale è la voce più rigida del conto economico. Specifica la struttura attuale e le variazioni previste.</div>
+
+      <div class="form-row cols3">
+        <div>
+          <label>N. dipendenti attuali</label>
+          <input type="number" id="n_dip" placeholder="0" min="0">
+        </div>
+        <div>
+          <label>Costo medio annuo per dipendente (€)</label>
+          <div class="input-group">
+            <input type="number" id="costo_medio_dip" class="has-suffix" placeholder="Es. 35000">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>% incremento costo pers./anno (CCNL)</label>
+          <div class="input-group">
+            <input type="number" id="incr_pers" class="has-suffix" value="2" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px;font-size:.85rem;font-weight:600;color:var(--muted)">NUOVE ASSUNZIONI PREVISTE</div>
+      <table class="pers-table">
+        <thead>
+          <tr>
+            <th>Ruolo / Profilo</th>
+            <th>Anno inserimento</th>
+            <th>N. persone</th>
+            <th>Costo annuo cad. (€)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="assunzioni-body">
+          <tr>
+            <td><input type="text" placeholder="Es. Commerciale"></td>
+            <td>
+              <select>
+                <option value="1">Anno 1</option>
+                <option value="2">Anno 2</option>
+                <option value="3">Anno 3</option>
+              </select>
+            </td>
+            <td><input type="number" value="1" min="1"></td>
+            <td><input type="number" placeholder="35000" min="0"></td>
+            <td><button onclick="removeRow(this)" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:1.1rem">✕</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn-add-row" onclick="addAssunzione()">+ Aggiungi assunzione</button>
+
+      <div class="form-row" style="margin-top:20px">
+        <div>
+          <label>TFR accantonato % sul costo personale</label>
+          <div class="input-group">
+            <input type="number" id="tfr_perc" class="has-suffix" value="6.91" step="0.01">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>Consulenze e co.co.co. (€/anno)</label>
+          <div class="input-group">
+            <input type="number" id="consulenze" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goStep(3)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(5)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Investimenti -->
+  <div class="section" id="sec5">
+    <div class="card">
+      <div class="card-title">🏗️ Piano degli Investimenti (CAPEX)</div>
+      <div class="card-sub">Gli investimenti impattano su ammortamenti, cash flow e necessità di finanziamento. Indica ogni investimento per anno.</div>
+
+      <table class="capex-table">
+        <thead>
+          <tr>
+            <th>Descrizione investimento</th>
+            <th>Categoria</th>
+            <th>Anno 1 (€)</th>
+            <th>Anno 2 (€)</th>
+            <th>Anno 3 (€)</th>
+            <th>Vita utile (anni)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="capex-body">
+          <tr>
+            <td><input type="text" placeholder="Es. Macchinari produzione"></td>
+            <td>
+              <select>
+                <option value="immateriali">Immateriali</option>
+                <option value="materiali" selected>Materiali</option>
+                <option value="finanziari">Finanziari</option>
+              </select>
+            </td>
+            <td><input type="number" placeholder="0" min="0"></td>
+            <td><input type="number" placeholder="0" min="0"></td>
+            <td><input type="number" placeholder="0" min="0"></td>
+            <td><input type="number" value="5" min="1" max="50"></td>
+            <td><button onclick="removeRow(this)" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:1.1rem">✕</button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row" id="capex-total">
+            <td colspan="2"><strong>TOTALE CAPEX</strong></td>
+            <td id="tot-capex1">0 €</td>
+            <td id="tot-capex2">0 €</td>
+            <td id="tot-capex3">0 €</td>
+            <td colspan="2"></td>
+          </tr>
+        </tfoot>
+      </table>
+      <button class="btn-add-row" onclick="addCapex()">+ Aggiungi investimento</button>
+
+      <div class="form-row" style="margin-top:20px">
+        <div>
+          <label>Fonte di copertura investimenti</label>
+          <select id="fonte_capex">
+            <option value="autofinanziamento">Autofinanziamento (cash flow operativo)</option>
+            <option value="finanziamento">Finanziamento bancario</option>
+            <option value="misto">Misto (autofinanz. + finanziamento)</option>
+            <option value="leasing">Leasing operativo/finanziario</option>
+          </select>
+        </div>
+        <div>
+          <label>% capex finanziato da terzi (se misto)</label>
+          <div class="input-group">
+            <input type="number" id="perc_fin_capex" class="has-suffix" value="70" min="0" max="100">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goStep(4)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(6)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Finanziamenti -->
+  <div class="section" id="sec6">
+    <div class="card">
+      <div class="card-title">🏦 Struttura Finanziaria</div>
+      <div class="card-sub">I finanziamenti impattano direttamente sul DSCR (Debt Service Coverage Ratio), indice chiave per le banche secondo EBA/GL/2020/06.</div>
+
+      <!-- Finanziamenti esistenti -->
+      <div style="margin-bottom:12px;font-size:.88rem;font-weight:700;color:var(--blu)">Finanziamenti in essere (da bilancio)</div>
+      <div class="form-row cols3">
+        <div>
+          <label>Debiti a breve verso banche (€)</label>
+          <div class="input-group">
+            <input type="number" id="deb_bt" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Debiti a medio-lungo verso banche (€)</label>
+          <div class="input-group">
+            <input type="number" id="deb_mlt" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Rata annua finan. esistenti (€/anno)</label>
+          <div class="input-group">
+            <input type="number" id="rata_esistente" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row cols3">
+        <div>
+          <label>Quota interessi finan. esistenti (€/anno)</label>
+          <div class="input-group">
+            <input type="number" id="interessi_esistenti" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Anni residui finanziamento principale</label>
+          <input type="number" id="anni_residui" placeholder="Es. 4" min="0">
+        </div>
+        <div></div>
+      </div>
+
+      <!-- Nuovo finanziamento -->
+      <div style="margin:20px 0 12px;font-size:.88rem;font-weight:700;color:var(--blu)">Nuovo finanziamento richiesto</div>
+      <div class="toggle-row">
+        <label class="toggle">
+          <input type="checkbox" id="toggle-fin" onchange="toggleFinanziamento()">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Verrà richiesto un nuovo finanziamento bancario</span>
+      </div>
+
+      <div id="finanziamento-block" class="hidden">
+        <div class="form-row cols3">
+          <div>
+            <label>Importo finanziamento (€)</label>
+            <div class="input-group">
+              <input type="number" id="fin_importo" class="has-suffix" placeholder="0">
+              <span class="input-suffix">€</span>
+            </div>
+          </div>
+          <div>
+            <label>Durata (anni)</label>
+            <input type="number" id="fin_durata" placeholder="Es. 5" min="1" max="30">
+          </div>
+          <div>
+            <label>Tasso interesse (%)</label>
+            <div class="input-group">
+              <input type="number" id="fin_tasso" class="has-suffix" placeholder="Es. 4.5" step="0.1">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-row cols3">
+          <div>
+            <label>Tipologia</label>
+            <select id="fin_tipo">
+              <option value="mutuo">Mutuo chirografario</option>
+              <option value="mutuo_ipot">Mutuo ipotecario</option>
+              <option value="sabatini">Nuova Sabatini</option>
+              <option value="garantito">Garanzia MCC/SACE</option>
+              <option value="finanziamento">Finanziamento ordinario</option>
+            </select>
+          </div>
+          <div>
+            <label>Quota capitale annua (€)</label>
+            <div class="input-group">
+              <input type="number" id="rata_capitale" class="has-suffix" placeholder="Calcolata auto">
+              <span class="input-suffix">€</span>
+            </div>
+          </div>
+          <div>
+            <label>Pre-ammortamento (mesi)</label>
+            <input type="number" id="pre_amm" placeholder="0" min="0" max="24">
+          </div>
+        </div>
+        <div class="alert-box warning">
+          <span>⚠️</span>
+          <div>Il DSCR (Debt Service Coverage Ratio) deve essere ≥ 1,1x per soddisfare i requisiti EBA/GL/2020/06. Verrà calcolato automaticamente nel report.</div>
+        </div>
+      </div>
+
+      <!-- Equity -->
+      <div style="margin:20px 0 12px;font-size:.88rem;font-weight:700;color:var(--blu)">Apporto di capitale proprio</div>
+      <div class="form-row cols3">
+        <div>
+          <label>Aumento di capitale previsto (€)</label>
+          <div class="input-group">
+            <input type="number" id="aum_capitale" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Distribuzione dividendi attesa (€/anno)</label>
+          <div class="input-group">
+            <input type="number" id="dividendi" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+        <div>
+          <label>Patrimonio netto attuale (€)</label>
+          <div class="input-group">
+            <input type="number" id="pn_attuale" class="has-suffix" placeholder="0">
+            <span class="input-suffix">€</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goStep(5)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(7)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 7: Riepilogo -->
+  <div class="section" id="sec7">
+    <div class="card">
+      <div class="card-title">📋 Riepilogo Ipotesi e Analista</div>
+      <div class="card-sub">Verifica le ipotesi inserite e aggiungi eventuali note prima di generare il report</div>
+
+      <div class="form-row">
+        <div>
+          <label>Nome dell'analista</label>
+          <input type="text" id="analista" value="Dr. Leonardo Mascia">
+        </div>
+        <div>
+          <label>Data del report</label>
+          <input type="text" id="data_report" id="data_report" value="">
+        </div>
+      </div>
+
+      <div class="form-row cols1">
+        <div>
+          <label>Nota metodologica</label>
+          <textarea id="nota_metodologica" rows="3" placeholder="Es. Il presente business plan è redatto secondo le linee guida EBA/GL/2020/06 e il D.Lgs. 14/2019 (CCII). Le proiezioni si basano su dati storici certificati e ipotesi prudenziali verificate con il management."></textarea>
+        </div>
+      </div>
+
+      <div class="form-row cols1">
+        <div>
+          <label>Ipotesi chiave (scenario prudenziale)</label>
+          <textarea id="ipotesi_stress" rows="3" placeholder="Es. Scenario stress: ricavi -20%, margine EBITDA -3pp, costi finanziari +1pp. Analisi sensitività inclusa."></textarea>
+        </div>
+      </div>
+
+      <div id="riepilogo-box" style="background:var(--grigio);border-radius:10px;padding:16px;margin-top:8px;font-size:.85rem;line-height:1.7"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goStep(6)">← Indietro</button>
+      <button class="btn btn-genera" onclick="generaBP()">🚀 Genera Business Plan</button>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div id="output-section">
+    <div id="alerts-container"></div>
+
+    <div class="output-card">
+      <div class="output-title">📊 Conto Economico Proiettato (3 anni)</div>
+      <div id="ce-table-container"></div>
+    </div>
+
+    <div class="output-card">
+      <div class="output-title">🏦 Stato Patrimoniale Proiettato (3 anni)</div>
+      <div id="sp-table-container"></div>
+    </div>
+
+    <div class="output-card">
+      <div class="output-title">💸 Cash Flow Statement (3 anni)</div>
+      <div id="cf-table-container"></div>
+    </div>
+
+    <div class="output-card">
+      <div class="output-title">📐 Analisi del Break-Even</div>
+      <div id="be-container"></div>
+    </div>
+
+    <div class="output-card">
+      <div class="output-title">📋 Indici Chiave e DSCR</div>
+      <div id="kpi-container"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:20px">
+      <button class="btn btn-genera" onclick="scaricaReport()">⬇ Scarica Business Plan (HTML)</button>
+      <button class="btn btn-scarica" onclick="window.print()">🖨 Stampa / Salva PDF</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────
+let currentStep = 1;
+let selectedScenario = null;
+let _lastReportHTML = '';
+
+// ─── Init ────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  // Today's date
+  const oggi = new Date();
+  document.getElementById('data_report').value =
+    oggi.toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+
+  // Load from sessionStorage (se proveniente da bilancio-multianno)
+  try {
+    const raw = sessionStorage.getItem('bpData');
+    if(raw){
+      const d = JSON.parse(raw);
+      if(d.nome) document.getElementById('nome_azienda').value = d.nome;
+      if(d.settore) document.getElementById('settore_bp').value = d.settore;
+      if(d.anno) document.getElementById('anno_base').value = d.anno;
+      if(d.ricavi) document.getElementById('ricavi_storici').value = d.ricavi;
+      if(d.ebitda) document.getElementById('ebitda_storico').value = d.ebitda;
+      if(d.costo_pers) document.getElementById('costo_pers_storico').value = d.costo_pers;
+      if(d.pfn) document.getElementById('pfn_storico').value = d.pfn;
+      if(d.deb_bt) document.getElementById('deb_bt').value = d.deb_bt;
+      if(d.deb_mlt) document.getElementById('deb_mlt').value = d.deb_mlt;
+      if(d.pn) document.getElementById('pn_attuale').value = d.pn;
+      const info = document.getElementById('dati-storici-info');
+      info.innerHTML = `<div class="dati-storici">✅ Dati importati automaticamente dal bilancio ${d.anno||''} di <strong>${d.nome||''}</strong></div>`;
+    }
+  } catch(e){}
+
+  updateCapexTotal();
+});
+
+// ─── Step navigation ─────────────────────────────────────
+function goStep(n){
+  if(n===7) buildRiepilogo();
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('visible'));
+  document.getElementById('sec'+n).classList.add('visible');
+  document.querySelectorAll('.step').forEach((s,i)=>{
+    s.classList.remove('active','done');
+    if(i+1===n) s.classList.add('active');
+    else if(i+1<n) s.classList.add('done');
+  });
+  currentStep = n;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── Scenario ────────────────────────────────────────────
+function selectScenario(key){
+  selectedScenario = key;
+  document.querySelectorAll('.scenario-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('sc-'+key).classList.add('selected');
+  const custom = document.getElementById('custom-growth-row');
+  if(key==='custom'){
+    custom.style.display='grid';
+  } else {
+    custom.style.display='none';
+    // Set default values
+    const ranges = {bassa:[3,3,3], moderata:[6,7,7], alta:[10,12,12]};
+    const [g1,g2,g3] = ranges[key] || [0,0,0];
+    document.getElementById('g1').value = g1;
+    document.getElementById('g2').value = g2;
+    document.getElementById('g3').value = g3;
+  }
+}
+
+// ─── Financing toggle ────────────────────────────────────
+function toggleFinanziamento(){
+  const cb = document.getElementById('toggle-fin');
+  const block = document.getElementById('finanziamento-block');
+  if(cb.checked){ block.classList.remove('hidden'); block.classList.add('visible'); }
+  else { block.classList.remove('visible'); block.classList.add('hidden'); }
+}
+
+// ─── Capex table ─────────────────────────────────────────
+function addCapex(){
+  const tbody = document.getElementById('capex-body');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" placeholder="Descrizione"></td>
+    <td><select><option value="immateriali">Immateriali</option><option value="materiali" selected>Materiali</option><option value="finanziari">Finanziari</option></select></td>
+    <td><input type="number" placeholder="0" min="0" oninput="updateCapexTotal()"></td>
+    <td><input type="number" placeholder="0" min="0" oninput="updateCapexTotal()"></td>
+    <td><input type="number" placeholder="0" min="0" oninput="updateCapexTotal()"></td>
+    <td><input type="number" value="5" min="1" max="50"></td>
+    <td><button onclick="removeRow(this)" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:1.1rem">✕</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function addAssunzione(){
+  const tbody = document.getElementById('assunzioni-body');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" placeholder="Ruolo"></td>
+    <td><select><option value="1">Anno 1</option><option value="2">Anno 2</option><option value="3">Anno 3</option></select></td>
+    <td><input type="number" value="1" min="1"></td>
+    <td><input type="number" placeholder="35000" min="0"></td>
+    <td><button onclick="removeRow(this)" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:1.1rem">✕</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function removeRow(btn){
+  btn.closest('tr').remove();
+  updateCapexTotal();
+}
+
+function updateCapexTotal(){
+  const rows = document.querySelectorAll('#capex-body tr');
+  let t1=0,t2=0,t3=0;
+  rows.forEach(r=>{
+    const inputs = r.querySelectorAll('input[type=number]');
+    if(inputs.length>=3){
+      t1 += parseFloat(inputs[0].value)||0;
+      t2 += parseFloat(inputs[1].value)||0;
+      t3 += parseFloat(inputs[2].value)||0;
+    }
+  });
+  document.getElementById('tot-capex1').textContent = fmt(t1)+'€';
+  document.getElementById('tot-capex2').textContent = fmt(t2)+'€';
+  document.getElementById('tot-capex3').textContent = fmt(t3)+'€';
+}
+document.addEventListener('input', e => {
+  if(e.target.closest('#capex-body')) updateCapexTotal();
+});
+
+// ─── Riepilogo ───────────────────────────────────────────
+function buildRiepilogo(){
+  const nome = v('nome_azienda') || '—';
+  const anno = v('anno_base');
+  const ricavi = parseFloat(v('ricavi_storici'))||0;
+  const ebitda = parseFloat(v('ebitda_storico'))||0;
+  const pMargin = ricavi>0 ? (ebitda/ricavi*100).toFixed(1)+'%' : '—';
+  const sc = selectedScenario||'non selezionato';
+  const g1=v('g1')||'—', g2=v('g2')||'—', g3=v('g3')||'—';
+  const hasFin = document.getElementById('toggle-fin').checked;
+  const finImporto = parseFloat(v('fin_importo'))||0;
+
+  document.getElementById('riepilogo-box').innerHTML = `
+    <table style="width:100%;border-collapse:collapse">
+      <tr><td style="width:35%;padding:4px 8px;color:var(--muted)">Azienda</td><td style="padding:4px 8px;font-weight:600">${nome}</td></tr>
+      <tr><td style="padding:4px 8px;color:var(--muted)">Anno base</td><td style="padding:4px 8px;font-weight:600">${anno}</td></tr>
+      <tr><td style="padding:4px 8px;color:var(--muted)">Ricavi storici</td><td style="padding:4px 8px;font-weight:600">${fmt(ricavi)} €</td></tr>
+      <tr><td style="padding:4px 8px;color:var(--muted)">EBITDA margin storico</td><td style="padding:4px 8px;font-weight:600">${pMargin}</td></tr>
+      <tr><td style="padding:4px 8px;color:var(--muted)">Scenario crescita</td><td style="padding:4px 8px;font-weight:600">${sc} (${g1}% / ${g2}% / ${g3}%)</td></tr>
+      <tr><td style="padding:4px 8px;color:var(--muted)">EBITDA margin atteso</td><td style="padding:4px 8px;font-weight:600">${v('ebitda_margin')||'—'}%</td></tr>
+      <tr><td style="padding:4px 8px;color:var(--muted)">Nuovo finanziamento</td><td style="padding:4px 8px;font-weight:600">${hasFin ? fmt(finImporto)+' €' : 'No'}</td></tr>
+    </table>`;
+}
+
+// ─── GENERA BUSINESS PLAN ────────────────────────────────
+async function generaBP(){
+  const payload = raccogliDati();
+  if(!payload) return;
+
+  document.querySelector('.btn-genera').textContent = '⏳ Generazione in corso…';
+  document.querySelector('.btn-genera').disabled = true;
+
+  try {
+    const res = await fetch('/api/genera-bp', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error||'Errore');
+
+    renderOutput(data, payload);
+    document.getElementById('output-section').style.display='block';
+    document.getElementById('output-section').scrollIntoView({behavior:'smooth'});
+  } catch(err){
+    alert('Errore nella generazione: '+err.message);
+  } finally {
+    document.querySelector('.btn-genera').textContent = '🚀 Genera Business Plan';
+    document.querySelector('.btn-genera').disabled = false;
+  }
+}
+
+function raccogliDati(){
+  const ricavi = parseFloat(v('ricavi_storici'))||0;
+  if(!ricavi){ alert('Inserisci il fatturato storico nella sezione 1.'); return null; }
+  if(!selectedScenario){ alert('Seleziona uno scenario di crescita nella sezione 1.'); return null; }
+
+  // Collect capex
+  const capex = [];
+  document.querySelectorAll('#capex-body tr').forEach(r=>{
+    const desc = r.querySelector('input[type=text]')?.value||'';
+    const sel = r.querySelector('select')?.value||'materiali';
+    const nums = r.querySelectorAll('input[type=number]');
+    if(nums.length>=3){
+      capex.push({desc, tipo:sel, a1:parseFloat(nums[0].value)||0, a2:parseFloat(nums[1].value)||0, a3:parseFloat(nums[2].value)||0, vita:parseFloat(nums[3]?.value)||5});
+    }
+  });
+
+  // Collect assunzioni
+  const assunzioni = [];
+  document.querySelectorAll('#assunzioni-body tr').forEach(r=>{
+    const ruolo = r.querySelector('input[type=text]')?.value||'';
+    const anno = r.querySelector('select')?.value||'1';
+    const nums = r.querySelectorAll('input[type=number]');
+    if(nums.length>=2){
+      assunzioni.push({ruolo, anno:parseInt(anno), n:parseInt(nums[0].value)||1, costo:parseFloat(nums[1].value)||35000});
+    }
+  });
+
+  return {
+    // Base
+    nome: v('nome_azienda'), settore: v('settore_bp'), anno_base: parseInt(v('anno_base')),
+    analista: v('analista'), data_report: v('data_report'),
+    nota_metodologica: v('nota_metodologica'), ipotesi_stress: v('ipotesi_stress'),
+    // Storico
+    ricavi_base: parseFloat(v('ricavi_storici'))||0,
+    ebitda_storico: parseFloat(v('ebitda_storico'))||0,
+    costo_pers_storico: parseFloat(v('costo_pers_storico'))||0,
+    pfn_storico: parseFloat(v('pfn_storico'))||0,
+    pn_attuale: parseFloat(v('pn_attuale'))||0,
+    // Scenario
+    scenario: selectedScenario,
+    g1: parseFloat(v('g1'))||0, g2: parseFloat(v('g2'))||0, g3: parseFloat(v('g3'))||0,
+    // Ricavi
+    perc_ricorrenti: parseFloat(v('perc_ricorrenti'))||60,
+    new_products_rev: parseFloat(v('new_products_rev'))||0,
+    new_markets_rev: parseFloat(v('new_markets_rev'))||0,
+    note_ricavi: v('note_ricavi'),
+    // Costi
+    margine_lordo: parseFloat(v('margine_lordo'))||0,
+    ebitda_margin: parseFloat(v('ebitda_margin'))||0,
+    costi_fissi: parseFloat(v('costi_fissi'))||0,
+    perc_var: parseFloat(v('perc_var'))||0,
+    incr_fissi: parseFloat(v('incr_fissi'))||2,
+    var_materie: parseFloat(v('var_materie'))||0,
+    ammortamenti: parseFloat(v('ammortamenti'))||0,
+    tax_rate: parseFloat(v('tax_rate'))||27.9,
+    dso: parseFloat(v('dso'))||60, dpo: parseFloat(v('dpo'))||45, dio: parseFloat(v('dio'))||30,
+    perc_ccn: parseFloat(v('perc_ccn'))||8,
+    // Personale
+    n_dip: parseFloat(v('n_dip'))||0,
+    costo_medio_dip: parseFloat(v('costo_medio_dip'))||35000,
+    incr_pers: parseFloat(v('incr_pers'))||2,
+    tfr_perc: parseFloat(v('tfr_perc'))||6.91,
+    consulenze: parseFloat(v('consulenze'))||0,
+    assunzioni,
+    // Capex
+    capex, fonte_capex: v('fonte_capex'), perc_fin_capex: parseFloat(v('perc_fin_capex'))||70,
+    // Finanza
+    deb_bt: parseFloat(v('deb_bt'))||0,
+    deb_mlt: parseFloat(v('deb_mlt'))||0,
+    rata_esistente: parseFloat(v('rata_esistente'))||0,
+    interessi_esistenti: parseFloat(v('interessi_esistenti'))||0,
+    anni_residui: parseFloat(v('anni_residui'))||0,
+    nuovo_fin: document.getElementById('toggle-fin').checked,
+    fin_importo: parseFloat(v('fin_importo'))||0,
+    fin_durata: parseFloat(v('fin_durata'))||5,
+    fin_tasso: parseFloat(v('fin_tasso'))||4.5,
+    fin_tipo: v('fin_tipo'),
+    rata_capitale: parseFloat(v('rata_capitale'))||0,
+    pre_amm: parseFloat(v('pre_amm'))||0,
+    aum_capitale: parseFloat(v('aum_capitale'))||0,
+    dividendi: parseFloat(v('dividendi'))||0,
+  };
+}
+
+// ─── Render output (client-side preview) ─────────────────
+function renderOutput(data, payload){
+  const {ce, sp, cf, be, kpi, alerts} = data;
+
+  // Alerts
+  const ac = document.getElementById('alerts-container');
+  ac.innerHTML = '';
+  (alerts||[]).forEach(a=>{
+    ac.innerHTML += `<div class="alert-box ${a.type}"><span>${a.icon}</span><div>${a.msg}</div></div>`;
+  });
+
+  // CE
+  document.getElementById('ce-table-container').innerHTML = buildProjTable(ce, ['Storico','Anno 1','Anno 2','Anno 3']);
+  // SP
+  document.getElementById('sp-table-container').innerHTML = buildProjTable(sp, ['Storico','Anno 1','Anno 2','Anno 3']);
+  // CF
+  document.getElementById('cf-table-container').innerHTML = buildProjTable(cf, ['Storico','Anno 1','Anno 2','Anno 3']);
+  // BE
+  document.getElementById('be-container').innerHTML = buildBE(be);
+  // KPI
+  document.getElementById('kpi-container').innerHTML = buildKPI(kpi, payload.anno_base);
+
+  // Store for download
+  _lastReportHTML = data.html || '';
+}
+
+function buildProjTable(rows, headers){
+  let h = `<table class="proj-table"><thead><tr><th>${headers[0]}</th>`;
+  for(let i=1;i<headers.length;i++) h+=`<th>${headers[i]}</th>`;
+  h+='</tr></thead><tbody>';
+  (rows||[]).forEach(r=>{
+    const cls = [r.section?'section-header':'', r.total?'total-row':'', r.sub?'sub':'',
+      r.positive?'positive':'', r.negative?'negative':''].filter(Boolean).join(' ');
+    h+=`<tr class="${cls}"><td>${r.label}</td>`;
+    ['s','a1','a2','a3'].forEach(k=>{
+      const val = r[k];
+      h+=`<td>${val===null||val===undefined?'—':fmtEuro(val)}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  return h;
+}
+
+function buildBE(be){
+  if(!be) return '<p>Dati insufficienti per il break-even.</p>';
+  return `
+    <div class="be-box">
+      <div class="be-item"><div class="be-value">${fmtEuro(be.ricavi_be)}</div><div class="be-label">Ricavi Break-Even</div></div>
+      <div class="be-item"><div class="be-value">${be.utilizzo_cap.toFixed(1)}%</div><div class="be-label">% Utilizzo capacità</div></div>
+      <div class="be-item"><div class="be-value">${fmtEuro(be.margine_sicurezza)}</div><div class="be-label">Margine di sicurezza</div></div>
+    </div>
+    <p style="margin-top:12px;font-size:.83rem;color:var(--muted)">Il break-even viene raggiunto a <strong>${fmtEuro(be.ricavi_be)}</strong> di fatturato. Con i ricavi proiettati dell'Anno 1 (${fmtEuro(be.ricavi_a1)}), il margine di sicurezza è <strong>${be.margine_perc.toFixed(1)}%</strong>.</p>`;
+}
+
+function buildKPI(kpi, anno){
+  if(!kpi||!kpi.length) return '';
+  let h = '<table class="proj-table"><thead><tr><th>Indicatore</th><th>Storico</th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Soglia banca</th></tr></thead><tbody>';
+  kpi.forEach(k=>{
+    const ok = k.ok!==undefined ? (k.ok ? '✅' : '⚠️') : '';
+    h+=`<tr><td>${k.label} ${ok}</td><td>${fmtKpi(k.s)}</td><td>${fmtKpi(k.a1)}</td><td>${fmtKpi(k.a2)}</td><td>${fmtKpi(k.a3)}</td><td style="color:var(--muted);font-size:.8rem">${k.soglia||''}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  return h;
+}
+
+function fmtKpi(v){ return v===null||v===undefined?'—':(typeof v==='number'?v.toFixed(2):v); }
+function fmtEuro(v){ if(v===null||v===undefined) return '—'; return (v<0?'− ':'')+(Math.abs(v)/1000>=1?fmt(Math.abs(v)):Math.abs(v).toLocaleString('it-IT'))+' €'; }
+function fmt(n){ return Math.round(n).toLocaleString('it-IT'); }
+function v(id){ const el=document.getElementById(id); return el?el.value:''; }
+
+function scaricaReport(){
+  if(!_lastReportHTML){ alert('Genera prima il business plan.'); return; }
+  const blob = new Blob([_lastReportHTML],{type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=`BusinessPlan_${(v('nome_azienda')||'report').replace(/\s+/g,'_')}.html`;
+  a.click(); URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
