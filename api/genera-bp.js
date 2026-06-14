@@ -690,11 +690,3 @@ function downloadHTML(){
 </html>`;
 }
 
-// Helper duplicated for report context
-function sumCapex(capexList, anno) {
-  return (capexList || []).reduce((s, c) => s + (c['a' + anno] || 0), 0);
-}
-function fmtE(n) {
-  if (n === null || n === undefined || n === 0) return '0 €';
-  return (n < 0 ? '− ' : '') + Math.abs(Math.round(n)).toLocaleString('it-IT') + ' €';
-}
