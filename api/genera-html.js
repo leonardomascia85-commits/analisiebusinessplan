@@ -347,29 +347,99 @@ function buildNarrative(c, d) {
 
 // ── BUILD MAIN HTML ──
 // ── BENCHMARK SETTORIALI PMI ITALIANE ──
-// Fonte: Mediobanca Dati Cumulativi 2023, Banca d'Italia Note di Stabilità, Cerved Industry Forecast
+// Fonte: Mediobanca Dati Cumulativi 2023, Banca d'Italia Note di Stabilità Finanziaria 2024, Cerved Industry Forecast 2024
+// Valori mediani per PMI italiane con fatturato 2–50 M€
 const SETTORI = {
-  A:{nome:'Agricoltura, silvicoltura e pesca',         roe:5,  roi:3,  ebitda:12, cr:1.3, de:1.5, trend:+1.2},
-  B:{nome:'Estrazione di minerali',                    roe:8,  roi:6,  ebitda:20, cr:1.4, de:1.2, trend:+0.5},
-  C:{nome:'Attività manifatturiere',                   roe:9,  roi:8,  ebitda:11, cr:1.5, de:1.1, trend:+2.1},
-  D:{nome:'Energia elettrica e gas',                   roe:7,  roi:5,  ebitda:15, cr:1.2, de:1.8, trend:-0.8},
-  E:{nome:'Fornitura acqua, reti fognarie',             roe:6,  roi:4,  ebitda:18, cr:1.3, de:1.6, trend:+1.0},
-  F:{nome:'Costruzioni',                               roe:7,  roi:5,  ebitda:6,  cr:1.3, de:1.8, trend:+3.5},
-  G:{nome:'Commercio all\'ingrosso e al dettaglio',   roe:8,  roi:6,  ebitda:5,  cr:1.4, de:1.3, trend:+1.8},
-  H:{nome:'Trasporto e magazzinaggio',                 roe:6,  roi:5,  ebitda:9,  cr:1.2, de:1.9, trend:+1.4},
-  I:{nome:'Alloggio e ristorazione',                   roe:5,  roi:4,  ebitda:14, cr:1.1, de:2.0, trend:+4.2},
-  J:{nome:'Servizi ICT e comunicazione',               roe:14, roi:11, ebitda:19, cr:1.7, de:0.7, trend:+5.8},
-  K:{nome:'Attività finanziarie e assicurative',       roe:9,  roi:5,  ebitda:28, cr:1.5, de:3.0, trend:+2.0},
-  L:{nome:'Attività immobiliari',                      roe:5,  roi:3,  ebitda:36, cr:1.2, de:2.5, trend:-1.2},
-  M:{nome:'Attività professionali e tecniche',         roe:16, roi:13, ebitda:17, cr:1.6, de:0.6, trend:+3.2},
-  N:{nome:'Noleggio e servizi di supporto',            roe:8,  roi:6,  ebitda:11, cr:1.3, de:1.2, trend:+2.5},
-  P:{nome:'Istruzione',                                roe:7,  roi:5,  ebitda:12, cr:1.4, de:0.9, trend:+1.5},
-  Q:{nome:'Sanità e assistenza sociale',               roe:7,  roi:5,  ebitda:13, cr:1.3, de:1.4, trend:+2.8},
-  R:{nome:'Arte, sport e intrattenimento',             roe:4,  roi:3,  ebitda:10, cr:1.2, de:1.5, trend:+3.0},
-  S:{nome:'Altre attività di servizi',                 roe:7,  roi:5,  ebitda:10, cr:1.3, de:1.1, trend:+1.6},
+  // Macro-sezioni ATECO
+  A:{nome:'Agricoltura, silvicoltura e pesca',              ateco:'01-03', roe:5,  roi:3,  ebitda:12, cr:1.3, de:1.5, trend:+1.2},
+  B:{nome:'Estrazione di minerali da cave e miniere',       ateco:'05-09', roe:8,  roi:6,  ebitda:20, cr:1.4, de:1.2, trend:+0.5},
+  C:{nome:'Attività manifatturiere',                        ateco:'10-33', roe:9,  roi:8,  ebitda:11, cr:1.5, de:1.1, trend:+2.1},
+  D:{nome:'Fornitura energia elettrica, gas, vapore',       ateco:'35',    roe:7,  roi:5,  ebitda:15, cr:1.2, de:1.8, trend:-0.8},
+  E:{nome:'Fornitura acqua, reti fognarie, rifiuti',        ateco:'36-39', roe:6,  roi:4,  ebitda:18, cr:1.3, de:1.6, trend:+1.0},
+  F:{nome:'Costruzioni',                                    ateco:'41-43', roe:7,  roi:5,  ebitda:6,  cr:1.3, de:1.8, trend:+3.5},
+  G:{nome:'Commercio all\'ingrosso e al dettaglio',         ateco:'45-47', roe:8,  roi:6,  ebitda:5,  cr:1.4, de:1.3, trend:+1.8},
+  H:{nome:'Trasporto e magazzinaggio',                      ateco:'49-53', roe:6,  roi:5,  ebitda:9,  cr:1.2, de:1.9, trend:+1.4},
+  I:{nome:'Attività dei servizi di alloggio e ristorazione',ateco:'55-56', roe:5,  roi:4,  ebitda:14, cr:1.1, de:2.0, trend:+4.2},
+  J:{nome:'Servizi di informazione e comunicazione (ICT)',  ateco:'58-63', roe:14, roi:11, ebitda:19, cr:1.7, de:0.7, trend:+5.8},
+  K:{nome:'Attività finanziarie e assicurative',            ateco:'64-66', roe:9,  roi:5,  ebitda:28, cr:1.5, de:3.0, trend:+2.0},
+  L:{nome:'Attività immobiliari',                           ateco:'68',    roe:5,  roi:3,  ebitda:36, cr:1.2, de:2.5, trend:-1.2},
+  M:{nome:'Attività professionali, scientifiche e tecniche',ateco:'69-75', roe:16, roi:13, ebitda:17, cr:1.6, de:0.6, trend:+3.2},
+  N:{nome:'Noleggio, agenzie di viaggio, servizi di supporto',ateco:'77-82',roe:8, roi:6,  ebitda:11, cr:1.3, de:1.2, trend:+2.5},
+  P:{nome:'Istruzione',                                     ateco:'85',    roe:7,  roi:5,  ebitda:12, cr:1.4, de:0.9, trend:+1.5},
+  Q:{nome:'Sanità e assistenza sociale',                    ateco:'86-88', roe:7,  roi:5,  ebitda:13, cr:1.3, de:1.4, trend:+2.8},
+  R:{nome:'Attività artistiche, sportive, intrattenimento', ateco:'90-93', roe:4,  roi:3,  ebitda:10, cr:1.2, de:1.5, trend:+3.0},
+  S:{nome:'Altre attività di servizi',                      ateco:'94-96', roe:7,  roi:5,  ebitda:10, cr:1.3, de:1.1, trend:+1.6},
+  // Sub-settori manifatturieri più comuni (ATECO 2 cifre)
+  C10:{nome:'Industria alimentare (10)',                     ateco:'10',    roe:8,  roi:7,  ebitda:9,  cr:1.4, de:1.3, trend:+2.5},
+  C13:{nome:'Industria tessile e abbigliamento (13-14)',     ateco:'13-14', roe:6,  roi:5,  ebitda:8,  cr:1.5, de:1.2, trend:-0.5},
+  C16:{nome:'Industria legno e mobili (16-31)',              ateco:'16-31', roe:7,  roi:6,  ebitda:9,  cr:1.4, de:1.2, trend:+1.0},
+  C20:{nome:'Industria chimica e farmaceutica (20-21)',      ateco:'20-21', roe:12, roi:10, ebitda:15, cr:1.6, de:0.9, trend:+3.0},
+  C22:{nome:'Gomma, materie plastiche (22)',                 ateco:'22',    roe:9,  roi:8,  ebitda:11, cr:1.5, de:1.1, trend:+1.8},
+  C23:{nome:'Lavorazione minerali non metalliferi (23)',     ateco:'23',    roe:8,  roi:7,  ebitda:12, cr:1.4, de:1.2, trend:+1.5},
+  C24:{nome:'Metallurgia e prodotti in metallo (24-25)',     ateco:'24-25', roe:9,  roi:8,  ebitda:10, cr:1.5, de:1.2, trend:+2.0},
+  C28:{nome:'Fabbricazione macchinari e apparecchi (28)',    ateco:'28',    roe:11, roi:9,  ebitda:13, cr:1.6, de:1.0, trend:+3.5},
+  C29:{nome:'Fabbricazione autoveicoli e componentistica (29-30)',ateco:'29-30',roe:8,roi:7,ebitda:10,cr:1.4,de:1.3,trend:+1.2},
+  C32:{nome:'Altre industrie manifatturiere (32)',           ateco:'32',    roe:8,  roi:7,  ebitda:10, cr:1.4, de:1.2, trend:+1.5},
+  // Sub-settori costruzioni
+  F41:{nome:'Costruzione di edifici (41)',                   ateco:'41',    roe:8,  roi:6,  ebitda:7,  cr:1.3, de:1.7, trend:+4.0},
+  F42:{nome:'Ingegneria civile (42)',                        ateco:'42',    roe:6,  roi:5,  ebitda:8,  cr:1.2, de:1.9, trend:+2.5},
+  F43:{nome:'Lavori specializzati costruzioni (43)',         ateco:'43',    roe:9,  roi:7,  ebitda:9,  cr:1.4, de:1.4, trend:+3.8},
+  // Sub-settori commercio
+  G45:{nome:'Commercio autoveicoli (45)',                    ateco:'45',    roe:7,  roi:5,  ebitda:4,  cr:1.3, de:1.5, trend:+1.5},
+  G46:{nome:'Commercio all\'ingrosso (46)',                  ateco:'46',    roe:9,  roi:7,  ebitda:5,  cr:1.4, de:1.2, trend:+2.0},
+  G47:{nome:'Commercio al dettaglio (47)',                   ateco:'47',    roe:7,  roi:5,  ebitda:6,  cr:1.4, de:1.4, trend:+1.5},
+  // Trasporti
+  H49:{nome:'Trasporto terrestre (49)',                      ateco:'49',    roe:6,  roi:5,  ebitda:8,  cr:1.2, de:2.0, trend:+1.5},
+  H52:{nome:'Magazzinaggio e logistica (52)',                ateco:'52',    roe:8,  roi:6,  ebitda:12, cr:1.3, de:1.6, trend:+3.5},
 };
 
-function buildSettoreHTML(c, settoreKey) {
+// Mappa ATECO numerico → chiave settore più affine
+function atecoCodiceToKey(ateco) {
+  if (!ateco) return null;
+  const n = parseInt(ateco);
+  if (isNaN(n)) return null;
+  // Sub-settori precisi prima (priorità)
+  if (n === 10 || n === 11) return 'C10';
+  if (n === 13 || n === 14 || n === 15) return 'C13';
+  if (n >= 16 && n <= 19) return 'C16'; if (n === 31) return 'C16';
+  if (n === 20 || n === 21) return 'C20';
+  if (n === 22) return 'C22';
+  if (n === 23) return 'C23';
+  if (n === 24 || n === 25) return 'C24';
+  if (n === 28) return 'C28';
+  if (n === 29 || n === 30) return 'C29';
+  if (n === 32 || n === 33) return 'C32';
+  if (n === 41) return 'F41';
+  if (n === 42) return 'F42';
+  if (n === 43) return 'F43';
+  if (n === 45) return 'G45';
+  if (n === 46) return 'G46';
+  if (n === 47) return 'G47';
+  if (n === 49) return 'H49';
+  if (n === 52) return 'H52';
+  // Macro-sezioni
+  if (n >= 1  && n <= 3)  return 'A';
+  if (n >= 5  && n <= 9)  return 'B';
+  if (n >= 10 && n <= 33) return 'C';
+  if (n === 35)            return 'D';
+  if (n >= 36 && n <= 39) return 'E';
+  if (n >= 41 && n <= 43) return 'F';
+  if (n >= 45 && n <= 47) return 'G';
+  if (n >= 49 && n <= 53) return 'H';
+  if (n >= 55 && n <= 56) return 'I';
+  if (n >= 58 && n <= 63) return 'J';
+  if (n >= 64 && n <= 66) return 'K';
+  if (n === 68)            return 'L';
+  if (n >= 69 && n <= 75) return 'M';
+  if (n >= 77 && n <= 82) return 'N';
+  if (n === 85)            return 'P';
+  if (n >= 86 && n <= 88) return 'Q';
+  if (n >= 90 && n <= 93) return 'R';
+  if (n >= 94 && n <= 96) return 'S';
+  return null;
+}
+
+function buildSettoreHTML(c, settoreKey, nome, anno) {
   const s = SETTORI[settoreKey];
   if (!s) return '';
   const fp1 = n => (isNaN(n)||!isFinite(n)) ? '—' : n.toFixed(1) + '%';
@@ -465,7 +535,10 @@ function buildReportHTML(data, config) {
   const nome = config.nome || d.nome || 'Azienda';
   const analista = config.analista || 'Dr. Leonardo Mascia';
   const dataReport = config.dataReport || new Date().toLocaleDateString('it-IT');
-  const settore = config.settore || '';
+  // settore: può essere lettera macro (A-S) o codice ATECO numerico (es. "23.99")
+  const settoreRaw = config.settore || d.ateco || '';
+  const settoreKey = SETTORI[settoreRaw] ? settoreRaw : atecoCodiceToKey(settoreRaw);
+  const settore = settoreKey || '';
   const note = config.note || '';
   const colore = config.colore === 'green' ? '#059669' : config.colore === 'dark' ? '#1E293B' : '#1D4ED8';
   const narrative = buildNarrative(c, d);
@@ -1251,8 +1324,6 @@ ${hasRF ? `
   <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 8</span></div>
 </div>` : ''}
 
-${settore && SETTORI[settore] ? buildSettoreHTML(c, settore) : ''}
-
 <!-- PAG RATING FINALE -->
 <div class="page">
   <div class="ph">
@@ -1317,8 +1388,10 @@ ${settore && SETTORI[settore] ? buildSettoreHTML(c, settore) : ''}
   </div>
   ${note?`<div class="note-box"><div class="note-title">Note analista</div><div class="note-text">${note}</div></div>`:''}
   <div class="disclaimer">Report generato da AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + verifica trigger CCII (D.Lgs. 14/2019) · Generato il ${dataReport} · Basato esclusivamente su dati di bilancio (non include componente andamentale Centrale Rischi).</div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Ultima pagina</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>${settore && SETTORI[settore] ? 'Pag. penultima' : 'Ultima pagina'}</span></div>
 </div>
+
+${settore && SETTORI[settore] ? buildSettoreHTML(c, settore, nome, anno) : ''}
 
 </body></html>`;
 }
