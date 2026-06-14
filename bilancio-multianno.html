@@ -623,6 +623,7 @@
       <div class="rcard">
         <div class="actions">
           <button class="btn-p" id="btn-report" onclick="generaReport()" disabled>Genera Report PDF →</button>
+          <button class="btn-p" id="btn-bp" onclick="apriBusinessPlan()" disabled style="background:linear-gradient(135deg,#16a34a,#15803d)">📊 Crea Business Plan →</button>
           <button class="btn-g" onclick="resetAll()">Reset</button>
         </div>
       </div>
@@ -1103,6 +1104,26 @@ async function generaReport(){
   }
 })();
 
+function apriBusinessPlan(){
+  const d = buildAnnoData(0);
+  const nome = document.getElementById('rag_soc')?.value || '';
+  const anno = document.getElementById('ysel-0')?.value || '2024';
+  const settore = document.getElementById('settore')?.value || '';
+  const ebitda = (d.ric_vend||0)+(d.alt_ric||0)-(d.mat_prime||0)-(d.servizi||0)-(d.godimento||0)-(d.personale||0);
+  const pfn = (d.deb_b_bt||0)+(d.deb_b_lt||0)-(d.liquidita||0);
+  const pn = (d.cap_soc||0)+(d.riserve||0)+(d.utile_es||0);
+  sessionStorage.setItem('bpData', JSON.stringify({
+    nome, anno, settore,
+    ricavi: (d.ric_vend||0)+(d.alt_ric||0),
+    ebitda: ebitda,
+    costo_pers: d.personale||0,
+    pfn, pn,
+    deb_bt: d.deb_b_bt||0,
+    deb_mlt: d.deb_b_lt||0,
+  }));
+  window.location.href = 'business-plan.html';
+}
+
 // Abilita tab risultati anno 1 e 2 quando si compilano
 setInterval(()=>{
   [1,2].forEach(y=>{
@@ -1114,6 +1135,8 @@ setInterval(()=>{
     if(fcard){if(filled[y])fcard.classList.add('filled');else fcard.classList.remove('filled');}
     const compBtn=document.getElementById('ryt-comp');
     if(compBtn)compBtn.disabled=filled.filter(f=>f).length<2;
+    const bpBtn=document.getElementById('btn-bp');
+    if(bpBtn)bpBtn.disabled=!filled[0];
     document.getElementById(`fyt-${y}`)?.classList.toggle('filled',filled[y]);
   });
   // Mostra ycard-2 solo se anno 1 ha dati
