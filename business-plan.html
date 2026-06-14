@@ -126,12 +126,40 @@ input.has-suffix{padding-right:36px}
 
 .dati-storici{background:#eff6ff;border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:.85rem;color:#1e40af}
 
+/* Path selector */
+.path-selector{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+.path-card{border:2px solid var(--bordo);border-radius:14px;padding:28px 24px;text-align:center;cursor:pointer;transition:.2s;background:#fff;position:relative}
+.path-card:hover{border-color:var(--blu-light);background:#eff6ff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,.1)}
+.path-card.selected{border-color:var(--blu-light);background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.path-card.selected::after{content:'✓';position:absolute;top:12px;right:14px;background:var(--blu-light);color:#fff;width:22px;height:22px;border-radius:50%;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:22px}
+.path-icon{font-size:2.5rem;margin-bottom:12px}
+.path-title{font-size:1.1rem;font-weight:700;color:var(--blu);margin-bottom:6px}
+.path-desc{font-size:.82rem;color:var(--muted);line-height:1.5}
+.path-badge{display:inline-block;background:#dcfce7;color:var(--verde);font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:8px}
+
+/* XBRL upload zone */
+.xbrl-drop{border:2.5px dashed var(--bordo);border-radius:14px;padding:36px 24px;text-align:center;cursor:pointer;transition:.2s;background:#fafafa;margin-top:8px}
+.xbrl-drop:hover,.xbrl-drop.drag{border-color:var(--blu-light);background:#eff6ff}
+.xbrl-drop.loaded{border-color:var(--verde);background:#f0fdf4;border-style:solid}
+.xbrl-drop-icon{font-size:2.2rem;margin-bottom:10px}
+.xbrl-drop-title{font-size:.95rem;font-weight:600;color:var(--testo)}
+.xbrl-drop-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
+.xbrl-result{background:#dcfce7;border:1px solid #86efac;border-radius:10px;padding:14px 18px;margin-top:12px;font-size:.85rem;color:#166534;display:none}
+.xbrl-result.show{display:block}
+.xbrl-error{background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:14px 18px;margin-top:12px;font-size:.85rem;color:#991b1b;display:none}
+.xbrl-error.show{display:block}
+
+/* Percorso blocks */
+.percorso-block{display:none;margin-top:16px}
+.percorso-block.show{display:block}
+
 /* Responsive */
 @media(max-width:680px){
   .form-row,.form-row.cols3{grid-template-columns:1fr}
   .scenario-grid{grid-template-columns:1fr 1fr}
   .be-box{grid-template-columns:1fr}
   .card{padding:20px}
+  .path-selector{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -160,57 +188,115 @@ input.has-suffix{padding-right:36px}
 
   <!-- SECTION 1: Scenario & Dati di base -->
   <div class="section visible" id="sec1">
+
+    <!-- SCELTA PERCORSO -->
     <div class="card">
-      <div class="card-title">🏢 Dati aziendali di base</div>
-      <div class="card-sub">Inserisci le informazioni principali dell'azienda per personalizzare il business plan</div>
-      <div id="dati-storici-info"></div>
-      <div class="form-row">
-        <div>
-          <label>Ragione Sociale</label>
-          <input type="text" id="nome_azienda" placeholder="Es. ROSSI S.R.L.">
+      <div class="card-title">🗂️ Da dove partiamo?</div>
+      <div class="card-sub">Seleziona il punto di partenza per il business plan</div>
+      <div class="path-selector">
+        <div class="path-card" id="path-xbrl" onclick="sceliPercorso('xbrl')">
+          <div class="path-icon">📁</div>
+          <div class="path-title">Ho già il bilancio XBRL</div>
+          <div class="path-desc">Carica il file .xbrl / .xml scaricato da CCIAA o dal commercialista. I dati vengono importati automaticamente.</div>
+          <div class="path-badge">⚡ Compilazione automatica</div>
         </div>
-        <div>
-          <label>Anno di riferimento storico</label>
-          <select id="anno_base">
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div>
-          <label>Settore / ATECO</label>
-          <input type="text" id="settore_bp" placeholder="Es. Manifattura, Commercio, Servizi…">
-        </div>
-        <div>
-          <label>Fatturato storico (€)</label>
-          <div class="input-group">
-            <input type="number" id="ricavi_storici" class="has-suffix" placeholder="0" min="0">
-            <span class="input-suffix">€</span>
-          </div>
+        <div class="path-card" id="path-manuale" onclick="sceliPercorso('manuale')">
+          <div class="path-icon">✏️</div>
+          <div class="path-title">Non ho il bilancio XBRL</div>
+          <div class="path-desc">Inserisco manualmente i dati economico-finanziari storici dell'azienda (fatturato, EBITDA, debiti…).</div>
+          <div class="path-badge" style="background:#eff6ff;color:var(--blu-light)">📝 Inserimento manuale</div>
         </div>
       </div>
-      <div class="form-row cols3">
-        <div>
-          <label>EBITDA storico (€)</label>
-          <div class="input-group">
-            <input type="number" id="ebitda_storico" class="has-suffix" placeholder="0">
-            <span class="input-suffix">€</span>
+
+      <!-- PERCORSO XBRL -->
+      <div class="percorso-block" id="block-xbrl">
+        <div class="xbrl-drop" id="xbrl-drop"
+             onclick="document.getElementById('xbrl-file-input').click()"
+             ondragover="event.preventDefault();this.classList.add('drag')"
+             ondragleave="this.classList.remove('drag')"
+             ondrop="handleXbrlDrop(event)">
+          <div class="xbrl-drop-icon">📂</div>
+          <div class="xbrl-drop-title">Trascina qui il file XBRL oppure clicca per selezionarlo</div>
+          <div class="xbrl-drop-sub">Formati supportati: .xbrl · .xml · .zip (tassonomia CCIAA italiana)</div>
+          <input type="file" id="xbrl-file-input" accept=".xbrl,.xml,.zip" onchange="handleXbrlFile(this.files[0])">
+        </div>
+        <div class="xbrl-result" id="xbrl-result"></div>
+        <div class="xbrl-error" id="xbrl-error"></div>
+
+        <!-- Conferma anno dopo import XBRL -->
+        <div id="xbrl-anno-box" style="display:none;margin-top:16px">
+          <div class="form-row">
+            <div>
+              <label>Anno di riferimento (rilevato dal file)</label>
+              <input type="text" id="anno_base_xbrl" readonly style="background:#f0fdf4;font-weight:700;color:var(--verde)">
+            </div>
+            <div>
+              <label>Ragione Sociale (rilevata dal file)</label>
+              <input type="text" id="nome_xbrl_display" readonly style="background:#f0fdf4;font-weight:700;color:var(--verde)">
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label>Settore / ATECO <small style="font-weight:400;color:var(--muted)">(completa se necessario)</small></label>
+              <input type="text" id="settore_bp" placeholder="Es. Manifattura, Commercio, Servizi…">
+            </div>
           </div>
         </div>
-        <div>
-          <label>Costo del personale (€)</label>
-          <div class="input-group">
-            <input type="number" id="costo_pers_storico" class="has-suffix" placeholder="0">
-            <span class="input-suffix">€</span>
+      </div>
+
+      <!-- PERCORSO MANUALE -->
+      <div class="percorso-block" id="block-manuale">
+        <div id="dati-storici-info"></div>
+        <div class="form-row">
+          <div>
+            <label>Ragione Sociale</label>
+            <input type="text" id="nome_azienda" placeholder="Es. ROSSI S.R.L.">
+          </div>
+          <div>
+            <label>Anno di riferimento storico</label>
+            <select id="anno_base">
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
           </div>
         </div>
-        <div>
-          <label>Debiti finanziari netti (PFN) €</label>
-          <div class="input-group">
-            <input type="number" id="pfn_storico" class="has-suffix" placeholder="0">
-            <span class="input-suffix">€</span>
+        <div class="form-row">
+          <div>
+            <label>Settore / ATECO</label>
+            <input type="text" id="settore_bp_manuale" placeholder="Es. Manifattura, Commercio, Servizi…">
+          </div>
+          <div>
+            <label>Fatturato storico (€)</label>
+            <div class="input-group">
+              <input type="number" id="ricavi_storici" class="has-suffix" placeholder="0" min="0">
+              <span class="input-suffix">€</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-row cols3">
+          <div>
+            <label>EBITDA storico (€)</label>
+            <div class="input-group">
+              <input type="number" id="ebitda_storico" class="has-suffix" placeholder="0">
+              <span class="input-suffix">€</span>
+            </div>
+          </div>
+          <div>
+            <label>Costo del personale (€)</label>
+            <div class="input-group">
+              <input type="number" id="costo_pers_storico" class="has-suffix" placeholder="0">
+              <span class="input-suffix">€</span>
+            </div>
+          </div>
+          <div>
+            <label>Debiti finanziari netti (PFN) €</label>
+            <div class="input-group">
+              <input type="number" id="pfn_storico" class="has-suffix" placeholder="0">
+              <span class="input-suffix">€</span>
+            </div>
           </div>
         </div>
       </div>
@@ -830,6 +916,179 @@ input.has-suffix{padding-right:36px}
 let currentStep = 1;
 let selectedScenario = null;
 let _lastReportHTML = '';
+let _percorso = null; // 'xbrl' | 'manuale'
+let _xbrlData = null; // dati estratti dal file XBRL
+
+// ─── Scelta percorso ────────────────────────────────────
+function sceliPercorso(tipo){
+  _percorso = tipo;
+  document.getElementById('path-xbrl').classList.toggle('selected', tipo==='xbrl');
+  document.getElementById('path-manuale').classList.toggle('selected', tipo==='manuale');
+  document.getElementById('block-xbrl').classList.toggle('show', tipo==='xbrl');
+  document.getElementById('block-manuale').classList.toggle('show', tipo==='manuale');
+}
+
+// ─── XBRL Drag & Drop ────────────────────────────────────
+function handleXbrlDrop(e){
+  e.preventDefault();
+  document.getElementById('xbrl-drop').classList.remove('drag');
+  const file = e.dataTransfer.files[0];
+  if(file) handleXbrlFile(file);
+}
+
+function handleXbrlFile(file){
+  if(!file) return;
+  const drop = document.getElementById('xbrl-drop');
+  const res = document.getElementById('xbrl-result');
+  const err = document.getElementById('xbrl-error');
+  res.classList.remove('show'); err.classList.remove('show');
+  drop.querySelector('.xbrl-drop-title').textContent = '⏳ Analisi file in corso…';
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      let xmlStr = e.target.result;
+      // Se zip, avvertiamo
+      if(file.name.endsWith('.zip')){
+        err.textContent = 'File ZIP rilevato: estrai il file .xbrl/.xml e caricalo direttamente.';
+        err.classList.add('show');
+        drop.querySelector('.xbrl-drop-title').textContent = 'Trascina qui il file XBRL oppure clicca per selezionarlo';
+        return;
+      }
+      const parsed = parseXBRL(xmlStr);
+      _xbrlData = parsed;
+      // Popola campi nascosti
+      if(parsed.nome) document.getElementById('nome_azienda').value = parsed.nome;
+      if(parsed.nome) document.getElementById('nome_xbrl_display').value = parsed.nome;
+      if(parsed.anno) document.getElementById('anno_base_xbrl').value = parsed.anno;
+      if(parsed.anno) document.getElementById('anno_base').value = parsed.anno;
+      if(parsed.ricavi) document.getElementById('ricavi_storici').value = parsed.ricavi;
+      if(parsed.ebitda) document.getElementById('ebitda_storico').value = parsed.ebitda;
+      if(parsed.costo_pers) document.getElementById('costo_pers_storico').value = parsed.costo_pers;
+      if(parsed.pfn !== undefined) document.getElementById('pfn_storico').value = parsed.pfn;
+      if(parsed.deb_bt) document.getElementById('deb_bt').value = parsed.deb_bt;
+      if(parsed.deb_mlt) document.getElementById('deb_mlt').value = parsed.deb_mlt;
+      if(parsed.pn) document.getElementById('pn_attuale').value = parsed.pn;
+
+      drop.classList.add('loaded');
+      drop.querySelector('.xbrl-drop-icon').textContent = '✅';
+      drop.querySelector('.xbrl-drop-title').textContent = file.name + ' — caricato';
+      drop.querySelector('.xbrl-drop-sub').textContent = 'Clicca per caricare un file diverso';
+      document.getElementById('xbrl-anno-box').style.display = 'block';
+
+      const fmtM = n => n ? (n/1000000).toFixed(2)+'M €' : '—';
+      res.innerHTML = `<strong>✅ Dati estratti con successo</strong><br>
+        <table style="margin-top:8px;border-collapse:collapse;width:100%">
+          <tr><td style="padding:2px 8px;opacity:.8">Ragione Sociale</td><td style="padding:2px 8px;font-weight:700">${parsed.nome||'—'}</td></tr>
+          <tr><td style="padding:2px 8px;opacity:.8">Anno bilancio</td><td style="padding:2px 8px;font-weight:700">${parsed.anno||'—'}</td></tr>
+          <tr><td style="padding:2px 8px;opacity:.8">Ricavi</td><td style="padding:2px 8px;font-weight:700">${fmtM(parsed.ricavi)}</td></tr>
+          <tr><td style="padding:2px 8px;opacity:.8">EBITDA (calc.)</td><td style="padding:2px 8px;font-weight:700">${fmtM(parsed.ebitda)}</td></tr>
+          <tr><td style="padding:2px 8px;opacity:.8">Costo personale</td><td style="padding:2px 8px;font-weight:700">${fmtM(parsed.costo_pers)}</td></tr>
+          <tr><td style="padding:2px 8px;opacity:.8">PFN</td><td style="padding:2px 8px;font-weight:700">${fmtM(parsed.pfn)}</td></tr>
+        </table>`;
+      res.classList.add('show');
+    } catch(ex){
+      err.textContent = 'Errore nella lettura del file XBRL: ' + ex.message + '. Verifica che sia un file XBRL/XML valido.';
+      err.classList.add('show');
+      drop.querySelector('.xbrl-drop-title').textContent = 'Trascina qui il file XBRL oppure clicca per selezionarlo';
+    }
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+// ─── Parser XBRL (tassonomia CCIAA italiana) ─────────────
+function parseXBRL(xml){
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xml, 'text/xml');
+
+  function getVal(tags){
+    for(const tag of tags){
+      // cerca con e senza namespace
+      const els = doc.querySelectorAll(tag.replace(/:/g,'\\:'));
+      if(els.length){
+        for(const el of els){
+          const txt = el.textContent.trim();
+          if(txt && !isNaN(txt.replace(',','.'))) return parseFloat(txt.replace(',','.'));
+        }
+      }
+      // ricerca per local-name
+      const all = doc.getElementsByTagName('*');
+      for(const el of all){
+        if(el.localName === tag.split(':').pop()){
+          const txt = el.textContent.trim();
+          if(txt && !isNaN(txt.replace(',','.'))) return parseFloat(txt.replace(',','.'));
+        }
+      }
+    }
+    return 0;
+  }
+
+  function getStr(tags){
+    for(const tag of tags){
+      const all = doc.getElementsByTagName('*');
+      for(const el of all){
+        if(el.localName === tag.split(':').pop()){
+          const txt = el.textContent.trim();
+          if(txt) return txt;
+        }
+      }
+    }
+    return '';
+  }
+
+  // Anno dal contesto o dal nome entità
+  let anno = '';
+  const ctxEls = doc.getElementsByTagName('*');
+  for(const el of ctxEls){
+    if(el.localName==='endDate'||el.localName==='EndDate'){
+      const t = el.textContent.trim();
+      if(/^\d{4}-12-31/.test(t)||/^\d{4}-\d{2}-\d{2}/.test(t)){
+        anno = t.substring(0,4); break;
+      }
+    }
+  }
+
+  // Ragione sociale
+  const nome = getStr(['EntityRegistrantName','entity-identifier','CompanyName',
+    'denominazione','ragioneSociale','EntityName','it-ci:RagioneSociale']);
+
+  // Ricavi
+  const ricavi = getVal(['it-ci:RicaviVenditePrestazioni','Revenues','Revenue',
+    'it-ci:TotaleRicaviProventiValore','SalesRevenueNet','it-ci:TotaleValore',
+    'it-ci:RicaviVenditeProdotti','it-ci:PrestazioneDiServizi']);
+
+  // Voci CE per calcolo EBITDA
+  const matPrime  = getVal(['it-ci:MateriePrimeConsumabiliMerci','RawMaterials']);
+  const servizi   = getVal(['it-ci:Servizi','ServicesExpenses']);
+  const godimento = getVal(['it-ci:GodimentoBeniTerzi']);
+  const persAlVal = getVal(['it-ci:CostiPersonale','it-ci:TotaleCostiPersonale',
+    'EmployeeBenefitsExpense','it-ci:SalariStipendi']);
+  const altriCosti= getVal(['it-ci:AltriOneriGestionali','it-ci:AltriCostiOperativi']);
+  const varMag    = getVal(['it-ci:VariazioniRimanenzeProdotti','it-ci:VariazioneRimanenze']);
+  const altriRic  = getVal(['it-ci:AltriRicaviProventi','it-ci:OtherRevenues']);
+
+  // EBITDA = Valore produzione − Costi produzione (senza amm/acc)
+  let ebitda = 0;
+  if(ricavi){
+    const costiOp = matPrime + servizi + godimento + persAlVal + altriCosti;
+    ebitda = ricavi + altriRic - costiOp;
+  }
+
+  const costo_pers = persAlVal;
+
+  // SP – debiti finanziari
+  const deb_bt  = getVal(['it-ci:DebitiVersoBoancheBrevePeriodo','it-ci:DebitiBancariBreveTermine',
+    'it-ci:DebitiVersoBancheBrevePeriodo']);
+  const deb_mlt = getVal(['it-ci:DebitiVersoBancheMedioLungoTermine','it-ci:DebitiBancariMedioLungo',
+    'it-ci:DebitiVersoBancheOltreEsercizio']);
+  const liquid  = getVal(['it-ci:DisponibilitaLiquide','it-ci:LiquiditaImmediata','Cash']);
+  const pfn = deb_bt + deb_mlt - liquid;
+
+  // Patrimonio netto
+  const pn = getVal(['it-ci:TotalePatrimonioNetto','it-ci:PatrimonioNetto','StockholdersEquity']);
+
+  return {nome, anno, ricavi, ebitda, costo_pers, pfn, deb_bt, deb_mlt, liquid, pn};
+}
 
 // ─── Init ────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
@@ -844,7 +1103,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if(raw){
       const d = JSON.parse(raw);
       if(d.nome) document.getElementById('nome_azienda').value = d.nome;
-      if(d.settore) document.getElementById('settore_bp').value = d.settore;
+      if(d.settore){ try{document.getElementById('settore_bp').value=d.settore;}catch(e){} try{document.getElementById('settore_bp_manuale').value=d.settore;}catch(e){} }
       if(d.anno) document.getElementById('anno_base').value = d.anno;
       if(d.ricavi) document.getElementById('ricavi_storici').value = d.ricavi;
       if(d.ebitda) document.getElementById('ebitda_storico').value = d.ebitda;
@@ -853,6 +1112,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if(d.deb_bt) document.getElementById('deb_bt').value = d.deb_bt;
       if(d.deb_mlt) document.getElementById('deb_mlt').value = d.deb_mlt;
       if(d.pn) document.getElementById('pn_attuale').value = d.pn;
+      sceliPercorso('manuale');
       const info = document.getElementById('dati-storici-info');
       info.innerHTML = `<div class="dati-storici">✅ Dati importati automaticamente dal bilancio ${d.anno||''} di <strong>${d.nome||''}</strong></div>`;
     }
@@ -1006,8 +1266,21 @@ async function generaBP(){
 }
 
 function raccogliDati(){
+  // Unifica settore dai due percorsi
+  const settore_xbrl = document.getElementById('settore_bp')?.value||'';
+  const settore_man  = document.getElementById('settore_bp_manuale')?.value||'';
+  const settore_unif = settore_xbrl || settore_man;
+  // Scrivi nel campo usato dal payload
+  try{ document.getElementById('settore_bp').value = settore_unif; } catch(e){}
+
+  // Anno: se XBRL usa campo anno_base_xbrl, altrimenti anno_base select
+  const annoXbrl = document.getElementById('anno_base_xbrl')?.value;
+  if(annoXbrl && _percorso==='xbrl'){
+    try{ document.getElementById('anno_base').value = annoXbrl; } catch(e){}
+  }
+
   const ricavi = parseFloat(v('ricavi_storici'))||0;
-  if(!ricavi){ alert('Inserisci il fatturato storico nella sezione 1.'); return null; }
+  if(!ricavi){ alert('Inserisci o carica il fatturato storico (Sezione 1).'); return null; }
   if(!selectedScenario){ alert('Seleziona uno scenario di crescita nella sezione 1.'); return null; }
 
   // Collect capex
@@ -1034,7 +1307,7 @@ function raccogliDati(){
 
   return {
     // Base
-    nome: v('nome_azienda'), settore: v('settore_bp'), anno_base: parseInt(v('anno_base')),
+    nome: v('nome_azienda'), settore: settore_unif, anno_base: parseInt(v('anno_base'))||parseInt(annoXbrl)||2024,
     analista: v('analista'), data_report: v('data_report'),
     nota_metodologica: v('nota_metodologica'), ipotesi_stress: v('ipotesi_stress'),
     // Storico
