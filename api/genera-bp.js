@@ -392,72 +392,219 @@ function fmtN(n) { return n === null || n === undefined ? '—' : Math.round(n).
 function fmtE(n) { if (n === null || n === undefined) return '—'; return (n < 0 ? '− ' : '') + Math.abs(Math.round(n)).toLocaleString('it-IT') + ' €'; }
 
 // ─── HTML REPORT ──────────────────────────────────────────────────────────────
-function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, calc) {
-  const {R0,R1,R2,R3,EBITDA1,EBITDA2,EBITDA3,UN1,UN2,UN3,PFN1,DSCR1,DSCR2,DSCR3,EBITDAM1,annoBase} = calc;
+function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
+  const {
+    R0, R1, R2, R3,
+    EBITDA0, EBITDA1, EBITDA2, EBITDA3,
+    UN1, UN2, UN3,
+    PFN1, PFN2, PFN3,
+    PN1, PN2, PN3,
+    DSCR1, DSCR2, DSCR3,
+    EBITDAM1, EBITDAM2, EBITDAM3,
+    annoBase
+  } = nums;
+
+  // ── Formatters
+  const fmtP = (n, dec = 1) => (n === null || n === undefined || isNaN(n)) ? '—' : n.toFixed(dec) + '%';
+  const fmtX = (n, dec = 2) => (n === null || n === undefined || isNaN(n)) ? '—' : n.toFixed(dec) + 'x';
+  const fmtM = (n) => (n === null || n === undefined || isNaN(n)) ? '—' : '€ ' + (n / 1e6).toFixed(2) + ' M';
+  const delta = (a, b) => (b === null || b === undefined || b === 0 || a === null || a === undefined)
+    ? '—' : ((a - b) / Math.abs(b) * 100).toFixed(1) + '%';
 
   const now = d.data_report || new Date().toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
   const nome = d.nome || 'Azienda';
   const analista = d.analista || 'Dr. Leonardo Mascia';
-  const scenarioLabel = { bassa: 'Crescita Bassa (+2–4%)', moderata: 'Crescita Moderata (+5–8%)', alta: 'Crescita Alta (+9–15%)', custom: 'Crescita Personalizzata' }[d.scenario] || d.scenario;
+  const scenarioKey = d.scenario || 'moderata';
+  const scenarioLabel = { bassa: 'Crescita Bassa', moderata: 'Crescita Moderata', alta: 'Crescita Alta', custom: 'Personalizzata' }[scenarioKey] || scenarioKey;
+  const scenarioColor = { bassa: '#0EA5E9', moderata: '#2563EB', alta: '#7C3AED', custom: '#475569' }[scenarioKey] || '#2563EB';
 
-  const cssReport = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Inter',sans-serif;color:#1e293b;background:#f8fafc;font-size:14px}
-    .page{width:210mm;min-height:297mm;background:#fff;margin:0 auto 20px;padding:20mm 18mm;position:relative;box-shadow:0 4px 24px rgba(0,0,0,.1)}
-    @media print{body{background:#fff}.page{box-shadow:none;margin:0;page-break-after:always}}
-    h1{font-size:2.2rem;font-weight:800;color:#1a3a5c;line-height:1.2}
-    h2{font-size:1.1rem;font-weight:700;color:#1a3a5c;border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin-bottom:14px}
-    h3{font-size:.9rem;font-weight:700;color:#2563eb;margin-bottom:8px}
-    .cover{background:linear-gradient(135deg,#1a3a5c 0%,#2563eb 100%);color:#fff;padding:28mm 22mm}
-    .cover h1{color:#fff;font-size:2.6rem}
-    .cover .sub{font-size:1.1rem;opacity:.85;margin-top:10px}
-    .cover .meta{margin-top:40px;font-size:.9rem;opacity:.75;line-height:2}
-    .cover .badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:30px}
-    .cover .badge{background:rgba(255,255,255,.12);border-radius:6px;padding:8px 12px;font-size:.75rem;font-weight:600}
-    .kv{display:flex;gap:0;margin-bottom:4px}
-    .kv .k{width:200px;color:#64748b;flex-shrink:0}
-    .kv .val{font-weight:600}
-    table.rep{width:100%;border-collapse:collapse;font-size:.83rem;margin-top:8px}
-    table.rep th{background:#1a3a5c;color:#fff;padding:8px 10px;text-align:right;font-size:.75rem}
-    table.rep th:first-child{text-align:left}
-    table.rep td{padding:7px 10px;border-bottom:1px solid #f1f5f9;text-align:right}
-    table.rep td:first-child{text-align:left}
-    table.rep tr.sec td{background:#f8fafc;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:#94a3b8;padding:5px 10px}
-    table.rep tr.sub td:first-child{padding-left:20px;color:#64748b}
-    table.rep tr.tot td{font-weight:700;background:#f0f9ff;border-top:1px solid #bfdbfe}
-    table.rep tr.utile-pos td{color:#16a34a}
-    table.rep tr.utile-neg td{color:#dc2626}
-    .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
-    .kpi-card{border-radius:8px;padding:14px;text-align:center;background:#f8fafc;border:1px solid #e2e8f0}
-    .kpi-card .val{font-size:1.5rem;font-weight:800;color:#1a3a5c}
-    .kpi-card .label{font-size:.72rem;color:#64748b;margin-top:3px}
-    .kpi-card .soglia{font-size:.68rem;color:#94a3b8;margin-top:2px}
-    .kpi-card.ok{border-color:#bbf7d0;background:#f0fdf4}.kpi-card.ok .val{color:#16a34a}
-    .kpi-card.warn{border-color:#fde68a;background:#fefce8}.kpi-card.warn .val{color:#d97706}
-    .kpi-card.bad{border-color:#fecaca;background:#fef2f2}.kpi-card.bad .val{color:#dc2626}
-    .be-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
-    .be-card{border-radius:8px;padding:14px;text-align:center;background:#eff6ff;border:1px solid #bfdbfe}
-    .be-card .val{font-size:1.4rem;font-weight:800;color:#1e40af}
-    .be-card .label{font-size:.72rem;color:#64748b;margin-top:3px}
-    .scenario-box{background:#eff6ff;border-radius:8px;padding:14px;margin-bottom:16px;border-left:4px solid #2563eb}
-    .scenario-box strong{color:#1e40af}
-    .alert-print{border-radius:6px;padding:10px 14px;margin-bottom:8px;font-size:.8rem;display:flex;gap:8px}
-    .alert-print.ok{background:#dcfce7;border-left:4px solid #16a34a;color:#166534}
-    .alert-print.warn{background:#fef3c7;border-left:4px solid #f59e0b;color:#92400e}
-    .alert-print.bad{background:#fee2e2;border-left:4px solid #dc2626;color:#991b1b}
-    .stress-box{background:#fef3c7;border-radius:8px;padding:14px;margin-top:12px;border-left:4px solid #f59e0b}
-    .print-bar{position:fixed;bottom:20px;right:20px;display:flex;gap:8px;z-index:999}
-    .print-bar button{padding:10px 18px;border-radius:8px;font-weight:600;cursor:pointer;font-size:.88rem;border:none}
-    .print-bar .btn-print{background:#2563eb;color:#fff}
-    .print-bar .btn-dl{background:#fff;border:1.5px solid #e2e8f0;color:#1e293b}
-    @media print{.print-bar{display:none}}
-    .footer-page{position:absolute;bottom:12mm;left:18mm;right:18mm;display:flex;justify-content:space-between;font-size:.7rem;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:6px}
-  `;
+  const PFNEBITDA1 = EBITDA1 > 0 ? PFN1 / EBITDA1 : null;
+  const PFNEBITDA2 = EBITDA2 > 0 ? PFN2 / EBITDA2 : null;
+  const PFNEBITDA3 = EBITDA3 > 0 ? PFN3 / EBITDA3 : null;
+  const CAGR = (R0 > 0 && R3 > 0) ? (Math.pow(R3 / R0, 1 / 3) - 1) * 100 : null;
 
-  const buildTableHTML = (rows, headers) => {
-    let h = `<table class="rep"><thead><tr><th>${headers[0]}</th>${headers.slice(1).map(x => `<th>${x}</th>`).join('')}</tr></thead><tbody>`;
+  // ── Service-of-debt components for DSCR stress (back out from DSCR1)
+  const debtService1 = (DSCR1 !== null && DSCR1 > 0 && EBITDA1 > 0) ? EBITDA1 / DSCR1 : 0;
+  const stressR1 = R1 * 0.8;
+  const stressEBITDA1 = stressR1 * (EBITDAM1 / 100);
+  const stressDSCR1 = debtService1 > 0 ? stressEBITDA1 / debtService1 : null;
+
+  // ── Bancability verdict
+  const bancabile = DSCR1 !== null && DSCR1 >= 1.10 && (PFNEBITDA1 === null || PFNEBITDA1 <= 4) && UN1 >= 0;
+
+  // ── SVG: grouped bar chart Ricavi vs EBITDA
+  const svgBars = () => {
+    const groups = [
+      { lbl: `Storico ${annoBase}`, r: R0, e: EBITDA0 },
+      { lbl: `${annoBase + 1}`, r: R1, e: EBITDA1 },
+      { lbl: `${annoBase + 2}`, r: R2, e: EBITDA2 },
+      { lbl: `${annoBase + 3}`, r: R3, e: EBITDA3 },
+    ];
+    const W = 560, H = 200, padB = 28, padT = 14, padL = 8;
+    const max = Math.max(...groups.map(g => Math.max(g.r, g.e)), 1) * 1.1;
+    const gw = (W - padL * 2) / groups.length;
+    const bw = gw * 0.3;
+    const sc = (v) => (H - padB - padT) * (Math.max(v, 0) / max);
+    let out = '';
+    groups.forEach((g, i) => {
+      const x0 = padL + i * gw + gw * 0.18;
+      const rh = sc(g.r), eh = sc(g.e);
+      const ry = H - padB - rh, ey = H - padB - eh;
+      out += `<rect x="${x0}" y="${ry}" width="${bw}" height="${rh}" rx="2" fill="#2563EB"/>`;
+      out += `<text x="${x0 + bw / 2}" y="${ry - 3}" text-anchor="middle" font-size="8" font-weight="700" fill="#1D4ED8">${(g.r / 1e6).toFixed(2)}</text>`;
+      out += `<rect x="${x0 + bw + 6}" y="${ey}" width="${bw}" height="${eh}" rx="2" fill="#059669"/>`;
+      out += `<text x="${x0 + bw + 6 + bw / 2}" y="${ey - 3}" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">${(g.e / 1e6).toFixed(2)}</text>`;
+      out += `<text x="${x0 + bw + 3}" y="${H - padB + 14}" text-anchor="middle" font-size="8.5" fill="#475569">${g.lbl}</text>`;
+    });
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;display:block;margin:8px auto">
+      <line x1="${padL}" y1="${H - padB}" x2="${W - padL}" y2="${H - padB}" stroke="#CBD5E1" stroke-width="1"/>
+      ${out}
+      <rect x="${W - 180}" y="6" width="9" height="9" fill="#2563EB"/><text x="${W - 167}" y="14" font-size="8.5" fill="#475569">Ricavi (€M)</text>
+      <rect x="${W - 100}" y="6" width="9" height="9" fill="#059669"/><text x="${W - 87}" y="14" font-size="8.5" fill="#475569">EBITDA (€M)</text>
+    </svg>`;
+  };
+
+  // ── SVG: waterfall cash flow Anno 1
+  const svgWaterfall = () => {
+    const FCO = CF.find(r => /Cash Flow Operativo/.test(r.label))?.a1 || 0;
+    const FCI = CF.find(r => /Cash Flow da Investimento/.test(r.label))?.a1 || 0;
+    const FFF = CF.find(r => /Cash Flow Finanziario/.test(r.label))?.a1 || 0;
+    const NET = CF.find(r => /VARIAZIONE NETTA/.test(r.label))?.a1 || (FCO + FCI + FFF);
+    const steps = [
+      { lbl: 'FCO', v: FCO, cum: FCO, type: 'flow' },
+      { lbl: 'FCI', v: FCI, cum: FCO + FCI, type: 'flow' },
+      { lbl: 'FFF', v: FFF, cum: FCO + FCI + FFF, type: 'flow' },
+      { lbl: 'CF Netto', v: NET, cum: NET, type: 'total' },
+    ];
+    const W = 560, H = 200, padB = 28, padT = 18;
+    const vals = [FCO, FCO + FCI, FCO + FCI + FFF, NET, 0];
+    const max = Math.max(...vals), min = Math.min(...vals, 0);
+    const range = (max - min) || 1;
+    const zero = padT + (H - padB - padT) * (max / range);
+    const sc = (v) => (H - padB - padT) * (Math.abs(v) / range);
+    const gw = (W - 16) / steps.length;
+    const bw = gw * 0.5;
+    let prevCum = 0, out = '';
+    steps.forEach((s, i) => {
+      const x = 8 + i * gw + (gw - bw) / 2;
+      let top, h, color;
+      if (s.type === 'total') {
+        h = sc(s.v); top = s.v >= 0 ? zero - h : zero;
+        color = s.v >= 0 ? '#2563EB' : '#DC2626';
+      } else {
+        const start = prevCum, end = prevCum + s.v;
+        top = zero - sc(Math.max(start, end));
+        h = sc(Math.abs(s.v));
+        color = s.v >= 0 ? '#059669' : '#DC2626';
+        prevCum = end;
+      }
+      out += `<rect x="${x}" y="${top}" width="${bw}" height="${Math.max(h, 1)}" rx="2" fill="${color}"/>`;
+      out += `<text x="${x + bw / 2}" y="${(s.v >= 0 ? top - 3 : top + h + 11)}" text-anchor="middle" font-size="8" font-weight="700" fill="${color}">${(s.v / 1e6).toFixed(2)}M</text>`;
+      out += `<text x="${x + bw / 2}" y="${H - padB + 14}" text-anchor="middle" font-size="8.5" fill="#475569">${s.lbl}</text>`;
+    });
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;display:block;margin:8px auto">
+      <line x1="8" y1="${zero}" x2="${W - 8}" y2="${zero}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,3"/>
+      ${out}
+    </svg>`;
+  };
+
+  // ── SVG: DSCR scale bar with needle
+  const svgDscrScale = (val) => {
+    const W = 560, H = 70, barY = 22, barH = 18, padL = 30, padR = 30;
+    const bw = W - padL - padR;
+    const maxX = 3;
+    const x = (v) => padL + bw * (Math.min(v, maxX) / maxX);
+    const nx = val !== null ? x(val) : padL;
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;display:block;margin:6px auto">
+      <rect x="${x(0)}" y="${barY}" width="${x(1.1) - x(0)}" height="${barH}" fill="#FEE2E2"/>
+      <rect x="${x(1.1)}" y="${barY}" width="${x(1.5) - x(1.1)}" height="${barH}" fill="#FEF3C7"/>
+      <rect x="${x(1.5)}" y="${barY}" width="${x(maxX) - x(1.5)}" height="${barH}" fill="#DCFCE7"/>
+      <line x1="${x(1.1)}" y1="${barY - 4}" x2="${x(1.1)}" y2="${barY + barH + 4}" stroke="#DC2626" stroke-width="1"/>
+      <text x="${x(1.1)}" y="${barY + barH + 16}" text-anchor="middle" font-size="7.5" fill="#991B1B">1,10x</text>
+      <text x="${x(1.5)}" y="${barY + barH + 16}" text-anchor="middle" font-size="7.5" fill="#92400E">1,50x</text>
+      <text x="${padL}" y="${barY - 6}" font-size="7.5" fill="#94A3B8">0x</text>
+      <text x="${W - padR}" y="${barY - 6}" text-anchor="end" font-size="7.5" fill="#94A3B8">3x+</text>
+      <polygon points="${nx - 5},${barY - 6} ${nx + 5},${barY - 6} ${nx},${barY + 2}" fill="#0F172A"/>
+      <line x1="${nx}" y1="${barY}" x2="${nx}" y2="${barY + barH}" stroke="#0F172A" stroke-width="2"/>
+      <text x="${nx}" y="${barY + barH + 16}" text-anchor="middle" font-size="9" font-weight="700" fill="#0F172A">${val !== null ? val.toFixed(2) + 'x' : 'N/D'}</text>
+    </svg>`;
+  };
+
+  // ── SVG: break-even bar
+  const svgBreakEven = () => {
+    if (!be) return '';
+    const W = 560, H = 64, barY = 18, barH = 22, padL = 8, padR = 8;
+    const bw = W - padL - padR;
+    const max = Math.max(be.ricavi_a1, be.ricavi_be) * 1.15 || 1;
+    const bex = padL + bw * (be.ricavi_be / max);
+    const actx = padL + bw * (be.ricavi_a1 / max);
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;display:block;margin:6px auto">
+      <rect x="${padL}" y="${barY}" width="${actx - padL}" height="${barH}" rx="3" fill="#059669"/>
+      <rect x="${padL}" y="${barY}" width="${bex - padL}" height="${barH}" fill="#F59E0B" opacity="0.35"/>
+      <line x1="${bex}" y1="${barY - 5}" x2="${bex}" y2="${barY + barH + 5}" stroke="#DC2626" stroke-width="1.5"/>
+      <text x="${bex}" y="${barY - 8}" text-anchor="middle" font-size="8" font-weight="700" fill="#991B1B">Break-Even</text>
+      <text x="${bex}" y="${barY + barH + 14}" text-anchor="middle" font-size="8" fill="#991B1B">${(be.ricavi_be / 1e6).toFixed(2)}M</text>
+      <text x="${actx - 4}" y="${barY + barH / 2 + 3}" text-anchor="end" font-size="8.5" font-weight="700" fill="#fff">Ricavi A1 ${(be.ricavi_a1 / 1e6).toFixed(2)}M</text>
+    </svg>`;
+  };
+
+  // ── progress bar helper (DSCR/ICR/PFN)
+  const progBar = (label, val, fmt, pct, color) => `
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:3px">
+        <span style="font-weight:600;color:#334155">${label}</span>
+        <span style="font-weight:700;color:${color}">${fmt}</span>
+      </div>
+      <div style="height:10px;background:#F1F5F9;border-radius:5px;overflow:hidden">
+        <div style="height:100%;width:${Math.max(2, Math.min(100, pct))}%;background:${color};border-radius:5px"></div>
+      </div>
+    </div>`;
+
+  const dscrColor = (v) => v === null ? '#94A3B8' : v >= 1.3 ? '#059669' : v >= 1.1 ? '#D97706' : '#DC2626';
+  const pfnColor = (v) => v === null ? '#94A3B8' : v <= 3 ? '#059669' : v <= 4 ? '#D97706' : '#DC2626';
+
+  // ── Render projection table (VOCE | STORICO | A1 | Δ% | A2 | Δ% | A3 | Δ%)
+  const projTable = (rows) => {
+    let h = `<table class="rep"><thead><tr>
+      <th>Voce</th><th>Storico ${annoBase}</th>
+      <th>Anno 1</th><th>Δ%</th>
+      <th>Anno 2</th><th>Δ%</th>
+      <th>Anno 3</th><th>Δ%</th>
+    </tr></thead><tbody>`;
     rows.forEach(r => {
+      if (r.section && !r.label) { return; }
+      let cls = '';
+      if (r.section) cls = 'sec';
+      else if (/EBITDA$/.test(r.label || '')) cls = 'ebitda';
+      else if (r.total) cls = 'tot';
+      if (r.sub) cls += ' sub';
+      if (r.positive && r.total) cls += ' utile-pos';
+      if (r.negative && r.total) cls += ' utile-neg';
+      const isStr = (v) => typeof v === 'string';
+      const cell = (v) => r.section ? '' : (v === null || v === undefined) ? '—' : isStr(v) ? v : fmtE(v);
+      const dcell = (a, b) => (r.section || r.sub === undefined && false) ? '' :
+        (typeof a === 'string' || typeof b === 'string' || a === null || b === null) ? '<span style="color:#CBD5E1">—</span>' :
+        `<span style="color:${a - b >= 0 ? '#059669' : '#DC2626'}">${delta(a, b)}</span>`;
+      h += `<tr class="${cls.trim()}"><td>${r.label || ''}</td>`;
+      if (r.section) {
+        h += `<td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+        return;
+      }
+      h += `<td>${cell(r.s)}</td>`;
+      h += `<td>${cell(r.a1)}</td><td class="d">${dcell(r.a1, r.s)}</td>`;
+      h += `<td>${cell(r.a2)}</td><td class="d">${dcell(r.a2, r.a1)}</td>`;
+      h += `<td>${cell(r.a3)}</td><td class="d">${dcell(r.a3, r.a2)}</td>`;
+      h += `</tr>`;
+    });
+    h += '</tbody></table>';
+    return h;
+  };
+
+  // ── Simple 4-col table (CF)
+  const cfTable = (rows) => {
+    let h = `<table class="rep"><thead><tr><th>Voce</th><th>Storico ${annoBase}</th><th>Anno 1 (${annoBase + 1})</th><th>Anno 2 (${annoBase + 2})</th><th>Anno 3 (${annoBase + 3})</th></tr></thead><tbody>`;
+    rows.forEach(r => {
+      if (r.section && !r.label) return;
       let cls = '';
       if (r.section) cls = 'sec';
       else if (r.total) cls = 'tot';
@@ -466,58 +613,41 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, calc) {
       if (r.negative && r.total) cls += ' utile-neg';
       h += `<tr class="${cls.trim()}"><td>${r.label || ''}</td>`;
       ['s', 'a1', 'a2', 'a3'].forEach(k => {
-        const val = r[k];
-        if (r.section || (!r.section && val === null)) h += '<td></td>';
-        else if (typeof val === 'string') h += `<td style="text-align:center">${val}</td>`;
-        else h += `<td>${fmtE(val)}</td>`;
+        const v = r[k];
+        if (r.section || v === null || v === undefined) h += '<td></td>';
+        else if (typeof v === 'string') h += `<td>${v}</td>`;
+        else h += `<td>${fmtE(v)}</td>`;
       });
       h += '</tr>';
     });
-    h += '</tbody></table>';
-    return h;
+    return h + '</tbody></table>';
   };
 
-  const years = [`Storico ${annoBase}`, `Anno 1 (${annoBase + 1})`, `Anno 2 (${annoBase + 2})`, `Anno 3 (${annoBase + 3})`];
+  // ── narrative auto-generation
+  const marginVerb = (EBITDAM1 >= 8) ? 'sopra' : 'sotto';
+  const dscrVerb = (DSCR1 !== null && DSCR1 >= 1.10) ? 'supera' : 'non supera';
+  const narrative = `Il piano proietta ricavi in crescita da ${fmtM(R0)} (storico) a ${fmtM(R3)} nell'Anno 3${CAGR !== null ? `, con un CAGR del ${CAGR.toFixed(1)}%` : ''}. La marginalità EBITDA si attesta al ${fmtP(EBITDAM1)} nel primo anno proiettato, ${marginVerb} la soglia di attenzione bancaria dell'8%. Il DSCR di ${fmtX(DSCR1)} ${dscrVerb} il requisito minimo EBA di 1,10x previsto dalle Guidelines EBA/GL/2020/06.`;
 
-  const kpiCls = (val, ok, warn) => {
-    if (val === null) return '';
-    if (ok(val)) return 'ok';
-    if (warn && warn(val)) return 'warn';
-    return 'bad';
-  };
+  // ── KPI cards (exec summary)
+  const kpiCard = (val, label, soglia, color) => `
+    <div class="kpi-card" style="border-left:4px solid ${color}">
+      <div class="kc-val" style="color:${color}">${val}</div>
+      <div class="kc-lbl">${label}</div>
+      <div class="kc-sg">${soglia}</div>
+    </div>`;
 
-  const kpiHTML = `
-    <div class="kpi-grid">
-      <div class="kpi-card ${kpiCls(DSCR1, v => v >= 1.1, v => v >= 0.9)}">
-        <div class="val">${DSCR1 !== null ? DSCR1.toFixed(2) + 'x' : 'N/D'}</div>
-        <div class="label">DSCR Anno 1</div>
-        <div class="soglia">Soglia banca: ≥ 1,10x</div>
-      </div>
-      <div class="kpi-card ${kpiCls(EBITDAM1, v => v >= 8, v => v >= 4)}">
-        <div class="val">${EBITDAM1 !== null ? EBITDAM1.toFixed(1) + '%' : 'N/D'}</div>
-        <div class="label">EBITDA Margin Anno 1</div>
-        <div class="soglia">Target: > 8%</div>
-      </div>
-      <div class="kpi-card ${kpiCls(PFN1 / (EBITDA1 || 1), v => v <= 3, v => v <= 4)}">
-        <div class="val">${EBITDA1 > 0 ? (PFN1 / EBITDA1).toFixed(1) + 'x' : 'N/D'}</div>
-        <div class="label">PFN/EBITDA Anno 1</div>
-        <div class="soglia">Attenzione: > 4x</div>
-      </div>
-      <div class="kpi-card ${kpiCls(R1, v => v > R0, null)}">
-        <div class="val">${d.g1}%</div>
-        <div class="label">Crescita Ricavi Anno 1</div>
-        <div class="soglia">Scenario: ${scenarioLabel}</div>
-      </div>
-      <div class="kpi-card ${kpiCls(UN1, v => v > 0, null)}">
-        <div class="val">${fmtE(UN1)}</div>
-        <div class="label">Utile Netto Anno 1</div>
-        <div class="soglia">Obiettivo: positivo</div>
-      </div>
-      <div class="kpi-card">
-        <div class="val">${be ? fmtE(be.ricavi_be) : 'N/D'}</div>
-        <div class="label">Ricavi Break-Even</div>
-        <div class="soglia">Sicurezza: ${be ? be.margine_perc.toFixed(1) + '%' : '—'}</div>
-      </div>
+  const cresc1Color = R1 > R0 ? '#059669' : '#DC2626';
+  const un1Color = UN1 >= 0 ? '#059669' : '#DC2626';
+  const beColor = be && be.utilizzo_cap <= 80 ? '#059669' : be && be.utilizzo_cap <= 100 ? '#D97706' : '#DC2626';
+
+  const kpiCards = `
+    <div class="kpi-cards">
+      ${kpiCard(fmtX(DSCR1), 'DSCR Anno 1', 'EBA min ≥ 1,10x', dscrColor(DSCR1))}
+      ${kpiCard(fmtP(EBITDAM1), 'EBITDA Margin A1', 'Target > 8%', EBITDAM1 >= 8 ? '#059669' : EBITDAM1 >= 4 ? '#D97706' : '#DC2626')}
+      ${kpiCard(fmtX(PFNEBITDA1), 'PFN / EBITDA A1', 'Attenzione > 4x', pfnColor(PFNEBITDA1))}
+      ${kpiCard('+' + (d.g1 || 0) + '%', 'Crescita Ricavi A1', `Scenario ${scenarioLabel}`, cresc1Color)}
+      ${kpiCard(fmtE(UN1), 'Utile Netto A1', 'Obiettivo positivo', un1Color)}
+      ${kpiCard(be ? fmtP(be.utilizzo_cap) : '—', 'Break-Even Utilizzo', `Margine ${be ? fmtP(be.margine_perc) : '—'}`, beColor)}
     </div>`;
 
   const alertsHTML = alerts.map(a => {
@@ -525,9 +655,92 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, calc) {
     return `<div class="alert-print ${t}">${a.icon} ${a.msg}</div>`;
   }).join('');
 
-  const stressR1 = R1 * 0.8;
-  const stressEBITDA1 = stressR1 * (EBITDAM1 / 100 - 0.03);
-  const stressDSCR1 = DSCR1 !== null && EBITDA1 > 0 ? (stressEBITDA1 / EBITDA1) * DSCR1 : null;
+  // ── sensitivity table
+  const sensRows = [-10, -20, -30].map(p => {
+    const f = 1 + p / 100;
+    const r = R1 * f;
+    const e = r * (EBITDAM1 / 100);
+    const ds = debtService1 > 0 ? e / debtService1 : null;
+    return `<tr><td>${p}%</td><td>${fmtE(r)}</td><td>${fmtE(e)}</td><td style="color:${dscrColor(ds)};font-weight:700">${fmtX(ds)}</td><td>${ds !== null && ds >= 1.1 ? '<span style="color:#059669">Sostenibile</span>' : '<span style="color:#DC2626">Critico</span>'}</td></tr>`;
+  }).join('');
+
+  const cssReport = `
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    @page{size:A4;margin:18mm 16mm;}
+    body{font-family:'Inter',sans-serif;color:#0F172A;background:#E2E8F0;font-size:11px;line-height:1.5}
+    .pos{color:#059669}.neg{color:#DC2626}.warn{color:#D97706}.neu{color:#1D4ED8}
+    .page{width:210mm;min-height:297mm;background:#fff;margin:0 auto 14px;padding:24mm 18mm;position:relative;box-shadow:0 4px 24px rgba(0,0,0,.12);page-break-after:always}
+    .page:last-child{page-break-after:auto}
+    @media print{body{background:#fff}.page{box-shadow:none;margin:0;padding:0}.print-bar{display:none}}
+
+    .cover{background:#0A1628;color:#fff;padding:0;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+    .cover-inner{padding:30mm 20mm;position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:space-between;min-height:297mm}
+    .cover::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(135deg,transparent 0%,#1E3A5F 50%,#0E2A4A 100%);clip-path:polygon(20% 0%,100% 0%,100% 100%,0% 100%)}
+    .cv-brand{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase}
+    .cv-tipo{font-size:11px;color:#60A5FA;text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px;position:relative;z-index:1}
+    .cv-title{font-family:'Fraunces',serif;font-size:30px;font-weight:700;line-height:1.1;position:relative;z-index:1}
+    .cv-nome{font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#fff;line-height:1.05;margin:6px 0 10px;position:relative;z-index:1}
+    .cv-badge{display:inline-block;background:${scenarioColor};color:#fff;font-size:11px;font-weight:600;padding:7px 16px;border-radius:20px;letter-spacing:.04em;position:relative;z-index:1}
+    .cv-divider{height:1px;background:rgba(255,255,255,.1);margin:32px 0;position:relative;z-index:1}
+    .cv-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px 24px;position:relative;z-index:1}
+    .cv-meta-lbl{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+    .cv-meta-val{font-size:14px;font-weight:500}
+    .cv-foot{font-size:9.5px;color:rgba(255,255,255,.35);letter-spacing:.05em;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
+
+    .sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:18px;border-bottom:2px solid #E2E8F0;padding-bottom:10px}
+    .sec-bar{width:5px;height:30px;background:#2563EB;border-radius:3px}
+    .sec-ey{font-size:9px;font-weight:700;color:#2563EB;text-transform:uppercase;letter-spacing:.12em}
+    .sec-ti{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:#0F172A}
+    h3{font-size:12px;font-weight:700;color:#1D4ED8;margin:18px 0 8px}
+    p.lead{font-size:10px;color:#64748B;margin-bottom:8px}
+    .narrative{background:#F8FAFC;border-left:4px solid #2563EB;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.7;color:#334155;margin:14px 0}
+
+    .kpi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+    .kpi-card{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:13px 14px}
+    .kc-val{font-family:'Fraunces',serif;font-size:22px;font-weight:700;line-height:1}
+    .kc-lbl{font-size:10px;font-weight:600;color:#334155;margin-top:6px}
+    .kc-sg{font-size:8.5px;color:#94A3B8;margin-top:2px}
+
+    .alert-print{border-radius:6px;padding:9px 13px;margin-bottom:7px;font-size:9.5px;line-height:1.5}
+    .alert-print.ok{background:#DCFCE7;border-left:4px solid #16A34A;color:#166534}
+    .alert-print.warn{background:#FEF3C7;border-left:4px solid #F59E0B;color:#92400E}
+    .alert-print.bad{background:#FEE2E2;border-left:4px solid #DC2626;color:#991B1B}
+
+    table.rep{width:100%;border-collapse:collapse;font-size:9.5px;margin-top:8px}
+    table.rep th{background:#0A1628;color:#fff;padding:8px 8px;text-align:right;font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+    table.rep th:first-child{text-align:left}
+    table.rep td{padding:6px 8px;border-bottom:1px solid #F1F5F9;text-align:right}
+    table.rep td:first-child{text-align:left}
+    table.rep td.d{font-size:8.5px}
+    table.rep tr.sec td{background:#EFF2F7;font-weight:700;font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:#475569;padding:5px 8px}
+    table.rep tr.sub td:first-child{padding-left:20px;color:#64748B}
+    table.rep tr.tot td{font-weight:700;background:#F0F9FF;border-top:1.5px solid #0A1628;border-bottom:1.5px solid #BFDBFE}
+    table.rep tr.ebitda td{background:#F0FDF4;color:#15803D;font-weight:800;border-top:1px solid #BBF7D0;border-bottom:1px solid #BBF7D0}
+    table.rep tr.utile-pos td{color:#16A34A}
+    table.rep tr.utile-neg td{color:#DC2626}
+
+    .badge-yr{display:inline-block;font-size:9px;font-weight:700;padding:3px 9px;border-radius:12px;color:#fff}
+    .ratio-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+    .ratio-box{text-align:center;padding:11px;border-radius:8px;background:#F8FAFC;border:1px solid #E2E8F0}
+    .ratio-box .v{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+    .ratio-box .l{font-size:9px;color:#64748B;margin-top:3px}
+
+    .info-box{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:14px;font-size:10px;line-height:1.6;color:#1E40AF;margin:12px 0}
+    .stress-box{background:#FEF3C7;border-left:4px solid #F59E0B;border-radius:8px;padding:14px;font-size:10px;line-height:1.6;color:#92400E;margin:12px 0}
+    .verdict{display:inline-block;font-size:14px;font-weight:700;padding:10px 24px;border-radius:8px;letter-spacing:.04em;color:#fff}
+    .verdict.ok{background:#059669}.verdict.no{background:#DC2626}
+    .chart-box{border:1px solid #E2E8F0;border-radius:8px;padding:12px;background:#fff;margin:10px 0}
+    .disclaimer{font-size:8.5px;color:#94A3B8;line-height:1.6;border-top:1px solid #E2E8F0;padding-top:10px;margin-top:14px}
+    .pf{display:flex;justify-content:space-between;font-size:8px;color:#94A3B8;border-top:.5px solid #E2E8F0;padding-top:7px;margin-top:24px}
+    .print-bar{position:fixed;bottom:20px;right:20px;display:flex;gap:8px;z-index:999}
+    .print-bar button{padding:10px 18px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;border:none}
+    .print-bar .btn-print{background:#2563EB;color:#fff}
+    .print-bar .btn-dl{background:#fff;border:1.5px solid #E2E8F0;color:#1E293B}
+  `;
+
+  const pf = (n) => `<div class="pf"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3} · RISERVATO E CONFIDENZIALE</span><span>${n} / 8</span></div>`;
+  const secHdr = (ey, ti) => `<div class="sec-hdr"><div class="sec-bar"></div><div><div class="sec-ey">${ey}</div><div class="sec-ti">${ti}</div></div></div>`;
 
   return `<!DOCTYPE html>
 <html lang="it">
@@ -543,140 +756,164 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, calc) {
   <button class="btn-dl" onclick="downloadHTML()">⬇ Scarica HTML</button>
 </div>
 
-<!-- COPERTINA -->
+<!-- PAGE 1 — COVER -->
 <div class="page cover">
-  <div style="font-size:.9rem;opacity:.7;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px">Business Plan Finanziario</div>
-  <h1>${nome}</h1>
-  <div class="sub">Piano Economico-Finanziario ${annoBase + 1}–${annoBase + 3}</div>
-  <div class="meta">
-    <div>Data: ${now}</div>
-    <div>Analista: ${analista}</div>
-    <div>Settore: ${d.settore || '—'}</div>
-    <div>Scenario: ${scenarioLabel}</div>
-    <div>Anno base: ${annoBase}</div>
+  <div class="cover-inner">
+    <div class="cv-brand">${analista} · Analisi Finanziaria</div>
+    <div>
+      <div class="cv-tipo">Business Plan Finanziario</div>
+      <div class="cv-title">Piano Economico-Finanziario</div>
+      <div class="cv-nome">${nome}</div>
+      <div class="cv-badge">Scenario: ${scenarioLabel}</div>
+      <div class="cv-divider"></div>
+      <div class="cv-meta">
+        <div><div class="cv-meta-lbl">Anno Base</div><div class="cv-meta-val">${annoBase}</div></div>
+        <div><div class="cv-meta-lbl">Proiezione</div><div class="cv-meta-val">${annoBase + 1} – ${annoBase + 3}</div></div>
+        <div><div class="cv-meta-lbl">Settore</div><div class="cv-meta-val">${d.settore || '—'}</div></div>
+        <div><div class="cv-meta-lbl">Analista</div><div class="cv-meta-val">${analista}</div></div>
+        <div><div class="cv-meta-lbl">Data Report</div><div class="cv-meta-val">${now}</div></div>
+        <div><div class="cv-meta-lbl">Modello</div><div class="cv-meta-val">3-Statement</div></div>
+      </div>
+    </div>
+    <div class="cv-foot">EBA/GL/2020/06 · D.Lgs. 14/2019 CCII · Modello CE + SP + CF</div>
   </div>
-  <div class="badge-grid">
-    <div class="badge">📋 EBA/GL/2020/06 Compliant</div>
-    <div class="badge">🏛 D.Lgs. 14/2019 CCII</div>
-    <div class="badge">📊 Modello 3-Statement CE+SP+CF</div>
-    <div class="badge">🎯 Break-Even &amp; Scenario Analysis</div>
-  </div>
-  <div class="footer-page"><span>RISERVATO E CONFIDENZIALE</span><span>1</span></div>
 </div>
 
-<!-- EXECUTIVE SUMMARY -->
+<!-- PAGE 2 — EXECUTIVE SUMMARY -->
 <div class="page">
-  <h2>1. Executive Summary</h2>
-  <div class="scenario-box">
-    <strong>Scenario selezionato: ${scenarioLabel}</strong><br>
-    Crescita ricavi: Anno 1 +${d.g1}% · Anno 2 +${d.g2}% · Anno 3 +${d.g3}%
-    ${d.nuovo_fin ? ` · Nuovo finanziamento: ${fmtE(d.fin_importo)}` : ''}
-  </div>
-
-  <h3>Principali risultati attesi</h3>
-  ${kpiHTML}
-
-  <h3 style="margin-top:16px">Alert e raccomandazioni</h3>
+  ${secHdr('Sintesi direzionale', '2. Executive Summary')}
+  ${kpiCards}
+  <div class="narrative">${narrative}</div>
+  <h3>Alert e raccomandazioni</h3>
   ${alertsHTML || '<div class="alert-print ok">✅ Nessuna criticità rilevata. Il piano è sostenibile nelle ipotesi indicate.</div>'}
-
-  ${d.nota_metodologica ? `<h3 style="margin-top:16px">Nota metodologica</h3><p style="font-size:.82rem;color:#475569;line-height:1.6">${d.nota_metodologica}</p>` : ''}
-
-  <div class="footer-page"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3}</span><span>2</span></div>
+  <h3>Ricavi vs EBITDA (€ Milioni)</h3>
+  <div class="chart-box">${svgBars()}</div>
+  ${pf(2)}
 </div>
 
-<!-- CONTO ECONOMICO -->
+<!-- PAGE 3 — CONTO ECONOMICO -->
 <div class="page">
-  <h2>2. Conto Economico Proiettato</h2>
-  <p style="font-size:.8rem;color:#64748b;margin-bottom:10px">Valori in €. Crescita ricavi: +${d.g1}% / +${d.g2}% / +${d.g3}%. EBITDA margin target: ${d.ebitda_margin}%.</p>
-  ${buildTableHTML(CE, years)}
-  <div class="footer-page"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3}</span><span>3</span></div>
+  ${secHdr('Modello CE proiettato', '3. Conto Economico Proiettato')}
+  <p class="lead">Valori in €. Crescita ricavi: +${d.g1}% / +${d.g2}% / +${d.g3}%. EBITDA margin target: ${d.ebitda_margin}%.</p>
+  ${projTable(CE)}
+  <div class="disclaimer">Le proiezioni di ricavo applicano i tassi di crescita per scenario; l'EBITDA è derivato dal margine target costante (${d.ebitda_margin}%) applicato ai ricavi di ciascun esercizio. I costi operativi sono impliciti nel margine EBITDA.</div>
+  ${pf(3)}
 </div>
 
-<!-- STATO PATRIMONIALE -->
+<!-- PAGE 4 — STATO PATRIMONIALE -->
 <div class="page">
-  <h2>3. Stato Patrimoniale Proiettato</h2>
-  <p style="font-size:.8rem;color:#64748b;margin-bottom:10px">Proiezione semplificata basata sul modello CE+CF integrato.</p>
-  ${buildTableHTML(SP, years)}
-  <div class="footer-page"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3}</span><span>4</span></div>
-</div>
-
-<!-- CASH FLOW -->
-<div class="page">
-  <h2>4. Cash Flow Statement</h2>
-  <p style="font-size:.8rem;color:#64748b;margin-bottom:10px">Metodo indiretto. Il Free Cash Flow è la liquidità disponibile dopo investimenti ma prima del servizio del debito.</p>
-  ${buildTableHTML(CF, years)}
-  <div class="footer-page"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3}</span><span>5</span></div>
-</div>
-
-<!-- BREAK-EVEN + DSCR -->
-<div class="page">
-  <h2>5. Analisi Break-Even e Sostenibilità Finanziaria</h2>
-
-  <h3>Break-Even Analysis (Anno 1)</h3>
-  ${be ? `<div class="be-grid">
-    <div class="be-card"><div class="val">${fmtE(be.ricavi_be)}</div><div class="label">Ricavi Break-Even</div></div>
-    <div class="be-card"><div class="val">${be.utilizzo_cap.toFixed(1)}%</div><div class="label">% capacità necessaria</div></div>
-    <div class="be-card"><div class="val">${fmtE(be.margine_sicurezza)}</div><div class="label">Margine di sicurezza</div></div>
+  ${secHdr('Modello SP proiettato', '4. Stato Patrimoniale Proiettato')}
+  <p class="lead">Proiezione integrata con il modello CE + Cash Flow. PFN/EBITDA per anno:</p>
+  <div class="ratio-row">
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA1)}">${fmtX(PFNEBITDA1)}</span><div class="l">PFN/EBITDA Anno 1</div></div>
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA2)}">${fmtX(PFNEBITDA2)}</span><div class="l">PFN/EBITDA Anno 2</div></div>
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)}">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA Anno 3</div></div>
   </div>
-  <p style="font-size:.82rem;color:#475569;margin-top:8px">Il break-even viene raggiunto a <strong>${fmtE(be.ricavi_be)}</strong>. Con i ricavi proiettati Anno 1 (${fmtE(be.ricavi_a1)}), il margine di sicurezza è <strong>${be.margine_perc.toFixed(1)}%</strong>.</p>` : ''}
+  ${projTable(SP)}
+  <div class="info-box">Il patrimonio netto evolve da ${fmtE(PN1)} (Anno 1) a ${fmtE(PN3)} (Anno 3) nel triennio, per effetto degli utili reinvestiti al netto delle distribuzioni. La PFN passa da ${fmtE(PFN1)} a ${fmtE(PFN3)}.</div>
+  ${pf(4)}
+</div>
 
-  <h3 style="margin-top:20px">DSCR — Debt Service Coverage Ratio (EBA/GL/2020/06)</h3>
-  <table class="rep" style="margin-top:8px">
-    <thead><tr><th>Indicatore</th><th>Storico</th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Soglia</th></tr></thead>
-    <tbody>
-      ${kpi.map(k => `<tr><td>${k.label}</td><td>${k.s !== null ? (typeof k.s === 'string' ? k.s : k.s.toFixed(2)) : '—'}</td><td>${k.a1 !== null ? (typeof k.a1 === 'string' ? k.a1 : k.a1.toFixed(2)) : '—'}</td><td>${k.a2 !== null ? (typeof k.a2 === 'string' ? k.a2 : k.a2.toFixed(2)) : '—'}</td><td>${k.a3 !== null ? (typeof k.a3 === 'string' ? k.a3 : k.a3.toFixed(2)) : '—'}</td><td style="color:#94a3b8;font-size:.75rem">${k.soglia || ''}</td></tr>`).join('')}
-    </tbody>
-  </table>
+<!-- PAGE 5 — CASH FLOW -->
+<div class="page">
+  ${secHdr('Rendiconto finanziario', '5. Cash Flow Statement')}
+  <p class="lead">Metodo indiretto. FCO = flussi operativi · FCI = investimenti · FFF = flussi finanziari.</p>
+  ${cfTable(CF)}
+  <h3>Waterfall Cash Flow Anno 1 (${annoBase + 1})</h3>
+  <div class="chart-box">${svgWaterfall()}</div>
+  ${pf(5)}
+</div>
 
-  <h3 style="margin-top:20px">Scenario Stress (−20% ricavi)</h3>
+<!-- PAGE 6 — DSCR / BANCABILITÀ -->
+<div class="page">
+  ${secHdr('Sostenibilità del debito', '6. DSCR e Bancabilità EBA')}
+  <h3>Debt Service Coverage Ratio — scala EBA</h3>
+  <div class="chart-box">${svgDscrScale(DSCR1)}</div>
+  ${progBar('DSCR Anno 1', DSCR1, fmtX(DSCR1), DSCR1 !== null ? DSCR1 / 3 * 100 : 0, dscrColor(DSCR1))}
+  ${progBar('DSCR Anno 2', DSCR2, fmtX(DSCR2), DSCR2 !== null ? DSCR2 / 3 * 100 : 0, dscrColor(DSCR2))}
+  ${progBar('DSCR Anno 3', DSCR3, fmtX(DSCR3), DSCR3 !== null ? DSCR3 / 3 * 100 : 0, dscrColor(DSCR3))}
+  ${(() => {
+    const icr = kpi.find(k => /ICR/.test(k.label));
+    const icr1 = icr ? icr.a1 : null;
+    return `
+    ${progBar('ICR (EBIT/OF) Anno 1', icr1, fmtX(icr1), icr1 !== null ? Math.min(icr1, 5) / 5 * 100 : 0, icr1 === null ? '#94A3B8' : icr1 >= 1.5 ? '#059669' : icr1 >= 1 ? '#D97706' : '#DC2626')}
+    ${progBar('PFN/EBITDA Anno 1', PFNEBITDA1, fmtX(PFNEBITDA1), PFNEBITDA1 !== null ? Math.min(PFNEBITDA1, 6) / 6 * 100 : 0, pfnColor(PFNEBITDA1))}`;
+  })()}
+  <div class="info-box">
+    <strong>Requisiti EBA/GL/2020/06.</strong> Il DSCR minimo per la bancabilità è 1,10x; un valore ≥ 1,30x indica un profilo solido. Il PFN/EBITDA non dovrebbe superare 4x. Le linee guida richiedono inoltre prove di stress prospettiche sui flussi di cassa.
+  </div>
   <div class="stress-box">
-    <p style="font-size:.82rem;color:#92400e"><strong>In scenario prudenziale (ricavi −20%):</strong><br>
-    Ricavi Anno 1 stress: ${fmtE(stressR1)} · EBITDA stimato: ${fmtE(stressEBITDA1)} · DSCR stress: ${stressDSCR1 !== null ? stressDSCR1.toFixed(2) + 'x' : 'N/D'}<br>
-    ${stressDSCR1 !== null && stressDSCR1 < 1.0 ? '⚠️ In scenario stress il DSCR scende sotto 1x. Raccomandato costituire riserva di liquidità o covenant di sospensione dividendi.' : '✅ Anche in scenario stress il piano rimane gestibile.'}
-    </p>
-    ${d.ipotesi_stress ? `<p style="font-size:.78rem;color:#78350f;margin-top:8px">${d.ipotesi_stress}</p>` : ''}
+    <strong>Stress test −20% ricavi:</strong> Ricavi Anno 1 ${fmtE(stressR1)} · EBITDA ${fmtE(stressEBITDA1)} · DSCR stress <strong>${fmtX(stressDSCR1)}</strong>.<br>
+    ${stressDSCR1 !== null && stressDSCR1 < 1.0 ? '⚠️ In scenario stress il DSCR scende sotto 1x: raccomandata riserva di liquidità o covenant di sospensione dividendi.' : '✅ Anche in scenario stress il piano resta gestibile.'}
   </div>
-
-  <div class="footer-page"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3}</span><span>6</span></div>
+  <div style="text-align:center;margin-top:16px">
+    <span class="verdict ${bancabile ? 'ok' : 'no'}">${bancabile ? 'BANCABILE' : 'RICHIEDE REVISIONE'}</span>
+  </div>
+  ${pf(6)}
 </div>
 
-<!-- IPOTESI E PIANO INVESTIMENTI -->
+<!-- PAGE 7 — BREAK-EVEN / SENSIBILITÀ -->
 <div class="page">
-  <h2>6. Piano degli Investimenti e Ipotesi Chiave</h2>
-
-  <h3>Piano CAPEX</h3>
+  ${secHdr('Punto di pareggio', '7. Break-Even e Sensibilità')}
+  ${be ? `
   <table class="rep">
-    <thead><tr><th>Investimento</th><th>Categoria</th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Vita utile</th></tr></thead>
-    <tbody>
-      ${(d.capex || []).map(c => `<tr><td>${c.desc || '—'}</td><td>${c.tipo}</td><td>${fmtE(c.a1)}</td><td>${fmtE(c.a2)}</td><td>${fmtE(c.a3)}</td><td>${c.vita} anni</td></tr>`).join('') || '<tr><td colspan="6" style="text-align:center;color:#94a3b8">Nessun investimento pianificato</td></tr>'}
-      <tr class="tot"><td colspan="2"><strong>TOTALE</strong></td>
-        <td>${fmtE(sumCapex(d.capex, 1))}</td>
-        <td>${fmtE(sumCapex(d.capex, 2))}</td>
-        <td>${fmtE(sumCapex(d.capex, 3))}</td>
-        <td></td>
-      </tr>
-    </tbody>
+    <thead><tr><th>Ricavi BE</th><th>Ricavi Anno 1</th><th>Utilizzo capacità</th><th>Margine sicurezza €</th><th>Margine sicurezza %</th></tr></thead>
+    <tbody><tr>
+      <td>${fmtE(be.ricavi_be)}</td><td>${fmtE(be.ricavi_a1)}</td>
+      <td>${fmtP(be.utilizzo_cap)}</td><td>${fmtE(be.margine_sicurezza)}</td>
+      <td style="color:${beColor};font-weight:700">${fmtP(be.margine_perc)}</td>
+    </tr></tbody>
   </table>
+  <h3>Visualizzazione Break-Even</h3>
+  <div class="chart-box">${svgBreakEven()}</div>` : '<p class="lead">Dati break-even non disponibili.</p>'}
+  <h3>Analisi di Sensibilità sui Ricavi (Anno 1)</h3>
+  <table class="rep">
+    <thead><tr><th>Scenario ricavi</th><th>Ricavi</th><th>EBITDA</th><th>DSCR</th><th>Esito</th></tr></thead>
+    <tbody>${sensRows}</tbody>
+  </table>
+  <div class="disclaimer">L'analisi di sensibilità mantiene costante il margine EBITDA e il servizio del debito, variando i soli ricavi. È un'approssimazione prudenziale utile a individuare la soglia di rottura della bancabilità.</div>
+  ${pf(7)}
+</div>
 
-  <h3 style="margin-top:20px">Ipotesi chiave del modello</h3>
+<!-- PAGE 8 — IPOTESI / NOTE -->
+<div class="page">
+  ${secHdr('Metodologia', '8. Ipotesi e Note Metodologiche')}
+  <h3>Ipotesi chiave del modello</h3>
   <table class="rep">
     <thead><tr><th>Parametro</th><th>Valore</th><th>Note</th></tr></thead>
     <tbody>
       <tr><td>Scenario crescita</td><td>${scenarioLabel}</td><td>+${d.g1}% / +${d.g2}% / +${d.g3}%</td></tr>
-      <tr><td>EBITDA Margin target</td><td>${d.ebitda_margin}%</td><td>Costante nei 3 anni</td></tr>
-      <tr><td>Margine Lordo atteso</td><td>${d.margine_lordo || '—'}%</td><td></td></tr>
-      <tr><td>Aliquota fiscale effettiva</td><td>${d.tax_rate}%</td><td>IRES 24% + IRAP 3.9%</td></tr>
-      <tr><td>Giorni di incasso (DSO)</td><td>${d.dso} gg</td><td>Impatto su CCN e liquidità</td></tr>
-      <tr><td>Giorni di pagamento (DPO)</td><td>${d.dpo} gg</td><td>Leva finanziaria sul CCN</td></tr>
-      <tr><td>Incremento costo personale</td><td>${d.incr_pers}%/anno</td><td>Adeguamento CCNL + inflazione</td></tr>
-      <tr><td>Incremento costi fissi</td><td>${d.incr_fissi}%/anno</td><td>Inflazione strutturale</td></tr>
-      ${d.nuovo_fin ? `<tr><td>Finanziamento bancario</td><td>${fmtE(d.fin_importo)}</td><td>${d.fin_tipo} — ${d.fin_durata} anni — ${d.fin_tasso}%</td></tr>` : ''}
+      <tr><td>EBITDA Margin target</td><td>${d.ebitda_margin}%</td><td>Costante nel triennio</td></tr>
+      <tr><td>Aliquota fiscale effettiva</td><td>${d.tax_rate || 27.9}%</td><td>IRES + IRAP</td></tr>
+      <tr><td>Incremento costo personale</td><td>${d.incr_pers || 2}%/anno</td><td>CCNL + inflazione</td></tr>
+      <tr><td>Incremento costi fissi</td><td>${d.incr_fissi || 2}%/anno</td><td>Inflazione strutturale</td></tr>
+      <tr><td>% CCN su ricavi</td><td>${d.perc_ccn || 8}%</td><td>Driver del capitale circolante</td></tr>
+      ${d.nuovo_fin ? `<tr><td>Nuovo finanziamento</td><td>${fmtE(d.fin_importo)}</td><td>${d.fin_tipo || 'Mutuo'} — ${d.fin_durata} anni — ${d.fin_tasso}%${d.pre_amm ? ` — preamm. ${d.pre_amm} mesi` : ''}</td></tr>` : ''}
     </tbody>
   </table>
-
-  ${d.note_ricavi ? `<h3 style="margin-top:16px">Note sui ricavi</h3><p style="font-size:.82rem;color:#475569;line-height:1.6">${d.note_ricavi}</p>` : ''}
-
-  <div class="footer-page"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3}</span><span>7</span></div>
+  ${(d.capex && d.capex.length) ? `
+  <h3>Piano CAPEX</h3>
+  <table class="rep">
+    <thead><tr><th>Investimento</th><th>Categoria</th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Vita</th></tr></thead>
+    <tbody>
+      ${d.capex.map(c => `<tr><td>${c.desc || '—'}</td><td>${c.tipo || '—'}</td><td>${fmtE(c.a1)}</td><td>${fmtE(c.a2)}</td><td>${fmtE(c.a3)}</td><td>${c.vita || 5} anni</td></tr>`).join('')}
+      <tr class="tot"><td colspan="2">TOTALE</td><td>${fmtE(sumCapex(d.capex, 1))}</td><td>${fmtE(sumCapex(d.capex, 2))}</td><td>${fmtE(sumCapex(d.capex, 3))}</td><td></td></tr>
+    </tbody>
+  </table>` : ''}
+  ${d.nuovo_fin && d.fin_importo ? `
+  <h3>Piano di ammortamento nuovo finanziamento</h3>
+  <table class="rep">
+    <thead><tr><th>Anno</th><th>Quota capitale</th><th>Interessi</th><th>Debito residuo</th></tr></thead>
+    <tbody>
+      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0).schedule.slice(0, 5).map(s => `<tr><td>Anno ${s.anno}</td><td>${fmtE(s.capitale)}</td><td>${fmtE(s.interessi)}</td><td>${fmtE(s.debResiduo)}</td></tr>`).join('')}
+    </tbody>
+  </table>` : ''}
+  ${d.nota_metodologica ? `<h3>Nota metodologica</h3><p style="font-size:10px;color:#475569;line-height:1.7">${d.nota_metodologica}</p>` : ''}
+  ${analista ? `<h3>Analista</h3><p style="font-size:10px;color:#475569;line-height:1.7">${analista}</p>` : ''}
+  <div class="disclaimer">
+    <strong>Disclaimer.</strong> Il presente Business Plan è redatto secondo le EBA Guidelines on loan origination and monitoring (EBA/GL/2020/06) e i principi del D.Lgs. 14/2019 (Codice della Crisi d'Impresa e dell'Insolvenza). Le proiezioni si basano su ipotesi formulate alla data del report e non costituiscono garanzia di risultato. Documento riservato e confidenziale, destinato esclusivamente al committente e agli istituti finanziatori.
+  </div>
+  ${pf(8)}
 </div>
 
 <script>
@@ -689,4 +926,3 @@ function downloadHTML(){
 </body>
 </html>`;
 }
-
