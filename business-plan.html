@@ -240,14 +240,14 @@ input.has-suffix{padding-right:36px}
             </div>
           </div>
 
-          <!-- ═══ FAST-TRACK: solo 3 domande ═══ -->
+          <!-- ═══ FAST-TRACK: solo 2 cose da specificare ═══ -->
           <div style="background:#eff6ff;border:1.5px solid rgba(37,99,235,.15);border-radius:14px;padding:24px 26px;margin-bottom:20px">
-            <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Tre domande e generiamo il piano</div>
-            <div style="font-size:.83rem;color:var(--muted);margin-bottom:20px">I costi, il personale e il working capital vengono proiettati automaticamente dai dati del bilancio.</div>
+            <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Due cose e generiamo il piano</div>
+            <div style="font-size:.83rem;color:var(--muted);margin-bottom:20px">Costi, marginalità, working capital e debiti vengono proiettati automaticamente dai dati del bilancio XBRL.</div>
 
             <!-- 1. Scenario crescita -->
             <div style="margin-bottom:20px">
-              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Tipologia di crescita attesa</label>
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Tipologia di crescita attesa dei ricavi</label>
               <div class="scenario-grid" style="margin-bottom:8px">
                 <div class="scenario-card" id="sc-bassa" onclick="selectScenario('bassa')">
                   <div class="scenario-icon">🐢</div>
@@ -290,38 +290,9 @@ input.has-suffix{padding-right:36px}
               </div>
             </div>
 
-            <!-- 2. Marginalità -->
-            <div style="margin-bottom:20px">
-              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">2. Marginalità attesa nel periodo</label>
-              <div class="form-row cols3" style="margin-bottom:0">
-                <div>
-                  <label>EBITDA Margin atteso (%)</label>
-                  <div class="input-group">
-                    <input type="number" id="ebitda_margin" class="has-suffix" placeholder="Es. 12" step="0.5">
-                    <span class="input-suffix">%</span>
-                  </div>
-                  <div id="xbrl-ebitda-hint" style="font-size:.75rem;color:var(--verde);margin-top:4px"></div>
-                </div>
-                <div>
-                  <label>Margine Lordo atteso (%)</label>
-                  <div class="input-group">
-                    <input type="number" id="margine_lordo" class="has-suffix" placeholder="Es. 40" step="0.5">
-                    <span class="input-suffix">%</span>
-                  </div>
-                </div>
-                <div>
-                  <label>Incremento costi fissi/anno (%)</label>
-                  <div class="input-group">
-                    <input type="number" id="incr_fissi" class="has-suffix" value="2" step="0.5">
-                    <span class="input-suffix">%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3. Nuovo finanziamento -->
+            <!-- 2. Nuovo finanziamento -->
             <div>
-              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">3. Nuovo finanziamento bancario?</label>
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">2. Nuovo finanziamento bancario?</label>
               <div class="toggle-row" style="margin-bottom:12px">
                 <label class="toggle">
                   <input type="checkbox" id="toggle-fin" onchange="toggleFinanziamento()">
@@ -1463,21 +1434,16 @@ function selectScenario(key){
   }
 }
 
-// ─── FAST-TRACK: genera BP da XBRL con 3 domande ─────────
+// ─── FAST-TRACK: genera BP da XBRL (solo crescita + eventuale finanziamento) ──
 async function generaBPdaXBRL(){
   if(!_xbrlData){ alert('Carica prima un file XBRL.'); return; }
   if(!selectedScenario){ alert('Seleziona la tipologia di crescita.'); return; }
-  const em = parseFloat(document.getElementById('ebitda_margin')?.value)||0;
-  if(!em){ alert('Inserisci la marginalità EBITDA attesa.'); return; }
 
   const p = _xbrlData;
   const ranges = {bassa:[3,3,3], moderata:[6,7,7], alta:[10,12,12]};
   const [g1,g2,g3] = selectedScenario==='custom'
     ? [parseFloat(v('g1'))||3, parseFloat(v('g2'))||3, parseFloat(v('g3'))||3]
     : (ranges[selectedScenario]||[3,3,3]);
-
-  // Proietta costi fissi con incremento annuo
-  const incr = parseFloat(document.getElementById('incr_fissi')?.value)||2;
 
   const payload = {
     // Anagrafica
@@ -1489,21 +1455,37 @@ async function generaBPdaXBRL(){
     nota_metodologica: `Business plan generato automaticamente da bilancio XBRL ${p.anno}. Proiezioni basate su dati certificati. Conforme EBA/GL/2020/06 e D.Lgs. 14/2019 (CCII).`,
     ipotesi_stress: `Scenario stress: ricavi -20%, EBITDA margin -3pp. Analisi DSCR su finanziamenti esistenti e nuovi.`,
     note_xbrl:    document.getElementById('note_xbrl')?.value || '',
-    // Dati storici da XBRL
-    ricavi_base:       Math.round(p.ricavi),
-    ebitda_storico:    Math.round(p.ebitda),
-    costo_pers_storico:Math.round(p.costo_pers),
-    pfn_storico:       Math.round(p.pfn),
-    pn_attuale:        Math.round(p.pn),
+    // Dati storici da XBRL (tutti — usati per analisi di bilancio e proiezioni)
+    ricavi_base:        Math.round(p.ricavi),
+    altri_ricavi:       Math.round(p.altri_ric||0),
+    ebitda_storico:     Math.round(p.ebitda),
+    costo_pers_storico: Math.round(p.costo_pers),
+    pfn_storico:        Math.round(p.pfn),
+    pn_attuale:         Math.round(p.pn),
+    cap_soc:            Math.round(p.cap_soc||0),
+    riserve:            Math.round(p.riserve||0),
+    tfr_storico:        Math.round(p.tfr||0),
+    crediti_clienti:    Math.round(p.crediti_clienti||0),
+    rimanenze_storiche: Math.round(p.rimanenze||0),
+    liquidita:          Math.round(p.liquid||0),
+    immob_mat:          Math.round(p.immob_mat||0),
+    immob_imm:          Math.round(p.immob_imm||0),
+    tot_attivo:         Math.round(p.tot_attivo||0),
+    debiti_fornitori:   Math.round(p.debiti_fornitori||0),
+    oneri_fin_storici:  Math.round(p.oneri_fin||0),
+    utile_storico:      Math.round(p.utile_es||0),
+    mat_prime:          Math.round(p.mat_prime||0),
+    servizi:            Math.round(p.servizi||0),
+    ammortamenti_storici: Math.round(p.ammortamenti||0),
     // Scenario
     scenario: selectedScenario,
     g1, g2, g3,
-    // Costi proiettati da XBRL (auto)
-    margine_lordo:  parseFloat(document.getElementById('margine_lordo')?.value) || Math.max(p.margine_lordo,0),
-    ebitda_margin:  em,
-    costi_fissi:    Math.round(p.costi_fissi),
-    perc_var:       parseFloat(p.perc_var.toFixed(1)),
-    incr_fissi:     incr,
+    // Costi proiettati automaticamente da XBRL
+    margine_lordo:  Math.max(p.margine_lordo||0, 0),
+    ebitda_margin:  p.ebitda_margin||0,
+    costi_fissi:    Math.round(p.costi_fissi||0),
+    perc_var:       parseFloat((p.perc_var||60).toFixed(1)),
+    incr_fissi:     2,
     var_materie:    2,
     ammortamenti:   Math.round(p.ammortamenti),
     tax_rate:       27.9,

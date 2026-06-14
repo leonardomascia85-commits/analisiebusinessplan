@@ -739,7 +739,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     .print-bar .btn-dl{background:#fff;border:1.5px solid #E2E8F0;color:#1E293B}
   `;
 
-  const pf = (n) => `<div class="pf"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3} · RISERVATO E CONFIDENZIALE</span><span>${n} / 8</span></div>`;
+  const pf = (n) => `<div class="pf"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3} · RISERVATO E CONFIDENZIALE</span><span>${n} / 9</span></div>`;
   const secHdr = (ey, ti) => `<div class="sec-hdr"><div class="sec-bar"></div><div><div class="sec-ey">${ey}</div><div class="sec-ti">${ti}</div></div></div>`;
 
   return `<!DOCTYPE html>
@@ -779,30 +779,187 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   </div>
 </div>
 
-<!-- PAGE 2 — EXECUTIVE SUMMARY -->
+<!-- PAGE 2 — ANALISI DI BILANCIO STORICO -->
+${(() => {
+  // Dati storici passati nel payload (da XBRL o input manuale)
+  const R0s    = d.ricavi_base || 0;
+  const altRic = d.altri_ricavi || 0;
+  const matP   = d.mat_prime || 0;
+  const serv   = d.servizi || 0;
+  const cprs   = d.costo_pers_storico || 0;
+  const amms   = d.ammortamenti_storici || d.ammortamenti || 0;
+  const ebs    = d.ebitda_storico || EBITDA0 || 0;
+  const ofsS   = d.oneri_fin_storici || 0;
+  const utS    = d.utile_storico || 0;
+  const debBT  = d.deb_bt || 0;
+  const debMLT = d.deb_mlt || 0;
+  const pnS    = d.pn_attuale || 0;
+  const capS   = d.cap_soc || 0;
+  const risS   = d.riserve || 0;
+  const tfrs   = d.tfr_storico || 0;
+  const credC  = d.crediti_clienti || 0;
+  const rimS   = d.rimanenze_storiche || 0;
+  const liqS   = d.liquidita || 0;
+  const immMat = d.immob_mat || 0;
+  const immImm = d.immob_imm || 0;
+  const totAtt = d.tot_attivo || 0;
+  const debForn= d.debiti_fornitori || 0;
+  const pfnS   = d.pfn_storico || (debBT + debMLT - liqS);
+
+  const dsoS   = d.dso || (R0s > 0 ? credC / (R0s / 365) : 0);
+  const dpoS   = d.dpo || 0;
+  const dioS   = d.dio || 0;
+  const emS    = d.ebitda_margin || (R0s > 0 ? ebs / R0s * 100 : 0);
+  const mlS    = d.margine_lordo || 0;
+  const roiS   = totAtt > 0 ? ebs / totAtt * 100 : null;
+  const roeS   = pnS > 0 ? utS / pnS * 100 : null;
+  const pfnEbS = ebs > 0 ? pfnS / ebs : null;
+  const icrS   = ofsS > 0 ? ebs / ofsS : null;
+  const indAut = totAtt > 0 ? pnS / totAtt * 100 : null;
+  const capCir = credC + rimS + liqS - debForn - debBT;
+
+  const rOk = c => c ? '#15803D' : '#DC2626';
+  const rBg = c => c ? '#DCFCE7' : '#FEE2E2';
+
+  const pfnOk = pfnEbS === null || pfnEbS <= 4;
+  const icrOk = icrS === null || icrS >= 2;
+  const autOk = indAut === null || indAut >= 20;
+  const emOk  = emS >= 5;
+
+  const row = (lbl, v, cls='') => `<tr class="${cls}"><td>${lbl}</td><td>${fmtE(v)}</td></tr>`;
+  const rowPct = (lbl, v, cls='') => `<tr class="${cls}"><td>${lbl}</td><td>${v !== null && !isNaN(v) ? v.toFixed(1)+'%' : '—'}</td></tr>`;
+
+  const hasSP = totAtt > 0;
+
+  return `<div class="page">
+  ${secHdr(`Analisi storica — Anno ${annoBase}`, '2. Analisi di Bilancio')}
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+
+    <!-- CE Storico -->
+    <div>
+      <h3 style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#475569;margin:0 0 6px">Conto Economico Storico</h3>
+      <table class="rep">
+        <thead><tr><th style="text-align:left">Voce</th><th>Anno ${annoBase}</th></tr></thead>
+        <tbody>
+          ${row('Ricavi delle vendite', R0s, 'tot')}
+          ${altRic > 0 ? row('Altri ricavi', altRic) : ''}
+          <tr class="sec"><td colspan="2">Costi operativi</td></tr>
+          ${matP > 0 ? row('Mat. prime / merci / servizi', -matP, 'sub') : ''}
+          ${serv > 0 ? row('Costi per servizi', -serv, 'sub') : ''}
+          ${cprs > 0 ? row('Costo del personale', -cprs, 'sub') : ''}
+          <tr class="ebitda"><td>EBITDA</td><td>${fmtE(ebs)}</td></tr>
+          ${rowPct('EBITDA Margin', emS)}
+          ${amms > 0 ? row('Ammortamenti', -amms, 'sub') : ''}
+          ${ofsS > 0 ? row('Oneri finanziari', -ofsS, 'sub') : ''}
+          <tr class="${utS >= 0 ? 'utile-pos' : 'utile-neg'} tot"><td>Utile netto</td><td>${fmtE(utS)}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SP Storico -->
+    <div>
+      <h3 style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#475569;margin:0 0 6px">Stato Patrimoniale Storico</h3>
+      ${hasSP ? `<table class="rep">
+        <thead><tr><th style="text-align:left">Voce</th><th>Anno ${annoBase}</th></tr></thead>
+        <tbody>
+          <tr class="sec"><td colspan="2">Attivo</td></tr>
+          ${immMat > 0 ? row('Immobilizzazioni materiali', immMat, 'sub') : ''}
+          ${immImm > 0 ? row('Immobilizzazioni immateriali', immImm, 'sub') : ''}
+          ${credC > 0 ? row('Crediti verso clienti', credC, 'sub') : ''}
+          ${rimS > 0 ? row('Rimanenze', rimS, 'sub') : ''}
+          ${liqS > 0 ? row('Liquidità', liqS, 'sub') : ''}
+          <tr class="tot"><td>Totale Attivo</td><td>${fmtE(totAtt)}</td></tr>
+          <tr class="sec"><td colspan="2">Passivo e Patrimonio Netto</td></tr>
+          ${capS > 0 ? row('Capitale sociale', capS, 'sub') : ''}
+          ${risS !== 0 ? row('Riserve', risS, 'sub') : ''}
+          ${utS !== 0 ? row('Utile / perdita d\'esercizio', utS, 'sub') : ''}
+          <tr class="tot"><td>Patrimonio Netto</td><td>${fmtE(pnS)}</td></tr>
+          ${tfrs > 0 ? row('TFR', tfrs, 'sub') : ''}
+          ${debMLT > 0 ? row('Debiti bancari M/L termine', debMLT, 'sub') : ''}
+          ${debBT > 0 ? row('Debiti bancari breve termine', debBT, 'sub') : ''}
+          ${debForn > 0 ? row('Debiti verso fornitori', debForn, 'sub') : ''}
+        </tbody>
+      </table>` : '<p style="font-size:9px;color:#94A3B8">Dati Stato Patrimoniale non disponibili.</p>'}
+    </div>
+  </div>
+
+  <!-- Indici -->
+  <h3 style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#475569;margin:14px 0 8px">Indici di Bilancio</h3>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
+    <div class="ratio-box" style="background:${rBg(emOk)};border-color:${rOk(emOk)}">
+      <div class="v" style="color:${rOk(emOk)}">${emS.toFixed(1)}%</div>
+      <div class="l">EBITDA Margin<br><span style="font-size:8px;font-weight:400">soglia ≥ 5%</span></div>
+    </div>
+    <div class="ratio-box" style="background:${rBg(pfnOk)};border-color:${rOk(pfnOk)}">
+      <div class="v" style="color:${rOk(pfnOk)}">${pfnEbS !== null ? pfnEbS.toFixed(2)+'x' : '—'}</div>
+      <div class="l">PFN/EBITDA<br><span style="font-size:8px;font-weight:400">soglia ≤ 4x</span></div>
+    </div>
+    <div class="ratio-box" style="background:${rBg(icrOk)};border-color:${rOk(icrOk)}">
+      <div class="v" style="color:${rOk(icrOk)}">${icrS !== null ? icrS.toFixed(2)+'x' : '—'}</div>
+      <div class="l">ICR (EBITDA/OF)<br><span style="font-size:8px;font-weight:400">soglia ≥ 2x</span></div>
+    </div>
+    <div class="ratio-box" style="background:${rBg(autOk)};border-color:${rOk(autOk)}">
+      <div class="v" style="color:${rOk(autOk)}">${indAut !== null ? indAut.toFixed(1)+'%' : '—'}</div>
+      <div class="l">Autonomia finanziaria<br><span style="font-size:8px;font-weight:400">soglia ≥ 20%</span></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+    <div class="ratio-box">
+      <div class="v">${dsoS > 0 ? Math.round(dsoS)+' gg' : '—'}</div>
+      <div class="l">DSO — Giorni incasso<br><span style="font-size:8px;color:#94A3B8">Crediti / (Ricavi/365)</span></div>
+    </div>
+    <div class="ratio-box">
+      <div class="v">${dpoS > 0 ? Math.round(dpoS)+' gg' : '—'}</div>
+      <div class="l">DPO — Giorni pagamento<br><span style="font-size:8px;color:#94A3B8">Debiti forn. / (Acquisti/365)</span></div>
+    </div>
+    <div class="ratio-box">
+      <div class="v">${dioS > 0 ? Math.round(dioS)+' gg' : '—'}</div>
+      <div class="l">DIO — Giorni magazzino<br><span style="font-size:8px;color:#94A3B8">Rimanenze / (Acquisti/365)</span></div>
+    </div>
+  </div>
+
+  ${roeS !== null || roiS !== null ? `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    ${roeS !== null ? `<div class="ratio-box"><div class="v">${roeS.toFixed(1)}%</div><div class="l">ROE — Return on Equity</div></div>` : ''}
+    ${roiS !== null ? `<div class="ratio-box"><div class="v">${roiS.toFixed(1)}%</div><div class="l">ROI — Return on Assets</div></div>` : ''}
+    <div class="ratio-box"><div class="v">${fmtE(pfnS)}</div><div class="l">PFN (Posizione Fin. Netta)</div></div>
+  </div>` : ''}
+
+  <div class="info-box" style="margin-top:12px">
+    📊 L'analisi storica evidenzia una struttura patrimoniale con PFN di ${fmtE(pfnS)} e patrimonio netto di ${fmtE(pnS)}.
+    ${emOk ? `Il margine EBITDA del ${emS.toFixed(1)}% è in linea con i parametri bancari.` : `Il margine EBITDA del ${emS.toFixed(1)}% risulta inferiore alla soglia bancaria del 5%.`}
+    ${pfnOk && icrOk ? 'La struttura finanziaria è equilibrata.' : 'Si raccomanda un piano di riduzione del debito.'}
+    Il ciclo del capitale circolante evidenzia ${dsoS > 0 ? `DSO ${Math.round(dsoS)} gg` : 'dati non disponibili'}, con impatto sulla liquidità operativa.
+  </div>
+  ${pf(2)}
+</div>`;
+})()}
+
+<!-- PAGE 3 — EXECUTIVE SUMMARY -->
 <div class="page">
-  ${secHdr('Sintesi direzionale', '2. Executive Summary')}
+  ${secHdr('Sintesi direzionale', '3. Executive Summary')}
   ${kpiCards}
   <div class="narrative">${narrative}</div>
   <h3>Alert e raccomandazioni</h3>
   ${alertsHTML || '<div class="alert-print ok">✅ Nessuna criticità rilevata. Il piano è sostenibile nelle ipotesi indicate.</div>'}
   <h3>Ricavi vs EBITDA (€ Milioni)</h3>
   <div class="chart-box">${svgBars()}</div>
-  ${pf(2)}
-</div>
-
-<!-- PAGE 3 — CONTO ECONOMICO -->
-<div class="page">
-  ${secHdr('Modello CE proiettato', '3. Conto Economico Proiettato')}
-  <p class="lead">Valori in €. Crescita ricavi: +${d.g1}% / +${d.g2}% / +${d.g3}%. EBITDA margin target: ${d.ebitda_margin}%.</p>
-  ${projTable(CE)}
-  <div class="disclaimer">Le proiezioni di ricavo applicano i tassi di crescita per scenario; l'EBITDA è derivato dal margine target costante (${d.ebitda_margin}%) applicato ai ricavi di ciascun esercizio. I costi operativi sono impliciti nel margine EBITDA.</div>
   ${pf(3)}
 </div>
 
-<!-- PAGE 4 — STATO PATRIMONIALE -->
+<!-- PAGE 4 — CONTO ECONOMICO -->
 <div class="page">
-  ${secHdr('Modello SP proiettato', '4. Stato Patrimoniale Proiettato')}
+  ${secHdr('Modello CE proiettato', '4. Conto Economico Proiettato')}
+  <p class="lead">Valori in €. Crescita ricavi: +${d.g1}% / +${d.g2}% / +${d.g3}%. EBITDA margin target: ${d.ebitda_margin}%.</p>
+  ${projTable(CE)}
+  <div class="disclaimer">Le proiezioni di ricavo applicano i tassi di crescita per scenario; l'EBITDA è derivato dal margine target costante (${d.ebitda_margin}%) applicato ai ricavi di ciascun esercizio. I costi operativi sono impliciti nel margine EBITDA.</div>
+  ${pf(4)}
+</div>
+
+<!-- PAGE 5 — STATO PATRIMONIALE -->
+<div class="page">
+  ${secHdr('Modello SP proiettato', '5. Stato Patrimoniale Proiettato')}
   <p class="lead">Proiezione integrata con il modello CE + Cash Flow. PFN/EBITDA per anno:</p>
   <div class="ratio-row">
     <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA1)}">${fmtX(PFNEBITDA1)}</span><div class="l">PFN/EBITDA Anno 1</div></div>
@@ -811,22 +968,22 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   </div>
   ${projTable(SP)}
   <div class="info-box">Il patrimonio netto evolve da ${fmtE(PN1)} (Anno 1) a ${fmtE(PN3)} (Anno 3) nel triennio, per effetto degli utili reinvestiti al netto delle distribuzioni. La PFN passa da ${fmtE(PFN1)} a ${fmtE(PFN3)}.</div>
-  ${pf(4)}
+  ${pf(5)}
 </div>
 
-<!-- PAGE 5 — CASH FLOW -->
+<!-- PAGE 6 — CASH FLOW -->
 <div class="page">
-  ${secHdr('Rendiconto finanziario', '5. Cash Flow Statement')}
+  ${secHdr('Rendiconto finanziario', '6. Cash Flow Statement')}
   <p class="lead">Metodo indiretto. FCO = flussi operativi · FCI = investimenti · FFF = flussi finanziari.</p>
   ${cfTable(CF)}
   <h3>Waterfall Cash Flow Anno 1 (${annoBase + 1})</h3>
   <div class="chart-box">${svgWaterfall()}</div>
-  ${pf(5)}
+  ${pf(6)}
 </div>
 
-<!-- PAGE 6 — DSCR / BANCABILITÀ -->
+<!-- PAGE 7 — DSCR / BANCABILITÀ -->
 <div class="page">
-  ${secHdr('Sostenibilità del debito', '6. DSCR e Bancabilità EBA')}
+  ${secHdr('Sostenibilità del debito', '7. DSCR e Bancabilità EBA')}
   <h3>Debt Service Coverage Ratio — scala EBA</h3>
   <div class="chart-box">${svgDscrScale(DSCR1)}</div>
   ${progBar('DSCR Anno 1', DSCR1, fmtX(DSCR1), DSCR1 !== null ? DSCR1 / 3 * 100 : 0, dscrColor(DSCR1))}
@@ -849,12 +1006,12 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   <div style="text-align:center;margin-top:16px">
     <span class="verdict ${bancabile ? 'ok' : 'no'}">${bancabile ? 'BANCABILE' : 'RICHIEDE REVISIONE'}</span>
   </div>
-  ${pf(6)}
+  ${pf(7)}
 </div>
 
-<!-- PAGE 7 — BREAK-EVEN / SENSIBILITÀ -->
+<!-- PAGE 8 — BREAK-EVEN / SENSIBILITÀ -->
 <div class="page">
-  ${secHdr('Punto di pareggio', '7. Break-Even e Sensibilità')}
+  ${secHdr('Punto di pareggio', '8. Break-Even e Sensibilità')}
   ${be ? `
   <table class="rep">
     <thead><tr><th>Ricavi BE</th><th>Ricavi Anno 1</th><th>Utilizzo capacità</th><th>Margine sicurezza €</th><th>Margine sicurezza %</th></tr></thead>
@@ -872,12 +1029,12 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     <tbody>${sensRows}</tbody>
   </table>
   <div class="disclaimer">L'analisi di sensibilità mantiene costante il margine EBITDA e il servizio del debito, variando i soli ricavi. È un'approssimazione prudenziale utile a individuare la soglia di rottura della bancabilità.</div>
-  ${pf(7)}
+  ${pf(9)}
 </div>
 
-<!-- PAGE 8 — IPOTESI / NOTE -->
+<!-- PAGE 9 — IPOTESI / NOTE -->
 <div class="page">
-  ${secHdr('Metodologia', '8. Ipotesi e Note Metodologiche')}
+  ${secHdr('Metodologia', '9. Ipotesi e Note Metodologiche')}
   <h3>Ipotesi chiave del modello</h3>
   <table class="rep">
     <thead><tr><th>Parametro</th><th>Valore</th><th>Note</th></tr></thead>
