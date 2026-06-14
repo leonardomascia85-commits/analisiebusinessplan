@@ -98,6 +98,10 @@ input.has-suffix{padding-right:36px}
 .btn-genera:hover{opacity:.9}
 .btn-scarica{background:#fff;border:2px solid var(--verde);color:var(--verde);margin-left:12px}
 .btn-scarica:hover{background:#f0fdf4}
+.btn-ai-small{background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:.75rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:.2s}
+.btn-ai-small:hover{opacity:.85}
+textarea{width:100%;padding:10px 12px;border:1.5px solid var(--bordo);border-radius:10px;font-size:.88rem;font-family:inherit;color:var(--testo);background:#fff;resize:vertical;line-height:1.5;transition:.2s;box-sizing:border-box}
+textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
 
 /* Output section */
 #output-section{display:none}
@@ -347,7 +351,7 @@ input.has-suffix{padding-right:36px}
           </div>
 
           <!-- Analista e note (opzionali) -->
-          <div style="background:#f8fafc;border-radius:10px;padding:16px 18px;border:1px solid var(--bordo)">
+          <div style="background:#f8fafc;border-radius:10px;padding:16px 18px;border:1px solid var(--bordo);margin-bottom:16px">
             <div style="font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:12px">📝 Note opzionali</div>
             <div class="form-row">
               <div>
@@ -357,6 +361,74 @@ input.has-suffix{padding-right:36px}
               <div>
                 <label>Note sul piano</label>
                 <input type="text" id="note_xbrl" placeholder="Es. Piano per richiesta finanziamento…">
+              </div>
+            </div>
+          </div>
+
+          <!-- Sezione qualitativa (opzionale) -->
+          <div style="border:1.5px solid var(--bordo);border-radius:14px;overflow:hidden;margin-bottom:20px">
+            <div onclick="toggleSezioneQual()" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;background:#fff;user-select:none">
+              <div>
+                <div style="font-size:.92rem;font-weight:700;color:var(--blu)">✍️ Arricchisci il Business Plan <span style="font-size:.78rem;font-weight:500;color:var(--verde);background:#dcfce7;padding:2px 8px;border-radius:10px;margin-left:6px">Opzionale</span></div>
+                <div style="font-size:.78rem;color:var(--muted);margin-top:2px">Descrizione aziendale, progetto e mercato — le sezioni possono anche essere compilate dopo con l'aiuto dell'AI</div>
+              </div>
+              <span id="qual-chevron" style="font-size:1.1rem;color:var(--muted);transition:.2s">▼</span>
+            </div>
+            <div id="sezione-qual" style="display:none;padding:20px 18px;background:#fafafa;border-top:1px solid var(--bordo)">
+
+              <!-- Sito web -->
+              <div style="margin-bottom:16px">
+                <label style="display:block;font-size:.82rem;font-weight:600;color:var(--testo);margin-bottom:6px">🌐 Sito web aziendale</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input type="url" id="sito_web" placeholder="https://www.azienda.it" style="flex:1">
+                  <button type="button" onclick="generaConAI('company')" class="btn-ai-small" title="Genera descrizione aziendale con AI dal sito web">
+                    ✨ Genera da sito
+                  </button>
+                </div>
+                <div style="font-size:.75rem;color:var(--muted);margin-top:4px">Inserisci l'URL e l'AI analizzerà il sito per generare la descrizione aziendale</div>
+              </div>
+
+              <!-- Descrizione aziendale -->
+              <div style="margin-bottom:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                  <label style="font-size:.82rem;font-weight:600;color:var(--testo)">🏢 Presentazione aziendale</label>
+                  <button type="button" onclick="generaConAI('company')" class="btn-ai-small">✨ Genera con AI</button>
+                </div>
+                <textarea id="desc_aziendale" rows="4" placeholder="Descrivi brevemente l'azienda: storia, attività principale, prodotti/servizi, mercati serviti, punti di forza distintivi…"></textarea>
+                <div id="desc_aziendale_ai" style="display:none"></div>
+              </div>
+
+              <!-- Descrizione investimento / progetto -->
+              <div style="margin-bottom:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                  <label style="font-size:.82rem;font-weight:600;color:var(--testo)">🎯 Il progetto / l'investimento</label>
+                  <button type="button" onclick="generaConAI('progetto')" class="btn-ai-small">✨ Genera con AI</button>
+                </div>
+                <textarea id="desc_progetto" rows="4" placeholder="Descrivi il progetto o l'investimento: obiettivi, azioni previste, tempistiche, risorse necessarie, benefici attesi…"></textarea>
+              </div>
+
+              <!-- Analisi del mercato -->
+              <div style="margin-bottom:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                  <label style="font-size:.82rem;font-weight:600;color:var(--testo)">📊 Mercato di riferimento</label>
+                  <button type="button" onclick="generaConAI('mercato')" class="btn-ai-small">✨ Genera con AI</button>
+                </div>
+                <textarea id="desc_mercato" rows="3" placeholder="Descrivi il mercato: dimensione, trend, principali competitor, posizionamento competitivo dell'azienda…"></textarea>
+              </div>
+
+              <!-- Punti di forza / rischi -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px">
+                <div>
+                  <label style="display:block;font-size:.82rem;font-weight:600;color:#059669;margin-bottom:6px">✅ Punti di forza</label>
+                  <textarea id="punti_forza" rows="3" placeholder="Es. Brand consolidato, tecnologia proprietaria, clienti fidelizzati…"></textarea>
+                </div>
+                <div>
+                  <label style="display:block;font-size:.82rem;font-weight:600;color:#DC2626;margin-bottom:6px">⚠️ Rischi e mitigazioni</label>
+                  <textarea id="punti_rischio" rows="3" placeholder="Es. Dipendenza da un cliente, rischio tasso, concorrenza estera…"></textarea>
+                </div>
+              </div>
+              <div style="font-size:.75rem;color:var(--muted);margin-top:10px;padding:10px;background:#eff6ff;border-radius:8px;border:1px solid #bfdbfe">
+                💡 <strong>Suggerimento:</strong> Puoi compilare queste sezioni ora o dopo aver generato il piano. Le sezioni non compilate appariranno come <em>spazi riservati</em> nel documento, pronti per essere completati con il supporto dell'AI generativa.
               </div>
             </div>
           </div>
@@ -1527,6 +1599,13 @@ async function generaBPdaXBRL(){
     dividendi:    0,
     // Flag per identificare origine
     fonte: 'xbrl',
+    // Sezioni qualitative (opzionali)
+    sito_web:       v('sito_web'),
+    desc_aziendale: ta('desc_aziendale'),
+    desc_progetto:  ta('desc_progetto'),
+    desc_mercato:   ta('desc_mercato'),
+    punti_forza:    ta('punti_forza'),
+    punti_rischio:  ta('punti_rischio'),
   };
 
   const btn = document.querySelector('.btn-genera');
@@ -1754,6 +1833,13 @@ function raccogliDati(){
     pre_amm: parseFloat(v('pre_amm'))||0,
     aum_capitale: parseFloat(v('aum_capitale'))||0,
     dividendi: parseFloat(v('dividendi'))||0,
+    // Sezioni qualitative (condivise con percorso XBRL)
+    sito_web:       v('sito_web'),
+    desc_aziendale: ta('desc_aziendale'),
+    desc_progetto:  ta('desc_progetto'),
+    desc_mercato:   ta('desc_mercato'),
+    punti_forza:    ta('punti_forza'),
+    punti_rischio:  ta('punti_rischio'),
   };
 }
 
@@ -1767,6 +1853,49 @@ function renderOutput(data, payload){
 
 function fmt(n){ return Math.round(n).toLocaleString('it-IT'); }
 function v(id){ const el=document.getElementById(id); return el?el.value:''; }
+function ta(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+// ─── Sezione qualitativa toggle ────────────────────────────
+function toggleSezioneQual(){
+  const box = document.getElementById('sezione-qual');
+  const ch  = document.getElementById('qual-chevron');
+  const open = box.style.display === 'block';
+  box.style.display = open ? 'none' : 'block';
+  ch.textContent = open ? '▼' : '▲';
+}
+
+// ─── Genera con AI (segnaposto — da collegare a /api/genera-testo) ──
+async function generaConAI(tipo){
+  const sito    = v('sito_web');
+  const settore = v('settore_bp') || v('settore_bp_manuale') || (_xbrlData?.settore) || '';
+  const nome    = v('nome_azienda') || (_xbrlData?.nome) || '';
+
+  const prompts = {
+    company: `Sei un consulente aziendale. Scrivi una presentazione professionale (3-4 paragrafi, circa 200 parole) per l'azienda "${nome}" che opera nel settore "${settore}"${sito ? ` con sito web ${sito}` : ''}. Tono formale e orientato alla banca.`,
+    progetto: `Sei un consulente aziendale. Scrivi la sezione "Il Progetto" per un business plan dell'azienda "${nome}" (settore: ${settore}). Includi obiettivi strategici, azioni previste nel triennio, benefici attesi. 3-4 paragrafi, tono professionale.`,
+    mercato: `Sei un analista di mercato. Scrivi la sezione "Mercato di Riferimento" per un business plan di un'azienda nel settore "${settore}". Includi dimensione del mercato, trend, competitor e posizionamento competitivo. 3-4 paragrafi, tono formale.`
+  };
+
+  const targetId = { company: 'desc_aziendale', progetto: 'desc_progetto', mercato: 'desc_mercato' }[tipo];
+  const btn = event?.target;
+  if(btn){ btn.textContent = '⏳…'; btn.disabled = true; }
+
+  try {
+    const res = await fetch('/api/genera-testo', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ prompt: prompts[tipo], tipo, nome, settore, sito_web: sito })
+    });
+    if(!res.ok) throw new Error('API non disponibile');
+    const data = await res.json();
+    const el = document.getElementById(targetId);
+    if(el && data.testo) el.value = data.testo;
+  } catch(e){
+    alert('La generazione AI non è ancora attiva. Puoi compilare il campo manualmente.');
+  } finally {
+    if(btn){ btn.textContent = '✨ Genera con AI'; btn.disabled = false; }
+  }
+}
 
 function scaricaReport(){
   if(!_lastReportHTML){ alert('Genera prima il business plan.'); return; }
