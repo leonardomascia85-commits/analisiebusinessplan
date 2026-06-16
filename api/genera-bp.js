@@ -259,11 +259,28 @@ function buildBusinessPlan(d) {
   if (UN1 < 0)
     alerts.push({ type: 'danger', icon: '🚨', msg: `Utile Netto ${annoBase + 1} negativo (${fmtN(UN1)} €). Rivedere margini, costi o struttura finanziaria.` });
 
+  // ── Scenario comparison (ODCEC guide — ISA Italia / EBA stress)
+  const debtService1base = RCAP1 + OF1;
+  const buildScen = (g1p, g2p, g3p) => {
+    const r1 = R0 * (1 + g1p / 100), r2 = r1 * (1 + g2p / 100), r3 = r2 * (1 + g3p / 100);
+    const e1 = r1 * emPct, e3 = r3 * emPct;
+    const ebt1 = e1 - AMM1 - OF1;
+    const un1 = ebt1 >= 0 ? ebt1 * (1 - taxR) : ebt1;
+    const dscr1 = debtService1base > 0 ? e1 / debtService1base : null;
+    return { r1, r2, r3, e1, e3, un1, dscr1, em1: r1 > 0 ? e1 / r1 * 100 : null, cagr: R0 > 0 && r3 > 0 ? (Math.pow(r3 / R0, 1 / 3) - 1) * 100 : null };
+  };
+  const scenComparison = [
+    { label: 'Pessimistico', prob: '20%', ...buildScen(Math.max(d.g1 - 5, 0), Math.max(d.g2 - 5, 0), Math.max(d.g3 - 5, 0)) },
+    { label: 'Base (attuale)', prob: '55%', ...buildScen(d.g1, d.g2, d.g3) },
+    { label: 'Ottimistico', prob: '25%', ...buildScen(d.g1 + 5, d.g2 + 5, d.g3 + 5) },
+  ];
+
   // ── HTML report
   const html = buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts },
     { R0, R1, R2, R3, EBITDA0, EBITDA1, EBITDA2, EBITDA3,
       UN1, UN2, UN3, PFN1, PFN2, PFN3, PN1, PN2, PN3,
-      DSCR1, DSCR2, DSCR3, EBITDAM1, EBITDAM2, EBITDAM3, annoBase });
+      DSCR1, DSCR2, DSCR3, EBITDAM1, EBITDAM2, EBITDAM3,
+      annoBase, scenComparison });
 
   return { ce: CE, sp: SP, cf: CF, be, kpi, alerts, html };
 }
@@ -403,7 +420,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     PN1, PN2, PN3,
     DSCR1, DSCR2, DSCR3,
     EBITDAM1, EBITDAM2, EBITDAM3,
-    annoBase
+    annoBase, scenComparison
   } = nums;
 
   // ── Formatters
@@ -684,13 +701,27 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
     return `<div class="alert-print ${t}">${a.icon} ${a.msg}</div>`;
   }).join('');
 
-  // ── sensitivity table
-  const sensRows = [-10, -20, -30].map(p => {
-    const f = 1 + p / 100;
-    const r = R1 * f;
-    const e = r * (EBITDAM1 / 100);
+  // ── sensitivity table (EBA/FED multi-dimensional stress)
+  const sensScenarios = [
+    { label: 'Ricavi −10%', rFactor: 0.90, mAdj: 0 },
+    { label: 'Ricavi −20% (EBA base stress)', rFactor: 0.80, mAdj: 0 },
+    { label: 'Ricavi −30% (EBA severe)', rFactor: 0.70, mAdj: 0 },
+    { label: 'Margin compression −2pp', rFactor: 1.00, mAdj: -2 },
+    { label: 'Combinato: −15% ricavi + −1pp margin', rFactor: 0.85, mAdj: -1 },
+  ];
+  const sensRows = sensScenarios.map(sc => {
+    const r = R1 * sc.rFactor;
+    const em = (EBITDAM1 || 0) + sc.mAdj;
+    const e = r * (em / 100);
     const ds = debtService1 > 0 ? e / debtService1 : null;
-    return `<tr><td>${p}%</td><td>${fmtE(r)}</td><td>${fmtE(e)}</td><td style="color:${dscrColor(ds)};font-weight:700">${fmtX(ds)}</td><td>${ds !== null && ds >= 1.1 ? '<span style="color:#059669">Sostenibile</span>' : '<span style="color:#DC2626">Critico</span>'}</td></tr>`;
+    const ok = ds !== null && ds >= 1.1;
+    return `<tr>
+      <td style="font-size:9px">${sc.label}</td>
+      <td>${fmtE(r)}</td><td>${fmtE(e)}</td>
+      <td style="font-size:8.5px;color:#94A3B8">${fmtP(em)}</td>
+      <td style="color:${dscrColor(ds)};font-weight:700">${fmtX(ds)}</td>
+      <td>${ok ? '<span style="color:#059669">Sostenibile</span>' : '<span style="color:#DC2626">Critico</span>'}</td>
+    </tr>`;
   }).join('');
 
   const cssReport = `
@@ -957,6 +988,25 @@ ${(() => {
     <div class="ratio-box"><div class="v">${fmtE(pfnS)}</div><div class="l">PFN (Posizione Fin. Netta)</div></div>
   </div>` : ''}
 
+  ${(totAtt > 0 && pnS > 0 && R0s > 0) ? `
+  <h3 style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#475569;margin:14px 0 6px">Analisi DuPont — Scomposizione ROE (anno ${annoBase})</h3>
+  <table class="rep" style="margin-bottom:6px">
+    <thead>
+      <tr>
+        <th style="text-align:left">Componente</th>
+        <th>Formula</th>
+        <th>Valore</th>
+        <th style="text-align:left;font-size:8px">Interpretazione</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="sub"><td>Net Profit Margin</td><td style="color:#94A3B8;font-size:8px">Utile / Ricavi</td><td>${utS !== null && R0s > 0 ? (utS/R0s*100).toFixed(1)+'%' : '—'}</td><td style="text-align:left;font-size:8.5px;color:#475569">Redditività delle vendite</td></tr>
+      <tr class="sub"><td>Asset Turnover</td><td style="color:#94A3B8;font-size:8px">Ricavi / Tot. Attivo</td><td>${(R0s/totAtt).toFixed(2)}x</td><td style="text-align:left;font-size:8.5px;color:#475569">Efficienza utilizzo asset</td></tr>
+      <tr class="sub"><td>Equity Multiplier</td><td style="color:#94A3B8;font-size:8px">Tot. Attivo / PN</td><td>${(totAtt/pnS).toFixed(2)}x</td><td style="text-align:left;font-size:8.5px;color:#475569">Leva finanziaria</td></tr>
+      <tr class="ebitda"><td><strong>ROE (DuPont)</strong></td><td style="color:#94A3B8;font-size:8px">NPM × AT × EM</td><td><strong>${roeS !== null ? roeS.toFixed(1)+'%' : '—'}</strong></td><td style="text-align:left;font-size:8.5px;color:#166534">Rendimento del cap. proprio</td></tr>
+    </tbody>
+  </table>` : ''}
+
   <div class="info-box" style="margin-top:12px">
     📊 L'analisi storica evidenzia una struttura patrimoniale con PFN di ${fmtE(pfnS)} e patrimonio netto di ${fmtE(pnS)}.
     ${emOk ? `Il margine EBITDA del ${emS.toFixed(1)}% è in linea con i parametri bancari.` : `Il margine EBITDA del ${emS.toFixed(1)}% risulta inferiore alla soglia bancaria del 5%.`}
@@ -995,6 +1045,40 @@ ${(() => {
           <td>${fmt(k.a2)}</td>
           <td>${fmt(k.a3)}</td>
           <td style="font-size:8px;color:#94A3B8;font-style:italic">${k.soglia||'—'}</td>
+        </tr>`;
+      }).join('')}
+    </tbody>
+  </table>
+  <h3>Analisi di scenario — confronto triennale</h3>
+  <p class="lead" style="font-size:9.5px;color:#64748B;margin-bottom:6px">Costruzione degli scenari secondo metodologia ISA Italia / EBA credit origination. La probabilità indicata è puramente orientativa.</p>
+  <table class="rep">
+    <thead>
+      <tr>
+        <th style="text-align:left">Scenario</th>
+        <th style="font-size:7.5px">Prob.</th>
+        <th>${annoBase+1} Ricavi</th>
+        <th>${annoBase+3} Ricavi</th>
+        <th>CAGR</th>
+        <th>EBITDA M. ${annoBase+1}</th>
+        <th>DSCR ${annoBase+1}</th>
+        <th>Bancabile</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${(scenComparison || []).map((s, i) => {
+        const isBanc = s.dscr1 === null || s.dscr1 >= 1.1;
+        const isBase = i === 1;
+        return `<tr style="${isBase?'background:#EFF6FF':''}">
+          <td style="${isBase?'font-weight:700':''}">
+            ${i===0?'🔴 ':''}${i===1?'🟡 ':''}${i===2?'🟢 ':''}${s.label}
+          </td>
+          <td style="color:#94A3B8;font-size:8px">${s.prob}</td>
+          <td>${fmtM(s.r1)}</td>
+          <td>${fmtM(s.r3)}</td>
+          <td style="font-weight:600">${s.cagr !== null ? fmtP(s.cagr) : '—'}</td>
+          <td style="color:${s.em1>=8?'#059669':s.em1>=4?'#D97706':'#DC2626'};font-weight:600">${fmtP(s.em1)}</td>
+          <td style="color:${dscrColor(s.dscr1)};font-weight:700">${fmtX(s.dscr1)}</td>
+          <td style="text-align:center">${isBanc ? '<span style="color:#059669;font-weight:700">✅</span>' : '<span style="color:#DC2626;font-weight:700">❌</span>'}</td>
         </tr>`;
       }).join('')}
     </tbody>
@@ -1094,12 +1178,13 @@ ${(() => {
   </table>
   <h3>Visualizzazione Break-Even</h3>
   <div class="chart-box">${svgBreakEven()}</div>` : '<p class="lead">Dati break-even non disponibili.</p>'}
-  <h3>Analisi di Sensibilità sui Ricavi (${annoBase + 1})</h3>
+  <h3>Analisi di Sensibilità — Stress Test EBA/FED (${annoBase + 1})</h3>
+  <p class="lead" style="font-size:9.5px;color:#64748B;margin-bottom:6px">Stress test multi-dimensionali secondo EBA/GL/2020/06 e principi FED: shock sui ricavi, compressione margini e scenario combinato.</p>
   <table class="rep">
-    <thead><tr><th>Scenario ricavi</th><th>Ricavi</th><th>EBITDA</th><th>DSCR</th><th>Esito</th></tr></thead>
+    <thead><tr><th>Scenario stress</th><th>Ricavi</th><th>EBITDA</th><th>EBITDA M.</th><th>DSCR</th><th>Esito</th></tr></thead>
     <tbody>${sensRows}</tbody>
   </table>
-  <div class="disclaimer">L'analisi di sensibilità mantiene costante il margine EBITDA e il servizio del debito, variando i soli ricavi. È un'approssimazione prudenziale utile a individuare la soglia di rottura della bancabilità.</div>
+  <div class="disclaimer">Stress test redatti in conformità alle EBA Guidelines on loan origination and monitoring (EBA/GL/2020/06). Gli scenari base e severe simulano rispettivamente una riduzione del 20% e del 30% dei ricavi. Il scenario di compressione margini replica un shock sui costi operativi (+2pp su ricavi). Il servizio del debito è mantenuto costante in tutti gli scenari. Metodologia ODCEC Milano "Principi Guida al Business Plan".</div>
   ${pf(9)}
 </div>
 
