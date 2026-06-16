@@ -567,9 +567,9 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   const projTable = (rows) => {
     let h = `<table class="rep"><thead><tr>
       <th>Voce</th><th>Storico ${annoBase}</th>
-      <th>Anno 1</th><th>Δ%</th>
-      <th>Anno 2</th><th>Δ%</th>
-      <th>Anno 3</th><th>Δ%</th>
+      <th>${annoBase+1}</th><th>Δ%</th>
+      <th>${annoBase+2}</th><th>Δ%</th>
+      <th>${annoBase+3}</th><th>Δ%</th>
     </tr></thead><tbody>`;
     rows.forEach(r => {
       if (r.section && !r.label) { return; }
@@ -638,7 +638,7 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
 
   // ── narrative per sezione CE
   const narrativeCE = `
-<p>Il Conto Economico proiettato riflette l'applicazione dello scenario <em>${scenarioLabel}</em> ai ricavi storici dell'anno ${annoBase}. La crescita dei ricavi — rispettivamente +${d.g1}%, +${d.g2}%, +${d.g3}% — traina un incremento proporzionale dell'EBITDA, che passa da <strong>${fmtE(EBITDA1)}</strong> nell'Anno 1 a <strong>${fmtE(EBITDA3)}</strong> nell'Anno 3. I costi operativi vengono proiettati mantenendo costante la struttura dei margini${d.fonte === 'xbrl' ? ' derivata dal bilancio certificato' : ' dichiarata nel piano'}, con un incremento dei costi fissi del ${d.incr_fissi || 2}% annuo a copertura dell'inflazione strutturale. Gli ammortamenti restano stabili a <strong>${fmtE(d.ammortamenti || 0)}</strong>/anno, ipotizzando un piano investimenti in linea con il rinnovo ordinario degli asset esistenti.</p>`;
+<p>Il Conto Economico proiettato riflette l'applicazione dello scenario <em>${scenarioLabel}</em> ai ricavi storici dell'anno ${annoBase}. La crescita dei ricavi — rispettivamente +${d.g1}%, +${d.g2}%, +${d.g3}% — traina un incremento proporzionale dell'EBITDA, che passa da <strong>${fmtE(EBITDA1)}</strong> nel ${annoBase+1} a <strong>${fmtE(EBITDA3)}</strong> nel ${annoBase+3}. I costi operativi vengono proiettati mantenendo costante la struttura dei margini${d.fonte === 'xbrl' ? ' derivata dal bilancio certificato' : ' dichiarata nel piano'}, con un incremento dei costi fissi del ${d.incr_fissi || 2}% annuo a copertura dell'inflazione strutturale. Gli ammortamenti restano stabili a <strong>${fmtE(d.ammortamenti || 0)}</strong>/anno, ipotizzando un piano investimenti in linea con il rinnovo ordinario degli asset esistenti.</p>`;
 
   // ── narrative per sezione SP
   const narrativeSP = `
@@ -1018,15 +1018,15 @@ ${(() => {
   </div>
   <h3>Debt Service Coverage Ratio — scala EBA</h3>
   <div class="chart-box">${svgDscrScale(DSCR1)}</div>
-  ${progBar('DSCR Anno 1', DSCR1, fmtX(DSCR1), DSCR1 !== null ? DSCR1 / 3 * 100 : 0, dscrColor(DSCR1))}
-  ${progBar('DSCR Anno 2', DSCR2, fmtX(DSCR2), DSCR2 !== null ? DSCR2 / 3 * 100 : 0, dscrColor(DSCR2))}
-  ${progBar('DSCR Anno 3', DSCR3, fmtX(DSCR3), DSCR3 !== null ? DSCR3 / 3 * 100 : 0, dscrColor(DSCR3))}
+  ${progBar(`DSCR ${annoBase+1}`, DSCR1, fmtX(DSCR1), DSCR1 !== null ? DSCR1 / 3 * 100 : 0, dscrColor(DSCR1))}
+  ${progBar(`DSCR ${annoBase+2}`, DSCR2, fmtX(DSCR2), DSCR2 !== null ? DSCR2 / 3 * 100 : 0, dscrColor(DSCR2))}
+  ${progBar(`DSCR ${annoBase+3}`, DSCR3, fmtX(DSCR3), DSCR3 !== null ? DSCR3 / 3 * 100 : 0, dscrColor(DSCR3))}
   ${(() => {
     const icr = kpi.find(k => /ICR/.test(k.label));
     const icr1 = icr ? icr.a1 : null;
     return `
-    ${progBar('ICR (EBIT/OF) Anno 1', icr1, fmtX(icr1), icr1 !== null ? Math.min(icr1, 5) / 5 * 100 : 0, icr1 === null ? '#94A3B8' : icr1 >= 1.5 ? '#059669' : icr1 >= 1 ? '#D97706' : '#DC2626')}
-    ${progBar('PFN/EBITDA Anno 1', PFNEBITDA1, fmtX(PFNEBITDA1), PFNEBITDA1 !== null ? Math.min(PFNEBITDA1, 6) / 6 * 100 : 0, pfnColor(PFNEBITDA1))}`;
+    ${progBar(`ICR (EBIT/OF) ${annoBase+1}`, icr1, fmtX(icr1), icr1 !== null ? Math.min(icr1, 5) / 5 * 100 : 0, icr1 === null ? '#94A3B8' : icr1 >= 1.5 ? '#059669' : icr1 >= 1 ? '#D97706' : '#DC2626')}
+    ${progBar(`PFN/EBITDA ${annoBase+1}`, PFNEBITDA1, fmtX(PFNEBITDA1), PFNEBITDA1 !== null ? Math.min(PFNEBITDA1, 6) / 6 * 100 : 0, pfnColor(PFNEBITDA1))}`;
   })()}
   <div class="info-box">
     <strong>Requisiti EBA/GL/2020/06.</strong> Il DSCR minimo per la bancabilità è 1,10x; un valore ≥ 1,30x indica un profilo solido. Il PFN/EBITDA non dovrebbe superare 4x. Le linee guida richiedono inoltre prove di stress prospettiche sui flussi di cassa.

@@ -1266,12 +1266,28 @@ function parseXBRL(xml){
   // ════════════════════════════════
 
   // A) Valore della produzione
-  const ricavi    = getVal(['RicaviVenditePrestazioni','RicaviVenditeProdotti',
-    'PrestazioneDiServizi','TotaleRicaviProventiValore','SalesRevenueNet','Revenue','Revenues']);
+  const ricavi    = getVal([
+    // IT-GAAP standard
+    'RicaviVenditePrestazioni','RicaviNetti','RicaviVenditeProdotti',
+    'PrestazioneDiServizi','TotaleRicaviProventiValore',
+    // IT-GAAP taxonomy letter codes (art. 2425 c.c.)
+    'A1','A-1','A1RicaviVenditePrestazioni',
+    // Valore della produzione totale (fallback)
+    'ValoredellaProduzione','TotaleValoredellaProduzione','ValoreDellaProduzione',
+    'TotaleValoredellaProduzioneCE','A',
+    // IFRS / international
+    'SalesRevenueNet','Revenue','Revenues','TurnoverRevenue',
+    'RevenueFromContractsWithCustomers','NetRevenue',
+    // Altre varianti italiane
+    'TotaleRicavi','RicaviTotali','FatturatoBrutto','Fatturato'
+  ]);
   const altri_ric = getVal(['AltriRicaviProventi','OtherRevenues','AltriRicavi']);
   const varRim    = getValSigned(['VariazioniRimanenzeProdotti','VariazioneRimanenze',
     'IncrementoLavorazioniInterneImmobilizzazioni']);
-  const val_prod  = ricavi + altri_ric + (varRim > 0 ? varRim : 0);
+  let val_prod  = ricavi + altri_ric + (varRim > 0 ? varRim : 0);
+  // Fallback: se ricavi=0 ma val_prod è calcolabile da totale valore produzione
+  const val_prod_raw = getVal(['ValoredellaProduzione','TotaleValoredellaProduzione','ValoreDellaProduzione','A']);
+  if(ricavi === 0 && val_prod_raw > 0) val_prod = val_prod_raw;
 
   // B) Costi della produzione
   const mat_prime  = getVal(['MateriePrimeConsumabiliMerci','AcquistiMateriePrime',
@@ -1291,6 +1307,9 @@ function parseXBRL(xml){
   const var_rim_neg= varRim < 0 ? Math.abs(varRim) : 0;
 
   const costi_prod = mat_prime + servizi + godimento + costo_pers + ammortamenti + altri_costi + var_rim_neg;
+
+  // Se ricavi rimane 0, usa val_prod come base (valore produzione totale)
+  const ricavi_eff = ricavi > 0 ? ricavi : val_prod;
 
   // EBIT e EBITDA
   const ebit  = val_prod - costi_prod;
@@ -1353,18 +1372,18 @@ function parseXBRL(xml){
   // ════════════════════════════════
 
   const pfn = deb_bt + deb_mlt - liquid;
-  const ebitda_margin = ricavi > 0 ? (ebitda / ricavi * 100) : 0;
-  const margine_lordo = ricavi > 0 ? ((ricavi - mat_prime - (varRim<0?Math.abs(varRim):0)) / ricavi * 100) : 0;
+  const ebitda_margin = ricavi_eff > 0 ? (ebitda / ricavi_eff * 100) : 0;
+  const margine_lordo = ricavi_eff > 0 ? ((ricavi_eff - mat_prime - (varRim<0?Math.abs(varRim):0)) / ricavi_eff * 100) : 0;
 
   // Costi variabili = mat_prime + % servizi (stima 60% variabili)
   const costi_var_est = mat_prime + servizi * 0.6;
-  const perc_var = ricavi > 0 ? (costi_var_est / ricavi * 100) : 0;
+  const perc_var = ricavi_eff > 0 ? (costi_var_est / ricavi_eff * 100) : 0;
 
   // Costi fissi = godimento + altri_costi + servizi*0.4 + costo_pers (parte fissa)
   const costi_fissi = godimento + altri_costi + servizi * 0.4;
 
   // Working capital days (con protezione da divisione per zero)
-  const ricavi_gg = ricavi / 365;
+  const ricavi_gg = ricavi_eff / 365;
   const costi_gg  = (mat_prime + servizi) / 365 || ricavi_gg * 0.5;
   const dso = ricavi_gg > 0 ? Math.round(crediti_clienti / ricavi_gg) : 60;
   const dpo = costi_gg  > 0 ? Math.round(debiti_fornitori / costi_gg)  : 45;
@@ -1377,8 +1396,8 @@ function parseXBRL(xml){
   return {
     // Anagrafica
     nome, anno,
-    // CE
-    ricavi, altri_ric, mat_prime, servizi, godimento, costo_pers,
+    // CE (ricavi = ricavi_eff per garantire il dato anche da val_prod)
+    ricavi: ricavi_eff, altri_ric, mat_prime, servizi, godimento, costo_pers,
     ammortamenti, altri_costi, ebitda, ebit, oneri_fin, prov_fin, utile_es,
     // SP attivo
     crediti_clienti, rimanenze, liquid, immob_mat, immob_imm, tot_attivo,
