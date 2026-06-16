@@ -281,9 +281,11 @@ function buildCERows(R0, R1, R2, R3, E0, E1, E2, E3,
   const OPEX2 = R2 - E2 - CP2;
   const OPEX3 = R3 - E3 - CP3;
 
+  const cagr3 = R0 > 0 && R3 > 0 ? Math.pow(R3 / R0, 1/3) - 1 : null;
   return [
     { label: 'RICAVI DELLE VENDITE', s: R0, a1: R1, a2: R2, a3: R3, total: true },
-    { label: 'Variazione ricavi', s: null, a1: pct(R1, R0), a2: pct(R2, R1), a3: pct(R3, R2) },
+    { label: 'Variazione annua', s: null, a1: pct(R1, R0), a2: pct(R2, R1), a3: pct(R3, R2) },
+    { label: 'CAGR triennale', s: null, a1: null, a2: null, a3: cagr3 !== null ? `${(cagr3*100).toFixed(1)}% p.a.` : '—' },
     { label: '', s: null, a1: null, a2: null, a3: null, section: true },
     { label: 'COSTI OPERATIVI', s: null, a1: null, a2: null, a3: null, section: true },
     { label: 'Costi per materie/merci/servizi', s: -Math.abs(OPEX0), a1: -Math.abs(OPEX1), a2: -Math.abs(OPEX2), a3: -Math.abs(OPEX3), sub: true },
@@ -544,7 +546,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
       <line x1="${bex}" y1="${barY - 5}" x2="${bex}" y2="${barY + barH + 5}" stroke="#DC2626" stroke-width="1.5"/>
       <text x="${bex}" y="${barY - 8}" text-anchor="middle" font-size="8" font-weight="700" fill="#991B1B">Break-Even</text>
       <text x="${bex}" y="${barY + barH + 14}" text-anchor="middle" font-size="8" fill="#991B1B">${(be.ricavi_be / 1e6).toFixed(2)}M</text>
-      <text x="${actx - 4}" y="${barY + barH / 2 + 3}" text-anchor="end" font-size="8.5" font-weight="700" fill="#fff">Ricavi A1 ${(be.ricavi_a1 / 1e6).toFixed(2)}M</text>
+      <text x="${actx - 4}" y="${barY + barH / 2 + 3}" text-anchor="end" font-size="8.5" font-weight="700" fill="#fff">Ricavi ${annoBase+1} ${(be.ricavi_a1 / 1e6).toFixed(2)}M</text>
     </svg>`;
   };
 
@@ -565,12 +567,19 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
 
   // ── Render projection table (VOCE | STORICO | A1 | Δ% | A2 | Δ% | A3 | Δ%)
   const projTable = (rows) => {
-    let h = `<table class="rep"><thead><tr>
-      <th>Voce</th><th>Storico ${annoBase}</th>
-      <th>${annoBase+1}</th><th>Δ%</th>
-      <th>${annoBase+2}</th><th>Δ%</th>
-      <th>${annoBase+3}</th><th>Δ%</th>
-    </tr></thead><tbody>`;
+    let h = `<table class="rep"><thead>
+      <tr>
+        <th rowspan="2" style="text-align:left;vertical-align:bottom">Voce</th>
+        <th style="background:#1E3A5F;border-right:2px solid #4B6A9B">Storico<br><span style="font-weight:400;font-size:7.5px;opacity:.75">certificato XBRL</span></th>
+        <th colspan="6" style="background:#0A1628;border-left:2px solid #4B6A9B">⟶ Proiezioni triennali</th>
+      </tr>
+      <tr>
+        <th style="background:#1E3A5F;border-right:2px solid #4B6A9B">${annoBase}</th>
+        <th>${annoBase+1}</th><th style="font-size:7px;opacity:.7">Var.</th>
+        <th>${annoBase+2}</th><th style="font-size:7px;opacity:.7">Var.</th>
+        <th>${annoBase+3}</th><th style="font-size:7px;opacity:.7">Var.</th>
+      </tr>
+    </thead><tbody>`;
     rows.forEach(r => {
       if (r.section && !r.label) { return; }
       let cls = '';
@@ -663,10 +672,10 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
   const kpiCards = `
     <div class="kpi-cards">
       ${kpiCard(fmtX(DSCR1), `DSCR ${annoBase + 1}`, 'EBA min ≥ 1,10x', dscrColor(DSCR1))}
-      ${kpiCard(fmtP(EBITDAM1), 'EBITDA Margin A1', 'Target > 8%', EBITDAM1 >= 8 ? '#059669' : EBITDAM1 >= 4 ? '#D97706' : '#DC2626')}
-      ${kpiCard(fmtX(PFNEBITDA1), 'PFN / EBITDA A1', 'Attenzione > 4x', pfnColor(PFNEBITDA1))}
-      ${kpiCard('+' + (d.g1 || 0) + '%', 'Crescita Ricavi A1', `Scenario ${scenarioLabel}`, cresc1Color)}
-      ${kpiCard(fmtE(UN1), 'Utile Netto A1', 'Obiettivo positivo', un1Color)}
+      ${kpiCard(fmtP(EBITDAM1), `EBITDA Margin ${annoBase + 1}`, 'Target > 8%', EBITDAM1 >= 8 ? '#059669' : EBITDAM1 >= 4 ? '#D97706' : '#DC2626')}
+      ${kpiCard(fmtX(PFNEBITDA1), `PFN/EBITDA ${annoBase + 1}`, 'Attenzione > 4x', pfnColor(PFNEBITDA1))}
+      ${kpiCard('+' + (d.g1 || 0) + '%', `Crescita Ricavi ${annoBase + 1}`, `Scenario ${scenarioLabel}`, cresc1Color)}
+      ${kpiCard(fmtE(UN1), `Utile Netto ${annoBase + 1}`, 'Obiettivo positivo', un1Color)}
       ${kpiCard(be ? fmtP(be.utilizzo_cap) : '—', 'Break-Even Utilizzo', `Margine ${be ? fmtP(be.margine_perc) : '—'}`, beColor)}
     </div>`;
 
@@ -963,6 +972,33 @@ ${(() => {
   ${secHdr('Sintesi direzionale', '3. Executive Summary')}
   ${kpiCards}
   <div class="narrative">${narrative}</div>
+  <h3>Sintesi indicatori bancari</h3>
+  <table class="rep">
+    <thead>
+      <tr>
+        <th style="text-align:left">Indicatore</th>
+        <th style="background:#1E3A5F">Storico ${annoBase}</th>
+        <th>${annoBase+1}</th><th>${annoBase+2}</th><th>${annoBase+3}</th>
+        <th style="background:#374151">Soglia EBA</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${kpi.map(k => {
+        const fmt = (v) => v === null || v === undefined ? '<span style="color:#94A3B8">—</span>' :
+          typeof v === 'string' ? v :
+          k.label.includes('€') ? fmtE(v) : k.label.includes('%') ? fmtP(v) : fmtX(v);
+        const ok1 = k.ok !== undefined ? k.ok : true;
+        return `<tr>
+          <td style="font-weight:600">${k.label}</td>
+          <td style="background:#F8FAFC">${fmt(k.s)}</td>
+          <td style="color:${ok1?'#059669':'#DC2626'};font-weight:600">${fmt(k.a1)}</td>
+          <td>${fmt(k.a2)}</td>
+          <td>${fmt(k.a3)}</td>
+          <td style="font-size:8px;color:#94A3B8;font-style:italic">${k.soglia||'—'}</td>
+        </tr>`;
+      }).join('')}
+    </tbody>
+  </table>
   <h3>Alert e raccomandazioni</h3>
   ${alertsHTML || '<div class="alert-print ok">✅ Nessuna criticità rilevata. Il piano è sostenibile nelle ipotesi indicate.</div>'}
   <h3>Ricavi vs EBITDA (€ Milioni)</h3>
@@ -975,9 +1011,9 @@ ${(() => {
   ${secHdr('Modello CE proiettato', '4. Conto Economico Proiettato')}
   <div class="narrative">${narrativeCE}</div>
   <div class="ratio-row" style="margin-bottom:10px">
-    <div class="ratio-box"><div class="v" style="color:${EBITDAM1>=8?'#059669':'#D97706'}">${fmtP(EBITDAM1)}</div><div class="l">EBITDA Margin<br>Anno ${annoBase+1}</div></div>
-    <div class="ratio-box"><div class="v" style="color:${EBITDAM2>=8?'#059669':'#D97706'}">${fmtP(EBITDAM2)}</div><div class="l">EBITDA Margin<br>Anno ${annoBase+2}</div></div>
-    <div class="ratio-box"><div class="v" style="color:${EBITDAM3>=8?'#059669':'#D97706'}">${fmtP(EBITDAM3)}</div><div class="l">EBITDA Margin<br>Anno ${annoBase+3}</div></div>
+    <div class="ratio-box"><div class="v" style="color:${EBITDAM1>=8?'#059669':'#D97706'}">${fmtP(EBITDAM1)}</div><div class="l">EBITDA Margin<br>${annoBase+1}</div></div>
+    <div class="ratio-box"><div class="v" style="color:${EBITDAM2>=8?'#059669':'#D97706'}">${fmtP(EBITDAM2)}</div><div class="l">EBITDA Margin<br>${annoBase+2}</div></div>
+    <div class="ratio-box"><div class="v" style="color:${EBITDAM3>=8?'#059669':'#D97706'}">${fmtP(EBITDAM3)}</div><div class="l">EBITDA Margin<br>${annoBase+3}</div></div>
   </div>
   ${projTable(CE)}
   <div class="disclaimer">I tassi di crescita (+${d.g1}% / +${d.g2}% / +${d.g3}%) si applicano ai ricavi storici ${annoBase}. I costi vengono proiettati mantenendo la struttura di margine ${d.fonte==='xbrl'?'certificata dal bilancio XBRL':'dichiarata nel piano'}. L'EBITDA margin target è ${d.ebitda_margin}% costante nel triennio; l'incremento assoluto dell'EBITDA è interamente guidato dalla crescita dei ricavi.</div>
@@ -989,9 +1025,9 @@ ${(() => {
   ${secHdr('Modello SP proiettato', '5. Stato Patrimoniale Proiettato')}
   <div class="narrative">${narrativeSP}</div>
   <div class="ratio-row" style="margin-bottom:10px">
-    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA1)};margin-bottom:4px">${fmtX(PFNEBITDA1)}</span><div class="l">PFN/EBITDA<br>Anno ${annoBase+1}</div></div>
-    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA2)};margin-bottom:4px">${fmtX(PFNEBITDA2)}</span><div class="l">PFN/EBITDA<br>Anno ${annoBase+2}</div></div>
-    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)};margin-bottom:4px">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA<br>Anno ${annoBase+3}</div></div>
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA1)};margin-bottom:4px">${fmtX(PFNEBITDA1)}</span><div class="l">PFN/EBITDA<br>${annoBase+1}</div></div>
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA2)};margin-bottom:4px">${fmtX(PFNEBITDA2)}</span><div class="l">PFN/EBITDA<br>${annoBase+2}</div></div>
+    <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)};margin-bottom:4px">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA<br>${annoBase+3}</div></div>
   </div>
   ${projTable(SP)}
   <div class="info-box">Il patrimonio netto cresce da <strong>${fmtE(PN1)}</strong> (${annoBase + 1}) a <strong>${fmtE(PN3)}</strong> (${annoBase + 3}), rafforzando la solidità patrimoniale dell'azienda. La Posizione Finanziaria Netta evolve da <strong>${fmtE(PFN1)}</strong> a <strong>${fmtE(PFN3)}</strong>${PFN3 < PFN1 ? ', confermando il progressivo de-leveraging previsto dal piano' : '; il rapporto PFN/EBITDA si mantiene entro i parametri bancari'}.</div>
@@ -1101,7 +1137,7 @@ ${(() => {
   <table class="rep">
     <thead><tr><th>Anno</th><th>Quota capitale</th><th>Interessi</th><th>Debito residuo</th></tr></thead>
     <tbody>
-      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0).schedule.slice(0, 5).map(s => `<tr><td>Anno ${s.anno}</td><td>${fmtE(s.capitale)}</td><td>${fmtE(s.interessi)}</td><td>${fmtE(s.debResiduo)}</td></tr>`).join('')}
+      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0).schedule.slice(0, 5).map(s => `<tr><td>${annoBase + s.anno}</td><td>${fmtE(s.capitale)}</td><td>${fmtE(s.interessi)}</td><td>${fmtE(s.debResiduo)}</td></tr>`).join('')}
     </tbody>
   </table>` : ''}
   ${d.nota_metodologica ? `<h3>Nota metodologica</h3><p style="font-size:10px;color:#475569;line-height:1.7">${d.nota_metodologica}</p>` : ''}
