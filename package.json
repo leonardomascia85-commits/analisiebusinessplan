@@ -6,6 +6,7 @@
     "build": "echo 'No build needed'"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.55.1",
     "@sparticuz/chromium-min": "131.0.1",
     "express": "^5.2.1",
     "puppeteer-core": "23.9.0"
