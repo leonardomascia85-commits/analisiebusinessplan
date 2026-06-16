@@ -685,10 +685,9 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
   }).join('');
 
   const cssReport = `
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
     *{box-sizing:border-box;margin:0;padding:0}
     @page{size:A4;margin:18mm 16mm;}
-    body{font-family:'Inter',sans-serif;color:#0F172A;background:#E2E8F0;font-size:11px;line-height:1.5}
+    body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#0F172A;background:#E2E8F0;font-size:11px;line-height:1.5}
     .pos{color:#059669}.neg{color:#DC2626}.warn{color:#D97706}.neu{color:#1D4ED8}
     .page{width:210mm;min-height:297mm;background:#fff;margin:0 auto 14px;padding:24mm 18mm;position:relative;box-shadow:0 4px 24px rgba(0,0,0,.12);page-break-after:always}
     .page:last-child{page-break-after:auto}
@@ -699,8 +698,8 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
     .cover::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(135deg,transparent 0%,#1E3A5F 50%,#0E2A4A 100%);clip-path:polygon(20% 0%,100% 0%,100% 100%,0% 100%)}
     .cv-brand{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase}
     .cv-tipo{font-size:11px;color:#60A5FA;text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px;position:relative;z-index:1}
-    .cv-title{font-family:'Fraunces',serif;font-size:30px;font-weight:700;line-height:1.1;position:relative;z-index:1}
-    .cv-nome{font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#fff;line-height:1.05;margin:6px 0 10px;position:relative;z-index:1}
+    .cv-title{font-family:Georgia,serif;font-size:30px;font-weight:700;line-height:1.1;position:relative;z-index:1}
+    .cv-nome{font-family:Georgia,serif;font-size:40px;font-weight:700;color:#fff;line-height:1.05;margin:6px 0 10px;position:relative;z-index:1}
     .cv-badge{display:inline-block;background:${scenarioColor};color:#fff;font-size:11px;font-weight:600;padding:7px 16px;border-radius:20px;letter-spacing:.04em;position:relative;z-index:1}
     .cv-divider{height:1px;background:rgba(255,255,255,.1);margin:32px 0;position:relative;z-index:1}
     .cv-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px 24px;position:relative;z-index:1}
@@ -711,7 +710,7 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
     .sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:18px;border-bottom:2px solid #E2E8F0;padding-bottom:10px}
     .sec-bar{width:5px;height:30px;background:#2563EB;border-radius:3px}
     .sec-ey{font-size:9px;font-weight:700;color:#2563EB;text-transform:uppercase;letter-spacing:.12em}
-    .sec-ti{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:#0F172A}
+    .sec-ti{font-family:Georgia,serif;font-size:21px;font-weight:700;color:#0F172A}
     h3{font-size:12px;font-weight:700;color:#1D4ED8;margin:18px 0 8px}
     p.lead{font-size:10px;color:#64748B;margin-bottom:8px}
     .narrative{background:#F8FAFC;border-left:4px solid #2563EB;border-radius:6px;padding:14px 18px;font-size:10.5px;line-height:1.75;color:#334155;margin:14px 0}
@@ -720,7 +719,7 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
 
     .kpi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
     .kpi-card{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:13px 14px}
-    .kc-val{font-family:'Fraunces',serif;font-size:22px;font-weight:700;line-height:1}
+    .kc-val{font-family:Georgia,serif;font-size:22px;font-weight:700;line-height:1}
     .kc-lbl{font-size:10px;font-weight:600;color:#334155;margin-top:6px}
     .kc-sg{font-size:8.5px;color:#94A3B8;margin-top:2px}
 
@@ -745,7 +744,7 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
     .badge-yr{display:inline-block;font-size:9px;font-weight:700;padding:3px 9px;border-radius:12px;color:#fff}
     .ratio-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
     .ratio-box{text-align:center;padding:11px;border-radius:8px;background:#F8FAFC;border:1px solid #E2E8F0}
-    .ratio-box .v{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+    .ratio-box .v{font-family:Georgia,serif;font-size:18px;font-weight:700}
     .ratio-box .l{font-size:9px;color:#64748B;margin-top:3px}
 
     .info-box{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:14px;font-size:10px;line-height:1.6;color:#1E40AF;margin:12px 0}
