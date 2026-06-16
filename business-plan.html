@@ -1197,116 +1197,96 @@ function handleXbrlFile(file){
 
 // ─── Parser XBRL completo (tassonomia CCIAA italiana) ────
 function parseXBRL(xml){
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(xml, 'text/xml');
+  const content = xml;
 
-  // Mappa locale → valore (prende il primo valore numerico non-zero trovato)
-  function getVal(localNames){
-    const names = Array.isArray(localNames) ? localNames : [localNames];
-    const all = doc.getElementsByTagName('*');
-    for(const name of names){
-      const bare = name.split(':').pop();
-      for(const el of all){
-        if(el.localName === bare){
-          const txt = el.textContent.trim().replace(/\s/g,'');
-          const n = parseFloat(txt.replace(',','.'));
-          if(!isNaN(n) && n !== 0) return Math.abs(n); // CE italiani: costi positivi
-        }
-      }
+  // ── Contesti: trova istanti e durate, ordina per data desc ──
+  const ctxInstants=[], ctxDurations=[];
+  let pos=0;
+  while(pos<content.length){
+    const start=content.indexOf('<context ',pos);
+    if(start===-1)break;
+    const idM=content.slice(start,start+120).match(/id="([^"]+)"/);
+    if(!idM){pos=start+1;continue;}
+    const ctxId=idM[1];
+    const end=content.indexOf('</context>',start);
+    if(end===-1)break;
+    const body=content.slice(start,end+10);
+    const mInst=body.match(/<instant>(\d{4}-\d{2}-\d{2})<\/instant>/i);
+    if(mInst)ctxInstants.push({id:ctxId,date:mInst[1],year:parseInt(mInst[1])});
+    const mEnd=body.match(/<endDate>(\d{4}-\d{2}-\d{2})<\/endDate>/i);
+    if(mEnd)ctxDurations.push({id:ctxId,endDate:mEnd[1],year:parseInt(mEnd[1])});
+    pos=end+10;
+  }
+  ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
+  ctxDurations.sort((a,b)=>b.endDate.localeCompare(a.endDate));
+  const ctxCorrI=ctxInstants[0]?.id||'cntxCorr_i';
+  const ctxCorrD=ctxDurations[0]?.id||'cntxCorr_d';
+
+  // ── Estrazione valore/stringa con contextRef (taxonomy itcc-ci) ──
+  function getRaw(tag, ctx){
+    const p=new RegExp(`<itcc-ci:${tag}[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.,]+)<`,'i');
+    const m=content.match(p);
+    if(m) return parseFloat(m[1].replace(/\./g,'').replace(',','.'));
+    // fallback senza vincolo di contextRef (alcuni file non hanno il context atteso)
+    const p2=new RegExp(`<itcc-ci:${tag}[^>]*>([\\-\\d\\.,]+)<`,'i');
+    const m2=content.match(p2);
+    return m2?parseFloat(m2[1].replace(/\./g,'').replace(',','.')):0;
+  }
+  function getVal(tags, ctx){
+    const list = Array.isArray(tags) ? tags : [tags];
+    for(const tag of list){
+      const n = getRaw(tag, ctx);
+      if(!isNaN(n) && n !== 0) return Math.abs(n);
     }
     return 0;
   }
-  // Versione signed (per voci che possono essere negative)
-  function getValSigned(localNames){
-    const names = Array.isArray(localNames) ? localNames : [localNames];
-    const all = doc.getElementsByTagName('*');
-    for(const name of names){
-      const bare = name.split(':').pop();
-      for(const el of all){
-        if(el.localName === bare){
-          const txt = el.textContent.trim().replace(/\s/g,'');
-          const n = parseFloat(txt.replace(',','.'));
-          if(!isNaN(n) && n !== 0) return n;
-        }
-      }
+  function getValSigned(tags, ctx){
+    const list = Array.isArray(tags) ? tags : [tags];
+    for(const tag of list){
+      const n = getRaw(tag, ctx);
+      if(!isNaN(n) && n !== 0) return n;
     }
     return 0;
   }
-  function getStr(localNames){
-    const names = Array.isArray(localNames) ? localNames : [localNames];
-    const all = doc.getElementsByTagName('*');
-    for(const name of names){
-      const bare = name.split(':').pop();
-      for(const el of all){
-        if(el.localName === bare){
-          const txt = el.textContent.trim();
-          if(txt && txt.length < 200) return txt;
-        }
-      }
+  function getStr(tags){
+    const list = Array.isArray(tags) ? tags : [tags];
+    for(const tag of list){
+      const m=content.match(new RegExp(`<itcc-ci:${tag}[^>]*>([^<]+)<`,'i'));
+      if(m && m[1].trim() && m[1].trim().length < 200) return m[1].trim();
     }
     return '';
   }
 
-  // ── Anno: dal contesto (endDate) ──
-  let anno = '';
-  const all = doc.getElementsByTagName('*');
-  for(const el of all){
-    if(el.localName==='endDate'||el.localName==='EndDate'||el.localName==='end'){
-      const t = el.textContent.trim();
-      if(/^\d{4}-\d{2}-\d{2}/.test(t)){ anno = t.substring(0,4); break; }
-    }
-  }
+  // ── Anno: dal contesto corrente ──
+  const anno = ctxInstants[0] ? String(ctxInstants[0].year) : (ctxDurations[0] ? String(ctxDurations[0].year) : '');
 
   // ── Ragione Sociale ──
-  const nome = getStr(['RagioneSociale','denominazione','EntityRegistrantName',
-    'CompanyName','EntityName','ragione-sociale','BusinessName']);
+  const nome = getStr(['DatiAnagraficiDenominazione','RagioneSociale']);
 
   // ════════════════════════════════
-  // CONTO ECONOMICO
+  // CONTO ECONOMICO (valori sul context di durata corrente)
   // ════════════════════════════════
 
   // A) Valore della produzione
-  const ricavi    = getVal([
-    // IT-GAAP standard
-    'RicaviVenditePrestazioni','RicaviNetti','RicaviVenditeProdotti',
-    'PrestazioneDiServizi','TotaleRicaviProventiValore',
-    // IT-GAAP taxonomy letter codes (art. 2425 c.c.)
-    'A1','A-1','A1RicaviVenditePrestazioni',
-    // Valore della produzione totale (fallback)
-    'ValoredellaProduzione','TotaleValoredellaProduzione','ValoreDellaProduzione',
-    'TotaleValoredellaProduzioneCE','A',
-    // IFRS / international
-    'SalesRevenueNet','Revenue','Revenues','TurnoverRevenue',
-    'RevenueFromContractsWithCustomers','NetRevenue',
-    // Altre varianti italiane
-    'TotaleRicavi','RicaviTotali','FatturatoBrutto','Fatturato'
-  ]);
-  const altri_ric = getVal(['AltriRicaviProventi','OtherRevenues','AltriRicavi']);
-  const varRim    = getValSigned(['VariazioniRimanenzeProdotti','VariazioneRimanenze',
-    'IncrementoLavorazioniInterneImmobilizzazioni']);
+  const ricavi    = getVal(['ValoreProduzioneRicaviVenditePrestazioni'], ctxCorrD);
+  const altri_ric = getVal(['ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi'], ctxCorrD);
+  const varRim    = getValSigned(['ValoreProduzioneVariazioniRimanenzeProdotti'], ctxCorrD);
   let val_prod  = ricavi + altri_ric + (varRim > 0 ? varRim : 0);
-  // Fallback: se ricavi=0 ma val_prod è calcolabile da totale valore produzione
-  const val_prod_raw = getVal(['ValoredellaProduzione','TotaleValoredellaProduzione','ValoreDellaProduzione','A']);
+  // Fallback: se ricavi=0 ma il totale valore produzione è disponibile
+  const val_prod_raw = getVal(['TotaleValoreProduzione'], ctxCorrD);
   if(ricavi === 0 && val_prod_raw > 0) val_prod = val_prod_raw;
 
   // B) Costi della produzione
-  const mat_prime  = getVal(['MateriePrimeConsumabiliMerci','AcquistiMateriePrime',
-    'RawMaterialsAndConsumablesUsed','CostOfGoodsSold']);
-  const servizi    = getVal(['Servizi','ServicesExpenses','CostiServizi']);
-  const godimento  = getVal(['GodimentoBeniTerzi','AffitiLocazioni','RentExpense']);
-  const costo_pers = getVal(['CostiPersonale','TotaleCostiPersonale','SalariStipendi',
-    'EmployeeBenefitsExpense','PersonnelCosts']);
-  const amm_imm    = getVal(['AmmortamentiImmobilizzazioniImmateriali',
-    'AmortizationOfIntangibleAssets','AmmortamentiOneriPlurienn']);
-  const amm_mat    = getVal(['AmmortamentiImmobilizzazioniMateriali',
-    'DepreciationPropertyPlantEquipment','AmmortamentiImmobilizzazioniCorpo']);
-  const sval       = getVal(['SvalutazioniCrediti','SvalutazioniAttivitaCircolanti']);
-  const ammortamenti = amm_imm + amm_mat + sval ||
-                       getVal(['AmmortamentiESvalutazioni','AmmortamentiTotali','DepreciationAndAmortization']);
-  const altri_costi= getVal(['AltriOneriGestionali','AltriCostiOperativi','OneriDiversiGestione']);
+  const mat_prime  = getVal(['CostiProduzioneMateriePrimeSussidiarieConsumoMerci'], ctxCorrD);
+  const servizi    = getVal(['CostiProduzioneServizi'], ctxCorrD);
+  const godimento  = getVal(['CostiProduzioneGodimentoBeniTerzi'], ctxCorrD);
+  const costo_pers = getVal(['CostiProduzionePersonaleTotaleCostiPersonale'], ctxCorrD);
+  const ammortamenti = getVal(['CostiProduzioneAmmortamentiSvalutazioniTotaleAmmortamentiSvalutazioni'], ctxCorrD);
+  const altri_costi= getVal(['CostiProduzioneOneriDiversiGestione'], ctxCorrD);
   const var_rim_neg= varRim < 0 ? Math.abs(varRim) : 0;
 
-  const costi_prod = mat_prime + servizi + godimento + costo_pers + ammortamenti + altri_costi + var_rim_neg;
+  let costi_prod = getVal(['TotaleCostiProduzione'], ctxCorrD);
+  if(!costi_prod) costi_prod = mat_prime + servizi + godimento + costo_pers + ammortamenti + altri_costi + var_rim_neg;
 
   // Se ricavi rimane 0, usa val_prod come base (valore produzione totale)
   const ricavi_eff = ricavi > 0 ? ricavi : val_prod;
@@ -1316,56 +1296,47 @@ function parseXBRL(xml){
   const ebitda = ebit + ammortamenti;
 
   // C) Proventi/Oneri finanziari
-  const prov_fin   = getVal(['ProventieOneriFinanziari','ProventiFinanziari','InteressiAttivi']);
-  const oneri_fin  = getVal(['OneriFinanziari','InteressiPassiviOneriFinanziari',
-    'InteressiPassivi','FinanceCosts','FinancialExpenses']);
+  const prov_fin   = getVal(['ProventiOneriFinanziariAltriProventiFinanziari'], ctxCorrD);
+  const oneri_fin  = getVal(['TotaleInteressiAltriOneriFinanziari'], ctxCorrD);
 
   // ════════════════════════════════
-  // STATO PATRIMONIALE ATTIVO
+  // STATO PATRIMONIALE ATTIVO (valori sul context istantaneo corrente)
   // ════════════════════════════════
 
   // Crediti verso clienti (per DSO)
-  const crediti_clienti = getVal(['CreditiVsClientiEntroEsercizio',
-    'CreditiVsClientiOltreEsercizio','CreditiVsClienti','TradeReceivables',
-    'AccountsReceivable']);
+  const crediti_clienti = getVal(['CreditiVersoClientiTotaleCreditiVersoClienti'], ctxCorrI);
 
   // Rimanenze (per DIO)
-  const rimanenze = getVal(['TotaleRimanenze','Rimanenze','Inventories',
-    'MateriePrimeRimanenze','ProdottiFiniti']);
+  const rimanenze = getVal(['TotaleRimanenze'], ctxCorrI);
 
   // Liquidità
-  const liquid = getVal(['DisponibilitaLiquide','LiquiditaImmediata',
-    'CassaDepositiBancari','Cash','CashAndCashEquivalents']);
+  const liquid = getVal(['TotaleDisponibilitaLiquide'], ctxCorrI);
 
   // Immobilizzazioni (per capex storico di riferimento)
-  const immob_mat  = getVal(['TotaleImmobilizzazioniMateriali','ImmobilizzazioniMateriali',
-    'PropertyPlantAndEquipmentNet']);
-  const immob_imm  = getVal(['TotaleImmobilizzazioniImmateriali','ImmobilizzazioniImmateriali']);
-  const tot_attivo = getVal(['TotaleAttivo','TotalAssets','TotaleAttivita']);
+  const immob_mat  = getVal(['TotaleImmobilizzazioniMateriali'], ctxCorrI);
+  const immob_imm  = getVal(['TotaleImmobilizzazioniImmateriali'], ctxCorrI);
+  const tot_attivo = getVal(['TotaleAttivo'], ctxCorrI);
 
   // ════════════════════════════════
   // STATO PATRIMONIALE PASSIVO
   // ════════════════════════════════
 
   // Debiti verso fornitori (per DPO)
-  const debiti_fornitori = getVal(['DebitiVersoFornitoriEntroEsercizio',
-    'DebitiVersiFornitori','DebitiFornitoriBreveTermine','TradePayables','AccountsPayable']);
+  const debiti_fornitori = getVal(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori'], ctxCorrI);
 
   // Debiti bancari
-  const deb_bt  = getVal(['DebitiVersoBancheBrevePeriodo','DebitiBancariBreveTermine',
-    'DebitiVersoBancheEntroEsercizio','ShortTermBankBorrowings']);
-  const deb_mlt = getVal(['DebitiVersoBancheMedioLungoTermine','DebitiBancariMedioLungo',
-    'DebitiVersoBancheOltreEsercizio','LongTermBankBorrowings']);
+  const deb_bt  = getVal(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo'], ctxCorrI);
+  const deb_mlt = getVal(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo'], ctxCorrI);
 
   // Patrimonio netto
-  const cap_soc = getVal(['CapitaleSociale','IssuedCapital','ShareCapital']);
-  const riserve = getVal(['RiserveLegale','AltreRiserve','Reserves']);
-  const utile_es= getValSigned(['UtilePerditaEsercizio','ProfitLoss','NetIncome']);
-  const pn = getVal(['TotalePatrimonioNetto','PatrimonioNetto','StockholdersEquity','Equity'])
+  const cap_soc = getVal(['PatrimonioNettoCapitale'], ctxCorrI);
+  const riserve = getVal(['PatrimonioNettoRiserveTotaleAltreRiserve','PatrimonioNettoRiservaLegale'], ctxCorrI);
+  const utile_es= getValSigned(['PatrimonioNettoUtilePerditaEsercizio','UtilePerditaEsercizio'], ctxCorrI);
+  const pn = getVal(['TotalePatrimonioNetto'], ctxCorrI)
              || cap_soc + riserve + utile_es;
 
   // TFR
-  const tfr = getVal(['TrattamentoFineRapporto','SeverancePay','TFR']);
+  const tfr = getVal(['TrattamentoFineRapportoLavoroSubordinato'], ctxCorrI);
 
   // ════════════════════════════════
   // METRICHE DERIVATE PER PROIEZIONI
@@ -1390,7 +1361,7 @@ function parseXBRL(xml){
   const dio = costi_gg  > 0 ? Math.round(rimanenze / costi_gg)         : 30;
 
   // N. dipendenti (se disponibile)
-  const n_dip = getVal(['NumeroMedioDipendenti','NumberOfEmployees','NumeroDipendenti']);
+  const n_dip = getVal(['TotaleDipendentiNumeroMedio'], ctxCorrD);
   const costo_medio_dip = (n_dip > 0 && costo_pers > 0) ? Math.round(costo_pers / n_dip) : 0;
 
   return {
