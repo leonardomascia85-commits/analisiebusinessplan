@@ -249,15 +249,15 @@ function buildBusinessPlan(d) {
   // ── Alerts
   const alerts = [];
   if (DSCR1 !== null && DSCR1 < 1.1)
-    alerts.push({ type: 'danger', icon: '🚨', msg: `DSCR Anno 1 = ${DSCR1.toFixed(2)}x — SOTTO SOGLIA MINIMA 1,10x. Necessario rivedere il piano di rimborso o aumentare l'EBITDA. (EBA/GL/2020/06)` });
+    alerts.push({ type: 'danger', icon: '🚨', msg: `DSCR ${annoBase + 1} = ${DSCR1.toFixed(2)}x — SOTTO SOGLIA MINIMA 1,10x. Necessario rivedere il piano di rimborso o aumentare l'EBITDA. (EBA/GL/2020/06)` });
   else if (DSCR1 !== null)
-    alerts.push({ type: 'success', icon: '✅', msg: `DSCR Anno 1 = ${DSCR1.toFixed(2)}x — Sopra la soglia minima bancaria di 1,10x (EBA/GL/2020/06).` });
+    alerts.push({ type: 'success', icon: '✅', msg: `DSCR ${annoBase + 1} = ${DSCR1.toFixed(2)}x — Sopra la soglia minima bancaria di 1,10x (EBA/GL/2020/06).` });
   if (PFN1 / (EBITDA1 || 1) > 4)
-    alerts.push({ type: 'warning', icon: '⚠️', msg: `PFN/EBITDA Anno 1 = ${(PFN1 / EBITDA1).toFixed(1)}x — Supera la soglia di attenzione di 4x. Le banche potrebbero richiedere garanzie aggiuntive.` });
+    alerts.push({ type: 'warning', icon: '⚠️', msg: `PFN/EBITDA ${annoBase + 1} = ${(PFN1 / EBITDA1).toFixed(1)}x — Supera la soglia di attenzione di 4x. Le banche potrebbero richiedere garanzie aggiuntive.` });
   if (FCFF1 < 0)
-    alerts.push({ type: 'warning', icon: '⚠️', msg: `Free Cash Flow Anno 1 negativo (${fmtN(FCFF1)} €). Verificare il piano di investimenti e la tempistica degli incassi.` });
+    alerts.push({ type: 'warning', icon: '⚠️', msg: `Free Cash Flow ${annoBase + 1} negativo (${fmtN(FCFF1)} €). Verificare il piano di investimenti e la tempistica degli incassi.` });
   if (UN1 < 0)
-    alerts.push({ type: 'danger', icon: '🚨', msg: `Utile Netto Anno 1 negativo (${fmtN(UN1)} €). Rivedere margini, costi o struttura finanziaria.` });
+    alerts.push({ type: 'danger', icon: '🚨', msg: `Utile Netto ${annoBase + 1} negativo (${fmtN(UN1)} €). Rivedere margini, costi o struttura finanziaria.` });
 
   // ── HTML report
   const html = buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts },
@@ -602,7 +602,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
 
   // ── Simple 4-col table (CF)
   const cfTable = (rows) => {
-    let h = `<table class="rep"><thead><tr><th>Voce</th><th>Storico ${annoBase}</th><th>Anno 1 (${annoBase + 1})</th><th>Anno 2 (${annoBase + 2})</th><th>Anno 3 (${annoBase + 3})</th></tr></thead><tbody>`;
+    let h = `<table class="rep"><thead><tr><th>Voce</th><th>Storico ${annoBase}</th><th>${annoBase + 1}</th><th>${annoBase + 2}</th><th>${annoBase + 3}</th></tr></thead><tbody>`;
     rows.forEach(r => {
       if (r.section && !r.label) return;
       let cls = '';
@@ -630,9 +630,9 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   const narrative = `
 <p><strong>${nome}</strong> ${settoreLabel} presenta un piano economico-finanziario per il triennio ${annoBase + 1}–${annoBase + 3} costruito su uno scenario ${scenarioDesc}. I ricavi passano da ${fmtE(R0)} nello storico ${annoBase} a ${fmtE(R3)} al termine del periodo${CAGR !== null ? `, con un tasso di crescita composto annuo (CAGR) del <strong>${fmtP(CAGR)}</strong>` : ''}, confermando la traiettoria di sviluppo prevista dalla direzione.</p>
 
-<p>Sul piano della redditività, l'EBITDA margin si attesta al <strong>${fmtP(EBITDAM1)}</strong> nell'Anno 1 ${EBITDAM1 >= 8 ? 'e rimane stabilmente al di sopra della soglia bancaria dell\'8%' : `— al di sotto della soglia bancaria dell'8% — con un percorso di progressivo miglioramento verso il ${fmtP(EBITDAM3)} atteso nell'Anno 3`}. L'utile netto del primo anno proiettato è pari a <strong>${fmtE(UN1)}</strong>${UN1 >= 0 ? ', confermando la sostenibilità economica del piano' : ': si raccomanda un piano di contenimento dei costi per il ritorno all\'utile'}.</p>
+<p>Sul piano della redditività, l'EBITDA margin si attesta al <strong>${fmtP(EBITDAM1)}</strong> nel ${annoBase + 1} ${EBITDAM1 >= 8 ? 'e rimane stabilmente al di sopra della soglia bancaria dell\'8%' : `— al di sotto della soglia bancaria dell'8% — con un percorso di progressivo miglioramento verso il ${fmtP(EBITDAM3)} atteso nel ${annoBase + 3}`}. L'utile netto del primo anno proiettato è pari a <strong>${fmtE(UN1)}</strong>${UN1 >= 0 ? ', confermando la sostenibilità economica del piano' : ': si raccomanda un piano di contenimento dei costi per il ritorno all\'utile'}.</p>
 
-<p>Sotto il profilo della sostenibilità finanziaria, il <strong>DSCR di ${fmtX(DSCR1)}</strong> ${DSCR1 >= 1.10 ? 'supera il requisito minimo di 1,10x fissato dalle Linee Guida EBA/GL/2020/06, indicando una adeguata copertura del servizio del debito' : 'si posiziona al di sotto del requisito minimo EBA di 1,10x: il piano necessita di una revisione della struttura finanziaria o di una riduzione del debito'}. La posizione finanziaria netta evolve da ${fmtE(PFN1)} nell'Anno 1 a ${fmtE(PFN3)} nell'Anno 3${PFN3 < PFN1 ? ', evidenziando un progressivo de-leveraging' : ', con un lieve incremento dell\'indebitamento netto'}.</p>
+<p>Sotto il profilo della sostenibilità finanziaria, il <strong>DSCR di ${fmtX(DSCR1)}</strong> ${DSCR1 >= 1.10 ? 'supera il requisito minimo di 1,10x fissato dalle Linee Guida EBA/GL/2020/06, indicando una adeguata copertura del servizio del debito' : 'si posiziona al di sotto del requisito minimo EBA di 1,10x: il piano necessita di una revisione della struttura finanziaria o di una riduzione del debito'}. La posizione finanziaria netta evolve da ${fmtE(PFN1)} nel ${annoBase + 1} a ${fmtE(PFN3)} nel ${annoBase + 3}${PFN3 < PFN1 ? ', evidenziando un progressivo de-leveraging' : ', con un lieve incremento dell\'indebitamento netto'}.</p>
 
 ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>: i principali indicatori di rischio (DSCR, PFN/EBITDA, utile netto) rientrano nei parametri richiesti dagli istituti di credito per l\'erogazione di nuovi finanziamenti.</p>' : '<p>Il profilo del piano presenta <strong>elementi di attenzione</strong> che richiedono una verifica approfondita con gli istituti di credito prima di procedere alla richiesta di finanziamento.</p>'}`;
 
@@ -642,11 +642,11 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
 
   // ── narrative per sezione SP
   const narrativeSP = `
-<p>Lo Stato Patrimoniale proiettato evidenzia l'evoluzione della struttura patrimoniale nel triennio. Il patrimonio netto cresce grazie all'accumulo degli utili non distribuiti, passando da <strong>${fmtE(d.pn_attuale || 0)}</strong> (storico) a <strong>${fmtE(PN3)}</strong> nell'Anno 3, rafforzando il grado di autonomia finanziaria. Il capitale circolante netto viene gestito applicando i parametri storici di DSO (${d.dso || '—'} gg), DPO (${d.dpo || '—'} gg) e DIO (${d.dio || '—'} gg) ai volumi proiettati. La posizione finanziaria netta ${PFN3 < (d.pfn_storico || 0) ? 'si riduce progressivamente' : 'si mantiene sotto controllo'}, evidenziando la capacità del piano di generare flussi di cassa sufficienti a rimborsare il debito in essere.</p>`;
+<p>Lo Stato Patrimoniale proiettato evidenzia l'evoluzione della struttura patrimoniale nel triennio. Il patrimonio netto cresce grazie all'accumulo degli utili non distribuiti, passando da <strong>${fmtE(d.pn_attuale || 0)}</strong> (storico) a <strong>${fmtE(PN3)}</strong> nel ${annoBase + 3}, rafforzando il grado di autonomia finanziaria. Il capitale circolante netto viene gestito applicando i parametri storici di DSO (${d.dso || '—'} gg), DPO (${d.dpo || '—'} gg) e DIO (${d.dio || '—'} gg) ai volumi proiettati. La posizione finanziaria netta ${PFN3 < (d.pfn_storico || 0) ? 'si riduce progressivamente' : 'si mantiene sotto controllo'}, evidenziando la capacità del piano di generare flussi di cassa sufficienti a rimborsare il debito in essere.</p>`;
 
   // ── narrative per sezione CF
   const narrativeCF = `
-<p>Il Rendiconto Finanziario mostra la generazione di cassa nel triennio. Il flusso operativo (Free Cash Flow from Operations) ${EBITDA1 > 0 ? `è positivo già dall'Anno 1 (EBITDA ${fmtE(EBITDA1)} al netto di variazioni di CCN e imposte)` : 'presenta tensioni nel primo anno, con miglioramento atteso nel biennio successivo'}. Il flusso di investimento riflette il piano CAPEX ${(d.capex && d.capex.length) ? 'definito nel modello' : 'di manutenzione ordinaria ipotizzato nel modello'}. Il flusso finanziario include il rimborso del debito bancario esistente${d.nuovo_fin && d.fin_importo ? ` e l'erogazione del nuovo finanziamento di ${fmtE(d.fin_importo)}` : ''}. La cassa finale rimane positiva in tutti e tre gli anni, segnale di solidità della pianificazione finanziaria.</p>`;
+<p>Il Rendiconto Finanziario mostra la generazione di cassa nel triennio. Il flusso operativo (Free Cash Flow from Operations) ${EBITDA1 > 0 ? `è positivo già dal ${annoBase + 1} (EBITDA ${fmtE(EBITDA1)} al netto di variazioni di CCN e imposte)` : 'presenta tensioni nel primo anno, con miglioramento atteso nel biennio successivo'}. Il flusso di investimento riflette il piano CAPEX ${(d.capex && d.capex.length) ? 'definito nel modello' : 'di manutenzione ordinaria ipotizzato nel modello'}. Il flusso finanziario include il rimborso del debito bancario esistente${d.nuovo_fin && d.fin_importo ? ` e l'erogazione del nuovo finanziamento di ${fmtE(d.fin_importo)}` : ''}. La cassa finale rimane positiva in tutti e tre gli anni, segnale di solidità della pianificazione finanziaria.</p>`;
 
   // ── KPI cards (exec summary)
   const kpiCard = (val, label, soglia, color) => `
@@ -662,7 +662,7 @@ ${bancabile ? '<p>Il profilo complessivo del piano è <strong>bancabile</strong>
 
   const kpiCards = `
     <div class="kpi-cards">
-      ${kpiCard(fmtX(DSCR1), 'DSCR Anno 1', 'EBA min ≥ 1,10x', dscrColor(DSCR1))}
+      ${kpiCard(fmtX(DSCR1), `DSCR ${annoBase + 1}`, 'EBA min ≥ 1,10x', dscrColor(DSCR1))}
       ${kpiCard(fmtP(EBITDAM1), 'EBITDA Margin A1', 'Target > 8%', EBITDAM1 >= 8 ? '#059669' : EBITDAM1 >= 4 ? '#D97706' : '#DC2626')}
       ${kpiCard(fmtX(PFNEBITDA1), 'PFN / EBITDA A1', 'Attenzione > 4x', pfnColor(PFNEBITDA1))}
       ${kpiCard('+' + (d.g1 || 0) + '%', 'Crescita Ricavi A1', `Scenario ${scenarioLabel}`, cresc1Color)}
@@ -994,7 +994,7 @@ ${(() => {
     <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)};margin-bottom:4px">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA<br>Anno ${annoBase+3}</div></div>
   </div>
   ${projTable(SP)}
-  <div class="info-box">Il patrimonio netto cresce da <strong>${fmtE(PN1)}</strong> (Anno 1) a <strong>${fmtE(PN3)}</strong> (Anno 3), rafforzando la solidità patrimoniale dell'azienda. La Posizione Finanziaria Netta evolve da <strong>${fmtE(PFN1)}</strong> a <strong>${fmtE(PFN3)}</strong>${PFN3 < PFN1 ? ', confermando il progressivo de-leveraging previsto dal piano' : '; il rapporto PFN/EBITDA si mantiene entro i parametri bancari'}.</div>
+  <div class="info-box">Il patrimonio netto cresce da <strong>${fmtE(PN1)}</strong> (${annoBase + 1}) a <strong>${fmtE(PN3)}</strong> (${annoBase + 3}), rafforzando la solidità patrimoniale dell'azienda. La Posizione Finanziaria Netta evolve da <strong>${fmtE(PFN1)}</strong> a <strong>${fmtE(PFN3)}</strong>${PFN3 < PFN1 ? ', confermando il progressivo de-leveraging previsto dal piano' : '; il rapporto PFN/EBITDA si mantiene entro i parametri bancari'}.</div>
   ${pf(5)}
 </div>
 
@@ -1003,7 +1003,7 @@ ${(() => {
   ${secHdr('Rendiconto finanziario', '6. Cash Flow Statement')}
   <div class="narrative">${narrativeCF}</div>
   ${cfTable(CF)}
-  <h3>Waterfall Cash Flow Anno 1 (${annoBase + 1})</h3>
+  <h3>Waterfall Cash Flow ${annoBase + 1}</h3>
   <div class="chart-box">${svgWaterfall()}</div>
   ${pf(6)}
 </div>
@@ -1013,7 +1013,7 @@ ${(() => {
   ${secHdr('Sostenibilità del debito', '7. DSCR e Bancabilità EBA')}
   <div class="narrative">
     <p>Il <strong>Debt Service Coverage Ratio (DSCR)</strong> misura la capacità dell'impresa di coprire il servizio del debito (quota capitale + interessi) con i flussi di cassa operativi. Le Linee Guida EBA/GL/2020/06 richiedono un DSCR minimo di <strong>1,10x</strong> per l'accesso al credito; un valore ≥ 1,30x è considerato un profilo solido, mentre un valore ≥ 1,50x indica un'eccellente copertura.</p>
-    <p>${nome} presenta un DSCR di <strong>${fmtX(DSCR1)}</strong> nell'Anno 1, ${DSCR1 >= 1.5 ? 'posizionandosi in una fascia di eccellente solidità finanziaria' : DSCR1 >= 1.3 ? 'collocandosi in un profilo solido, ben al di sopra del requisito minimo bancario' : DSCR1 >= 1.1 ? 'superando il requisito minimo EBA, con un margine di sicurezza sufficiente' : 'risultando inferiore al requisito minimo EBA: si raccomanda una revisione del piano di rimborso o una rinegoziazione del debito'}. Il ratio migliora${DSCR3 > DSCR1 ? ` progressivamente` : ''} nel triennio, raggiungendo ${fmtX(DSCR3)} nell'Anno 3, grazie alla crescita dell'EBITDA.</p>
+    <p>${nome} presenta un DSCR di <strong>${fmtX(DSCR1)}</strong> nel ${annoBase + 1}, ${DSCR1 >= 1.5 ? 'posizionandosi in una fascia di eccellente solidità finanziaria' : DSCR1 >= 1.3 ? 'collocandosi in un profilo solido, ben al di sopra del requisito minimo bancario' : DSCR1 >= 1.1 ? 'superando il requisito minimo EBA, con un margine di sicurezza sufficiente' : 'risultando inferiore al requisito minimo EBA: si raccomanda una revisione del piano di rimborso o una rinegoziazione del debito'}. Il ratio migliora${DSCR3 > DSCR1 ? ` progressivamente` : ''} nel triennio, raggiungendo ${fmtX(DSCR3)} nel ${annoBase + 3}, grazie alla crescita dell'EBITDA.</p>
   </div>
   <h3>Debt Service Coverage Ratio — scala EBA</h3>
   <div class="chart-box">${svgDscrScale(DSCR1)}</div>
@@ -1031,7 +1031,7 @@ ${(() => {
     <strong>Requisiti EBA/GL/2020/06.</strong> Il DSCR minimo per la bancabilità è 1,10x; un valore ≥ 1,30x indica un profilo solido. Il PFN/EBITDA non dovrebbe superare 4x. Le linee guida richiedono inoltre prove di stress prospettiche sui flussi di cassa.
   </div>
   <div class="stress-box">
-    <strong>Stress test −20% ricavi:</strong> Ricavi Anno 1 ${fmtE(stressR1)} · EBITDA ${fmtE(stressEBITDA1)} · DSCR stress <strong>${fmtX(stressDSCR1)}</strong>.<br>
+    <strong>Stress test −20% ricavi:</strong> Ricavi ${annoBase+1} ${fmtE(stressR1)} · EBITDA ${fmtE(stressEBITDA1)} · DSCR stress <strong>${fmtX(stressDSCR1)}</strong>.<br>
     ${stressDSCR1 !== null && stressDSCR1 < 1.0 ? '⚠️ In scenario stress il DSCR scende sotto 1x: raccomandata riserva di liquidità o covenant di sospensione dividendi.' : '✅ Anche in scenario stress il piano resta gestibile.'}
   </div>
   <div style="text-align:center;margin-top:16px">
@@ -1044,12 +1044,12 @@ ${(() => {
 <div class="page">
   ${secHdr('Punto di pareggio', '8. Break-Even e Sensibilità')}
   <div class="narrative">
-    <p>L'<strong>analisi di break-even</strong> determina il livello minimo di ricavi necessario a coprire tutti i costi fissi dell'impresa, ovvero il punto in cui l'utile operativo è pari a zero. ${be ? `Per ${nome}, il punto di pareggio è fissato a <strong>${fmtE(be.ricavi_be)}</strong> di fatturato: con i ricavi proiettati dell'Anno 1 pari a <strong>${fmtE(be.ricavi_a1)}</strong>, l'azienda opera con un <strong>margine di sicurezza del ${fmtP(be.margine_perc)}</strong> (${fmtE(be.margine_sicurezza)} di ricavi "in eccesso" rispetto al break-even). ${be.utilizzo_cap <= 70 ? 'Il piano è robusto: anche con una contrazione significativa dei ricavi, l\'impresa mantiene la copertura dei costi fissi.' : be.utilizzo_cap <= 90 ? 'Il piano è sostenibile, ma il margine di sicurezza richiede un monitoraggio attento dell\'andamento dei ricavi.' : 'L\'azienda opera in prossimità del punto di pareggio: priorità alla gestione dei costi fissi e al presidio dei ricavi minimi.'}` : 'Dati insufficienti per il calcolo del break-even.'}</p>
-    <p>L'<strong>analisi di sensibilità</strong> simula l'impatto di cali dei ricavi sul DSCR Anno 1, mantenendo invariati la struttura dei costi e il servizio del debito. Lo scopo è identificare la soglia di rottura della bancabilità, ovvero il calo massimo di ricavi compatibile con il requisito EBA di 1,10x.</p>
+    <p>L'<strong>analisi di break-even</strong> determina il livello minimo di ricavi necessario a coprire tutti i costi fissi dell'impresa, ovvero il punto in cui l'utile operativo è pari a zero. ${be ? `Per ${nome}, il punto di pareggio è fissato a <strong>${fmtE(be.ricavi_be)}</strong> di fatturato: con i ricavi proiettati del ${annoBase+1} pari a <strong>${fmtE(be.ricavi_a1)}</strong>, l'azienda opera con un <strong>margine di sicurezza del ${fmtP(be.margine_perc)}</strong> (${fmtE(be.margine_sicurezza)} di ricavi "in eccesso" rispetto al break-even). ${be.utilizzo_cap <= 70 ? 'Il piano è robusto: anche con una contrazione significativa dei ricavi, l\'impresa mantiene la copertura dei costi fissi.' : be.utilizzo_cap <= 90 ? 'Il piano è sostenibile, ma il margine di sicurezza richiede un monitoraggio attento dell\'andamento dei ricavi.' : 'L\'azienda opera in prossimità del punto di pareggio: priorità alla gestione dei costi fissi e al presidio dei ricavi minimi.'}` : 'Dati insufficienti per il calcolo del break-even.'}</p>
+    <p>L'<strong>analisi di sensibilità</strong> simula l'impatto di cali dei ricavi sul DSCR ${annoBase+1}, mantenendo invariati la struttura dei costi e il servizio del debito. Lo scopo è identificare la soglia di rottura della bancabilità, ovvero il calo massimo di ricavi compatibile con il requisito EBA di 1,10x.</p>
   </div>
   ${be ? `
   <table class="rep">
-    <thead><tr><th>Ricavi BE</th><th>Ricavi Anno 1</th><th>Utilizzo capacità</th><th>Margine sicurezza €</th><th>Margine sicurezza %</th></tr></thead>
+    <thead><tr><th>Ricavi BE</th><th>Ricavi ${annoBase+1}</th><th>Utilizzo capacità</th><th>Margine sicurezza €</th><th>Margine sicurezza %</th></tr></thead>
     <tbody><tr>
       <td>${fmtE(be.ricavi_be)}</td><td>${fmtE(be.ricavi_a1)}</td>
       <td>${fmtP(be.utilizzo_cap)}</td><td>${fmtE(be.margine_sicurezza)}</td>
@@ -1058,7 +1058,7 @@ ${(() => {
   </table>
   <h3>Visualizzazione Break-Even</h3>
   <div class="chart-box">${svgBreakEven()}</div>` : '<p class="lead">Dati break-even non disponibili.</p>'}
-  <h3>Analisi di Sensibilità sui Ricavi (Anno 1)</h3>
+  <h3>Analisi di Sensibilità sui Ricavi (${annoBase + 1})</h3>
   <table class="rep">
     <thead><tr><th>Scenario ricavi</th><th>Ricavi</th><th>EBITDA</th><th>DSCR</th><th>Esito</th></tr></thead>
     <tbody>${sensRows}</tbody>
@@ -1090,7 +1090,7 @@ ${(() => {
   ${(d.capex && d.capex.length) ? `
   <h3>Piano CAPEX</h3>
   <table class="rep">
-    <thead><tr><th>Investimento</th><th>Categoria</th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Vita</th></tr></thead>
+    <thead><tr><th>Investimento</th><th>Categoria</th><th>${annoBase + 1}</th><th>${annoBase + 2}</th><th>${annoBase + 3}</th><th>Vita</th></tr></thead>
     <tbody>
       ${d.capex.map(c => `<tr><td>${c.desc || '—'}</td><td>${c.tipo || '—'}</td><td>${fmtE(c.a1)}</td><td>${fmtE(c.a2)}</td><td>${fmtE(c.a3)}</td><td>${c.vita || 5} anni</td></tr>`).join('')}
       <tr class="tot"><td colspan="2">TOTALE</td><td>${fmtE(sumCapex(d.capex, 1))}</td><td>${fmtE(sumCapex(d.capex, 2))}</td><td>${fmtE(sumCapex(d.capex, 3))}</td><td></td></tr>
