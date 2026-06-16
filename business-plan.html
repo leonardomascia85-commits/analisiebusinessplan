@@ -242,6 +242,10 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
               <div style="font-size:.72rem;font-weight:600;color:var(--verde);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Settore</div>
               <input type="text" id="settore_bp" placeholder="Es. Manifattura…" style="border:none;background:transparent;font-weight:700;font-size:.95rem;color:var(--testo);width:100%;padding:0;outline:none">
             </div>
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px">
+              <div style="font-size:.72rem;font-weight:600;color:var(--verde);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Codice ATECO</div>
+              <input type="text" id="codice_ateco" placeholder="Es. 23.99" oninput="aggiornaAtecoHint()" style="border:none;background:transparent;font-weight:700;font-size:.95rem;color:var(--testo);width:100%;padding:0;outline:none">
+            </div>
           </div>
 
           <!-- ═══ FAST-TRACK: solo 2 cose da specificare ═══ -->
@@ -365,16 +369,16 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
             </div>
           </div>
 
-          <!-- Sezione qualitativa (opzionale) -->
-          <div style="border:1.5px solid var(--bordo);border-radius:14px;overflow:hidden;margin-bottom:20px">
-            <div onclick="toggleSezioneQual()" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;background:#fff;user-select:none">
+          <!-- Sezione qualitativa (si apre automaticamente dopo XBRL) -->
+          <div style="border:1.5px solid #BFDBFE;border-radius:14px;overflow:hidden;margin-bottom:20px;background:#EFF6FF">
+            <div onclick="toggleSezioneQual()" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;background:#EFF6FF;user-select:none">
               <div>
-                <div style="font-size:.92rem;font-weight:700;color:var(--blu)">✍️ Arricchisci il Business Plan <span style="font-size:.78rem;font-weight:500;color:var(--verde);background:#dcfce7;padding:2px 8px;border-radius:10px;margin-left:6px">Opzionale</span></div>
-                <div style="font-size:.78rem;color:var(--muted);margin-top:2px">Descrizione aziendale, progetto e mercato — le sezioni possono anche essere compilate dopo con l'aiuto dell'AI</div>
+                <div style="font-size:.92rem;font-weight:700;color:var(--blu)">✍️ Descrizioni per il Business Plan <span style="font-size:.78rem;font-weight:500;color:#2563EB;background:#DBEAFE;padding:2px 8px;border-radius:10px;margin-left:6px">Consigliato</span></div>
+                <div style="font-size:.78rem;color:var(--muted);margin-top:2px">Presentazione aziendale, progetto e analisi di mercato — l'AI può generarle automaticamente</div>
               </div>
-              <span id="qual-chevron" style="font-size:1.1rem;color:var(--muted);transition:.2s">▼</span>
+              <span id="qual-chevron" style="font-size:1.1rem;color:var(--muted);transition:.2s">▲</span>
             </div>
-            <div id="sezione-qual" style="display:none;padding:20px 18px;background:#fafafa;border-top:1px solid var(--bordo)">
+            <div id="sezione-qual" style="display:block;padding:20px 18px;background:#fafafa;border-top:1px solid #BFDBFE">
 
               <!-- Sito web -->
               <div style="margin-bottom:16px">
@@ -410,10 +414,15 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
               <!-- Analisi del mercato -->
               <div style="margin-bottom:16px">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-                  <label style="font-size:.82rem;font-weight:600;color:var(--testo)">📊 Mercato di riferimento</label>
-                  <button type="button" onclick="generaConAI('mercato')" class="btn-ai-small">✨ Genera con AI</button>
+                  <label style="font-size:.82rem;font-weight:600;color:var(--testo)">📊 Mercato e Competitività</label>
+                  <div style="display:flex;gap:6px">
+                    <button type="button" onclick="generaConAI('mercato')" class="btn-ai-small" title="Genera analisi di mercato da codice ATECO (più accurata)">🌐 Genera da ATECO</button>
+                  </div>
                 </div>
-                <textarea id="desc_mercato" rows="3" placeholder="Descrivi il mercato: dimensione, trend, principali competitor, posizionamento competitivo dell'azienda…"></textarea>
+                <div id="ateco-hint" style="font-size:.74rem;color:#2563EB;margin-bottom:6px;display:none">
+                  Userà il codice ATECO <strong id="ateco-hint-val"></strong> per generare un'analisi specifica del mercato italiano
+                </div>
+                <textarea id="desc_mercato" rows="4" placeholder="Clicca 'Genera da ATECO' per ottenere automaticamente l'analisi del mercato in base al codice ATECO dell'azienda, oppure scrivi qui la tua analisi…"></textarea>
               </div>
 
               <!-- Punti di forza / rischi -->
@@ -1589,8 +1598,9 @@ async function generaBPdaXBRL(){
     dividendi:    0,
     // Flag per identificare origine
     fonte: 'xbrl',
-    // Sezioni qualitative (opzionali)
+    // Sezioni qualitative
     sito_web:       v('sito_web'),
+    codice_ateco:   v('codice_ateco') || '',
     desc_aziendale: ta('desc_aziendale'),
     desc_progetto:  ta('desc_progetto'),
     desc_mercato:   ta('desc_mercato'),
@@ -1854,36 +1864,61 @@ function toggleSezioneQual(){
   ch.textContent = open ? '▼' : '▲';
 }
 
-// ─── Genera con AI (segnaposto — da collegare a /api/genera-testo) ──
+// ─── Genera con AI ──────────────────────────────────────────────────────────
 async function generaConAI(tipo){
-  const sito    = v('sito_web');
-  const settore = v('settore_bp') || v('settore_bp_manuale') || (_xbrlData?.settore) || '';
-  const nome    = v('nome_azienda') || (_xbrlData?.nome) || '';
+  const sito          = v('sito_web');
+  const settore       = v('settore_bp') || v('settore_bp_manuale') || (_xbrlData?.settore) || '';
+  const nome          = v('nome_azienda') || (_xbrlData?.nome) || '';
+  const codice_ateco  = v('codice_ateco') || _xbrlData?.codice_ateco || '';
 
-  const prompts = {
-    company: `Sei un consulente aziendale. Scrivi una presentazione professionale (3-4 paragrafi, circa 200 parole) per l'azienda "${nome}" che opera nel settore "${settore}"${sito ? ` con sito web ${sito}` : ''}. Tono formale e orientato alla banca.`,
-    progetto: `Sei un consulente aziendale. Scrivi la sezione "Il Progetto" per un business plan dell'azienda "${nome}" (settore: ${settore}). Includi obiettivi strategici, azioni previste nel triennio, benefici attesi. 3-4 paragrafi, tono professionale.`,
-    mercato: `Sei un analista di mercato. Scrivi la sezione "Mercato di Riferimento" per un business plan di un'azienda nel settore "${settore}". Includi dimensione del mercato, trend, competitor e posizionamento competitivo. 3-4 paragrafi, tono formale.`
-  };
+  // Dati finanziari disponibili per contestualizzare la generazione
+  const dati_finanziari = _xbrlData ? {
+    ricavi: _xbrlData.ricavi || 0,
+    ebitda: _xbrlData.ebitda || 0,
+    n_dip:  _xbrlData.n_dip  || 0,
+    pfn:    _xbrlData.pfn    || 0,
+  } : null;
 
   const targetId = { company: 'desc_aziendale', progetto: 'desc_progetto', mercato: 'desc_mercato' }[tipo];
   const btn = event?.target;
-  if(btn){ btn.textContent = '⏳…'; btn.disabled = true; }
+  const originalLabel = btn?.textContent || '✨ Genera con AI';
+
+  // Mostra loading specifico per ATECO (può richiedere più tempo con Opus)
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = tipo === 'mercato' && codice_ateco ? '⏳ Analisi ATECO in corso…' : '⏳ Generazione…';
+  }
 
   try {
     const res = await fetch('/api/genera-testo', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ prompt: prompts[tipo], tipo, nome, settore, sito_web: sito })
+      body: JSON.stringify({ tipo, nome, settore, sito_web: sito, codice_ateco, dati_finanziari })
     });
-    if(!res.ok) throw new Error('API non disponibile');
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      throw new Error(err.error || 'API non disponibile');
+    }
     const data = await res.json();
     const el = document.getElementById(targetId);
     if(el && data.testo) el.value = data.testo;
   } catch(e){
-    alert('La generazione AI non è ancora attiva. Puoi compilare il campo manualmente.');
+    alert('Errore nella generazione: ' + e.message);
   } finally {
-    if(btn){ btn.textContent = '✨ Genera con AI'; btn.disabled = false; }
+    if(btn){ btn.textContent = originalLabel; btn.disabled = false; }
+  }
+}
+
+// Aggiorna hint ATECO quando il campo cambia
+function aggiornaAtecoHint(){
+  const codice = v('codice_ateco');
+  const hint = document.getElementById('ateco-hint');
+  const hintVal = document.getElementById('ateco-hint-val');
+  if(codice && hint && hintVal){
+    hintVal.textContent = codice;
+    hint.style.display = 'block';
+  } else if(hint){
+    hint.style.display = 'none';
   }
 }
 
