@@ -1248,14 +1248,7 @@ ${(() => {
 </div>
 
 ${(() => {
-  // ── Sezioni qualitative (opzionali) ──────────────────────────────
-  const placeholder = (titolo, suggerimento) => `
-    <div style="border:2px dashed #CBD5E1;border-radius:10px;padding:28px 24px;text-align:center;margin:16px 0;background:#F8FAFC">
-      <div style="font-size:24px;margin-bottom:8px">✍️</div>
-      <div style="font-weight:700;color:#475569;margin-bottom:6px">${titolo}</div>
-      <div style="font-size:10px;color:#94A3B8;line-height:1.6">${suggerimento}</div>
-    </div>`;
-
+  // ── Sezioni qualitative — visibili SOLO se compilate ─────────────────
   const hasAz  = d.desc_aziendale && d.desc_aziendale.trim();
   const hasPr  = d.desc_progetto  && d.desc_progetto.trim();
   const hasMk  = d.desc_mercato   && d.desc_mercato.trim();
@@ -1263,60 +1256,48 @@ ${(() => {
   const hasRk  = d.punti_rischio  && d.punti_rischio.trim();
 
   const hasQual = hasAz || hasPr || hasMk || hasFz || hasRk;
+  if (!hasQual) return ''; // nessuna sezione qualitativa → nessuna pagina
 
   const paragrafo = txt => txt.split(/\n+/).filter(Boolean).map(p=>`<p style="margin:0 0 10px;font-size:10.5px;line-height:1.75;color:#334155">${p}</p>`).join('');
 
+  const hasPag10 = hasAz || hasPr;
+  const hasPag11 = hasMk || hasFz || hasRk;
+
   return `
-<!-- PAGE 10 — PRESENTAZIONE AZIENDALE -->
+${hasPag10 ? `<!-- PAGE 10 — PRESENTAZIONE AZIENDALE -->
 <div class="page">
   ${secHdr('Profilo azienda', '10. Presentazione Aziendale')}
 
-  ${hasAz ? `
-  <div class="narrative">${paragrafo(d.desc_aziendale)}</div>` : placeholder('Presentazione aziendale da completare', 'Inserisci una descrizione della tua azienda nel form di generazione, oppure fornisci l\'URL del sito web e utilizza il pulsante "Genera con AI" per creare automaticamente questa sezione.')}
-
+  ${hasAz ? `<div class="narrative">${paragrafo(d.desc_aziendale)}</div>` : ''}
   ${d.sito_web ? `<p style="font-size:9px;color:#94A3B8;margin-top:8px">🌐 <a href="${d.sito_web}" style="color:#2563EB">${d.sito_web}</a></p>` : ''}
 
-  <h3 style="margin-top:20px">Il Progetto / L'Investimento</h3>
-  ${hasPr ? `<div class="narrative">${paragrafo(d.desc_progetto)}</div>` : placeholder('Descrizione del progetto da completare', 'Descrivi gli obiettivi del piano, le azioni previste e i benefici attesi. Puoi usare l\'AI per generare questa sezione in automatico.')}
+  ${hasPr ? `<h3 style="margin-top:20px">Il Progetto / L'Investimento</h3>
+  <div class="narrative">${paragrafo(d.desc_progetto)}</div>` : ''}
 
   ${pf(10)}
-</div>
+</div>` : ''}
 
-<!-- PAGE 11 — MERCATO E COMPETITIVITÀ -->
+${hasPag11 ? `<!-- PAGE 11 — MERCATO E COMPETITIVITÀ -->
 <div class="page">
   ${secHdr('Analisi competitiva', '11. Mercato e Competitività')}
 
-  <h3>Mercato di riferimento</h3>
-  ${hasMk ? `<div class="narrative">${paragrafo(d.desc_mercato)}</div>` : placeholder('Analisi di mercato da completare', 'Descrivi il mercato di riferimento, i trend di settore e il posizionamento competitivo dell\'azienda. L\'AI può generare questa sezione partendo dal settore e dal sito web.')}
+  ${hasMk ? `<h3>Mercato di riferimento</h3>
+  <div class="narrative">${paragrafo(d.desc_mercato)}</div>` : ''}
 
   ${(hasFz || hasRk) ? `
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
-    <div>
+    ${hasFz ? `<div>
       <h3 style="color:#059669">✅ Punti di forza</h3>
-      ${hasFz ? `<div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:14px">${paragrafo(d.punti_forza)}</div>` : placeholder('', 'Inserisci i punti di forza dell\'azienda')}
-    </div>
-    <div>
+      <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:14px">${paragrafo(d.punti_forza)}</div>
+    </div>` : ''}
+    ${hasRk ? `<div>
       <h3 style="color:#DC2626">⚠️ Rischi e mitigazioni</h3>
-      ${hasRk ? `<div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:14px">${paragrafo(d.punti_rischio)}</div>` : placeholder('', 'Inserisci i principali rischi e le mitigazioni previste')}
-    </div>
-  </div>` : `
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
-    <div>
-      <h3 style="color:#059669">✅ Punti di forza</h3>
-      ${placeholder('Da completare', 'Inserisci i punti di forza dell\'azienda')}
-    </div>
-    <div>
-      <h3 style="color:#DC2626">⚠️ Rischi e mitigazioni</h3>
-      ${placeholder('Da completare', 'Inserisci i principali rischi e le mitigazioni previste')}
-    </div>
-  </div>`}
-
-  <div class="info-box" style="margin-top:16px">
-    💡 <strong>Come completare il Business Plan:</strong> Le sezioni qualitative (presentazione aziendale, progetto, mercato) possono essere arricchite con l'aiuto dell'AI generativa. Fornisci l'URL del tuo sito web o un company profile e il sistema genererà automaticamente testi professionali personalizzati.
-  </div>
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:14px">${paragrafo(d.punti_rischio)}</div>
+    </div>` : ''}
+  </div>` : ''}
 
   ${pf(11)}
-</div>`;
+</div>` : ''}`;
 })()}
 
 <script>
