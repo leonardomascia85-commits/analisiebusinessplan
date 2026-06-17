@@ -835,7 +835,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
 <!-- PAGE 1 — COVER -->
 <div class="page cover">
   <div class="cover-inner">
-    <div class="cv-brand">${analista} · Analisi Finanziaria</div>
+    <div class="cv-brand">AnalisieBBusinessPlan.it · Analisi Finanziaria</div>
     <div>
       <div class="cv-tipo">Business Plan Finanziario</div>
       <div class="cv-title">Piano Economico-Finanziario</div>
@@ -846,7 +846,6 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
         <div><div class="cv-meta-lbl">Anno Base</div><div class="cv-meta-val">${annoBase}</div></div>
         <div><div class="cv-meta-lbl">Proiezione</div><div class="cv-meta-val">${annoBase + 1} – ${annoBase + 3}</div></div>
         <div><div class="cv-meta-lbl">Settore</div><div class="cv-meta-val">${d.settore || '—'}</div></div>
-        <div><div class="cv-meta-lbl">Analista</div><div class="cv-meta-val">${analista}</div></div>
         <div><div class="cv-meta-lbl">Data Report</div><div class="cv-meta-val">${now}</div></div>
         <div><div class="cv-meta-lbl">Modello</div><div class="cv-meta-val">3-Statement</div></div>
       </div>
@@ -1240,7 +1239,6 @@ ${(() => {
     </tbody>
   </table>` : ''}
   ${d.nota_metodologica ? `<h3>Nota metodologica</h3><p style="font-size:10px;color:#475569;line-height:1.7">${d.nota_metodologica}</p>` : ''}
-  ${analista ? `<h3>Analista</h3><p style="font-size:10px;color:#475569;line-height:1.7">${analista}</p>` : ''}
   <div class="disclaimer">
     <strong>Disclaimer.</strong> Il presente Business Plan è redatto secondo le EBA Guidelines on loan origination and monitoring (EBA/GL/2020/06) e i principi del D.Lgs. 14/2019 (Codice della Crisi d'Impresa e dell'Insolvenza). Le proiezioni si basano su ipotesi formulate alla data del report e non costituiscono garanzia di risultato. Documento riservato e confidenziale, destinato esclusivamente al committente e agli istituti finanziatori.
   </div>
