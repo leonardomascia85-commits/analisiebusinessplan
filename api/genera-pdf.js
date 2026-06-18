@@ -319,6 +319,51 @@ function svgWaterfall(items) {
   </svg>`;
 }
 
+// ── CALCOLA RATING MCC (Fondo di Garanzia PMI) ──
+function calcMCC(c, d) {
+  const vv = (x) => (!isNaN(x) && isFinite(x));
+
+  // Esclusioni automatiche
+  const exclusions = [];
+  if ((d.tot_pn || 0) <= 0) exclusions.push('Patrimonio netto negativo o nullo — esclusione automatica');
+
+  // 5 indicatori con peso
+  const pfnPn = (d.tot_pn || 0) > 0 ? c.pfn / d.tot_pn : NaN;
+
+  const items = [
+    { nome: 'ROI — Redditività investimenti', disp: vv(c.roi) ? fp(c.roi) : 'n.d.', soglie: '≥0% / ≥4% / ≥8%', peso: 20,
+      pts: vv(c.roi) ? (c.roi >= 8 ? 20 : c.roi >= 4 ? 14 : c.roi >= 0 ? 7 : 0) : 0 },
+    { nome: 'EBITDA Margin — Marginalità operativa', disp: vv(c.ebitda_pct) ? fp(c.ebitda_pct) : 'n.d.', soglie: '≥3% / ≥8% / ≥15%', peso: 20,
+      pts: vv(c.ebitda_pct) ? (c.ebitda_pct >= 15 ? 20 : c.ebitda_pct >= 8 ? 14 : c.ebitda_pct >= 3 ? 7 : 0) : 0 },
+    { nome: 'Autonomia finanziaria — PN / Totale attivo', disp: vv(c.aut) ? fp(c.aut) : 'n.d.', soglie: '≥15% / ≥25% / ≥40%', peso: 25,
+      pts: vv(c.aut) ? (c.aut >= 40 ? 25 : c.aut >= 25 ? 17 : c.aut >= 15 ? 9 : 0) : 0 },
+    { nome: 'Current Ratio — Liquidità corrente', disp: vv(c.cr) ? fx(c.cr) : 'n.d.', soglie: '≥0.7x / ≥1.0x / ≥1.5x', peso: 20,
+      pts: vv(c.cr) ? (c.cr >= 1.5 ? 20 : c.cr >= 1.0 ? 13 : c.cr >= 0.7 ? 6 : 0) : 0 },
+    { nome: 'PFN / Patrimonio netto — Leva debitoria', disp: c.pfn <= 0 ? '< 0 ✓' : vv(pfnPn) ? fx(pfnPn) : 'n.d.', soglie: '≤4x / ≤2x / ≤1x', peso: 15,
+      pts: c.pfn <= 0 ? 15 : vv(pfnPn) ? (pfnPn <= 1 ? 15 : pfnPn <= 2 ? 10 : pfnPn <= 4 ? 5 : 0) : 0 },
+  ];
+
+  const totalScore = items.reduce((s, i) => s + i.pts, 0);
+
+  // Fascia MCC
+  let fascia, fasciaLabel, fasciaColor, copertura, eligible;
+  if (exclusions.length > 0 && (d.tot_pn || 0) <= 0) {
+    fascia = 5; fasciaLabel = 'Non ammissibile'; fasciaColor = '#DC2626'; copertura = '—'; eligible = false;
+  } else if (totalScore >= 75) {
+    fascia = 1; fasciaLabel = 'Eccellente'; fasciaColor = '#047857'; copertura = 'fino all\'80%'; eligible = true;
+  } else if (totalScore >= 55) {
+    fascia = 2; fasciaLabel = 'Buona bancabilità'; fasciaColor = '#059669'; copertura = 'fino al 70%'; eligible = true;
+  } else if (totalScore >= 35) {
+    fascia = 3; fasciaLabel = 'Bancabilità media'; fasciaColor = '#2563EB'; copertura = 'fino al 60%'; eligible = true;
+  } else if (totalScore >= 15) {
+    fascia = 4; fasciaLabel = 'Bancabilità bassa'; fasciaColor = '#D97706'; copertura = 'fino al 40%'; eligible = true;
+  } else {
+    fascia = 5; fasciaLabel = 'Non ammissibile'; fasciaColor = '#DC2626'; copertura = '—'; eligible = false;
+  }
+
+  return { fascia, fasciaLabel, fasciaColor, totalScore, items, exclusions, copertura, eligible };
+}
+
 // ── NARRATIVE AUTOMATICA ──
 function buildNarrative(c, d) {
   const parts = [];
@@ -350,6 +395,7 @@ function buildReportHTML(data, config) {
   const d = data;
   const c = calcIndici(d);
   const rating = calcRating(c, d);
+  const mcc = calcMCC(c, d);
   const anno = config.anno || '2024';
   const nome = config.nome || d.nome || 'Azienda';
   const analista = config.analista || 'AnalisiEBusinessPlan.it';
@@ -528,6 +574,38 @@ function buildReportHTML(data, config) {
   .note-title{font-size:8.5px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
   .note-text{font-size:9.5px;color:#334155;line-height:1.8;}
   .disclaimer{font-size:7.5px;color:#94A3B8;line-height:1.6;border-top:1px solid #F1F5F9;padding-top:8px;margin-top:8px;}
+
+  /* MCC */
+  .mcc-header{background:#0A1628;color:#fff;border-radius:9px 9px 0 0;padding:14px 18px;margin-bottom:0;}
+  .mcc-header-top{font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+  .mcc-header-title{font-family:'Fraunces',serif;font-size:16px;font-weight:700;}
+  .mcc-intro{font-size:8.5px;color:#475569;line-height:1.7;padding:10px 14px;background:#F8FAFC;border:1px solid #E2E8F0;border-top:none;margin-bottom:14px;}
+  .mcc-main{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-bottom:14px;}
+  .mcc-fascia-box{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid;border-radius:12px;padding:18px 12px;text-align:center;}
+  .mcc-fascia-num{font-family:'Fraunces',serif;font-size:52px;font-weight:700;line-height:1;}
+  .mcc-fascia-lbl{font-size:10px;font-weight:700;margin-top:4px;}
+  .mcc-fascia-sub{font-size:8.5px;color:#64748B;margin-top:3px;}
+  .mcc-fascia-copertura{font-size:8px;font-weight:600;padding:4px 10px;border-radius:12px;margin-top:10px;}
+  .mcc-scale{display:flex;flex-direction:column;gap:5px;}
+  .mcc-scale-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;border:1px solid #E2E8F0;}
+  .mcc-scale-item.active{border-width:2px;}
+  .mcc-scale-num{font-family:'Fraunces',serif;font-size:18px;font-weight:700;width:24px;text-align:center;}
+  .mcc-scale-info{flex:1;}
+  .mcc-scale-name{font-size:9px;font-weight:700;color:#0F172A;}
+  .mcc-scale-cov{font-size:7.5px;color:#64748B;}
+  .mcc-score-table{border:1px solid #E2E8F0;border-radius:7px;overflow:hidden;margin-bottom:12px;}
+  .mcc-score-hd{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;background:#0A1628;color:#fff;font-size:8px;font-weight:700;}
+  .mcc-score-hd div{padding:6px 9px;}
+  .mcc-score-hd div:not(:first-child){text-align:right;}
+  .mcc-score-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;}
+  .mcc-score-row div{padding:5px 9px;font-size:9px;border-bottom:.5px solid #F1F5F9;}
+  .mcc-score-row div:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;}
+  .mcc-score-row.alt{background:#F8FAFC;}
+  .mcc-score-row.total{background:#F0F9FF;}
+  .mcc-score-row.total div{font-weight:700;color:#0369A1;font-size:9.5px;}
+  .mcc-excl{background:#FEF2F2;border:1px solid #FECACA;border-radius:7px;padding:10px 12px;margin-bottom:10px;}
+  .mcc-excl-title{font-size:8.5px;font-weight:700;color:#DC2626;text-transform:uppercase;margin-bottom:5px;}
+  .mcc-excl-item{font-size:9px;color:#991B1B;padding:2px 0;}
 </style>
 </head>
 <body>
@@ -936,6 +1014,87 @@ ${hasRF ? `
   </div>
   ${note?`<div class="note-box"><div class="note-title">Note analista</div><div class="note-text">${note}</div></div>`:''}
   <div class="disclaimer">Report generato da AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + verifica trigger CCII (D.Lgs. 14/2019) · Generato il ${dataReport} · Basato esclusivamente su dati di bilancio (non include componente andamentale Centrale Rischi).</div>
+  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. ${hasRF?'8':'7'}</span></div>
+</div>
+
+<!-- PAG MCC: RATING FONDO DI GARANZIA PMI -->
+<div class="page">
+  <div class="ph">
+    <div><div class="ph-ey">Sezione ${hasRF?'8':'7'}</div><div class="ph-ti">Rating MCC — Fondo di Garanzia PMI</div></div>
+    <div class="ph-az">${nome}<br/>${anno}</div>
+  </div>
+  <div class="mcc-header">
+    <div class="mcc-header-top">Mediocredito Centrale · D.Lgs. 79/2024 · Modello valutativo PMI</div>
+    <div class="mcc-header-title">Rating Fondo di Garanzia — Fascia ${mcc.fascia}</div>
+  </div>
+  <div class="mcc-intro">
+    Il <strong>Fondo di Garanzia PMI</strong> (gestito da Mediocredito Centrale per conto del MiSE/MIMIT) concede garanzie dirette o controgaranzie sui finanziamenti bancari alle PMI italiane. L'ammissibilità e la percentuale di copertura dipendono dalla fascia di rischio attribuita all'impresa sulla base di 5 indicatori di bilancio. Le imprese in <strong>Fascia 1–4 sono ammissibili</strong>; la Fascia 5 indica un profilo di rischio elevato che preclude l'accesso alla garanzia pubblica nella forma ordinaria.
+  </div>
+  <div class="mcc-main">
+    <div>
+      <div class="mcc-fascia-box" style="border-color:${mcc.fasciaColor};">
+        <div style="font-size:8px;color:#94A3B8;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Fascia MCC</div>
+        <div class="mcc-fascia-num" style="color:${mcc.fasciaColor}">${mcc.fascia}</div>
+        <div class="mcc-fascia-lbl" style="color:${mcc.fasciaColor}">${mcc.fasciaLabel}</div>
+        <div class="mcc-fascia-sub">Score: ${mcc.totalScore}/100</div>
+        <div class="mcc-fascia-copertura" style="background:${mcc.eligible?'#ECFDF5':'#FEF2F2'};color:${mcc.eligible?'#059669':'#DC2626'};">
+          ${mcc.eligible?'✓ Ammissibile':'✗ Non ammissibile'}
+        </div>
+        <div style="font-size:8px;color:#64748B;margin-top:6px;">Garanzia: <strong>${mcc.copertura}</strong></div>
+      </div>
+    </div>
+    <div>
+      <div class="mcc-scale">
+        ${[
+          [1,'Eccellente','fino all\'80%','#047857',mcc.totalScore>=75],
+          [2,'Buona bancabilità','fino al 70%','#059669',mcc.totalScore>=55&&mcc.totalScore<75],
+          [3,'Bancabilità media','fino al 60%','#2563EB',mcc.totalScore>=35&&mcc.totalScore<55],
+          [4,'Bancabilità bassa','fino al 40%','#D97706',mcc.totalScore>=15&&mcc.totalScore<35],
+          [5,'Non ammissibile','garanzia esclusa','#DC2626',mcc.totalScore<15||((d.tot_pn||0)<=0)],
+        ].map(([n,lbl,cov,col,active])=>`
+        <div class="mcc-scale-item${active?' active':''}" style="${active?`border-color:${col};background:${col}11;`:''}">
+          <div class="mcc-scale-num" style="color:${active?col:'#94A3B8'}">${n}</div>
+          <div class="mcc-scale-info">
+            <div class="mcc-scale-name" style="${active?'color:'+col:''}">${lbl}</div>
+            <div class="mcc-scale-cov">${cov}</div>
+          </div>
+          ${active?`<div style="font-size:8px;font-weight:700;color:${col};background:${col}22;padding:2px 7px;border-radius:10px;">▶ Attuale</div>`:''}
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  ${mcc.exclusions.length>0?`
+  <div class="mcc-excl">
+    <div class="mcc-excl-title">⚠ Motivi di esclusione rilevati</div>
+    ${mcc.exclusions.map(e=>`<div class="mcc-excl-item">• ${e}</div>`).join('')}
+  </div>`:''}
+
+  <div class="mcc-score-table">
+    <div class="mcc-score-hd">
+      <div>Indicatore</div><div>Valore</div><div>Soglie (bassa / media / alta)</div><div>Punteggio</div>
+    </div>
+    ${mcc.items.map((item,i)=>`
+    <div class="mcc-score-row${i%2===0?' alt':''}">
+      <div style="font-weight:500">${item.nome}</div>
+      <div style="font-weight:700;color:${item.pts>=item.peso*0.7?'#059669':item.pts>=item.peso*0.35?'#D97706':'#DC2626'}">${item.disp}</div>
+      <div style="color:#64748B">${item.soglie}</div>
+      <div style="font-weight:700;color:${item.pts>=item.peso*0.7?'#059669':item.pts>=item.peso*0.35?'#D97706':'#DC2626'}">${item.pts}/${item.peso}</div>
+    </div>`).join('')}
+    <div class="mcc-score-row total">
+      <div>Punteggio totale MCC</div><div></div><div></div>
+      <div>${mcc.totalScore}/100</div>
+    </div>
+  </div>
+
+  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:12px 14px;">
+    <div style="font-size:8.5px;font-weight:700;color:#0F172A;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;">Linee guida interpretative</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:8.5px;color:#475569;line-height:1.7;">
+      <div><strong>Garanzia diretta:</strong> la banca presenta la pratica a MCC che garantisce direttamente il finanziamento (fino all'80% per Fascia 1). Il beneficio per l'impresa è l'accesso al credito a condizioni migliori (tassi ridotti, minori garanzie reali richieste).</div>
+      <div><strong>Controgaranzia:</strong> MCC garantisce i Confidi che a loro volta garantiscono la banca. Fascia 1–3 hanno accesso facilitato; Fascia 4 richiede istruttoria rafforzata; Fascia 5 è esclusa dalla garanzia ordinaria ma può accedere a strumenti straordinari (es. SACE, garanzie regionali).</div>
+    </div>
+  </div>
+
   <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Ultima pagina</span></div>
 </div>
 

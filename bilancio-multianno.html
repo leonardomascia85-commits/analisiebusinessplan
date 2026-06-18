@@ -176,6 +176,18 @@
     .r-title{font-size:13px;font-weight:600;margin-top:4px;}
     .r-desc{font-size:11px;color:var(--gray);margin-top:4px;line-height:1.6;}
 
+    /* MCC RATING */
+    .mcc-box{padding:12px 16px;border-top:1px solid var(--border);background:rgba(255,255,255,.02);}
+    .mcc-box-title{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+    .mcc-row{display:flex;align-items:center;gap:10px;}
+    .mcc-num{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1;}
+    .mcc-right{flex:1;}
+    .mcc-label{font-size:12px;font-weight:600;}
+    .mcc-score{font-size:10px;color:var(--gray);margin-top:1px;}
+    .mcc-copertura{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;display:inline-block;margin-top:4px;}
+    .mcc-scale-mini{display:flex;gap:4px;margin-top:8px;}
+    .mcc-scale-pip{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.1);}
+
     /* ACTIONS */
     .actions{padding:14px 16px;border-top:1px solid var(--border);display:flex;gap:8px;}
     .btn-p{flex:1;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:none;border-radius:8px;padding:11px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;}
@@ -530,6 +542,25 @@
               <div><div class="r-title" id="r0-rating-title">Inserisci i dati</div><div class="r-desc" id="r0-rating-desc">Compila SP e CE per ottenere il rating sintetico.</div></div>
             </div>
           </div>
+          <!-- MCC RATING -->
+          <div class="mcc-box">
+            <div class="mcc-box-title">🏦 Rating Fondo di Garanzia PMI (MCC)</div>
+            <div class="mcc-row">
+              <div class="mcc-num" id="r0-mcc-num" style="color:var(--gray)">—</div>
+              <div class="mcc-right">
+                <div class="mcc-label" id="r0-mcc-label">Inserisci i dati</div>
+                <div class="mcc-score" id="r0-mcc-score">Score: —/100</div>
+                <div class="mcc-copertura" id="r0-mcc-cov" style="background:rgba(255,255,255,.05);color:var(--gray);">—</div>
+              </div>
+            </div>
+            <div class="mcc-scale-mini">
+              <div class="mcc-scale-pip" id="r0-mcc-pip1" title="Fascia 1"></div>
+              <div class="mcc-scale-pip" id="r0-mcc-pip2" title="Fascia 2"></div>
+              <div class="mcc-scale-pip" id="r0-mcc-pip3" title="Fascia 3"></div>
+              <div class="mcc-scale-pip" id="r0-mcc-pip4" title="Fascia 4"></div>
+              <div class="mcc-scale-pip" id="r0-mcc-pip5" title="Fascia 5"></div>
+            </div>
+          </div>
         </div>
 
         <!-- Anno 1 (stesso layout) -->
@@ -560,6 +591,25 @@
           </div>
           <div class="rating-box" style="border-top:1px solid var(--border);">
             <div style="display:flex;align-items:center;gap:14px;"><div class="r-letter" id="r1-rating-letter" style="color:var(--gray);">—</div><div><div class="r-title" id="r1-rating-title">Inserisci i dati</div><div class="r-desc" id="r1-rating-desc">Compila SP e CE per ottenere il rating.</div></div></div>
+          </div>
+          <!-- MCC RATING -->
+          <div class="mcc-box">
+            <div class="mcc-box-title">🏦 Rating Fondo di Garanzia PMI (MCC)</div>
+            <div class="mcc-row">
+              <div class="mcc-num" id="r1-mcc-num" style="color:var(--gray)">—</div>
+              <div class="mcc-right">
+                <div class="mcc-label" id="r1-mcc-label">Inserisci i dati</div>
+                <div class="mcc-score" id="r1-mcc-score">Score: —/100</div>
+                <div class="mcc-copertura" id="r1-mcc-cov" style="background:rgba(255,255,255,.05);color:var(--gray);">—</div>
+              </div>
+            </div>
+            <div class="mcc-scale-mini">
+              <div class="mcc-scale-pip" id="r1-mcc-pip1" title="Fascia 1"></div>
+              <div class="mcc-scale-pip" id="r1-mcc-pip2" title="Fascia 2"></div>
+              <div class="mcc-scale-pip" id="r1-mcc-pip3" title="Fascia 3"></div>
+              <div class="mcc-scale-pip" id="r1-mcc-pip4" title="Fascia 4"></div>
+              <div class="mcc-scale-pip" id="r1-mcc-pip5" title="Fascia 5"></div>
+            </div>
           </div>
         </div>
 
@@ -749,6 +799,48 @@ function setBanc(valId,lblId,barId,val,lbl,thG,thA,higher=true){
   if(be){be.style.background=ok?'var(--green)':med?'var(--gold)':'var(--red)';be.style.width=Math.min(val/2.5*100,100)+'%';}
 }
 
+function calcMCC(c, tPn) {
+  const vv = x => !isNaN(x) && isFinite(x);
+  if (!tPn || tPn <= 0) return { fascia:5, label:'Non ammissibile', color:'#DC2626', score:0, copertura:'—', eligible:false };
+  const pfnPn = c.pfn > 0 && tPn > 0 ? c.pfn / tPn : NaN;
+  let pts = 0;
+  pts += vv(c.roi) ? (c.roi>=8?20:c.roi>=4?14:c.roi>=0?7:0) : 0;
+  pts += vv(c.ebitda_pct) ? (c.ebitda_pct>=15?20:c.ebitda_pct>=8?14:c.ebitda_pct>=3?7:0) : 0;
+  pts += vv(c.aut) ? (c.aut>=40?25:c.aut>=25?17:c.aut>=15?9:0) : 0;
+  pts += vv(c.cr) ? (c.cr>=1.5?20:c.cr>=1.0?13:c.cr>=0.7?6:0) : 0;
+  pts += c.pfn<=0 ? 15 : vv(pfnPn) ? (pfnPn<=1?15:pfnPn<=2?10:pfnPn<=4?5:0) : 0;
+  if (pts>=75) return {fascia:1,label:'Eccellente',color:'#047857',score:pts,copertura:"fino all'80%",eligible:true};
+  if (pts>=55) return {fascia:2,label:'Buona bancabilità',color:'#059669',score:pts,copertura:'fino al 70%',eligible:true};
+  if (pts>=35) return {fascia:3,label:'Bancabilità media',color:'#2563EB',score:pts,copertura:'fino al 60%',eligible:true};
+  if (pts>=15) return {fascia:4,label:'Bancabilità bassa',color:'#D97706',score:pts,copertura:'fino al 40%',eligible:true};
+  return {fascia:5,label:'Non ammissibile',color:'#DC2626',score:pts,copertura:'—',eligible:false};
+}
+
+function updateMCC(y, c) {
+  const d=DATA[y];
+  const tPn=d.cap_soc+d.riserve+d.utili_pn+d.utile_es;
+  const m=calcMCC(c,tPn);
+  const p=`r${y}-mcc-`;
+  const numEl=document.getElementById(p+'num');
+  const lblEl=document.getElementById(p+'label');
+  const scEl=document.getElementById(p+'score');
+  const covEl=document.getElementById(p+'cov');
+  if(!numEl)return;
+  numEl.textContent=m.fascia; numEl.style.color=m.color;
+  if(lblEl){lblEl.textContent=m.label; lblEl.style.color=m.color;}
+  if(scEl) scEl.textContent='Score: '+m.score+'/100';
+  if(covEl){
+    covEl.textContent=m.eligible?'✓ Ammissibile · '+m.copertura:'✗ Non ammissibile';
+    covEl.style.background=m.eligible?'rgba(5,150,105,.15)':'rgba(220,38,38,.12)';
+    covEl.style.color=m.eligible?'#6EE7B7':'#FCA5A5';
+  }
+  const pipColors=['#047857','#059669','#2563EB','#D97706','#DC2626'];
+  for(let n=1;n<=5;n++){
+    const pip=document.getElementById(p+'pip'+n);
+    if(pip) pip.style.background = n<=m.fascia ? pipColors[n-1] : 'rgba(255,255,255,.1)';
+  }
+}
+
 function calcRating(c){
   let score=0,max=0;
   const add=(val,g,a,h=true,w=1)=>{if(!isNaN(val)&&isFinite(val)){max+=w*2;const ok=h?val>=g:val<=g,med=h?val>=a:val<=a;score+=ok?w*2:med?w:0;}};
@@ -827,6 +919,7 @@ function updateResultsForYear(y){
   if(rl){rl.textContent=r.l;rl.style.color=r.color;}
   se(`${p}rating-title`,r.title);
   se(`${p}rating-desc`,r.desc);
+  updateMCC(y, c);
 
   // RF card
   se('rfr-a-val',fmt(c.rf_a)); se('rfr-b-val',fmt(c.rf_b)); se('rfr-c-val',fmt(c.rf_c));
