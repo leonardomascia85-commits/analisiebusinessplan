@@ -7,9 +7,9 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.55.1",
-    "@sparticuz/chromium-min": "131.0.1",
+    "@sparticuz/chromium": "111.0.0",
     "express": "^5.2.1",
-    "puppeteer-core": "23.9.0"
+    "puppeteer-core": "19.7.2"
   },
   "engines": {
     "node": ">=18.0.0"
