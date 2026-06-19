@@ -700,14 +700,22 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   const un1Color = UN1 >= 0 ? '#059669' : '#DC2626';
   const beColor = be && be.utilizzo_cap <= 80 ? '#059669' : be && be.utilizzo_cap <= 100 ? '#D97706' : '#DC2626';
 
+  const kpiCardRich = (val, label, soglia, color, trend='', trendColor='#94A3B8') => `
+    <div class="kpi-card" style="border-left:4px solid ${color}">
+      <div class="kc-val" style="color:${color}">${val}</div>
+      ${trend ? `<div style="font-size:8px;color:${trendColor};margin-top:2px">${trend}</div>` : ''}
+      <div class="kc-lbl">${label}</div>
+      <div class="kc-sg">${soglia}</div>
+    </div>`;
+
   const kpiCards = `
     <div class="kpi-cards">
-      ${kpiCard(fmtX(DSCR1), `DSCR ${annoBase + 1}`, 'EBA min ≥ 1,10x', dscrColor(DSCR1))}
-      ${kpiCard(fmtP(EBITDAM1), `EBITDA Margin ${annoBase + 1}`, 'Target > 8%', EBITDAM1 >= 8 ? '#059669' : EBITDAM1 >= 4 ? '#D97706' : '#DC2626')}
-      ${kpiCard(fmtX(PFNEBITDA1), `PFN/EBITDA ${annoBase + 1}`, 'Attenzione > 4x', pfnColor(PFNEBITDA1))}
-      ${kpiCard('+' + (d.g1 || 0) + '%', `Crescita Ricavi ${annoBase + 1}`, `Scenario ${scenarioLabel}`, cresc1Color)}
-      ${kpiCard(fmtE(UN1), `Utile Netto ${annoBase + 1}`, 'Obiettivo positivo', un1Color)}
-      ${kpiCard(be ? fmtP(be.utilizzo_cap) : '—', 'Break-Even Utilizzo', `Margine ${be ? fmtP(be.margine_perc) : '—'}`, beColor)}
+      ${kpiCardRich(fmtX(DSCR1), `DSCR ${annoBase + 1}`, 'EBA min ≥ 1,10x', dscrColor(DSCR1), DSCR1 !== null ? (DSCR1 >= 1.25 ? '✓ Ampiamente sopra soglia' : DSCR1 >= 1.10 ? '⚠ Sopra soglia minima' : '✗ Sotto soglia EBA') : '', dscrColor(DSCR1))}
+      ${kpiCardRich(fmtP(EBITDAM1), `EBITDA Margin ${annoBase + 1}`, 'Target > 8%', EBITDAM1 >= 8 ? '#059669' : EBITDAM1 >= 4 ? '#D97706' : '#DC2626', EBITDAM1 >= 8 ? '✓ Sopra soglia bancaria' : EBITDAM1 >= 4 ? '⚠ Sotto target 8%' : '✗ Margine critico', EBITDAM1 >= 8 ? '#059669' : EBITDAM1 >= 4 ? '#D97706' : '#DC2626')}
+      ${kpiCardRich(fmtX(PFNEBITDA1), `PFN/EBITDA ${annoBase + 1}`, 'Attenzione > 4x', pfnColor(PFNEBITDA1), PFNEBITDA1 === null ? 'PFN nulla o negativa' : PFNEBITDA1 <= 3 ? '✓ Leverage ottimale' : PFNEBITDA1 <= 4 ? '⚠ Leverage accettabile' : '✗ Sopra soglia', pfnColor(PFNEBITDA1))}
+      ${kpiCardRich('+' + (d.g1 || 0) + '%', `Crescita Ricavi ${annoBase + 1}`, `${fmtM(R0)} → ${fmtM(R1)}`, cresc1Color, CAGR !== null ? `CAGR triennale: +${CAGR.toFixed(1)}%` : '', '#64748B')}
+      ${kpiCardRich(fmtE(UN1), `Utile Netto ${annoBase + 1}`, 'Obiettivo positivo', un1Color, UN1 >= 0 ? `✓ ${fmtP(UN1/R1*100)} sui ricavi` : '✗ Perdita di esercizio', un1Color)}
+      ${kpiCardRich(be ? fmtP(be.utilizzo_cap) : '—', 'Break-Even Utilizzo', `Margine sicurezza: ${be ? fmtP(be.margine_perc) : '—'}`, beColor, be ? `Break-even a ${fmtM(be.ricavi_be)}` : '', '#64748B')}
     </div>`;
 
   const alertsHTML = alerts.map(a => {
@@ -837,10 +845,13 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   <div class="cover-inner">
     <div class="cv-brand">AnalisieBBusinessPlan.it · Analisi Finanziaria</div>
     <div>
-      <div class="cv-tipo">Business Plan Finanziario</div>
+      <div class="cv-tipo">Business Plan Finanziario · EBA/GL/2020/06</div>
       <div class="cv-title">Piano Economico-Finanziario</div>
       <div class="cv-nome">${nome}</div>
-      <div class="cv-badge">Scenario: ${scenarioLabel}</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:4px;position:relative;z-index:1">
+        <div class="cv-badge">Scenario: ${scenarioLabel}</div>
+        <div style="display:inline-block;padding:7px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em;background:${bancabile?'rgba(5,150,105,.25)':'rgba(220,38,38,.2)'};border:1px solid ${bancabile?'rgba(5,150,105,.5)':'rgba(220,38,38,.4)'};color:${bancabile?'#6EE7B7':'#FCA5A5'}">${bancabile?'✓ Bancabile':'⚠ Verificare bancabilità'}</div>
+      </div>
       <div class="cv-divider"></div>
       <div class="cv-meta">
         <div><div class="cv-meta-lbl">Anno Base</div><div class="cv-meta-val">${annoBase}</div></div>
@@ -850,7 +861,16 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
         <div><div class="cv-meta-lbl">Modello</div><div class="cv-meta-val">3-Statement</div></div>
       </div>
     </div>
-    <div class="cv-foot">EBA/GL/2020/06 · D.Lgs. 14/2019 CCII · Modello CE + SP + CF</div>
+    <div>
+      <div style="display:flex;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;margin-bottom:16px;position:relative;z-index:1">
+        <div style="flex:1;padding:10px 14px;border-right:1px solid rgba(255,255,255,.08)"><div style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Ricavi ${annoBase+1}</div><div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff">${fmtM(R1)}</div></div>
+        <div style="flex:1;padding:10px 14px;border-right:1px solid rgba(255,255,255,.08)"><div style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">CAGR 3 anni</div><div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff">${CAGR !== null ? '+'+CAGR.toFixed(1)+'%' : '—'}</div></div>
+        <div style="flex:1;padding:10px 14px;border-right:1px solid rgba(255,255,255,.08)"><div style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">EBITDA% ${annoBase+1}</div><div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:${EBITDAM1>=8?'#6EE7B7':EBITDAM1>=4?'#FCD34D':'#FCA5A5'}">${fmtP(EBITDAM1)}</div></div>
+        <div style="flex:1;padding:10px 14px;border-right:1px solid rgba(255,255,255,.08)"><div style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">DSCR ${annoBase+1}</div><div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:${DSCR1===null?'#94A3B8':DSCR1>=1.25?'#6EE7B7':DSCR1>=1.1?'#FCD34D':'#FCA5A5'}">${fmtX(DSCR1)}</div></div>
+        <div style="flex:1;padding:10px 14px"><div style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Utile ${annoBase+1}</div><div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:${UN1>=0?'#6EE7B7':'#FCA5A5'}">${fmtM(UN1)}</div></div>
+      </div>
+      <div class="cv-foot">EBA/GL/2020/06 · D.Lgs. 14/2019 CCII · Modello CE + SP + CF · ${d.fonte === 'xbrl' ? 'Dati XBRL certificati' : 'Dati dichiarativi'}</div>
+    </div>
   </div>
 </div>
 
@@ -1033,6 +1053,17 @@ ${(() => {
 <!-- PAGE 3 — EXECUTIVE SUMMARY -->
 <div class="page">
   ${secHdr('Sintesi direzionale', '3. Executive Summary')}
+  <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:9px;margin-bottom:14px;background:${bancabile?'#DCFCE7':'#FEF2F2'};border:1px solid ${bancabile?'#BBF7D0':'#FECACA'}">
+    <div style="font-size:28px;font-weight:800;font-family:Georgia,serif;color:${bancabile?'#15803D':'#DC2626'}">${bancabile?'✓':'⚠'}</div>
+    <div style="flex:1">
+      <div style="font-size:12px;font-weight:700;color:${bancabile?'#15803D':'#DC2626'}">${bancabile?'Piano Bancabile — criteri EBA/GL/2020/06 soddisfatti':'Piano con elementi di attenzione — verificare parametri bancari'}</div>
+      <div style="font-size:9px;color:${bancabile?'#166534':'#991B1B'};margin-top:2px">DSCR ${fmtX(DSCR1)} · EBITDA margin ${fmtP(EBITDAM1)} · PFN/EBITDA ${fmtX(PFNEBITDA1)} · Utile netto ${fmtE(UN1)}</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:9px;color:#64748B">Scenario</div>
+      <div style="font-size:11px;font-weight:700;color:${scenarioColor}">${scenarioLabel}</div>
+    </div>
+  </div>
   ${kpiCards}
   <div class="narrative">${narrative}</div>
   <h3>Sintesi indicatori bancari</h3>
@@ -1081,17 +1112,20 @@ ${(() => {
       ${(scenComparison || []).map((s, i) => {
         const isBanc = s.dscr1 === null || s.dscr1 >= 1.1;
         const isBase = i === 1;
-        return `<tr style="${isBase?'background:#EFF6FF':''}">
-          <td style="${isBase?'font-weight:700':''}">
-            ${i===0?'🔴 ':''}${i===1?'🟡 ':''}${i===2?'🟢 ':''}${s.label}
+        const bgRow = i===0?'#FFF7F7':i===1?'#EFF6FF':'#F0FDF4';
+        const accentCol = i===0?'#DC2626':i===1?'#2563EB':'#059669';
+        return `<tr style="background:${bgRow}">
+          <td style="border-left:3px solid ${accentCol};padding-left:10px;${isBase?'font-weight:700':''}">
+            <span style="color:${accentCol};font-weight:700">${s.label}</span>
+            ${isBase?'<span style="font-size:8px;font-weight:500;color:#64748B;margin-left:6px">(piano adottato)</span>':''}
           </td>
-          <td style="color:#94A3B8;font-size:8px">${s.prob}</td>
-          <td>${fmtM(s.r1)}</td>
-          <td>${fmtM(s.r3)}</td>
-          <td style="font-weight:600">${s.cagr !== null ? fmtP(s.cagr) : '—'}</td>
-          <td style="color:${s.em1>=8?'#059669':s.em1>=4?'#D97706':'#DC2626'};font-weight:600">${fmtP(s.em1)}</td>
+          <td style="color:#64748B;font-size:9px;text-align:center"><span style="background:${accentCol}22;color:${accentCol};padding:2px 7px;border-radius:10px;font-weight:600">${s.prob}</span></td>
+          <td style="font-weight:${isBase?700:400}">${fmtM(s.r1)}</td>
+          <td style="font-weight:${isBase?700:400}">${fmtM(s.r3)}</td>
+          <td style="font-weight:700;color:${accentCol}">${s.cagr !== null ? '+'+fmtP(s.cagr) : '—'}</td>
+          <td style="color:${s.em1>=8?'#059669':s.em1>=4?'#D97706':'#DC2626'};font-weight:700">${fmtP(s.em1)}</td>
           <td style="color:${dscrColor(s.dscr1)};font-weight:700">${fmtX(s.dscr1)}</td>
-          <td style="text-align:center">${isBanc ? '<span style="color:#059669;font-weight:700">✅</span>' : '<span style="color:#DC2626;font-weight:700">❌</span>'}</td>
+          <td style="text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:9px;font-weight:700;background:${isBanc?'#DCFCE7':'#FEE2E2'};color:${isBanc?'#15803D':'#DC2626'}">${isBanc?'✓ Sì':'✗ No'}</span></td>
         </tr>`;
       }).join('')}
     </tbody>
