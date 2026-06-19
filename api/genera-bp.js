@@ -567,6 +567,44 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     </svg>`;
   };
 
+  // ── SVG sparkline (line chart) for 4-point series
+  const svgSparkline = (vals, colors, labels, title) => {
+    const W = 560, H = 110, padL = 36, padR = 16, padT = 14, padB = 28;
+    const cw = W - padL - padR, ch = H - padT - padB;
+    const max = Math.max(...vals.flatMap(s => s.data), 1) * 1.05;
+    const min = 0;
+    const range = max - min || 1;
+    const xs = [0, 1, 2, 3].map(i => padL + (i / 3) * cw);
+    const y = v => padT + ch * (1 - (v - min) / range);
+    let out = `<text x="${W/2}" y="10" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0F172A">${title}</text>`;
+    // grid lines
+    [0.25, 0.5, 0.75, 1].forEach(f => {
+      const yg = padT + ch * (1 - f);
+      out += `<line x1="${padL}" y1="${yg}" x2="${W - padR}" y2="${yg}" stroke="#F1F5F9" stroke-width="1"/>`;
+      out += `<text x="${padL - 4}" y="${yg + 3}" text-anchor="end" font-size="7" fill="#94A3B8">${(min + range * f / 1e6).toFixed(1)}M</text>`;
+    });
+    // x-axis labels
+    labels.forEach((lbl, i) => {
+      out += `<text x="${xs[i]}" y="${H - 4}" text-anchor="middle" font-size="8" fill="#64748B">${lbl}</text>`;
+    });
+    // series
+    vals.forEach((s, si) => {
+      const pts = s.data.map((v, i) => `${xs[i]},${y(v)}`).join(' ');
+      out += `<polyline points="${pts}" fill="none" stroke="${colors[si]}" stroke-width="2" stroke-linejoin="round"/>`;
+      s.data.forEach((v, i) => {
+        out += `<circle cx="${xs[i]}" cy="${y(v)}" r="3.5" fill="${colors[si]}" stroke="#fff" stroke-width="1.5"/>`;
+        out += `<text x="${xs[i]}" y="${y(v) - 7}" text-anchor="middle" font-size="7.5" font-weight="700" fill="${colors[si]}">${(v / 1e6).toFixed(2)}M</text>`;
+      });
+    });
+    // legend
+    vals.forEach((s, si) => {
+      const lx = padL + si * 130;
+      out += `<rect x="${lx}" y="${H - 26}" width="8" height="8" rx="2" fill="${colors[si]}"/>`;
+      out += `<text x="${lx + 11}" y="${H - 19}" font-size="8" fill="#475569">${s.label}</text>`;
+    });
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;display:block;margin:4px auto">${out}</svg>`;
+  };
+
   // ── progress bar helper (DSCR/ICR/PFN)
   const progBar = (label, val, fmt, pct, color) => `
     <div style="margin-bottom:10px">
@@ -581,6 +619,34 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
 
   const dscrColor = (v) => v === null ? '#94A3B8' : v >= 1.3 ? '#059669' : v >= 1.1 ? '#D97706' : '#DC2626';
   const pfnColor = (v) => v === null ? '#94A3B8' : v <= 3 ? '#059669' : v <= 4 ? '#D97706' : '#DC2626';
+
+  // ── SVG semicircular gauge for DSCR
+  const svgDscrGauge = (val) => {
+    const W = 260, H = 150, cx = 130, cy = 130, r = 100, sw = 20;
+    const maxVal = 3.0, startAngle = -Math.PI, endAngle = 0;
+    const angle = (v) => startAngle + (Math.min(v || 0, maxVal) / maxVal) * Math.PI;
+    const arc = (a1, a2, col) => {
+      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+      const large = (a2 - a1) > Math.PI ? 1 : 0;
+      return `<path d="M${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="butt"/>`;
+    };
+    const aMin = angle(0), a110 = angle(1.1), a130 = angle(1.3), a150 = angle(1.5), aMax = angle(maxVal);
+    const aVal = val !== null ? angle(val) : aMin;
+    const color = dscrColor(val);
+    const nx = cx + (r - 8) * Math.cos(aVal), ny = cy + (r - 8) * Math.sin(aVal);
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;display:block;margin:0 auto">
+      ${arc(aMin, a110, '#FEE2E2')}${arc(a110, a130, '#FEF3C7')}${arc(a130, a150, '#D1FAE5')}${arc(a150, aMax, '#059669')}
+      <circle cx="${cx}" cy="${cy}" r="${r - sw/2 - 2}" fill="none" stroke="#F1F5F9" stroke-width="0.5"/>
+      <line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#0F172A" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="${cx}" cy="${cy}" r="6" fill="#0F172A"/>
+      <text x="${cx}" y="${cy - 12}" text-anchor="middle" font-size="24" font-weight="800" fill="${color}" font-family="Georgia,serif">${val !== null ? val.toFixed(2)+'x' : 'N/D'}</text>
+      <text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="8.5" fill="#64748B">DSCR Anno ${annoBase+1}</text>
+      <text x="${cx - r - 2}" y="${cy + 18}" text-anchor="middle" font-size="7.5" fill="#DC2626">0x</text>
+      <text x="${cx}" y="${cy + 18}" text-anchor="middle" font-size="7.5" fill="#D97706">1,10x</text>
+      <text x="${cx + r + 2}" y="${cy + 18}" text-anchor="end" font-size="7.5" fill="#94A3B8">3x</text>
+    </svg>`;
+  };
 
   // ── Render projection table (VOCE | STORICO | A1 | Δ% | A2 | Δ% | A3 | Δ%)
   const projTable = (rows) => {
@@ -1146,6 +1212,12 @@ ${(() => {
     <div class="ratio-box"><div class="v" style="color:${EBITDAM2>=8?'#059669':'#D97706'}">${fmtP(EBITDAM2)}</div><div class="l">EBITDA Margin<br>${annoBase+2}</div></div>
     <div class="ratio-box"><div class="v" style="color:${EBITDAM3>=8?'#059669':'#D97706'}">${fmtP(EBITDAM3)}</div><div class="l">EBITDA Margin<br>${annoBase+3}</div></div>
   </div>
+  <div class="chart-box" style="margin-bottom:10px">${svgSparkline(
+    [{ data:[R0,R1,R2,R3], label:'Ricavi' }, { data:[EBITDA0,EBITDA1,EBITDA2,EBITDA3], label:'EBITDA' }],
+    ['#2563EB','#059669'],
+    [`${annoBase}`,`${annoBase+1}`,`${annoBase+2}`,`${annoBase+3}`],
+    'Andamento Ricavi ed EBITDA — triennio proiettato'
+  )}</div>
   ${projTable(CE)}
   <div class="disclaimer">I tassi di crescita (+${d.g1}% / +${d.g2}% / +${d.g3}%) si applicano ai ricavi storici ${annoBase}. I costi vengono proiettati mantenendo la struttura di margine ${d.fonte==='xbrl'?'certificata dal bilancio XBRL':'dichiarata nel piano'}. L'EBITDA margin target è ${d.ebitda_margin}% costante nel triennio; l'incremento assoluto dell'EBITDA è interamente guidato dalla crescita dei ricavi.</div>
   ${pf(4)}
@@ -1160,6 +1232,12 @@ ${(() => {
     <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA2)};margin-bottom:4px">${fmtX(PFNEBITDA2)}</span><div class="l">PFN/EBITDA<br>${annoBase+2}</div></div>
     <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)};margin-bottom:4px">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA<br>${annoBase+3}</div></div>
   </div>
+  <div class="chart-box" style="margin-bottom:10px">${svgSparkline(
+    [{ data:[pnS||0,PN1,PN2,PN3], label:'Patrimonio Netto' }, { data:[pfnS||0,PFN1,PFN2,PFN3], label:'PFN' }],
+    ['#2563EB','#DC2626'],
+    [`${annoBase}`,`${annoBase+1}`,`${annoBase+2}`,`${annoBase+3}`],
+    'Evoluzione Patrimonio Netto e PFN — triennio proiettato'
+  )}</div>
   ${projTable(SP)}
   <div class="info-box">Il patrimonio netto cresce da <strong>${fmtE(PN1)}</strong> (${annoBase + 1}) a <strong>${fmtE(PN3)}</strong> (${annoBase + 3}), rafforzando la solidità patrimoniale dell'azienda. La Posizione Finanziaria Netta evolve da <strong>${fmtE(PFN1)}</strong> a <strong>${fmtE(PFN3)}</strong>${PFN3 < PFN1 ? ', confermando il progressivo de-leveraging previsto dal piano' : '; il rapporto PFN/EBITDA si mantiene entro i parametri bancari'}.</div>
   ${pf(5)}
@@ -1183,10 +1261,15 @@ ${(() => {
     <p>${nome} presenta un DSCR di <strong>${fmtX(DSCR1)}</strong> nel ${annoBase + 1}, ${DSCR1 >= 1.5 ? 'posizionandosi in una fascia di eccellente solidità finanziaria' : DSCR1 >= 1.3 ? 'collocandosi in un profilo solido, ben al di sopra del requisito minimo bancario' : DSCR1 >= 1.1 ? 'superando il requisito minimo EBA, con un margine di sicurezza sufficiente' : 'risultando inferiore al requisito minimo EBA: si raccomanda una revisione del piano di rimborso o una rinegoziazione del debito'}. Il ratio migliora${DSCR3 > DSCR1 ? ` progressivamente` : ''} nel triennio, raggiungendo ${fmtX(DSCR3)} nel ${annoBase + 3}, grazie alla crescita dell'EBITDA.</p>
   </div>
   <h3>Debt Service Coverage Ratio — scala EBA</h3>
-  <div class="chart-box">${svgDscrScale(DSCR1)}</div>
-  ${progBar(`DSCR ${annoBase+1}`, DSCR1, fmtX(DSCR1), DSCR1 !== null ? DSCR1 / 3 * 100 : 0, dscrColor(DSCR1))}
-  ${progBar(`DSCR ${annoBase+2}`, DSCR2, fmtX(DSCR2), DSCR2 !== null ? DSCR2 / 3 * 100 : 0, dscrColor(DSCR2))}
-  ${progBar(`DSCR ${annoBase+3}`, DSCR3, fmtX(DSCR3), DSCR3 !== null ? DSCR3 / 3 * 100 : 0, dscrColor(DSCR3))}
+  <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:10px">
+    <div class="chart-box" style="flex:0 0 auto;width:280px;padding:10px">${svgDscrGauge(DSCR1)}</div>
+    <div style="flex:1">
+      ${progBar(`DSCR ${annoBase+1}`, DSCR1, fmtX(DSCR1), DSCR1 !== null ? DSCR1 / 3 * 100 : 0, dscrColor(DSCR1))}
+      ${progBar(`DSCR ${annoBase+2}`, DSCR2, fmtX(DSCR2), DSCR2 !== null ? DSCR2 / 3 * 100 : 0, dscrColor(DSCR2))}
+      ${progBar(`DSCR ${annoBase+3}`, DSCR3, fmtX(DSCR3), DSCR3 !== null ? DSCR3 / 3 * 100 : 0, dscrColor(DSCR3))}
+    </div>
+  </div>
+  <div class="chart-box" style="margin-top:0">${svgDscrScale(DSCR1)}</div>
   ${(() => {
     const icr = kpi.find(k => /ICR/.test(k.label));
     const icr1 = icr ? icr.a1 : null;
