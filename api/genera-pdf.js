@@ -454,6 +454,11 @@ function buildReportHTML(data, config) {
   .cv-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:36px;position:relative;z-index:1;}
   .cv-chip{display:inline-flex;align-items:center;gap:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 26px;position:relative;z-index:1;}
   .cv-r-letter{font-family:'Fraunces',serif;font-size:58px;font-weight:700;color:${rating.color};line-height:1;}
+  .cv-kpi-strip{display:flex;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;margin-bottom:20px;position:relative;z-index:1;}
+  .cv-kpi-item{flex:1;padding:10px 14px;border-right:1px solid rgba(255,255,255,.08);}
+  .cv-kpi-item:last-child{border-right:none;}
+  .cv-kpi-lbl{font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+  .cv-kpi-v{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#fff;}
   .cv-r-lbl{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
   .cv-r-title{font-size:14px;font-weight:600;}
   .cv-divider{height:1px;background:rgba(255,255,255,.08);margin:34px 0;position:relative;z-index:1;}
@@ -471,12 +476,12 @@ function buildReportHTML(data, config) {
   .pf{display:flex;justify-content:space-between;font-size:8px;color:#94A3B8;border-top:.5px solid #E2E8F0;padding-top:7px;margin-top:auto;}
 
   .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px;}
-  .kpi-box{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:12px 10px;}
+  .kpi-box{background:#F8FAFC;border:1px solid #E2E8F0;border-left:3px solid #E2E8F0;border-radius:9px;padding:12px 10px;}
   .kpi-lbl{font-size:7.5px;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
   .kpi-val{font-size:16px;font-weight:700;line-height:1;}
   .pos{color:#059669;}.neg{color:#DC2626;}.neu{color:#1D4ED8;}.warn{color:#D97706;}
 
-  .narr{background:#F0F9FF;border:1px solid #BAE6FD;border-radius:9px;padding:12px 14px;margin-bottom:12px;}
+  .narr{background:#F0F9FF;border:1px solid #BAE6FD;border-left:4px solid #2563EB;border-radius:0 9px 9px 0;padding:12px 14px;margin-bottom:12px;}
   .narr-t{font-size:9px;font-weight:700;color:#0369A1;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
   .narr-b{font-size:9.5px;color:#0F172A;line-height:1.75;}
 
@@ -510,7 +515,9 @@ function buildReportHTML(data, config) {
   .ind-name{font-size:9.5px;font-weight:700;color:#0F172A;margin-bottom:1px;}
   .ind-acro{font-size:8px;color:#94A3B8;margin-bottom:5px;}
   .ind-val{font-size:20px;font-weight:700;line-height:1;margin-bottom:3px;}
-  .ind-badge{font-size:7.5px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:7px;}
+  .ind-badge{font-size:7.5px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:4px;}
+  .ind-progress{height:3px;background:#E2E8F0;border-radius:2px;margin:5px 0;overflow:hidden;}
+  .ind-progress-fill{height:100%;border-radius:2px;}
   .ib-g{background:#ECFDF5;color:#059669;}.ib-r{background:#FEF2F2;color:#DC2626;}.ib-a{background:#FFFBEB;color:#D97706;}
   .ind-formula{font-size:7.5px;color:#1D4ED8;background:#EFF6FF;border-radius:3px;padding:2px 6px;font-family:monospace;margin-bottom:5px;display:inline-block;}
   .ind-bench{font-size:7.5px;color:#64748B;margin-bottom:4px;}
@@ -631,6 +638,13 @@ function buildReportHTML(data, config) {
       <div><div class="cv-meta-lbl">Analista</div><div class="cv-meta-val">${analista}</div></div>
       <div><div class="cv-meta-lbl">Data report</div><div class="cv-meta-val">${dataReport}</div></div>
     </div>
+    <div class="cv-kpi-strip">
+      <div class="cv-kpi-item"><div class="cv-kpi-lbl">EBITDA %</div><div class="cv-kpi-v">${fp(c.ebitda_pct)}</div></div>
+      <div class="cv-kpi-item"><div class="cv-kpi-lbl">Autonomia fin.</div><div class="cv-kpi-v">${fp(c.aut)}</div></div>
+      <div class="cv-kpi-item"><div class="cv-kpi-lbl">DSCR</div><div class="cv-kpi-v">${isNaN(c.dscr)?'—':fx(c.dscr)}</div></div>
+      <div class="cv-kpi-item"><div class="cv-kpi-lbl">ROI</div><div class="cv-kpi-v">${fp(c.roi)}</div></div>
+      <div class="cv-kpi-item"><div class="cv-kpi-lbl">PFN/EBITDA</div><div class="cv-kpi-v">${(!isNaN(c.pfn_ebitda)&&c.pfn_ebitda>0)?fx(c.pfn_ebitda):(c.pfn<=0?'< 0':'—')}</div></div>
+    </div>
     <div class="cv-footer">Documento riservato · AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + Trigger CCII</div>
   </div>
 </div>
@@ -642,16 +656,16 @@ function buildReportHTML(data, config) {
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
   <div class="kpi-row">
-    <div class="kpi-box"><div class="kpi-lbl">Valore produzione</div><div class="kpi-val neu">${fmt(d.tot_vp)}</div></div>
-    <div class="kpi-box"><div class="kpi-lbl">EBITDA</div><div class="kpi-val ${c.ebitda>=0?'pos':'neg'}">${fmt(c.ebitda)}</div></div>
-    <div class="kpi-box"><div class="kpi-lbl">Utile / Perdita</div><div class="kpi-val ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</div></div>
-    <div class="kpi-box"><div class="kpi-lbl">Totale attivo</div><div class="kpi-val">${fmt(d.tot_att)}</div></div>
+    <div class="kpi-box" style="border-left-color:#1D4ED8"><div class="kpi-lbl">Valore produzione</div><div class="kpi-val neu">${fmt(d.tot_vp)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${(d.tot_vp||0)>=(d1.tot_vp||0)?'#059669':'#DC2626'}">${varPct(d.tot_vp,d1.tot_vp)?((d.tot_vp||0)>=(d1.tot_vp||0)?'▲ ':'▼ ')+varPct(d.tot_vp,d1.tot_vp):''}</div>`:''}</div>
+    <div class="kpi-box" style="border-left-color:${c.ebitda>=0?'#059669':'#DC2626'}"><div class="kpi-lbl">EBITDA</div><div class="kpi-val ${c.ebitda>=0?'pos':'neg'}">${fmt(c.ebitda)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${c.ebitda>=c1.ebitda?'#059669':'#DC2626'}">${varPct(c.ebitda,c1.ebitda)?(c.ebitda>=c1.ebitda?'▲ ':'▼ ')+varPct(c.ebitda,c1.ebitda):''}</div>`:''}</div>
+    <div class="kpi-box" style="border-left-color:${(d.utile_es||0)>=0?'#059669':'#DC2626'}"><div class="kpi-lbl">Utile / Perdita</div><div class="kpi-val ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${(d.utile_es||0)>=(d1.utile_es||0)?'#059669':'#DC2626'}">${varPct(d.utile_es,d1.utile_es)?((d.utile_es||0)>=(d1.utile_es||0)?'▲ ':'▼ ')+varPct(d.utile_es,d1.utile_es):''}</div>`:''}</div>
+    <div class="kpi-box" style="border-left-color:#1D4ED8"><div class="kpi-lbl">Totale attivo</div><div class="kpi-val">${fmt(d.tot_att)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${(d.tot_att||0)>=(d1.tot_att||0)?'#059669':'#DC2626'}">${varPct(d.tot_att,d1.tot_att)?((d.tot_att||0)>=(d1.tot_att||0)?'▲ ':'▼ ')+varPct(d.tot_att,d1.tot_att):''}</div>`:''}</div>
   </div>
   <div class="kpi-row">
-    <div class="kpi-box"><div class="kpi-lbl">Patrimonio netto</div><div class="kpi-val pos">${fmt(d.tot_pn)}</div></div>
-    <div class="kpi-box"><div class="kpi-lbl">PFN</div><div class="kpi-val ${c.pfn<=0?'pos':'warn'}">${fmt(c.pfn)}</div></div>
-    <div class="kpi-box"><div class="kpi-lbl">EBITDA margin</div><div class="kpi-val ${c.ebitda_pct>=15?'pos':c.ebitda_pct>=5?'warn':'neg'}">${fp(c.ebitda_pct)}</div></div>
-    <div class="kpi-box"><div class="kpi-lbl">Autonomia fin.</div><div class="kpi-val ${c.aut>=30?'pos':c.aut>=15?'warn':'neg'}">${fp(c.aut)}</div></div>
+    <div class="kpi-box" style="border-left-color:${(d.tot_pn||0)>0?'#059669':'#DC2626'}"><div class="kpi-lbl">Patrimonio netto</div><div class="kpi-val pos">${fmt(d.tot_pn)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${(d.tot_pn||0)>=(d1.tot_pn||0)?'#059669':'#DC2626'}">${varPct(d.tot_pn,d1.tot_pn)?((d.tot_pn||0)>=(d1.tot_pn||0)?'▲ ':'▼ ')+varPct(d.tot_pn,d1.tot_pn):''}</div>`:''}</div>
+    <div class="kpi-box" style="border-left-color:${c.pfn<=0?'#059669':'#D97706'}"><div class="kpi-lbl">PFN</div><div class="kpi-val ${c.pfn<=0?'pos':'warn'}">${fmt(c.pfn)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${c.pfn<=c1.pfn?'#059669':'#DC2626'}">${varPct(c.pfn,c1.pfn)?(c.pfn<=c1.pfn?'▼ ':'▲ ')+varPct(c.pfn,c1.pfn):''}</div>`:''}</div>
+    <div class="kpi-box" style="border-left-color:${c.ebitda_pct>=15?'#059669':c.ebitda_pct>=5?'#D97706':'#DC2626'}"><div class="kpi-lbl">EBITDA margin</div><div class="kpi-val ${c.ebitda_pct>=15?'pos':c.ebitda_pct>=5?'warn':'neg'}">${fp(c.ebitda_pct)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${c.ebitda_pct>=c1.ebitda_pct?'#059669':'#DC2626'}">${varPct(c.ebitda_pct,c1.ebitda_pct)?(c.ebitda_pct>=c1.ebitda_pct?'▲ ':'▼ ')+varPct(c.ebitda_pct,c1.ebitda_pct):''}</div>`:''}</div>
+    <div class="kpi-box" style="border-left-color:${c.aut>=30?'#059669':c.aut>=15?'#D97706':'#DC2626'}"><div class="kpi-lbl">Autonomia fin.</div><div class="kpi-val ${c.aut>=30?'pos':c.aut>=15?'warn':'neg'}">${fp(c.aut)}</div>${d1?`<div style="font-size:8px;margin-top:3px;color:${c.aut>=c1.aut?'#059669':'#DC2626'}">${varPct(c.aut,c1.aut)?(c.aut>=c1.aut?'▲ ':'▼ ')+varPct(c.aut,c1.aut):''}</div>`:''}</div>
   </div>
   ${narrative?`<div class="narr"><div class="narr-t">📋 Commento sintetico</div><div class="narr-b">${narrative}</div></div>`:''}
 
@@ -785,17 +799,22 @@ function buildReportHTML(data, config) {
        'Misura la capacità di generare cassa operativa al lordo di ammortamenti, oneri finanziari e imposte. È l\'indicatore preferito dalle banche per valutare la capacità di rimborso (DSCR). Non risente delle politiche di ammortamento né della struttura del debito.',
        c.ebitda_pct>=15?`Eccellente (${fp(c.ebitda_pct)}): il business genera cassa operativa abbondante.`:c.ebitda_pct>=5?`Sufficiente (${fp(c.ebitda_pct)}): margine accettabile, da migliorare.`:`Critico (${fp(c.ebitda_pct)}): difficoltà a generare cassa operativa per servire il debito.`,
        c.ebitda_pct>=15?'Azienda bancabile. Utilizzare l\'EBITDA come leva per negoziare condizioni migliori con le banche.':c.ebitda_pct>=5?'Lavorare sulla riduzione dei costi variabili (materie prime, servizi) prima di espandersi.':'Emergenza: l\'azienda non genera cassa sufficiente. Rinegoziare il debito e tagliare i costi fissi.'],
-    ].map(([name,acro,val,disp,verde,giallo,formula,sogMin,sogOtt,desc,interp,action])=>`
+    ].map(([name,acro,val,disp,verde,giallo,formula,sogMin,sogOtt,desc,interp,action],idx)=>{
+    const thresholds = [20, 16, 20, 30];
+    const progressPct = (!isNaN(val)&&isFinite(val)) ? Math.min(Math.max(val/(thresholds[idx]||20)*100,0),100) : 0;
+    const progressColor = verde?'#059669':giallo?'#D97706':'#DC2626';
+    return `
     <div class="ind-card">
       <div class="ind-name">${name}</div><div class="ind-acro">${acro}</div>
       <div class="ind-val" style="color:${verde?'#059669':giallo?'#D97706':'#DC2626'}">${disp}</div>
       <span class="ind-badge ${verde?'ib-g':giallo?'ib-a':'ib-r'}">${verde?'✓ Ottimo':giallo?'⚠ Sufficiente':'✗ Critico'}</span>
+      <div class="ind-progress"><div class="ind-progress-fill" style="width:${progressPct.toFixed(0)}%;background:${progressColor}"></div></div>
       <div class="ind-formula">${formula}</div>
       <div class="ind-bench">Minima: <span>${sogMin}</span> · Ottimale: <span>${sogOtt}</span></div>
       <div class="ind-desc">${desc}</div>
       <div class="ind-interp">${interp}</div>
       <div class="ind-action">💡 <strong>Cosa fare:</strong> ${action}</div>
-    </div>`).join('')}
+    </div>`;}).join('')}
   </div>
   <div class="ind-intro">Gli <strong>indici di liquidità</strong> misurano la capacità dell'azienda di far fronte agli impegni a breve termine senza ricorrere a nuove fonti di finanziamento. Un'azienda redditizia può comunque trovarsi in crisi di liquidità se i tempi di incasso e pagamento non sono bilanciati. Questi indici sono fondamentali per la valutazione EBA Stage 2.</div>
   <div class="ind-hd">💧 Indici di Liquidità</div>
