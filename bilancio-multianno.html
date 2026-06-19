@@ -613,6 +613,56 @@
           </div>
         </div>
 
+        <!-- Anno 2 (stesso layout) -->
+        <div id="ryt-content-2" class="ryt-content">
+          <div class="kpi-grid">
+            <div class="ki"><div class="ki-lbl">EBITDA</div><div class="ki-val kv-0" id="r2-ebitda">—</div><div class="ki-sub">Margine operativo lordo</div></div>
+            <div class="ki"><div class="ki-lbl">EBITDA %</div><div class="ki-val kv-0" id="r2-ebitda-pct">—</div><div class="ki-sub">Su valore produzione</div></div>
+            <div class="ki"><div class="ki-lbl">ROE</div><div class="ki-val kv-0" id="r2-roe">—</div><div class="ki-sub">Redditività cap. proprio</div></div>
+            <div class="ki"><div class="ki-lbl">ROI</div><div class="ki-val kv-0" id="r2-roi">—</div><div class="ki-sub">Redditività investimenti</div></div>
+            <div class="ki"><div class="ki-lbl">ROS</div><div class="ki-val kv-0" id="r2-ros">—</div><div class="ki-sub">Redditività vendite</div></div>
+            <div class="ki"><div class="ki-lbl">Current ratio</div><div class="ki-val kv-0" id="r2-cr">—</div><div class="ki-sub">Liquidità corrente</div></div>
+            <div class="ki"><div class="ki-lbl">Acid test</div><div class="ki-val kv-0" id="r2-acid">—</div><div class="ki-sub">Liq. immediata</div></div>
+            <div class="ki"><div class="ki-lbl">Autonomia fin.</div><div class="ki-val kv-0" id="r2-aut">—</div><div class="ki-sub">PN / Totale attivo</div></div>
+          </div>
+          <div class="sem-list">
+            <div class="sem-item"><div class="dot d0" id="s2-liq"></div><span class="sem-name">Liquidità aziendale</span><span class="sem-val" id="sv2-liq">—</span></div>
+            <div class="sem-item"><div class="dot d0" id="s2-red"></div><span class="sem-name">Redditività</span><span class="sem-val" id="sv2-red">—</span></div>
+            <div class="sem-item"><div class="dot d0" id="s2-sol"></div><span class="sem-name">Solidità patrimoniale</span><span class="sem-val" id="sv2-sol">—</span></div>
+            <div class="sem-item"><div class="dot d0" id="s2-ind"></div><span class="sem-name">Indebitamento</span><span class="sem-val" id="sv2-ind">—</span></div>
+            <div class="sem-item"><div class="dot d0" id="s2-fcf"></div><span class="sem-name">Free Cash Flow</span><span class="sem-val" id="sv2-fcf">—</span></div>
+          </div>
+          <div class="banc-section">
+            <div style="font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">🏦 Indici bancabilità EBA 2021</div>
+            <div class="banc-item"><div class="banc-row"><div><div class="banc-name">DSCR</div><div class="banc-desc">EBITDA / Servizio debito</div></div><div class="banc-val kv-0" id="r2-dscr">—</div></div><div class="dscr-track"><div class="dscr-fill" id="r2-dscr-bar" style="width:0%;background:var(--gray)"></div></div><div class="bthresh bt-0" id="r2-dscr-lbl">—</div></div>
+            <div class="banc-item"><div class="banc-row"><div><div class="banc-name">PFN</div><div class="banc-desc">Pos. finanziaria netta</div></div><div class="banc-val kv-0" id="r2-pfn">—</div></div><div class="bthresh bt-0" id="r2-pfn-lbl">—</div></div>
+            <div class="banc-item"><div class="banc-row"><div><div class="banc-name">PFN / EBITDA</div><div class="banc-desc">Anni rimborso debito</div></div><div class="banc-val kv-0" id="r2-pfn-ebitda">—</div></div><div class="bthresh bt-0" id="r2-pfn-ebitda-lbl">—</div></div>
+            <div class="banc-item"><div class="banc-row"><div><div class="banc-name">ICR</div><div class="banc-desc">EBIT / Oneri finanziari</div></div><div class="banc-val kv-0" id="r2-icr">—</div></div><div class="bthresh bt-0" id="r2-icr-lbl">—</div></div>
+          </div>
+          <div class="rating-box" style="border-top:1px solid var(--border);">
+            <div style="display:flex;align-items:center;gap:14px;"><div class="r-letter" id="r2-rating-letter" style="color:var(--gray);">—</div><div><div class="r-title" id="r2-rating-title">Inserisci i dati</div><div class="r-desc" id="r2-rating-desc">Compila SP e CE per ottenere il rating.</div></div></div>
+          </div>
+          <!-- MCC RATING -->
+          <div class="mcc-box">
+            <div class="mcc-box-title">🏦 Rating Fondo di Garanzia PMI (MCC)</div>
+            <div class="mcc-row">
+              <div class="mcc-num" id="r2-mcc-num" style="color:var(--gray)">—</div>
+              <div class="mcc-right">
+                <div class="mcc-label" id="r2-mcc-label">Inserisci i dati</div>
+                <div class="mcc-score" id="r2-mcc-score">Score: —/100</div>
+                <div class="mcc-copertura" id="r2-mcc-cov" style="background:rgba(255,255,255,.05);color:var(--gray);">—</div>
+              </div>
+            </div>
+            <div class="mcc-scale-mini">
+              <div class="mcc-scale-pip" id="r2-mcc-pip1" title="Fascia 1"></div>
+              <div class="mcc-scale-pip" id="r2-mcc-pip2" title="Fascia 2"></div>
+              <div class="mcc-scale-pip" id="r2-mcc-pip3" title="Fascia 3"></div>
+              <div class="mcc-scale-pip" id="r2-mcc-pip4" title="Fascia 4"></div>
+              <div class="mcc-scale-pip" id="r2-mcc-pip5" title="Fascia 5"></div>
+            </div>
+          </div>
+        </div>
+
         <!-- CONFRONTO MULTI-ANNO -->
         <div id="ryt-content-comp" class="ryt-content">
           <div class="trend-section">
