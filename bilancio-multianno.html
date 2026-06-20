@@ -723,6 +723,7 @@
       <div class="rcard">
         <div class="actions">
           <button class="btn-p" id="btn-report" onclick="generaReport()" disabled>Genera Report PDF →</button>
+          <button class="btn-p" id="btn-word" onclick="generaWord()" disabled style="background:linear-gradient(135deg,#1D4ED8,#1e40af)">📄 Word</button>
           <button class="btn-p" id="btn-bp" onclick="apriBusinessPlan()" disabled style="background:linear-gradient(135deg,#16a34a,#15803d)">📊 Crea Business Plan →</button>
           <button class="btn-g" onclick="resetAll()">Reset</button>
         </div>
@@ -1061,6 +1062,8 @@ function updateStatusBadge(){
   const anyFilled=filled.some(f=>f);
   if(badge){badge.textContent=anyFilled?'Dati inseriti ✓':'In attesa dati';badge.className='rbadge '+(anyFilled?'bg2':'bw');}
   if(btn)btn.disabled=!filled[0];
+  const btnWord=document.getElementById('btn-word');
+  if(btnWord)btnWord.disabled=!filled[0];
 }
 
 function loadYearIntoForm(y){
@@ -1179,6 +1182,44 @@ async function generaReport(){
     win.focus();
   } catch(err) {
     alert('Errore generazione PDF: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = origText;
+  }
+}
+
+async function generaWord() {
+  const mainData = buildAnnoData(0);
+  if(filled[1]) mainData._prev = buildAnnoData(1);
+  const payload = {
+    data: mainData,
+    config: {
+      nome: document.getElementById('rag_soc')?.value || 'Azienda',
+      anno: document.getElementById('ysel-0')?.value || '2024',
+      dataReport: new Date().toLocaleDateString('it-IT'),
+    }
+  };
+  const btn = document.getElementById('btn-word');
+  const origText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Generazione...';
+  try {
+    const res = await fetch('/api/genera-word', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) { alert('Errore: ' + await res.text()); return; }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const nomeFile = (payload.config.nome || 'Azienda').replace(/[^a-zA-Z0-9]/g, '-');
+    a.href = url;
+    a.download = `Analisi-Bilancio-${nomeFile}-${payload.config.anno}.doc`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch(err) {
+    alert('Errore generazione Word: ' + err.message);
   } finally {
     btn.disabled = false;
     btn.textContent = origText;
