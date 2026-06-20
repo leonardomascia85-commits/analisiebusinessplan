@@ -1233,7 +1233,7 @@ ${(() => {
     <div class="ratio-box"><span class="badge-yr" style="background:${pfnColor(PFNEBITDA3)};margin-bottom:4px">${fmtX(PFNEBITDA3)}</span><div class="l">PFN/EBITDA<br>${annoBase+3}</div></div>
   </div>
   <div class="chart-box" style="margin-bottom:10px">${svgSparkline(
-    [{ data:[pnS||0,PN1,PN2,PN3], label:'Patrimonio Netto' }, { data:[pfnS||0,PFN1,PFN2,PFN3], label:'PFN' }],
+    [{ data:[d.pn_attuale||0,PN1,PN2,PN3], label:'Patrimonio Netto' }, { data:[(d.pfn_storico||0),PFN1,PFN2,PFN3], label:'PFN' }],
     ['#2563EB','#DC2626'],
     [`${annoBase}`,`${annoBase+1}`,`${annoBase+2}`,`${annoBase+3}`],
     'Evoluzione Patrimonio Netto e PFN — triennio proiettato'
