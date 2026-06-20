@@ -257,48 +257,87 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
             <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Due cose e generiamo il piano</div>
             <div style="font-size:.83rem;color:var(--muted);margin-bottom:20px">Costi, marginalità, working capital e debiti vengono proiettati automaticamente dai dati del bilancio XBRL.</div>
 
-            <!-- 1. Scenario crescita -->
+            <!-- 1. Scenari di crescita (3 colonne) -->
             <div style="margin-bottom:20px">
-              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Tipologia di crescita attesa dei ricavi</label>
-              <div class="scenario-grid" style="margin-bottom:8px">
-                <div class="scenario-card" id="sc-bassa" onclick="selectScenario('bassa')">
-                  <div class="scenario-icon">🐢</div>
-                  <div class="scenario-name">Bassa</div>
-                  <div class="scenario-range">+2% – +4%</div>
-                  <div class="scenario-desc">Mercato maturo</div>
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">1. Scenari di crescita ricavi — Anno 1 / Anno 2 / Anno 3</label>
+              <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">Lo scenario <strong>Base</strong> è quello principale del Business Plan. Conservativo e Ottimistico appaiono nel confronto scenari. Modifica liberamente le percentuali.</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+
+                <!-- Conservativo -->
+                <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+                    <span style="font-size:1.2rem;">🐢</span>
+                    <div>
+                      <div style="font-size:.85rem;font-weight:700;color:#475569;">Conservativo</div>
+                      <div style="font-size:.72rem;color:#64748B;">Probabilità: 20%</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="sc-c-g1" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="sc-c-g2" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="sc-c-g3" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                  </div>
                 </div>
-                <div class="scenario-card" id="sc-moderata" onclick="selectScenario('moderata')">
-                  <div class="scenario-icon">🚀</div>
-                  <div class="scenario-name">Moderata</div>
-                  <div class="scenario-range">+5% – +8%</div>
-                  <div class="scenario-desc">Crescita organica</div>
+
+                <!-- Base (principale) -->
+                <div style="border:2px solid #2563EB;border-radius:10px;padding:14px 12px;background:#EFF6FF;box-shadow:0 0 0 3px rgba(37,99,235,.1);">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+                    <span style="font-size:1.2rem;">🚀</span>
+                    <div>
+                      <div style="font-size:.85rem;font-weight:700;color:#1D4ED8;">Base <span style="font-size:.7rem;background:#DBEAFE;color:#2563EB;padding:1px 7px;border-radius:8px;margin-left:3px;">Principale</span></div>
+                      <div style="font-size:.72rem;color:#3B82F6;">Probabilità: 55%</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 1</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="g1" class="has-suffix" value="7" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 2</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="g2" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 3</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="g3" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                  </div>
                 </div>
-                <div class="scenario-card" id="sc-alta" onclick="selectScenario('alta')">
-                  <div class="scenario-icon">⚡</div>
-                  <div class="scenario-name">Alta</div>
-                  <div class="scenario-range">+9% – +15%</div>
-                  <div class="scenario-desc">Espansione mercato</div>
+
+                <!-- Ottimistico -->
+                <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+                    <span style="font-size:1.2rem;">⚡</span>
+                    <div>
+                      <div style="font-size:.85rem;font-weight:700;color:#475569;">Ottimistico</div>
+                      <div style="font-size:.72rem;color:#64748B;">Probabilità: 25%</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="sc-o-g1" class="has-suffix" value="12" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="sc-o-g2" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
+                      <div class="input-group" style="width:80px;"><input type="number" id="sc-o-g3" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                    </div>
+                  </div>
                 </div>
-                <div class="scenario-card" id="sc-custom" onclick="selectScenario('custom')">
-                  <div class="scenario-icon">✏️</div>
-                  <div class="scenario-name">Personalizzata</div>
-                  <div class="scenario-range">Libera</div>
-                  <div class="scenario-desc">Inserisci % manualmente</div>
-                </div>
-              </div>
-              <div id="custom-growth-row" style="display:none" class="form-row cols3">
-                <div>
-                  <label>Anno 1 (%)</label>
-                  <div class="input-group"><input type="number" id="g1" class="has-suffix" placeholder="0" step="0.5"><span class="input-suffix">%</span></div>
-                </div>
-                <div>
-                  <label>Anno 2 (%)</label>
-                  <div class="input-group"><input type="number" id="g2" class="has-suffix" placeholder="0" step="0.5"><span class="input-suffix">%</span></div>
-                </div>
-                <div>
-                  <label>Anno 3 (%)</label>
-                  <div class="input-group"><input type="number" id="g3" class="has-suffix" placeholder="0" step="0.5"><span class="input-suffix">%</span></div>
-                </div>
+
               </div>
             </div>
 
@@ -516,56 +555,85 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     </div>
 
     <div class="card">
-      <div class="card-title">📈 Scenario di crescita</div>
-      <div class="card-sub">Seleziona il tasso di crescita annuo previsto dei ricavi. Le banche valutano sempre anche lo scenario prudenziale (−20%).</div>
-      <div class="scenario-grid">
-        <div class="scenario-card" id="m-sc-bassa" onclick="selectScenario('bassa')">
-          <div class="scenario-icon">🐢</div>
-          <div class="scenario-name">Bassa</div>
-          <div class="scenario-range">+2% – +4%</div>
-          <div class="scenario-desc">Mercato maturo, consolidamento</div>
-        </div>
-        <div class="scenario-card" id="m-sc-moderata" onclick="selectScenario('moderata')">
-          <div class="scenario-icon">🚀</div>
-          <div class="scenario-name">Moderata</div>
-          <div class="scenario-range">+5% – +8%</div>
-          <div class="scenario-desc">Crescita organica sostenuta</div>
-        </div>
-        <div class="scenario-card" id="m-sc-alta" onclick="selectScenario('alta')">
-          <div class="scenario-icon">⚡</div>
-          <div class="scenario-name">Alta</div>
-          <div class="scenario-range">+9% – +15%</div>
-          <div class="scenario-desc">Espansione mercato/prodotto</div>
-        </div>
-        <div class="scenario-card" id="m-sc-custom" onclick="selectScenario('custom')">
-          <div class="scenario-icon">✏️</div>
-          <div class="scenario-name">Personalizzato</div>
-          <div class="scenario-range">Libero</div>
-          <div class="scenario-desc">Inserisci % manualmente</div>
-        </div>
-      </div>
-      <div id="m-custom-growth-row" style="display:none" class="form-row cols3">
-        <div>
-          <label>Crescita Anno 1 (%)</label>
-          <div class="input-group">
-            <input type="number" id="m-g1" class="has-suffix" placeholder="0" step="0.5">
-            <span class="input-suffix">%</span>
+      <div class="card-title">📈 Scenari di crescita ricavi</div>
+      <div class="card-sub">Imposta le % per i 3 scenari. Lo scenario <strong>Base</strong> è quello principale del Business Plan; Conservativo e Ottimistico appaiono nel confronto scenari allegato.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;">
+
+        <!-- Conservativo -->
+        <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+            <span style="font-size:1.2rem;">🐢</span>
+            <div>
+              <div style="font-size:.85rem;font-weight:700;color:#475569;">Conservativo</div>
+              <div style="font-size:.72rem;color:#64748B;">Probabilità: 20%</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-c-g1" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-c-g2" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-c-g3" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
           </div>
         </div>
-        <div>
-          <label>Crescita Anno 2 (%)</label>
-          <div class="input-group">
-            <input type="number" id="m-g2" class="has-suffix" placeholder="0" step="0.5">
-            <span class="input-suffix">%</span>
+
+        <!-- Base (principale) -->
+        <div style="border:2px solid #2563EB;border-radius:10px;padding:14px 12px;background:#EFF6FF;box-shadow:0 0 0 3px rgba(37,99,235,.1);">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+            <span style="font-size:1.2rem;">🚀</span>
+            <div>
+              <div style="font-size:.85rem;font-weight:700;color:#1D4ED8;">Base <span style="font-size:.7rem;background:#DBEAFE;color:#2563EB;padding:1px 7px;border-radius:8px;margin-left:3px;">Principale</span></div>
+              <div style="font-size:.72rem;color:#3B82F6;">Probabilità: 55%</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 1</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-g1" class="has-suffix" value="7" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 2</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-g2" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 3</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-g3" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
           </div>
         </div>
-        <div>
-          <label>Crescita Anno 3 (%)</label>
-          <div class="input-group">
-            <input type="number" id="m-g3" class="has-suffix" placeholder="0" step="0.5">
-            <span class="input-suffix">%</span>
+
+        <!-- Ottimistico -->
+        <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+            <span style="font-size:1.2rem;">⚡</span>
+            <div>
+              <div style="font-size:.85rem;font-weight:700;color:#475569;">Ottimistico</div>
+              <div style="font-size:.72rem;color:#64748B;">Probabilità: 25%</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-o-g1" class="has-suffix" value="12" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-o-g2" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
+              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-o-g3" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -1484,41 +1552,19 @@ function goStep(n){
 
 // ─── Scenario ────────────────────────────────────────────
 function selectScenario(key){
-  selectedScenario = key;
-  // Aggiorna entrambi i set di card (XBRL fast-track + manuale)
-  document.querySelectorAll('.scenario-card').forEach(c=>c.classList.remove('selected'));
-  ['sc-','m-sc-'].forEach(pfx=>{
-    const el = document.getElementById(pfx+key);
-    if(el) el.classList.add('selected');
-  });
-  // Mostra/nascondi custom row in entrambi i contesti
-  const custom  = document.getElementById('custom-growth-row');
-  const mCustom = document.getElementById('m-custom-growth-row');
-  if(key==='custom'){
-    if(custom)  custom.style.display='grid';
-    if(mCustom) mCustom.style.display='grid';
-  } else {
-    if(custom)  custom.style.display='none';
-    if(mCustom) mCustom.style.display='none';
-    const ranges = {bassa:[3,3,3], moderata:[6,7,7], alta:[10,12,12]};
-    const [g1,g2,g3] = ranges[key] || [0,0,0];
-    // Setta valori in entrambi i set
-    ['g1','g2','g3','m-g1','m-g2','m-g3'].forEach((id,i)=>{
-      const el=document.getElementById(id); if(el) el.value=[g1,g2,g3,g1,g2,g3][i];
-    });
-  }
+  // kept for backward compatibility — no-op, scenari ora sono sempre custom
+  selectedScenario = key || 'custom';
 }
 
 // ─── FAST-TRACK: genera BP da XBRL (solo crescita + eventuale finanziamento) ──
 async function generaBPdaXBRL(){
   if(!_xbrlData){ alert('Carica prima un file XBRL.'); return; }
-  if(!selectedScenario){ alert('Seleziona la tipologia di crescita.'); return; }
 
   const p = _xbrlData;
-  const ranges = {bassa:[3,3,3], moderata:[6,7,7], alta:[10,12,12]};
-  const [g1,g2,g3] = selectedScenario==='custom'
-    ? [parseFloat(v('g1'))||3, parseFloat(v('g2'))||3, parseFloat(v('g3'))||3]
-    : (ranges[selectedScenario]||[3,3,3]);
+  // Legge i 3 scenari direttamente dai campi del form
+  const g1  = parseFloat(v('g1'))||7,  g2  = parseFloat(v('g2'))||8,  g3  = parseFloat(v('g3'))||8;
+  const cg1 = parseFloat(v('sc-c-g1'))||3, cg2 = parseFloat(v('sc-c-g2'))||3, cg3 = parseFloat(v('sc-c-g3'))||3;
+  const og1 = parseFloat(v('sc-o-g1'))||12, og2 = parseFloat(v('sc-o-g2'))||13, og3 = parseFloat(v('sc-o-g3'))||13;
 
   const payload = {
     // Anagrafica
@@ -1552,9 +1598,11 @@ async function generaBPdaXBRL(){
     mat_prime:          Math.round(p.mat_prime||0),
     servizi:            Math.round(p.servizi||0),
     ammortamenti_storici: Math.round(p.ammortamenti||0),
-    // Scenario
-    scenario: selectedScenario,
+    // Scenario Base + Conservativo + Ottimistico
+    scenario: 'custom',
     g1, g2, g3,
+    sc_conserv_g1: cg1, sc_conserv_g2: cg2, sc_conserv_g3: cg3,
+    sc_ottim_g1: og1, sc_ottim_g2: og2, sc_ottim_g3: og3,
     // Costi proiettati automaticamente da XBRL
     margine_lordo:  Math.max(p.margine_lordo||0, 0),
     ebitda_margin:  p.ebitda_margin||0,
@@ -1794,9 +1842,19 @@ function raccogliDati(){
     costo_pers_storico: parseFloat(v('costo_pers_storico'))||0,
     pfn_storico: parseFloat(v('pfn_storico'))||0,
     pn_attuale: parseFloat(v('pn_attuale'))||0,
-    // Scenario
-    scenario: selectedScenario,
-    g1: parseFloat(v('g1'))||0, g2: parseFloat(v('g2'))||0, g3: parseFloat(v('g3'))||0,
+    // Scenario Base (principale)
+    scenario: 'custom',
+    g1: parseFloat(v('g1')||v('m-g1'))||0,
+    g2: parseFloat(v('g2')||v('m-g2'))||0,
+    g3: parseFloat(v('g3')||v('m-g3'))||0,
+    // Scenario Conservativo
+    sc_conserv_g1: parseFloat(v('sc-c-g1')||v('m-sc-c-g1'))||0,
+    sc_conserv_g2: parseFloat(v('sc-c-g2')||v('m-sc-c-g2'))||0,
+    sc_conserv_g3: parseFloat(v('sc-c-g3')||v('m-sc-c-g3'))||0,
+    // Scenario Ottimistico
+    sc_ottim_g1: parseFloat(v('sc-o-g1')||v('m-sc-o-g1'))||0,
+    sc_ottim_g2: parseFloat(v('sc-o-g2')||v('m-sc-o-g2'))||0,
+    sc_ottim_g3: parseFloat(v('sc-o-g3')||v('m-sc-o-g3'))||0,
     // Ricavi
     perc_ricorrenti: parseFloat(v('perc_ricorrenti'))||60,
     new_products_rev: parseFloat(v('new_products_rev'))||0,

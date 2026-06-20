@@ -269,10 +269,17 @@ function buildBusinessPlan(d) {
     const dscr1 = debtService1base > 0 ? e1 / debtService1base : null;
     return { r1, r2, r3, e1, e3, un1, dscr1, em1: r1 > 0 ? e1 / r1 * 100 : null, cagr: R0 > 0 && r3 > 0 ? (Math.pow(r3 / R0, 1 / 3) - 1) * 100 : null };
   };
+  // Usa scenari custom se forniti, altrimenti fallback ±5% sul Base
+  const cG1 = d.sc_conserv_g1 != null ? d.sc_conserv_g1 : Math.max(d.g1 - 5, 0);
+  const cG2 = d.sc_conserv_g2 != null ? d.sc_conserv_g2 : Math.max(d.g2 - 5, 0);
+  const cG3 = d.sc_conserv_g3 != null ? d.sc_conserv_g3 : Math.max(d.g3 - 5, 0);
+  const oG1 = d.sc_ottim_g1 != null ? d.sc_ottim_g1 : d.g1 + 5;
+  const oG2 = d.sc_ottim_g2 != null ? d.sc_ottim_g2 : d.g2 + 5;
+  const oG3 = d.sc_ottim_g3 != null ? d.sc_ottim_g3 : d.g3 + 5;
   const scenComparison = [
-    { label: 'Pessimistico', prob: '20%', ...buildScen(Math.max(d.g1 - 5, 0), Math.max(d.g2 - 5, 0), Math.max(d.g3 - 5, 0)) },
-    { label: 'Base (attuale)', prob: '55%', ...buildScen(d.g1, d.g2, d.g3) },
-    { label: 'Ottimistico', prob: '25%', ...buildScen(d.g1 + 5, d.g2 + 5, d.g3 + 5) },
+    { label: 'Conservativo', sub: `+${cG1}% / +${cG2}% / +${cG3}%`, prob: d.sc_conserv_prob || '20%', ...buildScen(cG1, cG2, cG3) },
+    { label: 'Base', sub: `+${d.g1}% / +${d.g2}% / +${d.g3}%`, prob: d.sc_base_prob || '55%', ...buildScen(d.g1, d.g2, d.g3) },
+    { label: 'Ottimistico', sub: `+${oG1}% / +${oG2}% / +${oG3}%`, prob: d.sc_ottim_prob || '25%', ...buildScen(oG1, oG2, oG3) },
   ];
 
   // ── HTML report
@@ -1184,6 +1191,7 @@ ${(() => {
           <td style="border-left:3px solid ${accentCol};padding-left:10px;${isBase?'font-weight:700':''}">
             <span style="color:${accentCol};font-weight:700">${s.label}</span>
             ${isBase?'<span style="font-size:8px;font-weight:500;color:#64748B;margin-left:6px">(piano adottato)</span>':''}
+            <div style="font-size:8px;color:#94A3B8;margin-top:1px">${s.sub||''}</div>
           </td>
           <td style="color:#64748B;font-size:9px;text-align:center"><span style="background:${accentCol}22;color:${accentCol};padding:2px 7px;border-radius:10px;font-weight:600">${s.prob}</span></td>
           <td style="font-weight:${isBase?700:400}">${fmtM(s.r1)}</td>
