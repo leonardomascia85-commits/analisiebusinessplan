@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report Analisi Bilancio | AnalisiEBusinessPlan.it</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0B1628;--navy2:#132040;--navy3:#1c2f52;
+      --blue:#2563EB;--cyan:#06B6D4;--green:#10B981;
+      --gold:#F59E0B;--red:#EF4444;--gray:#94A3B8;--white:#fff;
+      --border:rgba(255,255,255,0.08);--glass:rgba(255,255,255,0.04);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:#0A1628;color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(10,22,40,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--white);text-decoration:none;}
+    .nav-logo span{color:var(--cyan);}
+    .nav-links{display:flex;align-items:center;gap:4px;}
+    .nav-link{padding:7px 14px;border-radius:7px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s,background .15s;}
+    .nav-link:hover{color:#fff;background:rgba(255,255,255,.07);}
+    .nav-link.active{color:var(--cyan);background:rgba(6,182,212,.1);}
+
+    /* WRAP */
+    .wrap{max-width:1000px;margin:0 auto;padding:40px 4% 80px;}
+
+    /* HERO */
+    .hero{text-align:center;padding:48px 24px 32px;background:var(--navy2);border:1px solid var(--border);border-radius:18px;margin-bottom:32px;}
+    .hero-sub{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cyan);margin-bottom:10px;}
+    .hero-title{font-family:'Fraunces',serif;font-size:30px;font-weight:700;margin-bottom:6px;}
+    .hero-date{font-size:13px;color:var(--gray);margin-bottom:24px;}
+    .hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .rating-badge{display:inline-flex;flex-direction:column;align-items:center;padding:16px 28px;border-radius:14px;min-width:120px;}
+    .rating-letter{font-family:'Fraunces',serif;font-size:40px;font-weight:700;line-height:1;}
+    .rating-label{font-size:12px;margin-top:4px;opacity:.9;}
+    .mcc-badge{display:inline-flex;flex-direction:column;align-items:center;padding:16px 28px;border-radius:14px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);min-width:120px;}
+    .mcc-fascia{font-size:28px;font-weight:700;color:var(--gold);}
+    .mcc-label{font-size:12px;color:var(--gold);margin-top:4px;}
+
+    /* KPI GRID */
+    .section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan);margin-bottom:16px;}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:32px;}
+    .kpi-card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center;}
+    .kpi-val{font-size:22px;font-weight:700;margin-bottom:4px;}
+    .kpi-lbl{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;}
+    .kpi-pos{color:var(--green);}
+    .kpi-warn{color:var(--gold);}
+    .kpi-neg{color:var(--red);}
+    .kpi-neu{color:var(--gray);}
+
+    /* DOWNLOAD BUTTONS */
+    .dl-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:32px 0;}
+    .btn-dl-big{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 32px;border-radius:14px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;min-width:160px;transition:transform .2s,opacity .2s;}
+    .btn-dl-big:hover{transform:translateY(-3px);opacity:.9;}
+    .btn-dl-big .icon{font-size:28px;}
+    .btn-dl-pdf{background:linear-gradient(135deg,#DC2626,#b91c1c);color:#fff;}
+    .btn-dl-word{background:linear-gradient(135deg,#1D4ED8,#1e40af);color:#fff;}
+    .btn-dl-excel{background:linear-gradient(135deg,#15803d,#166534);color:#fff;}
+
+    /* INDICES TABLE */
+    .indices-section{background:var(--navy2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:32px;}
+    .indices-section table{width:100%;border-collapse:collapse;}
+    .indices-section th{background:rgba(255,255,255,.04);padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray);text-align:left;}
+    .indices-section td{padding:10px 16px;font-size:13px;border-top:1px solid var(--border);}
+    .indices-section td:last-child{text-align:right;font-weight:600;}
+    .cat-row td{background:rgba(255,255,255,.03);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--cyan);padding:6px 16px;}
+    .sem-ok{color:var(--green);}
+    .sem-warn{color:var(--gold);}
+    .sem-neg{color:var(--red);}
+    .sem-neu{color:var(--gray);}
+
+    /* EMPTY STATE */
+    .empty{text-align:center;padding:72px 24px;}
+    .empty-icon{font-size:52px;margin-bottom:16px;}
+    .empty-title{font-size:20px;font-weight:700;margin-bottom:8px;}
+    .empty-desc{font-size:14px;color:var(--gray);margin-bottom:24px;}
+    .btn-back{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .2s;}
+    .btn-back:hover{opacity:.85;}
+
+    /* FOOTER */
+    .footer-disc{margin-top:40px;padding:20px;background:var(--navy2);border:1px solid var(--border);border-radius:12px;font-size:11px;color:var(--gray);line-height:1.7;text-align:center;}
+
+    @media(max-width:600px){
+      .hero-title{font-size:22px;}
+      .dl-buttons{flex-direction:column;align-items:center;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="bilancio-multianno.html" class="nav-link">Analisi Bilancio</a>
+    <a href="business-plan.html" class="nav-link">Business Plan</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+  </div>
+</nav>
+
+<div class="wrap" id="main-content">
+  <!-- populated by JS -->
+</div>
+
+<script>
+// ── FORMATTERS ──
+const fmt = (n) => {
+  if (n === undefined || n === null || isNaN(n) || !isFinite(n) || n === 0) return '—';
+  return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+};
+const fp = (n, d = 1) => (isNaN(n) || !isFinite(n)) ? '—' : n.toFixed(d) + '%';
+const fx = (n, d = 2) => (isNaN(n) || !isFinite(n)) ? '—' : n.toFixed(d) + 'x';
+
+// ── CALCOLA INDICI ──
+function calcIndici(d) {
+  const ebitda = (d.tot_vp || 0) - ((d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0) + (d.personale || 0) + (d.var_mat || 0) + (d.oneri_div || 0));
+  const ebit = ebitda - (d.ammort || 0);
+  const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0);
+  const pfn = ((d.deb_b_bt || 0) + (d.deb_b_lt || 0)) - (d.liquidita || 0);
+  const roe = d.tot_pn > 0 ? (d.utile_es || 0) / d.tot_pn * 100 : NaN;
+  const roi = d.tot_att > 0 ? ebit / d.tot_att * 100 : NaN;
+  const ros = d.tot_vp > 0 ? ebit / d.tot_vp * 100 : NaN;
+  const cr  = dbt_bt > 0 ? (d.tot_circ || 0) / dbt_bt : NaN;
+  const acid = dbt_bt > 0 ? ((d.tot_circ || 0) - (d.rimanenze || 0)) / dbt_bt : NaN;
+  const leva = d.tot_pn > 0 ? (d.tot_deb || 0) / d.tot_pn : NaN;
+  const aut  = d.tot_att > 0 ? (d.tot_pn || 0) / d.tot_att * 100 : NaN;
+  const ebitda_pct = d.tot_vp > 0 ? ebitda / d.tot_vp * 100 : NaN;
+  const pfn_ebitda = ebitda > 0 && pfn > 0 ? pfn / ebitda : NaN;
+  const icr = (d.oneri_f || 0) > 0 ? ebit / d.oneri_f : NaN;
+  const servizio = (d.rate_cap || 0) + (d.interessi || d.oneri_f || 0);
+  const dscr = servizio > 0 && ebitda > 0 ? ebitda / servizio : NaN;
+  const dsi = d.mat_prime > 0 && d.rimanenze > 0 ? d.rimanenze / d.mat_prime * 365 : NaN;
+  const dso = d.ric_vend > 0 && d.cred_cl > 0 ? d.cred_cl / d.ric_vend * 365 : NaN;
+  const dpo = d.mat_prime > 0 && d.deb_for > 0 ? d.deb_for / d.mat_prime * 365 : NaN;
+  const ccn_giorni = (!isNaN(dsi) && !isNaN(dso) && !isNaN(dpo)) ? dsi + dso - dpo : NaN;
+  return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, servizio, dsi, dso, dpo, ccn_giorni };
+}
+
+// ── CALCOLA RATING IBRIDO ──
+function calcRating(c, d) {
+  const v = (x) => (!isNaN(x) && isFinite(x));
+  let zScore = null, zLabel = '—', zClass = 'neu';
+  const totAtt = d.tot_att || 0;
+  if (totAtt > 0) {
+    const ccn = (d.tot_circ || 0) - ((d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0));
+    const riserve = (d.tot_pn || 0) - (d.cap_sociale || 0) - (d.utile_es || 0);
+    const X1 = ccn / totAtt;
+    const X2 = riserve / totAtt;
+    const X3 = c.ebit / totAtt;
+    const X4 = d.tot_pn > 0 && d.tot_deb > 0 ? d.tot_pn / d.tot_deb : (d.tot_pn > 0 ? 999 : 0);
+    const X5 = (d.ric_vend || d.tot_vp || 0) / totAtt;
+    zScore = 0.877 * X1 + 0.847 * X2 + 3.107 * X3 + 0.420 * X4 + 0.998 * X5;
+    if (zScore >= 2.90) { zLabel = 'Zona sicura (Z > 2,90)'; zClass = 'pos'; }
+    else if (zScore >= 1.23) { zLabel = 'Zona grigia (1,23–2,90)'; zClass = 'warn'; }
+    else { zLabel = 'Zona insolvenza (Z < 1,23)'; zClass = 'neg'; }
+  }
+  const items = [
+    [c.dscr, 1.25, 1.0, true, 25, 'DSCR'],
+    [c.pfn_ebitda, 3.0, 5.0, false, 20, 'PFN/EBITDA'],
+    [c.aut, 30, 15, true, 15, 'Autonomia fin.'],
+    [c.cr, 1.5, 1.0, true, 15, 'Current Ratio'],
+    [c.roi, 8, 3, true, 10, 'ROI'],
+    [c.icr, 3.0, 1.5, true, 10, 'ICR'],
+    [c.leva, 2.0, 3.5, false, 5, 'Leva D/E'],
+  ];
+  let scoreEBA = 0, maxEBA = 0, ebaDetails = [];
+  for (const [val, g, a, higher, peso, nome] of items) {
+    maxEBA += peso * 2;
+    let punti = 0, giudizio = 'n.d.', colore = '#94A3B8';
+    if (v(val)) {
+      const verde = higher ? val >= g : val <= g;
+      const giallo = higher ? val >= a : val <= a;
+      punti = verde ? peso * 2 : giallo ? peso : 0;
+      giudizio = verde ? 'Ottimo' : giallo ? 'Sufficiente' : 'Critico';
+      colore = verde ? '#059669' : giallo ? '#D97706' : '#DC2626';
+    }
+    scoreEBA += punti;
+    ebaDetails.push({ nome, val, g, a, higher, peso, punti, giudizio, colore });
+  }
+  const pctEBA = maxEBA > 0 ? scoreEBA / maxEBA : 0;
+
+  const triggers = [];
+  if (v(c.dscr) && c.dscr < 1.1) triggers.push('DSCR < 1,1 (soglia EBA Stage 2)');
+  if (v(c.pfn_ebitda) && c.pfn_ebitda > 6) triggers.push('PFN/EBITDA > 6x (soglia BCE)');
+  if ((d.utile_es || 0) < 0) triggers.push('Perdita d\'esercizio');
+  if (v(c.aut) && c.aut < 15) triggers.push('Autonomia finanziaria < 15%');
+  if (v(c.cr) && c.cr < 1.0) triggers.push('Current Ratio < 1,0');
+
+  let ratingScore = pctEBA;
+  if (zScore !== null) {
+    const zNorm = zScore >= 2.90 ? 1 : zScore >= 1.23 ? 0.5 : 0;
+    ratingScore = pctEBA * 0.70 + zNorm * 0.30;
+  }
+
+  let rating;
+  if (ratingScore >= 0.82)      rating = { l: 'A+', color: '#047857', title: 'Eccellente' };
+  else if (ratingScore >= 0.68) rating = { l: 'A',  color: '#059669', title: 'Ottima bancabilità' };
+  else if (ratingScore >= 0.55) rating = { l: 'B+', color: '#2563EB', title: 'Buona bancabilità' };
+  else if (ratingScore >= 0.42) rating = { l: 'B',  color: '#3B82F6', title: 'Bancabilità discreta' };
+  else if (ratingScore >= 0.28) rating = { l: 'C',  color: '#D97706', title: 'Bancabilità limitata' };
+  else                          rating = { l: 'D',  color: '#DC2626', title: 'Profilo critico' };
+
+  if (triggers.length >= 2) {
+    const scale = ['A+','A','B+','B','C','D'];
+    const down =  ['A','B+','B','C','D','D'];
+    const idx = scale.indexOf(rating.l);
+    if (idx >= 0) rating.l = down[idx];
+    rating.penalized = true;
+    rating.triggerNote = `Penalizzato per ${triggers.length} segnali CCII attivi.`;
+  }
+
+  return { ...rating, zScore, zLabel, zClass, pctEBA, scoreEBA, maxEBA, ebaDetails, triggers, ratingScore };
+}
+
+function calcMCC(c, d) {
+  const vv = (x) => (!isNaN(x) && isFinite(x));
+  const exclusions = [];
+  if ((d.tot_pn || 0) <= 0) exclusions.push('Patrimonio netto negativo o nullo — esclusione automatica');
+  const pfnPn = (d.tot_pn || 0) > 0 ? c.pfn / d.tot_pn : NaN;
+  const items = [
+    { nome: 'ROI — Redditività investimenti', disp: vv(c.roi) ? fp(c.roi) : 'n.d.', soglie: '>=0% / >=4% / >=8%', peso: 20,
+      pts: vv(c.roi) ? (c.roi >= 8 ? 20 : c.roi >= 4 ? 14 : c.roi >= 0 ? 7 : 0) : 0 },
+    { nome: 'EBITDA Margin — Marginalità operativa', disp: vv(c.ebitda_pct) ? fp(c.ebitda_pct) : 'n.d.', soglie: '>=3% / >=8% / >=15%', peso: 20,
+      pts: vv(c.ebitda_pct) ? (c.ebitda_pct >= 15 ? 20 : c.ebitda_pct >= 8 ? 14 : c.ebitda_pct >= 3 ? 7 : 0) : 0 },
+    { nome: 'Autonomia finanziaria — PN / Totale attivo', disp: vv(c.aut) ? fp(c.aut) : 'n.d.', soglie: '>=15% / >=25% / >=40%', peso: 25,
+      pts: vv(c.aut) ? (c.aut >= 40 ? 25 : c.aut >= 25 ? 17 : c.aut >= 15 ? 9 : 0) : 0 },
+    { nome: 'Current Ratio — Liquidità corrente', disp: vv(c.cr) ? fx(c.cr) : 'n.d.', soglie: '>=0.7x / >=1.0x / >=1.5x', peso: 20,
+      pts: vv(c.cr) ? (c.cr >= 1.5 ? 20 : c.cr >= 1.0 ? 13 : c.cr >= 0.7 ? 6 : 0) : 0 },
+    { nome: 'PFN / Patrimonio netto — Leva debitoria', disp: c.pfn <= 0 ? '< 0 OK' : vv(pfnPn) ? fx(pfnPn) : 'n.d.', soglie: '<=4x / <=2x / <=1x', peso: 15,
+      pts: c.pfn <= 0 ? 15 : vv(pfnPn) ? (pfnPn <= 1 ? 15 : pfnPn <= 2 ? 10 : pfnPn <= 4 ? 5 : 0) : 0 },
+  ];
+  const totalScore = items.reduce((s, i) => s + i.pts, 0);
+  let fascia, fasciaLabel, fasciaColor, copertura, eligible;
+  if (exclusions.length > 0 && (d.tot_pn || 0) <= 0) {
+    fascia = 5; fasciaLabel = 'Non ammissibile'; fasciaColor = '#DC2626'; copertura = '—'; eligible = false;
+  } else if (totalScore >= 75) { fascia = 1; fasciaLabel = 'Eccellente'; fasciaColor = '#047857'; copertura = "fino all'80%"; eligible = true; }
+  else if (totalScore >= 55) { fascia = 2; fasciaLabel = 'Buona bancabilità'; fasciaColor = '#059669'; copertura = 'fino al 70%'; eligible = true; }
+  else if (totalScore >= 35) { fascia = 3; fasciaLabel = 'Bancabilità media'; fasciaColor = '#2563EB'; copertura = 'fino al 60%'; eligible = true; }
+  else if (totalScore >= 15) { fascia = 4; fasciaLabel = 'Bancabilità bassa'; fasciaColor = '#D97706'; copertura = 'fino al 40%'; eligible = true; }
+  else { fascia = 5; fasciaLabel = 'Non ammissibile'; fasciaColor = '#DC2626'; copertura = '—'; eligible = false; }
+  return { fascia, fasciaLabel, fasciaColor, totalScore, items, exclusions, copertura, eligible };
+}
+
+// ── SEMAFORI ──
+function semCls(val, thG, thA, higher) {
+  if (isNaN(val) || !isFinite(val)) return 'sem-neu';
+  const ok = higher ? val >= thG : val <= thG;
+  const med = higher ? val >= thA : val <= thA;
+  return ok ? 'sem-ok' : med ? 'sem-warn' : 'sem-neg';
+}
+function semTxt(val, thG, thA, higher) {
+  if (isNaN(val) || !isFinite(val)) return '—';
+  const ok = higher ? val >= thG : val <= thG;
+  const med = higher ? val >= thA : val <= thA;
+  return ok ? '●' : med ? '●' : '●';
+}
+
+// ── DOWNLOAD ──
+async function downloadReport(tipo) {
+  const payload = JSON.parse(sessionStorage.getItem('abp_report_payload'));
+  if (!payload) return;
+  if (tipo === 'pdf') {
+    const res = await fetch('/api/genera-html', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    const html = await res.text();
+    const win = window.open('', '_blank');
+    win.document.write(html);
+    win.document.close();
+    return;
+  }
+  const endpoint = tipo === 'word' ? '/api/genera-word' : '/api/genera-excel';
+  const ext = tipo === 'word' ? 'doc' : 'xls';
+  const res = await fetch(endpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const nomeFile = (payload.config.nome||'Azienda').replace(/[^a-zA-Z0-9]/g,'-');
+  a.href = url;
+  a.download = `Analisi-Bilancio-${nomeFile}-${payload.config.anno}.${ext}`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── RENDER ──
+(function init() {
+  const raw = sessionStorage.getItem('abp_report_payload');
+  const container = document.getElementById('main-content');
+
+  if (!raw) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">📋</div>
+        <div class="empty-title">Nessun report da visualizzare</div>
+        <div class="empty-desc">Genera prima un'analisi di bilancio per vedere il report.</div>
+        <a href="bilancio-multianno.html" class="btn-back">← Vai all'Analisi Bilancio</a>
+      </div>`;
+    return;
+  }
+
+  let payload;
+  try { payload = JSON.parse(raw); } catch(e) {
+    container.innerHTML = '<div class="empty"><div class="empty-title">Errore nel caricamento dei dati.</div></div>';
+    return;
+  }
+
+  const d = payload.data || {};
+  const config = payload.config || {};
+  const c = calcIndici(d);
+  const rating = calcRating(c, d);
+  const mcc = calcMCC(c, d);
+
+  // Rating badge background
+  const ratingBg = {
+    'A+': 'rgba(4,120,87,.2)', 'A': 'rgba(5,150,105,.15)',
+    'B+': 'rgba(37,99,235,.15)', 'B': 'rgba(59,130,246,.12)',
+    'C': 'rgba(217,119,6,.15)', 'D': 'rgba(220,38,38,.15)'
+  }[rating.l] || 'rgba(255,255,255,.08)';
+  const ratingBorder = {
+    'A+': '#047857', 'A': '#059669', 'B+': '#2563EB', 'B': '#3B82F6', 'C': '#D97706', 'D': '#DC2626'
+  }[rating.l] || '#94A3B8';
+
+  // KPI helpers
+  function kpiCls(val, thG, thA, higher) {
+    if (isNaN(val) || !isFinite(val)) return 'kpi-neu';
+    const ok = higher ? val >= thG : val <= thG;
+    const med = higher ? val >= thA : val <= thA;
+    return ok ? 'kpi-pos' : med ? 'kpi-warn' : 'kpi-neg';
+  }
+
+  const ebitdaCls = c.ebitda > 0 ? 'kpi-pos' : 'kpi-neg';
+  const roeCls = kpiCls(c.roe, 10, 5, true);
+  const roiCls = kpiCls(c.roi, 8, 3, true);
+  const ebitdaPctCls = kpiCls(c.ebitda_pct, 15, 8, true);
+  const dscrCls = kpiCls(c.dscr, 1.25, 1.0, true);
+  const autCls = kpiCls(c.aut, 40, 15, true);
+
+  // Indices table rows
+  function idxRow(label, val, thG, thA, higher) {
+    const cls = semCls(val, thG, thA, higher);
+    const dot = isNaN(val) || !isFinite(val) ? 'sem-neu' : cls;
+    return `<tr>
+      <td>${label}</td>
+      <td><span class="${dot}">●</span></td>
+      <td>${val}</td>
+    </tr>`;
+  }
+
+  const indiciHTML = `
+    <tr class="cat-row"><td colspan="3">Redditività</td></tr>
+    ${idxRow('ROE — Redditività del cap. proprio', fp(c.roe), 10, 5, true)}
+    ${idxRow('ROI — Redditività del cap. investito', fp(c.roi), 8, 3, true)}
+    ${idxRow('ROS — Redditività delle vendite', fp(c.ros), 5, 2, true)}
+    ${idxRow('EBITDA Margin', fp(c.ebitda_pct), 15, 8, true)}
+    <tr class="cat-row"><td colspan="3">Liquidità</td></tr>
+    ${idxRow('Current Ratio (CR)', fx(c.cr), 1.5, 1.0, true)}
+    ${idxRow('Acid Test', fx(c.acid), 1.0, 0.7, true)}
+    <tr class="cat-row"><td colspan="3">Struttura finanziaria</td></tr>
+    ${idxRow('Autonomia finanziaria', fp(c.aut), 40, 15, true)}
+    ${idxRow('Leva finanziaria (D/E)', fx(c.leva), 2.0, 3.5, false)}
+    ${idxRow('PFN / EBITDA', fx(c.pfn_ebitda), 3.0, 5.0, false)}
+    <tr class="cat-row"><td colspan="3">Bancabilità EBA</td></tr>
+    ${idxRow('DSCR — Debt Service Coverage', fx(c.dscr), 1.25, 1.0, true)}
+    ${idxRow('ICR — Interest Coverage', fx(c.icr), 3.0, 1.5, true)}
+  `;
+
+  container.innerHTML = `
+    <div class="hero">
+      <div class="hero-sub">Report Analisi di Bilancio</div>
+      <div class="hero-title">${escHtml(config.nome || 'Azienda')} — Esercizio ${escHtml(String(config.anno || ''))}</div>
+      <div class="hero-date">Elaborato il ${escHtml(config.dataReport || '')}</div>
+      <div class="hero-badges">
+        <div class="rating-badge" style="background:${ratingBg};border:1px solid ${ratingBorder};">
+          <div class="rating-letter" style="color:${rating.color};">${rating.l}</div>
+          <div class="rating-label" style="color:${rating.color};">${rating.title}</div>
+        </div>
+        <div class="mcc-badge">
+          <div class="mcc-fascia">Fascia ${mcc.fascia}</div>
+          <div class="mcc-label">${mcc.fasciaLabel}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Indicatori principali</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-val ${ebitdaCls}">${fmt(c.ebitda)}</div>
+        <div class="kpi-lbl">EBITDA</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val ${roeCls}">${fp(c.roe)}</div>
+        <div class="kpi-lbl">ROE</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val ${roiCls}">${fp(c.roi)}</div>
+        <div class="kpi-lbl">ROI</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val ${ebitdaPctCls}">${fp(c.ebitda_pct)}</div>
+        <div class="kpi-lbl">EBITDA%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val ${dscrCls}">${fx(c.dscr)}</div>
+        <div class="kpi-lbl">DSCR</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val ${autCls}">${fp(c.aut)}</div>
+        <div class="kpi-lbl">Autonomia fin.</div>
+      </div>
+    </div>
+
+    <div class="section-title">Scarica il report</div>
+    <div class="dl-buttons">
+      <button class="btn-dl-big btn-dl-pdf" onclick="downloadReport('pdf')">
+        <span class="icon">📄</span>Scarica PDF
+      </button>
+      <button class="btn-dl-big btn-dl-word" onclick="downloadReport('word')">
+        <span class="icon">📝</span>Scarica Word
+      </button>
+      <button class="btn-dl-big btn-dl-excel" onclick="downloadReport('excel')">
+        <span class="icon">📊</span>Scarica Excel
+      </button>
+    </div>
+
+    <div class="section-title">Indici di bilancio</div>
+    <div class="indices-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Indicatore</th>
+            <th style="width:40px;text-align:center;">Esito</th>
+            <th style="width:120px;text-align:right;">Valore</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${indiciHTML}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer-disc">
+      <strong>DISCLAIMER:</strong> Questo documento ha finalità esclusivamente informative e non costituisce consulenza finanziaria, legale o fiscale.
+      I calcoli sono effettuati automaticamente sulla base dei dati forniti dall'utente. L'elaborazione automatica non sostituisce l'analisi di un professionista qualificato.
+    </div>
+  `;
+})();
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

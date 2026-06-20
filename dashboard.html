@@ -231,11 +231,29 @@ function renderProjects() {
       '</div>' +
       '<div class="proj-card-bottom">' +
         '<button class="btn-load" onclick="window.location.href=\'' + loadUrl + '\'">Carica &rarr;</button>' +
+        (!isBP ? '<button class="btn-dl" onclick="apriReport(\'' + safeId + '\')">&#x1F4CB; Report</button>' : '') +
         '<button class="btn-dl" title="Scarica JSON" onclick="downloadProject(\'' + safeId + '\')">&#x2B07; JSON</button>' +
         '<button class="btn-del" title="Elimina" onclick="deleteProject(\'' + safeId + '\')">&#x1F5D1;</button>' +
       '</div>' +
     '</div>';
   }).join('');
+}
+
+function apriReport(id) {
+  const projects = loadProjects();
+  const p = projects.find(function(x) { return x.id === id; });
+  if (!p || !p.data) return showToast('Dati non disponibili per generare il report', 'err');
+  const mainData = (p.data.DATA && p.data.DATA[0]) ? p.data.DATA[0] : {};
+  const payload = {
+    data: mainData,
+    config: {
+      nome: p.nome || 'Azienda',
+      anno: p.anno || '2024',
+      dataReport: new Date().toLocaleDateString('it-IT'),
+    }
+  };
+  sessionStorage.setItem('abp_report_payload', JSON.stringify(payload));
+  window.location.href = 'report.html';
 }
 
 function downloadProject(id) {

@@ -726,9 +726,7 @@
       <!-- ACTIONS -->
       <div class="rcard">
         <div class="actions">
-          <button class="btn-p" id="btn-report" onclick="generaReport()" disabled>Genera Report PDF →</button>
-          <button class="btn-p" id="btn-word" onclick="generaWord()" disabled style="background:linear-gradient(135deg,#1D4ED8,#1e40af)">📄 Word</button>
-          <button class="btn-p" id="btn-excel" onclick="generaExcel()" disabled style="background:linear-gradient(135deg,#15803d,#166534)">📊 Excel</button>
+          <button class="btn-p" id="btn-report" onclick="generaReport()" disabled>📋 Vedi Report →</button>
           <button class="btn-p" id="btn-bp" onclick="apriBusinessPlan()" disabled style="background:linear-gradient(135deg,#16a34a,#15803d)">📊 Crea Business Plan →</button>
           <button class="btn-g" onclick="resetAll()">Reset</button>
         </div>
@@ -1067,10 +1065,6 @@ function updateStatusBadge(){
   const anyFilled=filled.some(f=>f);
   if(badge){badge.textContent=anyFilled?'Dati inseriti ✓':'In attesa dati';badge.className='rbadge '+(anyFilled?'bg2':'bw');}
   if(btn)btn.disabled=!filled[0];
-  const btnWord=document.getElementById('btn-word');
-  if(btnWord)btnWord.disabled=!filled[0];
-  const btnExcel=document.getElementById('btn-excel');
-  if(btnExcel)btnExcel.disabled=!filled[0];
 }
 
 function loadYearIntoForm(y){
@@ -1153,7 +1147,7 @@ function buildAnnoData(yi){
   };
 }
 
-async function generaReport(){
+async function generaReport() {
   const mainData = buildAnnoData(0);
   if(filled[1]) mainData._prev = buildAnnoData(1);
   const payload = {
@@ -1164,35 +1158,8 @@ async function generaReport(){
       dataReport: new Date().toLocaleDateString('it-IT'),
     }
   };
-
-  const btn = document.getElementById('btn-report');
-  const origText = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = 'Generazione in corso...';
-
-  try {
-    const res = await fetch('/api/genera-html', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      const rawText = await res.text().catch(()=>'');
-      let errMsg = `HTTP ${res.status}`;
-      try { errMsg += ': ' + JSON.parse(rawText).error; } catch(e) { if(rawText) errMsg += ': ' + rawText.substring(0,200); }
-      throw new Error(errMsg);
-    }
-    const html = await res.text();
-    const win = window.open('', '_blank');
-    win.document.write(html);
-    win.document.close();
-    win.focus();
-  } catch(err) {
-    alert('Errore generazione PDF: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = origText;
-  }
+  sessionStorage.setItem('abp_report_payload', JSON.stringify(payload));
+  window.location.href = 'report.html';
 }
 
 async function generaWord() {
