@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Progetti | AnalisiEBusinessPlan.it</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0B1628;--navy2:#132040;--navy3:#1c2f52;
+      --blue:#2563EB;--cyan:#06B6D4;--green:#10B981;
+      --gold:#F59E0B;--red:#EF4444;--gray:#94A3B8;--white:#fff;
+      --border:rgba(255,255,255,0.08);--glass:rgba(255,255,255,0.04);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:#0A1628;color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(10,22,40,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--white);text-decoration:none;}
+    .nav-logo span{color:var(--cyan);}
+    .nav-links{display:flex;align-items:center;gap:4px;}
+    .nav-link{padding:7px 14px;border-radius:7px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s,background .15s;}
+    .nav-link:hover{color:#fff;background:rgba(255,255,255,.07);}
+    .nav-link.active{color:var(--cyan);background:rgba(6,182,212,.1);}
+
+    /* LAYOUT */
+    .wrap{max-width:1100px;margin:0 auto;padding:36px 4%;}
+
+    /* PAGE HEADER */
+    .page-header{margin-bottom:32px;}
+    .page-title{font-family:'Fraunces',serif;font-size:28px;font-weight:700;margin-bottom:6px;}
+    .page-sub{font-size:14px;color:var(--gray);}
+    .count-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.25);color:var(--cyan);font-size:13px;font-weight:600;padding:5px 14px;border-radius:20px;margin-top:12px;}
+
+    /* ACTIONS BAR */
+    .actions-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+    .actions-bar-left{display:flex;gap:8px;flex-wrap:wrap;}
+    .btn-new{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:600;border:none;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s;}
+    .btn-new:hover{opacity:.9;transform:translateY(-1px);}
+    .btn-analisi{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;}
+    .btn-bp{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;}
+    .btn-clear{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25);}
+
+    /* EMPTY STATE */
+    .empty-state{text-align:center;padding:72px 24px;background:var(--navy2);border:1px solid var(--border);border-radius:16px;}
+    .empty-icon{font-size:52px;margin-bottom:16px;}
+    .empty-title{font-size:20px;font-weight:700;margin-bottom:8px;}
+    .empty-desc{font-size:14px;color:var(--gray);margin-bottom:24px;line-height:1.6;}
+    .empty-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+    /* PROJECT GRID */
+    .project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+
+    /* PROJECT CARD */
+    .proj-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .2s;}
+    .proj-card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-2px);}
+    .proj-card-top{padding:18px 18px 14px;}
+    .proj-type-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:3px 9px;border-radius:10px;margin-bottom:10px;}
+    .pt-analisi{background:rgba(6,182,212,.12);color:var(--cyan);}
+    .pt-bp{background:rgba(16,185,129,.12);color:var(--green);}
+    .proj-name{font-size:16px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .proj-meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--gray);flex-wrap:wrap;}
+    .proj-meta-item{display:flex;align-items:center;gap:4px;}
+    .proj-badges{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+    .badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;}
+    .badge-rating-A{background:rgba(16,185,129,.15);color:var(--green);}
+    .badge-rating-B{background:rgba(16,185,129,.1);color:#6ee7b7;}
+    .badge-rating-C{background:rgba(245,158,11,.12);color:var(--gold);}
+    .badge-rating-D{background:rgba(239,68,68,.1);color:#fca5a5;}
+    .badge-rating-E{background:rgba(239,68,68,.15);color:var(--red);}
+    .badge-mcc{background:rgba(245,158,11,.1);color:var(--gold);}
+    .badge-anno{background:rgba(255,255,255,.07);color:var(--gray);}
+
+    .proj-card-bottom{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:6px;}
+    .btn-load{flex:1;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:none;border-radius:7px;padding:8px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s;}
+    .btn-load:hover{opacity:.9;}
+    .btn-dl{background:rgba(255,255,255,.06);color:var(--gray);border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:12px;cursor:pointer;transition:background .15s,color .15s;}
+    .btn-dl:hover{background:rgba(255,255,255,.12);color:var(--white);}
+    .btn-del{background:rgba(239,68,68,.08);color:var(--red);border:1px solid rgba(239,68,68,.2);border-radius:7px;padding:8px 10px;font-size:12px;cursor:pointer;transition:background .15s;}
+    .btn-del:hover{background:rgba(239,68,68,.18);}
+
+    /* TOAST */
+    #toast{position:fixed;bottom:28px;right:28px;background:#132040;border:1px solid var(--border);border-radius:10px;padding:12px 18px;font-size:13px;font-weight:500;color:var(--white);box-shadow:0 8px 32px rgba(0,0,0,.4);transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;z-index:999;pointer-events:none;}
+    #toast.show{transform:translateY(0);opacity:1;}
+    #toast.toast-ok{border-left:3px solid var(--green);}
+    #toast.toast-err{border-left:3px solid var(--red);}
+
+    @media(max-width:600px){
+      .project-grid{grid-template-columns:1fr;}
+      .actions-bar{flex-direction:column;align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="bilancio-multianno.html" class="nav-link">Analisi Bilancio</a>
+    <a href="business-plan.html" class="nav-link">Business Plan</a>
+    <a href="dashboard.html" class="nav-link active">Dashboard</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="page-title">I tuoi progetti</div>
+    <div class="page-sub">Tutti i progetti salvati in questo browser. I dati sono conservati localmente.</div>
+    <div class="count-badge" id="count-badge">0 progetti salvati</div>
+  </div>
+
+  <div class="actions-bar">
+    <div class="actions-bar-left">
+      <a href="bilancio-multianno.html" class="btn-new btn-analisi">+ Nuova Analisi Bilancio</a>
+      <a href="business-plan.html" class="btn-new btn-bp">+ Nuovo Business Plan</a>
+    </div>
+    <button class="btn-new btn-clear" id="btn-clear-all" onclick="clearAll()" style="display:none;">Elimina tutto</button>
+  </div>
+
+  <div id="empty-state" class="empty-state" style="display:none;">
+    <div class="empty-icon">📂</div>
+    <div class="empty-title">Nessun progetto salvato</div>
+    <div class="empty-desc">Salva un'analisi di bilancio o un business plan<br>per ritrovarla qui in qualsiasi momento.</div>
+    <div class="empty-ctas">
+      <a href="bilancio-multianno.html" class="btn-new btn-analisi">Analisi Bilancio</a>
+      <a href="business-plan.html" class="btn-new btn-bp">Business Plan</a>
+    </div>
+  </div>
+
+  <div id="project-grid" class="project-grid"></div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+const LS_KEY = 'abp_projects';
+
+function loadProjects() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveProjects(projects) {
+  localStorage.setItem(LS_KEY, JSON.stringify(projects));
+}
+
+function showToast(msg, type) {
+  type = type || 'ok';
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show toast-' + type;
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function() { t.className = ''; }, 2500);
+}
+
+function formatDate(iso) {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString('it-IT', {day:'2-digit',month:'short',year:'numeric'});
+  } catch(e) { return iso || '—'; }
+}
+
+function ratingBadgeClass(r) {
+  if (!r) return '';
+  const map = {A:'badge-rating-A',B:'badge-rating-B',C:'badge-rating-C',D:'badge-rating-D',E:'badge-rating-E'};
+  return map[String(r).toUpperCase()] || 'badge-rating-C';
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderProjects() {
+  const projects = loadProjects();
+  const grid = document.getElementById('project-grid');
+  const empty = document.getElementById('empty-state');
+  const countBadge = document.getElementById('count-badge');
+  const btnClear = document.getElementById('btn-clear-all');
+
+  const n = projects.length;
+  if (n === 0) {
+    countBadge.textContent = 'Nessun progetto';
+  } else if (n === 1) {
+    countBadge.textContent = '1 progetto salvato';
+  } else {
+    countBadge.textContent = n + ' progetti salvati';
+  }
+
+  if (n === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    btnClear.style.display = 'none';
+    return;
+  }
+
+  empty.style.display = 'none';
+  btnClear.style.display = '';
+
+  grid.innerHTML = projects.map(function(p) {
+    const isBP = p.tipo === 'business_plan';
+    const typeBadge = isBP
+      ? '<span class="proj-type-badge pt-bp">&#x1F4CA; Business Plan</span>'
+      : '<span class="proj-type-badge pt-analisi">&#x1F4C8; Analisi Bilancio</span>';
+
+    const badgesArr = [];
+    if (p.anno) badgesArr.push('<span class="badge badge-anno">' + escHtml(p.anno) + '</span>');
+    if (p.rating) badgesArr.push('<span class="badge ' + ratingBadgeClass(p.rating) + '">Rating ' + escHtml(p.rating) + '</span>');
+    if (p.mccFascia != null && p.mccFascia !== undefined) badgesArr.push('<span class="badge badge-mcc">MCC Fascia ' + escHtml(p.mccFascia) + '</span>');
+    const badgesHtml = badgesArr.join('');
+
+    const loadUrl = isBP
+      ? 'business-plan.html?load=' + encodeURIComponent(p.id)
+      : 'bilancio-multianno.html?load=' + encodeURIComponent(p.id);
+
+    const safeId = escHtml(p.id);
+
+    return '<div class="proj-card" id="card-' + safeId + '">' +
+      '<div class="proj-card-top">' +
+        typeBadge +
+        '<div class="proj-name" title="' + escHtml(p.nome || 'Senza nome') + '">' + escHtml(p.nome || 'Senza nome') + '</div>' +
+        '<div class="proj-meta"><span class="proj-meta-item">&#x1F5D3; ' + formatDate(p.dataModifica || p.dataCreazione) + '</span></div>' +
+        (badgesHtml ? '<div class="proj-badges">' + badgesHtml + '</div>' : '') +
+      '</div>' +
+      '<div class="proj-card-bottom">' +
+        '<button class="btn-load" onclick="window.location.href=\'' + loadUrl + '\'">Carica &rarr;</button>' +
+        '<button class="btn-dl" title="Scarica JSON" onclick="downloadProject(\'' + safeId + '\')">&#x2B07; JSON</button>' +
+        '<button class="btn-del" title="Elimina" onclick="deleteProject(\'' + safeId + '\')">&#x1F5D1;</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function downloadProject(id) {
+  const projects = loadProjects();
+  const p = projects.find(function(x) { return x.id === id; });
+  if (!p) return showToast('Progetto non trovato', 'err');
+  const blob = new Blob([JSON.stringify(p, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (p.nome || 'progetto').replace(/[^a-z0-9]/gi,'_').toLowerCase() + '_' + (p.anno || '') + '.json';
+  a.click();
+  showToast('Download avviato');
+}
+
+function deleteProject(id) {
+  if (!confirm('Eliminare questo progetto? L\'operazione non è reversibile.')) return;
+  const projects = loadProjects().filter(function(x) { return x.id !== id; });
+  saveProjects(projects);
+  renderProjects();
+  showToast('Progetto eliminato');
+}
+
+function clearAll() {
+  if (!confirm('Eliminare TUTTI i progetti salvati? Questa azione non è reversibile.')) return;
+  localStorage.removeItem(LS_KEY);
+  renderProjects();
+  showToast('Tutti i progetti eliminati');
+}
+
+renderProjects();
+</script>
+
+</body>
+</html>

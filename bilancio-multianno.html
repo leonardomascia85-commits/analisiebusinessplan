@@ -252,6 +252,10 @@
     <span class="ns-sep">›</span>
     <div class="ns"><div class="ns-num">4</div><span style="font-size:11px;">PDF</span></div>
   </div>
+  <div style="display:flex;gap:6px;align-items:center;">
+    <button onclick="saveProject()" style="background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3);border-radius:7px;padding:7px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">💾 Salva</button>
+    <a href="dashboard.html" style="background:rgba(6,182,212,.1);color:var(--cyan);border:1px solid rgba(6,182,212,.25);border-radius:7px;padding:7px 13px;font-size:12px;font-weight:600;text-decoration:none;">📂 Dashboard</a>
+  </div>
 </nav>
 
 <div class="wrap">
@@ -1308,7 +1312,102 @@ function apriBusinessPlan(){
   window.location.href = 'business-plan.html';
 }
 
-// Abilita tab risultati anno 1 e 2 quando si compilano
+// ── DASHBOARD / LOCALSTORAGE ──
+const ABP_LS_KEY = 'abp_projects';
+
+function showToast(msg, type) {
+  type = type || 'ok';
+  let t = document.getElementById('abp-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'abp-toast';
+    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#132040;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:11px 18px;font-size:13px;font-weight:500;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.4);transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;z-index:9999;pointer-events:none;font-family:\'DM Sans\',sans-serif;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.borderLeft = type === 'err' ? '3px solid #EF4444' : '3px solid #10B981';
+  t.style.transform = 'translateY(0)';
+  t.style.opacity = '1';
+  clearTimeout(t._tmr);
+  t._tmr = setTimeout(function() { t.style.transform = 'translateY(80px)'; t.style.opacity = '0'; }, 2500);
+}
+
+function saveProject() {
+  const nome = document.getElementById('rag_soc')?.value?.trim() || 'Progetto senza nome';
+  const anno = document.getElementById('ysel-0')?.value || String(new Date().getFullYear());
+  const projects = (function() { try { return JSON.parse(localStorage.getItem(ABP_LS_KEY) || '[]'); } catch(e) { return []; } })();
+  const id = Date.now().toString(36) + Math.random().toString(36).slice(2);
+
+  // Try to grab rating and MCC from DOM if already calculated
+  let rating = null, mccFascia = null;
+  const rLetter = document.querySelector('.r-letter');
+  if (rLetter) rating = rLetter.textContent.trim().slice(0,1) || null;
+  const mccNum = document.querySelector('.mcc-num');
+  if (mccNum) { const n = parseInt(mccNum.textContent); if (!isNaN(n)) mccFascia = n; }
+
+  projects.unshift({
+    id: id,
+    nome: nome,
+    tipo: 'analisi',
+    anno: anno,
+    dataCreazione: new Date().toISOString(),
+    dataModifica: new Date().toISOString(),
+    rating: rating,
+    mccFascia: mccFascia,
+    data: { DATA: DATA, filled: filled, ragSoc: nome, forma: document.getElementById('forma')?.value, dipendenti: document.getElementById('dipendenti')?.value }
+  });
+  localStorage.setItem(ABP_LS_KEY, JSON.stringify(projects.slice(0, 50)));
+  showToast('Progetto salvato ✓');
+}
+
+// Load project from URL ?load=ID
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const loadId = params.get('load');
+  if (!loadId) return;
+  try {
+    const projects = JSON.parse(localStorage.getItem(ABP_LS_KEY) || '[]');
+    const p = projects.find(function(x) { return x.id === loadId; });
+    if (!p || !p.data) return;
+    const d = p.data;
+    // Restore azienda fields
+    if (d.ragSoc) { const el = document.getElementById('rag_soc'); if (el) { el.value = d.ragSoc; } }
+    if (d.forma) { const el = document.getElementById('forma'); if (el) { el.value = d.forma; } }
+    if (d.dipendenti) { const el = document.getElementById('dipendenti'); if (el) { el.value = d.dipendenti; } }
+    // Restore DATA arrays
+    if (d.DATA && Array.isArray(d.DATA)) {
+      d.DATA.forEach(function(src, yi) {
+        if (!src || !DATA[yi]) return;
+        Object.keys(src).forEach(function(k) { DATA[yi][k] = src[k]; });
+      });
+      // Re-populate inputs for current year
+      for (let yi = 0; yi < YEARS; yi++) {
+        document.querySelectorAll('.sp-field,.ce-field,.rf-field,.df-field').forEach(function(inp) {
+          // Only if we can tie input to a year — skip, inputs are year-specific via tab switching
+        });
+        if (d.filled && d.filled[yi]) filled[yi] = d.filled[yi];
+      }
+      // Populate inputs for all years by switching to each
+      for (let yi = 0; yi < YEARS; yi++) {
+        if (!d.DATA[yi]) continue;
+        document.querySelectorAll('[data-key]').forEach(function(inp) {
+          // inputs shown belong to currentYear tab; populate all via DATA directly
+          const key = inp.getAttribute('data-key');
+          if (key && DATA[yi][key] !== undefined) {
+            // Populate only the currently-active year's visible inputs
+          }
+        });
+      }
+      // Refresh current year display
+      switchFormYear(0);
+      renderResults(0);
+    }
+    // Show toast
+    setTimeout(function() { showToast('Progetto "' + (p.nome || '') + '" caricato ✓'); }, 400);
+  } catch(e) { console.warn('abp load error', e); }
+})();
+
+// ── ABILITA TAB RISULTATI ANNO 1 E 2 QUANDO SI COMPILANO ──
 setInterval(()=>{
   [1,2].forEach(y=>{
     const btn=document.getElementById(`ryt-${y}`);

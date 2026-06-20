@@ -172,7 +172,11 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     <h1>📊 Business Plan Finanziario</h1>
     <p>Proiezioni 3 anni · Modello CE+SP+CF integrato · EBA/GL/2020/06 compliant</p>
   </div>
-  <span class="badge-eba">EBA/GL/2020/06</span>
+  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+    <button onclick="saveProjectBP()" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">💾 Salva</button>
+    <a href="dashboard.html" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:8px 14px;font-size:13px;font-weight:600;text-decoration:none;">📂 Dashboard</a>
+    <span class="badge-eba">EBA/GL/2020/06</span>
+  </div>
 </header>
 
 <div class="container">
@@ -1930,6 +1934,76 @@ function scaricaReport(){
   a.href=url; a.download=`BusinessPlan_${(v('nome_azienda')||'report').replace(/\s+/g,'_')}.html`;
   a.click(); URL.revokeObjectURL(url);
 }
+
+// ── DASHBOARD / LOCALSTORAGE ──
+const ABP_LS_KEY_BP = 'abp_projects';
+
+function showToastBP(msg, type) {
+  type = type || 'ok';
+  let t = document.getElementById('abp-toast-bp');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'abp-toast-bp';
+    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1e3a5f;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:11px 18px;font-size:13px;font-weight:500;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.3);transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;z-index:9999;pointer-events:none;font-family:inherit;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.borderLeft = type === 'err' ? '3px solid #EF4444' : '3px solid #10B981';
+  t.style.transform = 'translateY(0)';
+  t.style.opacity = '1';
+  clearTimeout(t._tmr);
+  t._tmr = setTimeout(function() { t.style.transform = 'translateY(80px)'; t.style.opacity = '0'; }, 2500);
+}
+
+function saveProjectBP() {
+  const nome = v('nome_azienda') || 'Business Plan senza nome';
+  const anno = v('anno_inizio') || String(new Date().getFullYear());
+  const projects = (function() { try { return JSON.parse(localStorage.getItem(ABP_LS_KEY_BP) || '[]'); } catch(e) { return []; } })();
+  const id = Date.now().toString(36) + Math.random().toString(36).slice(2);
+
+  // Collect all form data
+  const formData = {};
+  document.querySelectorAll('input,select,textarea').forEach(function(el) {
+    if (el.id) formData[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+  });
+
+  projects.unshift({
+    id: id,
+    nome: nome,
+    tipo: 'business_plan',
+    anno: anno,
+    dataCreazione: new Date().toISOString(),
+    dataModifica: new Date().toISOString(),
+    rating: null,
+    mccFascia: null,
+    data: { formData: formData }
+  });
+  localStorage.setItem(ABP_LS_KEY_BP, JSON.stringify(projects.slice(0, 50)));
+  showToastBP('Progetto salvato ✓');
+}
+
+// Load project from URL ?load=ID
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const loadId = params.get('load');
+  if (!loadId) return;
+  try {
+    const projects = JSON.parse(localStorage.getItem(ABP_LS_KEY_BP) || '[]');
+    const p = projects.find(function(x) { return x.id === loadId; });
+    if (!p || !p.data || !p.data.formData) return;
+    const fd = p.data.formData;
+    // Restore after a tick to let the page initialize
+    setTimeout(function() {
+      Object.keys(fd).forEach(function(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (el.type === 'checkbox') { el.checked = fd[id]; el.dispatchEvent(new Event('change')); }
+        else { el.value = fd[id]; el.dispatchEvent(new Event('input')); el.dispatchEvent(new Event('change')); }
+      });
+      showToastBP('Progetto "' + (p.nome || '') + '" caricato ✓');
+    }, 300);
+  } catch(e) { console.warn('abp bp load error', e); }
+})();
 </script>
 </body>
 </html>
