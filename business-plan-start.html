@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Business Plan — Scegli il settore | AnalisiEBusinessPlan.it</title>
+  <meta name="description" content="Genera un Business Plan professionale in pochi minuti. Seleziona il tuo settore, inserisci i ricavi previsti e scarica il report completo."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://analisiebusinessplan.it/business-plan-start.html"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L58FLY4JKJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L58FLY4JKJ');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--white:#FAFAF8;--bg:#F4F1EA;--bg2:#EDE9DF;--ink:#0F172A;--ink2:#334155;--ink3:#64748B;--ink4:#94A3B8;--blue:#1D4ED8;--blue-light:#3B82F6;--blue-bg:#EFF6FF;--green:#059669;--green-bg:#ECFDF5;--red:#DC2626;--red-bg:#FEF2F2;--gold:#D97706;--gold-bg:#FFFBEB;--border:#E2E8F0;--border2:#CBD5E1;--shadow:0 4px 16px rgba(0,0,0,.07),0 2px 6px rgba(0,0,0,.04);--shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);--radius:12px;--radius-sm:8px;--radius-lg:20px;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;}
+    .nav-logo span{color:var(--blue);}
+    .nav-back{font-size:14px;color:var(--ink3);text-decoration:none;transition:color .15s;}
+    .nav-back:hover{color:var(--ink);}
+
+    /* LAYOUT */
+    .wrap{max-width:1100px;margin:0 auto;padding:52px 5%;}
+
+    /* PAGE HEADER */
+    .page-header{text-align:center;margin-bottom:44px;}
+    .page-eyebrow{font-size:12px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+    .page-title{font-family:'Fraunces',serif;font-size:clamp(28px,3vw,44px);font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.3px;margin-bottom:12px;}
+    .page-sub{font-size:16px;color:var(--ink2);line-height:1.7;}
+
+    /* FILTER BAR */
+    .filter-bar{display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap;}
+    .search-wrap{position:relative;flex:1;min-width:220px;max-width:340px;}
+    .search-wrap input{width:100%;padding:10px 12px 10px 38px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);background:var(--white);transition:border-color .15s;}
+    .search-wrap input:focus{outline:none;border-color:var(--blue);}
+    .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;}
+    .cat-filters{display:flex;gap:6px;flex-wrap:wrap;}
+    .cat-btn{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink2);cursor:pointer;transition:all .15s;}
+    .cat-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg);}
+    .cat-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+    /* SECTOR GRID */
+    .sector-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:16px;}
+    @media(max-width:1024px){.sector-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:580px){.sector-grid{grid-template-columns:repeat(2,1fr);}}
+
+    .sector-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 14px;cursor:pointer;transition:all .18s;position:relative;text-align:center;user-select:none;}
+    .sector-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+    .sector-card.selected{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,216,.12),var(--shadow);}
+    .sector-card .check{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;display:none;align-items:center;justify-content:center;font-weight:700;}
+    .sector-card.selected .check{display:flex;}
+    .sc-icon{font-size:32px;margin-bottom:8px;line-height:1;}
+    .sc-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.3;}
+    .sc-desc{font-size:11px;color:var(--ink3);line-height:1.4;}
+    .sector-card.hidden{display:none;}
+
+    .no-results{grid-column:1/-1;text-align:center;padding:48px;color:var(--ink3);font-size:15px;}
+
+    /* MODAL OVERLAY */
+    .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;padding:16px;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--white);border-radius:var(--radius-lg);width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:slideUp .22s ease;}
+    @keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    .modal-header{padding:28px 28px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;position:sticky;top:0;background:var(--white);z-index:1;}
+    .modal-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);line-height:1.2;}
+    .modal-close{width:34px;height:34px;border:none;background:var(--bg);border-radius:50%;cursor:pointer;font-size:18px;color:var(--ink2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
+    .modal-close:hover{background:var(--border);}
+    .modal-body{padding:24px 28px 28px;}
+
+    /* FORM ELEMENTS */
+    .fg{display:flex;flex-direction:column;gap:14px;}
+    .fi{display:flex;flex-direction:column;gap:5px;}
+    .fi label{font-size:12px;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.04em;}
+    .fi input,.fi select{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 13px;color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;width:100%;transition:border-color .15s;}
+    .fi input:focus,.fi select:focus{outline:none;border-color:var(--blue);background:#fff;}
+    .fi input.has-error{border-color:var(--red);}
+    .input-prefix{position:relative;}
+    .input-prefix span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink3);font-size:14px;pointer-events:none;}
+    .input-prefix input{padding-left:26px;}
+    .hint{font-size:11px;color:var(--ink3);margin-top:3px;}
+    .hint strong{color:var(--green);}
+
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:480px){.row2{grid-template-columns:1fr;}}
+
+    .rev-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:4px;}
+    @media(max-width:480px){.rev-grid{grid-template-columns:1fr;}}
+    .rev-col{background:var(--bg);border-radius:var(--radius-sm);padding:14px 12px;}
+    .rev-col-label{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+    .rev-col .input-prefix input{background:var(--white);}
+
+    .section-label{font-size:12px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;margin-top:4px;display:flex;align-items:center;gap:6px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* CHECKBOX */
+    .check-row{display:flex;align-items:center;gap:10px;cursor:pointer;}
+    .check-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--blue);cursor:pointer;flex-shrink:0;}
+    .check-row span{font-size:14px;color:var(--ink2);}
+    .fin-fields{margin-top:14px;display:none;}
+    .fin-fields.show{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+    @media(max-width:480px){.fin-fields.show{grid-template-columns:1fr;}}
+
+    /* CTA */
+    .btn-genera{width:100%;padding:16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;border:none;background:var(--blue);color:#fff;transition:background .15s;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .btn-genera:hover{background:#1E40AF;}
+    .btn-genera:disabled{opacity:.6;cursor:not-allowed;}
+    .modal-note{font-size:12px;color:var(--ink3);text-align:center;margin-top:12px;line-height:1.6;}
+
+    /* EMPTY STATE */
+    .empty-state{text-align:center;padding:64px 20px;color:var(--ink3);}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">Analisi<span>[e]</span>BusinessPlan</a>
+  <a class="nav-back" href="/">← Home</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-header">
+    <div class="page-eyebrow">Business Plan senza bilancio</div>
+    <h1 class="page-title">Scegli il tuo settore di attività</h1>
+    <p class="page-sub">Inserisci solo i ricavi previsti — pensiamo noi al resto</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Cerca settore…" autocomplete="off"/>
+    </div>
+    <div class="cat-filters" id="catFilters">
+      <button class="cat-btn active" data-cat="tutti">Tutti</button>
+      <button class="cat-btn" data-cat="ristorazione">Ristorazione</button>
+      <button class="cat-btn" data-cat="commercio">Commercio</button>
+      <button class="cat-btn" data-cat="servizi">Servizi</button>
+      <button class="cat-btn" data-cat="costruzioni">Costruzioni</button>
+      <button class="cat-btn" data-cat="altro">Altro</button>
+    </div>
+  </div>
+
+  <!-- SECTOR GRID -->
+  <div class="sector-grid" id="sectorGrid">
+    <!-- Cards rendered by JS -->
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Settore</div>
+      <button class="modal-close" id="modalClose" aria-label="Chiudi">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg">
+        <!-- Ragione sociale -->
+        <div class="fi">
+          <label for="ragioneSociale">Ragione sociale / Nome attività</label>
+          <input type="text" id="ragioneSociale" placeholder="es. Trattoria da Mario S.r.l.s."/>
+        </div>
+
+        <!-- Anno base -->
+        <div class="fi">
+          <label for="annoBase">Anno di avvio / Anno base</label>
+          <select id="annoBase">
+            <option value="2024">2024</option>
+            <option value="2025" selected>2025</option>
+            <option value="2026">2026</option>
+          </select>
+        </div>
+
+        <!-- Ricavi -->
+        <div>
+          <div class="section-label">Ricavi previsti</div>
+          <div class="rev-grid" id="revGrid">
+            <div class="rev-col">
+              <div class="rev-col-label" id="revLabel1">Anno 1</div>
+              <div class="fi">
+                <div class="input-prefix">
+                  <span>€</span>
+                  <input type="number" id="rev1" placeholder="0" min="0" step="1000"/>
+                </div>
+                <div class="hint" id="revHint1"></div>
+              </div>
+            </div>
+            <div class="rev-col">
+              <div class="rev-col-label" id="revLabel2">Anno 2</div>
+              <div class="fi">
+                <div class="input-prefix">
+                  <span>€</span>
+                  <input type="number" id="rev2" placeholder="0" min="0" step="1000"/>
+                </div>
+                <div class="hint" id="revHint2"></div>
+              </div>
+            </div>
+            <div class="rev-col">
+              <div class="rev-col-label" id="revLabel3">Anno 3</div>
+              <div class="fi">
+                <div class="input-prefix">
+                  <span>€</span>
+                  <input type="number" id="rev3" placeholder="0" min="0" step="1000"/>
+                </div>
+                <div class="hint" id="revHint3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finanziamento -->
+        <div>
+          <div class="section-label">Finanziamento</div>
+          <label class="check-row">
+            <input type="checkbox" id="chkFin"/>
+            <span>Prevedo un finanziamento bancario</span>
+          </label>
+          <div class="fin-fields" id="finFields">
+            <div class="fi">
+              <label for="finImporto">Importo</label>
+              <div class="input-prefix">
+                <span>€</span>
+                <input type="number" id="finImporto" placeholder="0" min="0" step="1000"/>
+              </div>
+            </div>
+            <div class="fi">
+              <label for="finDurata">Durata (anni)</label>
+              <input type="number" id="finDurata" placeholder="5" min="1" max="30"/>
+            </div>
+            <div class="fi">
+              <label for="finTasso">Tasso (%)</label>
+              <input type="number" id="finTasso" placeholder="4.5" min="0" max="20" step="0.1"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <button class="btn-genera" id="btnGenera">🚀 Genera Business Plan</button>
+        <p class="modal-note">I costi, il personale e i margini vengono calcolati automaticamente dai benchmark di settore</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/cookie-banner.js"></script>
+<script>
+/* ── SETTORI ─────────────────────────────────────────────── */
+const SETTORI = [
+  // RISTORAZIONE
+  { id:'ristorante', nome:'Ristorante', icon:'🍽️', desc:'Cucina tradizionale e moderna', cat:'ristorazione', accent:'#DC2626' },
+  { id:'pizzeria',   nome:'Pizzeria',   icon:'🍕', desc:'Pizzeria al taglio o da asporto', cat:'ristorazione', accent:'#EA580C' },
+  { id:'bar-cafe',   nome:'Bar / Caffè',icon:'☕', desc:'Bar, caffetteria, pasticceria', cat:'ristorazione', accent:'#92400E' },
+  { id:'pasticceria',nome:'Pasticceria',icon:'🎂', desc:'Dolci, torte, prodotti da forno', cat:'ristorazione', accent:'#DB2777' },
+  { id:'catering',   nome:'Catering',   icon:'🥘', desc:'Servizi catering ed eventi', cat:'ristorazione', accent:'#7C3AED' },
+  // COMMERCIO
+  { id:'negozio-abbigliamento', nome:'Abbigliamento', icon:'👕', desc:'Moda, abbigliamento e accessori', cat:'commercio', accent:'#2563EB' },
+  { id:'negozio-alimentari',    nome:'Alimentari',    icon:'🛒', desc:'Supermercato, minimarket, deli', cat:'commercio', accent:'#16A34A' },
+  { id:'ecommerce',             nome:'E-commerce',    icon:'📦', desc:'Vendita online di prodotti', cat:'commercio', accent:'#0891B2' },
+  { id:'farmacia',              nome:'Farmacia',      icon:'💊', desc:'Farmacia e parafarmacia', cat:'commercio', accent:'#059669' },
+  { id:'gioielleria',           nome:'Gioielleria',   icon:'💍', desc:'Gioielli, orologi, preziosi', cat:'commercio', accent:'#D97706' },
+  // SERVIZI
+  { id:'agenzia-web',       nome:'Agenzia Web',      icon:'💻', desc:'Sviluppo web, marketing digitale', cat:'servizi', accent:'#4F46E5' },
+  { id:'studio-professionale', nome:'Studio Professionale', icon:'⚖️', desc:'Consulenza, legale, fiscale', cat:'servizi', accent:'#1D4ED8' },
+  { id:'parrucchiere',      nome:'Parrucchiere',     icon:'✂️', desc:'Salone di bellezza e hair stylist', cat:'servizi', accent:'#EC4899' },
+  { id:'palestra',          nome:'Palestra / Fitness',icon:'🏋️', desc:'Gym, crossfit, centro sportivo', cat:'servizi', accent:'#EF4444' },
+  { id:'agenzia-viaggi',    nome:'Agenzia Viaggi',   icon:'✈️', desc:'Tour operator, incoming, outgoing', cat:'servizi', accent:'#06B6D4' },
+  { id:'studio-medico',     nome:'Studio Medico',    icon:'🩺', desc:'Clinica, ambulatorio, diagnostica', cat:'servizi', accent:'#10B981' },
+  { id:'asilo-nido',        nome:'Asilo / Scuola',   icon:'🎒', desc:'Nido, materna, centro educativo', cat:'servizi', accent:'#F59E0B' },
+  { id:'autofficina',       nome:'Autofficina',      icon:'🔧', desc:'Officina meccanica, carrozzeria', cat:'servizi', accent:'#64748B' },
+  { id:'immobiliare',       nome:'Immobiliare',      icon:'🏠', desc:'Agenzia immobiliare, property', cat:'servizi', accent:'#7C3AED' },
+  { id:'logistica',         nome:'Logistica',        icon:'🚚', desc:'Trasporto, corriere, magazzino', cat:'servizi', accent:'#1D4ED8' },
+  // COSTRUZIONI
+  { id:'impresa-edile',     nome:'Impresa Edile',    icon:'🏗️', desc:'Costruzioni, ristrutturazioni', cat:'costruzioni', accent:'#B45309' },
+  { id:'impianti',          nome:'Impianti',         icon:'⚡', desc:'Elettrico, idraulico, termico', cat:'costruzioni', accent:'#F59E0B' },
+  { id:'interior-design',   nome:'Interior Design',  icon:'🛋️', desc:'Progettazione interni, arredo', cat:'costruzioni', accent:'#8B5CF6' },
+  // ALTRO
+  { id:'agricoltura',       nome:'Agricoltura',      icon:'🌾', desc:'Azienda agricola, agriturismo', cat:'altro', accent:'#65A30D' },
+  { id:'industria',         nome:'Industria / Produzione', icon:'🏭', desc:'Manifattura, produzione industriale', cat:'altro', accent:'#475569' },
+];
+
+/* ── TEMPLATE RATIOS (fallback built-in, verrà sovrascritto dal JSON) ── */
+const DEFAULT_RATIOS = {
+  margine_lordo_perc: 62,
+  costi_fissi_perc: 38,
+  costo_pers_perc: 28,
+  ebitda_margin: 12,
+  perc_var: 38,
+  ammort_perc: 3,
+  tax_rate: 24,
+  ccn_perc: 8,
+  n_dip_per_100k_ricavi: 1.2,
+  g3_tipico: 5,
+  durata_mutuo: 5,
+  tasso_mutuo: 4.5,
+  ricavi_min: 80000,
+  ricavi_max: 300000,
+};
+
+/* Ratios specifici per settore (integrano DEFAULT_RATIOS) */
+const SECTOR_RATIOS = {
+  'ristorante':    { margine_lordo_perc:65, costi_fissi_perc:42, costo_pers_perc:32, ebitda_margin:10, perc_var:35, ammort_perc:4, ricavi_min:120000, ricavi_max:600000 },
+  'pizzeria':      { margine_lordo_perc:68, costi_fissi_perc:40, costo_pers_perc:28, ebitda_margin:12, perc_var:32, ricavi_min:80000, ricavi_max:400000 },
+  'bar-cafe':      { margine_lordo_perc:70, costi_fissi_perc:38, costo_pers_perc:26, ebitda_margin:14, perc_var:30, ricavi_min:60000, ricavi_max:300000 },
+  'pasticceria':   { margine_lordo_perc:66, costi_fissi_perc:40, costo_pers_perc:30, ebitda_margin:11, perc_var:34, ricavi_min:70000, ricavi_max:350000 },
+  'catering':      { margine_lordo_perc:55, costi_fissi_perc:30, costo_pers_perc:35, ebitda_margin:13, perc_var:45, ricavi_min:100000, ricavi_max:500000 },
+  'negozio-abbigliamento': { margine_lordo_perc:55, costi_fissi_perc:35, costo_pers_perc:18, ebitda_margin:10, perc_var:45, ricavi_min:100000, ricavi_max:500000 },
+  'negozio-alimentari':    { margine_lordo_perc:28, costi_fissi_perc:18, costo_pers_perc:14, ebitda_margin:4, perc_var:72, ammort_perc:2, ricavi_min:200000, ricavi_max:1200000 },
+  'ecommerce':     { margine_lordo_perc:40, costi_fissi_perc:25, costo_pers_perc:12, ebitda_margin:8, perc_var:60, ammort_perc:2, ricavi_min:80000, ricavi_max:600000 },
+  'farmacia':      { margine_lordo_perc:26, costi_fissi_perc:16, costo_pers_perc:14, ebitda_margin:5, perc_var:74, ricavi_min:400000, ricavi_max:2000000 },
+  'gioielleria':   { margine_lordo_perc:50, costi_fissi_perc:32, costo_pers_perc:16, ebitda_margin:12, perc_var:50, ricavi_min:120000, ricavi_max:600000 },
+  'agenzia-web':   { margine_lordo_perc:75, costi_fissi_perc:45, costo_pers_perc:52, ebitda_margin:18, perc_var:25, ammort_perc:2, ricavi_min:80000, ricavi_max:500000, n_dip_per_100k_ricavi:0.8 },
+  'studio-professionale': { margine_lordo_perc:78, costi_fissi_perc:38, costo_pers_perc:55, ebitda_margin:22, perc_var:22, ammort_perc:2, ricavi_min:60000, ricavi_max:400000, n_dip_per_100k_ricavi:0.6 },
+  'parrucchiere':  { margine_lordo_perc:72, costi_fissi_perc:44, costo_pers_perc:38, ebitda_margin:13, perc_var:28, ricavi_min:50000, ricavi_max:200000 },
+  'palestra':      { margine_lordo_perc:80, costi_fissi_perc:60, costo_pers_perc:30, ebitda_margin:15, perc_var:20, ammort_perc:6, ricavi_min:100000, ricavi_max:500000 },
+  'agenzia-viaggi':{ margine_lordo_perc:18, costi_fissi_perc:12, costo_pers_perc:10, ebitda_margin:6, perc_var:82, ammort_perc:1.5, ricavi_min:150000, ricavi_max:800000 },
+  'studio-medico': { margine_lordo_perc:70, costi_fissi_perc:42, costo_pers_perc:40, ebitda_margin:16, perc_var:30, ammort_perc:4, ricavi_min:100000, ricavi_max:600000 },
+  'asilo-nido':    { margine_lordo_perc:72, costi_fissi_perc:55, costo_pers_perc:48, ebitda_margin:10, perc_var:28, ammort_perc:3, ricavi_min:80000, ricavi_max:400000 },
+  'autofficina':   { margine_lordo_perc:55, costi_fissi_perc:35, costo_pers_perc:32, ebitda_margin:12, perc_var:45, ammort_perc:4, ricavi_min:100000, ricavi_max:500000 },
+  'immobiliare':   { margine_lordo_perc:82, costi_fissi_perc:40, costo_pers_perc:35, ebitda_margin:28, perc_var:18, ammort_perc:1.5, ricavi_min:80000, ricavi_max:400000 },
+  'logistica':     { margine_lordo_perc:32, costi_fissi_perc:22, costo_pers_perc:28, ebitda_margin:7, perc_var:68, ammort_perc:5, ricavi_min:200000, ricavi_max:1000000 },
+  'impresa-edile': { margine_lordo_perc:22, costi_fissi_perc:12, costo_pers_perc:20, ebitda_margin:6, perc_var:78, ammort_perc:3, ricavi_min:200000, ricavi_max:1500000 },
+  'impianti':      { margine_lordo_perc:30, costi_fissi_perc:18, costo_pers_perc:25, ebitda_margin:8, perc_var:70, ammort_perc:4, ricavi_min:150000, ricavi_max:800000 },
+  'interior-design':{ margine_lordo_perc:65, costi_fissi_perc:38, costo_pers_perc:32, ebitda_margin:18, perc_var:35, ammort_perc:2, ricavi_min:60000, ricavi_max:350000 },
+  'agricoltura':   { margine_lordo_perc:45, costi_fissi_perc:28, costo_pers_perc:22, ebitda_margin:12, perc_var:55, ammort_perc:6, ricavi_min:80000, ricavi_max:500000 },
+  'industria':     { margine_lordo_perc:35, costi_fissi_perc:22, costo_pers_perc:26, ebitda_margin:9, perc_var:65, ammort_perc:7, ricavi_min:300000, ricavi_max:2000000 },
+};
+
+function getRatios(settoreId) {
+  return Object.assign({}, DEFAULT_RATIOS, SECTOR_RATIOS[settoreId] || {});
+}
+
+/* ── STATO ────────────────────────────────────────────────── */
+let selectedSettore = null;
+let externalTemplates = null;
+
+/* ── RENDERING CARDS ──────────────────────────────────────── */
+function renderCards(filter = 'tutti', search = '') {
+  const grid = document.getElementById('sectorGrid');
+  const term = search.trim().toLowerCase();
+  grid.innerHTML = '';
+  let count = 0;
+  SETTORI.forEach(s => {
+    const matchCat = filter === 'tutti' || s.cat === filter;
+    const matchSearch = !term || s.nome.toLowerCase().includes(term) || s.desc.toLowerCase().includes(term);
+    if (!matchCat || !matchSearch) return;
+    count++;
+    const card = document.createElement('div');
+    card.className = 'sector-card' + (selectedSettore && selectedSettore.id === s.id ? ' selected' : '');
+    card.dataset.id = s.id;
+    card.innerHTML = `
+      <div class="check">✓</div>
+      <div class="sc-icon">${s.icon}</div>
+      <div class="sc-name">${s.nome}</div>
+      <div class="sc-desc">${s.desc}</div>
+    `;
+    card.style.setProperty('--accent', s.accent);
+    card.addEventListener('click', () => selectSettore(s));
+    grid.appendChild(card);
+  });
+  if (count === 0) {
+    grid.innerHTML = '<div class="no-results">Nessun settore trovato. Prova con un termine diverso.</div>';
+  }
+}
+
+/* ── SELEZIONE SETTORE ────────────────────────────────────── */
+function selectSettore(s) {
+  selectedSettore = s;
+  document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('selected'));
+  const card = document.querySelector(`.sector-card[data-id="${s.id}"]`);
+  if (card) card.classList.add('selected');
+  openModal(s);
+}
+
+/* ── MODALE ───────────────────────────────────────────────── */
+function openModal(s) {
+  const rat = getRatios(s.id);
+  // Titolo
+  document.getElementById('modalTitle').textContent = s.icon + ' ' + s.nome + ' — Inserisci i tuoi dati';
+  // Aggiorna labels anno
+  updateRevLabels();
+  // Hints range tipico
+  const fmt = v => '€' + v.toLocaleString('it-IT');
+  document.getElementById('revHint1').innerHTML = `<strong>Suggerito: ${fmt(rat.ricavi_min)} – ${fmt(rat.ricavi_max)}</strong>`;
+  document.getElementById('revHint2').innerHTML = `Crescita attesa +10–20%`;
+  document.getElementById('revHint3').innerHTML = `Crescita attesa +8–15%`;
+  // Mostra
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('ragioneSociale').focus();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateRevLabels() {
+  const base = parseInt(document.getElementById('annoBase').value) || 2025;
+  document.getElementById('revLabel1').textContent = 'Anno ' + (base + 1);
+  document.getElementById('revLabel2').textContent = 'Anno ' + (base + 2);
+  document.getElementById('revLabel3').textContent = 'Anno ' + (base + 3);
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.getElementById('annoBase').addEventListener('change', updateRevLabels);
+
+/* ── FINANZIAMENTO TOGGLE ─────────────────────────────────── */
+document.getElementById('chkFin').addEventListener('change', function() {
+  document.getElementById('finFields').classList.toggle('show', this.checked);
+});
+
+/* ── FILTRI ───────────────────────────────────────────────── */
+let activeCat = 'tutti';
+let searchVal = '';
+
+document.getElementById('catFilters').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  renderCards(activeCat, searchVal);
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchVal = e.target.value;
+  renderCards(activeCat, searchVal);
+});
+
+/* ── CALCOLO PAYLOAD ──────────────────────────────────────── */
+function calcolaPayload(templateRatios, settore, ragioneSociale, annoBase, r1, r2, r3, finanziamento) {
+  const rat = templateRatios;
+  const g1 = r1 > 0 ? parseFloat(((r2 - r1) / r1 * 100).toFixed(1)) : 10;
+  const g2 = r2 > 0 ? parseFloat(((r3 - r2) / r2 * 100).toFixed(1)) : 8;
+  const g3 = rat.g3_tipico;
+
+  const n_dip = Math.max(1, Math.round(r1 / 100000 * (rat.n_dip_per_100k_ricavi || DEFAULT_RATIOS.n_dip_per_100k_ricavi)));
+  const costo_pers = Math.round(r1 * rat.costo_pers_perc / 100);
+  const ebitda_margin = rat.ebitda_margin;
+  const margine_lordo = Math.round(r1 * rat.margine_lordo_perc / 100);
+  const costi_fissi = Math.round(r1 * rat.costi_fissi_perc / 100);
+  const fin = finanziamento || {};
+
+  return {
+    nome: ragioneSociale,
+    settore: settore.nome,
+    settore_id: settore.id,
+    anno_base: annoBase,
+    ricavi_base: r1,
+    g1, g2, g3,
+    ebitda_margin,
+    margine_lordo,
+    costi_fissi,
+    perc_var: rat.perc_var,
+    incr_fissi: 2,
+    n_dip,
+    costo_pers_storico: costo_pers,
+    ammortamenti: Math.round(r1 * rat.ammort_perc / 100),
+    tax_rate: rat.tax_rate,
+    perc_ccn: rat.ccn_perc,
+    perc_ricorrenti: 70,
+    new_products_rev: 0,
+    new_markets_rev: 0,
+    note_ricavi: '',
+    _template: { nome: settore.nome, ratios: rat },
+    _ricavi: [r1, r2, r3],
+    nuovo_fin: (fin.importo || 0) > 0,
+    importo_nuovo_fin: fin.importo || 0,
+    durata_nuovo_fin: fin.durata || rat.durata_mutuo,
+    tasso_nuovo_fin: fin.tasso || rat.tasso_mutuo,
+    sc_conserv_g1: Math.max(0, g1 - 3),
+    sc_conserv_g2: Math.max(0, g2 - 3),
+    sc_conserv_g3: Math.max(0, g3 - 3),
+    sc_ottim_g1: g1 + 3,
+    sc_ottim_g2: g2 + 3,
+    sc_ottim_g3: g3 + 3,
+    scenario: 'base',
+    analista: 'AnalisiEBusinessPlan.it',
+    data_report: new Date().toLocaleDateString('it-IT'),
+  };
+}
+
+/* ── GENERA ───────────────────────────────────────────────── */
+document.getElementById('btnGenera').addEventListener('click', async () => {
+  const ragioneSociale = document.getElementById('ragioneSociale').value.trim();
+  const annoBase = parseInt(document.getElementById('annoBase').value);
+  const r1 = parseFloat(document.getElementById('rev1').value) || 0;
+  const r2 = parseFloat(document.getElementById('rev2').value) || 0;
+  const r3 = parseFloat(document.getElementById('rev3').value) || 0;
+
+  // Validazione
+  let ok = true;
+  if (!ragioneSociale) { document.getElementById('ragioneSociale').classList.add('has-error'); ok = false; }
+  else document.getElementById('ragioneSociale').classList.remove('has-error');
+  if (r1 <= 0) { document.getElementById('rev1').classList.add('has-error'); ok = false; }
+  else document.getElementById('rev1').classList.remove('has-error');
+  if (r2 <= 0) { document.getElementById('rev2').classList.add('has-error'); ok = false; }
+  else document.getElementById('rev2').classList.remove('has-error');
+  if (r3 <= 0) { document.getElementById('rev3').classList.add('has-error'); ok = false; }
+  else document.getElementById('rev3').classList.remove('has-error');
+  if (!ok) return;
+
+  const btn = document.getElementById('btnGenera');
+  btn.disabled = true;
+  btn.textContent = '⏳ Elaborazione…';
+
+  let finanziamento = null;
+  if (document.getElementById('chkFin').checked) {
+    finanziamento = {
+      importo: parseFloat(document.getElementById('finImporto').value) || 0,
+      durata: parseFloat(document.getElementById('finDurata').value) || 5,
+      tasso: parseFloat(document.getElementById('finTasso').value) || 4.5,
+    };
+  }
+
+  // Prova a caricare ratios da JSON esterno, altrimenti usa built-in
+  let rat = getRatios(selectedSettore.id);
+  try {
+    if (!externalTemplates) {
+      const res = await fetch('/bp-templates.json');
+      if (res.ok) externalTemplates = await res.json();
+    }
+    if (externalTemplates) {
+      const tpl = externalTemplates.find(t => t.id === selectedSettore.id);
+      if (tpl && tpl.ratios) rat = Object.assign({}, DEFAULT_RATIOS, tpl.ratios);
+    }
+  } catch(e) { /* usa ratios built-in */ }
+
+  const payload = calcolaPayload(rat, selectedSettore, ragioneSociale, annoBase, r1, r2, r3, finanziamento);
+
+  try {
+    sessionStorage.setItem('abp_bp_from_template', JSON.stringify(payload));
+  } catch(e) {}
+
+  window.location.href = '/business-plan.html?from_template=1';
+});
+
+/* ── INIT ─────────────────────────────────────────────────── */
+renderCards();
+</script>
+</body>
+</html>
