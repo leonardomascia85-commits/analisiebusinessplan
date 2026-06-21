@@ -555,88 +555,16 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title">📈 Scenari di crescita ricavi</div>
-      <div class="card-sub">Imposta le % per i 3 scenari. Lo scenario <strong>Base</strong> è quello principale del Business Plan; Conservativo e Ottimistico appaiono nel confronto scenari allegato.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;">
-
-        <!-- Conservativo -->
-        <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
-            <span style="font-size:1.2rem;">🐢</span>
-            <div>
-              <div style="font-size:.85rem;font-weight:700;color:#475569;">Conservativo</div>
-              <div style="font-size:.72rem;color:#64748B;">Probabilità: 20%</div>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-c-g1" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-c-g2" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-c-g3" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Base (principale) -->
-        <div style="border:2px solid #2563EB;border-radius:10px;padding:14px 12px;background:#EFF6FF;box-shadow:0 0 0 3px rgba(37,99,235,.1);">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
-            <span style="font-size:1.2rem;">🚀</span>
-            <div>
-              <div style="font-size:.85rem;font-weight:700;color:#1D4ED8;">Base <span style="font-size:.7rem;background:#DBEAFE;color:#2563EB;padding:1px 7px;border-radius:8px;margin-left:3px;">Principale</span></div>
-              <div style="font-size:.72rem;color:#3B82F6;">Probabilità: 55%</div>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 1</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-g1" class="has-suffix" value="7" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 2</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-g2" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 3</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-g3" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ottimistico -->
-        <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
-            <span style="font-size:1.2rem;">⚡</span>
-            <div>
-              <div style="font-size:.85rem;font-weight:700;color:#475569;">Ottimistico</div>
-              <div style="font-size:.72rem;color:#64748B;">Probabilità: 25%</div>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-o-g1" class="has-suffix" value="12" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-o-g2" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
-              <div class="input-group" style="width:80px;"><input type="number" id="m-sc-o-g3" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    <!-- crescita ricavi: valori di default usati dal payload -->
+    <input type="hidden" id="m-g1" value="7">
+    <input type="hidden" id="m-g2" value="8">
+    <input type="hidden" id="m-g3" value="8">
+    <input type="hidden" id="m-sc-c-g1" value="3">
+    <input type="hidden" id="m-sc-c-g2" value="3">
+    <input type="hidden" id="m-sc-c-g3" value="3">
+    <input type="hidden" id="m-sc-o-g1" value="12">
+    <input type="hidden" id="m-sc-o-g2" value="13">
+    <input type="hidden" id="m-sc-o-g3" value="13">
 
     <div class="nav-btns">
       <div></div>
