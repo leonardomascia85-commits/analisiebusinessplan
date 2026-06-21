@@ -499,9 +499,21 @@
     <a href="importa-xbrl.html" class="nav-link">Analisi Bilancio</a>
     <a href="business-plan.html" class="nav-link">Business Plan</a>
     <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="auth.html" class="nav-link" id="nav-accedi">Accedi</a>
     <a href="importa-xbrl.html" class="nav-cta">Inizia ora →</a>
   </div>
 </nav>
+<script>
+(function(){
+  try {
+    const u = JSON.parse(localStorage.getItem('abp_user'));
+    if(u && u.email){
+      const el = document.getElementById('nav-accedi');
+      if(el){ el.href='account.html'; el.textContent='👤 '+(u.nome||u.email.split('@')[0]); }
+    }
+  } catch(e){}
+})();
+</script>
 
 <!-- ── HERO ── -->
 <section class="hero">
