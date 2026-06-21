@@ -254,10 +254,38 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
 
           <!-- ═══ FAST-TRACK: solo 2 cose da specificare ═══ -->
           <div style="background:#eff6ff;border:1.5px solid rgba(37,99,235,.15);border-radius:14px;padding:24px 26px;margin-bottom:20px">
-            <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Un'ultima cosa e generiamo il piano</div>
-            <div style="font-size:.83rem;color:var(--muted);margin-bottom:20px">Costi, marginalità, working capital e debiti vengono proiettati automaticamente dai dati del bilancio XBRL. Scenari di crescita: Conservativo +3%, Base +7/8%, Ottimistico +12/13%.</div>
+            <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Scegli lo scenario e generiamo il piano</div>
+            <div style="font-size:.83rem;color:var(--muted);margin-bottom:16px">Costi, marginalità, working capital e debiti vengono proiettati automaticamente dal bilancio XBRL. Seleziona lo scenario di crescita per il piano principale.</div>
 
-            <!-- Campi hidden scenari — usati dal payload, non visibili in XBRL fast-track -->
+            <!-- Selezione scenario XBRL — 3 card cliccabili -->
+            <div style="margin-bottom:20px">
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Scenario di crescita ricavi</label>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+                <div class="xbrl-scen-card" id="xs-conserv" onclick="selectXbrlScenario('conserv')"
+                  style="border:2px solid #CBD5E1;border-radius:10px;padding:14px;cursor:pointer;transition:.15s;background:#F8FAFC;">
+                  <div style="font-size:1.3rem;margin-bottom:6px;">🐢</div>
+                  <div style="font-weight:700;font-size:.9rem;color:#475569;">Conservativo</div>
+                  <div style="font-size:.78rem;color:#64748B;margin-top:4px;">+3% / +3% / +3%</div>
+                  <div style="font-size:.72rem;color:#94A3B8;margin-top:2px;">Prob. 20%</div>
+                </div>
+                <div class="xbrl-scen-card selected" id="xs-base" onclick="selectXbrlScenario('base')"
+                  style="border:2px solid #2563EB;border-radius:10px;padding:14px;cursor:pointer;transition:.15s;background:#EFF6FF;box-shadow:0 0 0 3px rgba(37,99,235,.1);">
+                  <div style="font-size:1.3rem;margin-bottom:6px;">🚀</div>
+                  <div style="font-weight:700;font-size:.9rem;color:#1D4ED8;">Base</div>
+                  <div style="font-size:.78rem;color:#3B82F6;margin-top:4px;">+7% / +8% / +8%</div>
+                  <div style="font-size:.72rem;color:#3B82F6;margin-top:2px;">Prob. 55%</div>
+                </div>
+                <div class="xbrl-scen-card" id="xs-ottim" onclick="selectXbrlScenario('ottim')"
+                  style="border:2px solid #CBD5E1;border-radius:10px;padding:14px;cursor:pointer;transition:.15s;background:#F8FAFC;">
+                  <div style="font-size:1.3rem;margin-bottom:6px;">⚡</div>
+                  <div style="font-weight:700;font-size:.9rem;color:#475569;">Ottimistico</div>
+                  <div style="font-size:.78rem;color:#64748B;margin-top:4px;">+12% / +13% / +13%</div>
+                  <div style="font-size:.72rem;color:#94A3B8;margin-top:2px;">Prob. 25%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Campi hidden scenari — valori usati dal payload -->
             <div style="display:none" id="xbrl-scenari-block">
               <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">1. Scenari di crescita ricavi — Anno 1 / Anno 2 / Anno 3</label>
               <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">Lo scenario <strong>Base</strong> è quello principale del Business Plan. Conservativo e Ottimistico appaiono nel confronto scenari. Modifica liberamente le percentuali.</p>
@@ -1555,6 +1583,31 @@ function selectScenario(key){
   selectedScenario = key || 'custom';
 }
 
+let _xbrlSelectedScenario = 'base';
+function selectXbrlScenario(key){
+  _xbrlSelectedScenario = key;
+  const rates = {
+    conserv: { g1: document.getElementById('sc-c-g1')?.value||3, g2: document.getElementById('sc-c-g2')?.value||3, g3: document.getElementById('sc-c-g3')?.value||3 },
+    base:     { g1: document.getElementById('g1')?.value||7,     g2: document.getElementById('g2')?.value||8,     g3: document.getElementById('g3')?.value||8 },
+    ottim:    { g1: document.getElementById('sc-o-g1')?.value||12, g2: document.getElementById('sc-o-g2')?.value||13, g3: document.getElementById('sc-o-g3')?.value||13 },
+  };
+  const sel = rates[key] || rates.base;
+  // Aggiorna stile cards
+  ['conserv','base','ottim'].forEach(k => {
+    const card = document.getElementById('xs-'+k);
+    if(!card) return;
+    if(k === key){
+      card.style.border = '2px solid #2563EB';
+      card.style.background = '#EFF6FF';
+      card.style.boxShadow = '0 0 0 3px rgba(37,99,235,.1)';
+    } else {
+      card.style.border = '2px solid #CBD5E1';
+      card.style.background = '#F8FAFC';
+      card.style.boxShadow = 'none';
+    }
+  });
+}
+
 function toggleXbrlScenari(){
   const block = document.getElementById('xbrl-scenari-block');
   const btn   = document.getElementById('btn-toggle-scenari');
@@ -1587,10 +1640,12 @@ async function generaBPdaXBRL(){
   if(!_xbrlData){ alert('Carica prima un file XBRL.'); return; }
 
   const p = _xbrlData;
-  // Legge i 3 scenari direttamente dai campi del form
-  const g1  = parseFloat(v('g1'))||7,  g2  = parseFloat(v('g2'))||8,  g3  = parseFloat(v('g3'))||8;
   const cg1 = parseFloat(v('sc-c-g1'))||3, cg2 = parseFloat(v('sc-c-g2'))||3, cg3 = parseFloat(v('sc-c-g3'))||3;
+  const bg1 = parseFloat(v('g1'))||7,      bg2 = parseFloat(v('g2'))||8,      bg3 = parseFloat(v('g3'))||8;
   const og1 = parseFloat(v('sc-o-g1'))||12, og2 = parseFloat(v('sc-o-g2'))||13, og3 = parseFloat(v('sc-o-g3'))||13;
+  // Scenario selezionato → diventa il piano principale
+  const scenRates = { conserv:[cg1,cg2,cg3], base:[bg1,bg2,bg3], ottim:[og1,og2,og3] };
+  const [g1, g2, g3] = scenRates[_xbrlSelectedScenario] || scenRates.base;
 
   const payload = {
     // Anagrafica

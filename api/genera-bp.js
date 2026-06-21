@@ -1168,44 +1168,6 @@ ${(() => {
       }).join('')}
     </tbody>
   </table>
-  <h3>Analisi di scenario — confronto triennale</h3>
-  <p class="lead" style="font-size:9.5px;color:#64748B;margin-bottom:6px">Costruzione degli scenari secondo metodologia ISA Italia / EBA credit origination. La probabilità indicata è puramente orientativa.</p>
-  <table class="rep">
-    <thead>
-      <tr>
-        <th style="text-align:left">Scenario</th>
-        <th style="font-size:7.5px">Prob.</th>
-        <th>${annoBase+1} Ricavi</th>
-        <th>${annoBase+3} Ricavi</th>
-        <th>CAGR</th>
-        <th>EBITDA M. ${annoBase+1}</th>
-        <th>DSCR ${annoBase+1}</th>
-        <th>Bancabile</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${(scenComparison || []).map((s, i) => {
-        const isBanc = s.dscr1 === null || s.dscr1 >= 1.1;
-        const isBase = i === 1;
-        const bgRow = i===0?'#FFF7F7':i===1?'#EFF6FF':'#F0FDF4';
-        const accentCol = i===0?'#DC2626':i===1?'#2563EB':'#059669';
-        return `<tr style="background:${bgRow}">
-          <td style="border-left:3px solid ${accentCol};padding-left:10px;${isBase?'font-weight:700':''}">
-            <span style="color:${accentCol};font-weight:700">${s.label}</span>
-            ${isBase?'<span style="font-size:8px;font-weight:500;color:#64748B;margin-left:6px">(piano adottato)</span>':''}
-            <div style="font-size:8px;color:#94A3B8;margin-top:1px">${s.sub||''}</div>
-          </td>
-          <td style="color:#64748B;font-size:9px;text-align:center"><span style="background:${accentCol}22;color:${accentCol};padding:2px 7px;border-radius:10px;font-weight:600">${s.prob}</span></td>
-          <td style="font-weight:${isBase?700:400}">${fmtM(s.r1)}</td>
-          <td style="font-weight:${isBase?700:400}">${fmtM(s.r3)}</td>
-          <td style="font-weight:700;color:${accentCol}">${s.cagr !== null ? '+'+fmtP(s.cagr) : '—'}</td>
-          <td style="color:${s.em1>=8?'#059669':s.em1>=4?'#D97706':'#DC2626'};font-weight:700">${fmtP(s.em1)}</td>
-          <td style="color:${dscrColor(s.dscr1)};font-weight:700">${fmtX(s.dscr1)}</td>
-          <td style="text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:9px;font-weight:700;background:${isBanc?'#DCFCE7':'#FEE2E2'};color:${isBanc?'#15803D':'#DC2626'}">${isBanc?'✓ Sì':'✗ No'}</span></td>
-        </tr>`;
-      }).join('')}
-    </tbody>
-  </table>
   <h3>Alert e raccomandazioni</h3>
   ${alertsHTML || '<div class="alert-print ok">✅ Nessuna criticità rilevata. Il piano è sostenibile nelle ipotesi indicate.</div>'}
   <h3>Ricavi vs EBITDA (€ Milioni)</h3>
