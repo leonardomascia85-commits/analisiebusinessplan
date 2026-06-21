@@ -256,111 +256,85 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
             <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Scegli lo scenario e generiamo il piano</div>
             <div style="font-size:.83rem;color:var(--muted);margin-bottom:16px">Costi, marginalità, working capital e debiti vengono proiettati automaticamente dal bilancio XBRL. Seleziona lo scenario di crescita per il piano principale.</div>
 
-            <!-- Selezione scenario XBRL — 3 card cliccabili -->
+            <!-- Selezione scenario XBRL — 3 card con input inline -->
             <div style="margin-bottom:20px">
               <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Scenario di crescita ricavi</label>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-                <div class="xbrl-scen-card" id="xs-conserv" onclick="selectXbrlScenario('conserv')"
-                  style="border:2px solid #CBD5E1;border-radius:10px;padding:14px;cursor:pointer;transition:.15s;background:#F8FAFC;">
-                  <div style="font-size:1.3rem;margin-bottom:6px;">🐢</div>
-                  <div style="font-weight:700;font-size:.9rem;color:#475569;">Conservativo</div>
-                  <div style="font-size:.78rem;color:#64748B;margin-top:4px;">+3% / +3% / +3%</div>
-                  <div style="font-size:.72rem;color:#94A3B8;margin-top:2px;">Prob. 20%</div>
-                </div>
-                <div class="xbrl-scen-card selected" id="xs-base" onclick="selectXbrlScenario('base')"
-                  style="border:2px solid #2563EB;border-radius:10px;padding:14px;cursor:pointer;transition:.15s;background:#EFF6FF;box-shadow:0 0 0 3px rgba(37,99,235,.1);">
-                  <div style="font-size:1.3rem;margin-bottom:6px;">🚀</div>
-                  <div style="font-weight:700;font-size:.9rem;color:#1D4ED8;">Base</div>
-                  <div style="font-size:.78rem;color:#3B82F6;margin-top:4px;">+7% / +8% / +8%</div>
-                  <div style="font-size:.72rem;color:#3B82F6;margin-top:2px;">Prob. 55%</div>
-                </div>
-                <div class="xbrl-scen-card" id="xs-ottim" onclick="selectXbrlScenario('ottim')"
-                  style="border:2px solid #CBD5E1;border-radius:10px;padding:14px;cursor:pointer;transition:.15s;background:#F8FAFC;">
-                  <div style="font-size:1.3rem;margin-bottom:6px;">⚡</div>
-                  <div style="font-weight:700;font-size:.9rem;color:#475569;">Ottimistico</div>
-                  <div style="font-size:.78rem;color:#64748B;margin-top:4px;">+12% / +13% / +13%</div>
-                  <div style="font-size:.72rem;color:#94A3B8;margin-top:2px;">Prob. 25%</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Campi hidden scenari — valori usati dal payload -->
-            <div style="display:none" id="xbrl-scenari-block">
-              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">1. Scenari di crescita ricavi — Anno 1 / Anno 2 / Anno 3</label>
-              <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">Lo scenario <strong>Base</strong> è quello principale del Business Plan. Conservativo e Ottimistico appaiono nel confronto scenari. Modifica liberamente le percentuali.</p>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
 
                 <!-- Conservativo -->
-                <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
+                <div id="xs-conserv" onclick="selectXbrlScenario('conserv')"
+                  style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;cursor:pointer;transition:.15s;background:#F8FAFC;">
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
                     <span style="font-size:1.2rem;">🐢</span>
                     <div>
-                      <div style="font-size:.85rem;font-weight:700;color:#475569;">Conservativo</div>
-                      <div style="font-size:.72rem;color:#64748B;">Probabilità: 20%</div>
+                      <div style="font-size:.85rem;font-weight:700;color:#475569;">Conservativo <span id="xs-conserv-badge" style="display:none;font-size:.7rem;background:#DBEAFE;color:#2563EB;padding:1px 7px;border-radius:8px;margin-left:3px;">Principale</span></div>
+                      <div style="font-size:.72rem;color:#94A3B8;">Prob. 20%</div>
                     </div>
                   </div>
-                  <div style="display:flex;flex-direction:column;gap:6px;">
+                  <div style="display:flex;flex-direction:column;gap:6px;" onclick="event.stopPropagation()">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="sc-c-g1" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="sc-c-g1" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="sc-c-g2" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="sc-c-g2" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="sc-c-g3" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="sc-c-g3" class="has-suffix" value="3" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                   </div>
                 </div>
 
                 <!-- Base (principale) -->
-                <div style="border:2px solid #2563EB;border-radius:10px;padding:14px 12px;background:#EFF6FF;box-shadow:0 0 0 3px rgba(37,99,235,.1);">
+                <div id="xs-base" onclick="selectXbrlScenario('base')"
+                  style="border:2px solid #2563EB;border-radius:10px;padding:14px 12px;cursor:pointer;transition:.15s;background:#EFF6FF;box-shadow:0 0 0 3px rgba(37,99,235,.1);">
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
                     <span style="font-size:1.2rem;">🚀</span>
                     <div>
-                      <div style="font-size:.85rem;font-weight:700;color:#1D4ED8;">Base <span style="font-size:.7rem;background:#DBEAFE;color:#2563EB;padding:1px 7px;border-radius:8px;margin-left:3px;">Principale</span></div>
-                      <div style="font-size:.72rem;color:#3B82F6;">Probabilità: 55%</div>
+                      <div style="font-size:.85rem;font-weight:700;color:#1D4ED8;">Base <span style="font-size:.7rem;background:#DBEAFE;color:#2563EB;padding:1px 7px;border-radius:8px;margin-left:3px;" id="xs-base-badge">Principale</span></div>
+                      <div style="font-size:.72rem;color:#3B82F6;">Prob. 55%</div>
                     </div>
                   </div>
-                  <div style="display:flex;flex-direction:column;gap:6px;">
+                  <div style="display:flex;flex-direction:column;gap:6px;" onclick="event.stopPropagation()">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 1</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="g1" class="has-suffix" value="7" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="g1" class="has-suffix" value="7" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 2</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="g2" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="g2" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#3B82F6;flex:1;">Anno 3</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="g3" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="g3" class="has-suffix" value="8" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                   </div>
                 </div>
 
                 <!-- Ottimistico -->
-                <div style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;background:#F8FAFC;">
+                <div id="xs-ottim" onclick="selectXbrlScenario('ottim')"
+                  style="border:2px solid #CBD5E1;border-radius:10px;padding:14px 12px;cursor:pointer;transition:.15s;background:#F8FAFC;">
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
                     <span style="font-size:1.2rem;">⚡</span>
                     <div>
-                      <div style="font-size:.85rem;font-weight:700;color:#475569;">Ottimistico</div>
-                      <div style="font-size:.72rem;color:#64748B;">Probabilità: 25%</div>
+                      <div style="font-size:.85rem;font-weight:700;color:#475569;">Ottimistico <span id="xs-ottim-badge" style="display:none;font-size:.7rem;background:#DBEAFE;color:#2563EB;padding:1px 7px;border-radius:8px;margin-left:3px;">Principale</span></div>
+                      <div style="font-size:.72rem;color:#94A3B8;">Prob. 25%</div>
                     </div>
                   </div>
-                  <div style="display:flex;flex-direction:column;gap:6px;">
+                  <div style="display:flex;flex-direction:column;gap:6px;" onclick="event.stopPropagation()">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 1</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="sc-o-g1" class="has-suffix" value="12" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="sc-o-g1" class="has-suffix" value="12" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 2</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="sc-o-g2" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="sc-o-g2" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                       <label style="font-size:.75rem;color:#64748B;flex:1;">Anno 3</label>
-                      <div class="input-group" style="width:80px;"><input type="number" id="sc-o-g3" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
+                      <div class="input-group" style="width:78px;"><input type="number" id="sc-o-g3" class="has-suffix" value="13" step="0.5" min="0"><span class="input-suffix">%</span></div>
                     </div>
                   </div>
                 </div>
@@ -1511,7 +1485,7 @@ function selectXbrlScenario(key){
     ottim:    { g1: document.getElementById('sc-o-g1')?.value||12, g2: document.getElementById('sc-o-g2')?.value||13, g3: document.getElementById('sc-o-g3')?.value||13 },
   };
   const sel = rates[key] || rates.base;
-  // Aggiorna stile cards
+  // Aggiorna stile cards e badge "Principale"
   ['conserv','base','ottim'].forEach(k => {
     const card = document.getElementById('xs-'+k);
     if(!card) return;
@@ -1524,6 +1498,9 @@ function selectXbrlScenario(key){
       card.style.background = '#F8FAFC';
       card.style.boxShadow = 'none';
     }
+    // mostra badge "Principale" solo sulla card selezionata
+    const badge = document.getElementById('xs-'+k+'-badge');
+    if(badge) badge.style.display = k===key ? '' : 'none';
   });
 }
 
