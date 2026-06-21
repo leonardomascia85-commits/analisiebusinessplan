@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Business Plan | AnalisiEBusinessPlan.it</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0B1628;--navy2:#132040;--blue:#2563EB;--cyan:#06B6D4;
+      --green:#10B981;--red:#EF4444;--gray:#94A3B8;--white:#fff;
+      --border:rgba(255,255,255,0.08);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:#F1F5F9;color:#0F172A;min-height:100vh;}
+
+    /* TOPBAR */
+    .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 4%;height:56px;background:#0A1628;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap;}
+    .topbar-left{display:flex;align-items:center;gap:16px;}
+    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:16px;color:#fff;text-decoration:none;white-space:nowrap;}
+    .nav-logo span{color:var(--cyan);}
+    .topbar-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.5);white-space:nowrap;}
+    .dl-buttons{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+    .btn-dl{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;transition:opacity .15s,transform .15s;white-space:nowrap;}
+    .btn-dl:hover{opacity:.88;transform:translateY(-1px);}
+    .btn-dl:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+    .btn-pdf{background:linear-gradient(135deg,#DC2626,#b91c1c);color:#fff;}
+    .btn-html{background:linear-gradient(135deg,#059669,#047857);color:#fff;}
+    .btn-back{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);}
+    .btn-back:hover{background:rgba(255,255,255,.18);color:#fff;}
+
+    /* EMPTY */
+    .empty-box{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:40px;}
+    .empty-box .icon{font-size:52px;margin-bottom:16px;}
+    .empty-box h2{font-size:22px;font-weight:700;margin-bottom:10px;color:#0F172A;}
+    .empty-box p{color:#64748B;font-size:15px;margin-bottom:24px;}
+    .btn-link{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;}
+
+    /* FRAME */
+    #bp-frame{width:100%;height:calc(100vh - 56px);border:none;background:#fff;display:block;}
+
+    /* TOAST */
+    #toast{position:fixed;bottom:24px;right:24px;background:#132040;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 18px;font-size:13px;font-weight:500;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.4);transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;z-index:9999;pointer-events:none;}
+    #toast.show{transform:translateY(0);opacity:1;}
+  </style>
+</head>
+<body>
+
+<div class="topbar" id="topbar" style="display:none;">
+  <div class="topbar-left">
+    <a href="index.html" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
+    <span class="topbar-title" id="bp-title">Business Plan</span>
+  </div>
+  <div class="dl-buttons">
+    <button class="btn-dl btn-back" onclick="window.history.back()">← Torna al form</button>
+    <button class="btn-dl btn-html" id="btn-html" onclick="scaricaHTML()">⬇ Scarica HTML</button>
+    <button class="btn-dl btn-pdf" id="btn-pdf" onclick="stampaPDF()">🖨 Stampa / PDF</button>
+  </div>
+</div>
+
+<div id="empty-box" class="empty-box" style="display:none;">
+  <div class="icon">📊</div>
+  <h2>Nessun Business Plan da visualizzare</h2>
+  <p>Genera prima il Business Plan dalla pagina apposita.</p>
+  <a href="business-plan.html" class="btn-link">← Vai al Business Plan</a>
+</div>
+
+<iframe id="bp-frame" style="display:none;"></iframe>
+
+<div id="toast"></div>
+
+<script>
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='show';
+  clearTimeout(t._tmr);t._tmr=setTimeout(()=>t.className='',2500);
+}
+
+function scaricaHTML(){
+  const html = sessionStorage.getItem('abp_bp_html');
+  if(!html){showToast('Nessun report disponibile');return;}
+  const nome = sessionStorage.getItem('abp_bp_nome')||'BusinessPlan';
+  const blob = new Blob([html],{type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=nome.replace(/[^a-zA-Z0-9]/g,'-')+'.html'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('Download avviato ✓');
+}
+
+function stampaPDF(){
+  const frame = document.getElementById('bp-frame');
+  if(!frame.contentWindow){showToast('Nessun report caricato');return;}
+  frame.contentWindow.print();
+}
+
+(function init(){
+  const html = sessionStorage.getItem('abp_bp_html');
+  if(!html){
+    document.getElementById('empty-box').style.display='flex';
+    return;
+  }
+
+  // Mostra topbar e frame
+  document.getElementById('topbar').style.display='flex';
+  const frame = document.getElementById('bp-frame');
+  frame.style.display='block';
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  doc.open(); doc.write(html); doc.close();
+
+  // Titolo dal nome azienda nel HTML
+  const m = html.match(/<h1[^>]*class="cv-nome"[^>]*>([^<]+)<\/h1>/i)
+         || html.match(/class="cv-nome"[^>]*>([^<]+)</i)
+         || html.match(/<title>([^<]+)<\/title>/i);
+  if(m) {
+    const nome = m[1].trim();
+    document.getElementById('bp-title').textContent = nome;
+    sessionStorage.setItem('abp_bp_nome', nome);
+    document.title = 'BP — ' + nome;
+  }
+})();
+</script>
+</body>
+</html>

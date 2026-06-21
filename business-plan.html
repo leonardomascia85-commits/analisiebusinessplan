@@ -1719,8 +1719,6 @@ async function generaBPdaXBRL(){
     const data = await res.json();
     if(!res.ok) throw new Error(data.error||'Errore API');
     renderOutput(data, payload);
-    document.getElementById('output-section').style.display='block';
-    document.getElementById('output-section').scrollIntoView({behavior:'smooth'});
   } catch(err){
     alert('Errore nella generazione: '+err.message);
   } finally {
@@ -1829,8 +1827,6 @@ async function generaBP(){
     if(!res.ok) throw new Error(data.error||'Errore');
 
     renderOutput(data, payload);
-    document.getElementById('output-section').style.display='block';
-    document.getElementById('output-section').scrollIntoView({behavior:'smooth'});
   } catch(err){
     alert('Errore nella generazione: '+err.message);
   } finally {
@@ -1956,9 +1952,9 @@ function raccogliDati(){
 // ─── Render output ───────────────────────────────────────
 function renderOutput(data, payload){
   _lastReportHTML = data.html || '';
-  const frame = document.getElementById('report-frame');
-  const doc = frame.contentDocument || frame.contentWindow.document;
-  doc.open(); doc.write(_lastReportHTML); doc.close();
+  // Salva HTML in sessionStorage e apri in nuova tab
+  try { sessionStorage.setItem('abp_bp_html', _lastReportHTML); } catch(e){}
+  window.open('report-bp.html', '_blank');
 }
 
 function fmt(n){ return Math.round(n).toLocaleString('it-IT'); }
