@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Il mio account | AnalisiEBusinessPlan.it</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L58FLY4JKJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L58FLY4JKJ');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --white:#FAFAF8;--bg:#F4F1EA;--bg2:#EDE9DF;
+      --ink:#0F172A;--ink2:#334155;--ink3:#64748B;--ink4:#94A3B8;
+      --blue:#1D4ED8;--blue-light:#3B82F6;--blue-bg:#EFF6FF;
+      --green:#059669;--green-bg:#ECFDF5;
+      --red:#DC2626;--red-bg:#FEF2F2;
+      --gold:#D97706;--gold-bg:#FFFBEB;
+      --border:#E2E8F0;--border2:#CBD5E1;
+      --shadow:0 4px 16px rgba(0,0,0,.07),0 2px 6px rgba(0,0,0,.04);
+      --shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);
+      --radius:12px;--radius-sm:8px;--radius-lg:20px;
+      --sidebar-w:240px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;}
+    .nav-logo span{color:var(--blue);}
+    .nav-actions{display:flex;align-items:center;gap:16px;}
+    .nav-back{font-size:14px;color:var(--ink3);text-decoration:none;transition:color .15s;}
+    .nav-back:hover{color:var(--ink);}
+    .btn-logout{background:transparent;border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:7px 16px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink3);cursor:pointer;transition:all .15s;}
+    .btn-logout:hover{border-color:var(--red);color:var(--red);background:var(--red-bg);}
+
+    /* LAYOUT */
+    .app-wrap{display:flex;min-height:calc(100vh - 64px);}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg);border-right:1px solid var(--border);padding:32px 0;display:flex;flex-direction:column;gap:4px;}
+    .sidebar-user{padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+    .sidebar-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#3B82F6);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;user-select:none;}
+    .sidebar-name{font-size:14px;font-weight:600;color:var(--ink);line-height:1.3;}
+    .sidebar-email{font-size:12px;color:var(--ink3);margin-top:2px;word-break:break-all;}
+    .sidebar-badge{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}
+    .badge-complete{background:var(--green-bg);color:var(--green);}
+    .badge-incomplete{background:var(--gold-bg);color:var(--gold);}
+    .sidebar-nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:14px;font-weight:500;color:var(--ink2);cursor:pointer;border-radius:0;transition:all .15s;border-left:3px solid transparent;text-decoration:none;}
+    .sidebar-nav-item:hover{background:var(--bg2);color:var(--ink);}
+    .sidebar-nav-item.active{background:var(--white);color:var(--blue);border-left-color:var(--blue);font-weight:600;}
+    .sidebar-nav-item .nav-icon{font-size:16px;flex-shrink:0;}
+
+    /* MAIN */
+    .main-content{flex:1;padding:40px 48px;min-width:0;}
+    .section-panel{display:none;}
+    .section-panel.active{display:block;}
+    .section-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+    .section-sub{font-size:14px;color:var(--ink3);margin-bottom:32px;}
+
+    /* PROFILE */
+    .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    .profile-grid.full{grid-template-columns:1fr;}
+    .profile-grid-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;}
+    .form-group{display:flex;flex-direction:column;gap:5px;}
+    .form-group label{font-size:12px;font-weight:500;color:var(--ink2);}
+    .form-group input{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;width:100%;transition:border-color .15s;}
+    .form-group input:focus{outline:none;border-color:var(--blue);background:#fff;}
+    .form-group input[readonly]{background:var(--bg);color:var(--ink3);cursor:not-allowed;}
+    .form-group input::placeholder{color:var(--ink4);}
+    .form-section-label{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin:24px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+    .btn-save{background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px 28px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:24px;}
+    .btn-save:hover{background:#1E40AF;transform:translateY(-1px);box-shadow:0 6px 20px rgba(29,78,216,.25);}
+    .save-feedback{display:none;align-items:center;gap:8px;margin-top:16px;font-size:14px;color:var(--green);font-weight:500;}
+    .save-feedback.show{display:flex;}
+
+    /* ORDERS TABLE */
+    .table-wrap{overflow-x:auto;border:1.5px solid var(--border);border-radius:var(--radius);margin-top:8px;}
+    table{width:100%;border-collapse:collapse;font-size:14px;}
+    thead{background:var(--bg);}
+    th{padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    td{padding:14px 16px;border-bottom:.5px solid var(--border);color:var(--ink2);vertical-align:middle;}
+    tbody tr:last-child td{border-bottom:none;}
+    tbody tr:hover td{background:var(--bg);}
+    .status-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;}
+    .status-completato{background:var(--green-bg);color:var(--green);}
+    .status-elaborazione{background:var(--gold-bg);color:var(--gold);}
+    .status-errore{background:var(--red-bg);color:var(--red);}
+    .action-btns{display:flex;gap:8px;flex-wrap:wrap;}
+    .btn-action{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:5px 11px;border-radius:6px;border:1px solid var(--border2);background:var(--white);color:var(--ink2);cursor:pointer;text-decoration:none;transition:all .15s;white-space:nowrap;}
+    .btn-action:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg);}
+
+    /* INVOICES */
+    .invoice-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+    .invoice-row{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);transition:box-shadow .15s;}
+    .invoice-row:hover{box-shadow:var(--shadow);}
+    .invoice-info{display:flex;align-items:center;gap:16px;}
+    .invoice-icon{font-size:22px;}
+    .invoice-num{font-size:14px;font-weight:600;color:var(--ink);}
+    .invoice-date{font-size:12px;color:var(--ink3);margin-top:2px;}
+    .invoice-amount{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);min-width:90px;text-align:right;}
+    .btn-dl{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:8px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--blue);background:var(--blue-bg);color:var(--blue);cursor:pointer;text-decoration:none;transition:all .15s;}
+    .btn-dl:hover{background:var(--blue);color:#fff;}
+
+    /* EMPTY STATE */
+    .empty-state{text-align:center;padding:64px 32px;}
+    .empty-icon{font-size:56px;margin-bottom:16px;}
+    .empty-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+    .empty-sub{font-size:15px;color:var(--ink3);margin-bottom:24px;line-height:1.7;}
+    .btn-cta{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px 24px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;}
+    .btn-cta:hover{background:#1E40AF;transform:translateY(-1px);box-shadow:0 6px 20px rgba(29,78,216,.25);}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;padding:12px 20px;border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);opacity:0;transform:translateY(10px);transition:all .25s;pointer-events:none;z-index:999;}
+    .toast.show{opacity:1;transform:translateY(0);}
+    .toast.success{background:var(--green);}
+    .toast.error{background:var(--red);}
+
+    /* MOBILE TAB BAR */
+    .mobile-tabs{display:none;position:sticky;top:64px;z-index:90;background:var(--white);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .mobile-tabs-inner{display:flex;min-width:max-content;}
+    .mobile-tab{flex:0 0 auto;padding:12px 20px;font-size:13px;font-weight:500;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;}
+    .mobile-tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:600;}
+
+    @media(max-width:900px){
+      .main-content{padding:28px 24px;}
+      .profile-grid{grid-template-columns:1fr;}
+      .profile-grid-3{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:680px){
+      .sidebar{display:none;}
+      .mobile-tabs{display:block;}
+      .main-content{padding:20px 16px;}
+      .profile-grid-3{grid-template-columns:1fr;}
+      .invoice-row{flex-direction:column;align-items:flex-start;gap:12px;}
+      .invoice-amount{text-align:left;}
+      .action-btns{flex-wrap:wrap;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
+  <div class="nav-actions">
+    <a href="index.html" class="nav-back">← Home</a>
+    <button class="btn-logout" onclick="logout()">Esci</button>
+  </div>
+</nav>
+
+<!-- Mobile tab bar (shown on small screens instead of sidebar) -->
+<div class="mobile-tabs">
+  <div class="mobile-tabs-inner">
+    <div class="mobile-tab active" onclick="showSection('profilo')">👤 Profilo</div>
+    <div class="mobile-tab" onclick="showSection('ordini')">📋 I miei ordini</div>
+    <div class="mobile-tab" onclick="showSection('fatture')">📄 Fatture</div>
+  </div>
+</div>
+
+<div class="app-wrap">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="avatarInitials">?</div>
+      <div class="sidebar-name" id="sidebarName">—</div>
+      <div class="sidebar-email" id="sidebarEmail">—</div>
+      <div class="sidebar-badge badge-incomplete" id="profileBadge">⚠ Da completare</div>
+    </div>
+    <div class="sidebar-nav-item active" onclick="showSection('profilo')" data-section="profilo">
+      <span class="nav-icon">👤</span> Profilo
+    </div>
+    <div class="sidebar-nav-item" onclick="showSection('ordini')" data-section="ordini">
+      <span class="nav-icon">📋</span> I miei ordini
+    </div>
+    <div class="sidebar-nav-item" onclick="showSection('fatture')" data-section="fatture">
+      <span class="nav-icon">📄</span> Fatture
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- SEZIONE PROFILO -->
+    <section class="section-panel active" id="section-profilo">
+      <h1 class="section-title">Profilo</h1>
+      <p class="section-sub">Gestisci i tuoi dati personali e di fatturazione.</p>
+
+      <form id="profileForm" onsubmit="saveProfile(event)" novalidate>
+        <div class="form-section-label">Dati personali</div>
+        <div class="profile-grid">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Mario" autocomplete="given-name"/>
+          </div>
+          <div class="form-group">
+            <label for="cognome">Cognome</label>
+            <input type="text" id="cognome" name="cognome" placeholder="Rossi" autocomplete="family-name"/>
+          </div>
+        </div>
+        <div class="profile-grid" style="margin-top:12px;">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" readonly autocomplete="email"/>
+          </div>
+          <div class="form-group">
+            <label for="studio">Studio / Ragione sociale</label>
+            <input type="text" id="studio" name="studio" placeholder="Studio Rossi & Associati" autocomplete="organization"/>
+          </div>
+        </div>
+
+        <div class="form-section-label">Dati di fatturazione</div>
+        <div class="profile-grid">
+          <div class="form-group">
+            <label for="piva">P.IVA</label>
+            <input type="text" id="piva" name="piva" placeholder="IT01234567890" maxlength="16" autocomplete="off"/>
+          </div>
+          <div class="form-group">
+            <label for="sdi">Codice SDI / PEC</label>
+            <input type="text" id="sdi" name="sdi" placeholder="ABC1234 oppure pec@studio.it" autocomplete="off"/>
+          </div>
+        </div>
+
+        <div class="form-section-label">Indirizzo di fatturazione</div>
+        <div class="profile-grid full" style="margin-bottom:12px;">
+          <div class="form-group">
+            <label for="via">Via / Piazza</label>
+            <input type="text" id="via" name="via" placeholder="Via Roma 1" autocomplete="street-address"/>
+          </div>
+        </div>
+        <div class="profile-grid-3">
+          <div class="form-group">
+            <label for="citta">Città</label>
+            <input type="text" id="citta" name="citta" placeholder="Milano" autocomplete="address-level2"/>
+          </div>
+          <div class="form-group">
+            <label for="cap">CAP</label>
+            <input type="text" id="cap" name="cap" placeholder="20100" maxlength="5" autocomplete="postal-code"/>
+          </div>
+          <div class="form-group">
+            <label for="provincia">Prov.</label>
+            <input type="text" id="provincia" name="provincia" placeholder="MI" maxlength="2" autocomplete="address-level1" style="text-transform:uppercase;"/>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-save">Salva modifiche</button>
+        <div class="save-feedback" id="saveFeedback">✓ Dati salvati con successo</div>
+      </form>
+    </section>
+
+    <!-- SEZIONE ORDINI -->
+    <section class="section-panel" id="section-ordini">
+      <h1 class="section-title">I miei ordini</h1>
+      <p class="section-sub">Storico dei tuoi acquisti e report generati.</p>
+
+      <div id="ordersContent"></div>
+    </section>
+
+    <!-- SEZIONE FATTURE -->
+    <section class="section-panel" id="section-fatture">
+      <h1 class="section-title">Fatture</h1>
+      <p class="section-sub">Scarica le tue fatture elettroniche in formato PDF.</p>
+
+      <div id="invoicesContent"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ── Helpers ── */
+  function getUser(){
+    try{ return JSON.parse(localStorage.getItem('abp_user')||'null'); }
+    catch(e){ return null; }
+  }
+  function getOrders(){
+    try{ return JSON.parse(localStorage.getItem('abp_orders')||'[]'); }
+    catch(e){ return []; }
+  }
+  function getInvoices(){
+    try{ return JSON.parse(localStorage.getItem('abp_invoices')||'[]'); }
+    catch(e){ return []; }
+  }
+
+  function initials(name, surname){
+    const a = (name||'').trim()[0]||'';
+    const b = (surname||'').trim()[0]||'';
+    return (a+b).toUpperCase()||'?';
+  }
+
+  function formatDate(iso){
+    if(!iso) return '—';
+    const d = new Date(iso);
+    if(isNaN(d)) return iso;
+    return d.toLocaleDateString('it-IT',{day:'2-digit',month:'short',year:'numeric'});
+  }
+
+  function formatMoney(amount){
+    if(amount===undefined||amount===null) return '—';
+    return '€ '+Number(amount).toFixed(2).replace('.',',');
+  }
+
+  function showToast(msg, type){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show'+(type?' '+type:'');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(()=>{ t.className='toast'; }, 3200);
+  }
+
+  /* ── Auth guard ── */
+  const user = getUser();
+  if(!user){ window.location.href='auth.html'; throw new Error('not authenticated'); }
+
+  /* ── Logout ── */
+  function logout(){
+    if(!confirm('Sei sicuro di voler uscire?')) return;
+    localStorage.removeItem('abp_user');
+    window.location.href='index.html';
+  }
+
+  /* ── Sidebar nav ── */
+  function showSection(key){
+    // panels
+    document.querySelectorAll('.section-panel').forEach(p=>p.classList.remove('active'));
+    const target = document.getElementById('section-'+key);
+    if(target) target.classList.add('active');
+
+    // sidebar items
+    document.querySelectorAll('.sidebar-nav-item').forEach(el=>{
+      el.classList.toggle('active', el.dataset.section===key);
+    });
+
+    // mobile tabs
+    document.querySelectorAll('.mobile-tab').forEach((el,i)=>{
+      const map = ['profilo','ordini','fatture'];
+      el.classList.toggle('active', map[i]===key);
+    });
+  }
+
+  /* ── Populate user info ── */
+  function populateUserInfo(){
+    const u = getUser();
+    const nome = u.nome||u.name||'';
+    const cognome = u.cognome||u.surname||'';
+    const email = u.email||'';
+    const piva = u.piva||'';
+
+    document.getElementById('avatarInitials').textContent = initials(nome,cognome)||initials(email,'');
+    document.getElementById('sidebarName').textContent = [nome,cognome].filter(Boolean).join(' ')||(email||'Utente');
+    document.getElementById('sidebarEmail').textContent = email;
+
+    const badge = document.getElementById('profileBadge');
+    if(piva){
+      badge.textContent = '✓ Profilo completo';
+      badge.className = 'sidebar-badge badge-complete';
+    } else {
+      badge.textContent = '⚠ Da completare';
+      badge.className = 'sidebar-badge badge-incomplete';
+    }
+
+    // Fill form fields
+    document.getElementById('nome').value = nome;
+    document.getElementById('cognome').value = cognome;
+    document.getElementById('email').value = email;
+    document.getElementById('studio').value = u.studio||'';
+    document.getElementById('piva').value = piva;
+    document.getElementById('sdi').value = u.sdi||'';
+    document.getElementById('via').value = u.via||'';
+    document.getElementById('citta').value = u.citta||'';
+    document.getElementById('cap').value = u.cap||'';
+    document.getElementById('provincia').value = (u.provincia||'').toUpperCase();
+  }
+
+  /* ── Save profile ── */
+  async function saveProfile(e){
+    e.preventDefault();
+    const btn = document.querySelector('.btn-save');
+    btn.disabled = true;
+    btn.textContent = 'Salvataggio...';
+
+    const u = getUser();
+    const data = {
+      action: 'update',
+      nome: document.getElementById('nome').value.trim(),
+      cognome: document.getElementById('cognome').value.trim(),
+      studio: document.getElementById('studio').value.trim(),
+      piva: document.getElementById('piva').value.trim(),
+      sdi: document.getElementById('sdi').value.trim(),
+      via: document.getElementById('via').value.trim(),
+      citta: document.getElementById('citta').value.trim(),
+      cap: document.getElementById('cap').value.trim(),
+      provincia: document.getElementById('provincia').value.trim().toUpperCase(),
+    };
+
+    // Optimistic local save
+    const updated = Object.assign({}, u, data);
+    localStorage.setItem('abp_user', JSON.stringify(updated));
+    populateUserInfo();
+
+    // API call (best effort — no hard failure if offline)
+    const token = u.token||u.accessToken||'';
+    try{
+      const resp = await fetch('/api/account', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+        body: JSON.stringify(data)
+      });
+      if(!resp.ok) throw new Error('HTTP '+resp.status);
+    } catch(err){
+      // silently continue — data already saved locally
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Salva modifiche';
+    const fb = document.getElementById('saveFeedback');
+    fb.classList.add('show');
+    setTimeout(()=>fb.classList.remove('show'), 3000);
+    showToast('Dati salvati con successo', 'success');
+  }
+
+  /* ── Render orders ── */
+  function renderOrders(){
+    const container = document.getElementById('ordersContent');
+    let orders = getOrders();
+
+    // Try to load from API in background and refresh
+    const u = getUser();
+    const token = u.token||u.accessToken||'';
+    fetch('/api/account?action=orders',{headers:{'Authorization':'Bearer '+token}})
+      .then(r=>r.ok?r.json():null)
+      .then(data=>{ if(data&&Array.isArray(data.orders)){ localStorage.setItem('abp_orders',JSON.stringify(data.orders)); renderOrders(); } })
+      .catch(()=>{});
+
+    if(!orders.length){
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🛒</div>
+          <div class="empty-title">Nessun acquisto ancora</div>
+          <p class="empty-sub">Non hai ancora effettuato acquisti.<br>Scopri i nostri servizi di analisi e business plan.</p>
+          <a href="pagamento.html" class="btn-cta">Scopri i nostri servizi →</a>
+        </div>`;
+      return;
+    }
+
+    const statusMap = {
+      completato: '<span class="status-badge status-completato">✓ Completato</span>',
+      elaborazione: '<span class="status-badge status-elaborazione">⏳ In elaborazione</span>',
+      errore: '<span class="status-badge status-errore">✕ Errore</span>',
+    };
+
+    const rows = orders.map(o=>{
+      const st = (o.stato||'').toLowerCase();
+      const badge = statusMap[st]||`<span class="status-badge">${o.stato||'—'}</span>`;
+      const reportBtn = o.reportUrl
+        ? `<a class="btn-action" href="${o.reportUrl}" target="_blank" rel="noopener">📄 Scarica report</a>`
+        : `<button class="btn-action" disabled style="opacity:.4;cursor:not-allowed;">📄 Report</button>`;
+      const invoiceBtn = o.fatturaId
+        ? `<button class="btn-action" onclick="downloadFattura('${o.fatturaId}')">🧾 Fattura</button>`
+        : '';
+      return `<tr>
+        <td>${formatDate(o.data||o.date)}</td>
+        <td><span style="font-weight:500;color:var(--ink)">${o.prodotto||o.product||'—'}</span></td>
+        <td style="font-family:'Fraunces',serif;font-size:15px;">${formatMoney(o.importo||o.amount)}</td>
+        <td>${badge}</td>
+        <td><div class="action-btns">${reportBtn}${invoiceBtn}</div></td>
+      </tr>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th><th>Prodotto</th><th>Importo</th><th>Stato</th><th>Azioni</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  /* ── Render invoices ── */
+  function renderInvoices(){
+    const container = document.getElementById('invoicesContent');
+    const invoices = getInvoices();
+
+    if(!invoices.length){
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">📄</div>
+          <div class="empty-title">Nessuna fattura disponibile</div>
+          <p class="empty-sub">Le fatture appariranno qui dopo ogni acquisto completato.</p>
+        </div>`;
+      return;
+    }
+
+    const items = invoices.map(f=>`
+      <div class="invoice-row">
+        <div class="invoice-info">
+          <div class="invoice-icon">🧾</div>
+          <div>
+            <div class="invoice-num">Fattura n° ${f.numero||f.id||'—'}</div>
+            <div class="invoice-date">${formatDate(f.data||f.date)}</div>
+          </div>
+        </div>
+        <div class="invoice-amount">${formatMoney(f.importo||f.amount)}</div>
+        <button class="btn-dl" onclick="downloadFattura('${f.id||f.numero}')">⬇ Scarica PDF</button>
+      </div>`).join('');
+
+    container.innerHTML = `<div class="invoice-list">${items}</div>`;
+  }
+
+  /* ── Download fattura ── */
+  function downloadFattura(id){
+    if(!id){ showToast('ID fattura non disponibile','error'); return; }
+    const u = getUser();
+    const token = u.token||u.accessToken||'';
+    const url = `/api/fattura?id=${encodeURIComponent(id)}`;
+    // Trigger download via hidden anchor
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `fattura-${id}.pdf`;
+    // Attach auth header is not possible via anchor; open new tab (server handles auth via cookie or query param)
+    a.target = '_blank';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    showToast('Download avviato…');
+  }
+
+  /* ── Init ── */
+  populateUserInfo();
+  renderOrders();
+  renderInvoices();
+</script>
+</body>
+</html>
