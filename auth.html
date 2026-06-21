@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accedi / Registrati | AnalisiEBusinessPlan.it</title>
+  <meta name="description" content="Accedi o crea un account su AnalisiEBusinessPlan.it per gestire i tuoi report di analisi bilancio e business plan."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="canonical" href="https://analisiebusinessplan.it/auth.html"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L58FLY4JKJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L58FLY4JKJ');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --white:#FAFAF8;--bg:#F4F1EA;--bg2:#EDE9DF;
+      --ink:#0F172A;--ink2:#334155;--ink3:#64748B;--ink4:#94A3B8;
+      --blue:#1D4ED8;--blue-light:#3B82F6;--blue-bg:#EFF6FF;
+      --green:#059669;--green-bg:#ECFDF5;
+      --red:#DC2626;--red-bg:#FEF2F2;
+      --border:#E2E8F0;--border2:#CBD5E1;
+      --shadow:0 4px 16px rgba(0,0,0,.07),0 2px 6px rgba(0,0,0,.04);
+      --shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);
+      --radius:12px;--radius-sm:8px;--radius-lg:20px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;}
+    .nav-logo span{color:var(--blue);}
+    .nav-back{font-size:14px;color:var(--ink3);text-decoration:none;transition:color .15s;}
+    .nav-back:hover{color:var(--ink);}
+
+    /* LAYOUT */
+    .wrap{max-width:480px;margin:0 auto;padding:52px 24px 80px;}
+    .page-header{text-align:center;margin-bottom:36px;}
+    .page-eyebrow{font-size:12px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+    .page-title{font-family:'Fraunces',serif;font-size:clamp(26px,3vw,36px);font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.3px;margin-bottom:10px;}
+    .page-sub{font-size:15px;color:var(--ink2);line-height:1.7;}
+
+    /* TABS */
+    .tabs{display:flex;background:var(--bg);border-radius:var(--radius);padding:4px;margin-bottom:28px;gap:4px;}
+    .tab-btn{flex:1;padding:10px 16px;border:none;background:transparent;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--ink3);border-radius:var(--radius-sm);cursor:pointer;transition:all .18s;}
+    .tab-btn:hover{color:var(--ink);}
+    .tab-btn.active{background:var(--white);color:var(--ink);box-shadow:var(--shadow);}
+
+    /* CARD */
+    .auth-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:36px 32px;box-shadow:var(--shadow);}
+
+    /* FORM */
+    .tab-pane{display:none;}
+    .tab-pane.active{display:block;}
+    .fg{display:flex;flex-direction:column;gap:14px;}
+    .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .fi{display:flex;flex-direction:column;gap:5px;}
+    .fi label{font-size:12px;font-weight:500;color:var(--ink2);letter-spacing:.01em;}
+    .fi label .req{color:var(--red);margin-left:2px;}
+    .fi input[type="text"],
+    .fi input[type="email"],
+    .fi input[type="password"]{
+      background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+      padding:11px 13px;color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;
+      width:100%;transition:border-color .15s,box-shadow .15s;
+    }
+    .fi input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,216,.08);}
+    .fi input.error{border-color:var(--red);}
+
+    /* FORGOT */
+    .forgot-row{display:flex;justify-content:flex-end;margin-top:-6px;}
+    .forgot-link{font-size:13px;color:var(--blue);text-decoration:none;font-weight:500;}
+    .forgot-link:hover{text-decoration:underline;}
+
+    /* CHECKBOX */
+    .check-fi{display:flex;flex-direction:column;gap:6px;}
+    .check-row{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+    .check-row input[type="checkbox"]{
+      width:16px;height:16px;accent-color:var(--blue);
+      flex-shrink:0;margin-top:2px;cursor:pointer;
+    }
+    .check-label{font-size:13px;color:var(--ink2);line-height:1.5;}
+    .check-label a{color:var(--blue);text-decoration:none;}
+    .check-label a:hover{text-decoration:underline;}
+
+    /* STUDIO FIELD */
+    .studio-fi{display:none;}
+    .studio-fi.show{display:flex;}
+
+    /* BUTTON */
+    .btn-primary{
+      width:100%;padding:14px;border:none;border-radius:var(--radius-sm);
+      background:var(--blue);color:#fff;font-family:'Inter',sans-serif;
+      font-size:15px;font-weight:600;cursor:pointer;transition:background .15s,transform .1s;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      margin-top:4px;
+    }
+    .btn-primary:hover{background:#1E40AF;}
+    .btn-primary:active{transform:scale(.99);}
+    .btn-primary:disabled{background:var(--ink4);cursor:not-allowed;transform:none;}
+
+    /* SPINNER */
+    .spinner{
+      width:16px;height:16px;border:2px solid rgba(255,255,255,.4);
+      border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;
+    }
+    .btn-primary.loading .spinner{display:block;}
+    .btn-primary.loading .btn-text{opacity:.7;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* MESSAGES */
+    .msg{display:none;border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;font-weight:500;margin-top:12px;line-height:1.5;}
+    .msg.show{display:block;}
+    .msg.error{background:var(--red-bg);color:var(--red);border:1px solid #FECACA;}
+    .msg.success{background:var(--green-bg);color:var(--green);border:1px solid #A7F3D0;}
+
+    /* SWITCH LINK */
+    .switch-link{text-align:center;font-size:14px;color:var(--ink3);margin-top:20px;}
+    .switch-link a{color:var(--blue);font-weight:600;text-decoration:none;cursor:pointer;}
+    .switch-link a:hover{text-decoration:underline;}
+
+    /* DIVIDER */
+    .divider{height:1px;background:var(--border);margin:4px 0 8px;}
+
+    @media(max-width:520px){
+      .auth-card{padding:28px 20px;}
+      .fg-row{grid-template-columns:1fr;}
+      .wrap{padding:36px 16px 64px;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Analisi<span>[e]</span>BusinessPlan</a>
+  <a href="index.html" class="nav-back">← Torna alla home</a>
+</nav>
+
+<main class="wrap">
+  <div class="page-header">
+    <div class="page-eyebrow">Area riservata</div>
+    <h1 class="page-title">Il tuo account</h1>
+    <p class="page-sub">Accedi per gestire i tuoi report e documenti.</p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" id="tab-login-btn" role="tab" aria-selected="true" aria-controls="pane-login" onclick="switchTab('login')">Accedi</button>
+    <button class="tab-btn" id="tab-register-btn" role="tab" aria-selected="false" aria-controls="pane-register" onclick="switchTab('register')">Registrati</button>
+  </div>
+
+  <div class="auth-card">
+
+    <!-- TAB LOGIN -->
+    <div class="tab-pane active" id="pane-login" role="tabpanel" aria-labelledby="tab-login-btn">
+      <form id="form-login" novalidate onsubmit="handleLogin(event)">
+        <div class="fg">
+          <div class="fi">
+            <label for="login-email">Email <span class="req">*</span></label>
+            <input type="email" id="login-email" name="email" placeholder="mario.rossi@esempio.it" autocomplete="email" required/>
+          </div>
+          <div class="fi">
+            <label for="login-password">Password <span class="req">*</span></label>
+            <input type="password" id="login-password" name="password" placeholder="La tua password" autocomplete="current-password" required/>
+          </div>
+          <div class="forgot-row">
+            <a href="#" class="forgot-link" onclick="return false;">Password dimenticata?</a>
+          </div>
+          <div class="divider"></div>
+          <button type="submit" class="btn-primary" id="btn-login">
+            <span class="btn-text">Accedi</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <div class="msg" id="msg-login" role="alert"></div>
+        </div>
+      </form>
+      <div class="switch-link">
+        Non hai un account? <a onclick="switchTab('register')">Registrati →</a>
+      </div>
+    </div>
+
+    <!-- TAB REGISTRAZIONE -->
+    <div class="tab-pane" id="pane-register" role="tabpanel" aria-labelledby="tab-register-btn">
+      <form id="form-register" novalidate onsubmit="handleRegister(event)">
+        <div class="fg">
+          <div class="fg-row">
+            <div class="fi">
+              <label for="reg-nome">Nome <span class="req">*</span></label>
+              <input type="text" id="reg-nome" name="nome" placeholder="Mario" autocomplete="given-name" required/>
+            </div>
+            <div class="fi">
+              <label for="reg-cognome">Cognome <span class="req">*</span></label>
+              <input type="text" id="reg-cognome" name="cognome" placeholder="Rossi" autocomplete="family-name" required/>
+            </div>
+          </div>
+          <div class="fi">
+            <label for="reg-email">Email <span class="req">*</span></label>
+            <input type="email" id="reg-email" name="email" placeholder="mario.rossi@esempio.it" autocomplete="email" required/>
+          </div>
+          <div class="fi">
+            <label for="reg-password">Password <span class="req">*</span></label>
+            <input type="password" id="reg-password" name="password" placeholder="Minimo 8 caratteri" autocomplete="new-password" required/>
+          </div>
+          <div class="fi">
+            <label for="reg-confirm">Conferma password <span class="req">*</span></label>
+            <input type="password" id="reg-confirm" name="confirm" placeholder="Ripeti la password" autocomplete="new-password" required/>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="check-fi">
+            <label class="check-row">
+              <input type="checkbox" id="chk-profilo" onchange="toggleStudio(this)"/>
+              <span class="check-label">Profilo professionale (commercialista / consulente)</span>
+            </label>
+          </div>
+
+          <div class="fi studio-fi" id="studio-fi">
+            <label for="reg-studio">Studio / Ragione sociale <span class="req">*</span></label>
+            <input type="text" id="reg-studio" name="studio" placeholder="Es. Studio Rossi & Associati" autocomplete="organization"/>
+          </div>
+
+          <div class="check-fi">
+            <label class="check-row">
+              <input type="checkbox" id="chk-privacy" required/>
+              <span class="check-label">Accetto la <a href="privacy.html" target="_blank">Privacy Policy</a> e i <a href="termini.html" target="_blank">Termini di servizio</a> <span class="req">*</span></span>
+            </label>
+          </div>
+
+          <div class="divider"></div>
+
+          <button type="submit" class="btn-primary" id="btn-register">
+            <span class="btn-text">Crea account</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <div class="msg" id="msg-register" role="alert"></div>
+        </div>
+      </form>
+      <div class="switch-link">
+        Hai già un account? <a onclick="switchTab('login')">Accedi →</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  // ── Redirect if already logged in ──────────────────────────────────────────
+  (function() {
+    try {
+      if (localStorage.getItem('abp_user')) {
+        window.location.href = 'account.html';
+      }
+    } catch(e) {}
+  })();
+
+  // ── Tab switching ───────────────────────────────────────────────────────────
+  function switchTab(tab) {
+    const tabs = ['login', 'register'];
+    tabs.forEach(function(t) {
+      var btn  = document.getElementById('tab-' + t + '-btn');
+      var pane = document.getElementById('pane-' + t);
+      if (t === tab) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        pane.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+        pane.classList.remove('active');
+      }
+    });
+    // Clear messages when switching
+    clearMsg('login');
+    clearMsg('register');
+  }
+
+  // Open tab from URL query param
+  (function() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('tab') === 'register') {
+        switchTab('register');
+      }
+    } catch(e) {}
+  })();
+
+  // ── Helpers ─────────────────────────────────────────────────────────────────
+  function showMsg(form, type, text) {
+    var el = document.getElementById('msg-' + form);
+    el.textContent = text;
+    el.className = 'msg show ' + type;
+  }
+
+  function clearMsg(form) {
+    var el = document.getElementById('msg-' + form);
+    el.className = 'msg';
+    el.textContent = '';
+  }
+
+  function setLoading(btnId, loading) {
+    var btn = document.getElementById(btnId);
+    if (loading) {
+      btn.classList.add('loading');
+      btn.disabled = true;
+    } else {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  }
+
+  function saveUser(data) {
+    try {
+      localStorage.setItem('abp_user', JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  function toggleStudio(chk) {
+    var fi = document.getElementById('studio-fi');
+    var input = document.getElementById('reg-studio');
+    if (chk.checked) {
+      fi.classList.add('show');
+      input.required = true;
+    } else {
+      fi.classList.remove('show');
+      input.required = false;
+      input.value = '';
+    }
+  }
+
+  // ── Handle Login ─────────────────────────────────────────────────────────────
+  function handleLogin(e) {
+    e.preventDefault();
+    clearMsg('login');
+
+    var email    = document.getElementById('login-email').value.trim();
+    var password = document.getElementById('login-password').value;
+
+    if (!email || !password) {
+      showMsg('login', 'error', 'Inserisci email e password.');
+      return;
+    }
+
+    setLoading('btn-login', true);
+
+    fetch('/api/auth', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'login', email: email, password: password})
+    })
+    .then(function(res) {
+      return res.json().then(function(data) {
+        return {ok: res.ok, status: res.status, data: data};
+      });
+    })
+    .then(function(result) {
+      setLoading('btn-login', false);
+      if (result.ok && result.data && result.data.user) {
+        saveUser({email: result.data.user.email, nome: result.data.user.nome});
+        showMsg('login', 'success', 'Accesso effettuato. Reindirizzamento…');
+        setTimeout(function() { window.location.href = 'account.html'; }, 800);
+      } else {
+        var errMsg = (result.data && result.data.message)
+          ? result.data.message
+          : 'Credenziali non valide. Riprova.';
+        showMsg('login', 'error', errMsg);
+      }
+    })
+    .catch(function(err) {
+      setLoading('btn-login', false);
+      showMsg('login', 'error', 'Errore di rete. Controlla la connessione e riprova.');
+    });
+  }
+
+  // ── Handle Register ──────────────────────────────────────────────────────────
+  function handleRegister(e) {
+    e.preventDefault();
+    clearMsg('register');
+
+    var nome     = document.getElementById('reg-nome').value.trim();
+    var cognome  = document.getElementById('reg-cognome').value.trim();
+    var email    = document.getElementById('reg-email').value.trim();
+    var password = document.getElementById('reg-password').value;
+    var confirm  = document.getElementById('reg-confirm').value;
+    var studio   = document.getElementById('reg-studio').value.trim();
+    var isProf   = document.getElementById('chk-profilo').checked;
+    var privacy  = document.getElementById('chk-privacy').checked;
+
+    if (!nome || !cognome) {
+      showMsg('register', 'error', 'Inserisci nome e cognome.');
+      return;
+    }
+    if (!email) {
+      showMsg('register', 'error', 'Inserisci un indirizzo email valido.');
+      return;
+    }
+    if (!password || password.length < 8) {
+      showMsg('register', 'error', 'La password deve essere di almeno 8 caratteri.');
+      return;
+    }
+    if (password !== confirm) {
+      showMsg('register', 'error', 'Le password non coincidono.');
+      return;
+    }
+    if (isProf && !studio) {
+      showMsg('register', 'error', 'Inserisci il nome dello studio o ragione sociale.');
+      return;
+    }
+    if (!privacy) {
+      showMsg('register', 'error', 'Devi accettare la Privacy Policy per procedere.');
+      return;
+    }
+
+    setLoading('btn-register', true);
+
+    var payload = {
+      action:   'register',
+      nome:     nome,
+      cognome:  cognome,
+      email:    email,
+      password: password
+    };
+    if (isProf && studio) {
+      payload.studio = studio;
+    }
+
+    fetch('/api/auth', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) {
+      return res.json().then(function(data) {
+        return {ok: res.ok, status: res.status, data: data};
+      });
+    })
+    .then(function(result) {
+      setLoading('btn-register', false);
+      if (result.ok && result.data && result.data.user) {
+        saveUser({email: result.data.user.email, nome: result.data.user.nome});
+        showMsg('register', 'success', 'Account creato con successo. Reindirizzamento…');
+        setTimeout(function() { window.location.href = 'account.html'; }, 900);
+      } else {
+        var errMsg = (result.data && result.data.message)
+          ? result.data.message
+          : 'Registrazione non riuscita. Riprova.';
+        showMsg('register', 'error', errMsg);
+      }
+    })
+    .catch(function(err) {
+      setLoading('btn-register', false);
+      showMsg('register', 'error', 'Errore di rete. Controlla la connessione e riprova.');
+    });
+  }
+</script>
+
+</body>
+</html>
