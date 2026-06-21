@@ -1433,6 +1433,40 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('data_report').value =
     oggi.toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
 
+  // ── Carica da template settore (business-plan-start.html) ──
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if(params.get('from_template')){
+      const raw = sessionStorage.getItem('abp_bp_from_template');
+      if(raw){
+        const d = JSON.parse(raw);
+        sceliPercorso('manuale');
+        const sv = (id, val) => { const el = document.getElementById(id); if(el && val !== undefined && val !== null) el.value = val; };
+        sv('nome_azienda', d.nome);
+        sv('settore_bp_manuale', d.settore);
+        sv('anno_base', d.anno_base);
+        sv('ricavi_storici', d.ricavi_base);
+        sv('ebitda_storico', Math.round(d.ricavi_base * (d.ebitda_margin||0) / 100));
+        sv('costo_pers_storico', d.costo_pers_storico);
+        sv('n_dip', d.n_dip);
+        sv('ebitda_margin', d.ebitda_margin);
+        sv('costi_fissi', d.costi_fissi);
+        sv('perc_var', d.perc_var);
+        sv('ammortamenti', d.ammortamenti);
+        sv('g1', d.g1); sv('g2', d.g2); sv('g3', d.g3);
+        sv('sc-c-g1', d.sc_conserv_g1); sv('sc-c-g2', d.sc_conserv_g2); sv('sc-c-g3', d.sc_conserv_g3);
+        sv('sc-o-g1', d.sc_ottim_g1);  sv('sc-o-g2', d.sc_ottim_g2);  sv('sc-o-g3', d.sc_ottim_g3);
+        if(d.nuovo_fin){ const tog = document.getElementById('toggle-fin'); if(tog){tog.checked=true; toggleFinanziamento();} sv('importo_nuovo_fin', d.importo_nuovo_fin); sv('durata_nuovo_fin', d.durata_nuovo_fin); sv('tasso_nuovo_fin', d.tasso_nuovo_fin); }
+        // Mostra banner info template
+        const info = document.getElementById('dati-storici-info');
+        if(info && d._template) info.innerHTML = `<div class="dati-storici">✅ Dati pre-compilati dal benchmark settore <strong>${d._template.nome}</strong>. Verifica e aggiusta i valori prima di generare.</div>`;
+        // Salva template per scheda esplicativa
+        sessionStorage.setItem('abp_bp_template', JSON.stringify(d._template || {}));
+        sessionStorage.removeItem('abp_bp_from_template');
+      }
+    }
+  } catch(e){}
+
   // Load from sessionStorage (se proveniente da bilancio-multianno)
   try {
     const raw = sessionStorage.getItem('bpData');
@@ -1742,6 +1776,12 @@ function buildRiepilogo(){
 async function generaBP(){
   const payload = raccogliDati();
   if(!payload) return;
+
+  // Allega template settore se disponibile (da business-plan-start.html)
+  try {
+    const tmplRaw = sessionStorage.getItem('abp_bp_template');
+    if(tmplRaw) { payload._template = JSON.parse(tmplRaw); sessionStorage.removeItem('abp_bp_template'); }
+  } catch(e){}
 
   document.querySelector('.btn-genera').textContent = '⏳ Generazione in corso…';
   document.querySelector('.btn-genera').disabled = true;

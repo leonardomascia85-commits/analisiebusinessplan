@@ -1384,7 +1384,98 @@ ${hasPag11 ? `<!-- PAGE 11 — MERCATO E COMPETITIVITÀ -->
   </div>` : ''}
 
   ${pf(11)}
-</div>` : ''}`;
+</div>` : ''}
+
+${(() => {
+  const tmpl = d._template;
+  if (!tmpl) return '';
+  const rat = tmpl.ratios || {};
+  const fmtE2 = (n) => '€' + Math.round(n).toLocaleString('it-IT');
+
+  // Personale
+  const figureRows = (tmpl.figure_personale || []).map(f =>
+    `<tr><td>${f.ruolo}</td><td style="text-align:center">${f.n}</td><td style="text-align:right">${fmtE2(f.costo_annuo)}</td><td style="text-align:right;font-weight:600">${fmtE2(f.costo_annuo * f.n)}</td></tr>`
+  ).join('');
+  const totPersonale = (tmpl.figure_personale || []).reduce((s, f) => s + f.costo_annuo * f.n, 0);
+
+  // Costi fissi
+  const costiRows = (tmpl.voci_costi_fissi || []).map(v => {
+    const ann = v.importo_annuo || (v.importo_mensile * 12);
+    return `<tr><td>${v.voce}</td><td style="text-align:right">${v.importo_mensile ? fmtE2(v.importo_mensile)+'/mese' : '—'}</td><td style="text-align:right;font-weight:600">${fmtE2(ann)}/anno</td></tr>`;
+  }).join('');
+  const totFissi = (tmpl.voci_costi_fissi || []).reduce((s, v) => s + (v.importo_annuo || v.importo_mensile * 12), 0);
+
+  return `
+<!-- PAGE SCHEDA SETTORE -->
+<div class="page">
+  ${secHdr(`Benchmark settore — ${tmpl.nome}`, 'Scheda esplicativa delle ipotesi')}
+
+  <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:14px 16px;margin-bottom:16px">
+    <div style="font-size:9px;font-weight:700;color:#1D4ED8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">📋 Come sono state costruite le proiezioni</div>
+    <p style="font-size:9.5px;color:#1E3A5F;line-height:1.7">
+      I valori di costo, margine e personale sono stati calcolati automaticamente applicando i <strong>benchmark medi di settore</strong>
+      per <strong>${tmpl.nome}</strong> (ATECO ${tmpl.ateco}) alle previsioni di ricavo inserite.
+      Tutti i parametri sono modificabili nel form di generazione.
+    </p>
+  </div>
+
+  <h3>Struttura dei ricavi</h3>
+  <div class="narrative" style="margin-bottom:12px">${tmpl.spiegazione_ricavi || ''}</div>
+
+  <h3>Struttura dei costi operativi</h3>
+  <div class="narrative" style="margin-bottom:12px">${tmpl.spiegazione_costi || ''}</div>
+
+  <h3>Piano del personale previsto</h3>
+  <div class="narrative" style="margin-bottom:8px">${tmpl.spiegazione_personale || ''}</div>
+  ${figureRows ? `
+  <table class="rep" style="margin-bottom:12px">
+    <thead><tr><th style="text-align:left">Ruolo</th><th>N°</th><th>Costo unitario</th><th>Costo totale</th></tr></thead>
+    <tbody>
+      ${figureRows}
+      <tr style="background:#EFF6FF;font-weight:700"><td>TOTALE PERSONALE</td><td></td><td></td><td style="text-align:right">${fmtE2(totPersonale)}</td></tr>
+    </tbody>
+  </table>` : ''}
+
+  <h3>Dettaglio costi fissi strutturali</h3>
+  ${costiRows ? `
+  <table class="rep" style="margin-bottom:12px">
+    <thead><tr><th style="text-align:left">Voce di costo</th><th>Importo mensile</th><th>Importo annuo</th></tr></thead>
+    <tbody>
+      ${costiRows}
+      <tr style="background:#EFF6FF;font-weight:700"><td>TOTALE COSTI FISSI</td><td></td><td style="text-align:right">${fmtE2(totFissi)}/anno</td></tr>
+    </tbody>
+  </table>` : ''}
+
+  <h3>Investimento iniziale e finanziamento</h3>
+  <div class="narrative" style="margin-bottom:12px">${tmpl.spiegazione_investimenti || ''}</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+    <div class="ratio-box"><div class="v">${fmtE2(rat.investimento_tipico||0)}</div><div class="l">Investimento tipico di settore</div></div>
+    <div class="ratio-box"><div class="v">${fmtE2(rat.finanziamento_tipico||0)}</div><div class="l">Finanziamento tipico</div></div>
+    <div class="ratio-box"><div class="v">${rat.tasso_mutuo||0}% / ${rat.durata_mutuo||0} anni</div><div class="l">Tasso e durata tipici</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+    ${(tmpl.punti_forza||[]).length ? `<div>
+      <h3 style="color:#059669">✅ Punti di forza del settore</h3>
+      <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:12px">
+        <ul style="margin:0;padding-left:16px;font-size:9.5px;line-height:2">
+          ${tmpl.punti_forza.map(p=>`<li>${p}</li>`).join('')}
+        </ul>
+      </div>
+    </div>` : ''}
+    ${(tmpl.rischi_principali||[]).length ? `<div>
+      <h3 style="color:#DC2626">⚠️ Rischi principali</h3>
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:12px">
+        <ul style="margin:0;padding-left:16px;font-size:9.5px;line-height:2">
+          ${tmpl.rischi_principali.map(r=>`<li>${r}</li>`).join('')}
+        </ul>
+      </div>
+    </div>` : ''}
+  </div>
+
+  ${pf(99)}
+</div>`;
+})()}`;
 })()}
 
 <script>
