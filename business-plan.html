@@ -1952,8 +1952,12 @@ function raccogliDati(){
 // ─── Render output ───────────────────────────────────────
 function renderOutput(data, payload){
   _lastReportHTML = data.html || '';
-  // Salva HTML in sessionStorage e apri in nuova tab
-  try { sessionStorage.setItem('abp_bp_html', _lastReportHTML); } catch(e){}
+  try {
+    sessionStorage.setItem('abp_bp_html', _lastReportHTML);
+    // Salva dati strutturati per Excel e config per Word
+    sessionStorage.setItem('abp_bp_data', JSON.stringify({ ce: data.ce, sp: data.sp, cf: data.cf, be: data.be, kpi: data.kpi, alerts: data.alerts }));
+    sessionStorage.setItem('abp_bp_config', JSON.stringify({ nome: payload.nome, anno_base: payload.anno_base, g1: payload.g1, g2: payload.g2, g3: payload.g3 }));
+  } catch(e){}
   window.open('report-bp.html', '_blank');
 }
 

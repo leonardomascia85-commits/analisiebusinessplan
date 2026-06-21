@@ -28,7 +28,8 @@
     .btn-dl:hover{opacity:.88;transform:translateY(-1px);}
     .btn-dl:disabled{opacity:.4;cursor:not-allowed;transform:none;}
     .btn-pdf{background:linear-gradient(135deg,#DC2626,#b91c1c);color:#fff;}
-    .btn-html{background:linear-gradient(135deg,#059669,#047857);color:#fff;}
+    .btn-word{background:linear-gradient(135deg,#1D4ED8,#1e40af);color:#fff;}
+    .btn-excel{background:linear-gradient(135deg,#15803d,#166534);color:#fff;}
     .btn-back{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);}
     .btn-back:hover{background:rgba(255,255,255,.18);color:#fff;}
 
@@ -56,7 +57,8 @@
   </div>
   <div class="dl-buttons">
     <button class="btn-dl btn-back" onclick="window.history.back()">← Torna al form</button>
-    <button class="btn-dl btn-html" id="btn-html" onclick="scaricaHTML()">⬇ Scarica HTML</button>
+    <button class="btn-dl btn-word" id="btn-word" onclick="scaricaWord()">📝 Scarica Word</button>
+    <button class="btn-dl btn-excel" id="btn-excel" onclick="scaricaExcel()">📊 Scarica Excel</button>
     <button class="btn-dl btn-pdf" id="btn-pdf" onclick="stampaPDF()">🖨 Stampa / PDF</button>
   </div>
 </div>
@@ -79,16 +81,51 @@ function showToast(msg){
   clearTimeout(t._tmr);t._tmr=setTimeout(()=>t.className='',2500);
 }
 
-function scaricaHTML(){
+function scaricaWord(){
   const html = sessionStorage.getItem('abp_bp_html');
   if(!html){showToast('Nessun report disponibile');return;}
   const nome = sessionStorage.getItem('abp_bp_nome')||'BusinessPlan';
-  const blob = new Blob([html],{type:'text/html;charset=utf-8'});
+  // Aggiunge namespace Word all'HTML esistente
+  const wordHtml = html
+    .replace('<html', '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"')
+    .replace('<head>', '<head><meta name=ProgId content=Word.Document>');
+  const blob = new Blob([wordHtml], {type:'application/msword'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href=url; a.download=nome.replace(/[^a-zA-Z0-9]/g,'-')+'.html'; a.click();
+  a.href = url;
+  a.download = nome.replace(/[^a-zA-Z0-9]/g,'-') + '.doc';
+  a.click();
   URL.revokeObjectURL(url);
-  showToast('Download avviato ✓');
+  showToast('Download Word avviato ✓');
+}
+
+async function scaricaExcel(){
+  const rawData   = sessionStorage.getItem('abp_bp_data');
+  const rawConfig = sessionStorage.getItem('abp_bp_config');
+  if(!rawData){showToast('Dati non disponibili — rigenera il BP');return;}
+  const btn = document.getElementById('btn-excel');
+  const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Generazione…';
+  try {
+    const res = await fetch('/api/genera-bp-excel', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ data: JSON.parse(rawData), config: JSON.parse(rawConfig||'{}') }),
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const cfg = JSON.parse(rawConfig||'{}');
+    const nome = (cfg.nome||'BP').replace(/[^a-zA-Z0-9]/g,'-');
+    a.href = url; a.download = `BusinessPlan-${nome}-${cfg.anno_base||''}.xls`; a.click();
+    URL.revokeObjectURL(url);
+    showToast('Download Excel avviato ✓');
+  } catch(err) {
+    showToast('Errore Excel: '+err.message);
+  } finally {
+    btn.disabled = false; btn.textContent = orig;
+  }
 }
 
 function stampaPDF(){
