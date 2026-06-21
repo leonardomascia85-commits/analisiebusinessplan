@@ -897,7 +897,9 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     .print-bar .btn-dl{background:#fff;border:1.5px solid #E2E8F0;color:#1E293B}
   `;
 
-  const totalPages = (d.desc_aziendale || d.desc_progetto || d.desc_mercato || d.punti_forza || d.punti_rischio) ? 11 : 11;
+  const hasNarrativa = !!(d.desc_aziendale || d.desc_progetto || d.desc_mercato || d.punti_forza || d.punti_rischio);
+  const hasScheda = !!d._template;
+  const totalPages = 10 + (hasNarrativa ? 1 : 0) + (hasScheda ? 1 : 0);
   const pf = (n) => `<div class="pf"><span>${nome} — Business Plan ${annoBase + 1}–${annoBase + 3} · RISERVATO E CONFIDENZIALE</span><span>${n} / ${totalPages}</span></div>`;
   const secHdr = (ey, ti) => `<div class="sec-hdr"><div class="sec-bar"></div><div><div class="sec-ey">${ey}</div><div class="sec-ti">${ti}</div></div></div>`;
 
@@ -1473,7 +1475,7 @@ ${(() => {
     </div>` : ''}
   </div>
 
-  ${pf(99)}
+  ${pf(totalPages)}
 </div>`;
 })()}`;
 })()}
