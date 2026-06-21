@@ -184,12 +184,11 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
   <!-- Progress -->
   <div class="progress-bar">
     <div class="step active" id="st1" onclick="goStep(1)"><div class="step-num">1</div><div class="step-label">Scenario</div></div>
-    <div class="step" id="st2" onclick="goStep(2)"><div class="step-num">2</div><div class="step-label">Ricavi</div></div>
-    <div class="step" id="st3" onclick="goStep(3)"><div class="step-num">3</div><div class="step-label">Costi</div></div>
-    <div class="step" id="st4" onclick="goStep(4)"><div class="step-num">4</div><div class="step-label">Personale</div></div>
-    <div class="step" id="st5" onclick="goStep(5)"><div class="step-num">5</div><div class="step-label">Investimenti</div></div>
-    <div class="step" id="st6" onclick="goStep(6)"><div class="step-num">6</div><div class="step-label">Finanza</div></div>
-    <div class="step" id="st7" onclick="goStep(7)"><div class="step-num">7</div><div class="step-label">Riepilogo</div></div>
+    <div class="step" id="st2" onclick="goStep(2)"><div class="step-num">2</div><div class="step-label">Costi</div></div>
+    <div class="step" id="st3" onclick="goStep(3)"><div class="step-num">3</div><div class="step-label">Personale</div></div>
+    <div class="step" id="st4" onclick="goStep(4)"><div class="step-num">4</div><div class="step-label">Investimenti</div></div>
+    <div class="step" id="st5" onclick="goStep(5)"><div class="step-num">5</div><div class="step-label">Finanza</div></div>
+    <div class="step" id="st6" onclick="goStep(6)"><div class="step-num">6</div><div class="step-label">Riepilogo</div></div>
   </div>
 
   <!-- SECTION 1: Scenario & Dati di base -->
@@ -671,88 +670,8 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     </div>
   </div>
 
-  <!-- SECTION 2: Ricavi -->
+  <!-- SECTION 2: Costi operativi -->
   <div class="section" id="sec2">
-    <div class="card">
-      <div class="card-title">💰 Struttura dei Ricavi</div>
-      <div class="card-sub">Definisci la composizione e l'andamento atteso dei ricavi per i tre anni di piano</div>
-
-      <div class="form-row cols3">
-        <div>
-          <label>% ricavi da clienti ricorrenti</label>
-          <div class="input-group">
-            <input type="number" id="perc_ricorrenti" class="has-suffix" value="60" min="0" max="100">
-            <span class="input-suffix">%</span>
-          </div>
-        </div>
-        <div>
-          <label>% ricavi da nuovi clienti</label>
-          <div class="input-group">
-            <input type="number" id="perc_nuovi" class="has-suffix" value="40" min="0" max="100">
-            <span class="input-suffix">%</span>
-          </div>
-        </div>
-        <div>
-          <label>Stagionalità</label>
-          <select id="stagionalita">
-            <option value="uniforme">Uniforme</option>
-            <option value="estate">Picco estate</option>
-            <option value="inverno">Picco inverno</option>
-            <option value="q4">Picco Q4</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div>
-          <label>Nuovi prodotti/servizi (anno 1)?</label>
-          <select id="new_products">
-            <option value="no">No</option>
-            <option value="si">Sì</option>
-          </select>
-        </div>
-        <div>
-          <label>Ricavi da nuovi prodotti/servizi (€ ann.)</label>
-          <div class="input-group">
-            <input type="number" id="new_products_rev" class="has-suffix" placeholder="0">
-            <span class="input-suffix">€</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div>
-          <label>Apertura nuovi mercati/aree geografiche?</label>
-          <select id="new_markets">
-            <option value="no">No</option>
-            <option value="si">Sì</option>
-          </select>
-        </div>
-        <div>
-          <label>Ricavi attesi da nuovi mercati (€ ann.)</label>
-          <div class="input-group">
-            <input type="number" id="new_markets_rev" class="has-suffix" placeholder="0">
-            <span class="input-suffix">€</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row cols1">
-        <div>
-          <label>Note e ipotesi sui ricavi</label>
-          <textarea id="note_ricavi" rows="3" placeholder="Es. Contratto quadro con cliente principale, incremento prezzi del 3%, ecc."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="nav-btns">
-      <button class="btn btn-prev" onclick="goStep(1)">← Indietro</button>
-      <button class="btn btn-next" onclick="goStep(3)">Avanti →</button>
-    </div>
-  </div>
-
-  <!-- SECTION 3: Costi operativi -->
-  <div class="section" id="sec3">
     <div class="card">
       <div class="card-title">📦 Costi Operativi e Marginalità</div>
       <div class="card-sub">Definisci la struttura dei costi e la marginalità attesa. Fondamentale per la banca per valutare la sostenibilità.</div>
@@ -846,13 +765,13 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     </div>
 
     <div class="nav-btns">
-      <button class="btn btn-prev" onclick="goStep(2)">← Indietro</button>
-      <button class="btn btn-next" onclick="goStep(4)">Avanti →</button>
+      <button class="btn btn-prev" onclick="goStep(1)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(3)">Avanti →</button>
     </div>
   </div>
 
-  <!-- SECTION 4: Personale -->
-  <div class="section" id="sec4">
+  <!-- SECTION 3: Personale -->
+  <div class="section" id="sec3">
     <div class="card">
       <div class="card-title">👥 Piano del Personale</div>
       <div class="card-sub">Il costo del personale è la voce più rigida del conto economico. Specifica la struttura attuale e le variazioni previste.</div>
@@ -926,13 +845,13 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     </div>
 
     <div class="nav-btns">
-      <button class="btn btn-prev" onclick="goStep(3)">← Indietro</button>
-      <button class="btn btn-next" onclick="goStep(5)">Avanti →</button>
+      <button class="btn btn-prev" onclick="goStep(2)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(4)">Avanti →</button>
     </div>
   </div>
 
-  <!-- SECTION 5: Investimenti -->
-  <div class="section" id="sec5">
+  <!-- SECTION 4: Investimenti -->
+  <div class="section" id="sec4">
     <div class="card">
       <div class="card-title">🏗️ Piano degli Investimenti (CAPEX)</div>
       <div class="card-sub">Gli investimenti impattano su ammortamenti, cash flow e necessità di finanziamento. Indica ogni investimento per anno.</div>
@@ -999,13 +918,13 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     </div>
 
     <div class="nav-btns">
-      <button class="btn btn-prev" onclick="goStep(4)">← Indietro</button>
-      <button class="btn btn-next" onclick="goStep(6)">Avanti →</button>
+      <button class="btn btn-prev" onclick="goStep(3)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(5)">Avanti →</button>
     </div>
   </div>
 
-  <!-- SECTION 6: Finanziamenti -->
-  <div class="section" id="sec6">
+  <!-- SECTION 5: Finanziamenti -->
+  <div class="section" id="sec5">
     <div class="card">
       <div class="card-title">🏦 Struttura Finanziaria</div>
       <div class="card-sub">I finanziamenti impattano direttamente sul DSCR (Debt Service Coverage Ratio), indice chiave per le banche secondo EBA/GL/2020/06.</div>
@@ -1138,13 +1057,13 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     </div>
 
     <div class="nav-btns">
-      <button class="btn btn-prev" onclick="goStep(5)">← Indietro</button>
-      <button class="btn btn-next" onclick="goStep(7)">Avanti →</button>
+      <button class="btn btn-prev" onclick="goStep(4)">← Indietro</button>
+      <button class="btn btn-next" onclick="goStep(6)">Avanti →</button>
     </div>
   </div>
 
-  <!-- SECTION 7: Riepilogo -->
-  <div class="section" id="sec7">
+  <!-- SECTION 6: Riepilogo -->
+  <div class="section" id="sec6">
     <div class="card">
       <div class="card-title">📋 Riepilogo Ipotesi e Analista</div>
       <div class="card-sub">Verifica le ipotesi inserite e aggiungi eventuali note prima di generare il report</div>
@@ -1178,7 +1097,7 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
     </div>
 
     <div class="nav-btns">
-      <button class="btn btn-prev" onclick="goStep(6)">← Indietro</button>
+      <button class="btn btn-prev" onclick="goStep(5)">← Indietro</button>
       <button class="btn btn-genera" onclick="generaBP()">🚀 Genera Business Plan</button>
     </div>
   </div>
@@ -1566,7 +1485,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // ─── Step navigation ─────────────────────────────────────
 function goStep(n){
-  if(n===7) buildRiepilogo();
+  if(n===6) buildRiepilogo();
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('visible'));
   document.getElementById('sec'+n).classList.add('visible');
   document.querySelectorAll('.step').forEach((s,i)=>{
@@ -1933,10 +1852,10 @@ function raccogliDati(){
     sc_ottim_g2: parseFloat(v('sc-o-g2')||v('m-sc-o-g2'))||0,
     sc_ottim_g3: parseFloat(v('sc-o-g3')||v('m-sc-o-g3'))||0,
     // Ricavi
-    perc_ricorrenti: parseFloat(v('perc_ricorrenti'))||60,
-    new_products_rev: parseFloat(v('new_products_rev'))||0,
-    new_markets_rev: parseFloat(v('new_markets_rev'))||0,
-    note_ricavi: v('note_ricavi'),
+    perc_ricorrenti: 70,
+    new_products_rev: 0,
+    new_markets_rev:  0,
+    note_ricavi: '',
     // Costi
     margine_lordo: parseFloat(v('margine_lordo'))||0,
     ebitda_margin: parseFloat(v('ebitda_margin'))||0,
