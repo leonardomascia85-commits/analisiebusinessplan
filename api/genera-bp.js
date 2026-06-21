@@ -27,12 +27,14 @@ function buildBusinessPlan(d) {
   const R2 = R1 * (1 + g[1]);
   const R3 = R2 * (1 + g[2]);
 
-  // ── EBITDA margin atteso
-  const emPct = (d.ebitda_margin || 0) / 100;
+  // ── EBITDA margin atteso — migliora leggermente ogni anno (+0.4pp) per effetto leva operativa
+  const emPct  = (d.ebitda_margin || 0) / 100;
+  const emPct2 = emPct + 0.004;
+  const emPct3 = emPct + 0.008;
   const EBITDA0 = d.ebitda_storico || 0;
   const EBITDA1 = R1 * emPct;
-  const EBITDA2 = R2 * emPct;
-  const EBITDA3 = R3 * emPct;
+  const EBITDA2 = R2 * emPct2;
+  const EBITDA3 = R3 * emPct3;
 
   // ── Costo personale
   const incrP = (d.incr_pers || 2) / 100;
@@ -263,7 +265,7 @@ function buildBusinessPlan(d) {
   const debtService1base = RCAP1 + OF1;
   const buildScen = (g1p, g2p, g3p) => {
     const r1 = R0 * (1 + g1p / 100), r2 = r1 * (1 + g2p / 100), r3 = r2 * (1 + g3p / 100);
-    const e1 = r1 * emPct, e3 = r3 * emPct;
+    const e1 = r1 * emPct, e3 = r3 * emPct3;
     const ebt1 = e1 - AMM1 - OF1;
     const un1 = ebt1 >= 0 ? ebt1 * (1 - taxR) : ebt1;
     const dscr1 = debtService1base > 0 ? e1 / debtService1base : null;
