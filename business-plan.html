@@ -257,8 +257,30 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
             <div style="font-size:1rem;font-weight:700;color:var(--blu);margin-bottom:4px">🎯 Due cose e generiamo il piano</div>
             <div style="font-size:.83rem;color:var(--muted);margin-bottom:20px">Costi, marginalità, working capital e debiti vengono proiettati automaticamente dai dati del bilancio XBRL.</div>
 
-            <!-- 1. Scenari di crescita (3 colonne) -->
-            <div style="margin-bottom:20px">
+            <!-- 1. Scenari di crescita — riepilogo compatto (sempre visibile) -->
+            <div style="margin-bottom:8px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <label style="font-size:.82rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">1. Scenari di crescita ricavi</label>
+                <button type="button" onclick="toggleXbrlScenari()" id="btn-toggle-scenari" style="font-size:.75rem;color:var(--blu);background:none;border:1px solid var(--blu-light);border-radius:6px;padding:3px 10px;cursor:pointer;font-family:inherit;">✏️ Modifica %</button>
+              </div>
+              <div id="xbrl-scenari-summary" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px;">
+                <div style="background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;padding:10px 12px;font-size:.8rem;">
+                  <div style="font-weight:700;color:#475569;margin-bottom:4px;">🐢 Conservativo</div>
+                  <span id="sum-c-g1">+3%</span> / <span id="sum-c-g2">+3%</span> / <span id="sum-c-g3">+3%</span>
+                </div>
+                <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:10px 12px;font-size:.8rem;">
+                  <div style="font-weight:700;color:#1D4ED8;margin-bottom:4px;">🚀 Base <span style="font-size:.7rem;font-weight:500;color:#3B82F6">(principale)</span></div>
+                  <span id="sum-b-g1">+7%</span> / <span id="sum-b-g2">+8%</span> / <span id="sum-b-g3">+8%</span>
+                </div>
+                <div style="background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;padding:10px 12px;font-size:.8rem;">
+                  <div style="font-weight:700;color:#475569;margin-bottom:4px;">⚡ Ottimistico</div>
+                  <span id="sum-o-g1">+12%</span> / <span id="sum-o-g2">+13%</span> / <span id="sum-o-g3">+13%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1. Scenari di crescita (3 colonne) — nascosto nel fast-track XBRL -->
+            <div id="xbrl-scenari-block" style="margin-bottom:20px;display:none">
               <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">1. Scenari di crescita ricavi — Anno 1 / Anno 2 / Anno 3</label>
               <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">Lo scenario <strong>Base</strong> è quello principale del Business Plan. Conservativo e Ottimistico appaiono nel confronto scenari. Modifica liberamente le percentuali.</p>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
@@ -1552,9 +1574,35 @@ function goStep(n){
 
 // ─── Scenario ────────────────────────────────────────────
 function selectScenario(key){
-  // kept for backward compatibility — no-op, scenari ora sono sempre custom
   selectedScenario = key || 'custom';
 }
+
+function toggleXbrlScenari(){
+  const block = document.getElementById('xbrl-scenari-block');
+  const btn   = document.getElementById('btn-toggle-scenari');
+  const open  = block.style.display === 'none';
+  block.style.display = open ? '' : 'none';
+  btn.textContent = open ? '✖ Chiudi' : '✏️ Modifica %';
+}
+
+function updateScenariSummary(){
+  const ids = [['sc-c-g1','sum-c-g1'],['sc-c-g2','sum-c-g2'],['sc-c-g3','sum-c-g3'],
+               ['g1','sum-b-g1'],['g2','sum-b-g2'],['g3','sum-b-g3'],
+               ['sc-o-g1','sum-o-g1'],['sc-o-g2','sum-o-g2'],['sc-o-g3','sum-o-g3']];
+  for(const [inputId, spanId] of ids){
+    const inp = document.getElementById(inputId);
+    const spn = document.getElementById(spanId);
+    if(inp && spn) spn.textContent = '+' + (inp.value || '0') + '%';
+  }
+}
+
+// Aggiorna summary quando l'utente cambia un campo
+document.addEventListener('DOMContentLoaded', () => {
+  ['sc-c-g1','sc-c-g2','sc-c-g3','g1','g2','g3','sc-o-g1','sc-o-g2','sc-o-g3'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('input', updateScenariSummary);
+  });
+});
 
 // ─── FAST-TRACK: genera BP da XBRL (solo crescita + eventuale finanziamento) ──
 async function generaBPdaXBRL(){
