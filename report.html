@@ -123,10 +123,14 @@ function calcIndici(d) {
   const ebitda = (d.tot_vp || 0) - ((d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0) + (d.personale || 0) + (d.var_mat || 0) + (d.oneri_div || 0));
   const ebit = ebitda - (d.ammort || 0);
   const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0) + (d.alt_deb || 0);
-  const pfn = ((d.deb_b_bt || 0) + (d.deb_b_lt || 0) + (d.alt_deb || 0)) - (d.liquidita || 0);
+  // PFN: usa tab bancabilità se compilata, altrimenti stima da SP
+  const hasPfnData = (d.pfn_bt || 0) + (d.pfn_lt || 0) + (d.pfn_liq || 0) + (d.pfn_tit || 0) > 0;
+  const pfn = hasPfnData
+    ? ((d.pfn_bt || 0) + (d.pfn_lt || 0)) - ((d.pfn_liq || 0) + (d.pfn_tit || 0))
+    : ((d.deb_b_bt || 0) + (d.deb_b_lt || 0) + (d.alt_deb || 0)) - (d.liquidita || 0);
   const roe = d.tot_pn > 0 ? (d.utile_es || 0) / d.tot_pn * 100 : NaN;
-  const roi = d.tot_att > 0 ? ebit / d.tot_att * 100 : NaN;
-  const ros = d.tot_vp > 0 ? ebit / d.tot_vp * 100 : NaN;
+  const roi = d.tot_att > 0 ? ebitda / d.tot_att * 100 : NaN;
+  const ros = d.tot_vp > 0 ? ebitda / d.tot_vp * 100 : NaN;
   const cr  = dbt_bt > 0 ? (d.tot_circ || 0) / dbt_bt : NaN;
   const acid = dbt_bt > 0 ? ((d.tot_circ || 0) - (d.rimanenze || 0)) / dbt_bt : NaN;
   const leva = d.tot_pn > 0 ? (d.tot_deb || 0) / d.tot_pn : NaN;
@@ -172,7 +176,7 @@ function calcRating(c, d) {
   ];
   let scoreEBA = 0, maxEBA = 0, ebaDetails = [];
   for (const [val, g, a, higher, peso, nome] of items) {
-    maxEBA += peso * 2;
+    if (v(val)) maxEBA += peso * 2;
     let punti = 0, giudizio = 'n.d.', colore = '#94A3B8';
     if (v(val)) {
       const verde = higher ? val >= g : val <= g;
