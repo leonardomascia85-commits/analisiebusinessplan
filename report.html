@@ -265,26 +265,44 @@ function semTxt(val, thG, thA, higher) {
 // ── DOWNLOAD ──
 async function downloadReport(tipo) {
   const payload = JSON.parse(sessionStorage.getItem('abp_report_payload'));
-  if (!payload) return;
-  if (tipo === 'pdf') {
-    const res = await fetch('/api/genera-html', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
-    const html = await res.text();
-    const win = window.open('', '_blank');
-    win.document.write(html);
-    win.document.close();
-    return;
+  if (!payload) { alert('Nessun dato disponibile. Torna all\'analisi bilancio e ricarica il report.'); return; }
+
+  const btn = document.querySelector(`.btn-dl-${tipo}`);
+  const origHTML = btn ? btn.innerHTML : null;
+  if (btn) { btn.innerHTML = '<span class="icon">⏳</span>Generazione...'; btn.disabled = true; }
+
+  const nomeFile = (payload.config.nome || 'Azienda').replace(/[^a-zA-Z0-9]/g, '-');
+  const anno = payload.config.anno || '';
+
+  try {
+    if (tipo === 'pdf') {
+      const res = await fetch('/api/genera-pdf', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+      if (!res.ok) throw new Error(await res.text());
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Analisi-Bilancio-${nomeFile}-${anno}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+      return;
+    }
+    const endpoint = tipo === 'word' ? '/api/genera-word' : '/api/genera-excel';
+    const ext = tipo === 'word' ? 'doc' : 'xls';
+    const res = await fetch(endpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    if (!res.ok) throw new Error(await res.text());
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Analisi-Bilancio-${nomeFile}-${anno}.${ext}`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch(err) {
+    alert('Errore durante la generazione: ' + err.message);
+  } finally {
+    if (btn && origHTML) { btn.innerHTML = origHTML; btn.disabled = false; }
   }
-  const endpoint = tipo === 'word' ? '/api/genera-word' : '/api/genera-excel';
-  const ext = tipo === 'word' ? 'doc' : 'xls';
-  const res = await fetch(endpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
-  const blob = await res.blob();
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  const nomeFile = (payload.config.nome||'Azienda').replace(/[^a-zA-Z0-9]/g,'-');
-  a.href = url;
-  a.download = `Analisi-Bilancio-${nomeFile}-${payload.config.anno}.${ext}`;
-  a.click();
-  URL.revokeObjectURL(url);
 }
 
 // ── RENDER ──

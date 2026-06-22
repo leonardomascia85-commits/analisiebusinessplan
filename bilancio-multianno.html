@@ -372,6 +372,9 @@
           </div>
           <div class="stot"><span class="stot-lbl">Tot. debiti e fondi</span><span class="stot-val" id="d-t_deb">€ 0</span></div>
           <div class="stot stot-main" style="margin-top:8px;"><span class="stot-lbl">TOTALE PASSIVO</span><span class="stot-val" id="d-t_pass">€ 0</span></div>
+          <div id="sp-imbalance-warn" style="display:none;margin-top:10px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);border-radius:8px;padding:10px 14px;font-size:12px;color:#FCA5A5;line-height:1.5;">
+            ⚠ <strong>Stato Patrimoniale non bilanciato:</strong> Attivo ≠ Passivo (<span id="sp-diff-val"></span>). Controlla i dati inseriti — gli indici calcolati potrebbero non essere significativi.
+          </div>
         </div>
 
         <!-- CONTO ECONOMICO -->
@@ -1027,6 +1030,15 @@ function updateDisplayTotals(){
   se('d-t_imm',fmt(c.t_imm)); se('d-t_circ',fmt(c.t_circ)); se('d-t_att',fmt(c.t_att));
   se('d-t_pn',fmt(c.t_pn)); se('d-t_deb',fmt(c.t_deb)); se('d-t_pass',fmt(c.t_pass));
   se('d-t_vp',fmt(c.t_vp)); se('d-t_cos',fmt(c.t_cos));
+  // Warning SP sbilanciato
+  const warnEl=document.getElementById('sp-imbalance-warn');
+  const diffEl=document.getElementById('sp-diff-val');
+  if(warnEl&&diffEl&&(c.t_att>0||c.t_pass>0)){
+    const diff=Math.abs(c.t_att-c.t_pass);
+    const imbal=diff>1;
+    warnEl.style.display=imbal?'block':'none';
+    if(imbal)diffEl.textContent=`Attivo ${fmt(c.t_att)} / Passivo ${fmt(c.t_pass)}, differenza ${fmt(diff)}`;
+  }
   se('d-ebitda',fmt(c.ebitda)); se('d-ebit',fmt(c.ebit)); se('d-utile',fmt(c.utile_n));
   se('d-ebitda-pct',fp(c.ebitda_pct));
   se('d-rf_a',fmt(c.rf_a)); se('d-rf_b',fmt(c.rf_b)); se('d-rf_c',fmt(c.rf_c));
