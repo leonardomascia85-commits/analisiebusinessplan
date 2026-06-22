@@ -108,5 +108,14 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true })
   }
 
-  return res.status(400).json({ error: 'Azione non riconosciuta. Valori accettati: register, login, logout' })
+  if (action === 'reset-password') {
+    if (!email) return res.status(400).json({ error: 'Email richiesta' })
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.SITE_URL || 'https://analisiebusinessplan.it'}/auth.html?mode=reset`
+    })
+    if (error) return res.status(400).json({ error: error.message })
+    return res.status(200).json({ ok: true })
+  }
+
+  return res.status(400).json({ error: 'Azione non riconosciuta. Valori accettati: register, login, logout, reset-password' })
 }

@@ -162,7 +162,7 @@
             <input type="password" id="login-password" name="password" placeholder="La tua password" autocomplete="current-password" required/>
           </div>
           <div class="forgot-row">
-            <a href="#" class="forgot-link" onclick="return false;">Password dimenticata?</a>
+            <a href="#" class="forgot-link" onclick="handleForgotPassword(event)">Password dimenticata?</a>
           </div>
           <div class="divider"></div>
           <button type="submit" class="btn-primary" id="btn-login">
@@ -324,6 +324,28 @@
       input.required = false;
       input.value = '';
     }
+  }
+
+  // ── Handle Forgot Password ───────────────────────────────────────────────────
+  function handleForgotPassword(e) {
+    e.preventDefault();
+    var email = document.getElementById('login-email') ? document.getElementById('login-email').value.trim() : '';
+    if (!email) { email = prompt('Inserisci la tua email per ricevere il link di reset:'); }
+    if (!email) return;
+    fetch('/api/auth', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'reset-password', email: email})
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.ok) {
+        showMsg('login', 'success', 'Email di reset inviata. Controlla la tua casella di posta.');
+      } else {
+        showMsg('login', 'error', d.error || 'Errore durante l\'invio. Riprova.');
+      }
+    })
+    .catch(function() { showMsg('login', 'error', 'Errore di rete. Riprova.'); });
   }
 
   // ── Handle Login ─────────────────────────────────────────────────────────────

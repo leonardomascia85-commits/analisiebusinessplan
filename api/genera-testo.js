@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+const Anthropic = require('@anthropic-ai/sdk');
 
 // Mappa macro-settori ATECO 2007
 const ATECO_MACRO = {
@@ -28,7 +28,7 @@ function getMacroSettore(codice) {
   return ATECO_MACRO[letter] || null;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { tipo, nome, settore, sito_web, codice_ateco, dati_finanziari, prompt: customPrompt } = req.body || {};

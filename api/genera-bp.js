@@ -1,7 +1,7 @@
 // api/genera-bp.js — Business Plan Finanziario
 // EBA/GL/2020/06 compliant · 3-statement model (CE + SP + CF)
 
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
