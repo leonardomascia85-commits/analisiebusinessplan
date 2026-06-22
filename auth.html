@@ -376,7 +376,7 @@
     .then(function(result) {
       setLoading('btn-login', false);
       if (result.ok && result.data && result.data.user) {
-        saveUser({email: result.data.user.email, nome: result.data.user.nome});
+        saveUser({email: result.data.user.email, nome: result.data.user.nome, token: result.data.token});
         showMsg('login', 'success', 'Accesso effettuato. Reindirizzamento…');
         setTimeout(function() { window.location.href = 'account.html'; }, 800);
       } else {
@@ -457,7 +457,7 @@
     .then(function(result) {
       setLoading('btn-register', false);
       if (result.ok && result.data && result.data.user) {
-        saveUser({email: result.data.user.email, nome: result.data.user.nome});
+        saveUser({email: result.data.user.email, nome: result.data.user.nome, token: result.data.token});
         showMsg('register', 'success', 'Account creato con successo. Reindirizzamento…');
         setTimeout(function() { window.location.href = 'account.html'; }, 900);
       } else {

@@ -77,7 +77,8 @@ module.exports = async function handler(req, res) {
 
     return res.status(201).json({
       ok: true,
-      user: { id: userId, email, nome, cognome }
+      user: { id: userId, email, nome, cognome },
+      token: data.session?.access_token || null
     })
   }
 
