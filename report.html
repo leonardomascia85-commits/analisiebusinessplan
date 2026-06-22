@@ -418,6 +418,12 @@ async function downloadReport(tipo) {
       </div>
     </div>
 
+    <div class="dl-buttons">
+      <button class="btn-dl-big btn-dl-pdf" onclick="downloadReport('pdf')">
+        <span class="icon">📄</span>Salva in PDF
+      </button>
+    </div>
+
     <div class="section-title">Indicatori principali</div>
     <div class="kpi-grid">
       <div class="kpi-card">
@@ -444,19 +450,6 @@ async function downloadReport(tipo) {
         <div class="kpi-val ${autCls}">${fp(c.aut)}</div>
         <div class="kpi-lbl">Autonomia fin.</div>
       </div>
-    </div>
-
-    <div class="section-title">Scarica il report</div>
-    <div class="dl-buttons">
-      <button class="btn-dl-big btn-dl-pdf" onclick="downloadReport('pdf')">
-        <span class="icon">📄</span>Stampa / PDF
-      </button>
-      <button class="btn-dl-big btn-dl-word" onclick="downloadReport('word')">
-        <span class="icon">📝</span>Scarica Word
-      </button>
-      <button class="btn-dl-big btn-dl-excel" onclick="downloadReport('excel')">
-        <span class="icon">📊</span>Scarica Excel
-      </button>
     </div>
 
     <div class="section-title">Indici di bilancio</div>
