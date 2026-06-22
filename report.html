@@ -150,7 +150,7 @@ function calcRating(c, d) {
   const totAtt = d.tot_att || 0;
   if (totAtt > 0) {
     const ccn = (d.tot_circ || 0) - ((d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0));
-    const riserve = (d.tot_pn || 0) - (d.cap_sociale || 0) - (d.utile_es || 0);
+    const riserve = (d.utili_pn || 0) + Math.max(0, (d.tot_pn || 0) - (d.cap_sociale || 0) - (d.utili_pn || 0) - (d.utile_es || 0));
     const X1 = ccn / totAtt;
     const X2 = riserve / totAtt;
     const X3 = c.ebit / totAtt;

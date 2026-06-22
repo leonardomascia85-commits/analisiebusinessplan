@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Importa Bilancio da XBRL o PDF | AnalisiEBusinessPlan.it</title>
-  <meta name="description" content="Carica il file XBRL o PDF del bilancio CCIAA e ottieni l'analisi completa in 10 secondi. Compatibile con tassonomia italiana 2018-11-04."/>
+  <title>Importa Bilancio da XBRL | AnalisiEBusinessPlan.it</title>
+  <meta name="description" content="Carica il file XBRL del bilancio CCIAA e ottieni l'analisi completa in 10 secondi. Compatibile con tassonomia italiana 2018-11-04."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://analisiebusinessplan.it/importa-xbrl.html"/>
-  <meta property="og:title" content="Importa Bilancio da XBRL o PDF | AnalisiEBusinessPlan.it"/>
-  <meta property="og:description" content="Carica il file XBRL o PDF del bilancio CCIAA e ottieni l'analisi completa in 10 secondi."/>
+  <meta property="og:title" content="Importa Bilancio da XBRL | AnalisiEBusinessPlan.it"/>
+  <meta property="og:description" content="Carica il file XBRL del bilancio CCIAA e ottieni l'analisi completa in 10 secondi."/>
   <meta property="og:locale" content="it_IT"/>
   <meta property="og:site_name" content="AnalisiEBusinessPlan.it"/>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L58FLY4JKJ"></script>
@@ -129,19 +129,14 @@
   <div class="page-header">
     <div class="page-eyebrow">Importazione automatica</div>
     <h1 class="page-title">Importa il bilancio<br/>in 10 secondi</h1>
-    <p class="page-sub">Carica il file XBRL o PDF del bilancio depositato alla CCIAA — tutti i dati vengono estratti e compilati automaticamente.</p>
+    <p class="page-sub">Carica il file XBRL del bilancio depositato alla CCIAA — tutti i dati vengono estratti e compilati automaticamente.</p>
   </div>
 
-  <div class="info-grid">
+  <div class="info-grid" style="grid-template-columns:1fr 1fr;">
     <div class="info-card">
       <div class="info-icon">📋</div>
       <div class="info-title">File XBRL</div>
       <p class="info-desc">Formato obbligatorio per tutte le società che depositano il bilancio al Registro Imprese. Precisione 99%.</p>
-    </div>
-    <div class="info-card">
-      <div class="info-icon">📄</div>
-      <div class="info-title">File PDF</div>
-      <p class="info-desc">Il PDF del bilancio ufficiale CCIAA. L'AI estrae automaticamente tutti i valori numerici. Precisione ~92%.</p>
     </div>
     <div class="info-card">
       <div class="info-icon">⚡</div>
@@ -150,7 +145,7 @@
     </div>
   </div>
 
-  <div class="upload-grid">
+  <div class="upload-grid" style="grid-template-columns:1fr;">
     <div class="upload-card" id="drop-xbrl" ondragover="dragOver(event,'drop-xbrl')" ondragleave="dragLeave('drop-xbrl')" ondrop="dropFile(event,'xbrl')">
       <span class="uc-badge badge-blue">✓ Consigliato</span>
       <div class="uc-icon">🗂️</div>
@@ -162,19 +157,6 @@
         <span>✅</span><span class="fl-name" id="fl-xbrl-name">—</span>
         <span class="fl-size" id="fl-xbrl-size">—</span>
         <button class="fl-remove" onclick="removeFile('xbrl')">✕</button>
-      </div>
-    </div>
-    <div class="upload-card" id="drop-pdf" ondragover="dragOver(event,'drop-pdf')" ondragleave="dragLeave('drop-pdf')" ondrop="dropFile(event,'pdf')">
-      <span class="uc-badge badge-gold">🤖 AI-powered</span>
-      <div class="uc-icon">📑</div>
-      <div class="uc-title">Importa da PDF</div>
-      <p class="uc-desc">Trascina il <strong>PDF del bilancio</strong> CCIAA oppure clicca per selezionarlo. L'AI legge e interpreta i valori.</p>
-      <button class="btn-upload" onclick="document.getElementById('input-pdf').click()">Scegli file .pdf</button>
-      <input type="file" id="input-pdf" accept=".pdf" onchange="handleFile(this,'pdf')"/>
-      <div class="file-loaded" id="fl-pdf">
-        <span>✅</span><span class="fl-name" id="fl-pdf-name">—</span>
-        <span class="fl-size" id="fl-pdf-size">—</span>
-        <button class="fl-remove" onclick="removeFile('pdf')">✕</button>
       </div>
     </div>
   </div>
