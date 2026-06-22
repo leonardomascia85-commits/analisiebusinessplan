@@ -327,30 +327,42 @@
       const m=content.match(p);return m?parseFloat(m[1]):0;
     };
     const getStr=tag=>{const m=content.match(new RegExp(`<itcc-ci:${tag}[^>]*>([^<]+)<`,'i'));return m?m[1].trim():'';};
-    const buildAnno=(ctxI,ctxD)=>({
-      imm_imm:get('TotaleImmobilizzazioniImmateriali',ctxI),imm_mat:get('TotaleImmobilizzazioniMateriali',ctxI),
-      imm_fin:get('TotaleImmobilizzazioniFinanziarie',ctxI),tot_imm:get('TotaleImmobilizzazioni',ctxI),
-      rimanenze:get('TotaleRimanenze',ctxI),cred_cl:get('CreditiVersoClientiTotaleCreditiVersoClienti',ctxI),
-      liquidita:get('TotaleDisponibilitaLiquide',ctxI),tot_circ:get('TotaleAttivoCircolante',ctxI),
-      tot_att:get('TotaleAttivo',ctxI),cap_sociale:get('PatrimonioNettoCapitale',ctxI),
-      utile_es:get('PatrimonioNettoUtilePerditaEsercizio',ctxI),tot_pn:get('TotalePatrimonioNetto',ctxI),
-      deb_b_bt:get('DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',ctxI),
-      deb_b_lt:get('DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI),
-      deb_for:get('DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI),
-      deb_trib:get('DebitiDebitiTributariTotaleDebitiTributari',ctxI),
-      tot_deb:get('TotaleDebiti',ctxI),
-      ric_vend:get('ValoreProduzioneRicaviVenditePrestazioni',ctxD),
-      alt_ric:get('ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi',ctxD),
-      tot_vp:get('TotaleValoreProduzione',ctxD),
-      mat_prime:get('CostiProduzioneMateriePrimeSussidiarieConsumoMerci',ctxD),
-      servizi:get('CostiProduzioneServizi',ctxD),godimento:get('CostiProduzioneGodimentoBeniTerzi',ctxD),
-      personale:get('CostiProduzionePersonaleTotaleCostiPersonale',ctxD),
-      ammort:get('CostiProduzioneAmmortamentiSvalutazioniTotaleAmmortamentiSvalutazioni',ctxD),
-      tot_cos:get('TotaleCostiProduzione',ctxD),
-      oneri_f:get('TotaleInteressiAltriOneriFinanziari',ctxD),
-      imposte:get('ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate',ctxD),
-      utile_n:get('UtilePerditaEsercizio',ctxD),
-    });
+    const buildAnno=(ctxI,ctxD)=>{
+      const d={
+        imm_imm:get('TotaleImmobilizzazioniImmateriali',ctxI),imm_mat:get('TotaleImmobilizzazioniMateriali',ctxI),
+        imm_fin:get('TotaleImmobilizzazioniFinanziarie',ctxI),tot_imm:get('TotaleImmobilizzazioni',ctxI),
+        rimanenze:get('TotaleRimanenze',ctxI),
+        // schema abbreviato usa TotaleCrediti invece del tag granulare
+        cred_cl:get('CreditiVersoClientiTotaleCreditiVersoClienti',ctxI)||get('TotaleCrediti',ctxI)||get('CreditiEsigibiliEntroEsercizioSuccessivo',ctxI),
+        liquidita:get('TotaleDisponibilitaLiquide',ctxI),tot_circ:get('TotaleAttivoCircolante',ctxI),
+        tot_att:get('TotaleAttivo',ctxI),cap_sociale:get('PatrimonioNettoCapitale',ctxI),
+        utili_pn:get('PatrimonioNettoUtiliPerditePortatiNuovo',ctxI),
+        utile_es:get('PatrimonioNettoUtilePerditaEsercizio',ctxI),tot_pn:get('TotalePatrimonioNetto',ctxI),
+        deb_b_bt:get('DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',ctxI),
+        deb_b_lt:get('DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI),
+        deb_for:get('DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI),
+        deb_trib:get('DebitiDebitiTributariTotaleDebitiTributari',ctxI),
+        tot_deb:get('TotaleDebiti',ctxI),
+        ric_vend:get('ValoreProduzioneRicaviVenditePrestazioni',ctxD),
+        alt_ric:get('ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi',ctxD),
+        tot_vp:get('TotaleValoreProduzione',ctxD),
+        mat_prime:get('CostiProduzioneMateriePrimeSussidiarieConsumoMerci',ctxD),
+        servizi:get('CostiProduzioneServizi',ctxD),godimento:get('CostiProduzioneGodimentoBeniTerzi',ctxD),
+        personale:get('CostiProduzionePersonaleTotaleCostiPersonale',ctxD),
+        ammort:get('CostiProduzioneAmmortamentiSvalutazioniTotaleAmmortamentiSvalutazioni',ctxD),
+        var_mat:get('CostiProduzioneVariazioniRimanenzeMateriePrimeSussidiarieConsumoMerci',ctxD),
+        oneri_div:get('CostiProduzioneOneriDiversiGestione',ctxD),
+        tot_cos:get('TotaleCostiProduzione',ctxD),
+        oneri_f:get('ProventiOneriFinanziariInteressiAltriOneriFinanziariTotaleInteressiAltriOneriFinanziari',ctxD),
+        imposte:get('ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate',ctxD),
+        utile_n:get('UtilePerditaEsercizio',ctxD),
+      };
+      // schema abbreviato: se debiti specifici tutti 0 ma tot_deb > 0, metti in alt_deb
+      if(d.tot_deb>0&&(d.deb_b_bt+d.deb_b_lt+d.deb_for+d.deb_trib)===0){
+        d.alt_deb=d.tot_deb;
+      }
+      return d;
+    };
     const corr=buildAnno(ctxCorrI,ctxCorrD);
     const prec=buildAnno(ctxPrecI,ctxPrecD);
     const hasPrev=prec.tot_att>0||prec.tot_vp>0;
