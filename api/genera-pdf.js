@@ -1,5 +1,3 @@
-const chromium = require('@sparticuz/chromium');
-const puppeteer = require('puppeteer-core');
 
 // ── FORMATTERS ──
 const fmt = (n) => {
@@ -1121,33 +1119,21 @@ ${hasRF ? `
 }
 
 // ── HANDLER ──
-module.exports = async function handler(req, res) {
+module.exports = function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const { data, config } = req.body;
   if (!data) return res.status(400).json({ error: 'Dati bilancio mancanti' });
-  let browser = null;
   try {
     const html = buildReportHTML(data, config || {});
-browser = await puppeteer.launch({
-  args: chromium.args,
-  defaultViewport: chromium.defaultViewport,
-  executablePath: await chromium.executablePath(),
-  headless: chromium.headless,
-});
-    const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: 'networkidle0' });
-    const pdf = await page.pdf({ format: 'A4', printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
-    const nome = (config?.nome || 'Report').replace(/[^a-zA-Z0-9]/g, '-');
-    const anno = config?.anno || new Date().getFullYear();
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="Analisi-Bilancio-${nome}-${anno}.pdf"`);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-cache');
-    res.status(200).send(pdf);
+    res.status(200).send(html);
   } catch (error) {
-    console.error('PDF error:', error);
-    res.status(500).json({ error: 'Errore generazione PDF: ' + error.message });
-  } finally {
-    if (browser) await browser.close();
+    console.error('Report error:', error);
+    res.status(500).json({ error: 'Errore generazione report: ' + error.message });
   }
 };
-module.exports.config = { maxDuration: 60 };

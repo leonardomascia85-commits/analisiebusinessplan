@@ -297,8 +297,14 @@ async function downloadReport(tipo) {
 
   try {
     if (tipo === 'pdf') {
-      if (btn) { btn.innerHTML = origHTML; btn.disabled = false; }
-      window.print();
+      const res = await fetch('/api/genera-pdf', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+      if (!res.ok) throw new Error(await res.text());
+      const html = await res.text();
+      const win = window.open('', '_blank');
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+      win.onload = () => { win.focus(); win.print(); };
       return;
     }
     const endpoint = tipo === 'word' ? '/api/genera-word' : '/api/genera-excel';
