@@ -91,6 +91,23 @@
       .hero-title{font-size:22px;}
       .dl-buttons{flex-direction:column;align-items:center;}
     }
+
+    @media print{
+      *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+      body{background:#fff!important;color:#0F172A!important;}
+      nav,.dl-buttons,.footer-disc{display:none!important;}
+      .wrap{max-width:100%;padding:20px;}
+      .hero{background:#0A1628!important;color:#fff!important;border-radius:0;border:none;page-break-after:always;}
+      .hero-title,.hero-sub,.hero-date{color:#fff!important;}
+      .rating-badge,.mcc-badge{border:2px solid currentColor;}
+      .kpi-card{background:#F8FAFC!important;border:1px solid #E2E8F0!important;color:#0F172A!important;break-inside:avoid;}
+      .kpi-lbl{color:#64748B!important;}
+      .indices-section{background:#fff!important;border:1px solid #E2E8F0!important;border-radius:8px;}
+      .indices-section td,.indices-section th{color:#0F172A!important;border-color:#E2E8F0!important;}
+      .cat-row td{color:#1D4ED8!important;background:#EFF6FF!important;}
+      .eba-section,.mcc-section,.zscore-section{break-inside:avoid;}
+      .section-title{color:#1D4ED8!important;}
+    }
   </style>
 </head>
 <body>
@@ -280,15 +297,8 @@ async function downloadReport(tipo) {
 
   try {
     if (tipo === 'pdf') {
-      const res = await fetch('/api/genera-pdf', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
-      if (!res.ok) throw new Error(await res.text());
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Analisi-Bilancio-${nomeFile}-${anno}.pdf`;
-      a.click();
-      URL.revokeObjectURL(url);
+      if (btn) { btn.innerHTML = origHTML; btn.disabled = false; }
+      window.print();
       return;
     }
     const endpoint = tipo === 'word' ? '/api/genera-word' : '/api/genera-excel';
@@ -439,7 +449,7 @@ async function downloadReport(tipo) {
     <div class="section-title">Scarica il report</div>
     <div class="dl-buttons">
       <button class="btn-dl-big btn-dl-pdf" onclick="downloadReport('pdf')">
-        <span class="icon">📄</span>Scarica PDF
+        <span class="icon">📄</span>Stampa / PDF
       </button>
       <button class="btn-dl-big btn-dl-word" onclick="downloadReport('word')">
         <span class="icon">📝</span>Scarica Word
