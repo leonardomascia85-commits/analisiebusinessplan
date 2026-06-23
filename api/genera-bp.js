@@ -177,17 +177,18 @@ function buildBusinessPlan(d) {
 
   // ── STATO PATRIMONIALE
   const PFN0 = d.pfn_storico || 0;
-  const PFN1 = PFN0 + CAPEX1 - FCFF1;
-  const PFN2 = PFN1 + CAPEX2 - FCFF2;
-  const PFN3 = PFN2 + CAPEX3 - FCFF3;
+  // PFN(t) = PFN(t-1) + CAPEX(t) − FCO(t): nuovi investimenti aumentano il debito, il FCO lo riduce
+  const PFN1 = Math.max(0, PFN0 + CAPEX1 - FCO1);
+  const PFN2 = Math.max(0, PFN1 + CAPEX2 - FCO2);
+  const PFN3 = Math.max(0, PFN2 + CAPEX3 - FCO3);
 
   const PN0 = d.pn_attuale || 0;
   const PN1 = PN0 + UN1 - DIV + (d.aum_capitale || 0);
   const PN2 = PN1 + UN2 - DIV;
   const PN3 = PN2 + UN3 - DIV;
 
-  // Immobilizzazioni nette
-  const IMM0 = PFN0 + PN0; // approssimazione
+  // Immobilizzazioni nette: IMM = PFN + PN − CCN (identità SP bilanciato, CASSA0=0)
+  const IMM0 = PFN0 + PN0 - CCN0;
   const IMM1 = IMM0 + CAPEX1 - AMM1;
   const IMM2 = IMM1 + CAPEX2 - AMM2;
   const IMM3 = IMM2 + CAPEX3 - AMM3;
@@ -198,9 +199,10 @@ function buildBusinessPlan(d) {
 
   // ── BREAK-EVEN (Anno 1)
   const costiFissiTotali1 = CostFissi1 + CP1 + AMM1 + OF1;
-  const percVar1 = 1 - emPct - (costiFissiTotali1 / R1 || 0);
-  const margContrib = 1 - (d.perc_var || 0) / 100;
-  const BE_ricavi = margContrib > 0 ? (CostFissi1 + CP1 + AMM1 + OF1) / margContrib : R1;
+  // Se perc_var non inserita, la deriva dall'EBITDA margin: costi variabili impliciti = 1 - emPct - CF/R
+  const percVar = d.perc_var > 0 ? d.perc_var / 100 : Math.max(0, 1 - emPct - (CostFissi1 + CP1) / (R1 || 1));
+  const margContrib = Math.max(0.01, 1 - percVar);
+  const BE_ricavi = (CostFissi1 + CP1 + AMM1 + OF1) / margContrib;
   const BE_utilizzo = R1 > 0 ? (BE_ricavi / R1) * 100 : 0;
   const BE_margSic = R1 - BE_ricavi;
   const BE_margSicPerc = R1 > 0 ? (BE_margSic / R1) * 100 : 0;
@@ -290,13 +292,14 @@ function buildBusinessPlan(d) {
     alerts.push({ type: 'danger', icon: '🚨', msg: `Utile Netto ${annoBase + 1} negativo (${fmtN(UN1)} €). Rivedere margini, costi o struttura finanziaria.` });
 
   // ── Scenario comparison (ODCEC guide — ISA Italia / EBA stress)
-  const debtService1base = RCAP1 + OF1;
   const buildScen = (g1p, g2p, g3p) => {
     const r1 = R0 * (1 + g1p / 100), r2 = r1 * (1 + g2p / 100), r3 = r2 * (1 + g3p / 100);
     const e1 = r1 * emPct, e3 = r3 * emPct3;
     const ebt1 = e1 - AMM1 - OF1;
     const un1 = ebt1 >= 0 ? ebt1 * (1 - taxR) : ebt1;
-    const dscr1 = debtService1base > 0 ? e1 / debtService1base : null;
+    // FCO scenario: EBITDA − ΔCiroclante − Imposte (coerente con formula principale)
+    const fco1s = e1 - dCCN1 - Math.max(ebt1 * taxR, 0);
+    const dscr1 = debtService1 > 0 ? fco1s / debtService1 : null;
     return { r1, r2, r3, e1, e3, un1, dscr1, em1: r1 > 0 ? e1 / r1 * 100 : null, cagr: R0 > 0 && r3 > 0 ? (Math.pow(r3 / R0, 1 / 3) - 1) * 100 : null };
   };
   // Usa scenari custom se forniti, altrimenti fallback ±5% sul Base
@@ -317,6 +320,7 @@ function buildBusinessPlan(d) {
     { R0, R1, R2, R3, EBITDA0, EBITDA1, EBITDA2, EBITDA3,
       UN1, UN2, UN3, PFN1, PFN2, PFN3, PN1, PN2, PN3,
       DSCR1, DSCR2, DSCR3, EBITDAM1, EBITDAM2, EBITDAM3,
+      debtService1,
       annoBase, scenComparison });
 
   return { ce: CE, sp: SP, cf: CF, be, kpi, alerts, html };
@@ -330,10 +334,10 @@ function buildCERows(R0, R1, R2, R3, E0, E1, E2, E3,
 
   const ammBase = d.ammortamenti || 0;
   // Costi operativi impliciti = Ricavi − EBITDA (incluso personale)
-  const OPEX0 = R0 - E0 - CP0;
-  const OPEX1 = R1 - E1 - CP1;
-  const OPEX2 = R2 - E2 - CP2;
-  const OPEX3 = R3 - E3 - CP3;
+  const OPEX0 = Math.max(0, R0 - E0 - CP0);
+  const OPEX1 = Math.max(0, R1 - E1 - CP1);
+  const OPEX2 = Math.max(0, R2 - E2 - CP2);
+  const OPEX3 = Math.max(0, R3 - E3 - CP3);
 
   const cagr3 = R0 > 0 && R3 > 0 ? Math.pow(R3 / R0, 1/3) - 1 : null;
   return [
@@ -457,6 +461,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     PN1, PN2, PN3,
     DSCR1, DSCR2, DSCR3,
     EBITDAM1, EBITDAM2, EBITDAM3,
+    debtService1,
     annoBase, scenComparison
   } = nums;
 
@@ -479,8 +484,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   const PFNEBITDA3 = EBITDA3 > 0 ? PFN3 / EBITDA3 : null;
   const CAGR = (R0 > 0 && R3 > 0) ? (Math.pow(R3 / R0, 1 / 3) - 1) * 100 : null;
 
-  // ── Service-of-debt components for DSCR stress (back out from DSCR1)
-  const debtService1 = (DSCR1 !== null && DSCR1 > 0 && EBITDA1 > 0) ? EBITDA1 / DSCR1 : 0;
+  // ── Stress test DSCR con debtService passato direttamente dai nums
   const stressR1 = R1 * 0.8;
   const stressEBITDA1 = stressR1 * (EBITDAM1 / 100);
   const stressDSCR1 = debtService1 > 0 ? stressEBITDA1 / debtService1 : null;

@@ -330,12 +330,12 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
               <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Nuovo finanziamento bancario?</label>
               <div class="toggle-row" style="margin-bottom:12px">
                 <label class="toggle">
-                  <input type="checkbox" id="toggle-fin" onchange="toggleFinanziamento()">
+                  <input type="checkbox" id="toggle-fin-xbrl" onchange="toggleFinanziamento('xbrl')">
                   <span class="slider"></span>
                 </label>
                 <span class="toggle-label">Sì, verrà richiesto un nuovo finanziamento</span>
               </div>
-              <div id="finanziamento-block" class="hidden">
+              <div id="finanziamento-block-xbrl" class="hidden">
                 <div class="form-row cols3" style="margin-bottom:12px">
                   <div>
                     <label>Importo (€)</label>
@@ -604,7 +604,7 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
           <label>% incremento costi fissi/anno</label>
           <div class="input-group">
             <input type="number" id="incr_fissi" class="has-suffix" placeholder="Es. 2" step="0.5">
-            <span class="input-suffix">€</span>
+            <span class="input-suffix">%</span>
           </div>
         </div>
       </div>
@@ -1561,7 +1561,7 @@ async function generaBPdaXBRL(){
     interessi_esistenti: Math.round(p.oneri_fin),
     anni_residui:        5,
     // Nuovo finanziamento
-    nuovo_fin:   document.getElementById('toggle-fin')?.checked || false,
+    nuovo_fin:   document.getElementById('toggle-fin-xbrl')?.checked || false,
     fin_importo: parseFloat(v('fin_importo'))||0,
     fin_durata:  parseFloat(v('fin_durata'))||5,
     fin_tasso:   parseFloat(v('fin_tasso'))||4.5,
@@ -1601,9 +1601,12 @@ async function generaBPdaXBRL(){
 }
 
 // ─── Financing toggle ────────────────────────────────────
-function toggleFinanziamento(){
-  const cb = document.getElementById('toggle-fin');
-  const block = document.getElementById('finanziamento-block');
+function toggleFinanziamento(percorso){
+  // Gestisce sia il percorso XBRL (suffix -xbrl) sia quello manuale (sec5)
+  const suffix = percorso === 'xbrl' ? '-xbrl' : '';
+  const cb = document.getElementById('toggle-fin' + suffix);
+  const block = document.getElementById('finanziamento-block' + suffix);
+  if (!cb || !block) return;
   if(cb.checked){ block.classList.remove('hidden'); block.classList.add('visible'); }
   else { block.classList.remove('visible'); block.classList.add('hidden'); }
 }
@@ -1731,7 +1734,7 @@ function raccogliDati(){
 
   const ricavi = parseFloat(v('ricavi_storici'))||0;
   if(!ricavi){ alert('Inserisci o carica il fatturato storico (Sezione 1).'); return null; }
-  if(!selectedScenario){ alert('Seleziona uno scenario di crescita nella sezione 1.'); return null; }
+  if(!selectedScenario) selectedScenario = 'custom'; // percorso manuale senza card scenario
 
   // Collect capex
   const capex = [];
@@ -1810,7 +1813,7 @@ function raccogliDati(){
     rata_esistente: parseFloat(v('rata_esistente'))||0,
     interessi_esistenti: parseFloat(v('interessi_esistenti'))||0,
     anni_residui: parseFloat(v('anni_residui'))||0,
-    nuovo_fin: document.getElementById('toggle-fin').checked,
+    nuovo_fin: document.getElementById('toggle-fin')?.checked || false,
     fin_importo: parseFloat(v('fin_importo'))||0,
     fin_durata: parseFloat(v('fin_durata'))||5,
     fin_tasso: parseFloat(v('fin_tasso'))||4.5,
