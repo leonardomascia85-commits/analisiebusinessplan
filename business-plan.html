@@ -18,14 +18,6 @@ header p{font-size:.85rem;opacity:.85}
 
 .container{max-width:960px;margin:0 auto;padding:28px 20px 60px}
 
-/* Progress bar */
-.progress-bar{display:flex;gap:0;margin-bottom:32px;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.step{flex:1;padding:12px 6px;text-align:center;background:#fff;border-right:1px solid var(--bordo);cursor:pointer;transition:.2s}
-.step:last-child{border-right:none}
-.step.active{background:var(--blu-light);color:#fff}
-.step.done{background:#dcfce7;color:var(--verde)}
-.step-num{font-size:1.1rem;font-weight:700}
-.step-label{font-size:.7rem;margin-top:2px;opacity:.8}
 
 /* Sections */
 .section{display:none}
@@ -170,7 +162,7 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
 <header>
   <div>
     <h1>📊 Business Plan Finanziario</h1>
-    <p>Proiezioni 3 anni · Modello CE+SP+CF integrato · EBA/GL/2020/06 compliant</p>
+    <p>Proiezioni 3 anni · Modello CE+SP+CF integrato</p>
   </div>
   <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
     <button onclick="saveProjectBP()" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">💾 Salva</button>
@@ -181,15 +173,6 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
 
 <div class="container">
 
-  <!-- Progress -->
-  <div class="progress-bar">
-    <div class="step active" id="st1" onclick="goStep(1)"><div class="step-num">1</div><div class="step-label">Scenario</div></div>
-    <div class="step" id="st2" onclick="goStep(2)"><div class="step-num">2</div><div class="step-label">Costi</div></div>
-    <div class="step" id="st3" onclick="goStep(3)"><div class="step-num">3</div><div class="step-label">Personale</div></div>
-    <div class="step" id="st4" onclick="goStep(4)"><div class="step-num">4</div><div class="step-label">Investimenti</div></div>
-    <div class="step" id="st5" onclick="goStep(5)"><div class="step-num">5</div><div class="step-label">Finanza</div></div>
-    <div class="step" id="st6" onclick="goStep(6)"><div class="step-num">6</div><div class="step-label">Riepilogo</div></div>
-  </div>
 
   <!-- SECTION 1: Scenario & Dati di base -->
   <div class="section visible" id="sec1">
