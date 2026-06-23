@@ -214,11 +214,16 @@ function buildBusinessPlan(d) {
   };
 
   // ── KPI / DSCR
-  const DSCR1 = (RCAP1 + OF1) > 0 ? EBITDA1 / (RCAP1 + OF1) : null;
-  const DSCR2 = (RCAP2 + OF2) > 0 ? EBITDA2 / (RCAP2 + OF2) : null;
-  const DSCR3 = (RCAP3 + OF3) > 0 ? EBITDA3 / (RCAP3 + OF3) : null;
-  const DSCR0 = d.ebitda_storico && (d.rata_esistente || d.interessi_esistenti)
-    ? EBITDA0 / ((d.rata_esistente || 0) + (d.interessi_esistenti || 0)) : null;
+  // rata_esistente = rata TOTALE annua (capitale + interessi) finanziamenti esistenti
+  // Per i nuovi finanziamenti rcap_new e OF_new sono calcolati separatamente dal piano di ammortamento
+  const debtService1 = (d.rata_esistente || 0) + rcap_new1 + OF_new1;
+  const debtService2 = (d.rata_esistente || 0) + rcap_new2 + OF_new2;
+  const debtService3 = (d.rata_esistente || 0) + rcap_new3 + OF_new3;
+  const DSCR1 = debtService1 > 0 ? EBITDA1 / debtService1 : null;
+  const DSCR2 = debtService2 > 0 ? EBITDA2 / debtService2 : null;
+  const DSCR3 = debtService3 > 0 ? EBITDA3 / debtService3 : null;
+  const DSCR0 = d.ebitda_storico && d.rata_esistente
+    ? EBITDA0 / (d.rata_esistente || 0) : null;
 
   const ICR1 = OF1 > 0 ? EBIT1 / OF1 : null;
   const ICR0 = OF_exist > 0 && d.ebitda_storico ? (EBITDA0 - ammBase) / OF_exist : null;
