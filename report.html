@@ -399,14 +399,34 @@ async function downloadReport(tipo) {
   const autCls = kpiCls(c.aut, 40, 15, true);
 
   // Indices table rows
-  function idxRow(label, val, thG, thA, higher) {
+  function idxRow(label, val, thG, thA, higher, note) {
     const cls = semCls(val, thG, thA, higher);
-    const dot = isNaN(val) || !isFinite(val) ? 'sem-neu' : cls;
+    const isNA = isNaN(val) || !isFinite(val);
+    const dot = isNA ? 'sem-neu' : cls;
+    const noteHtml = (isNA && note) ? `<br><span style="font-size:0.72em;color:#888;font-style:italic">${note}</span>` : '';
     return `<tr>
-      <td>${label}</td>
+      <td>${label}${noteHtml}</td>
       <td><span class="${dot}">●</span></td>
       <td>${val}</td>
     </tr>`;
+  }
+
+  // Motivazioni N/A per DSCR e ICR
+  const dscrNA = isNaN(c.dscr) || !isFinite(c.dscr);
+  const icrNA  = isNaN(c.icr)  || !isFinite(c.icr);
+  let dscrNote = '';
+  let icrNote  = '';
+  if (dscrNA) {
+    const noDebt = (d.rate_cap || 0) === 0 && (d.interessi || 0) === 0 && (d.oneri_f || 0) === 0;
+    const noEbitda = (isNaN(c.ebitda) || c.ebitda <= 0);
+    if (noDebt) dscrNote = 'Non calcolabile: nessun debito finanziario (rata capitale = 0, interessi = 0)';
+    else if (noEbitda) dscrNote = 'Non calcolabile: EBITDA negativo o assente';
+    else dscrNote = 'Non calcolabile: dati insufficienti';
+  }
+  if (icrNA) {
+    const noInterest = (d.oneri_f || 0) === 0 && (d.interessi || 0) === 0;
+    if (noInterest) icrNote = 'Non calcolabile: oneri finanziari = 0 (nessun debito finanziario)';
+    else icrNote = 'Non calcolabile: EBIT non disponibile';
   }
 
   const indiciHTML = `
@@ -423,8 +443,8 @@ async function downloadReport(tipo) {
     ${idxRow('Leva finanziaria (D/E)', fx(c.leva), 2.0, 3.5, false)}
     ${idxRow('PFN / EBITDA', fx(c.pfn_ebitda), 3.0, 5.0, false)}
     <tr class="cat-row"><td colspan="3">Bancabilità EBA</td></tr>
-    ${idxRow('DSCR — Debt Service Coverage', fx(c.dscr), 1.25, 1.0, true)}
-    ${idxRow('ICR — Interest Coverage', fx(c.icr), 3.0, 1.5, true)}
+    ${idxRow('DSCR — Debt Service Coverage', fx(c.dscr), 1.25, 1.0, true, dscrNote)}
+    ${idxRow('ICR — Interest Coverage', fx(c.icr), 3.0, 1.5, true, icrNote)}
   `;
 
   container.innerHTML = `
