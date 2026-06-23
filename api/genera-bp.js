@@ -925,10 +925,6 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
       <div class="cv-tipo">Business Plan Finanziario · EBA/GL/2020/06</div>
       <div class="cv-title">Piano Economico-Finanziario</div>
       <div class="cv-nome">${nome}</div>
-      <div style="display:flex;align-items:center;gap:12px;margin-top:4px;position:relative;z-index:1">
-        <div class="cv-badge">Scenario: ${scenarioLabel}</div>
-        <div style="display:inline-block;padding:7px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em;background:${bancabile?'rgba(5,150,105,.25)':'rgba(220,38,38,.2)'};border:1px solid ${bancabile?'rgba(5,150,105,.5)':'rgba(220,38,38,.4)'};color:${bancabile?'#6EE7B7':'#FCA5A5'}">${bancabile?'✓ Bancabile':'⚠ Verificare bancabilità'}</div>
-      </div>
       <div class="cv-divider"></div>
       <div class="cv-meta">
         <div><div class="cv-meta-lbl">Anno Base</div><div class="cv-meta-val">${annoBase}</div></div>
