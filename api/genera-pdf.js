@@ -18,11 +18,14 @@ const fmtK = (n) => {
 function calcIndici(d) {
   const ebitda = (d.tot_vp || 0) - ((d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0) + (d.personale || 0) + (d.var_mat || 0) + (d.oneri_div || 0));
   const ebit = ebitda - (d.ammort || 0);
-  const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0);
-  const pfn = ((d.deb_b_bt || 0) + (d.deb_b_lt || 0)) - (d.liquidita || 0);
+  const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0) + (d.alt_deb || 0);
+  const hasPfnData = (d.pfn_bt || 0) + (d.pfn_lt || 0) + (d.pfn_liq || 0) + (d.pfn_tit || 0) > 0;
+  const pfn = hasPfnData
+    ? ((d.pfn_bt || 0) + (d.pfn_lt || 0)) - ((d.pfn_liq || 0) + (d.pfn_tit || 0))
+    : ((d.deb_b_bt || 0) + (d.deb_b_lt || 0) + (d.alt_deb || 0)) - (d.liquidita || 0);
   const roe = d.tot_pn > 0 ? (d.utile_es || 0) / d.tot_pn * 100 : NaN;
-  const roi = d.tot_att > 0 ? ebit / d.tot_att * 100 : NaN;
-  const ros = d.tot_vp > 0 ? ebit / d.tot_vp * 100 : NaN;
+  const roi = d.tot_att > 0 ? ebitda / d.tot_att * 100 : NaN;
+  const ros = d.tot_vp > 0 ? ebitda / d.tot_vp * 100 : NaN;
   const cr  = dbt_bt > 0 ? (d.tot_circ || 0) / dbt_bt : NaN;
   const acid = dbt_bt > 0 ? ((d.tot_circ || 0) - (d.rimanenze || 0)) / dbt_bt : NaN;
   const leva = d.tot_pn > 0 ? (d.tot_deb || 0) / d.tot_pn : NaN;
@@ -31,12 +34,25 @@ function calcIndici(d) {
   const pfn_ebitda = ebitda > 0 && pfn > 0 ? pfn / ebitda : NaN;
   const icr = (d.oneri_f || 0) > 0 ? ebit / d.oneri_f : NaN;
   const servizio = (d.rate_cap || 0) + (d.interessi || d.oneri_f || 0);
-  const dscr = servizio > 0 && ebitda > 0 ? ebitda / servizio : NaN;
+  // DSCR — cascata formule: CCII → EBA → bancaria → EBIT
+  const hasTasse = (d.imposte || 0) > 0;
+  const hasCcn   = (d.var_ccn || 0) !== 0;
+  const fco = hasCcn || hasTasse ? ebitda - (d.var_ccn || 0) - (d.imposte || 0) : null;
+  const dscr = servizio > 0
+    ? (fco !== null      ? fco / servizio
+      : hasTasse         ? (ebitda - (d.imposte || 0)) / servizio
+      : ebitda > 0       ? ebitda / servizio
+      : !isNaN(ebit)     ? ebit / servizio
+      : NaN)
+    : NaN;
+  const dscr_formula = servizio > 0
+    ? (fco !== null ? 'FCO/DS (CCII)' : hasTasse ? '(EBITDA−Tax)/DS (EBA)' : ebitda > 0 ? 'EBITDA/DS' : 'EBIT/DS')
+    : null;
   const dsi = d.mat_prime > 0 && d.rimanenze > 0 ? d.rimanenze / d.mat_prime * 365 : NaN;
   const dso = d.ric_vend > 0 && d.cred_cl > 0 ? d.cred_cl / d.ric_vend * 365 : NaN;
   const dpo = d.mat_prime > 0 && d.deb_for > 0 ? d.deb_for / d.mat_prime * 365 : NaN;
   const ccn_giorni = (!isNaN(dsi) && !isNaN(dso) && !isNaN(dpo)) ? dsi + dso - dpo : NaN;
-  return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, servizio, dsi, dso, dpo, ccn_giorni };
+  return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, dscr_formula, servizio, dsi, dso, dpo, ccn_giorni };
 }
 
 // ── CALCOLA RATING IBRIDO ──

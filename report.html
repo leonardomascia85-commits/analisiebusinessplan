@@ -156,12 +156,32 @@ function calcIndici(d) {
   const pfn_ebitda = ebitda > 0 && pfn > 0 ? pfn / ebitda : NaN;
   const icr = (d.oneri_f || 0) > 0 ? ebit / d.oneri_f : NaN;
   const servizio = (d.rate_cap || 0) + (d.interessi || d.oneri_f || 0);
-  const dscr = servizio > 0 && ebitda > 0 ? ebitda / servizio : NaN;
+  // DSCR — cascata di formule in base ai dati disponibili
+  // Formula 1 CCII: FCO (EBITDA − ΔCircolante − Imposte) / Debt Service
+  // Formula 2 EBA:  (EBITDA − Imposte) / Debt Service
+  // Formula 3 bancaria semplificata: EBITDA / Debt Service
+  // Formula 4 fallback: EBIT / Debt Service
+  const hasTasse = (d.imposte || 0) > 0;
+  const hasCcn   = (d.var_ccn || 0) !== 0;
+  const fco = hasCcn || hasTasse ? ebitda - (d.var_ccn || 0) - (d.imposte || 0) : null;
+  const dscr = servizio > 0
+    ? (fco !== null ? fco / servizio          // CCII
+      : hasTasse    ? (ebitda - (d.imposte || 0)) / servizio  // EBA
+      : ebitda > 0  ? ebitda / servizio        // bancaria
+      : !isNaN(ebit)? ebit / servizio          // fallback EBIT
+      : NaN)
+    : NaN;
+  const dscr_formula = servizio > 0
+    ? (fco !== null ? 'FCO/DS (CCII)'
+      : hasTasse    ? '(EBITDA−Tax)/DS (EBA)'
+      : ebitda > 0  ? 'EBITDA/DS'
+      : 'EBIT/DS')
+    : null;
   const dsi = d.mat_prime > 0 && d.rimanenze > 0 ? d.rimanenze / d.mat_prime * 365 : NaN;
   const dso = d.ric_vend > 0 && d.cred_cl > 0 ? d.cred_cl / d.ric_vend * 365 : NaN;
   const dpo = d.mat_prime > 0 && d.deb_for > 0 ? d.deb_for / d.mat_prime * 365 : NaN;
   const ccn_giorni = (!isNaN(dsi) && !isNaN(dso) && !isNaN(dpo)) ? dsi + dso - dpo : NaN;
-  return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, servizio, dsi, dso, dpo, ccn_giorni };
+  return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, dscr_formula, servizio, dsi, dso, dpo, ccn_giorni };
 }
 
 // ── CALCOLA RATING IBRIDO ──
