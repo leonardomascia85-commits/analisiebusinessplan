@@ -284,6 +284,8 @@ function buildBusinessPlan(d) {
     alerts.push({ type: 'danger', icon: '🚨', msg: `DSCR ${annoBase + 1} = ${DSCR1.toFixed(2)}x — SOTTO SOGLIA MINIMA 1,10x. Necessario rivedere il piano di rimborso o aumentare l'EBITDA. (EBA/GL/2020/06)` });
   else if (DSCR1 !== null)
     alerts.push({ type: 'success', icon: '✅', msg: `DSCR ${annoBase + 1} = ${DSCR1.toFixed(2)}x — Sopra la soglia minima bancaria di 1,10x (EBA/GL/2020/06).` });
+  else
+    alerts.push({ type: 'info', icon: 'ℹ️', msg: `DSCR ${annoBase + 1} = N/A — L'azienda non presenta debiti finanziari. Il DSCR non è calcolabile: non vi è servizio del debito da coprire.` });
   if (PFN1 / (EBITDA1 || 1) > 4)
     alerts.push({ type: 'warning', icon: '⚠️', msg: `PFN/EBITDA ${annoBase + 1} = ${(PFN1 / EBITDA1).toFixed(1)}x — Supera la soglia di attenzione di 4x. Le banche potrebbero richiedere garanzie aggiuntive.` });
   if (FCFF1 < 0)
@@ -490,7 +492,11 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
   const stressDSCR1 = debtService1 > 0 ? stressEBITDA1 / debtService1 : null;
 
   // ── Bancability verdict
-  const bancabile = DSCR1 !== null && DSCR1 >= 1.10 && (PFNEBITDA1 === null || PFNEBITDA1 <= 4) && UN1 >= 0;
+  // noDebtPlan = azienda senza debito finanziario: DSCR non calcolabile ma non è un alert
+  const noDebtPlan = DSCR1 === null && debtService1 === 0;
+  const bancabile = noDebtPlan
+    ? ((PFNEBITDA1 === null || PFNEBITDA1 <= 4) && UN1 >= 0)
+    : (DSCR1 !== null && DSCR1 >= 1.10 && (PFNEBITDA1 === null || PFNEBITDA1 <= 4) && UN1 >= 0);
 
   // ── SVG: grouped bar chart Ricavi vs EBITDA
   const svgBars = () => {
@@ -826,7 +832,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     </div>`;
 
   const alertsHTML = alerts.map(a => {
-    const t = a.type === 'success' ? 'ok' : a.type === 'warning' ? 'warn' : 'bad';
+    const t = a.type === 'success' ? 'ok' : a.type === 'warning' ? 'warn' : a.type === 'info' ? 'info' : 'bad';
     return `<div class="alert-print ${t}">${a.icon} ${a.msg}</div>`;
   }).join('');
 
@@ -896,6 +902,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     .alert-print.ok{background:#DCFCE7;border-left:4px solid #16A34A;color:#166534}
     .alert-print.warn{background:#FEF3C7;border-left:4px solid #F59E0B;color:#92400E}
     .alert-print.bad{background:#FEE2E2;border-left:4px solid #DC2626;color:#991B1B}
+    .alert-print.info{background:#EFF6FF;border-left:4px solid #2563EB;color:#1E40AF}
 
     table.rep{width:100%;border-collapse:collapse;font-size:9.5px;margin-top:8px}
     table.rep th{background:#0A1628;color:#fff;padding:8px 8px;text-align:right;font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
@@ -919,7 +926,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     .info-box{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:14px;font-size:10px;line-height:1.6;color:#1E40AF;margin:12px 0}
     .stress-box{background:#FEF3C7;border-left:4px solid #F59E0B;border-radius:8px;padding:14px;font-size:10px;line-height:1.6;color:#92400E;margin:12px 0}
     .verdict{display:inline-block;font-size:14px;font-weight:700;padding:10px 24px;border-radius:8px;letter-spacing:.04em;color:#fff}
-    .verdict.ok{background:#059669}.verdict.no{background:#DC2626}
+    .verdict.ok{background:#059669}.verdict.no{background:#DC2626}.verdict.auto{background:#2563EB}
     .chart-box{border:1px solid #E2E8F0;border-radius:8px;padding:12px;background:#fff;margin:10px 0}
     .disclaimer{font-size:8.5px;color:#94A3B8;line-height:1.6;border-top:1px solid #E2E8F0;padding-top:10px;margin-top:14px}
     .pf{display:flex;justify-content:space-between;font-size:8px;color:#94A3B8;border-top:.5px solid #E2E8F0;padding-top:7px;margin-top:24px}
@@ -1158,11 +1165,11 @@ ${(() => {
 <!-- PAGE 3 — EXECUTIVE SUMMARY -->
 <div class="page">
   ${secHdr('Sintesi direzionale', '3. Executive Summary')}
-  <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:9px;margin-bottom:14px;background:${bancabile?'#DCFCE7':'#FEF2F2'};border:1px solid ${bancabile?'#BBF7D0':'#FECACA'}">
-    <div style="font-size:28px;font-weight:800;font-family:Georgia,serif;color:${bancabile?'#15803D':'#DC2626'}">${bancabile?'✓':'⚠'}</div>
+  <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:9px;margin-bottom:14px;background:${bancabile?'#DCFCE7':noDebtPlan?'#EFF6FF':'#FEF2F2'};border:1px solid ${bancabile?'#BBF7D0':noDebtPlan?'#BFDBFE':'#FECACA'}">
+    <div style="font-size:28px;font-weight:800;font-family:Georgia,serif;color:${bancabile?'#15803D':noDebtPlan?'#1D4ED8':'#DC2626'}">${bancabile||noDebtPlan?'✓':'⚠'}</div>
     <div style="flex:1">
-      <div style="font-size:12px;font-weight:700;color:${bancabile?'#15803D':'#DC2626'}">${bancabile?'Piano Bancabile — criteri EBA/GL/2020/06 soddisfatti':'Piano con elementi di attenzione — verificare parametri bancari'}</div>
-      <div style="font-size:9px;color:${bancabile?'#166534':'#991B1B'};margin-top:2px">DSCR ${fmtX(DSCR1)} · EBITDA margin ${fmtP(EBITDAM1)} · PFN/EBITDA ${fmtX(PFNEBITDA1)} · Utile netto ${fmtE(UN1)}</div>
+      <div style="font-size:12px;font-weight:700;color:${bancabile?'#15803D':noDebtPlan?'#1D4ED8':'#DC2626'}">${bancabile?'Piano Bancabile — criteri EBA/GL/2020/06 soddisfatti':noDebtPlan?'Piano autofinanziato — nessun debito finanziario da rimborsare':'Piano con elementi di attenzione — verificare parametri bancari'}</div>
+      <div style="font-size:9px;color:${bancabile?'#166534':noDebtPlan?'#1E40AF':'#991B1B'};margin-top:2px">DSCR ${noDebtPlan?'N/A — nessun debito finanziario':fmtX(DSCR1)} · EBITDA margin ${fmtP(EBITDAM1)} · PFN/EBITDA ${fmtX(PFNEBITDA1)} · Utile netto ${fmtE(UN1)}</div>
     </div>
     <div style="text-align:right">
       <div style="font-size:9px;color:#64748B">Scenario</div>
@@ -1260,7 +1267,10 @@ ${(() => {
   ${secHdr('Sostenibilità del debito', '7. DSCR e Bancabilità EBA')}
   <div class="narrative">
     <p>Il <strong>Debt Service Coverage Ratio (DSCR)</strong> misura la capacità dell'impresa di coprire il servizio del debito (quota capitale + interessi) con i flussi di cassa operativi. Le Linee Guida EBA/GL/2020/06 richiedono un DSCR minimo di <strong>1,10x</strong> per l'accesso al credito; un valore ≥ 1,30x è considerato un profilo solido, mentre un valore ≥ 1,50x indica un'eccellente copertura.</p>
-    <p>${nome} presenta un DSCR di <strong>${fmtX(DSCR1)}</strong> nel ${annoBase + 1}, ${DSCR1 >= 1.5 ? 'posizionandosi in una fascia di eccellente solidità finanziaria' : DSCR1 >= 1.3 ? 'collocandosi in un profilo solido, ben al di sopra del requisito minimo bancario' : DSCR1 >= 1.1 ? 'superando il requisito minimo EBA, con un margine di sicurezza sufficiente' : 'risultando inferiore al requisito minimo EBA: si raccomanda una revisione del piano di rimborso o una rinegoziazione del debito'}. Il ratio migliora${DSCR3 > DSCR1 ? ` progressivamente` : ''} nel triennio, raggiungendo ${fmtX(DSCR3)} nel ${annoBase + 3}, grazie alla crescita dell'EBITDA.</p>
+    ${noDebtPlan
+      ? `<p>${nome} <strong>non presenta debiti finanziari</strong> nel piano proiettato: non sono previste rate di rimborso né oneri finanziari. Il DSCR non è pertanto calcolabile — non per assenza di capacità di rimborso, ma perché non vi è alcun debito da servire. Questa struttura finanziaria <strong>autofinanziata</strong> rappresenta un punto di forza: l'azienda genera flussi di cassa positivi senza dipendere da finanziamenti bancari, eliminando il rischio di inadempienza sul debito.</p>`
+      : `<p>${nome} presenta un DSCR di <strong>${fmtX(DSCR1)}</strong> nel ${annoBase + 1}, ${DSCR1 >= 1.5 ? 'posizionandosi in una fascia di eccellente solidità finanziaria' : DSCR1 >= 1.3 ? 'collocandosi in un profilo solido, ben al di sopra del requisito minimo bancario' : DSCR1 >= 1.1 ? 'superando il requisito minimo EBA, con un margine di sicurezza sufficiente' : 'con un margine da rafforzare rispetto al requisito EBA di 1,10x'}. Il ratio ${DSCR3 > DSCR1 ? 'migliora progressivamente' : 'si mantiene'} nel triennio, raggiungendo ${fmtX(DSCR3)} nel ${annoBase + 3}, grazie alla crescita dell'EBITDA.</p>`
+    }
   </div>
   <h3>Debt Service Coverage Ratio — scala EBA</h3>
   <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:10px">
@@ -1283,11 +1293,11 @@ ${(() => {
     <strong>Requisiti EBA/GL/2020/06.</strong> Il DSCR minimo per la bancabilità è 1,10x; un valore ≥ 1,30x indica un profilo solido. Il PFN/EBITDA non dovrebbe superare 4x. Le linee guida richiedono inoltre prove di stress prospettiche sui flussi di cassa.
   </div>
   <div class="stress-box">
-    <strong>Stress test −20% ricavi:</strong> Ricavi ${annoBase+1} ${fmtE(stressR1)} · EBITDA ${fmtE(stressEBITDA1)} · DSCR stress <strong>${fmtX(stressDSCR1)}</strong>.<br>
-    ${stressDSCR1 !== null && stressDSCR1 < 1.0 ? '⚠️ In scenario stress il DSCR scende sotto 1x: raccomandata riserva di liquidità o covenant di sospensione dividendi.' : '✅ Anche in scenario stress il piano resta gestibile.'}
+    <strong>Stress test −20% ricavi:</strong> Ricavi ${annoBase+1} ${fmtE(stressR1)} · EBITDA ${fmtE(stressEBITDA1)} · DSCR stress <strong>${noDebtPlan ? 'N/A — nessun debito' : fmtX(stressDSCR1)}</strong>.<br>
+    ${noDebtPlan ? '✅ In assenza di debito finanziario, lo stress test non impatta il servizio del debito. La resilienza è determinata dalla capacità di mantenere flussi di cassa positivi.' : stressDSCR1 !== null && stressDSCR1 < 1.0 ? '⚠️ In scenario stress il DSCR scende sotto 1x: raccomandata riserva di liquidità o covenant di sospensione dividendi.' : '✅ Anche in scenario stress il piano resta gestibile.'}
   </div>
   <div style="text-align:center;margin-top:16px">
-    <span class="verdict ${bancabile ? 'ok' : 'no'}">${bancabile ? 'BANCABILE' : 'RICHIEDE REVISIONE'}</span>
+    <span class="verdict ${bancabile ? 'ok' : noDebtPlan ? 'auto' : 'no'}">${bancabile ? 'BANCABILE' : noDebtPlan ? 'AUTOFINANZIATO' : 'RICHIEDE REVISIONE'}</span>
   </div>
   ${pf(7)}
 </div>
