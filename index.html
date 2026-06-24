@@ -14,6 +14,7 @@
   <meta property="og:locale" content="it_IT"/>
   <meta property="og:url" content="https://analisiebusinessplan.it/"/>
   <link rel="canonical" href="https://analisiebusinessplan.it/"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='white' font-weight='bold'>A</text></svg>"/>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AnalisiEBusinessPlan.it",
    "applicationCategory":"BusinessApplication","operatingSystem":"Web",
@@ -24,7 +25,6 @@
    "audience":{"@type":"Audience","audienceType":"PMI, Commercialisti, Consulenti finanziari"}
   }
   </script>
-
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -103,7 +103,6 @@
       background: #060e1f;
     }
 
-    /* Animated gradient blobs */
     .hero::before {
       content: '';
       position: absolute; top: -200px; left: -200px;
@@ -123,7 +122,6 @@
     @keyframes blob1 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(80px,60px) scale(1.1)} }
     @keyframes blob2 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-60px,-40px) scale(1.08)} }
 
-    /* Grid overlay for depth */
     .hero-grid {
       position: absolute; inset: 0;
       background-image:
@@ -139,7 +137,6 @@
       text-align: center;
     }
 
-    /* Eyebrow pill */
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(37,99,235,.15);
@@ -155,7 +152,6 @@
     }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
 
-    /* Headline */
     .hero h1 {
       font-family: 'Fraunces', serif; font-weight: 800;
       font-size: clamp(38px, 5.5vw, 72px); line-height: 1.03;
@@ -174,6 +170,32 @@
       line-height: 1.8; max-width: 660px; margin: 0 auto 28px;
       font-weight: 300;
     }
+
+    /* Hero CTA buttons */
+    .hero-ctas {
+      display: flex; gap: 14px; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 36px;
+    }
+    .hero-btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 30px; border-radius: 12px;
+      font-size: 15px; font-weight: 700; color: #fff;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      box-shadow: 0 4px 24px rgba(37,99,235,.45);
+      transition: transform .2s, box-shadow .2s;
+      border: none; cursor: pointer;
+    }
+    .hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(37,99,235,.6); }
+    .hero-btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 30px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; color: rgba(255,255,255,.8);
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      transition: background .2s, color .2s;
+    }
+    .hero-btn-secondary:hover { background: rgba(255,255,255,.12); color: #fff; }
+
     .hero-pills {
       display: flex; flex-wrap: wrap; justify-content: center;
       gap: 10px; margin-bottom: 52px;
@@ -227,7 +249,6 @@
       box-shadow: 0 32px 80px rgba(5,150,105,.2), 0 0 0 1px rgba(52,211,153,.1);
     }
 
-    /* ── CARD HEADER (mockup) ── */
     .card-head {
       padding: 22px 22px 0;
       min-height: 192px;
@@ -239,7 +260,6 @@
     .card.grn-c .card-head {
       background: linear-gradient(160deg, #041e10 0%, #053d20 60%, #065f30 100%);
     }
-    /* Glow */
     .card-head::before {
       content: ''; position: absolute;
       border-radius: 50%; pointer-events: none;
@@ -252,7 +272,6 @@
       top: -80px; right: -80px; width: 240px; height: 240px;
       background: radial-gradient(circle, rgba(5,150,105,.3) 0%, transparent 65%);
     }
-    /* Wave bottom */
     .card-head::after {
       content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
       height: 24px;
@@ -260,7 +279,6 @@
       border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     }
 
-    /* ── MOCK UI ── */
     .mock {
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.12);
@@ -285,7 +303,6 @@
       background: rgba(16,185,129,.2); color: #6ee7b7;
       border: 1px solid rgba(110,231,183,.25);
     }
-    /* KPI chips */
     .mock-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; margin-bottom: 10px; }
     .mock-kpi {
       background: rgba(255,255,255,.05);
@@ -300,20 +317,17 @@
     .v-g { color: #6ee7b7; }
     .v-b { color: #93c5fd; }
     .v-y { color: #fcd34d; }
-    /* Bars */
     .mock-bars { display: flex; flex-direction: column; gap: 5px; }
     .mock-bar-r { display: flex; align-items: center; gap: 7px; }
     .mock-bar-l { font-size: 7.5px; color: rgba(255,255,255,.3); width: 50px; flex-shrink: 0; }
     .mock-bar-t { flex: 1; height: 3px; background: rgba(255,255,255,.07); border-radius: 2px; }
     .mock-bar-f { height: 100%; border-radius: 2px; }
     .mock-bar-n { font-size: 8px; color: rgba(255,255,255,.4); width: 28px; text-align: right; flex-shrink: 0; }
-    /* Chart */
     .mock-chart { display: flex; align-items: flex-end; gap: 4px; height: 46px; }
     .mock-col { flex: 1; border-radius: 3px 3px 0 0; min-width: 0; }
     .chart-group { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 3px; }
     .chart-lbl { font-size: 7px; color: rgba(255,255,255,.28); }
 
-    /* ── CARD BODY ── */
     .card-body {
       padding: 22px 24px 26px;
       flex: 1; display: flex; flex-direction: column;
@@ -402,11 +416,98 @@
     .ti-check svg { width: 9px; height: 9px; stroke: #34d399; stroke-width: 2.5; fill: none; }
 
     /* ════════════════════════════════════
+       COME FUNZIONA
+    ════════════════════════════════════ */
+    .come-funziona {
+      padding: 80px 6%;
+      background: #060e1f;
+    }
+    .section-label {
+      text-align: center;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: #60a5fa;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif; font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 700; color: #fff; text-align: center;
+      margin-bottom: 12px; line-height: 1.15;
+    }
+    .section-sub {
+      text-align: center; font-size: 16px; color: rgba(255,255,255,.5);
+      max-width: 560px; margin: 0 auto 56px; line-height: 1.7;
+    }
+
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; max-width: 900px; margin: 0 auto;
+      position: relative;
+    }
+    /* Connector line */
+    .steps::before {
+      content: '';
+      position: absolute; top: 32px; left: calc(16.66% + 20px); right: calc(16.66% + 20px);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(37,99,235,.4), rgba(52,211,153,.4));
+      pointer-events: none;
+    }
+    .step {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 0 24px;
+      position: relative;
+    }
+    .step-num {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif; font-size: 24px; font-weight: 800;
+      color: #fff; margin-bottom: 20px; position: relative; z-index: 1;
+      flex-shrink: 0;
+    }
+    .step:nth-child(1) .step-num { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 8px 32px rgba(37,99,235,.4); }
+    .step:nth-child(2) .step-num { background: linear-gradient(135deg, #0d9488, #0f766e); box-shadow: 0 8px 32px rgba(13,148,136,.4); }
+    .step:nth-child(3) .step-num { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 8px 32px rgba(5,150,105,.4); }
+    .step-icon { font-size: 26px; margin-bottom: 14px; }
+    .step-title {
+      font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700;
+      color: #fff; margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 13.5px; color: rgba(255,255,255,.5); line-height: 1.6;
+    }
+
+    /* Tabs per i due prodotti nella sezione Come Funziona */
+    .cf-tabs {
+      display: flex; gap: 8px; justify-content: center;
+      margin-bottom: 44px;
+    }
+    .cf-tab {
+      padding: 9px 22px; border-radius: 30px;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all .2s; border: none;
+    }
+    .cf-tab.active-b {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff; box-shadow: 0 4px 16px rgba(37,99,235,.35);
+    }
+    .cf-tab.active-g {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #fff; box-shadow: 0 4px 16px rgba(5,150,105,.35);
+    }
+    .cf-tab:not(.active-b):not(.active-g) {
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .cf-panel { display: none; }
+    .cf-panel.active { display: block; }
+
+    /* ════════════════════════════════════
        STATS BAR
     ════════════════════════════════════ */
     .stats {
       padding: 40px 6%;
-      background: #060e1f;
+      background: rgba(255,255,255,.02);
+      border-top: 1px solid rgba(255,255,255,.06);
     }
     .stats-inner {
       max-width: 800px; margin: 0 auto;
@@ -433,28 +534,111 @@
     .stat-l { font-size: 12px; color: rgba(255,255,255,.4); }
 
     /* ════════════════════════════════════
+       FAQ
+    ════════════════════════════════════ */
+    .faq-section {
+      padding: 80px 6%;
+      background: #060e1f;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .faq-grid {
+      max-width: 820px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .faq-item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; overflow: hidden;
+      transition: border-color .2s;
+    }
+    .faq-item:hover { border-color: rgba(255,255,255,.15); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; cursor: pointer;
+      font-size: 15px; font-weight: 600; color: #fff;
+      gap: 16px; user-select: none;
+    }
+    .faq-arrow {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform .25s, background .2s;
+    }
+    .faq-arrow svg { width: 12px; height: 12px; stroke: rgba(255,255,255,.6); stroke-width: 2.5; fill: none; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); background: rgba(37,99,235,.2); }
+    .faq-item.open .faq-arrow svg { stroke: #93c5fd; }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .3s ease, padding .3s;
+    }
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-a-inner {
+      padding: 0 24px 20px;
+      font-size: 14px; color: rgba(255,255,255,.55);
+      line-height: 1.75;
+    }
+    .faq-a-inner a { color: #60a5fa; text-decoration: underline; }
+
+    /* ════════════════════════════════════
        FOOTER
     ════════════════════════════════════ */
     footer {
-      padding: 20px 6%;
-      background: rgba(255,255,255,.02);
+      background: rgba(255,255,255,.025);
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-main {
+      max-width: 1080px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; padding: 56px 6% 40px;
+    }
+    .foot-brand .foot-logo {
+      font-family: 'Fraunces', serif; font-size: 18px;
+      font-weight: 700; color: #fff;
+      display: block; margin-bottom: 12px;
+    }
+    .foot-brand .foot-logo em { font-style: normal; color: #60a5fa; }
+    .foot-brand p {
+      font-size: 13px; color: rgba(255,255,255,.4);
+      line-height: 1.7; max-width: 260px; margin-bottom: 20px;
+    }
+    .foot-badges { display: flex; flex-wrap: wrap; gap: 7px; }
+    .foot-badge {
+      font-size: 10px; font-weight: 600; padding: 4px 10px;
+      border-radius: 6px; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.45);
+    }
+    .foot-col h4 {
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: rgba(255,255,255,.4);
+      margin-bottom: 16px;
+    }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .foot-col ul li a {
+      font-size: 13.5px; color: rgba(255,255,255,.55);
+      transition: color .15s;
+    }
+    .foot-col ul li a:hover { color: #fff; }
+    .footer-bottom {
       border-top: 1px solid rgba(255,255,255,.06);
-      display: flex; align-items: center;
-      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      padding: 18px 6%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+      max-width: none;
     }
-    .foot-logo {
-      font-family: 'Fraunces', serif; font-size: 14px;
-      font-weight: 700; color: rgba(255,255,255,.5);
+    .footer-bottom p {
+      font-size: 12px; color: rgba(255,255,255,.25);
     }
-    .foot-logo em { font-style: normal; color: #60a5fa; }
-    .foot-copy { font-size: 12px; color: rgba(255,255,255,.25); }
-    .foot-links { display: flex; gap: 18px; }
-    .foot-links a { font-size: 12px; color: rgba(255,255,255,.3); transition: color .15s; }
-    .foot-links a:hover { color: rgba(255,255,255,.6); }
+    .footer-bottom a { color: rgba(255,255,255,.35); transition: color .15s; }
+    .footer-bottom a:hover { color: rgba(255,255,255,.6); }
 
     /* ════════════════════════════════════
        RESPONSIVE
     ════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .foot-brand { grid-column: 1 / -1; }
+    }
     @media (max-width: 820px) {
       .cards { grid-template-columns: 1fr; gap: 16px; }
       .hero h1 { font-size: 34px; }
@@ -464,10 +648,17 @@
       .stat:nth-child(3) { border-top: 1px solid rgba(255,255,255,.08); }
       nav { padding: 0 5%; }
       .nav-link { display: none; }
+      .steps { grid-template-columns: 1fr; gap: 36px; }
+      .steps::before { display: none; }
+    }
+    @media (max-width: 600px) {
+      .footer-main { grid-template-columns: 1fr; gap: 28px; }
+      .foot-brand { grid-column: auto; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 520px) {
       .trust-inner { gap: 12px; }
-      footer { flex-direction: column; align-items: flex-start; }
+      .hero-ctas { flex-direction: column; align-items: center; }
     }
 
     /* Entrance animation */
@@ -478,6 +669,7 @@
     .hero-eyebrow-wrap { animation: fadeUp .6s ease both; }
     .hero h1           { animation: fadeUp .7s .1s ease both; }
     .hero-sub          { animation: fadeUp .7s .2s ease both; }
+    .hero-ctas         { animation: fadeUp .7s .25s ease both; }
     .hero-pills        { animation: fadeUp .7s .3s ease both; }
     .cards             { animation: fadeUp .8s .4s ease both; }
     .trust             { animation: fadeUp .6s .6s ease both; }
@@ -530,11 +722,20 @@
 
     <p class="hero-sub">
       Carica il file XBRL dal Registro Imprese e ottieni in <strong style="color:rgba(255,255,255,.85);font-weight:500">10 secondi</strong> indici EBA,
-      rating bancabilità A–E, Altman Z'-Score e confronto con 18 settori ATECO.<br/>
-      Oppure costruisci un <strong style="color:rgba(255,255,255,.85);font-weight:500">business plan finanziario a 3 anni</strong> con modello
-      CE+SP+CF integrato, DSCR proiettato e scenario stress −20% — conforme EBA/GL/2020/06.<br/>
+      rating bancabilità A–E e confronto con 18 settori ATECO.<br/>
+      Oppure costruisci un <strong style="color:rgba(255,255,255,.85);font-weight:500">business plan 3 anni</strong> con CE, Stato Patrimoniale,
+      Cash Flow e DSCR proiettato — conforme EBA/GL/2020/06.<br/>
       <span style="color:rgba(255,255,255,.45);font-size:15px">Nessun abbonamento. Paghi solo il report che scarichi.</span>
     </p>
+
+    <div class="hero-ctas">
+      <a href="importa-xbrl.html" class="hero-btn-primary">
+        Analizza il bilancio →
+      </a>
+      <a href="business-plan.html" class="hero-btn-secondary">
+        Crea un Business Plan
+      </a>
+    </div>
 
     <div class="hero-pills">
       <div class="hero-pill"><span>📁</span> XBRL InfoCamere &amp; CCIAA</div>
@@ -719,6 +920,66 @@
   </div>
 </div>
 
+<!-- ── COME FUNZIONA ── -->
+<section class="come-funziona">
+  <div class="section-label">Come funziona</div>
+  <h2 class="section-title">Tre passi verso il tuo report</h2>
+  <p class="section-sub">Nessuna installazione, nessun abbonamento. Tutto dal browser in meno di 5 minuti.</p>
+
+  <div class="cf-tabs">
+    <button class="cf-tab active-b" onclick="switchTab('bilancio', this)">📊 Analisi di Bilancio</button>
+    <button class="cf-tab" onclick="switchTab('bp', this)">📋 Business Plan</button>
+  </div>
+
+  <!-- Analisi Bilancio -->
+  <div class="cf-panel active" id="panel-bilancio">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">📁</div>
+        <div class="step-title">Carica il file XBRL</div>
+        <p class="step-desc">Scarica il bilancio in formato XBRL da InfoCamere o dal Registro Imprese della CCIAA. Trascina il file nella pagina — nessuna registrazione richiesta.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">⚡</div>
+        <div class="step-title">Analisi automatica in 10 secondi</div>
+        <p class="step-desc">Il sistema calcola oltre 12 indici finanziari: ROE, ROI, DSCR, ICR, PFN/EBITDA, Altman Z'-Score e li confronta con i benchmark di 18 settori ATECO.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">📄</div>
+        <div class="step-title">Scarica il report PDF</div>
+        <p class="step-desc">Ottieni un report professionale con rating bancabilità A–E, semaforo EBA, analisi del rischio e commento narrativo. Pronto per banca, commercialista o advisor.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Business Plan -->
+  <div class="cf-panel" id="panel-bp">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">📊</div>
+        <div class="step-title">Inserisci i dati storici</div>
+        <p class="step-desc">Carica il bilancio XBRL esistente oppure inserisci manualmente ricavi, EBITDA e struttura patrimoniale dell'ultimo esercizio come punto di partenza.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">🎯</div>
+        <div class="step-title">Scegli lo scenario di crescita</div>
+        <p class="step-desc">Seleziona uno scenario predefinito (conservativo, moderato, ottimistico) oppure personalizza ogni ipotesi: tasso di crescita, CAPEX, personale e finanziamenti.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">📑</div>
+        <div class="step-title">Genera il Business Plan</div>
+        <p class="step-desc">Il modello produce CE, Stato Patrimoniale e Cash Flow integrati per 3 anni, con DSCR proiettato, break-even analysis e scenario stress −20% ricavi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── STATS ── -->
 <div class="stats">
   <div class="stats-inner">
@@ -741,16 +1002,160 @@
   </div>
 </div>
 
+<!-- ── FAQ ── -->
+<section class="faq-section">
+  <div class="section-label">Domande frequenti</div>
+  <h2 class="section-title">Tutto quello che vuoi sapere</h2>
+  <p class="section-sub">Non trovi la risposta? Scrivici a <a href="mailto:info@analisiebusinessplan.it" style="color:#60a5fa">info@analisiebusinessplan.it</a></p>
+
+  <div class="faq-grid">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Dove trovo il file XBRL del bilancio?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Il file XBRL è il bilancio depositato al Registro Imprese in formato digitale. Puoi scaricarlo gratuitamente dal portale <strong>InfoCamere / Telemaco</strong> oppure dalla CCIAA della tua provincia. Cerca "visura bilancio XBRL" nella sezione documenti dell'impresa. Il file ha estensione <code>.xbrl</code> oppure è dentro uno ZIP — in tal caso estrailo prima di caricarlo.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        I miei dati vengono conservati o ceduti a terzi?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          No. I dati del file XBRL vengono elaborati in tempo reale e non vengono mai salvati sui nostri server. Il report generato viene trasmesso direttamente al tuo browser. I tuoi progetti vengono salvati in locale sul tuo dispositivo (localStorage) e rimangono esclusivamente sotto il tuo controllo. Non vendiamo né condividiamo dati con terze parti.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Il report è accettato dalla banca o dal commercialista?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Il report è prodotto seguendo le <strong>Linee Guida EBA/GL/2020/06</strong> (obbligatorie per gli istituti di credito europei dal 30/06/2021) e il <strong>D.Lgs. 14/2019 (Codice della Crisi d'Impresa)</strong>. Gli indicatori calcolati — DSCR, ICR, PFN/EBITDA, Current Ratio — sono esattamente quelli che le banche usano per classificare le imprese in Stage 1, 2 o 3. Il documento PDF è strutturato in modo da supportare la presentazione a istituti di credito, advisor e commercialisti.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Funziona anche per bilanci abbreviati e micro-imprese?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Sì. Il sistema supporta sia il formato XBRL ordinario che il formato <strong>abbreviato</strong> (art. 2435-bis c.c.) e il formato <strong>micro-impresa</strong> (art. 2435-ter c.c.). Quando alcuni dati non sono disponibili nello schema abbreviato, gli indici che richiedono quei dati vengono mostrati come N/A con la motivazione specifica — il rating viene comunque calcolato sugli indici disponibili.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Come funziona il pagamento? C'è un abbonamento?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Non c'è nessun abbonamento. Paghi solo quando scarichi il report finale: <strong>€ 34,99</strong> per l'analisi di bilancio e <strong>€ 149,00</strong> per il business plan finanziario. L'analisi e l'anteprima sono completamente gratuite — paghi solo se sei soddisfatto del risultato e vuoi il PDF completo pronto per la stampa.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Posso analizzare più anni e confrontarli?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Sì. La sezione <strong>Analisi Multi-Anno</strong> permette di caricare fino a 3 esercizi (es. 2022, 2023, 2024) e confrontare l'andamento degli indici nel tempo con grafici a barre e variazioni percentuali. È particolarmente utile per evidenziare trend di miglioramento o deterioramento nella presentazione a banche o investitori.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="foot-logo">Analisi<em>e</em>BusinessPlan</div>
-  <div class="foot-copy">© 2026 AnalisiEBusinessPlan.it · P.IVA in fase di registrazione</div>
-  <div class="foot-links">
-    <a href="/privacy.html">Privacy</a>
-    <a href="/termini.html">Termini</a>
-    <a href="mailto:info@analisiebusinessplan.it">Contatti</a>
+  <div class="footer-main">
+    <div class="foot-brand">
+      <span class="foot-logo">Analisi<em>e</em>BusinessPlan</span>
+      <p>Software professionale per l'analisi di bilancio XBRL e la redazione di business plan finanziari. Pensato per PMI, commercialisti e consulenti aziendali italiani.</p>
+      <div class="foot-badges">
+        <span class="foot-badge">EBA/GL/2020/06</span>
+        <span class="foot-badge">D.Lgs. 14/2019</span>
+        <span class="foot-badge">XBRL 2018</span>
+        <span class="foot-badge">Altman Z'-Score</span>
+      </div>
+    </div>
+
+    <div class="foot-col">
+      <h4>Strumenti</h4>
+      <ul>
+        <li><a href="importa-xbrl.html">Analisi di Bilancio</a></li>
+        <li><a href="bilancio-multianno.html">Analisi Multi-Anno</a></li>
+        <li><a href="business-plan.html">Business Plan</a></li>
+        <li><a href="dashboard.html">I miei progetti</a></li>
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h4>Account</h4>
+      <ul>
+        <li><a href="auth.html">Accedi</a></li>
+        <li><a href="auth.html#register">Registrati</a></li>
+        <li><a href="account.html">Il mio account</a></li>
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h4>Informazioni</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="termini.html">Termini di servizio</a></li>
+        <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        <li><a href="mailto:info@analisiebusinessplan.it">Contattaci</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 AnalisiEBusinessPlan.it — P.IVA in fase di registrazione — Tutti i diritti riservati</p>
+    <p>
+      <a href="privacy.html">Privacy</a> ·
+      <a href="termini.html">Termini</a> ·
+      <a href="cookie-policy.html">Cookie</a>
+    </p>
   </div>
 </footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.cf-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.cf-tab').forEach(function(t){
+    t.classList.remove('active-b','active-g');
+  });
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add(id === 'bilancio' ? 'active-b' : 'active-g');
+}
+
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i){ i.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 
 <script src="/cookie-banner.js"></script>
 </body>
