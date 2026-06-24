@@ -1234,12 +1234,12 @@ function parseXBRL(xml){
   // STATO PATRIMONIALE PASSIVO
   // ════════════════════════════════
 
-  // Debiti verso fornitori (per DPO)
-  const debiti_fornitori = getVal(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori'], ctxCorrI);
+  // Debiti verso fornitori (per DPO) — prova più tag (schema abbreviato vs completo)
+  const debiti_fornitori = getVal(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitori'], ctxCorrI);
 
-  // Debiti bancari
-  const deb_bt  = getVal(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo'], ctxCorrI);
-  const deb_mlt = getVal(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo'], ctxCorrI);
+  // Debiti bancari — prova più tag
+  const deb_bt  = getVal(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheBreveTermine'], ctxCorrI);
+  const deb_mlt = getVal(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheLungoTermine'], ctxCorrI);
 
   // Patrimonio netto
   const cap_soc = getVal(['PatrimonioNettoCapitale'], ctxCorrI);

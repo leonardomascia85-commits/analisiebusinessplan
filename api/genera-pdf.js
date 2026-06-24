@@ -48,9 +48,14 @@ function calcIndici(d) {
   const dscr_formula = servizio > 0
     ? (fco !== null ? 'FCO/DS (CCII)' : hasTasse ? '(EBITDA−Tax)/DS (EBA)' : ebitda > 0 ? 'EBITDA/DS' : 'EBIT/DS')
     : null;
-  const dsi = d.mat_prime > 0 && d.rimanenze > 0 ? d.rimanenze / d.mat_prime * 365 : NaN;
+  // DSI: usa totale costi variabili come proxy COGS (mat_prime spesso sottostima nei bilanci abbreviati)
+  const cogsForDsi = Math.max((d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0) + (d.var_mat || 0), d.mat_prime || 0, d.tot_cos || 0) || (d.mat_prime || 0);
+  const dsi = cogsForDsi > 0 && d.rimanenze > 0 ? d.rimanenze / cogsForDsi * 365 : NaN;
   const dso = d.ric_vend > 0 && d.cred_cl > 0 ? d.cred_cl / d.ric_vend * 365 : NaN;
-  const dpo = d.mat_prime > 0 && d.deb_for > 0 ? d.deb_for / d.mat_prime * 365 : NaN;
+  // DPO: usa deb_for se disponibile, altrimenti stima da alt_deb (bilancio abbreviato)
+  const debForDpo = (d.deb_for || 0) > 0 ? d.deb_for : 0;
+  const costsForDpo = (d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0);
+  const dpo = debForDpo > 0 && costsForDpo > 0 ? debForDpo / costsForDpo * 365 : NaN;
   const ccn_giorni = (!isNaN(dsi) && !isNaN(dso) && !isNaN(dpo)) ? dsi + dso - dpo : NaN;
   return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, dscr_formula, servizio, dsi, dso, dpo, ccn_giorni };
 }
@@ -733,11 +738,15 @@ function buildReportHTML(data, config) {
       <tr class="sub"><td>Capitale sociale</td><td class="r">${fmt(d.cap_sociale)}</td>${d1?`<td class="r">${fmt(d1.cap_sociale)}</td><td></td>`:''}</tr>
       <tr class="sub"><td>Utile / Perdita esercizio</td><td class="r ${(d.utile_es||0)>=0?'pos':'neg'}">${fmt(d.utile_es)}</td>${d1?`<td class="r">${fmt(d1.utile_es)}</td><td></td>`:''}</tr>
       <tr class="tot"><td>D) Debiti totali</td><td class="r">${fmt(d.tot_deb)}</td>${d1?`<td class="r">${fmt(d1.tot_deb)}</td><td class="r ${varCls(d.tot_deb,d1.tot_deb,true)}">${varPct(d.tot_deb,d1.tot_deb)}</td>`:''}</tr>
-      <tr class="sub"><td>Debiti verso banche (bt+lt)</td><td class="r">${fmt((d.deb_b_bt||0)+(d.deb_b_lt||0))}</td>${d1?`<td class="r">${fmt((d1.deb_b_bt||0)+(d1.deb_b_lt||0))}</td><td></td>`:''}</tr>
-      <tr class="sub"><td>Debiti verso fornitori</td><td class="r">${fmt(d.deb_for)}</td>${d1?`<td class="r">${fmt(d1.deb_for)}</td><td></td>`:''}</tr>
+      ${(d.alt_deb||0)>0&&(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)===0
+        ? `<tr class="sub"><td>Debiti aggregati <span style="font-size:8px;color:#94A3B8">(bilancio abbreviato)</span></td><td class="r">${fmt(d.alt_deb)}</td>${d1?`<td class="r">${fmt(d1.alt_deb)}</td><td></td>`:''}</tr>`
+        : `<tr class="sub"><td>Debiti verso banche (bt+lt)</td><td class="r">${fmt((d.deb_b_bt||0)+(d.deb_b_lt||0))}</td>${d1?`<td class="r">${fmt((d1.deb_b_bt||0)+(d1.deb_b_lt||0))}</td><td></td>`:''}</tr>
+      <tr class="sub"><td>Debiti verso fornitori</td><td class="r">${fmt(d.deb_for)}</td>${d1?`<td class="r">${fmt(d1.deb_for)}</td><td></td>`:''}</tr>`
+      }
       <tr class="tot-main"><td>TOTALE PASSIVO</td><td class="r">${fmt(d.tot_att)}</td>${d1?`<td class="r">${fmt(d1.tot_att)}</td><td></td>`:''}</tr>
     </tbody>
   </table>
+  ${(d.alt_deb||0)>0&&(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)===0?`<div style="font-size:8px;color:#64748B;margin-top:6px;padding:4px 6px;background:#F8FAFC;border-left:2px solid #CBD5E1;border-radius:0 4px 4px 0">* Bilancio in forma abbreviata: il dettaglio dei debiti per natura (banche, fornitori, tributari) non è disponibile nell'XBRL. Il totale debiti comprende tutte le categorie aggregate.</div>`:''}
   <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 3</span></div>
 </div>
 
@@ -893,7 +902,7 @@ function buildReportHTML(data, config) {
       <div class="ind-name">Rotazione Rimanenze (DSI)</div><div class="ind-acro">Days Sales in Inventory</div>
       <div class="ind-val" style="color:${isNaN(c.dsi)?'#94A3B8':c.dsi<=60?'#059669':c.dsi<=90?'#D97706':'#DC2626'}">${fgg(c.dsi)}</div>
       <span class="ind-badge ${isNaN(c.dsi)?'ib-a':c.dsi<=60?'ib-g':c.dsi<=90?'ib-a':'ib-r'}">${isNaN(c.dsi)?'n.d.':c.dsi<=60?'✓ Buono':c.dsi<=90?'⚠ Nella norma':'✗ Lento'}</span>
-      <div class="ind-formula">(Rimanenze / Costo del Venduto) × 365</div>
+      <div class="ind-formula">(Rimanenze / Totale costi variabili) × 365</div>
       <div class="ind-bench">Manifattura: <span>45–90 gg</span> · Commercio: <span>30–60 gg</span></div>
       <div class="ind-desc">Ogni quanti giorni il magazzino viene rinnovato. Alta rotazione = efficienza. Bassa rotazione = capitale immobilizzato.</div>
       <div class="ind-interp">${isNaN(c.dsi)?'Inserire rimanenze e costo del venduto.':c.dsi<=60?`Buona rotazione (${fgg(c.dsi)}): magazzino efficiente.`:c.dsi<=90?`Nella norma (${fgg(c.dsi)}): monitorare per evitare accumulo scorte obsolete.`:`Lento (${fgg(c.dsi)}): capitale immobilizzato in magazzino. Valutare promozioni o razionalizzazione dell'assortimento.`}</div>

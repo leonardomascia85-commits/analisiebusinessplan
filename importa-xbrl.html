@@ -320,10 +320,12 @@
         tot_att:get('TotaleAttivo',ctxI),cap_sociale:get('PatrimonioNettoCapitale',ctxI),
         utili_pn:get('PatrimonioNettoUtiliPerditePortatiNuovo',ctxI),
         utile_es:get('PatrimonioNettoUtilePerditaEsercizio',ctxI),tot_pn:get('TotalePatrimonioNetto',ctxI),
-        deb_b_bt:get('DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',ctxI),
-        deb_b_lt:get('DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI),
-        deb_for:get('DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI),
-        deb_trib:get('DebitiDebitiTributariTotaleDebitiTributari',ctxI),
+        deb_b_bt:get('DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheBreveTermine',ctxI),
+        deb_b_lt:get('DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheLungoTermine',ctxI),
+        deb_for:get('DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI)||get('DebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI)||get('DebitiVersoFornitori',ctxI),
+        deb_trib:get('DebitiDebitiTributariTotaleDebitiTributari',ctxI)||get('DebitiTributariTotaleDebitiTributari',ctxI)||get('DebitiTributari',ctxI),
+        deb_prev:get('DebitiDebitiVersoIstitutiPrevidenzialiTotaleDebitiVersoIstitutiPrevidenziali',ctxI)||get('DebitiVersoIstitutiPrevidenziali',ctxI),
+        alt_deb_other:get('DebitiAltriDebitiTotaleAltriDebiti',ctxI)||get('AltriDebitiTotale',ctxI)||get('AltriDebiti',ctxI),
         tot_deb:get('TotaleDebiti',ctxI),
         ric_vend:get('ValoreProduzioneRicaviVenditePrestazioni',ctxD),
         alt_ric:get('ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi',ctxD),
@@ -339,9 +341,14 @@
         imposte:get('ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate',ctxD),
         utile_n:get('UtilePerditaEsercizio',ctxD),
       };
-      // schema abbreviato: se debiti specifici tutti 0 ma tot_deb > 0, metti in alt_deb
-      if(d.tot_deb>0&&(d.deb_b_bt+d.deb_b_lt+d.deb_for+d.deb_trib)===0){
+      // schema abbreviato: se debiti specifici tutti 0 ma tot_deb > 0, aggrega in alt_deb
+      const granularDeb=(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)+(d.deb_trib||0)+(d.deb_prev||0)+(d.alt_deb_other||0);
+      if(d.tot_deb>0&&granularDeb===0){
         d.alt_deb=d.tot_deb;
+        d._bilancio_abbreviato=true;
+      } else if(granularDeb>0&&granularDeb<d.tot_deb){
+        // Differenza residua va in alt_deb (debiti non classificati)
+        d.alt_deb_other=(d.alt_deb_other||0)+(d.tot_deb-granularDeb);
       }
       return d;
     };
