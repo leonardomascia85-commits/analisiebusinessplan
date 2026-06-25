@@ -447,11 +447,17 @@ async function downloadReport(tipo) {
     ${idxRow('ICR — Interest Coverage', fx(c.icr), 3.0, 1.5, true, icrNote)}
   `;
 
+  const reportType = config.report_type || 'cliente';
+  const reportTypeBadge = reportType === 'banca'
+    ? `<div style="display:inline-block;margin-top:8px;padding:4px 12px;background:rgba(30,64,175,.15);border:1px solid #1d4ed8;border-radius:20px;color:#93c5fd;font-size:0.75em;font-weight:600;letter-spacing:.05em">🏦 DOCUMENTO TECNICO PER ISTRUTTORIA BANCARIA</div>`
+    : `<div style="display:inline-block;margin-top:8px;padding:4px 12px;background:rgba(5,150,105,.12);border:1px solid #059669;border-radius:20px;color:#6ee7b7;font-size:0.75em;font-weight:600;letter-spacing:.05em">👤 REPORT CONSULENZIALE PER IL CLIENTE</div>`;
+
   container.innerHTML = `
     <div class="hero">
       <div class="hero-sub">Report Analisi di Bilancio</div>
       <div class="hero-title">${escHtml(config.nome || 'Azienda')} — Esercizio ${escHtml(String(config.anno || ''))}</div>
       <div class="hero-date">Elaborato il ${escHtml(config.dataReport || '')}</div>
+      ${reportTypeBadge}
       <div class="hero-badges">
         <div class="rating-badge" style="background:${ratingBg};border:1px solid ${ratingBorder};">
           <div class="rating-letter" style="color:${rating.color};">${rating.l}</div>

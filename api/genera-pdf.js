@@ -420,6 +420,7 @@ function buildReportHTML(data, config) {
   const analista = config.analista || 'AnalisiEBusinessPlan.it';
   const dataReport = config.dataReport || new Date().toLocaleDateString('it-IT');
   const note = config.note || '';
+  const isBanca = (config.report_type || 'cliente') === 'banca';
   const colore = config.colore === 'green' ? '#059669' : config.colore === 'dark' ? '#1E293B' : '#1D4ED8';
   const narrative = buildNarrative(c, d);
   const d1 = data._prev || null;
@@ -640,7 +641,7 @@ function buildReportHTML(data, config) {
 <div class="cover">
   <div style="position:relative;z-index:1;">
     <div class="cv-brand">AnalisiEBusinessPlan.it — Software professionale di analisi bilancio</div>
-    <div class="cv-tipo">Analisi di Bilancio d'Esercizio</div>
+    <div class="cv-tipo">Analisi di Bilancio d'Esercizio${isBanca?' — Documento tecnico per istruttoria bancaria':' — Report consulenziale'}</div>
     <div class="cv-nome">${nome}</div>
     <div class="cv-sub">Esercizio chiuso al 31/12/${anno}</div>
     <div class="cv-chip">
@@ -662,7 +663,7 @@ function buildReportHTML(data, config) {
       <div class="cv-kpi-item"><div class="cv-kpi-lbl">ROI</div><div class="cv-kpi-v">${fp(c.roi)}</div></div>
       <div class="cv-kpi-item"><div class="cv-kpi-lbl">PFN/EBITDA</div><div class="cv-kpi-v">${(!isNaN(c.pfn_ebitda)&&c.pfn_ebitda>0)?fx(c.pfn_ebitda):(c.pfn<=0?'< 0':'—')}</div></div>
     </div>
-    <div class="cv-footer">Documento riservato · AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + Trigger CCII</div>
+    <div class="cv-footer">${isBanca?'Documento tecnico riservato a istituti di credito · Solo valori e indici, senza suggerimenti consulenziali ·':'Documento riservato ·'} AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + Trigger CCII</div>
   </div>
 </div>
 
@@ -1159,7 +1160,10 @@ module.exports = function handler(req, res) {
   const { data, config } = req.body;
   if (!data) return res.status(400).json({ error: 'Dati bilancio mancanti' });
   try {
-    const html = buildReportHTML(data, config || {});
+    let html = buildReportHTML(data, config || {});
+    if ((config || {}).report_type === 'banca') {
+      html = html.replace(/<div class="ind-action">[\s\S]*?<\/div>/g, '');
+    }
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-cache');
     res.status(200).send(html);

@@ -729,7 +729,8 @@
       <!-- ACTIONS -->
       <div class="rcard">
         <div class="actions">
-          <button class="btn-p" id="btn-report" onclick="generaReport()" disabled>📋 Vedi Report →</button>
+          <button class="btn-p" id="btn-report-banca" onclick="generaReport('banca')" disabled style="background:linear-gradient(135deg,#1e40af,#1d4ed8)">🏦 Report Banca →</button>
+          <button class="btn-p" id="btn-report-cliente" onclick="generaReport('cliente')" disabled>👤 Report Cliente →</button>
           <button class="btn-p" id="btn-bp" onclick="apriBusinessPlan()" disabled style="background:linear-gradient(135deg,#16a34a,#15803d)">📊 Crea Business Plan →</button>
           <button class="btn-g" onclick="resetAll()">Reset</button>
         </div>
@@ -1073,10 +1074,12 @@ function onInput(el){
 
 function updateStatusBadge(){
   const badge=document.getElementById('r-status');
-  const btn=document.getElementById('btn-report');
   const anyFilled=filled.some(f=>f);
   if(badge){badge.textContent=anyFilled?'Dati inseriti ✓':'In attesa dati';badge.className='rbadge '+(anyFilled?'bg2':'bw');}
-  if(btn)btn.disabled=!filled[0];
+  const btnB=document.getElementById('btn-report-banca');
+  const btnC=document.getElementById('btn-report-cliente');
+  if(btnB)btnB.disabled=!filled[0];
+  if(btnC)btnC.disabled=!filled[0];
 }
 
 function loadYearIntoForm(y){
@@ -1159,7 +1162,7 @@ function buildAnnoData(yi){
   };
 }
 
-async function generaReport() {
+async function generaReport(tipo) {
   const mainData = buildAnnoData(0);
   if(filled[1]) mainData._prev = buildAnnoData(1);
   const payload = {
@@ -1168,6 +1171,7 @@ async function generaReport() {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
       anno: document.getElementById('ysel-0')?.value || '2024',
       dataReport: new Date().toLocaleDateString('it-IT'),
+      report_type: tipo || 'cliente',
     }
   };
   sessionStorage.setItem('abp_report_payload', JSON.stringify(payload));
