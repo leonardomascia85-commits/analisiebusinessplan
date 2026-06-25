@@ -116,7 +116,29 @@
     .alert-info{background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:var(--radius-sm);padding:14px 18px;font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:24px;}
     .alert-info a{color:var(--blue);}
 
-    @media(max-width:700px){.upload-grid,.info-grid,.anno-grid,.rb-grid{grid-template-columns:1fr;}}
+    /* DETTAGLIO ABBREVIATO */
+    .abbr-box{background:var(--white);border:2px solid #FDE68A;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px;display:none;}
+    .abbr-box.show{display:block;}
+    .abbr-header{background:#FFFBEB;border-bottom:1px solid #FDE68A;padding:16px 22px;display:flex;align-items:center;gap:12px;}
+    .abbr-header-icon{font-size:20px;}
+    .abbr-header-text{flex:1;}
+    .abbr-title{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#92400E;margin-bottom:2px;}
+    .abbr-subtitle{font-size:12px;color:#78350F;line-height:1.5;}
+    .abbr-body{padding:20px 22px;}
+    .abbr-intro{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:18px;padding:10px 14px;background:#FFFBEB;border-radius:var(--radius-sm);border:1px solid #FDE68A;}
+    .abbr-sections{display:flex;flex-direction:column;gap:18px;}
+    .abbr-section-title{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;}
+    .abbr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .abbr-field{display:flex;flex-direction:column;gap:4px;}
+    .abbr-label{font-size:12px;color:var(--ink3);font-weight:500;}
+    .abbr-label span{font-size:10px;color:var(--ink4);font-weight:400;}
+    .abbr-input{background:var(--white);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:8px 11px;font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);width:100%;transition:border-color .15s;}
+    .abbr-input:focus{outline:none;border-color:var(--blue);}
+    .abbr-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .abbr-skip{font-size:12px;color:var(--ink4);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;}
+    .abbr-skip:hover{color:var(--ink3);}
+
+    @media(max-width:700px){.upload-grid,.info-grid,.anno-grid,.rb-grid,.abbr-grid{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
@@ -217,6 +239,86 @@
       <button class="btn-primary" onclick="window.location.href='bilancio-multianno.html'">Vai all'analisi completa →</button>
       <button class="btn-secondary" onclick="caricaAltro()">Carica altro anno</button>
       <button class="btn-secondary" onclick="resetAll()">Ricomincia</button>
+    </div>
+  </div>
+
+  <!-- PANNELLO DETTAGLIO BILANCIO ABBREVIATO -->
+  <div class="abbr-box" id="abbr-box">
+    <div class="abbr-header">
+      <div class="abbr-header-icon">📋</div>
+      <div class="abbr-header-text">
+        <div class="abbr-title">Il bilancio caricato è in forma abbreviata</div>
+        <div class="abbr-subtitle">Alcune informazioni di dettaglio non sono presenti nell'XBRL. Forniscile per migliorare l'analisi.</div>
+      </div>
+    </div>
+    <div class="abbr-body">
+      <div class="abbr-intro">
+        ℹ️ Le società che redigono il bilancio in <strong>forma abbreviata</strong> (art. 2435-bis c.c.) non sono obbligate a indicare il dettaglio dei debiti per natura né a separare oneri finanziari e imposte nel conto economico. Queste informazioni sono tuttavia fondamentali per calcolare correttamente <strong>DSCR, PFN, DPO e rating bancario</strong>. La compilazione è <em>facoltativa</em> — senza di esse l'analisi utilizza i dati aggregati disponibili.
+      </div>
+
+      <div class="abbr-sections">
+
+        <!-- DEBITI PER NATURA -->
+        <div>
+          <div class="abbr-section-title">🏦 Debiti per natura <span style="font-size:10px;color:var(--ink4);text-transform:none;font-weight:400">(totale rilevato: <span id="abbr-tot-deb">—</span>)</span></div>
+          <div class="abbr-grid">
+            <div class="abbr-field">
+              <label class="abbr-label">Debiti verso banche — breve termine <span>(entro 12 mesi)</span></label>
+              <input type="number" class="abbr-input" id="abbr-deb-b-bt" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Debiti verso banche — lungo termine <span>(oltre 12 mesi)</span></label>
+              <input type="number" class="abbr-input" id="abbr-deb-b-lt" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Debiti verso fornitori</label>
+              <input type="number" class="abbr-input" id="abbr-deb-for" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Debiti tributari <span>(IVA, IRES/IRAP a saldo)</span></label>
+              <input type="number" class="abbr-input" id="abbr-deb-trib" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Debiti vs istituti previdenziali <span>(INPS, INAIL)</span></label>
+              <input type="number" class="abbr-input" id="abbr-deb-prev" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Altri debiti <span>(soci, personale, altri)</span></label>
+              <input type="number" class="abbr-input" id="abbr-deb-altri" placeholder="0" min="0" step="1">
+            </div>
+          </div>
+          <div id="abbr-deb-check" style="font-size:11px;margin-top:8px;display:none;padding:6px 10px;border-radius:6px;"></div>
+        </div>
+
+        <!-- CONTO ECONOMICO -->
+        <div>
+          <div class="abbr-section-title">📊 Conto Economico — voci non estratte dall'XBRL</div>
+          <div class="abbr-grid">
+            <div class="abbr-field">
+              <label class="abbr-label">Ammortamenti e svalutazioni <span>(B.10 CE)</span></label>
+              <input type="number" class="abbr-input" id="abbr-ammort" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Oneri finanziari netti <span>(C.17 CE — interessi passivi)</span></label>
+              <input type="number" class="abbr-input" id="abbr-oneri-f" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Imposte sul reddito <span>(IRES + IRAP)</span></label>
+              <input type="number" class="abbr-input" id="abbr-imposte" placeholder="0" min="0" step="1">
+            </div>
+            <div class="abbr-field">
+              <label class="abbr-label">Rata mutuo/leasing annua <span>(cap. + int. — se esistente)</span></label>
+              <input type="number" class="abbr-input" id="abbr-rata" placeholder="0" min="0" step="1">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="abbr-footer">
+      <button class="btn-primary" onclick="applicaDettaglioAbbreviato()">✓ Applica e migliora analisi</button>
+      <button class="btn-secondary" onclick="saltaDettaglioAbbreviato()">Continua senza dettaglio</button>
+      <button class="abbr-skip" onclick="saltaDettaglioAbbreviato()">Salta questo passaggio →</button>
     </div>
   </div>
 
@@ -574,18 +676,98 @@
     se('rb-utile',fmt(d.utile_es||d.utile_n));se('rb-of',fmt(d.oneri_f));
     se('rb-roe',fp(d.roe));se('rb-roi',fp(d.roi));se('rb-cr',fx(d.cr));se('rb-pfn',fmt(d.pfn));
     se('rb-title','✅ '+(d.nome||'Bilancio')+' — '+(d._annoEsercizio||['2024','2023','2022'][selectedAnno]));
-    sessionStorage.setItem('bilancio_anno_'+selectedAnno,JSON.stringify({...parsedData,_anno:selectedAnno}));
+
+    // Mostra pannello bilancio abbreviato se rilevato
+    if(d._bilancio_abbreviato){
+      const abbrBox=document.getElementById('abbr-box');
+      abbrBox.classList.add('show');
+      se('abbr-tot-deb',fmt(d.tot_deb));
+      // Pre-compila con i valori eventualmente già estratti
+      const setInp=(id,v)=>{if(v&&v>0){const el=document.getElementById(id);if(el)el.value=v;}};
+      setInp('abbr-deb-b-bt',d.deb_b_bt);setInp('abbr-deb-b-lt',d.deb_b_lt);
+      setInp('abbr-deb-for',d.deb_for);setInp('abbr-deb-trib',d.deb_trib);
+      setInp('abbr-deb-prev',d.deb_prev);
+      setInp('abbr-ammort',d.ammort);setInp('abbr-oneri-f',d.oneri_f);setInp('abbr-imposte',d.imposte);
+      // Live check somma debiti
+      ['abbr-deb-b-bt','abbr-deb-b-lt','abbr-deb-for','abbr-deb-trib','abbr-deb-prev','abbr-deb-altri'].forEach(id=>{
+        document.getElementById(id)?.addEventListener('input',checkDebTotale);
+      });
+      // Scroll al pannello
+      setTimeout(()=>abbrBox.scrollIntoView({behavior:'smooth',block:'nearest'}),300);
+    } else {
+      salvaSessionStorage(d);
+    }
+  }
+
+  function checkDebTotale(){
+    const ids=['abbr-deb-b-bt','abbr-deb-b-lt','abbr-deb-for','abbr-deb-trib','abbr-deb-prev','abbr-deb-altri'];
+    const somma=ids.reduce((s,id)=>s+(parseFloat(document.getElementById(id)?.value)||0),0);
+    const tot=parsedData.tot_deb||0;
+    const el=document.getElementById('abbr-deb-check');
+    if(!el||somma===0)return;
+    el.style.display='block';
+    const diff=Math.abs(somma-tot);
+    const pct=tot>0?diff/tot*100:100;
+    if(pct<1){
+      el.style.background='#ECFDF5';el.style.color='#065F46';el.style.border='1px solid #A7F3D0';
+      el.textContent='✓ Totale inserito ('+new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(somma)+') corrisponde al totale debiti del bilancio.';
+    } else if(pct<5){
+      el.style.background='#FFFBEB';el.style.color='#78350F';el.style.border='1px solid #FDE68A';
+      el.textContent='⚠ Piccola differenza di '+new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(diff)+' rispetto al totale ('+new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(tot)+'). Potrebbe esserci una voce non inserita.';
+    } else {
+      el.style.background='#FEF2F2';el.style.color='#991B1B';el.style.border='1px solid #FECACA';
+      el.textContent='✗ Totale inserito ('+new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(somma)+') diverso dal totale debiti ('+new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(tot)+'). Verifica le voci.';
+    }
+  }
+
+  function applicaDettaglioAbbreviato(){
+    const g=(id)=>parseFloat(document.getElementById(id)?.value)||0;
+    const patch={
+      deb_b_bt:g('abbr-deb-b-bt'),deb_b_lt:g('abbr-deb-b-lt'),
+      deb_for:g('abbr-deb-for'),deb_trib:g('abbr-deb-trib'),
+      deb_prev:g('abbr-deb-prev'),alt_deb_other:g('abbr-deb-altri'),
+      ammort:g('abbr-ammort')||parsedData.ammort||0,
+      oneri_f:g('abbr-oneri-f')||parsedData.oneri_f||0,
+      imposte:g('abbr-imposte')||parsedData.imposte||0,
+      rate_cap:g('abbr-rata')||parsedData.rate_cap||0,
+      _dettaglio_manuale:true,
+    };
+    // Se il dettaglio debiti finanziari è ora noto, rimuovi alt_deb
+    if(patch.deb_b_bt+patch.deb_b_lt>0||patch.deb_for>0||patch.deb_trib>0||patch.deb_prev>0||patch.alt_deb_other>0){
+      patch.alt_deb=0;
+    }
+    Object.assign(parsedData,patch);
+    // Ricalcola indici con i nuovi dati
+    const ind=computeIndici(parsedData);Object.assign(parsedData,ind);
+    // Aggiorna i KPI mostrati nei risultati
+    se('rb-of',fmt(parsedData.oneri_f));se('rb-pfn',fmt(parsedData.pfn));
+    document.getElementById('abbr-box').classList.remove('show');
+    salvaSessionStorage(parsedData);
+    // Feedback visivo
+    const rb=document.getElementById('results-box');
+    rb.style.borderColor='#059669';
+    setTimeout(()=>rb.style.borderColor='',1500);
+  }
+
+  function saltaDettaglioAbbreviato(){
+    document.getElementById('abbr-box').classList.remove('show');
+    salvaSessionStorage(parsedData);
+  }
+
+  function salvaSessionStorage(d){
+    sessionStorage.setItem('bilancio_anno_'+selectedAnno,JSON.stringify({...d,_anno:selectedAnno}));
     // Salva automaticamente anno precedente se presente nel file XBRL
-    if(parsedData._prevXBRL&&selectedAnno===0){
+    if(d._prevXBRL&&selectedAnno===0){
       const prevIdx=1;
-      sessionStorage.setItem('bilancio_anno_'+prevIdx,JSON.stringify({...parsedData._prevXBRL,
-        nome:parsedData.nome,piva:parsedData.piva,forma:parsedData.forma,ateco:parsedData.ateco,
-        _anno:prevIdx,_annoEsercizio:parsedData._annoPrecedente}));
+      sessionStorage.setItem('bilancio_anno_'+prevIdx,JSON.stringify({...d._prevXBRL,
+        nome:d.nome,piva:d.piva,forma:d.forma,ateco:d.ateco,
+        _anno:prevIdx,_annoEsercizio:d._annoPrecedente}));
     }
   }
 
   function caricaAltro(){
     document.getElementById('results-box').classList.remove('show');
+    document.getElementById('abbr-box').classList.remove('show');
     document.getElementById('anno-box')?.classList.add('show');
     if(selectedAnno<2)selectAnno(selectedAnno+1);
   }
@@ -594,11 +776,12 @@
     ['xbrl','pdf'].forEach(t=>{
       document.getElementById('fl-'+t)?.classList.remove('show');
       document.getElementById('drop-'+t)?.classList.remove('active');
-      document.getElementById('input-'+t).value='';
+      const inp=document.getElementById('input-'+t);if(inp)inp.value='';
     });
     document.getElementById('results-box').classList.remove('show');
     document.getElementById('progress-box').classList.remove('show');
     document.getElementById('anno-box')?.classList.remove('show');
+    document.getElementById('abbr-box').classList.remove('show');
     selectAnno(0);
   }
 </script>
