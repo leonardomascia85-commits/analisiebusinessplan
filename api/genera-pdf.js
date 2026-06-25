@@ -462,6 +462,10 @@ function buildReportHTML(data, config) {
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
   @page{size:A4;margin:0;}
+${isBanca ? `  /* Report Banca: testo risultati in nero */
+  .ind-interp{color:#000!important;}
+  .ind-val{color:#000!important;}
+  .ind-badge{color:#000!important;background:#F1F5F9!important;border-color:#94A3B8!important;}` : ''}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Inter',sans-serif;color:#0F172A;background:#fff;font-size:11px;line-height:1.5;}
   .cover{width:210mm;min-height:297mm;background:#0A1628;color:#fff;padding:52px 48px;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always;position:relative;overflow:hidden;}
