@@ -322,6 +322,7 @@ function buildBusinessPlan(d) {
     { R0, R1, R2, R3, EBITDA0, EBITDA1, EBITDA2, EBITDA3,
       UN1, UN2, UN3, PFN1, PFN2, PFN3, PN1, PN2, PN3,
       DSCR1, DSCR2, DSCR3, EBITDAM1, EBITDAM2, EBITDAM3,
+      AMM1, AMM2, AMM3, EBIT1, EBIT2, EBIT3,
       debtService1,
       annoBase, scenComparison });
 
@@ -463,6 +464,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
     PN1, PN2, PN3,
     DSCR1, DSCR2, DSCR3,
     EBITDAM1, EBITDAM2, EBITDAM3,
+    AMM1, AMM2, AMM3, EBIT1, EBIT2, EBIT3,
     debtService1,
     annoBase, scenComparison
   } = nums;
@@ -1248,6 +1250,79 @@ ${(() => {
   ${pf(5)}
 </div>
 
+<!-- PAGE 5b — SP GESTIONALE -->
+<div class="page">
+  ${secHdr('Struttura del capitale investito', '5b. Stato Patrimoniale Gestionale')}
+  <div class="narrative">
+    <p>Il <strong>Capitale Investito Netto Operativo (CINO)</strong> rappresenta le risorse impiegate nella gestione caratteristica dell'impresa: è dato dalla somma dell'attivo fisso netto e del capitale circolante netto operativo. Le fonti di copertura del CINO sono il Patrimonio Netto e l'Indebitamento Finanziario Netto (PFN). L'equilibrio tra queste componenti determina la sostenibilità strutturale del piano.</p>
+  </div>
+  ${(() => {
+    // SP Gestionale calcolato
+    const IMM0 = SP.find(r=>r.label==='Immobilizzazioni nette')?.s||0;
+    const IMM1 = SP.find(r=>r.label==='Immobilizzazioni nette')?.a1||0;
+    const IMM2 = SP.find(r=>r.label==='Immobilizzazioni nette')?.a2||0;
+    const IMM3 = SP.find(r=>r.label==='Immobilizzazioni nette')?.a3||0;
+    // CCN operativo (crediti+rimananeze-debiti comm.) approssimato da CCN già calcolato
+    const CCN0v = SP.find(r=>r.label==='Capitale Circolante Netto (CCN)')?.s||0;
+    const CCN1v = SP.find(r=>r.label==='Capitale Circolante Netto (CCN)')?.a1||0;
+    const CCN2v = SP.find(r=>r.label==='Capitale Circolante Netto (CCN)')?.a2||0;
+    const CCN3v = SP.find(r=>r.label==='Capitale Circolante Netto (CCN)')?.a3||0;
+    const CINO0 = IMM0+CCN0v, CINO1 = IMM1+CCN1v, CINO2 = IMM2+CCN2v, CINO3 = IMM3+CCN3v;
+    const PFN0v = d.pfn_storico||0;
+    const rows = [
+      ['ATTIVO FISSO NETTO', IMM0, IMM1, IMM2, IMM3, true, false],
+      ['Immobilizzazioni materiali e immateriali', IMM0, IMM1, IMM2, IMM3, false, true],
+      ['', null, null, null, null, false, false],
+      ['CAPITALE CIRCOLANTE NETTO OPERATIVO', CCN0v, CCN1v, CCN2v, CCN3v, true, false],
+      ['Crediti commerciali + Rimanenze', null, null, null, null, false, true],
+      ['(−) Debiti commerciali e operativi', null, null, null, null, false, true],
+      ['', null, null, null, null, false, false],
+      ['CAPITALE INVESTITO NETTO (CINO)', CINO0, CINO1, CINO2, CINO3, true, false],
+      ['', null, null, null, null, false, false],
+      ['FONTI DI FINANZIAMENTO', null, null, null, null, true, false],
+      ['Patrimonio Netto', d.pn_attuale||0, PN1, PN2, PN3, false, true],
+      ['Indebitamento Finanziario Netto (PFN)', PFN0v, PFN1, PFN2, PFN3, false, true],
+      ['TOTALE FONTI', (d.pn_attuale||0)+PFN0v, PN1+PFN1, PN2+PFN2, PN3+PFN3, true, false],
+    ];
+    const fmtG = n => n===null||n===undefined ? '—' : n.toLocaleString('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+    const rowsHTML = rows.map(([lbl,s,a1,a2,a3,total,sub])=>{
+      if(!lbl) return `<tr><td colspan="5" style="padding:2px"></td></tr>`;
+      const cls = total ? 'style="font-weight:700;background:#F1F5F9"' : sub ? 'style="color:#64748B;font-size:8.5px"' : '';
+      const pad = sub ? 'style="padding-left:18px"' : '';
+      return `<tr ${cls}><td ${pad}>${lbl}</td><td class="r">${s!==null?fmtG(s):'—'}</td><td class="r">${a1!==null?fmtG(a1):'—'}</td><td class="r">${a2!==null?fmtG(a2):'—'}</td><td class="r">${a3!==null?fmtG(a3):'—'}</td></tr>`;
+    }).join('');
+    return `<table class="rep">
+      <thead><tr><th>Schema gestionale</th><th class="r">Storico ${annoBase}</th><th class="r">${annoBase+1}E</th><th class="r">${annoBase+2}E</th><th class="r">${annoBase+3}E</th></tr></thead>
+      <tbody>${rowsHTML}</tbody></table>`;
+  })()}
+  <h3>Indici di copertura e solidità patrimoniale</h3>
+  ${(() => {
+    const aut0 = (d.pn_attuale||0)/((SP.find(r=>r.label==='TOTALE ATTIVO')?.s)||1)*100;
+    const aut1 = PN1/((SP.find(r=>r.label==='TOTALE ATTIVO')?.a1)||1)*100;
+    const aut2 = PN2/((SP.find(r=>r.label==='TOTALE ATTIVO')?.a2)||1)*100;
+    const aut3 = PN3/((SP.find(r=>r.label==='TOTALE ATTIVO')?.a3)||1)*100;
+    const leva0 = d.pn_attuale>0 ? (d.pfn_storico||0)/d.pn_attuale : null;
+    const leva1 = PN1>0 ? PFN1/PN1 : null;
+    const leva2 = PN2>0 ? PFN2/PN2 : null;
+    const leva3 = PN3>0 ? PFN3/PN3 : null;
+    const pfnR0 = EBITDA0>0 ? (d.pfn_storico||0)/EBITDA0 : null;
+    const fmtR = (n,suf='x') => n===null||isNaN(n)||!isFinite(n) ? '—' : n.toFixed(2)+suf;
+    const sem = (v,g,a,higher=true) => {
+      if(v===null||isNaN(v)||!isFinite(v)) return '#94A3B8';
+      return (higher?v>=g:v<=g) ? '#059669' : (higher?v>=a:v<=a) ? '#D97706' : '#DC2626';
+    };
+    const dot = (v,g,a,higher=true) => `<span style="color:${sem(v,g,a,higher)};font-size:10px">●</span>`;
+    return `<table class="rep">
+      <thead><tr><th>Indice</th><th class="r">Storico ${annoBase}</th><th class="r">${annoBase+1}E</th><th class="r">${annoBase+2}E</th><th class="r">${annoBase+3}E</th><th>Soglia EBA</th></tr></thead>
+      <tbody>
+        <tr><td>${dot(aut1,30,15)} Autonomia finanziaria</td><td class="r">${fmtR(aut0,'%')}</td><td class="r">${fmtR(aut1,'%')}</td><td class="r">${fmtR(aut2,'%')}</td><td class="r">${fmtR(aut3,'%')}</td><td style="font-size:8px;color:#64748B">&gt;30% ottimale</td></tr>
+        <tr><td>${dot(leva1,2,4,false)} Leva finanziaria (D/E)</td><td class="r">${fmtR(leva0)}</td><td class="r">${fmtR(leva1)}</td><td class="r">${fmtR(leva2)}</td><td class="r">${fmtR(leva3)}</td><td style="font-size:8px;color:#64748B">&lt;2x conserv. / &lt;4x attenzione</td></tr>
+        <tr><td>${dot(PFNEBITDA1,3,5,false)} PFN / EBITDA</td><td class="r">${fmtR(pfnR0)}</td><td class="r">${fmtR(PFNEBITDA1)}</td><td class="r">${fmtR(PFNEBITDA2)}</td><td class="r">${fmtR(PFNEBITDA3)}</td><td style="font-size:8px;color:#64748B">&lt;3x ottimale / &lt;5x limite</td></tr>
+      </tbody></table>`;
+  })()}
+  ${pf(6)}
+</div>
+
 <!-- PAGE 6 — CASH FLOW -->
 <div class="page">
   ${secHdr('Rendiconto finanziario', '6. Cash Flow Statement')}
@@ -1255,7 +1330,99 @@ ${(() => {
   ${cfTable(CF)}
   <h3>Waterfall Cash Flow ${annoBase + 1}</h3>
   <div class="chart-box">${svgWaterfall()}</div>
-  ${pf(6)}
+  ${pf(7)}
+</div>
+
+<!-- PAGE 6b — ANALISI CASH FLOW PLURIENNALE -->
+<div class="page">
+  ${secHdr('Analisi dei flussi di liquidità', '6b. Cash Flow Analitico Pluriennale')}
+  <div class="narrative">
+    <p>Il rendiconto finanziario analitico distingue i flussi di cassa per aree gestionali secondo la metodologia del <strong>Free Cash Flow to the Firm (FCFF)</strong>. Il <strong>Flusso di cassa operativo lordo</strong> (EBITDA) rappresenta la capacità di autofinanziamento; il <strong>Flusso corrente</strong> incorpora la variazione del capitale circolante; il <strong>Flusso al servizio del debito</strong> (FSD) indica la liquidità disponibile per rimborsare i finanziatori.</p>
+  </div>
+  ${(() => {
+    const FCO1v = CF.find(r=>/Cash Flow Operativo/.test(r.label))?.a1||0;
+    const FCO2v = CF.find(r=>/Cash Flow Operativo/.test(r.label))?.a2||0;
+    const FCO3v = CF.find(r=>/Cash Flow Operativo/.test(r.label))?.a3||0;
+    const CNET1 = CF.find(r=>/VARIAZIONE NETTA/.test(r.label))?.a1||0;
+    const CNET2 = CF.find(r=>/VARIAZIONE NETTA/.test(r.label))?.a2||0;
+    const CNET3 = CF.find(r=>/VARIAZIONE NETTA/.test(r.label))?.a3||0;
+    const dCCN1v = -(CF.find(r=>/Variazione Capitale/.test(r.label))?.a1||0);
+    const dCCN2v = -(CF.find(r=>/Variazione Capitale/.test(r.label))?.a2||0);
+    const dCCN3v = -(CF.find(r=>/Variazione Capitale/.test(r.label))?.a3||0);
+    const FCO_corr1 = EBITDA1 - dCCN1v;
+    const FCO_corr2 = EBITDA2 - dCCN2v;
+    const FCO_corr3 = EBITDA3 - dCCN3v;
+    const FSD1 = FCO1v; // FCO è già al netto di tax, disponibile per DS
+    const FSD2 = FCO2v;
+    const FSD3 = FCO3v;
+    const CAPEX1v = CF.find(r=>/Investimenti/.test(r.label))?.a1||0;
+    const CAPEX2v = CF.find(r=>/Investimenti/.test(r.label))?.a2||0;
+    const CAPEX3v = CF.find(r=>/Investimenti/.test(r.label))?.a3||0;
+    const FCF1 = FCO1v + CAPEX1v;
+    const FCF2 = FCO2v + CAPEX2v;
+    const FCF3 = FCO3v + CAPEX3v;
+    const RC1v = CF.find(r=>/Rimborso quota/.test(r.label))?.a1||0;
+    const RC2v = CF.find(r=>/Rimborso quota/.test(r.label))?.a2||0;
+    const RC3v = CF.find(r=>/Rimborso quota/.test(r.label))?.a3||0;
+    const OF1v = CF.find(r=>/Oneri finanziari pagati/.test(r.label))?.a1||0;
+    const OF2v = CF.find(r=>/Oneri finanziari pagati/.test(r.label))?.a2||0;
+    const OF3v = CF.find(r=>/Oneri finanziari pagati/.test(r.label))?.a3||0;
+    const DS1 = RC1v + OF1v, DS2 = RC2v + OF2v, DS3 = RC3v + OF3v;
+    const FAZ1 = FCF1 + DS1, FAZ2 = FCF2 + DS2, FAZ3 = FCF3 + DS3;
+    const fmtV = n => n===0||n===null ? '—' : (n<0?'('+Math.abs(Math.round(n)).toLocaleString('it-IT')+')':Math.round(n).toLocaleString('it-IT'))+' €';
+    const colorV = n => n<0 ? 'color:#DC2626' : n>0 ? 'color:#059669' : '';
+    const cfRows = [
+      ['FLUSSO DI CASSA OPERATIVO LORDO', EBITDA0, EBITDA1, EBITDA2, EBITDA3, true],
+      ['Variazione Capitale Circolante Netto', null, -dCCN1v, -dCCN2v, -dCCN3v, false],
+      ['FLUSSO CASSA GESTIONE CORRENTE', null, FCO_corr1, FCO_corr2, FCO_corr3, true],
+      ['Imposte pagate', null, null, null, null, false],
+      ['FLUSSO DI CASSA OPERATIVO (FCO)', EBITDA0, FCO1v, FCO2v, FCO3v, true],
+      ['CAPEX — Investimenti in immobilizzazioni', null, CAPEX1v, CAPEX2v, CAPEX3v, false],
+      ['FREE CASH FLOW (FCO + FCI)', null, FCF1, FCF2, FCF3, true],
+      ['Oneri finanziari pagati', null, OF1v, OF2v, OF3v, false],
+      ['Rimborso quota capitale', null, RC1v, RC2v, RC3v, false],
+      ['FLUSSO AL SERVIZIO DEL DEBITO', null, FSD1, FSD2, FSD3, true],
+      ['FLUSSO DI CASSA PER GLI AZIONISTI', null, FAZ1, FAZ2, FAZ3, true],
+      ['Variazione netta di cassa', null, CNET1, CNET2, CNET3, false],
+    ];
+    const rowsHTML = cfRows.map(([lbl,s,a1,a2,a3,total])=>{
+      if(!lbl) return '';
+      const style = total ? 'font-weight:700;background:#F1F5F9' : 'color:#334155';
+      const sV = s!==null?fmtV(s):'—', a1V=a1!==null?fmtV(a1):'—', a2V=a2!==null?fmtV(a2):'—', a3V=a3!==null?fmtV(a3):'—';
+      const c1=a1!==null?colorV(a1):'', c2=a2!==null?colorV(a2):'', c3=a3!==null?colorV(a3):'';
+      return `<tr style="${style}"><td>${lbl}</td><td class="r">${sV}</td><td class="r" style="${c1}">${a1V}</td><td class="r" style="${c2}">${a2V}</td><td class="r" style="${c3}">${a3V}</td></tr>`;
+    }).join('');
+    return `<table class="rep">
+      <thead><tr><th>Analisi flussi (€)</th><th class="r">Storico ${annoBase}</th><th class="r">${annoBase+1}E</th><th class="r">${annoBase+2}E</th><th class="r">${annoBase+3}E</th></tr></thead>
+      <tbody>${rowsHTML}</tbody></table>`;
+  })()}
+  <h3>Posizione Finanziaria Netta — evoluzione</h3>
+  ${(() => {
+    const pfnRows = [
+      ['Debiti verso banche (BT)', null, null, null, null],
+      ['Mutui e finanziamenti (MLT)', null, null, null, null],
+      ['Altri debiti finanziari', null, null, null, null],
+      ['(−) Cassa e disponibilità liquide', null, null, null, null],
+      ['POSIZIONE FINANZIARIA NETTA (PFN)', d.pfn_storico||0, PFN1, PFN2, PFN3],
+      ['PFN / EBITDA', null, EBITDA1>0?PFN1/EBITDA1:null, EBITDA2>0?PFN2/EBITDA2:null, EBITDA3>0?PFN3/EBITDA3:null],
+      ['Variazione PFN', null, PFN1-(d.pfn_storico||0), PFN2-PFN1, PFN3-PFN2],
+    ];
+    const fmtV = (n,ratio) => {
+      if(n===null||n===undefined) return '—';
+      if(ratio) return isNaN(n)||!isFinite(n) ? '—' : n.toFixed(2)+'x';
+      return (n<0?'('+Math.abs(Math.round(n)).toLocaleString('it-IT')+')':Math.round(n).toLocaleString('it-IT'))+' €';
+    };
+    const rowsHTML = pfnRows.map(([lbl,s,a1,a2,a3],i)=>{
+      const total = lbl.startsWith('POSIZIONE');
+      const ratio = lbl.startsWith('PFN /');
+      const style = total ? 'font-weight:700;background:#F1F5F9' : ratio ? 'color:#1D4ED8;font-style:italic' : '';
+      return `<tr style="${style}"><td>${lbl}</td><td class="r">${fmtV(s,ratio)}</td><td class="r">${fmtV(a1,ratio)}</td><td class="r">${fmtV(a2,ratio)}</td><td class="r">${fmtV(a3,ratio)}</td></tr>`;
+    }).join('');
+    return `<table class="rep">
+      <thead><tr><th>PFN (€)</th><th class="r">Storico ${annoBase}</th><th class="r">${annoBase+1}E</th><th class="r">${annoBase+2}E</th><th class="r">${annoBase+3}E</th></tr></thead>
+      <tbody>${rowsHTML}</tbody></table>`;
+  })()}
+  ${pf(8)}
 </div>
 
 <!-- PAGE 7 — DSCR / BANCABILITÀ -->
@@ -1295,8 +1462,64 @@ ${(() => {
   <div style="text-align:center;margin-top:16px">
     <span class="verdict ${bancabile ? 'ok' : noDebtPlan ? 'auto' : 'no'}">${bancabile ? 'BANCABILE' : noDebtPlan ? 'AUTOFINANZIATO' : 'RICHIEDE REVISIONE'}</span>
   </div>
-  ${pf(7)}
+  ${pf(9)}
 </div>
+
+<!-- PAGE 9b — STRUTTURA DEBITO -->
+${d.nuovo_fin || (d.pfn_storico && d.pfn_storico > 0) ? `<div class="page">
+  ${secHdr('Struttura e piano del debito', '9b. Debito Finanziario e Rimborsi')}
+  <div class="narrative">
+    <p>La struttura dell'indebitamento finanziario determina la distribuzione temporale del servizio del debito e il profilo di rischio del piano. L'analisi distingue i debiti a <strong>breve termine</strong> (scadenza entro 12 mesi) da quelli a <strong>medio-lungo termine</strong> (MLT), evidenziando l'evoluzione della Posizione Finanziaria Netta nel triennio e la sostenibilità del rimborso rispetto ai flussi di cassa generati.</p>
+  </div>
+  <h3>Evoluzione PFN e copertura</h3>
+  ${(() => {
+    // Debito BT = debiti banche BT dal SP input (se disponibili)
+    const debBT = d.deb_b_bt || 0;
+    const debMLT0 = d.pfn_storico > 0 ? Math.max((d.pfn_storico||0) - debBT, 0) : 0;
+    const debTot0 = d.pfn_storico || 0;
+    // Proiettato
+    const { schedule } = d.nuovo_fin && d.fin_importo ? calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso/100, d.pre_amm||0) : { schedule:[] };
+    const debMLT1 = Math.max(debMLT0 - (d.rata_esistente||0) + (d.nuovo_fin?d.fin_importo:0) - (schedule[0]?.capitale||0), 0);
+    const debMLT2 = Math.max(debMLT1 - (d.rata_esistente||0) - (schedule[1]?.capitale||0), 0);
+    const debMLT3 = Math.max(debMLT2 - (d.rata_esistente||0) - (schedule[2]?.capitale||0), 0);
+    const DS1v = (d.rata_esistente||0) + (schedule[0]?.capitale||0) + (schedule[0]?.interessi||0);
+    const DS2v = (d.rata_esistente||0) + (schedule[1]?.capitale||0) + (schedule[1]?.interessi||0);
+    const DS3v = (d.rata_esistente||0) + (schedule[2]?.capitale||0) + (schedule[2]?.interessi||0);
+    const FCO1v = CF.find(r=>/Cash Flow Operativo/.test(r.label))?.a1||0;
+    const FCO2v = CF.find(r=>/Cash Flow Operativo/.test(r.label))?.a2||0;
+    const FCO3v = CF.find(r=>/Cash Flow Operativo/.test(r.label))?.a3||0;
+    const dscr1 = DS1v>0 ? FCO1v/DS1v : null;
+    const dscr2 = DS2v>0 ? FCO2v/DS2v : null;
+    const dscr3 = DS3v>0 ? FCO3v/DS3v : null;
+    const fmtV = n => n===null||n===undefined ? '—' : Math.round(n).toLocaleString('it-IT')+' €';
+    const fmtR = n => n===null||isNaN(n)||!isFinite(n) ? '—' : n.toFixed(2)+'x';
+    const semDS = n => n===null||isNaN(n)||!isFinite(n) ? '' : n>=1.3?'color:#059669;font-weight:700':n>=1.1?'color:#D97706;font-weight:700':'color:#DC2626;font-weight:700';
+    return `<table class="rep">
+      <thead><tr><th>Voci</th><th class="r">Storico ${annoBase}</th><th class="r">${annoBase+1}E</th><th class="r">${annoBase+2}E</th><th class="r">${annoBase+3}E</th></tr></thead>
+      <tbody>
+        <tr><td>Debiti verso banche (BT)</td><td class="r">${fmtV(debBT)}</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
+        <tr><td>Mutui e finanziamenti (MLT)</td><td class="r">${fmtV(debMLT0)}</td><td class="r">${fmtV(debMLT1)}</td><td class="r">${fmtV(debMLT2)}</td><td class="r">${fmtV(debMLT3)}</td></tr>
+        <tr style="font-weight:700;background:#F1F5F9"><td>POSIZIONE FINANZIARIA NETTA</td><td class="r">${fmtV(debTot0)}</td><td class="r">${fmtV(PFN1)}</td><td class="r">${fmtV(PFN2)}</td><td class="r">${fmtV(PFN3)}</td></tr>
+        <tr><td>Variazione PFN</td><td class="r">—</td><td class="r" style="${PFN1<(debTot0)?'color:#059669':'color:#DC2626'}">${fmtV(PFN1-debTot0)}</td><td class="r" style="${PFN2<PFN1?'color:#059669':'color:#DC2626'}">${fmtV(PFN2-PFN1)}</td><td class="r" style="${PFN3<PFN2?'color:#059669':'color:#DC2626'}">${fmtV(PFN3-PFN2)}</td></tr>
+        <tr><td>Servizio del debito (quota cap. + OF)</td><td class="r">—</td><td class="r">${fmtV(DS1v)}</td><td class="r">${fmtV(DS2v)}</td><td class="r">${fmtV(DS3v)}</td></tr>
+        <tr><td>FCO disponibile per rimborso</td><td class="r">—</td><td class="r">${fmtV(FCO1v)}</td><td class="r">${fmtV(FCO2v)}</td><td class="r">${fmtV(FCO3v)}</td></tr>
+        <tr style="background:#EFF6FF"><td>DSCR (FCO / Servizio del debito)</td><td class="r">—</td><td class="r" style="${semDS(dscr1)}">${fmtR(dscr1)}</td><td class="r" style="${semDS(dscr2)}">${fmtR(dscr2)}</td><td class="r" style="${semDS(dscr3)}">${fmtR(dscr3)}</td></tr>
+        <tr><td>PFN / EBITDA</td><td class="r">${EBITDA0>0?fmtR((debTot0)/EBITDA0):'—'}</td><td class="r">${fmtR(PFNEBITDA1)}</td><td class="r">${fmtR(PFNEBITDA2)}</td><td class="r">${fmtR(PFNEBITDA3)}</td></tr>
+      </tbody></table>`;
+  })()}
+  ${d.nuovo_fin && d.fin_importo ? `
+  <h3>Piano di rimborso nuovo finanziamento</h3>
+  <table class="rep">
+    <thead><tr><th>Anno</th><th class="r">Rata capitale</th><th class="r">Interessi</th><th class="r">Rata totale</th><th class="r">Debito residuo</th><th class="r">% rimborsato</th></tr></thead>
+    <tbody>
+      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso/100, d.pre_amm||0).schedule.slice(0,5).map(s=>{
+        const percRimb = d.fin_importo > 0 ? ((d.fin_importo - s.debResiduo)/d.fin_importo*100).toFixed(1)+'%' : '—';
+        return `<tr><td>${annoBase+s.anno}</td><td class="r">${fmtE(s.capitale)}</td><td class="r">${fmtE(s.interessi)}</td><td class="r" style="font-weight:600">${fmtE(s.capitale+s.interessi)}</td><td class="r">${fmtE(s.debResiduo)}</td><td class="r" style="color:#059669">${percRimb}</td></tr>`;
+      }).join('')}
+    </tbody>
+  </table>` : ''}
+  ${pf(10)}
+</div>` : ''}
 
 <!-- PAGE 8 — BREAK-EVEN / SENSIBILITÀ -->
 <div class="page">
@@ -1316,6 +1539,32 @@ ${(() => {
   </table>
   <h3>Visualizzazione Break-Even</h3>
   <div class="chart-box">${svgBreakEven()}</div>` : '<p class="lead">Dati break-even non disponibili.</p>'}
+  <h3>CE a costi fissi e variabili — Anno ${annoBase+1}E</h3>
+  ${(() => {
+    // Recupera i valori dal CE già costruito
+    const RIC1 = R1;
+    const CV1 = CE.find(r=>r.label==='Costi per materie/merci/servizi')?.a1 || 0;
+    const CP1v = CE.find(r=>r.label==='Costo del personale')?.a1 || 0;
+    const CF1 = d.costi_fissi ? d.costi_fissi * (1+(d.incr_fissi||2)/100) : 0;
+    const percVarEff = RIC1 > 0 ? Math.abs(CV1)/RIC1 : 0;
+    const MARGCON1 = RIC1 - Math.abs(CV1);
+    const MARGCON_PERC = RIC1 > 0 ? (MARGCON1/RIC1*100) : 0;
+    const BE_R = MARGCON_PERC > 0 ? (Math.abs(CP1v)+Math.abs(CF1)) / (MARGCON_PERC/100) : 0;
+    const fmtV = n => n===null ? '—' : Math.round(n).toLocaleString('it-IT')+' €';
+    const fmtP2 = n => isNaN(n)||!isFinite(n) ? '—' : n.toFixed(1)+'%';
+    return `<table class="rep">
+      <thead><tr><th>Schema costi fissi / variabili (Anno ${annoBase+1}E)</th><th class="r">Importo</th><th class="r">% su Ricavi</th></tr></thead>
+      <tbody>
+        <tr style="font-weight:700;background:#F1F5F9"><td>RICAVI NETTI</td><td class="r">${fmtV(RIC1)}</td><td class="r">100,0%</td></tr>
+        <tr style="color:#DC2626"><td>  (−) Costi variabili (materie/merci/servizi)</td><td class="r">${fmtV(CV1)}</td><td class="r" style="color:#DC2626">${fmtP2(percVarEff*100)}</td></tr>
+        <tr style="font-weight:700;background:#EFF6FF"><td>MARGINE DI CONTRIBUZIONE</td><td class="r" style="color:#059669">${fmtV(MARGCON1)}</td><td class="r" style="color:#059669">${fmtP2(MARGCON_PERC)}</td></tr>
+        <tr style="color:#64748B"><td>  (−) Costo del personale (costo fisso)</td><td class="r">${fmtV(Math.abs(CP1v))}</td><td class="r">${RIC1>0?fmtP2(Math.abs(CP1v)/RIC1*100):'—'}</td></tr>
+        <tr style="color:#64748B"><td>  (−) Ammortamenti</td><td class="r">${fmtV(AMM1)}</td><td class="r">${RIC1>0?fmtP2(AMM1/RIC1*100):'—'}</td></tr>
+        <tr style="font-weight:700;background:#F1F5F9"><td>RISULTATO OPERATIVO (EBIT)</td><td class="r" style="color:${EBIT1>=0?'#059669':'#DC2626'}">${fmtV(EBIT1)}</td><td class="r" style="color:${EBIT1>=0?'#059669':'#DC2626'}">${RIC1>0?fmtP2(EBIT1/RIC1*100):'—'}</td></tr>
+        <tr style="background:#FFFBEB"><td><strong>Punto di Break-Even</strong> (ricavi min. per coprire fissi)</td><td class="r" style="font-weight:700">${fmtV(be?.ricavi_be||BE_R)}</td><td class="r">${RIC1>0?fmtP2((be?.ricavi_be||BE_R)/RIC1*100):'—'}</td></tr>
+        <tr><td>Margine di sicurezza</td><td class="r" style="color:#059669;font-weight:700">${fmtV(be?.margine_sicurezza||(RIC1-(be?.ricavi_be||BE_R)))}</td><td class="r" style="color:#059669;font-weight:700">${fmtP2(be?.margine_perc||0)}</td></tr>
+      </tbody></table>`;
+  })()}
   <h3>Analisi di Sensibilità — Stress Test EBA/FED (${annoBase + 1})</h3>
   <p class="lead" style="font-size:9.5px;color:#64748B;margin-bottom:6px">Stress test multi-dimensionali secondo EBA/GL/2020/06 e principi FED: shock sui ricavi, compressione margini e scenario combinato.</p>
   <table class="rep">
