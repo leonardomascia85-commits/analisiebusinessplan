@@ -661,6 +661,173 @@
       .hero-ctas { flex-direction: column; align-items: center; }
     }
 
+    /* ════════════════════════════════════
+       TARGET SECTION
+    ════════════════════════════════════ */
+    .target-section {
+      padding: 80px 6%;
+      background: rgba(255,255,255,.02);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .target-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 20px; max-width: 1080px; margin: 0 auto;
+    }
+    .target-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px; padding: 32px 28px;
+      position: relative; transition: border-color .2s, transform .2s;
+    }
+    .target-card:hover {
+      border-color: rgba(255,255,255,.18);
+      transform: translateY(-4px);
+    }
+    .target-card--highlight {
+      border-color: rgba(37,99,235,.35);
+      background: rgba(37,99,235,.06);
+    }
+    .target-card--highlight:hover { border-color: rgba(96,165,250,.5); }
+    .target-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg,#2563eb,#1d4ed8);
+      color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 14px; border-radius: 20px; white-space: nowrap;
+      letter-spacing: .04em;
+    }
+    .target-icon { font-size: 32px; margin-bottom: 16px; }
+    .target-name {
+      font-family: 'Fraunces', serif; font-size: 19px; font-weight: 700;
+      color: #fff; margin-bottom: 10px;
+    }
+    .target-desc {
+      font-size: 13.5px; color: rgba(255,255,255,.5);
+      line-height: 1.7; margin-bottom: 20px;
+    }
+    .target-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .target-list li {
+      font-size: 13px; color: rgba(255,255,255,.65);
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .target-list li::before {
+      content: '→'; color: #60a5fa; flex-shrink: 0; font-weight: 700;
+    }
+
+    /* ════════════════════════════════════
+       PRICING SECTION
+    ════════════════════════════════════ */
+    .pricing-section {
+      padding: 80px 6%;
+      background: #060e1f;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 20px; max-width: 1080px; margin: 0 auto 28px;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px; padding: 32px 28px;
+      display: flex; flex-direction: column;
+      position: relative; transition: border-color .2s, transform .2s;
+    }
+    .pricing-card:hover { border-color: rgba(255,255,255,.18); transform: translateY(-4px); }
+    .pricing-card--featured {
+      border-color: rgba(5,150,105,.35);
+      background: rgba(5,150,105,.05);
+    }
+    .pricing-card--featured:hover { border-color: rgba(52,211,153,.5); }
+    .pricing-feat-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg,#059669,#047857);
+      color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 14px; border-radius: 20px; white-space: nowrap;
+    }
+    .pricing-icon { font-size: 28px; margin-bottom: 14px; }
+    .pricing-name {
+      font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700;
+      color: #fff; margin-bottom: 8px;
+    }
+    .pricing-desc {
+      font-size: 13px; color: rgba(255,255,255,.45);
+      line-height: 1.6; margin-bottom: 20px; flex-grow: 0;
+    }
+    .pricing-price {
+      font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 800;
+      color: #fff; line-height: 1; margin-bottom: 4px;
+    }
+    .pricing-currency { font-size: 1.4rem; vertical-align: top; margin-top: 6px; display: inline-block; }
+    .pricing-unit {
+      font-size: 12px; color: rgba(255,255,255,.35);
+      margin-bottom: 24px;
+    }
+    .pricing-feats {
+      list-style: none; display: flex; flex-direction: column;
+      gap: 9px; flex: 1; margin-bottom: 28px;
+    }
+    .pricing-feats li {
+      font-size: 13px; color: rgba(255,255,255,.65);
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;
+    }
+    .pricing-feats li::before { content: '✓'; color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .pricing-cta {
+      display: flex; align-items: center; justify-content: center;
+      padding: 13px 24px; border-radius: 12px;
+      font-size: 14px; font-weight: 600; color: #fff;
+      border: none; cursor: pointer; text-align: center;
+      transition: all .2s;
+    }
+    .pricing-note {
+      display: flex; align-items: center; gap: 10px; justify-content: center;
+      font-size: 13.5px; color: rgba(255,255,255,.4);
+      max-width: 1080px; margin: 0 auto;
+    }
+    .pricing-note a { color: #60a5fa; text-decoration: underline; }
+
+    /* ════════════════════════════════════
+       REVIEWS SECTION
+    ════════════════════════════════════ */
+    .reviews-section {
+      padding: 80px 6%;
+      background: rgba(255,255,255,.02);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 20px; max-width: 1080px; margin: 0 auto;
+    }
+    .review-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px; padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: border-color .2s;
+    }
+    .review-card:hover { border-color: rgba(255,255,255,.16); }
+    .review-card--featured {
+      border-color: rgba(96,165,250,.25);
+      background: rgba(37,99,235,.04);
+    }
+    .review-stars { font-size: 16px; color: #fcd34d; letter-spacing: 1px; }
+    .review-text {
+      font-size: 14px; color: rgba(255,255,255,.6);
+      line-height: 1.75; font-style: italic; flex: 1;
+    }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg,#1e40af,#1d4ed8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .review-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .review-role { font-size: 12px; color: rgba(255,255,255,.35); }
+
+    @media (max-width: 900px) {
+      .target-grid, .pricing-grid, .reviews-grid { grid-template-columns: 1fr; }
+    }
+
     /* Entrance animation */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -975,6 +1142,155 @@
         <div class="step-icon">📑</div>
         <div class="step-title">Genera il Business Plan</div>
         <p class="step-desc">Il modello produce CE, Stato Patrimoniale e Cash Flow integrati per 3 anni, con DSCR proiettato, break-even analysis e scenario stress −20% ricavi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PER CHI È PENSATO ── -->
+<section class="target-section">
+  <div class="section-label">Per chi è pensato</div>
+  <h2 class="section-title">Strumenti professionali,<br/>accessibili a tutti</h2>
+  <p class="section-sub">Che tu sia un commercialista, un imprenditore o un consulente, AnalisiEBusinessPlan.it ha lo strumento giusto per te.</p>
+  <div class="target-grid">
+    <div class="target-card">
+      <div class="target-icon">🧾</div>
+      <div class="target-name">Commercialisti e Studi</div>
+      <p class="target-desc">Genera report PDF professionali per i tuoi clienti in pochi secondi. Analisi bilancio XBRL con rating bancabilità e business plan conformi EBA — senza installazioni.</p>
+      <ul class="target-list">
+        <li>Report banca e report cliente separati</li>
+        <li>Analisi multi-anno fino a 3 esercizi</li>
+        <li>Paghi solo il report che scarichi</li>
+      </ul>
+    </div>
+    <div class="target-card target-card--highlight">
+      <div class="target-badge">Più usato</div>
+      <div class="target-icon">🏢</div>
+      <div class="target-name">PMI e Imprenditori</div>
+      <p class="target-desc">Capisci la salute finanziaria della tua azienda, prepara una domanda di finanziamento bancario o un business plan per nuovi investimenti — senza bisogno di un consulente.</p>
+      <ul class="target-list">
+        <li>Rating bancabilità A–E comprensibile</li>
+        <li>Business plan 3 anni in 5 minuti</li>
+        <li>Suggerimenti su cosa migliorare</li>
+      </ul>
+    </div>
+    <div class="target-card">
+      <div class="target-icon">📐</div>
+      <div class="target-name">Consulenti e CFO</div>
+      <p class="target-desc">Strumento di supporto per istruttorie bancarie, due diligence finanziarie e piani industriali. Output conforme EBA/GL/2020/06 e D.Lgs. 14/2019.</p>
+      <ul class="target-list">
+        <li>DSCR, PFN/EBITDA, Altman Z'-Score</li>
+        <li>SP gestionale e CF analitico</li>
+        <li>Struttura debito e piano rimborso</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="pricing-section">
+  <div class="section-label">Prezzi</div>
+  <h2 class="section-title">Paga solo quello che usi</h2>
+  <p class="section-sub">Nessun abbonamento. Nessuna carta richiesta per iniziare. Paghi il report solo quando sei pronto a scaricarlo.</p>
+
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-icon">📊</div>
+      <div class="pricing-name">Analisi di Bilancio</div>
+      <div class="pricing-desc">Un bilancio, un report. Analisi completa con indici EBA e rating bancabilità.</div>
+      <div class="pricing-price"><span class="pricing-currency">€</span>34,99</div>
+      <div class="pricing-unit">per singolo report PDF</div>
+      <ul class="pricing-feats">
+        <li>File XBRL InfoCamere / CCIAA</li>
+        <li>12+ indici finanziari EBA</li>
+        <li>Rating bancabilità A–E</li>
+        <li>Confronto 18 settori ATECO</li>
+        <li>Report Banca (tecnico) + Report Cliente</li>
+        <li>Anteprima gratuita prima del pagamento</li>
+      </ul>
+      <a href="importa-xbrl.html" class="pricing-cta cta-b">Inizia gratis →</a>
+    </div>
+
+    <div class="pricing-card pricing-card--featured">
+      <div class="pricing-feat-badge">Più richiesto</div>
+      <div class="pricing-icon">📋</div>
+      <div class="pricing-name">Business Plan Finanziario</div>
+      <div class="pricing-desc">Proiezioni 3 anni complete con CE, SP, Cash Flow e analisi del debito.</div>
+      <div class="pricing-price"><span class="pricing-currency">€</span>149,00</div>
+      <div class="pricing-unit">per singolo business plan PDF</div>
+      <ul class="pricing-feats">
+        <li>Proiezioni 3 anni CE + SP + Cash Flow</li>
+        <li>DSCR, ICR, PFN/EBITDA proiettati</li>
+        <li>SP gestionale e CF analitico</li>
+        <li>Struttura debito e piano rimborso</li>
+        <li>Break-even analysis e scenario stress</li>
+        <li>14 pagine — conforme EBA/GL/2020/06</li>
+      </ul>
+      <a href="business-plan.html" class="pricing-cta cta-g">Crea il piano →</a>
+    </div>
+
+    <div class="pricing-card pricing-card--multi">
+      <div class="pricing-icon">🏦</div>
+      <div class="pricing-name">Analisi Multi-Anno</div>
+      <div class="pricing-desc">Confronto storico su 3 esercizi con grafici di trend e variazioni percentuali.</div>
+      <div class="pricing-price"><span class="pricing-currency">€</span>49,99</div>
+      <div class="pricing-unit">per report multi-anno PDF</div>
+      <ul class="pricing-feats">
+        <li>Fino a 3 bilanci comparati</li>
+        <li>Grafici trend per ogni indice</li>
+        <li>Variazioni % anno su anno</li>
+        <li>Report Banca + Report Cliente</li>
+        <li>Ideale per istruttorie bancarie</li>
+        <li>Anteprima gratuita prima del pagamento</li>
+      </ul>
+      <a href="bilancio-multianno.html" class="pricing-cta cta-b">Confronta bilanci →</a>
+    </div>
+
+  </div>
+
+  <div class="pricing-note">
+    <div class="ti-check" style="width:18px;height:18px;flex-shrink:0"><svg viewBox="0 0 12 12" style="width:10px;height:10px"><polyline points="2 6 5 9 10 3" stroke="#34d399" stroke-width="2.5" fill="none"/></svg></div>
+    Studi professionali con più di 10 analisi mensili? <a href="mailto:info@analisiebusinessplan.it">Contattaci</a> per tariffe dedicate.
+  </div>
+</section>
+
+<!-- ── TESTIMONIANZE ── -->
+<section class="reviews-section">
+  <div class="section-label">Cosa dicono gli utenti</div>
+  <h2 class="section-title">Usato da professionisti<br/>in tutta Italia</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"In 2 minuti ho ottenuto un'analisi di bilancio con il rating bancabilità che di solito mi richiedeva mezza giornata. Il report PDF è professionale e la banca lo ha accettato senza problemi."</p>
+      <div class="review-author">
+        <div class="review-avatar">MR</div>
+        <div>
+          <div class="review-name">Marco R.</div>
+          <div class="review-role">Commercialista, Milano</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card review-card--featured">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Dovevo presentare un business plan per un finanziamento da 500K€. Con questo strumento ho creato un documento di 14 pagine con proiezioni CE, SP e Cash Flow in meno di un'ora. La banca ha approvato."</p>
+      <div class="review-author">
+        <div class="review-avatar">GT</div>
+        <div>
+          <div class="review-name">Giulia T.</div>
+          <div class="review-role">CFO, Settore manifatturiero</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"La funzione analisi multi-anno è eccezionale. Carico 3 esercizi e vedo subito il trend degli indici. Uso il report banca per le istruttorie e quello cliente per spiegare ai titolari la situazione finanziaria."</p>
+      <div class="review-author">
+        <div class="review-avatar">AP</div>
+        <div>
+          <div class="review-name">Andrea P.</div>
+          <div class="review-role">Consulente finanziario, Roma</div>
+        </div>
       </div>
     </div>
   </div>
