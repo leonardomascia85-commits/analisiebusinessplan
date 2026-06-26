@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
 
+# Pagine applicative — nessun valore SEO, blocco crawl
+Disallow: /dashboard.html
+Disallow: /auth.html
+Disallow: /account.html
+Disallow: /pagamento.html
+Disallow: /report-pdf.html
+Disallow: /report-bp.html
+Disallow: /report.html
+Disallow: /analisi-comparativa.html
+
 Sitemap: https://analisiebusinessplan.it/sitemap.xml

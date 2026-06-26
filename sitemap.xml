@@ -1,39 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
   <url>
     <loc>https://analisiebusinessplan.it/</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Prodotti principali -->
   <url>
     <loc>https://analisiebusinessplan.it/importa-xbrl.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://analisiebusinessplan.it/bilancio-multianno.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://analisiebusinessplan.it/business-plan.html</loc>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://analisiebusinessplan.it/bilancio.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Contenuto informativo -->
   <url>
-    <loc>https://analisiebusinessplan.it/report-pdf.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://analisiebusinessplan.it/pagamento.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <loc>https://analisiebusinessplan.it/guide.html</loc>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Legal -->
+  <url>
+    <loc>https://analisiebusinessplan.it/privacy.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://analisiebusinessplan.it/termini.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://analisiebusinessplan.it/cookie-policy.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
 </urlset>
