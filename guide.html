@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centro Assistenza | AnalisiEBusinessPlan.it</title>
+  <meta name="description" content="Guide e tutorial per analisi di bilancio XBRL, business plan finanziario, rating bancabilità e report PDF. Centro assistenza AnalisiEBusinessPlan.it."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://analisiebusinessplan.it/guide.html"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='white' font-weight='bold'>A</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #060e1f;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 64px;
+      background: rgba(6,14,31,.85);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 17px; color: #fff; }
+    .logo em { font-style: normal; color: #60a5fa; }
+    .nav-r { display: flex; align-items: center; gap: 8px; }
+    .nav-link { padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,.65); transition: color .15s, background .15s; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,.07); }
+    .nav-cta { padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; color: #fff; background: #2563eb; transition: background .15s; }
+    .nav-cta:hover { background: #1d4ed8; }
+
+    /* HERO */
+    .hc-hero {
+      padding: 120px 6% 60px;
+      text-align: center;
+      background: linear-gradient(180deg, #060e1f 0%, #07112a 100%);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      position: relative;
+    }
+    .hc-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(37,99,235,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hc-hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+    .hc-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(37,99,235,.15); border: 1px solid rgba(96,165,250,.3);
+      border-radius: 30px; padding: 5px 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #93c5fd;
+      margin-bottom: 20px;
+    }
+    .hc-hero h1 {
+      font-family: 'Fraunces', serif; font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 14px;
+    }
+    .hc-hero p { font-size: 16px; color: rgba(255,255,255,.5); line-height: 1.7; margin-bottom: 32px; }
+
+    /* SEARCH */
+    .search-wrap {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px; padding: 0 18px;
+      max-width: 540px; margin: 0 auto;
+      transition: border-color .2s;
+    }
+    .search-wrap:focus-within { border-color: rgba(96,165,250,.5); }
+    .search-icon { font-size: 18px; color: rgba(255,255,255,.3); flex-shrink: 0; }
+    .search-input {
+      flex: 1; background: none; border: none; outline: none;
+      padding: 14px 12px; font-size: 15px; color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+    .search-input::placeholder { color: rgba(255,255,255,.3); }
+
+    /* MAIN LAYOUT */
+    .hc-body {
+      max-width: 1080px; margin: 0 auto;
+      padding: 56px 6% 80px;
+      display: grid; grid-template-columns: 240px 1fr;
+      gap: 48px; align-items: start;
+    }
+
+    /* SIDEBAR */
+    .hc-sidebar { position: sticky; top: 84px; }
+    .hc-sidebar-title {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); margin-bottom: 12px; padding: 0 4px;
+    }
+    .hc-nav { display: flex; flex-direction: column; gap: 2px; }
+    .hc-nav-cat {
+      display: flex; align-items: center; gap: 9px;
+      padding: 10px 12px; border-radius: 10px; cursor: pointer;
+      font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,.55);
+      transition: background .15s, color .15s; border: none; background: none;
+      width: 100%; text-align: left;
+    }
+    .hc-nav-cat:hover { background: rgba(255,255,255,.06); color: #fff; }
+    .hc-nav-cat.active { background: rgba(37,99,235,.15); color: #93c5fd; font-weight: 600; }
+    .hc-nav-cat .cat-icon { font-size: 16px; flex-shrink: 0; }
+    .hc-nav-divider { height: 1px; background: rgba(255,255,255,.06); margin: 10px 0; }
+
+    /* CONTENT */
+    .hc-content {}
+    .hc-panel { display: none; }
+    .hc-panel.active { display: block; }
+
+    .hc-panel-title {
+      font-family: 'Fraunces', serif; font-size: 26px; font-weight: 800;
+      color: #fff; margin-bottom: 6px;
+    }
+    .hc-panel-sub { font-size: 14px; color: rgba(255,255,255,.4); margin-bottom: 32px; }
+
+    /* GUIDE CARDS */
+    .guide-grid { display: flex; flex-direction: column; gap: 12px; }
+    .guide-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; overflow: hidden;
+      transition: border-color .2s;
+    }
+    .guide-card:hover { border-color: rgba(255,255,255,.16); }
+    .guide-card.open { border-color: rgba(96,165,250,.25); }
+    .guide-q {
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 20px; cursor: pointer; user-select: none;
+    }
+    .guide-q-icon {
+      width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 17px;
+    }
+    .guide-q-text { flex: 1; }
+    .guide-q-title { font-size: 14.5px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+    .guide-q-meta { font-size: 12px; color: rgba(255,255,255,.3); }
+    .guide-arrow {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .25s, background .2s;
+    }
+    .guide-arrow svg { width: 12px; height: 12px; stroke: rgba(255,255,255,.5); stroke-width: 2.5; fill: none; }
+    .guide-card.open .guide-arrow { transform: rotate(180deg); background: rgba(37,99,235,.2); }
+    .guide-card.open .guide-arrow svg { stroke: #93c5fd; }
+    .guide-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height .35s ease;
+    }
+    .guide-card.open .guide-body { max-height: 2000px; }
+    .guide-body-inner {
+      padding: 0 20px 24px 70px;
+      font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.8;
+    }
+    .guide-body-inner h4 {
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,.85);
+      text-transform: uppercase; letter-spacing: .06em; margin: 20px 0 8px;
+    }
+    .guide-body-inner h4:first-child { margin-top: 0; }
+    .guide-body-inner p { margin-bottom: 10px; }
+    .guide-body-inner ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+    .guide-body-inner ol { padding-left: 18px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .guide-body-inner li { line-height: 1.6; }
+    .guide-body-inner code {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 5px; padding: 2px 7px; font-size: 12.5px; color: #93c5fd;
+      font-family: monospace;
+    }
+    .guide-body-inner strong { color: rgba(255,255,255,.85); font-weight: 600; }
+    .guide-tip {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(37,99,235,.1); border: 1px solid rgba(96,165,250,.2);
+      border-radius: 10px; padding: 12px 16px; margin: 14px 0;
+      font-size: 13px; color: rgba(255,255,255,.65);
+    }
+    .guide-tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .guide-warn {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(251,191,36,.07); border: 1px solid rgba(251,191,36,.2);
+      border-radius: 10px; padding: 12px 16px; margin: 14px 0;
+      font-size: 13px; color: rgba(255,255,255,.65);
+    }
+    .step-list { list-style: none !important; padding-left: 0 !important; counter-reset: step-cnt; }
+    .step-list li {
+      counter-increment: step-cnt;
+      display: flex !important; gap: 12px; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .step-list li:last-child { border-bottom: none; }
+    .step-list li::before {
+      content: counter(step-cnt);
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg,#2563eb,#1d4ed8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #fff;
+    }
+
+    /* CONTACT CTA */
+    .hc-contact {
+      margin-top: 40px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 24px 28px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hc-contact-text { font-size: 14px; color: rgba(255,255,255,.5); }
+    .hc-contact-text strong { color: #fff; display: block; font-size: 15px; margin-bottom: 4px; }
+    .hc-contact-btn {
+      padding: 10px 22px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
+      color: #fff; background: rgba(37,99,235,.25); border: 1px solid rgba(96,165,250,.3);
+      transition: background .2s; white-space: nowrap;
+    }
+    .hc-contact-btn:hover { background: rgba(37,99,235,.4); }
+
+    /* ICON COLORS */
+    .icon-blue { background: rgba(37,99,235,.15); }
+    .icon-green { background: rgba(5,150,105,.15); }
+    .icon-yellow { background: rgba(251,191,36,.12); }
+    .icon-purple { background: rgba(124,58,237,.15); }
+
+    /* RESPONSIVE */
+    @media (max-width: 820px) {
+      .hc-body { grid-template-columns: 1fr; gap: 32px; }
+      .hc-sidebar { position: static; }
+      .hc-nav { flex-direction: row; flex-wrap: wrap; }
+      .guide-body-inner { padding-left: 20px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 5%; }
+      .nav-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Analisi<em>e</em>BusinessPlan</a>
+  <div class="nav-r">
+    <a href="importa-xbrl.html" class="nav-link">Analisi Bilancio</a>
+    <a href="business-plan.html" class="nav-link">Business Plan</a>
+    <a href="guide.html" class="nav-link" style="color:#fff">Guide</a>
+    <a href="importa-xbrl.html" class="nav-cta">Inizia ora →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hc-hero">
+  <div class="hc-hero-inner">
+    <div class="hc-eyebrow">📚 Centro Assistenza</div>
+    <h1>Come possiamo aiutarti?</h1>
+    <p>Guide passo-passo, domande frequenti e tutorial per usare al meglio la piattaforma.</p>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Cerca una guida... (es. XBRL, rating, DSCR)" oninput="cercaGuida(this.value)"/>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="hc-body">
+
+  <!-- SIDEBAR -->
+  <aside class="hc-sidebar">
+    <div class="hc-sidebar-title">Categorie</div>
+    <nav class="hc-nav">
+      <button class="hc-nav-cat active" onclick="switchCat('bilancio', this)">
+        <span class="cat-icon">📊</span> Analisi di Bilancio
+      </button>
+      <button class="hc-nav-cat" onclick="switchCat('bp', this)">
+        <span class="cat-icon">📋</span> Business Plan
+      </button>
+      <div class="hc-nav-divider"></div>
+      <button class="hc-nav-cat" onclick="switchCat('account', this)">
+        <span class="cat-icon">👤</span> Account e Crediti
+      </button>
+      <button class="hc-nav-cat" onclick="switchCat('tecnica', this)">
+        <span class="cat-icon">⚙️</span> FAQ Tecnica
+      </button>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="hc-content">
+
+    <!-- ══════════════════════════════
+         ANALISI DI BILANCIO
+    ══════════════════════════════ -->
+    <div class="hc-panel active" id="cat-bilancio">
+      <div class="hc-panel-title">📊 Analisi di Bilancio</div>
+      <div class="hc-panel-sub">Guide su come caricare il file XBRL, leggere gli indici e interpretare il report.</div>
+
+      <div class="guide-grid">
+
+        <!-- GUIDA 1 -->
+        <div class="guide-card" id="g-xbrl">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-blue">📁</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come scaricare il file XBRL dal Registro Imprese</div>
+              <div class="guide-q-meta">Primo passo · 3 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Cos'è il file XBRL?</h4>
+              <p>Il file XBRL (<em>eXtensible Business Reporting Language</em>) è il formato digitale standard con cui le imprese italiane depositano il bilancio al Registro Imprese. Contiene tutti i dati di Conto Economico, Stato Patrimoniale e Nota Integrativa in forma strutturata e leggibile automaticamente.</p>
+
+              <h4>Dove trovarlo</h4>
+              <ol class="step-list">
+                <li>Vai su <strong>www.registroimprese.it</strong> oppure accedi al portale <strong>Telemaco / InfoCamere</strong> della tua CCIAA provinciale.</li>
+                <li>Cerca l'impresa per <strong>ragione sociale o codice fiscale / P.IVA</strong>.</li>
+                <li>Nella sezione <strong>"Bilanci e atti"</strong> trovi l'elenco dei bilanci depositati anno per anno.</li>
+                <li>Clicca sull'anno desiderato e scarica il file con estensione <code>.xbrl</code> oppure lo ZIP che lo contiene.</li>
+                <li>Se hai scaricato uno ZIP, <strong>estrailo</strong> prima di caricarlo sulla piattaforma — il file da usare è quello con estensione <code>.xbrl</code>.</li>
+              </ol>
+
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>Se la CCIAA non ti fornisce il file XBRL gratuitamente, puoi acquistare il bilancio su <strong>registroimprese.it</strong> a circa €2–5. Contiene il file XBRL ufficiale.</span>
+              </div>
+
+              <h4>Formati supportati</h4>
+              <ul>
+                <li><strong>Bilancio ordinario</strong> (schema completo)</li>
+                <li><strong>Bilancio abbreviato</strong> (art. 2435-bis c.c.) — alcuni indici saranno N/A</li>
+                <li><strong>Bilancio micro-impresa</strong> (art. 2435-ter c.c.) — dati ridotti, rating calcolato sugli indici disponibili</li>
+              </ul>
+
+              <div class="guide-warn">
+                <span class="guide-tip-icon">⚠️</span>
+                <span>Non caricare il file PDF del bilancio — il sistema legge solo il formato <code>.xbrl</code>. Il PDF è il documento stampabile, l'XBRL è il file dati strutturato.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUIDA 2 -->
+        <div class="guide-card" id="g-carica">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-blue">⚡</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come eseguire l'analisi di bilancio</div>
+              <div class="guide-q-meta">Analisi singola · 2 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Procedura step-by-step</h4>
+              <ol class="step-list">
+                <li>Vai su <strong>Analisi Bilancio</strong> dal menu principale oppure clicca su <a href="importa-xbrl.html" style="color:#60a5fa">Importa XBRL</a>.</li>
+                <li>Trascina il file <code>.xbrl</code> nell'area di caricamento oppure clicca <strong>"Scegli file"</strong>.</li>
+                <li>Il sistema elabora il bilancio in <strong>10–30 secondi</strong> e mostra l'anteprima con tutti gli indici.</li>
+                <li>Controlla i valori calcolati — puoi vedere CE, Stato Patrimoniale, indici finanziari e rating bancabilità.</li>
+                <li>Quando sei soddisfatto, clicca <strong>"Genera Report PDF"</strong> e scegli il tipo: <em>Report Banca</em> o <em>Report Cliente</em>.</li>
+                <li>Completa il pagamento (€ 20,00 IVA inclusa) e scarica il PDF immediatamente.</li>
+              </ol>
+
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>L'anteprima è completamente <strong>gratuita</strong>. Paghi solo se decidi di scaricare il PDF finale.</span>
+              </div>
+
+              <h4>Differenza tra Report Banca e Report Cliente</h4>
+              <ul>
+                <li><strong>Report Banca</strong> — documento tecnico per istruttorie bancarie. Valori in nero, nessun suggerimento, solo dati e indici oggettivi. Ideale per allegare a una pratica di finanziamento.</li>
+                <li><strong>Report Cliente</strong> — report consulenziale completo. Include spiegazione degli indici, semafori colorati, problematiche rilevate e suggerimenti su cosa migliorare nel bilancio.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUIDA 3 -->
+        <div class="guide-card" id="g-rating">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-yellow">🏅</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come interpretare il rating bancabilità A–E</div>
+              <div class="guide-q-meta">Lettura report · 4 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Come è calcolato il rating</h4>
+              <p>Il rating bancabilità viene calcolato aggregando i principali indici finanziari secondo i criteri delle <strong>Linee Guida EBA/GL/2020/06</strong>, obbligatorie per tutti gli istituti di credito europei dal 30 giugno 2021.</p>
+
+              <h4>Le classi di rating</h4>
+              <ul>
+                <li><strong style="color:#22c55e">A — Eccellente</strong>: azienda molto solida, accesso al credito facilitato, condizioni favorevoli.</li>
+                <li><strong style="color:#84cc16">B — Buono</strong>: situazione finanziaria sana, bancabilità buona con normali garanzie.</li>
+                <li><strong style="color:#eab308">C — Sufficiente</strong>: qualche area di attenzione, bancabilità possibile con garanzie aggiuntive.</li>
+                <li><strong style="color:#f97316">D — Critico</strong>: più aree di debolezza, difficoltà di accesso al credito. Interventi correttivi consigliati.</li>
+                <li><strong style="color:#ef4444">E — Insufficiente</strong>: situazione finanziaria critica, bancabilità molto difficile. Necessaria ristrutturazione.</li>
+              </ul>
+
+              <h4>Indici considerati nel calcolo</h4>
+              <ul>
+                <li><strong>DSCR</strong> (Debt Service Coverage Ratio) — capacità di rimborsare il debito con i flussi di cassa. Soglia EBA: ≥ 1,1x</li>
+                <li><strong>PFN/EBITDA</strong> — leva finanziaria. Soglia EBA: ≤ 4x (≤ 3x per settori ciclici)</li>
+                <li><strong>Current Ratio</strong> — liquidità corrente. Soglia: ≥ 1x</li>
+                <li><strong>Autonomia finanziaria</strong> — Patrimonio Netto / Totale Attivo. Soglia: ≥ 25%</li>
+                <li><strong>ROE</strong> — redditività del capitale proprio</li>
+                <li><strong>Altman Z'-Score</strong> — modello predittivo di rischio di default</li>
+              </ul>
+
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>Il rating non è un giudizio definitivo — è uno strumento di supporto. Le banche lo integrano con informazioni qualitative, storia creditizia e garanzie. Un rating C può comunque portare a un finanziamento con le giuste garanzie.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUIDA 4 -->
+        <div class="guide-card" id="g-multianno">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-blue">📈</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come usare l'analisi multi-anno (confronto 3 esercizi)</div>
+              <div class="guide-q-meta">Analisi avanzata · 3 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>A cosa serve</h4>
+              <p>L'analisi multi-anno confronta fino a <strong>3 bilanci consecutivi</strong> (es. 2022, 2023, 2024) e mostra l'evoluzione degli indici nel tempo con grafici e variazioni percentuali. È particolarmente utile per:</p>
+              <ul>
+                <li>Evidenziare trend positivi o negativi alla banca</li>
+                <li>Mostrare il miglioramento dopo interventi correttivi</li>
+                <li>Supportare la narrativa di un business plan con dati storici</li>
+              </ul>
+
+              <h4>Come caricare più bilanci</h4>
+              <ol class="step-list">
+                <li>Vai su <a href="bilancio-multianno.html" style="color:#60a5fa">Analisi Multi-Anno</a> dal menu.</li>
+                <li>Carica il primo file XBRL (anno più vecchio) nell'area "Anno 1".</li>
+                <li>Carica il secondo file nell'area "Anno 2" e, se disponibile, il terzo in "Anno 3".</li>
+                <li>Il sistema allinea automaticamente le voci di bilancio tra i diversi anni e calcola le variazioni.</li>
+                <li>Scegli <strong>Report Banca</strong> o <strong>Report Cliente</strong> e genera il PDF.</li>
+              </ol>
+
+              <div class="guide-warn">
+                <span class="guide-tip-icon">⚠️</span>
+                <span>Assicurati che i file XBRL appartengano tutti alla <strong>stessa azienda</strong> (stesso codice fiscale). Il sistema verifica la coerenza ma non blocca eventuali errori di selezione.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /guide-grid -->
+      <div class="hc-contact">
+        <div class="hc-contact-text">
+          <strong>Non hai trovato quello che cercavi?</strong>
+          Scrivici e ti rispondiamo entro 24 ore.
+        </div>
+        <a href="mailto:info@analisiebusinessplan.it" class="hc-contact-btn">Contatta il supporto →</a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         BUSINESS PLAN
+    ══════════════════════════════ -->
+    <div class="hc-panel" id="cat-bp">
+      <div class="hc-panel-title">📋 Business Plan</div>
+      <div class="hc-panel-sub">Come costruire proiezioni 3 anni, scegliere lo scenario e leggere i risultati.</div>
+
+      <div class="guide-grid">
+
+        <!-- GUIDA BP 1 -->
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-green">🚀</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come iniziare un business plan da zero</div>
+              <div class="guide-q-meta">Primo passo · 4 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Prima di iniziare</h4>
+              <p>Per costruire un business plan accurato ti servono i dati dell'<strong>ultimo esercizio chiuso</strong>: ricavi, EBITDA, Patrimonio Netto, debiti finanziari. Se hai il bilancio XBRL, il sistema può importarli automaticamente.</p>
+
+              <h4>Procedura</h4>
+              <ol class="step-list">
+                <li>Vai su <a href="business-plan.html" style="color:#60a5fa">Business Plan</a> dal menu principale.</li>
+                <li>Scegli se partire da un <strong>file XBRL</strong> (importazione automatica) o inserire i dati <strong>manualmente</strong>.</li>
+                <li>Inserisci i dati storici: ricavi, costo del venduto, costi fissi, personale, immobilizzazioni e debiti.</li>
+                <li>Scegli lo <strong>scenario di crescita</strong> (vedi guida dedicata) oppure personalizza ogni parametro.</li>
+                <li>Inserisci eventuali <strong>nuovi finanziamenti</strong>, piano CAPEX e assunzioni previste.</li>
+                <li>Genera l'anteprima e verifica che i numeri siano coerenti.</li>
+                <li>Scarica il Business Plan PDF completo (€ 149,99 IVA inclusa).</li>
+              </ol>
+
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>Puoi salvare il progetto in bozza e riprendere in seguito senza perdere i dati inseriti — tutto rimane nel tuo browser (localStorage).</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUIDA BP 2 -->
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-green">🎯</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come scegliere lo scenario di crescita</div>
+              <div class="guide-q-meta">Ipotesi · 3 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Scenari disponibili</h4>
+              <ul>
+                <li><strong>Conservativo</strong> — crescita ricavi +2–3%/anno, margini stabili. Indicato per settori maturi o in contrazione. La banca lo vede favorevolmente perché è prudente.</li>
+                <li><strong>Moderato</strong> — crescita +5–8%/anno, lieve miglioramento dei margini. Lo scenario più usato per le PMI in espansione controllata.</li>
+                <li><strong>Ottimistico</strong> — crescita +10–15%/anno, significativo miglioramento EBITDA. Da usare se hai già contratti firmati o mercati nuovi aperti — va supportato da dati concreti.</li>
+                <li><strong>Custom</strong> — imposti tu ogni parametro anno per anno: tasso crescita ricavi, variazione costi fissi/variabili, personale, CAPEX.</li>
+              </ul>
+
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>Per una pratica bancaria, presenta sempre lo scenario <strong>moderato o conservativo</strong> come scenario base, e usa l'ottimistico solo come "upside". Le banche valutano la capacità di rimborso nello scenario base.</span>
+              </div>
+
+              <h4>Stress test -20% ricavi</h4>
+              <p>Il modello calcola automaticamente uno <strong>scenario stress</strong> con ricavi ridotti del 20%. Questo è richiesto dalle linee guida EBA per valutare la resilienza dell'azienda in caso di contrazione del mercato. Se il DSCR rimane ≥ 1,0x anche nello stress test, la bancabilità è molto solida.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUIDA BP 3 -->
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-green">📄</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come leggere le 14 pagine del Business Plan</div>
+              <div class="guide-q-meta">Output · 5 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Struttura del documento</h4>
+              <ol class="step-list">
+                <li><strong>Copertina</strong> — ragione sociale, scenario scelto, data.</li>
+                <li><strong>Bilancio storico</strong> — CE e SP riclassificati dell'ultimo esercizio.</li>
+                <li><strong>Executive Summary</strong> — KPI principali dei 3 anni in un colpo d'occhio.</li>
+                <li><strong>Conto Economico proiettato</strong> — ricavi, margini, EBITDA, EBIT, utile netto per Anno 1–3.</li>
+                <li><strong>Stato Patrimoniale proiettato</strong> — attivo, passivo e Patrimonio Netto per Anno 1–3.</li>
+                <li><strong>SP Gestionale</strong> — CINO, CCN, PFN e indici di solidità con semafori EBA.</li>
+                <li><strong>Cash Flow proiettato</strong> — FCO, FCF, flusso azionisti per Anno 1–3.</li>
+                <li><strong>Cash Flow Analitico</strong> — dettaglio FCO lordo → FCO → FCF → flusso azionisti.</li>
+                <li><strong>DSCR anno per anno</strong> — capacità di rimborso del debito con soglia 1,1x EBA.</li>
+                <li><strong>Struttura del Debito</strong> — BT/MLT, piano rimborso, % rimborsato per anno.</li>
+                <li><strong>Break-even Analysis</strong> — punto di pareggio, margine di sicurezza, scenario stress.</li>
+                <li><strong>Ipotesi e Assunzioni</strong> — tabella riepilogativa di tutti i parametri usati.</li>
+                <li><strong>Sezione Aziendale</strong> (opzionale) — descrizione business, governance, team.</li>
+                <li><strong>Analisi di Mercato</strong> (opzionale) — settore, concorrenza, posizionamento.</li>
+              </ol>
+
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>Le sezioni opzionali (Aziendale, Mercato) appaiono solo se inserisci le informazioni qualitative nel form. Puoi generare un BP tecnico di 10 pagine anche senza di esse.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUIDA BP 4 -->
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-green">🏦</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come usare il Business Plan per una pratica bancaria</div>
+              <div class="guide-q-meta">Uso pratico · 3 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Cosa guarda la banca</h4>
+              <p>Quando presenti un Business Plan per una richiesta di finanziamento, l'analista di credito valuta principalmente:</p>
+              <ul>
+                <li><strong>DSCR ≥ 1,1x</strong> per tutti e 3 gli anni — capacità di rimborsare la rata con i flussi di cassa.</li>
+                <li><strong>PFN/EBITDA ≤ 4x</strong> — sostenibilità del debito complessivo.</li>
+                <li><strong>FCF positivo</strong> — il progetto genera cassa dopo aver pagato gli investimenti.</li>
+                <li><strong>Coerenza tra ipotesi e mercato</strong> — crescite del 30%/anno senza giustificazione vengono bocciate.</li>
+              </ul>
+
+              <h4>Documenti da allegare insieme al BP</h4>
+              <ul>
+                <li>Ultimi 2–3 bilanci depositati (file XBRL o PDF)</li>
+                <li>Estratti conto bancari degli ultimi 6 mesi</li>
+                <li>Preventivi per gli investimenti CAPEX previsti</li>
+                <li>Contratti o lettere d'intento dei clienti principali (se disponibili)</li>
+                <li>Visura camerale aggiornata</li>
+              </ul>
+
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>Il nostro Business Plan è conforme <strong>EBA/GL/2020/06</strong> e <strong>D.Lgs. 14/2019 CCII</strong>. Gli indicatori calcolati sono esattamente quelli che le banche usano per la classificazione Stage 1/2/3. Non serve adattarlo.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /guide-grid -->
+      <div class="hc-contact">
+        <div class="hc-contact-text">
+          <strong>Non hai trovato quello che cercavi?</strong>
+          Scrivici e ti rispondiamo entro 24 ore.
+        </div>
+        <a href="mailto:info@analisiebusinessplan.it" class="hc-contact-btn">Contatta il supporto →</a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         ACCOUNT E CREDITI
+    ══════════════════════════════ -->
+    <div class="hc-panel" id="cat-account">
+      <div class="hc-panel-title">👤 Account e Crediti</div>
+      <div class="hc-panel-sub">Gestione account, pagamenti, crediti Piano Studio e fatturazione.</div>
+
+      <div class="guide-grid">
+
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-purple">💳</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come funziona il pagamento</div>
+              <div class="guide-q-meta">Pagamenti · 2 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Pay-per-use (singolo report)</h4>
+              <p>Non è richiesta alcuna registrazione per usare la piattaforma. Paghi solo quando scarichi il PDF finale:</p>
+              <ul>
+                <li><strong>Analisi di bilancio</strong> — € 20,00 IVA inclusa</li>
+                <li><strong>Business Plan completo</strong> — € 149,99 IVA inclusa</li>
+                <li><strong>Analisi Multi-Anno</strong> — € 49,99 IVA inclusa</li>
+              </ul>
+              <p>Il pagamento avviene tramite <strong>carta di credito / debito o PayPal</strong>. Dopo il pagamento il PDF viene generato e scaricato immediatamente.</p>
+
+              <h4>Piano Studio (pacchetti crediti)</h4>
+              <p>Se hai bisogno di più analisi, conviene acquistare un pacchetto crediti. I crediti non scadono mai e si usano quando vuoi. Per acquistare un pacchetto Studio scrivi a <a href="mailto:info@analisiebusinessplan.it" style="color:#60a5fa">info@analisiebusinessplan.it</a>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-purple">🧾</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Come richiedere la fattura</div>
+              <div class="guide-q-meta">Fatturazione · 1 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <p>Dopo il pagamento ricevi una ricevuta via email. Per richiedere la <strong>fattura elettronica</strong> con i tuoi dati fiscali (P.IVA, ragione sociale, SDI), scrivi a <a href="mailto:info@analisiebusinessplan.it" style="color:#60a5fa">info@analisiebusinessplan.it</a> entro 7 giorni dall'acquisto indicando:</p>
+              <ul>
+                <li>Ragione sociale o nome/cognome</li>
+                <li>P.IVA o Codice Fiscale</li>
+                <li>Codice SDI o PEC</li>
+                <li>Numero d'ordine (presente nella ricevuta email)</li>
+              </ul>
+              <p>La fattura viene emessa entro 5 giorni lavorativi.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="hc-contact">
+        <div class="hc-contact-text">
+          <strong>Problemi con un pagamento?</strong>
+          Scrivici subito — risolviamo in 24 ore.
+        </div>
+        <a href="mailto:info@analisiebusinessplan.it" class="hc-contact-btn">Contatta il supporto →</a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         FAQ TECNICA
+    ══════════════════════════════ -->
+    <div class="hc-panel" id="cat-tecnica">
+      <div class="hc-panel-title">⚙️ FAQ Tecnica</div>
+      <div class="hc-panel-sub">Problemi tecnici, formati supportati, compatibilità browser.</div>
+
+      <div class="guide-grid">
+
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-yellow">🔧</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Il file XBRL non viene riconosciuto — cosa faccio?</div>
+              <div class="guide-q-meta">Risoluzione problemi · 2 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Cause più comuni</h4>
+              <ul>
+                <li>Hai caricato il <strong>file PDF</strong> invece del file XBRL. Il PDF ha estensione <code>.pdf</code>, l'XBRL ha estensione <code>.xbrl</code>.</li>
+                <li>Hai caricato lo <strong>ZIP</strong> senza estrarlo. Estrai il contenuto e carica solo il file <code>.xbrl</code>.</li>
+                <li>Il file è <strong>corrotto o incompleto</strong>. Scaricalo di nuovo dal Registro Imprese.</li>
+                <li>Il file è in un <strong>formato XBRL non standard</strong> (es. schema europeo invece di italiano). Il sistema supporta lo schema XBRL italiano InfoCamere 2018.</li>
+              </ul>
+              <div class="guide-tip">
+                <span class="guide-tip-icon">💡</span>
+                <span>Se il problema persiste, inviaci il file a <a href="mailto:info@analisiebusinessplan.it" style="color:#60a5fa">info@analisiebusinessplan.it</a> e verifichiamo la compatibilità.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-yellow">🌐</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">Quali browser sono supportati?</div>
+              <div class="guide-q-meta">Compatibilità · 1 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <p>La piattaforma funziona su tutti i browser moderni:</p>
+              <ul>
+                <li>✅ <strong>Google Chrome</strong> 90+ (raccomandato)</li>
+                <li>✅ <strong>Mozilla Firefox</strong> 88+</li>
+                <li>✅ <strong>Microsoft Edge</strong> 90+</li>
+                <li>✅ <strong>Safari</strong> 14+ (Mac / iPad / iPhone)</li>
+                <li>⚠️ <strong>Internet Explorer</strong> — non supportato</li>
+              </ul>
+              <p>Non è richiesta alcuna installazione. Tutto funziona direttamente nel browser.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-q" onclick="toggleGuide(this)">
+            <div class="guide-q-icon icon-yellow">🔒</div>
+            <div class="guide-q-text">
+              <div class="guide-q-title">I miei dati sono al sicuro?</div>
+              <div class="guide-q-meta">Privacy · 2 min di lettura</div>
+            </div>
+            <div class="guide-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-body-inner">
+              <h4>Come trattiamo i tuoi dati</h4>
+              <ul>
+                <li>Il file XBRL viene <strong>elaborato in tempo reale</strong> sul server e non viene mai salvato.</li>
+                <li>I progetti del Business Plan vengono salvati nel tuo <strong>browser locale</strong> (localStorage) — non sui nostri server.</li>
+                <li>Non vendiamo né condividiamo dati con terze parti.</li>
+                <li>Il sito usa HTTPS con crittografia TLS.</li>
+              </ul>
+              <p>Per i dettagli completi consulta la nostra <a href="privacy.html" style="color:#60a5fa">Privacy Policy</a>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="hc-contact">
+        <div class="hc-contact-text">
+          <strong>Problema tecnico non risolto?</strong>
+          Descrivici il problema e ti aiutiamo subito.
+        </div>
+        <a href="mailto:info@analisiebusinessplan.it?subject=Problema tecnico" class="hc-contact-btn">Segnala il problema →</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function switchCat(id, btn) {
+  document.querySelectorAll('.hc-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.hc-nav-cat').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('cat-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleGuide(el) {
+  const card = el.closest('.guide-card');
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.guide-card.open').forEach(function(c){ c.classList.remove('open'); });
+  if (!isOpen) card.classList.add('open');
+}
+
+function cercaGuida(q) {
+  q = q.toLowerCase().trim();
+  if (!q) {
+    document.querySelectorAll('.guide-card').forEach(function(c){ c.style.display = ''; });
+    return;
+  }
+  document.querySelectorAll('.guide-card').forEach(function(card) {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(q) ? '' : 'none';
+  });
+  // Show all panels when searching
+  document.querySelectorAll('.hc-panel').forEach(function(p){ p.style.display = q ? 'block' : ''; });
+}
+</script>
+
+<script src="/cookie-banner.js"></script>
+</body>
+</html>
