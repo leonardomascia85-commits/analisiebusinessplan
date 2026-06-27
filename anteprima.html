@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Esempio Report — Vedi cosa ottieni | AnalisiEBusinessPlan.it</title>
+  <meta name="description" content="Vedi un esempio reale del report di analisi di bilancio e del business plan finanziario prima di acquistare. Report professionale PDF con indici EBA, rating bancabilità e proiezioni 3 anni."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://analisiebusinessplan.it/anteprima.html"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='white' font-weight='bold'>A</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #060e1f; color: #fff; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 64px;
+      background: rgba(6,14,31,.9); backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 17px; color: #fff; }
+    .logo em { font-style: normal; color: #60a5fa; }
+    .nav-r { display: flex; align-items: center; gap: 10px; }
+    .nav-back { font-size: 13.5px; color: rgba(255,255,255,.55); padding: 8px 14px; border-radius: 8px; transition: color .15s; }
+    .nav-back:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .nav-cta { padding: 9px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; color: #fff; background: #2563eb; transition: background .15s; }
+    .nav-cta:hover { background: #1d4ed8; }
+
+    /* HERO */
+    .hero {
+      padding: 110px 6% 60px; text-align: center;
+      background: linear-gradient(180deg, #060e1f 0%, #071428 100%);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(37,99,235,.15); border: 1px solid rgba(96,165,250,.3);
+      border-radius: 30px; padding: 5px 16px; margin-bottom: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #93c5fd;
+    }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(32px,4.5vw,56px); font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 16px; }
+    .hero h1 em { font-style: italic; background: linear-gradient(135deg,#60a5fa,#34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 17px; color: rgba(255,255,255,.55); line-height: 1.75; margin-bottom: 32px; }
+    .hero-tabs {
+      display: inline-flex; gap: 6px; padding: 6px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+    }
+    .hero-tab {
+      padding: 10px 24px; border-radius: 10px; font-size: 14px; font-weight: 600;
+      cursor: pointer; border: none; transition: all .2s; color: rgba(255,255,255,.5);
+      background: none;
+    }
+    .hero-tab.active-b { background: linear-gradient(135deg,#2563eb,#1d4ed8); color: #fff; box-shadow: 0 4px 16px rgba(37,99,235,.4); }
+    .hero-tab.active-g { background: linear-gradient(135deg,#059669,#047857); color: #fff; box-shadow: 0 4px 16px rgba(5,150,105,.4); }
+    .hero-tab:not(.active-b):not(.active-g):hover { color: #fff; background: rgba(255,255,255,.07); }
+
+    /* PANELS */
+    .panels { max-width: 1100px; margin: 0 auto; padding: 60px 6% 80px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* REPORT PREVIEW WRAPPER */
+    .report-wrap {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 40px 120px rgba(0,0,0,.5);
+      position: relative;
+    }
+    .report-bar {
+      background: #1e293b; padding: 10px 16px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .rbar-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .rbar-url {
+      flex: 1; margin: 0 12px; background: rgba(255,255,255,.06);
+      border-radius: 6px; padding: 5px 12px;
+      font-size: 11px; color: rgba(255,255,255,.3); font-family: monospace;
+    }
+    .report-body { background: #F8FAFC; color: #0F172A; }
+
+    /* ═══ ANALISI BILANCIO PREVIEW ═══ */
+    .ab-cover {
+      background: linear-gradient(135deg,#1e3a5f 0%,#1d4ed8 100%);
+      padding: 32px 36px; color: #fff;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .ab-cover-brand { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 700; opacity: .8; margin-bottom: 4px; }
+    .ab-cover-title { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+    .ab-cover-sub { font-size: 12px; opacity: .7; }
+    .ab-cover-rating {
+      width: 72px; height: 72px; border-radius: 14px; flex-shrink: 0;
+      background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.3);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif;
+    }
+    .ab-cover-rating .grade { font-size: 36px; font-weight: 800; line-height: 1; }
+    .ab-cover-rating .grade-lbl { font-size: 9px; opacity: .7; text-transform: uppercase; }
+
+    .ab-section { padding: 24px 28px; border-bottom: 1px solid #E2E8F0; }
+    .ab-section-title {
+      font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: #64748B; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .ab-section-title::before { content: ''; display: block; width: 3px; height: 14px; background: #2563eb; border-radius: 2px; }
+
+    /* KPI boxes */
+    .kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 12px; }
+    .kpi-box {
+      background: #fff; border: 1px solid #E2E8F0; border-radius: 12px;
+      padding: 14px 16px; border-left: 3px solid;
+    }
+    .kpi-box.green { border-left-color: #059669; }
+    .kpi-box.red   { border-left-color: #DC2626; }
+    .kpi-box.blue  { border-left-color: #2563EB; }
+    .kpi-box.yellow{ border-left-color: #D97706; }
+    .kpi-lbl { font-size: 10px; color: #64748B; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+    .kpi-val { font-size: 22px; font-weight: 700; font-family: 'Fraunces',serif; line-height: 1; margin-bottom: 4px; }
+    .kpi-val.green { color: #059669; }
+    .kpi-val.red   { color: #DC2626; }
+    .kpi-val.blue  { color: #2563EB; }
+    .kpi-val.yellow{ color: #D97706; }
+    .kpi-sub { font-size: 10px; color: #94A3B8; }
+
+    /* Indici table */
+    .ind-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .ind-table th { background: #F1F5F9; padding: 8px 12px; text-align: left; font-weight: 600; color: #475569; border-bottom: 1px solid #E2E8F0; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    .ind-table td { padding: 9px 12px; border-bottom: 1px solid #F1F5F9; color: #334155; }
+    .ind-table tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 5px; font-size: 10px; font-weight: 700; }
+    .badge.g { background: #D1FAE5; color: #065F46; }
+    .badge.r { background: #FEE2E2; color: #991B1B; }
+    .badge.y { background: #FEF3C7; color: #92400E; }
+    .badge.b { background: #DBEAFE; color: #1E40AF; }
+
+    /* Bar chart */
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .bar-name { font-size: 11px; color: #64748B; width: 110px; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 8px; background: #F1F5F9; border-radius: 4px; }
+    .bar-fill { height: 100%; border-radius: 4px; }
+    .bar-val { font-size: 11px; font-weight: 600; width: 48px; text-align: right; flex-shrink: 0; }
+
+    /* Watermark overlay */
+    .watermark-wrap { position: relative; }
+    .watermark-overlay {
+      position: absolute; inset: 0; z-index: 10;
+      background: linear-gradient(180deg, transparent 0%, rgba(248,250,252,.7) 40%, rgba(248,250,252,.97) 70%, #F8FAFC 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding-bottom: 40px;
+    }
+    .unlock-box {
+      background: #fff; border: 1px solid #E2E8F0; border-radius: 20px;
+      padding: 28px 36px; text-align: center; max-width: 440px; width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+    }
+    .unlock-icon { font-size: 36px; margin-bottom: 12px; }
+    .unlock-title { font-family: 'Fraunces',serif; font-size: 20px; font-weight: 800; color: #0F172A; margin-bottom: 8px; }
+    .unlock-desc { font-size: 13.5px; color: #64748B; line-height: 1.6; margin-bottom: 20px; }
+    .unlock-price { font-family: 'Fraunces',serif; font-size: 28px; font-weight: 800; color: #0F172A; margin-bottom: 4px; }
+    .unlock-price-note { font-size: 11px; color: #94A3B8; margin-bottom: 20px; }
+    .unlock-btn {
+      display: block; padding: 14px 32px; border-radius: 12px; font-size: 15px; font-weight: 700; color: #fff;
+      text-align: center; transition: all .2s; cursor: pointer;
+    }
+    .unlock-btn.b { background: linear-gradient(135deg,#2563eb,#1d4ed8); box-shadow: 0 4px 20px rgba(37,99,235,.4); }
+    .unlock-btn.b:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,.55); }
+    .unlock-btn.g { background: linear-gradient(135deg,#059669,#047857); box-shadow: 0 4px 20px rgba(5,150,105,.4); }
+    .unlock-btn.g:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(5,150,105,.55); }
+    .unlock-feats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left; }
+    .unlock-feat { font-size: 12.5px; color: #475569; display: flex; gap: 8px; }
+    .unlock-feat::before { content: '✓'; color: #059669; font-weight: 700; flex-shrink: 0; }
+
+    /* BP PREVIEW */
+    .bp-cover {
+      background: linear-gradient(135deg,#064e3b 0%,#047857 100%);
+      padding: 32px 36px; color: #fff;
+    }
+    .bp-cover-tag { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .6; margin-bottom: 8px; }
+    .bp-cover-title { font-family: 'Fraunces',serif; font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+    .bp-cover-sub { font-size: 12px; opacity: .65; margin-bottom: 16px; }
+    .bp-cover-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .bp-cover-badge { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.2); border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 600; }
+
+    .bp-exec { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .bp-kpi { background: #fff; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px; text-align: center; }
+    .bp-kpi-v { font-family: 'Fraunces',serif; font-size: 22px; font-weight: 800; color: #059669; }
+    .bp-kpi-v.warn { color: #D97706; }
+    .bp-kpi-v.blue { color: #2563eb; }
+    .bp-kpi-lbl { font-size: 10px; color: #64748B; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-top: 4px; }
+    .bp-kpi-sub { font-size: 9px; color: #94A3B8; margin-top: 2px; }
+
+    .ce-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .ce-table th { background: #F8FAFC; padding: 7px 10px; font-weight: 700; color: #475569; border-bottom: 2px solid #E2E8F0; font-size: 11px; }
+    .ce-table td { padding: 7px 10px; border-bottom: 1px solid #F1F5F9; color: #334155; }
+    .ce-table .subtotal td { background: #EFF6FF; font-weight: 700; color: #1D4ED8; }
+    .ce-table .total td { background: #ECFDF5; font-weight: 700; color: #065F46; font-size: 13px; }
+    .ce-table tr:last-child td { border-bottom: none; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.pct { text-align: right; color: #94A3B8; }
+
+    /* DSCR visual */
+    .dscr-row { display: flex; gap: 12px; }
+    .dscr-card {
+      flex: 1; background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px;
+      text-align: center;
+    }
+    .dscr-year { font-size: 11px; color: #64748B; font-weight: 600; margin-bottom: 8px; }
+    .dscr-val { font-family: 'Fraunces',serif; font-size: 28px; font-weight: 800; }
+    .dscr-val.ok { color: #059669; }
+    .dscr-val.warn { color: #D97706; }
+    .dscr-bar-track { height: 6px; background: #F1F5F9; border-radius: 3px; margin: 8px 0 4px; }
+    .dscr-bar-fill { height: 100%; border-radius: 3px; }
+    .dscr-threshold { font-size: 9px; color: #94A3B8; }
+
+    /* CHART bars */
+    .chart-wrap { display: flex; align-items: flex-end; gap: 8px; height: 80px; padding: 0 4px; }
+    .chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .chart-bar { width: 100%; border-radius: 4px 4px 0 0; }
+    .chart-lbl { font-size: 9px; color: #94A3B8; }
+    .chart-num { font-size: 9px; font-weight: 700; color: #475569; }
+
+    /* CTA sticky bottom */
+    .cta-sticky {
+      position: sticky; bottom: 0; background: rgba(6,14,31,.95); backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 16px 6%; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      z-index: 100;
+    }
+    .cta-sticky-text { font-size: 14px; color: rgba(255,255,255,.6); }
+    .cta-sticky-text strong { color: #fff; display: block; font-size: 15px; margin-bottom: 2px; }
+    .cta-sticky-btns { display: flex; gap: 10px; }
+    .cta-btn-b { padding: 11px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; color: #fff; background: linear-gradient(135deg,#2563eb,#1d4ed8); box-shadow: 0 4px 16px rgba(37,99,235,.4); transition: all .2s; }
+    .cta-btn-b:hover { transform: translateY(-1px); }
+    .cta-btn-g { padding: 11px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; color: #fff; background: linear-gradient(135deg,#059669,#047857); box-shadow: 0 4px 16px rgba(5,150,105,.4); transition: all .2s; }
+    .cta-btn-g:hover { transform: translateY(-1px); }
+
+    @media (max-width: 700px) {
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .bp-exec { grid-template-columns: 1fr 1fr; }
+      .dscr-row { flex-wrap: wrap; }
+      .ab-cover { flex-direction: column; }
+      nav { padding: 0 4%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Analisi<em>e</em>BusinessPlan</a>
+  <div class="nav-r">
+    <a href="index.html" class="nav-back">← Home</a>
+    <a href="importa-xbrl.html" class="nav-cta">Inizia ora →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">👁️ Anteprima gratuita</div>
+    <h1>Vedi esattamente<br/>cosa <em>ottieni</em></h1>
+    <p>Questi sono report reali generati dalla nostra piattaforma con dati di esempio.<br/>Il tuo report avrà la stessa qualità — con i dati della tua azienda.</p>
+    <div class="hero-tabs">
+      <button class="hero-tab active-b" onclick="switchPanel('bilancio',this)">📊 Analisi di Bilancio</button>
+      <button class="hero-tab" onclick="switchPanel('bp',this)">📋 Business Plan</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANELS -->
+<div class="panels">
+
+  <!-- ═══════════════════════════════════════
+       PANEL 1 — ANALISI DI BILANCIO
+  ═══════════════════════════════════════ -->
+  <div class="panel active" id="panel-bilancio">
+
+    <div class="report-wrap">
+      <div class="report-bar">
+        <div class="rbar-dot" style="background:#ff5f57"></div>
+        <div class="rbar-dot" style="background:#febc2e"></div>
+        <div class="rbar-dot" style="background:#28c840"></div>
+        <div class="rbar-url">analisiebusinessplan.it · Analisi Bilancio · ESEMPIO S.R.L. · 2024</div>
+      </div>
+      <div class="report-body">
+
+        <!-- COVER -->
+        <div class="ab-cover">
+          <div>
+            <div class="ab-cover-brand">AnalisiEBusinessPlan.it</div>
+            <div class="ab-cover-title">ESEMPIO S.R.L.</div>
+            <div class="ab-cover-sub">Analisi di Bilancio d'Esercizio 2024 · EBA/GL/2020/06 · D.Lgs. 14/2019</div>
+          </div>
+          <div class="ab-cover-rating">
+            <div class="grade">B</div>
+            <div class="grade-lbl">Rating</div>
+          </div>
+        </div>
+
+        <!-- KPI PRINCIPALI -->
+        <div class="ab-section">
+          <div class="ab-section-title">KPI Principali</div>
+          <div class="kpi-row">
+            <div class="kpi-box green">
+              <div class="kpi-lbl">EBITDA</div>
+              <div class="kpi-val green">€ 284.500</div>
+              <div class="kpi-sub">Margin 18,7% · +6,2% vs anno prec.</div>
+            </div>
+            <div class="kpi-box blue">
+              <div class="kpi-lbl">DSCR</div>
+              <div class="kpi-val blue">1,42x</div>
+              <div class="kpi-sub">✓ Sopra soglia EBA 1,10x</div>
+            </div>
+            <div class="kpi-box green">
+              <div class="kpi-lbl">PFN / EBITDA</div>
+              <div class="kpi-val green">1,8x</div>
+              <div class="kpi-sub">✓ Leverage ottimale (soglia 4x)</div>
+            </div>
+          </div>
+          <div class="kpi-row">
+            <div class="kpi-box green">
+              <div class="kpi-lbl">ROE</div>
+              <div class="kpi-val green">14,3%</div>
+              <div class="kpi-sub">✓ Sopra soglia bancaria 8%</div>
+            </div>
+            <div class="kpi-box yellow">
+              <div class="kpi-lbl">Current Ratio</div>
+              <div class="kpi-val yellow">1,24x</div>
+              <div class="kpi-sub">⚠ Attenzione · Target ≥ 1,5x</div>
+            </div>
+            <div class="kpi-box green">
+              <div class="kpi-lbl">Altman Z'-Score</div>
+              <div class="kpi-val green">3,82</div>
+              <div class="kpi-sub">✓ Zona sicura (≥ 2,9)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RATING DETTAGLIO -->
+        <div class="ab-section">
+          <div class="ab-section-title">Rating Bancabilità EBA — Classe B (Buono)</div>
+          <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#1E40AF;line-height:1.7">
+            L'azienda presenta una <strong>solida struttura finanziaria</strong> con buona capacità di rimborso del debito (DSCR 1,42x) e leva finanziaria contenuta. Il profilo di rischio è compatibile con l'accesso al credito bancario a condizioni standard. Si segnala attenzione sulla liquidità a breve termine (Current Ratio 1,24x).
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="bar-row">
+              <span class="bar-name">Liquidità</span>
+              <div class="bar-track"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#D97706,#FBBF24)"></div></div>
+              <span class="bar-val" style="color:#D97706">62/100</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-name">Solidità</span>
+              <div class="bar-track"><div class="bar-fill" style="width:78%;background:linear-gradient(90deg,#059669,#34D399)"></div></div>
+              <span class="bar-val" style="color:#059669">78/100</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-name">Redditività</span>
+              <div class="bar-track"><div class="bar-fill" style="width:72%;background:linear-gradient(90deg,#059669,#34D399)"></div></div>
+              <span class="bar-val" style="color:#059669">72/100</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-name">Copertura debito</span>
+              <div class="bar-track"><div class="bar-fill" style="width:82%;background:linear-gradient(90deg,#059669,#34D399)"></div></div>
+              <span class="bar-val" style="color:#059669">82/100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- INDICI COMPLETI (parzialmente visibili con overlay) -->
+        <div class="watermark-wrap">
+          <div class="ab-section" style="padding-bottom:40px">
+            <div class="ab-section-title">Tutti gli Indici di Bilancio</div>
+            <table class="ind-table">
+              <thead><tr><th>Indice</th><th>Valore</th><th>Benchmark</th><th>Giudizio</th><th>Spiegazione</th></tr></thead>
+              <tbody>
+                <tr><td>ROE — Redditività Netta</td><td>14,3%</td><td>> 8%</td><td><span class="badge g">✓ Buono</span></td><td style="font-size:11px;color:#64748B">Remunerazione del cap. proprio sopra benchmark</td></tr>
+                <tr><td>ROI — Redditività Operativa</td><td>11,8%</td><td>> 6%</td><td><span class="badge g">✓ Buono</span></td><td style="font-size:11px;color:#64748B">Rendimento degli investimenti totali adeguato</td></tr>
+                <tr><td>EBITDA Margin</td><td>18,7%</td><td>> 10%</td><td><span class="badge g">✓ Ottimo</span></td><td style="font-size:11px;color:#64748B">Margine operativo lordo solido rispetto al settore</td></tr>
+                <tr><td>DSCR — Copertura Debito</td><td>1,42x</td><td>≥ 1,10x</td><td><span class="badge g">✓ EBA OK</span></td><td style="font-size:11px;color:#64748B">Capacità rimborso debito conforme EBA/GL/2020/06</td></tr>
+                <tr><td>PFN / EBITDA — Leva</td><td>1,8x</td><td>≤ 4,0x</td><td><span class="badge g">✓ Ottimale</span></td><td style="font-size:11px;color:#64748B">Indebitamento netto sostenibile rispetto ai flussi</td></tr>
+                <tr><td>Current Ratio — Liquidità</td><td>1,24x</td><td>≥ 1,5x</td><td><span class="badge y">⚠ Attenzione</span></td><td style="font-size:11px;color:#64748B">Copertura passività correnti da migliorare</td></tr>
+                <tr><td>Autonomia Finanziaria</td><td>38,4%</td><td>≥ 25%</td><td><span class="badge g">✓ Buono</span></td><td style="font-size:11px;color:#64748B">Solidità patrimoniale adeguata</td></tr>
+                <tr><td>Altman Z'-Score</td><td>3,82</td><td>≥ 2,9</td><td><span class="badge g">✓ Sicuro</span></td><td style="font-size:11px;color:#64748B">Rischio default basso nel prossimo biennio</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="watermark-overlay">
+            <div class="unlock-box">
+              <div class="unlock-icon">📊</div>
+              <div class="unlock-title">Analisi completa della tua azienda</div>
+              <div class="unlock-desc">12+ indici, rating bancabilità, confronto settoriale con 18 macro-settori ATECO, analisi narrativa e Report Banca.</div>
+              <div class="unlock-feats">
+                <div class="unlock-feat">Tutti gli indici EBA con spiegazione</div>
+                <div class="unlock-feat">Confronto con benchmark settoriale ATECO</div>
+                <div class="unlock-feat">Report Banca (tecnico) + Report Cliente</div>
+                <div class="unlock-feat">Analisi narrativa e suggerimenti</div>
+              </div>
+              <div class="unlock-price">€ 20,00</div>
+              <div class="unlock-price-note">IVA inclusa · anteprima gratuita, paghi solo il PDF</div>
+              <a href="importa-xbrl.html" class="unlock-btn b">Analizza il tuo bilancio →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PANEL 2 — BUSINESS PLAN
+  ═══════════════════════════════════════ -->
+  <div class="panel" id="panel-bp">
+    <div class="report-wrap">
+      <div class="report-bar">
+        <div class="rbar-dot" style="background:#ff5f57"></div>
+        <div class="rbar-dot" style="background:#febc2e"></div>
+        <div class="rbar-dot" style="background:#28c840"></div>
+        <div class="rbar-url">analisiebusinessplan.it · Business Plan · ESEMPIO S.R.L. · 2025–2027</div>
+      </div>
+      <div class="report-body">
+
+        <!-- COVER -->
+        <div class="bp-cover">
+          <div class="bp-cover-tag">Business Plan Finanziario — Scenario Moderato</div>
+          <div class="bp-cover-title">ESEMPIO S.R.L.</div>
+          <div class="bp-cover-sub">Piano Economico-Finanziario Triennale 2025–2027 · Proiezioni CE + SP + Cash Flow</div>
+          <div class="bp-cover-badges">
+            <span class="bp-cover-badge">EBA/GL/2020/06</span>
+            <span class="bp-cover-badge">D.Lgs. 14/2019 CCII</span>
+            <span class="bp-cover-badge">DSCR ✓ 1,38x</span>
+          </div>
+        </div>
+
+        <!-- EXECUTIVE SUMMARY -->
+        <div class="ab-section">
+          <div class="ab-section-title">Executive Summary — KPI Triennali</div>
+          <div class="bp-exec">
+            <div class="bp-kpi">
+              <div class="bp-kpi-v ok">1,38x</div>
+              <div class="bp-kpi-lbl">DSCR Anno 1</div>
+              <div class="bp-kpi-sub">✓ Sopra soglia EBA 1,10x</div>
+            </div>
+            <div class="bp-kpi">
+              <div class="bp-kpi-v blue">19,4%</div>
+              <div class="bp-kpi-lbl">EBITDA Margin 2027</div>
+              <div class="bp-kpi-sub">Target > 8% · Crescita +2,1pp</div>
+            </div>
+            <div class="bp-kpi">
+              <div class="bp-kpi-v ok">€ 118K</div>
+              <div class="bp-kpi-lbl">Free Cash Flow 2025</div>
+              <div class="bp-kpi-sub">✓ Generazione cassa positiva</div>
+            </div>
+            <div class="bp-kpi">
+              <div class="bp-kpi-v blue">+6,5%</div>
+              <div class="bp-kpi-lbl">CAGR Ricavi</div>
+              <div class="bp-kpi-sub">Da € 1,52M a € 1,84M</div>
+            </div>
+            <div class="bp-kpi">
+              <div class="bp-kpi-v ok">1,9x</div>
+              <div class="bp-kpi-lbl">PFN/EBITDA 2027</div>
+              <div class="bp-kpi-sub">✓ Leverage sostenibile</div>
+            </div>
+            <div class="bp-kpi">
+              <div class="bp-kpi-v warn">€ 84K</div>
+              <div class="bp-kpi-lbl">Utile Netto 2025</div>
+              <div class="bp-kpi-sub">✓ 5,5% sui ricavi</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CE PROIETTATO -->
+        <div class="ab-section">
+          <div class="ab-section-title">Conto Economico Proiettato</div>
+          <table class="ce-table">
+            <thead><tr><th>Voce</th><th class="num">Storico 2024</th><th class="num">Anno 1 — 2025</th><th class="num">Anno 2 — 2026</th><th class="num">Anno 3 — 2027</th><th class="pct">% su Ricavi</th></tr></thead>
+            <tbody>
+              <tr><td>Ricavi netti</td><td class="num">1.521.300</td><td class="num">1.619.984</td><td class="num">1.724.783</td><td class="num">1.836.894</td><td class="pct">100%</td></tr>
+              <tr><td>Costo del venduto</td><td class="num">(821.502)</td><td class="num">(874.391)</td><td class="num">(930.982)</td><td class="num">(990.922)</td><td class="pct">53,9%</td></tr>
+              <tr class="subtotal"><td>Margine Lordo</td><td class="num">699.798</td><td class="num">745.593</td><td class="num">793.801</td><td class="num">845.972</td><td class="pct">46,1%</td></tr>
+              <tr><td>Costo del personale</td><td class="num">(298.400)</td><td class="num">(304.368)</td><td class="num">(310.455)</td><td class="num">(316.664)</td><td class="pct">17,2%</td></tr>
+              <tr><td>Altri costi fissi</td><td class="num">(116.900)</td><td class="num">(119.238)</td><td class="num">(121.623)</td><td class="num">(124.055)</td><td class="pct">6,7%</td></tr>
+              <tr class="subtotal"><td>EBITDA</td><td class="num">284.498</td><td class="num">321.987</td><td class="num">361.723</td><td class="num">405.253</td><td class="pct">22,1%</td></tr>
+              <tr><td>Ammortamenti</td><td class="num">(48.200)</td><td class="num">(51.400)</td><td class="num">(54.800)</td><td class="num">(58.100)</td><td class="pct">3,2%</td></tr>
+              <tr><td>Oneri finanziari</td><td class="num">(18.400)</td><td class="num">(24.200)</td><td class="num">(21.800)</td><td class="num">(18.900)</td><td class="pct">1,0%</td></tr>
+              <tr class="total"><td>Utile Netto</td><td class="num">84.218</td><td class="num">104.492</td><td class="num">132.408</td><td class="num">164.191</td><td class="pct">8,9%</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- DSCR -->
+        <div class="ab-section">
+          <div class="ab-section-title">DSCR — Copertura Servizio del Debito (soglia EBA ≥ 1,10x)</div>
+          <div class="dscr-row">
+            <div class="dscr-card">
+              <div class="dscr-year">Anno 1 · 2025</div>
+              <div class="dscr-val ok">1,38x</div>
+              <div class="dscr-bar-track"><div class="dscr-bar-fill" style="width:69%;background:linear-gradient(90deg,#059669,#34d399)"></div></div>
+              <div class="dscr-threshold">✓ Sopra soglia EBA</div>
+            </div>
+            <div class="dscr-card">
+              <div class="dscr-year">Anno 2 · 2026</div>
+              <div class="dscr-val ok">1,61x</div>
+              <div class="dscr-bar-track"><div class="dscr-bar-fill" style="width:80%;background:linear-gradient(90deg,#059669,#34d399)"></div></div>
+              <div class="dscr-threshold">✓ In miglioramento</div>
+            </div>
+            <div class="dscr-card">
+              <div class="dscr-year">Anno 3 · 2027</div>
+              <div class="dscr-val ok">1,89x</div>
+              <div class="dscr-bar-track"><div class="dscr-bar-fill" style="width:94%;background:linear-gradient(90deg,#059669,#34d399)"></div></div>
+              <div class="dscr-threshold">✓ Solido</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRESCITA RICAVI CHART + RESTO CON OVERLAY -->
+        <div class="watermark-wrap">
+          <div class="ab-section" style="padding-bottom:40px">
+            <div class="ab-section-title">Crescita Ricavi e EBITDA — Scenario Moderato</div>
+            <div style="display:flex;gap:24px;align-items:flex-end;margin-bottom:16px">
+              <div style="flex:1">
+                <div style="font-size:10px;color:#94A3B8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Ricavi (€)</div>
+                <div class="chart-wrap">
+                  <div class="chart-col">
+                    <div class="chart-num">1,52M</div>
+                    <div class="chart-bar" style="height:52%;background:rgba(37,99,235,.25)"></div>
+                    <div class="chart-lbl">2024</div>
+                  </div>
+                  <div class="chart-col">
+                    <div class="chart-num">1,62M</div>
+                    <div class="chart-bar" style="height:64%;background:rgba(37,99,235,.45)"></div>
+                    <div class="chart-lbl">2025</div>
+                  </div>
+                  <div class="chart-col">
+                    <div class="chart-num">1,72M</div>
+                    <div class="chart-bar" style="height:76%;background:rgba(37,99,235,.65)"></div>
+                    <div class="chart-lbl">2026</div>
+                  </div>
+                  <div class="chart-col">
+                    <div class="chart-num">1,84M</div>
+                    <div class="chart-bar" style="height:100%;background:#2563eb"></div>
+                    <div class="chart-lbl">2027</div>
+                  </div>
+                </div>
+              </div>
+              <div style="flex:1">
+                <div style="font-size:10px;color:#94A3B8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">EBITDA (€)</div>
+                <div class="chart-wrap">
+                  <div class="chart-col">
+                    <div class="chart-num">284K</div>
+                    <div class="chart-bar" style="height:52%;background:rgba(5,150,105,.25)"></div>
+                    <div class="chart-lbl">2024</div>
+                  </div>
+                  <div class="chart-col">
+                    <div class="chart-num">322K</div>
+                    <div class="chart-bar" style="height:64%;background:rgba(5,150,105,.45)"></div>
+                    <div class="chart-lbl">2025</div>
+                  </div>
+                  <div class="chart-col">
+                    <div class="chart-num">362K</div>
+                    <div class="chart-bar" style="height:78%;background:rgba(5,150,105,.65)"></div>
+                    <div class="chart-lbl">2026</div>
+                  </div>
+                  <div class="chart-col">
+                    <div class="chart-num">405K</div>
+                    <div class="chart-bar" style="height:100%;background:#059669"></div>
+                    <div class="chart-lbl">2027</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="background:#F1F5F9;border-radius:8px;padding:24px;height:80px;margin-top:8px;position:relative;overflow:hidden">
+              <div style="font-size:10px;color:#94A3B8;margin-bottom:6px">Stato Patrimoniale · Cash Flow analitico · Struttura debito · Break-even · Scenario stress…</div>
+            </div>
+          </div>
+          <div class="watermark-overlay">
+            <div class="unlock-box">
+              <div class="unlock-icon">📋</div>
+              <div class="unlock-title">Business Plan completo della tua azienda</div>
+              <div class="unlock-desc">14 pagine con CE, SP, Cash Flow, DSCR, struttura debito, break-even e scenario stress conforme EBA.</div>
+              <div class="unlock-feats">
+                <div class="unlock-feat">CE + SP + Cash Flow proiettati 3 anni</div>
+                <div class="unlock-feat">DSCR anno per anno con soglia EBA</div>
+                <div class="unlock-feat">Struttura debito e piano rimborso</div>
+                <div class="unlock-feat">Break-even e scenario stress −20%</div>
+              </div>
+              <div class="unlock-price">€ 149,99</div>
+              <div class="unlock-price-note">IVA inclusa · anteprima gratuita, paghi solo il PDF</div>
+              <a href="business-plan.html" class="unlock-btn g">Crea il tuo Business Plan →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA STICKY -->
+<div class="cta-sticky" id="panel-bilancio-cta">
+  <div class="cta-sticky-text">
+    <strong>Pronto ad analizzare la tua azienda?</strong>
+    Carica il bilancio XBRL — anteprima gratuita, PDF da € 20,00 IVA inclusa.
+  </div>
+  <div class="cta-sticky-btns">
+    <a href="importa-xbrl.html" class="cta-btn-b">📊 Analizza il bilancio →</a>
+    <a href="business-plan.html" class="cta-btn-g">📋 Crea Business Plan →</a>
+  </div>
+</div>
+
+<script>
+function switchPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.hero-tab').forEach(function(b){ b.classList.remove('active-b','active-g'); });
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add(id === 'bilancio' ? 'active-b' : 'active-g');
+}
+</script>
+<script src="/cookie-banner.js"></script>
+</body>
+</html>
