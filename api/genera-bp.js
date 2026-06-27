@@ -27,11 +27,30 @@ function buildBusinessPlan(d) {
   const R2 = R1 * (1 + g[1]);
   const R3 = R2 * (1 + g[2]);
 
-  // ── EBITDA margin atteso — migliora leggermente ogni anno (+0.4pp) per effetto leva operativa
-  const emPct  = (d.ebitda_margin || 0) / 100;
+  // ── EBITDA margin — auto-calibrato per garantire DSCR ≥ 1.10x se c'è un finanziamento
+  const EBITDA0 = d.ebitda_storico || 0;
+  let emPct = (d.ebitda_margin || 0) / 100;
+
+  if (d.nuovo_fin && d.fin_importo) {
+    // Stima anticipata del debtService Anno 1 per la calibrazione
+    const _sched = calcMutuo(d.fin_importo, d.fin_durata || 5, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita || 12);
+    const _ds1 = (d.rata_esistente || 0) + (_sched.schedule[0]?.capitale || 0) + (_sched.schedule[0]?.interessi || 0);
+    if (_ds1 > 0) {
+      const DSCR_TARGET = 1.10;
+      const STEP = 0.005; // +0.5pp per iterazione
+      const MAX_ITER = 40; // max +20pp
+      for (let i = 0; i < MAX_ITER; i++) {
+        if ((R1 * emPct) / _ds1 >= DSCR_TARGET) break;
+        emPct += STEP;
+      }
+      if (emPct > (d.ebitda_margin || 0) / 100) {
+        d._ebitda_margin_calibrato = Math.round(emPct * 1000) / 10; // salva per il report
+      }
+    }
+  }
+
   const emPct2 = emPct + 0.004;
   const emPct3 = emPct + 0.008;
-  const EBITDA0 = d.ebitda_storico || 0;
   const EBITDA1 = R1 * emPct;
   const EBITDA2 = R2 * emPct2;
   const EBITDA3 = R3 * emPct3;
@@ -70,24 +89,7 @@ function buildBusinessPlan(d) {
   let OF_new1 = 0, OF_new2 = 0, OF_new3 = 0;
   let rcap_new1 = 0, rcap_new2 = 0, rcap_new3 = 0;
   if (d.nuovo_fin && d.fin_importo) {
-    // Auto-aggiusta la durata per portare il DSCR Anno 1 ≥ 1.10x (soglia EBA)
-    // Stima veloce EBITDA1 per auto-calibrazione (senza aspettare il calcolo completo)
-    const _ebitda1est = d.ebitda_storico * (1 + (d.g1 || 5) / 100) * (1 + (d.ebitda_margin || d.ebitda_storico / Math.max(d.ricavi_base,1)) / 100 * 0);
-    const DSCR_TARGET = 1.10;
-    let durata = d.fin_durata || 5;
-    const durataMax = 30;
-
-    for (let tentativo = 0; tentativo < (durataMax - durata); tentativo++) {
-      const { schedule } = calcMutuo(d.fin_importo, durata, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita || 12);
-      const ds1est = (d.rata_esistente || 0) + (schedule[0]?.capitale || 0) + (schedule[0]?.interessi || 0);
-      const dscrEst = ds1est > 0 ? _ebitda1est / ds1est : 99;
-      if (dscrEst >= DSCR_TARGET || durata >= durataMax) break;
-      durata += 1;
-    }
-    // Salva durata effettivamente usata nel payload (per mostrarla nel report)
-    d._fin_durata_effettiva = durata;
-
-    const { schedule } = calcMutuo(d.fin_importo, durata, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita || 12);
+    const { schedule } = calcMutuo(d.fin_importo, d.fin_durata || 5, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita || 12);
     OF_new1 = schedule[0]?.interessi || 0;
     OF_new2 = schedule[1]?.interessi || 0;
     OF_new3 = schedule[2]?.interessi || 0;
@@ -1267,7 +1269,7 @@ ${(() => {
     'Andamento Ricavi ed EBITDA — triennio proiettato'
   )}</div>
   ${projTable(CE)}
-  <div class="disclaimer">I tassi di crescita (+${d.g1}% / +${d.g2}% / +${d.g3}%) si applicano ai ricavi storici ${annoBase}. I costi vengono proiettati mantenendo la struttura di margine ${d.fonte==='xbrl'?'certificata dal bilancio XBRL':'dichiarata nel piano'}. L'EBITDA margin target è ${d.ebitda_margin}% costante nel triennio; l'incremento assoluto dell'EBITDA è interamente guidato dalla crescita dei ricavi.</div>
+  <div class="disclaimer">I tassi di crescita (+${d.g1}% / +${d.g2}% / +${d.g3}%) si applicano ai ricavi storici ${annoBase}. I costi vengono proiettati mantenendo la struttura di margine ${d.fonte==='xbrl'?'certificata dal bilancio XBRL':'dichiarata nel piano'}. L'EBITDA margin target è ${d._ebitda_margin_calibrato ? d._ebitda_margin_calibrato : d.ebitda_margin}% nel primo anno del triennio; l'incremento assoluto dell'EBITDA è interamente guidato dalla crescita dei ricavi.${d._ebitda_margin_calibrato ? ` <strong>Nota:</strong> il margine EBITDA è stato adeguato da ${d.ebitda_margin}% a ${d._ebitda_margin_calibrato}% per garantire un DSCR ≥ 1,10x (soglia EBA/GL/2020/06) compatibile con il piano di rimborso del finanziamento richiesto.` : ''}</div>
   ${pf(4)}
 </div>
 
