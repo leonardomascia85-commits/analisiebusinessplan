@@ -70,7 +70,7 @@ function buildBusinessPlan(d) {
   let OF_new1 = 0, OF_new2 = 0, OF_new3 = 0;
   let rcap_new1 = 0, rcap_new2 = 0, rcap_new3 = 0;
   if (d.nuovo_fin && d.fin_importo) {
-    const { schedule } = calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0);
+    const { schedule } = calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita||12);
     OF_new1 = schedule[0]?.interessi || 0;
     OF_new2 = schedule[1]?.interessi || 0;
     OF_new3 = schedule[2]?.interessi || 0;
@@ -421,15 +421,39 @@ function buildSPRows(IMM0, IMM1, IMM2, IMM3,
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-function calcMutuo(importo, durata, tasso, preAmm) {
+function calcMutuo(importo, durata, tasso, preAmm, periodicita) {
+  // periodicita = numero rate per anno: 12=mensile, 4=trimestrale, 2=semestrale (default 12)
+  const nRateAnno = periodicita || 12;
   const schedule = [];
+  const tassoPerPeriodo = tasso / nRateAnno;
+  const nTotPeriodi = durata * nRateAnno;
+  const nPreAmm = Math.round(preAmm || 0); // mesi di pre-ammortamento
+
+  // Rata costante alla francese (solo interessi durante pre-ammortamento)
+  const rataFrancese = tassoPerPeriodo > 0
+    ? importo * (tassoPerPeriodo * Math.pow(1 + tassoPerPeriodo, nTotPeriodi)) / (Math.pow(1 + tassoPerPeriodo, nTotPeriodi) - 1)
+    : importo / nTotPeriodi;
+
   let debRes = importo;
-  const rataCapAnn = importo / durata;
-  for (let i = 0; i < Math.min(durata, 10); i++) {
-    const interessi = debRes * tasso;
-    const capitale = i < (preAmm / 12) ? 0 : rataCapAnn;
-    debRes -= capitale;
-    schedule.push({ anno: i + 1, capitale, interessi, debResiduo: Math.max(debRes, 0) });
+  let periodoGlobale = 0;
+
+  for (let anno = 1; anno <= Math.min(durata, 10); anno++) {
+    let capitaleAnno = 0, interessiAnno = 0;
+    for (let p = 0; p < nRateAnno; p++) {
+      periodoGlobale++;
+      const meseEquiv = Math.round((periodoGlobale - 1) * (12 / nRateAnno));
+      if (meseEquiv < nPreAmm) {
+        // pre-ammortamento: solo interessi
+        interessiAnno += debRes * tassoPerPeriodo;
+      } else {
+        const int = debRes * tassoPerPeriodo;
+        const cap = Math.min(rataFrancese - int, debRes);
+        interessiAnno += int;
+        capitaleAnno += Math.max(cap, 0);
+        debRes = Math.max(debRes - Math.max(cap, 0), 0);
+      }
+    }
+    schedule.push({ anno, capitale: Math.round(capitaleAnno), interessi: Math.round(interessiAnno), debResiduo: Math.round(Math.max(debRes, 0)) });
   }
   return { schedule };
 }
@@ -1478,7 +1502,7 @@ ${d.nuovo_fin || (d.pfn_storico && d.pfn_storico > 0) ? `<div class="page">
     const debMLT0 = d.pfn_storico > 0 ? Math.max((d.pfn_storico||0) - debBT, 0) : 0;
     const debTot0 = d.pfn_storico || 0;
     // Proiettato
-    const { schedule } = d.nuovo_fin && d.fin_importo ? calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso/100, d.pre_amm||0) : { schedule:[] };
+    const { schedule } = d.nuovo_fin && d.fin_importo ? calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso/100, d.pre_amm||0, d.fin_periodicita||12) : { schedule:[] };
     const debMLT1 = Math.max(debMLT0 - (d.rata_esistente||0) + (d.nuovo_fin?d.fin_importo:0) - (schedule[0]?.capitale||0), 0);
     const debMLT2 = Math.max(debMLT1 - (d.rata_esistente||0) - (schedule[1]?.capitale||0), 0);
     const debMLT3 = Math.max(debMLT2 - (d.rata_esistente||0) - (schedule[2]?.capitale||0), 0);
@@ -1512,7 +1536,7 @@ ${d.nuovo_fin || (d.pfn_storico && d.pfn_storico > 0) ? `<div class="page">
   <table class="rep">
     <thead><tr><th>Anno</th><th class="r">Rata capitale</th><th class="r">Interessi</th><th class="r">Rata totale</th><th class="r">Debito residuo</th><th class="r">% rimborsato</th></tr></thead>
     <tbody>
-      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso/100, d.pre_amm||0).schedule.slice(0,5).map(s=>{
+      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso/100, d.pre_amm||0, d.fin_periodicita||12).schedule.slice(0,5).map(s=>{
         const percRimb = d.fin_importo > 0 ? ((d.fin_importo - s.debResiduo)/d.fin_importo*100).toFixed(1)+'%' : '—';
         return `<tr><td>${annoBase+s.anno}</td><td class="r">${fmtE(s.capitale)}</td><td class="r">${fmtE(s.interessi)}</td><td class="r" style="font-weight:600">${fmtE(s.capitale+s.interessi)}</td><td class="r">${fmtE(s.debResiduo)}</td><td class="r" style="color:#059669">${percRimb}</td></tr>`;
       }).join('')}
@@ -1609,7 +1633,7 @@ ${d.nuovo_fin || (d.pfn_storico && d.pfn_storico > 0) ? `<div class="page">
   <table class="rep">
     <thead><tr><th>Anno</th><th>Quota capitale</th><th>Interessi</th><th>Debito residuo</th></tr></thead>
     <tbody>
-      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0).schedule.slice(0, 5).map(s => `<tr><td>${annoBase + s.anno}</td><td>${fmtE(s.capitale)}</td><td>${fmtE(s.interessi)}</td><td>${fmtE(s.debResiduo)}</td></tr>`).join('')}
+      ${calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita||12).schedule.slice(0, 5).map(s => `<tr><td>${annoBase + s.anno}</td><td>${fmtE(s.capitale)}</td><td>${fmtE(s.interessi)}</td><td>${fmtE(s.debResiduo)}</td></tr>`).join('')}
     </tbody>
   </table>` : ''}
   ${d.nota_metodologica ? `<h3>Nota metodologica</h3><p style="font-size:10px;color:#475569;line-height:1.7">${d.nota_metodologica}</p>` : ''}

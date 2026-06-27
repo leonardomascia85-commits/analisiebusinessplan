@@ -373,7 +373,7 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
                     </div>
                   </div>
                   <div>
-                    <label>N. rate annue (durata anni)</label>
+                    <label>Durata (anni)</label>
                     <input type="number" id="fin_durata" placeholder="Es. 5" min="1" max="30">
                   </div>
                   <div>
@@ -396,10 +396,17 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
                     </select>
                   </div>
                   <div>
+                    <label>Periodicità rata</label>
+                    <select id="fin_periodicita">
+                      <option value="12">Mensile (12 rate/anno)</option>
+                      <option value="4">Trimestrale (4 rate/anno)</option>
+                      <option value="2">Semestrale (2 rate/anno)</option>
+                    </select>
+                  </div>
+                  <div>
                     <label>Pre-ammortamento (mesi)</label>
                     <input type="number" id="pre_amm" placeholder="0" min="0" max="24">
                   </div>
-                  <div></div>
                 </div>
               </div>
             </div>
@@ -921,11 +928,12 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
             </select>
           </div>
           <div>
-            <label>Quota capitale annua (€)</label>
-            <div class="input-group">
-              <input type="number" id="rata_capitale" class="has-suffix" placeholder="Calcolata auto">
-              <span class="input-suffix">€</span>
-            </div>
+            <label>Periodicità rata</label>
+            <select id="fin_periodicita">
+              <option value="12">Mensile (12 rate/anno)</option>
+              <option value="4">Trimestrale (4 rate/anno)</option>
+              <option value="2">Semestrale (2 rate/anno)</option>
+            </select>
           </div>
           <div>
             <label>Pre-ammortamento (mesi)</label>
@@ -1599,9 +1607,10 @@ async function generaBPdaXBRL(){
     fin_importo: parseFloat(v('fin_importo'))||0,
     fin_durata:  parseFloat(v('fin_durata'))||5,
     fin_tasso:   parseFloat(v('fin_tasso'))||4.5,
-    fin_tipo:    v('fin_tipo')||'mutuo',
-    rata_capitale:0,
-    pre_amm:     parseFloat(v('pre_amm'))||0,
+    fin_tipo:         v('fin_tipo')||'mutuo',
+    fin_periodicita:  parseInt(v('fin_periodicita'))||12,
+    rata_capitale:    0,
+    pre_amm:          parseFloat(v('pre_amm'))||0,
     aum_capitale: 0,
     dividendi:    0,
     // Flag per identificare origine
@@ -1864,12 +1873,13 @@ function raccogliDati(){
     interessi_esistenti: parseFloat(v('interessi_esistenti'))||0,
     anni_residui: parseFloat(v('anni_residui'))||0,
     nuovo_fin: document.getElementById('toggle-fin')?.checked || false,
-    fin_importo: parseFloat(v('fin_importo'))||0,
-    fin_durata: parseFloat(v('fin_durata'))||5,
-    fin_tasso: parseFloat(v('fin_tasso'))||4.5,
-    fin_tipo: v('fin_tipo'),
-    rata_capitale: parseFloat(v('rata_capitale'))||0,
-    pre_amm: parseFloat(v('pre_amm'))||0,
+    fin_importo:      parseFloat(v('fin_importo'))||0,
+    fin_durata:       parseFloat(v('fin_durata'))||5,
+    fin_tasso:        parseFloat(v('fin_tasso'))||4.5,
+    fin_tipo:         v('fin_tipo'),
+    fin_periodicita:  parseInt(v('fin_periodicita'))||12,
+    rata_capitale:    parseFloat(v('rata_capitale'))||0,
+    pre_amm:          parseFloat(v('pre_amm'))||0,
     aum_capitale: parseFloat(v('aum_capitale'))||0,
     dividendi: parseFloat(v('dividendi'))||0,
     // Sezioni qualitative (condivise con percorso XBRL)
