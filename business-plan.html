@@ -1504,6 +1504,16 @@ document.addEventListener('DOMContentLoaded', () => {
 async function generaBPdaXBRL(){
   if(!_xbrlData){ alert('Carica prima un file XBRL.'); return; }
 
+  // Validazione finanziamento
+  if(document.getElementById('toggle-fin-xbrl')?.checked){
+    const importo = parseFloat(v('fin_importo'))||0;
+    const durata  = parseFloat(v('fin_durata'))||0;
+    const tasso   = parseFloat(v('fin_tasso'))||0;
+    if(!importo){ alert('Inserisci l\'importo del finanziamento.'); document.getElementById('fin_importo').focus(); return; }
+    if(!durata){  alert('Inserisci la durata del finanziamento (anni).'); document.getElementById('fin_durata').focus(); return; }
+    if(!tasso){   alert('Inserisci il tasso di interesse del finanziamento.'); document.getElementById('fin_tasso').focus(); return; }
+  }
+
   const p = _xbrlData;
   const cg1 = parseFloat(v('sc-c-g1'))||3, cg2 = parseFloat(v('sc-c-g2'))||3, cg3 = parseFloat(v('sc-c-g3'))||3;
   const bg1 = parseFloat(v('g1'))||7,      bg2 = parseFloat(v('g2'))||8,      bg3 = parseFloat(v('g3'))||8;
@@ -1626,13 +1636,19 @@ async function generaBPdaXBRL(){
 
 // ─── Financing toggle ────────────────────────────────────
 function toggleFinanziamento(percorso){
-  // Gestisce sia il percorso XBRL (suffix -xbrl) sia quello manuale (sec5)
   const suffix = percorso === 'xbrl' ? '-xbrl' : '';
   const cb = document.getElementById('toggle-fin' + suffix);
   const block = document.getElementById('finanziamento-block' + suffix);
   if (!cb || !block) return;
-  if(cb.checked){ block.classList.remove('hidden'); block.classList.add('visible'); }
-  else { block.classList.remove('visible'); block.classList.add('hidden'); }
+  const on = cb.checked;
+  if(on){ block.classList.remove('hidden'); block.classList.add('visible'); }
+  else   { block.classList.remove('visible'); block.classList.add('hidden'); }
+
+  // Campi obbligatori quando il finanziamento è attivo
+  ['fin_importo','fin_durata','fin_tasso'].forEach(function(id){
+    const el = document.getElementById(id);
+    if(el){ el.required = on; if(!on) el.setCustomValidity(''); }
+  });
 }
 
 // ─── Capex table ─────────────────────────────────────────
@@ -1758,7 +1774,17 @@ function raccogliDati(){
 
   const ricavi = parseFloat(v('ricavi_storici'))||0;
   if(!ricavi){ alert('Inserisci o carica il fatturato storico (Sezione 1).'); return null; }
-  if(!selectedScenario) selectedScenario = 'custom'; // percorso manuale senza card scenario
+  if(!selectedScenario) selectedScenario = 'custom';
+
+  // Validazione finanziamento percorso manuale
+  if(document.getElementById('toggle-fin')?.checked){
+    const importo = parseFloat(v('fin_importo'))||0;
+    const durata  = parseFloat(v('fin_durata'))||0;
+    const tasso   = parseFloat(v('fin_tasso'))||0;
+    if(!importo){ alert('Inserisci l\'importo del finanziamento.'); document.getElementById('fin_importo').focus(); return null; }
+    if(!durata){  alert('Inserisci la durata del finanziamento (anni).'); document.getElementById('fin_durata').focus(); return null; }
+    if(!tasso){   alert('Inserisci il tasso di interesse del finanziamento.'); document.getElementById('fin_tasso').focus(); return null; }
+  }
 
   // Collect capex
   const capex = [];
