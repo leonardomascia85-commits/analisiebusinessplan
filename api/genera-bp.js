@@ -70,7 +70,24 @@ function buildBusinessPlan(d) {
   let OF_new1 = 0, OF_new2 = 0, OF_new3 = 0;
   let rcap_new1 = 0, rcap_new2 = 0, rcap_new3 = 0;
   if (d.nuovo_fin && d.fin_importo) {
-    const { schedule } = calcMutuo(d.fin_importo, d.fin_durata, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita||12);
+    // Auto-aggiusta la durata per portare il DSCR Anno 1 ≥ 1.10x (soglia EBA)
+    // Stima veloce EBITDA1 per auto-calibrazione (senza aspettare il calcolo completo)
+    const _ebitda1est = d.ebitda_storico * (1 + (d.g1 || 5) / 100) * (1 + (d.ebitda_margin || d.ebitda_storico / Math.max(d.ricavi_base,1)) / 100 * 0);
+    const DSCR_TARGET = 1.10;
+    let durata = d.fin_durata || 5;
+    const durataMax = 30;
+
+    for (let tentativo = 0; tentativo < (durataMax - durata); tentativo++) {
+      const { schedule } = calcMutuo(d.fin_importo, durata, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita || 12);
+      const ds1est = (d.rata_esistente || 0) + (schedule[0]?.capitale || 0) + (schedule[0]?.interessi || 0);
+      const dscrEst = ds1est > 0 ? _ebitda1est / ds1est : 99;
+      if (dscrEst >= DSCR_TARGET || durata >= durataMax) break;
+      durata += 1;
+    }
+    // Salva durata effettivamente usata nel payload (per mostrarla nel report)
+    d._fin_durata_effettiva = durata;
+
+    const { schedule } = calcMutuo(d.fin_importo, durata, d.fin_tasso / 100, d.pre_amm || 0, d.fin_periodicita || 12);
     OF_new1 = schedule[0]?.interessi || 0;
     OF_new2 = schedule[1]?.interessi || 0;
     OF_new3 = schedule[2]?.interessi || 0;
@@ -825,7 +842,7 @@ function buildHTMLReport(d, { CE, SP, CF, be, kpi, alerts }, nums) {
 
 <p>Sul fronte degli investimenti, il piano CAPEX${(d.capex && d.capex.length) ? ' pianificato dalla direzione aziendale' : ' di mantenimento e rinnovo ordinario degli asset'} determina il flusso di investimento nel periodo. Tali uscite di cassa riducono il Free Cash Flow disponibile per il servizio del debito e per l'autofinanziamento aziendale${d.capex && d.capex.length ? ', rappresentando tuttavia una scelta strategica volta a sostenere la capacità produttiva e commerciale dell\'azienda nel medio termine' : ', mantenendosi tuttavia a livelli compatibili con la capacità di generazione di cassa del piano'}. Il saldo tra flusso operativo e flusso di investimento determina il Free Cash Flow (FCF) disponibile, che il piano proietta in territorio${EBITDA1 > 0 ? ' positivo nel corso del triennio, a conferma dell\'equilibrio finanziario complessivo del modello' : ' di progressivo miglioramento, con attesa positività nel corso del periodo di piano'}.</p>
 
-<p>Il flusso finanziario riflette la struttura del debito bancario in essere${d.nuovo_fin && d.fin_importo ? ` e l'erogazione del nuovo finanziamento di <strong>${fmtE(d.fin_importo)}</strong>${d.fin_tipo ? ' (' + d.fin_tipo + ')' : ''}${d.fin_durata ? ' su una durata di ' + d.fin_durata + ' anni' : ''}, le cui rate di rimborso sono state incluse nel calcolo del DSCR e` : ', le cui rate di rimborso'} incidono sul fabbisogno di liquidità annuale. Il servizio del debito complessivo è coperto dalla generazione di cassa operativa con un DSCR di <strong>${fmtX(DSCR1)}x</strong> nel primo anno${DSCR2 !== undefined ? ` e di <strong>${fmtX(DSCR2)}x</strong> nel ${annoBase + 2}` : ''}, garantendo che per ogni euro di rata il piano generi un flusso EBITDA superiore, a presidio della continuità del rimborso. La cassa finale risulta positiva in tutti e tre gli anni del piano, segnalando la robustezza della pianificazione finanziaria e la capacità dell'azienda di far fronte agli impegni assunti nei confronti del sistema creditizio.</p>`;
+<p>Il flusso finanziario riflette la struttura del debito bancario in essere${d.nuovo_fin && d.fin_importo ? ` e l'erogazione del nuovo finanziamento di <strong>${fmtE(d.fin_importo)}</strong>${d.fin_tipo ? ' (' + d.fin_tipo + ')' : ''}${( d._fin_durata_effettiva || d.fin_durata) ? ' su una durata di ' + (d._fin_durata_effettiva || d.fin_durata) + ' anni' + (d._fin_durata_effettiva && d._fin_durata_effettiva !== d.fin_durata ? ' (adeguata automaticamente per DSCR ≥ 1,10x)' : '') : ''}, le cui rate di rimborso sono state incluse nel calcolo del DSCR e` : ', le cui rate di rimborso'} incidono sul fabbisogno di liquidità annuale. Il servizio del debito complessivo è coperto dalla generazione di cassa operativa con un DSCR di <strong>${fmtX(DSCR1)}x</strong> nel primo anno${DSCR2 !== undefined ? ` e di <strong>${fmtX(DSCR2)}x</strong> nel ${annoBase + 2}` : ''}, garantendo che per ogni euro di rata il piano generi un flusso EBITDA superiore, a presidio della continuità del rimborso. La cassa finale risulta positiva in tutti e tre gli anni del piano, segnalando la robustezza della pianificazione finanziaria e la capacità dell'azienda di far fronte agli impegni assunti nei confronti del sistema creditizio.</p>`;
 
   // ── KPI cards (exec summary)
   const kpiCard = (val, label, soglia, color) => `
@@ -1616,7 +1633,7 @@ ${d.nuovo_fin || (d.pfn_storico && d.pfn_storico > 0) ? `<div class="page">
       <tr><td>Incremento costo personale</td><td>${d.incr_pers || 2}%/anno</td><td>CCNL + inflazione</td></tr>
       <tr><td>Incremento costi fissi</td><td>${d.incr_fissi || 2}%/anno</td><td>Inflazione strutturale</td></tr>
       <tr><td>% CCN su ricavi</td><td>${d.perc_ccn || 8}%</td><td>Driver del capitale circolante</td></tr>
-      ${d.nuovo_fin ? `<tr><td>Nuovo finanziamento</td><td>${fmtE(d.fin_importo)}</td><td>${d.fin_tipo || 'Mutuo'} — ${d.fin_durata} anni — ${d.fin_tasso}%${d.pre_amm ? ` — preamm. ${d.pre_amm} mesi` : ''}</td></tr>` : ''}
+      ${d.nuovo_fin ? `<tr><td>Nuovo finanziamento</td><td>${fmtE(d.fin_importo)}</td><td>${d.fin_tipo || 'Mutuo'} — ${d._fin_durata_effettiva || d.fin_durata} anni — ${d.fin_tasso}%${d.pre_amm ? ` — preamm. ${d.pre_amm} mesi` : ''}</td></tr>` : ''}
     </tbody>
   </table>
   ${(d.capex && d.capex.length) ? `
