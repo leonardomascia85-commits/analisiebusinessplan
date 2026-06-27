@@ -1269,7 +1269,7 @@ ${(() => {
     'Andamento Ricavi ed EBITDA — triennio proiettato'
   )}</div>
   ${projTable(CE)}
-  <div class="disclaimer">I tassi di crescita (+${d.g1}% / +${d.g2}% / +${d.g3}%) si applicano ai ricavi storici ${annoBase}. I costi vengono proiettati mantenendo la struttura di margine ${d.fonte==='xbrl'?'certificata dal bilancio XBRL':'dichiarata nel piano'}. L'EBITDA margin target è ${d._ebitda_margin_calibrato ? d._ebitda_margin_calibrato : d.ebitda_margin}% nel primo anno del triennio; l'incremento assoluto dell'EBITDA è interamente guidato dalla crescita dei ricavi.${d._ebitda_margin_calibrato ? ` <strong>Nota:</strong> il margine EBITDA è stato adeguato da ${d.ebitda_margin}% a ${d._ebitda_margin_calibrato}% per garantire un DSCR ≥ 1,10x (soglia EBA/GL/2020/06) compatibile con il piano di rimborso del finanziamento richiesto.` : ''}</div>
+  <div class="disclaimer">I tassi di crescita (+${d.g1}% / +${d.g2}% / +${d.g3}%) si applicano ai ricavi storici ${annoBase}. I costi vengono proiettati mantenendo la struttura di margine ${d.fonte==='xbrl'?'certificata dal bilancio XBRL':'dichiarata nel piano'}. L'EBITDA margin target è ${d.ebitda_margin}% costante nel triennio; l'incremento assoluto dell'EBITDA è interamente guidato dalla crescita dei ricavi.</div>
   ${pf(4)}
 </div>
 
