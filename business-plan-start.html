@@ -87,6 +87,11 @@
     .btn-ai{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1.5px solid #2563eb;background:#eff6ff;color:#1d4ed8;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;margin-top:6px}
     .btn-ai:hover{background:#dbeafe}
     .btn-ai:disabled{opacity:.5;cursor:wait}
+    .azienda-field input,.azienda-field select,.azienda-field textarea{width:100%}
+    /* Toggle slider */
+    #fin_slider{transition:background .2s}
+    #fin_toggle:checked ~ #fin_slider{background:#2563eb}
+    #fin_toggle:checked ~ #fin_knob{transform:translateX(20px)}
     .loading-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);z-index:1999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
     .loading-overlay.open{display:flex}
     .loading-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:#60a5fa;border-radius:50%;animation:spin .8s linear infinite}
@@ -432,6 +437,11 @@
         <div class="step-line" id="sline1"></div>
         <div style="display:flex;flex-direction:column;align-items:center">
           <div class="step-dot todo" id="sdot2">2</div>
+          <div class="step-label">Finanziamento</div>
+        </div>
+        <div class="step-line" id="sline2"></div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="step-dot todo" id="sdot3">3</div>
           <div class="step-label">Dati azienda</div>
         </div>
       </div>
@@ -504,12 +514,87 @@
 
       <div class="modal-footer">
         <button class="btn-annulla" onclick="chiudiModal()">Annulla</button>
-        <button class="btn-genera" onclick="vaiStep2()">Avanti: Dati azienda →</button>
+        <button class="btn-genera" onclick="vaiStep2()">Avanti: Finanziamento →</button>
       </div>
       </div><!-- /step1-content -->
 
-      <!-- STEP 2: Dati azienda -->
+      <!-- STEP 2: Finanziamento -->
       <div id="step2-content" style="display:none">
+        <p class="modal-intro">Il business plan per un nuovo progetto include spesso una <strong>richiesta di finanziamento</strong> (banca, Resto al Sud, Invitalia, leasing…). Indica se prevedi un finanziamento.</p>
+
+        <!-- Toggle finanziamento -->
+        <div style="background:#f8fafc;border:1.5px solid var(--bord);border-radius:12px;padding:16px 18px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+            <label style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;">
+              <input type="checkbox" id="fin_toggle" onchange="toggleFin()" style="opacity:0;width:0;height:0;position:absolute"/>
+              <span id="fin_slider" style="position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:24px;transition:.2s;"></span>
+              <span id="fin_knob" style="position:absolute;content:'';height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.2);"></span>
+            </label>
+            <span style="font-size:.9rem;font-weight:700;color:var(--ink)">Prevedo un finanziamento</span>
+          </div>
+          <div style="font-size:.76rem;color:var(--ink3)">Mutuo bancario, finanziamento agevolato, Resto al Sud, leasing, prestito soci…</div>
+        </div>
+
+        <!-- Campi finanziamento (nascosti finché toggle = off) -->
+        <div id="fin-fields" style="display:none">
+          <div class="azienda-grid">
+            <div class="azienda-field">
+              <label>Importo finanziamento *</label>
+              <div style="position:relative">
+                <input type="number" id="fin_importo" min="0" step="1000" placeholder="Es. 250.000" style="padding-right:28px" oninput="calcolaRataStimata()"/>
+                <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.75rem;color:var(--ink3);font-weight:600">€</span>
+              </div>
+            </div>
+            <div class="azienda-field">
+              <label>Durata (anni) *</label>
+              <input type="number" id="fin_durata" min="1" max="30" step="1" placeholder="Es. 7" oninput="calcolaRataStimata()"/>
+            </div>
+            <div class="azienda-field">
+              <label>Tasso di interesse *</label>
+              <div style="position:relative">
+                <input type="number" id="fin_tasso" min="0" max="30" step="0.1" placeholder="Es. 4.5" style="padding-right:28px" oninput="calcolaRataStimata()"/>
+                <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.75rem;color:var(--ink3);font-weight:600">%</span>
+              </div>
+            </div>
+            <div class="azienda-field">
+              <label>Pre-ammortamento (mesi)</label>
+              <input type="number" id="fin_preamm" min="0" max="36" step="1" placeholder="Es. 12 (0 = nessuno)"/>
+            </div>
+            <div class="azienda-field">
+              <label>Periodicità rata</label>
+              <select id="fin_periodicita" onchange="calcolaRataStimata()" style="padding:9px 12px;border:1.5px solid var(--bord);border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;">
+                <option value="12">Mensile (12 rate/anno)</option>
+                <option value="4">Trimestrale (4 rate/anno)</option>
+                <option value="2">Semestrale (2 rate/anno)</option>
+                <option value="1">Annuale (1 rata/anno)</option>
+              </select>
+            </div>
+            <div class="azienda-field">
+              <label>Tipo finanziamento</label>
+              <select id="fin_tipo" style="padding:9px 12px;border:1.5px solid var(--bord);border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;">
+                <option value="ipotecario">Mutuo ipotecario</option>
+                <option value="chirografario">Prestito chirografario</option>
+                <option value="agevolato">Finanziamento agevolato</option>
+                <option value="leasing">Leasing</option>
+                <option value="soci">Finanziamento soci</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Riepilogo rata stimata -->
+          <div id="fin-preview" style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:12px 16px;font-size:.82rem;color:#1d4ed8;margin-top:4px;display:none">
+            <strong>Rata stimata:</strong> <span id="fin-rata-val"></span> &nbsp;·&nbsp; <strong>Totale interessi:</strong> <span id="fin-interessi-val"></span>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="margin-top:18px">
+          <button class="btn-annulla" onclick="tornaStep1()">← Indietro</button>
+          <button class="btn-genera" onclick="vaiStep3()">Avanti: Dati azienda →</button>
+        </div>
+      </div><!-- /step2-content -->
+
+      <!-- STEP 3: Dati azienda + dati patrimoniali -->
+      <div id="step3-content" style="display:none">
         <p class="modal-intro">Inserisci i dati della tua azienda. La descrizione dell'attività verrà usata per generare il testo narrativo del Business Plan.</p>
 
         <div class="azienda-grid">
@@ -529,24 +614,72 @@
             <label>Partita IVA / C.F.</label>
             <input type="text" id="az_piva" placeholder="Es. 12345678901"/>
           </div>
-          <div class="azienda-field full">
-            <label>Anno di fondazione / Settore operativo</label>
-            <input type="text" id="az_fondazione" placeholder="Es. Fondata nel 2010, opera nel commercio all'ingrosso di materiali edili"/>
+          <div class="azienda-field">
+            <label>Anno di fondazione</label>
+            <input type="text" id="az_fondazione" placeholder="Es. 2022 (o 'Nuova costituzione')"/>
           </div>
-          <div class="azienda-field full">
-            <label>Descrizione attività *
-              <button class="btn-ai" id="btnAI" onclick="generaDescrizioneAI()">✨ Genera con AI</button>
-            </label>
-            <textarea id="az_descrizione" rows="5" placeholder="Descrivi brevemente l'azienda: cosa fa, prodotti/servizi offerti, mercati serviti, clienti principali, punti di forza…"></textarea>
-            <div id="ai-status" style="font-size:.72rem;color:#2563eb;margin-top:4px;min-height:16px"></div>
+          <div class="azienda-field">
+            <label>Numero dipendenti</label>
+            <input type="number" id="az_ndip" min="0" step="1" placeholder="Es. 3"/>
           </div>
         </div>
 
-        <div class="modal-footer" style="margin-top:8px">
-          <button class="btn-annulla" onclick="tornaStep1()">← Indietro</button>
+        <!-- Dati patrimoniali iniziali -->
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bord)">
+          📊 Dati patrimoniali iniziali (opzionali — migliorano il report)
+        </div>
+        <div class="azienda-grid">
+          <div class="azienda-field">
+            <label>Capitale sociale (€)</label>
+            <input type="number" id="az_cap_soc" min="0" step="500" placeholder="Es. 10.000"/>
+          </div>
+          <div class="azienda-field">
+            <label>Patrimonio netto (€)</label>
+            <input type="number" id="az_pn" min="0" step="1000" placeholder="Es. 15.000"/>
+          </div>
+          <div class="azienda-field">
+            <label>Debiti finanziari esistenti (PFN €)</label>
+            <input type="number" id="az_pfn" min="0" step="1000" placeholder="Es. 0"/>
+          </div>
+          <div class="azienda-field">
+            <label>Rata debitoria esistente (€/anno)</label>
+            <input type="number" id="az_rata_es" min="0" step="100" placeholder="Es. 0"/>
+          </div>
+          <div class="azienda-field">
+            <label>Investimenti previsti — CapEx (€)</label>
+            <input type="number" id="az_capex" min="0" step="1000" placeholder="Es. 80.000 (attrezzature, lavori…)"/>
+          </div>
+          <div class="azienda-field">
+            <label>Finalità del finanziamento</label>
+            <input type="text" id="az_finalita" placeholder="Es. Acquisto macchinari, avvio attività, ristrutturazione…"/>
+          </div>
+        </div>
+
+        <!-- Descrizione -->
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bord)">
+          ✍️ Descrizione attività (per il testo narrativo del BP)
+        </div>
+        <div class="azienda-field full" style="margin-bottom:10px">
+          <label style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            Descrizione attività *
+            <button class="btn-ai" id="btnAI" onclick="generaDescrizioneAI()">✨ Genera con AI</button>
+          </label>
+          <textarea id="az_descrizione" rows="4" placeholder="Descrivi brevemente l'azienda: cosa fa, prodotti/servizi offerti, mercati serviti, clienti principali, punti di forza…"></textarea>
+          <div id="ai-status" style="font-size:.72rem;color:#2563eb;margin-top:4px;min-height:16px"></div>
+        </div>
+        <div class="azienda-field full" style="margin-bottom:4px">
+          <label style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            Descrizione progetto / obiettivi
+            <button class="btn-ai" onclick="generaDescrizioneProgettoAI()">✨ Genera con AI</button>
+          </label>
+          <textarea id="az_desc_progetto" rows="3" placeholder="Descrivi il progetto di sviluppo: cosa vuoi realizzare, perché stai richiedendo il finanziamento, obiettivi triennali…"></textarea>
+        </div>
+
+        <div class="modal-footer" style="margin-top:14px">
+          <button class="btn-annulla" onclick="tornaStep2()">← Indietro</button>
           <button class="btn-genera" id="btnGeneraFinale" onclick="generaBusinessPlan()">🚀 Genera Business Plan</button>
         </div>
-      </div><!-- /step2-content -->
+      </div><!-- /step3-content -->
     </div>
     </div>
   </div>
@@ -953,19 +1086,11 @@ function vaiStep2() {
   if (isNaN(e2) || e2 < 0) { alert('Inserisci la marginalità EBITDA % per Anno 2.'); document.getElementById('ebitda2').focus(); return; }
   if (isNaN(e3) || e3 < 0) { alert('Inserisci la marginalità EBITDA % per Anno 3.'); document.getElementById('ebitda3').focus(); return; }
 
-  // Passa a step 2
   document.getElementById('step1-content').style.display = 'none';
   document.getElementById('step2-content').style.display = 'block';
   document.getElementById('sdot1').className = 'step-dot done';
   document.getElementById('sdot2').className = 'step-dot active';
   document.getElementById('sline1').className = 'step-line done';
-
-  // Pre-compila ragione sociale dal template
-  var d = TEMPLATES[_selectedKey] || {};
-  if (!document.getElementById('az_nome').value) {
-    document.getElementById('az_nome').value = d.nome || '';
-  }
-  document.getElementById('az_nome').focus();
 }
 
 function tornaStep1() {
@@ -974,6 +1099,65 @@ function tornaStep1() {
   document.getElementById('sdot1').className = 'step-dot active';
   document.getElementById('sdot2').className = 'step-dot todo';
   document.getElementById('sline1').className = 'step-line';
+}
+
+function vaiStep3() {
+  // Validazione finanziamento se attivo
+  if (document.getElementById('fin_toggle').checked) {
+    var imp = parseFloat(document.getElementById('fin_importo').value)||0;
+    var dur = parseFloat(document.getElementById('fin_durata').value)||0;
+    var tas = parseFloat(document.getElementById('fin_tasso').value);
+    if (!imp) { alert('Inserisci l\'importo del finanziamento.'); document.getElementById('fin_importo').focus(); return; }
+    if (!dur) { alert('Inserisci la durata del finanziamento (anni).'); document.getElementById('fin_durata').focus(); return; }
+    if (isNaN(tas) || tas < 0) { alert('Inserisci il tasso di interesse.'); document.getElementById('fin_tasso').focus(); return; }
+  }
+
+  document.getElementById('step2-content').style.display = 'none';
+  document.getElementById('step3-content').style.display = 'block';
+  document.getElementById('sdot2').className = 'step-dot done';
+  document.getElementById('sdot3').className = 'step-dot active';
+  document.getElementById('sline2').className = 'step-line done';
+
+  var d = TEMPLATES[_selectedKey] || {};
+  if (!document.getElementById('az_nome').value) document.getElementById('az_nome').value = d.nome || '';
+  if (!document.getElementById('az_ndip').value && d.n_dip) document.getElementById('az_ndip').value = d.n_dip;
+  document.getElementById('az_nome').focus();
+}
+
+function tornaStep2() {
+  document.getElementById('step3-content').style.display = 'none';
+  document.getElementById('step2-content').style.display = 'block';
+  document.getElementById('sdot2').className = 'step-dot active';
+  document.getElementById('sdot3').className = 'step-dot todo';
+  document.getElementById('sline2').className = 'step-line';
+}
+
+function toggleFin() {
+  var on = document.getElementById('fin_toggle').checked;
+  document.getElementById('fin-fields').style.display = on ? 'block' : 'none';
+  // Aggiorna stile toggle manualmente (CSS :checked non raggiunge i sibling non-adiacenti)
+  document.getElementById('fin_slider').style.background = on ? '#2563eb' : '#cbd5e1';
+  document.getElementById('fin_knob').style.transform = on ? 'translateX(20px)' : 'translateX(0)';
+  if (!on) document.getElementById('fin-preview').style.display = 'none';
+}
+
+function calcolaRataStimata() {
+  var imp = parseFloat(document.getElementById('fin_importo').value)||0;
+  var dur = parseFloat(document.getElementById('fin_durata').value)||0;
+  var tas = parseFloat(document.getElementById('fin_tasso').value)||0;
+  var per = parseInt(document.getElementById('fin_periodicita').value)||12;
+  var prev = document.getElementById('fin-preview');
+  if (!imp || !dur) { prev.style.display='none'; return; }
+  var tasP = (tas/100) / per;
+  var nP   = dur * per;
+  var rata = tasP > 0
+    ? imp * (tasP * Math.pow(1+tasP, nP)) / (Math.pow(1+tasP, nP) - 1)
+    : imp / nP;
+  var totInteressi = (rata * nP) - imp;
+  var periodLabel = {12:'mese',4:'trimestre',2:'semestre',1:'anno'}[per] || 'periodo';
+  document.getElementById('fin-rata-val').textContent = '€ ' + Math.round(rata).toLocaleString('it-IT') + ' / ' + periodLabel;
+  document.getElementById('fin-interessi-val').textContent = '€ ' + Math.round(totInteressi).toLocaleString('it-IT');
+  prev.style.display = 'block';
 }
 
 async function generaDescrizioneAI() {
@@ -1013,6 +1197,38 @@ async function generaDescrizioneAI() {
   }
 }
 
+async function generaDescrizioneProgettoAI() {
+  var nome    = document.getElementById('az_nome').value.trim();
+  var settore = (TEMPLATES[_selectedKey] || {}).settore || '';
+  var finalita = document.getElementById('az_finalita').value.trim();
+  var btn     = document.querySelector('[onclick="generaDescrizioneProgettoAI()"]');
+
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Generazione…'; }
+
+  try {
+    var res = await fetch('/api/genera-testo', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        tipo: 'progetto',
+        nome: nome || 'Azienda',
+        settore: settore,
+        sito_web: finalita || '',
+        dati_finanziari: null
+      })
+    });
+    if (!res.ok) throw new Error('API non disponibile');
+    var data = await res.json();
+    if (data.testo) {
+      document.getElementById('az_desc_progetto').value = data.testo;
+    }
+  } catch(e) {
+    alert('⚠️ ' + e.message + ' — inserisci la descrizione manualmente.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '✨ Genera con AI'; }
+  }
+}
+
 async function generaBusinessPlan() {
   var nome = document.getElementById('az_nome').value.trim();
   if (!nome) { alert('Inserisci la ragione sociale.'); document.getElementById('az_nome').focus(); return; }
@@ -1038,6 +1254,30 @@ async function generaBusinessPlan() {
   var forma       = document.getElementById('az_forma').value.trim();
   var piva        = document.getElementById('az_piva').value.trim();
   var descrizione = document.getElementById('az_descrizione').value.trim();
+  var descProgetto = document.getElementById('az_desc_progetto').value.trim();
+
+  // Stato patrimoniale
+  var capSoc    = parseFloat(document.getElementById('az_cap_soc').value) || 0;
+  var pnAttuale = parseFloat(document.getElementById('az_pn').value) || 0;
+  var pfnStorico = parseFloat(document.getElementById('az_pfn').value) || 0;
+  var rataEsistente = parseFloat(document.getElementById('az_rata_es').value) || 0;
+  var nDip      = parseInt(document.getElementById('az_ndip').value) || d.n_dip;
+  var capexImp  = parseFloat(document.getElementById('az_capex').value) || 0;
+  var finalita  = document.getElementById('az_finalita').value.trim();
+
+  // Finanziamento
+  var nuovoFin = document.getElementById('fin_toggle').checked;
+  var finImporto   = nuovoFin ? (parseFloat(document.getElementById('fin_importo').value) || 0) : 0;
+  var finDurata    = nuovoFin ? (parseFloat(document.getElementById('fin_durata').value) || 5) : 5;
+  var finTasso     = nuovoFin ? (parseFloat(document.getElementById('fin_tasso').value) || 0) / 100 : 0;
+  var finPreAmm    = nuovoFin ? (parseInt(document.getElementById('fin_preamm').value) || 0) : 0;
+  var finPeriod    = nuovoFin ? (parseInt(document.getElementById('fin_periodicita').value) || 12) : 12;
+  var finTipo      = nuovoFin ? document.getElementById('fin_tipo').value : 'ipotecario';
+
+  // CapEx dal progetto
+  var capexList = capexImp > 0
+    ? [{ desc: finalita || 'Investimento progetto', tipo: 'materiali', a1: capexImp, a2: 0, a3: 0, vita: 5 }]
+    : [];
 
   var payload = {
     // Anagrafica
@@ -1055,8 +1295,9 @@ async function generaBusinessPlan() {
     ricavi_base: d.ricavi_base,
     ebitda_storico: Math.round(d.ricavi_base * d.ebitda_margin / 100),
     costo_pers_storico: d.costo_pers_storico,
-    pfn_storico: 0,
-    pn_attuale: 0,
+    pfn_storico: pfnStorico,
+    pn_attuale: pnAttuale,
+    cap_soc: capSoc,
     // Proiezioni
     scenario: 'custom',
     g1: g1, g2: g2, g3: g3,
@@ -1074,26 +1315,26 @@ async function generaBusinessPlan() {
     perc_ccn: 8,
     margine_lordo: 0,
     // Personale
-    n_dip: d.n_dip,
-    costo_medio_dip: d.n_dip > 0 ? Math.round(d.costo_pers_storico / d.n_dip) : 35000,
+    n_dip: nDip,
+    costo_medio_dip: nDip > 0 ? Math.round(d.costo_pers_storico / nDip) : 35000,
     incr_pers: 2,
     tfr_perc: 6.91,
     consulenze: 0,
     assunzioni: [],
-    capex: [],
-    fonte_capex: '',
+    capex: capexList,
+    fonte_capex: nuovoFin ? 'finanziamento' : '',
     perc_fin_capex: 70,
     // Finanza
-    deb_bt: 0, deb_mlt: 0,
-    rata_esistente: 0, interessi_esistenti: 0, anni_residui: 0,
-    nuovo_fin: false,
-    fin_importo: 0, fin_durata: 5, fin_tasso: 4.5,
-    fin_tipo: 'ipotecario', fin_periodicita: 12,
-    rata_capitale: 0, pre_amm: 0,
+    deb_bt: 0, deb_mlt: pfnStorico > 0 ? pfnStorico : 0,
+    rata_esistente: rataEsistente, interessi_esistenti: 0, anni_residui: 0,
+    nuovo_fin: nuovoFin,
+    fin_importo: finImporto, fin_durata: finDurata, fin_tasso: finTasso,
+    fin_tipo: finTipo, fin_periodicita: finPeriod,
+    rata_capitale: 0, pre_amm: finPreAmm,
     aum_capitale: 0, dividendi: 0,
     // Qualitative
     desc_aziendale: descrizione,
-    desc_progetto: '',
+    desc_progetto: descProgetto,
     desc_mercato: '',
     sito_web: '',
     punti_forza: '',
