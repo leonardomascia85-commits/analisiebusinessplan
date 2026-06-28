@@ -1399,10 +1399,24 @@ window.addEventListener('DOMContentLoaded', () => {
         sv('g1', d.g1); sv('g2', d.g2); sv('g3', d.g3);
         sv('sc-c-g1', d.sc_conserv_g1); sv('sc-c-g2', d.sc_conserv_g2); sv('sc-c-g3', d.sc_conserv_g3);
         sv('sc-o-g1', d.sc_ottim_g1);  sv('sc-o-g2', d.sc_ottim_g2);  sv('sc-o-g3', d.sc_ottim_g3);
+        // Se il cliente ha inserito fatturati assoluti e margini per anno dal modal
+        if(d._ebitda_y1 !== undefined) sv('ebitda_margin', d._ebitda_y1);
+        if(d._fat_y1 !== undefined){
+          // Ricavi storici = fatturato anno 1 come base (il più vicino)
+          sv('ricavi_storici', Math.round(d._fat_y1));
+          sv('ebitda_storico', Math.round(d._fat_y1 * (d._ebitda_y1||d.ebitda_margin) / 100));
+        }
         if(d.nuovo_fin){ const tog = document.getElementById('toggle-fin'); if(tog){tog.checked=true; toggleFinanziamento();} sv('importo_nuovo_fin', d.importo_nuovo_fin); sv('durata_nuovo_fin', d.durata_nuovo_fin); sv('tasso_nuovo_fin', d.tasso_nuovo_fin); }
-        // Mostra banner info template
+        // Mostra banner con riepilogo fatturati personalizzati
         const info = document.getElementById('dati-storici-info');
-        if(info && d._template) info.innerHTML = `<div class="dati-storici">✅ Dati pre-compilati dal benchmark settore <strong>${d._template.nome}</strong>. Verifica e aggiusta i valori prima di generare.</div>`;
+        if(info){
+          const fmtE = v => v ? '€ ' + Math.round(v).toLocaleString('it-IT') : '—';
+          const a1 = (d.anno_base||2024)+1, a2=a1+1, a3=a2+1;
+          const rigaFat = d._fat_y1
+            ? `<br><span style="font-size:.8rem;color:#374151">Fatturato: <b>${a1}</b> ${fmtE(d._fat_y1)} · <b>${a2}</b> ${fmtE(d._fat_y2)} · <b>${a3}</b> ${fmtE(d._fat_y3)} &nbsp;|&nbsp; EBITDA: ${d._ebitda_y1||'—'}% / ${d._ebitda_y2||'—'}% / ${d._ebitda_y3||'—'}%</span>`
+            : '';
+          info.innerHTML = `<div class="dati-storici">✅ Dati pre-compilati dal benchmark settore <strong>${(d._template||{}).nome||d.settore}</strong>. Verifica e aggiusta i valori prima di generare.${rigaFat}</div>`;
+        }
         // Salva template per scheda esplicativa
         sessionStorage.setItem('abp_bp_template', JSON.stringify(d._template || {}));
         sessionStorage.removeItem('abp_bp_from_template');

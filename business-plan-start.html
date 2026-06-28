@@ -38,7 +38,42 @@
     .card.hidden{display:none}
     .btn-skip{display:inline-flex;align-items:center;gap:8px;margin-top:36px;padding:11px 24px;border-radius:40px;background:transparent;border:1.5px solid var(--bord);color:var(--ink3);font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}
     .btn-skip:hover{border-color:var(--blu-l);color:var(--blu-l)}
-    @media(max-width:600px){.container{padding:24px 16px 60px}.grid{grid-template-columns:1fr 1fr}}
+
+    /* ── MODAL ── */
+    .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
+    .modal-overlay.open{display:flex}
+    .modal{background:#fff;border-radius:20px;width:100%;max-width:600px;box-shadow:0 24px 60px rgba(0,0,0,.2);overflow:hidden}
+    .modal-header{background:linear-gradient(135deg,var(--blu),#2563eb);color:#fff;padding:22px 28px}
+    .modal-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+    .modal-title{font-size:1.1rem;font-weight:700}
+    .modal-close{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:30px;height:30px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
+    .modal-sector{font-size:.8rem;opacity:.7}
+    .modal-body{padding:26px 28px}
+    .modal-intro{font-size:.88rem;color:var(--ink3);margin-bottom:22px;line-height:1.6}
+    .year-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+    .year-col{background:#f8fafc;border:1.5px solid var(--bord);border-radius:12px;padding:16px 14px}
+    .year-label{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+    .year-label span{background:#dbeafe;color:#1d4ed8;border-radius:20px;padding:1px 8px;font-size:.7rem}
+    .field-wrap{margin-bottom:10px}
+    .field-label{font-size:.72rem;font-weight:600;color:var(--ink2);margin-bottom:4px}
+    .field-input{position:relative}
+    .field-input input{width:100%;padding:8px 32px 8px 10px;border:1.5px solid var(--bord);border-radius:8px;font-size:.88rem;font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color .15s}
+    .field-input input:focus{border-color:var(--blu-l)}
+    .field-unit{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.75rem;color:var(--ink3);font-weight:600;pointer-events:none}
+    .mol-preview{font-size:.72rem;color:var(--verde);font-weight:600;margin-top:4px;min-height:16px}
+    .modal-summary{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:14px 16px;margin-bottom:22px;font-size:.82rem;color:#065f46;line-height:1.7}
+    .modal-summary strong{color:#047857}
+    .modal-footer{display:flex;gap:10px;justify-content:flex-end}
+    .btn-annulla{padding:10px 20px;border-radius:40px;border:1.5px solid var(--bord);background:transparent;color:var(--ink3);font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}
+    .btn-annulla:hover{border-color:#94a3b8;color:var(--ink)}
+    .btn-genera{padding:10px 26px;border-radius:40px;border:none;background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(37,99,235,.3);transition:.15s}
+    .btn-genera:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(37,99,235,.45)}
+
+    @media(max-width:600px){
+      .container{padding:24px 16px 60px}.grid{grid-template-columns:1fr 1fr}
+      .year-grid{grid-template-columns:1fr}
+      .modal-body{padding:20px 18px}
+    }
   </style>
 </head>
 <body>
@@ -343,6 +378,89 @@
   <button class="btn-skip" onclick="window.location.href='business-plan.html'">
     Salta e inserisci manualmente →
   </button>
+</div>
+
+<!-- ── MODAL PERSONALIZZAZIONE ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="chiudiModalSfondo(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-top">
+        <div class="modal-title" id="modalTitle">Personalizza il Business Plan</div>
+        <button class="modal-close" onclick="chiudiModal()">×</button>
+      </div>
+      <div class="modal-sector" id="modalSector"></div>
+    </div>
+    <div class="modal-body">
+      <p class="modal-intro">Inserisci il <strong>fatturato previsto</strong> e la <strong>marginalità EBITDA %</strong> per ciascuno dei tre anni. Il sistema costruirà l'intero Business Plan a partire da questi dati.</p>
+
+      <div class="year-grid">
+        <!-- Anno 1 -->
+        <div class="year-col">
+          <div class="year-label">Anno 1 <span id="labelA1">2025</span></div>
+          <div class="field-wrap">
+            <div class="field-label">Fatturato previsto</div>
+            <div class="field-input">
+              <input type="number" id="fat1" min="0" step="1000" placeholder="Es. 500.000" oninput="aggiornaMOL(1)"/>
+              <span class="field-unit">€</span>
+            </div>
+          </div>
+          <div class="field-wrap">
+            <div class="field-label">Margine EBITDA %</div>
+            <div class="field-input">
+              <input type="number" id="ebitda1" min="0" max="99" step="0.5" placeholder="Es. 12" oninput="aggiornaMOL(1)"/>
+              <span class="field-unit">%</span>
+            </div>
+          </div>
+          <div class="mol-preview" id="mol1"></div>
+        </div>
+        <!-- Anno 2 -->
+        <div class="year-col">
+          <div class="year-label">Anno 2 <span id="labelA2">2026</span></div>
+          <div class="field-wrap">
+            <div class="field-label">Fatturato previsto</div>
+            <div class="field-input">
+              <input type="number" id="fat2" min="0" step="1000" placeholder="Es. 550.000" oninput="aggiornaMOL(2)"/>
+              <span class="field-unit">€</span>
+            </div>
+          </div>
+          <div class="field-wrap">
+            <div class="field-label">Margine EBITDA %</div>
+            <div class="field-input">
+              <input type="number" id="ebitda2" min="0" max="99" step="0.5" placeholder="Es. 13" oninput="aggiornaMOL(2)"/>
+              <span class="field-unit">%</span>
+            </div>
+          </div>
+          <div class="mol-preview" id="mol2"></div>
+        </div>
+        <!-- Anno 3 -->
+        <div class="year-col">
+          <div class="year-label">Anno 3 <span id="labelA3">2027</span></div>
+          <div class="field-wrap">
+            <div class="field-label">Fatturato previsto</div>
+            <div class="field-input">
+              <input type="number" id="fat3" min="0" step="1000" placeholder="Es. 610.000" oninput="aggiornaMOL(3)"/>
+              <span class="field-unit">€</span>
+            </div>
+          </div>
+          <div class="field-wrap">
+            <div class="field-label">Margine EBITDA %</div>
+            <div class="field-input">
+              <input type="number" id="ebitda3" min="0" max="99" step="0.5" placeholder="Es. 14" oninput="aggiornaMOL(3)"/>
+              <span class="field-unit">%</span>
+            </div>
+          </div>
+          <div class="mol-preview" id="mol3"></div>
+        </div>
+      </div>
+
+      <div class="modal-summary" id="modalSummary" style="display:none"></div>
+
+      <div class="modal-footer">
+        <button class="btn-annulla" onclick="chiudiModal()">Annulla</button>
+        <button class="btn-genera" onclick="confermaScegli()">Genera Business Plan →</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -653,26 +771,135 @@ const TEMPLATES = {
   }
 };
 
+var _selectedKey = null;
+
 function scegli(key) {
   var d = TEMPLATES[key];
   if (!d) return;
-  var anno_base = new Date().getFullYear() - 1;
+  _selectedKey = key;
+
+  // Anni di proiezione
+  var annoBase = new Date().getFullYear() - 1;
+  var a1 = annoBase + 1, a2 = annoBase + 2, a3 = annoBase + 3;
+  document.getElementById('labelA1').textContent = a1;
+  document.getElementById('labelA2').textContent = a2;
+  document.getElementById('labelA3').textContent = a3;
+
+  // Titolo modal
+  document.getElementById('modalTitle').textContent = 'Personalizza — ' + d.nome;
+  document.getElementById('modalSector').textContent = d.settore;
+
+  // Pre-compila con valori benchmark del settore
+  // Calcola fatturati suggeriti applicando crescita g1/g2/g3
+  var r0 = d.ricavi_base;
+  var r1 = Math.round(r0 * (1 + d.g1 / 100));
+  var r2 = Math.round(r1 * (1 + d.g2 / 100));
+  var r3 = Math.round(r2 * (1 + d.g3 / 100));
+  document.getElementById('fat1').value = r1;
+  document.getElementById('fat2').value = r2;
+  document.getElementById('fat3').value = r3;
+  document.getElementById('ebitda1').value = d.ebitda_margin;
+  document.getElementById('ebitda2').value = d.ebitda_margin;
+  document.getElementById('ebitda3').value = d.ebitda_margin;
+
+  aggiornaMOL(1); aggiornaMOL(2); aggiornaMOL(3);
+  document.getElementById('modalSummary').style.display = 'none';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('fat1').focus();
+}
+
+function aggiornaMOL(n) {
+  var fat = parseFloat(document.getElementById('fat' + n).value) || 0;
+  var ebitda = parseFloat(document.getElementById('ebitda' + n).value);
+  var el = document.getElementById('mol' + n);
+  if (fat > 0 && !isNaN(ebitda) && ebitda >= 0) {
+    var mol = fat * ebitda / 100;
+    el.textContent = '→ MOL: € ' + mol.toLocaleString('it-IT', {maximumFractionDigits:0});
+  } else {
+    el.textContent = '';
+  }
+  aggiornaSummary();
+}
+
+function aggiornaSummary() {
+  var f1 = parseFloat(document.getElementById('fat1').value)||0;
+  var f2 = parseFloat(document.getElementById('fat2').value)||0;
+  var f3 = parseFloat(document.getElementById('fat3').value)||0;
+  var e1 = parseFloat(document.getElementById('ebitda1').value)||0;
+  var e2 = parseFloat(document.getElementById('ebitda2').value)||0;
+  var e3 = parseFloat(document.getElementById('ebitda3').value)||0;
+  if (f1 > 0 && f2 > 0 && f3 > 0) {
+    var a1 = parseInt(document.getElementById('labelA1').textContent);
+    var summary = document.getElementById('modalSummary');
+    summary.style.display = 'block';
+    summary.innerHTML =
+      '<strong>Riepilogo proiezioni:</strong><br>' +
+      a1 + ': <strong>€ ' + f1.toLocaleString('it-IT') + '</strong> · EBITDA ' + e1 + '% = <strong>€ ' + Math.round(f1*e1/100).toLocaleString('it-IT') + '</strong><br>' +
+      (a1+1) + ': <strong>€ ' + f2.toLocaleString('it-IT') + '</strong> · EBITDA ' + e2 + '% = <strong>€ ' + Math.round(f2*e2/100).toLocaleString('it-IT') + '</strong><br>' +
+      (a1+2) + ': <strong>€ ' + f3.toLocaleString('it-IT') + '</strong> · EBITDA ' + e3 + '% = <strong>€ ' + Math.round(f3*e3/100).toLocaleString('it-IT') + '</strong>';
+  }
+}
+
+function chiudiModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  _selectedKey = null;
+}
+
+function chiudiModalSfondo(e) {
+  if (e.target === document.getElementById('modalOverlay')) chiudiModal();
+}
+
+function confermaScegli() {
+  var key = _selectedKey;
+  var d = TEMPLATES[key];
+  if (!d) return;
+
+  var fat1 = parseFloat(document.getElementById('fat1').value);
+  var fat2 = parseFloat(document.getElementById('fat2').value);
+  var fat3 = parseFloat(document.getElementById('fat3').value);
+  var e1   = parseFloat(document.getElementById('ebitda1').value);
+  var e2   = parseFloat(document.getElementById('ebitda2').value);
+  var e3   = parseFloat(document.getElementById('ebitda3').value);
+
+  if (!fat1 || fat1 <= 0) { alert('Inserisci il fatturato previsto per il Anno 1.'); document.getElementById('fat1').focus(); return; }
+  if (!fat2 || fat2 <= 0) { alert('Inserisci il fatturato previsto per il Anno 2.'); document.getElementById('fat2').focus(); return; }
+  if (!fat3 || fat3 <= 0) { alert('Inserisci il fatturato previsto per il Anno 3.'); document.getElementById('fat3').focus(); return; }
+  if (isNaN(e1) || e1 < 0) { alert('Inserisci la marginalità EBITDA % per il Anno 1.'); document.getElementById('ebitda1').focus(); return; }
+  if (isNaN(e2) || e2 < 0) { alert('Inserisci la marginalità EBITDA % per il Anno 2.'); document.getElementById('ebitda2').focus(); return; }
+  if (isNaN(e3) || e3 < 0) { alert('Inserisci la marginalità EBITDA % per il Anno 3.'); document.getElementById('ebitda3').focus(); return; }
+
+  // Calcola le crescite % da fatturati assoluti inseriti dal cliente
+  var g1 = Math.round(((fat1 / d.ricavi_base) - 1) * 100 * 10) / 10;
+  var g2 = Math.round(((fat2 / fat1) - 1) * 100 * 10) / 10;
+  var g3 = Math.round(((fat3 / fat2) - 1) * 100 * 10) / 10;
+
+  // EBITDA medio per il campo ebitda_margin (usato come riferimento storico)
+  var ebitdaMedio = Math.round((e1 + e2 + e3) / 3 * 10) / 10;
+
+  var annoBase = new Date().getFullYear() - 1;
+
   var payload = {
     nome: d.nome,
     settore: d.settore,
-    anno_base: anno_base,
+    anno_base: annoBase,
     ricavi_base: d.ricavi_base,
-    ebitda_margin: d.ebitda_margin,
+    ebitda_margin: ebitdaMedio,
     costo_pers_storico: d.costo_pers_storico,
     n_dip: d.n_dip,
     costi_fissi: d.costi_fissi,
     perc_var: d.perc_var,
     ammortamenti: d.ammortamenti,
-    g1: d.g1, g2: d.g2, g3: d.g3,
+    // crescite calcolate dai fatturati assoluti
+    g1: g1, g2: g2, g3: g3,
+    // scenari conservativo/ottimistico: scostamento fisso rispetto al base
     sc_conserv_g1: d.sc_conserv_g1, sc_conserv_g2: d.sc_conserv_g2, sc_conserv_g3: d.sc_conserv_g3,
     sc_ottim_g1: d.sc_ottim_g1,  sc_ottim_g2: d.sc_ottim_g2,  sc_ottim_g3: d.sc_ottim_g3,
+    // margini anno per anno per precompilazione
+    _ebitda_y1: e1, _ebitda_y2: e2, _ebitda_y3: e3,
+    _fat_y1: fat1, _fat_y2: fat2, _fat_y3: fat3,
     _template: { nome: d.nome, settore: d.settore }
   };
+
   sessionStorage.setItem('abp_bp_from_template', JSON.stringify(payload));
   window.location.href = 'business-plan.html?from_template=1';
 }
