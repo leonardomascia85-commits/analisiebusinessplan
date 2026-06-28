@@ -68,6 +68,31 @@
     .btn-annulla:hover{border-color:#94a3b8;color:var(--ink)}
     .btn-genera{padding:10px 26px;border-radius:40px;border:none;background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(37,99,235,.3);transition:.15s}
     .btn-genera:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(37,99,235,.45)}
+    /* Step indicator */
+    .step-bar{display:flex;align-items:center;gap:0;margin-bottom:22px}
+    .step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;transition:.2s}
+    .step-dot.done{background:#2563eb;color:#fff}
+    .step-dot.active{background:#2563eb;color:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.25)}
+    .step-dot.todo{background:#e2e8f0;color:#94a3b8}
+    .step-line{flex:1;height:2px;background:#e2e8f0;margin:0 4px}
+    .step-line.done{background:#2563eb}
+    .step-label{font-size:.7rem;color:var(--ink3);text-align:center;margin-top:4px}
+    /* Step 2 fields */
+    .azienda-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+    .azienda-field{display:flex;flex-direction:column;gap:5px}
+    .azienda-field.full{grid-column:1/-1}
+    .azienda-field label{font-size:.72rem;font-weight:600;color:var(--ink2)}
+    .azienda-field input,.azienda-field textarea{padding:9px 12px;border:1.5px solid var(--bord);border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;transition:border-color .15s;resize:vertical}
+    .azienda-field input:focus,.azienda-field textarea:focus{border-color:var(--blu-l)}
+    .btn-ai{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1.5px solid #2563eb;background:#eff6ff;color:#1d4ed8;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;margin-top:6px}
+    .btn-ai:hover{background:#dbeafe}
+    .btn-ai:disabled{opacity:.5;cursor:wait}
+    .loading-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);z-index:1999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+    .loading-overlay.open{display:flex}
+    .loading-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:#60a5fa;border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-text{color:#fff;font-size:1rem;font-weight:600}
+    .loading-sub{color:rgba(255,255,255,.5);font-size:.82rem}
 
     @media(max-width:600px){
       .container{padding:24px 16px 60px}.grid{grid-template-columns:1fr 1fr}
@@ -380,6 +405,13 @@
   </button>
 </div>
 
+<!-- ── LOADING OVERLAY ── -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Generazione Business Plan in corso…</div>
+  <div class="loading-sub">Stiamo elaborando le proiezioni finanziarie e il testo narrativo</div>
+</div>
+
 <!-- ── MODAL PERSONALIZZAZIONE ── -->
 <div class="modal-overlay" id="modalOverlay" onclick="chiudiModalSfondo(event)">
   <div class="modal">
@@ -391,6 +423,21 @@
       <div class="modal-sector" id="modalSector"></div>
     </div>
     <div class="modal-body">
+      <!-- Step indicator -->
+      <div class="step-bar">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="step-dot done" id="sdot1">1</div>
+          <div class="step-label">Proiezioni</div>
+        </div>
+        <div class="step-line" id="sline1"></div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="step-dot todo" id="sdot2">2</div>
+          <div class="step-label">Dati azienda</div>
+        </div>
+      </div>
+
+      <!-- STEP 1: Proiezioni -->
+      <div id="step1-content">
       <p class="modal-intro">Inserisci il <strong>fatturato previsto</strong> e la <strong>marginalità EBITDA %</strong> per ciascuno dei tre anni. Il sistema costruirà l'intero Business Plan a partire da questi dati.</p>
 
       <div class="year-grid">
@@ -457,8 +504,50 @@
 
       <div class="modal-footer">
         <button class="btn-annulla" onclick="chiudiModal()">Annulla</button>
-        <button class="btn-genera" onclick="confermaScegli()">Genera Business Plan →</button>
+        <button class="btn-genera" onclick="vaiStep2()">Avanti: Dati azienda →</button>
       </div>
+      </div><!-- /step1-content -->
+
+      <!-- STEP 2: Dati azienda -->
+      <div id="step2-content" style="display:none">
+        <p class="modal-intro">Inserisci i dati della tua azienda. La descrizione dell'attività verrà usata per generare il testo narrativo del Business Plan.</p>
+
+        <div class="azienda-grid">
+          <div class="azienda-field">
+            <label>Ragione Sociale *</label>
+            <input type="text" id="az_nome" placeholder="Es. ROSSI S.R.L."/>
+          </div>
+          <div class="azienda-field">
+            <label>Forma giuridica</label>
+            <input type="text" id="az_forma" placeholder="Es. S.R.L., S.P.A., Ditta ind."/>
+          </div>
+          <div class="azienda-field">
+            <label>Sede legale</label>
+            <input type="text" id="az_sede" placeholder="Es. Via Roma 1, Milano (MI)"/>
+          </div>
+          <div class="azienda-field">
+            <label>Partita IVA / C.F.</label>
+            <input type="text" id="az_piva" placeholder="Es. 12345678901"/>
+          </div>
+          <div class="azienda-field full">
+            <label>Anno di fondazione / Settore operativo</label>
+            <input type="text" id="az_fondazione" placeholder="Es. Fondata nel 2010, opera nel commercio all'ingrosso di materiali edili"/>
+          </div>
+          <div class="azienda-field full">
+            <label>Descrizione attività *
+              <button class="btn-ai" id="btnAI" onclick="generaDescrizioneAI()">✨ Genera con AI</button>
+            </label>
+            <textarea id="az_descrizione" rows="5" placeholder="Descrivi brevemente l'azienda: cosa fa, prodotti/servizi offerti, mercati serviti, clienti principali, punti di forza…"></textarea>
+            <div id="ai-status" style="font-size:.72rem;color:#2563eb;margin-top:4px;min-height:16px"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="margin-top:8px">
+          <button class="btn-annulla" onclick="tornaStep1()">← Indietro</button>
+          <button class="btn-genera" id="btnGeneraFinale" onclick="generaBusinessPlan()">🚀 Genera Business Plan</button>
+        </div>
+      </div><!-- /step2-content -->
+    </div>
     </div>
   </div>
 </div>
@@ -849,9 +938,87 @@ function chiudiModalSfondo(e) {
   if (e.target === document.getElementById('modalOverlay')) chiudiModal();
 }
 
-function confermaScegli() {
+function vaiStep2() {
+  var fat1 = parseFloat(document.getElementById('fat1').value);
+  var fat2 = parseFloat(document.getElementById('fat2').value);
+  var fat3 = parseFloat(document.getElementById('fat3').value);
+  var e1   = parseFloat(document.getElementById('ebitda1').value);
+  var e2   = parseFloat(document.getElementById('ebitda2').value);
+  var e3   = parseFloat(document.getElementById('ebitda3').value);
+
+  if (!fat1 || fat1 <= 0) { alert('Inserisci il fatturato previsto per Anno 1.'); document.getElementById('fat1').focus(); return; }
+  if (!fat2 || fat2 <= 0) { alert('Inserisci il fatturato previsto per Anno 2.'); document.getElementById('fat2').focus(); return; }
+  if (!fat3 || fat3 <= 0) { alert('Inserisci il fatturato previsto per Anno 3.'); document.getElementById('fat3').focus(); return; }
+  if (isNaN(e1) || e1 < 0) { alert('Inserisci la marginalità EBITDA % per Anno 1.'); document.getElementById('ebitda1').focus(); return; }
+  if (isNaN(e2) || e2 < 0) { alert('Inserisci la marginalità EBITDA % per Anno 2.'); document.getElementById('ebitda2').focus(); return; }
+  if (isNaN(e3) || e3 < 0) { alert('Inserisci la marginalità EBITDA % per Anno 3.'); document.getElementById('ebitda3').focus(); return; }
+
+  // Passa a step 2
+  document.getElementById('step1-content').style.display = 'none';
+  document.getElementById('step2-content').style.display = 'block';
+  document.getElementById('sdot1').className = 'step-dot done';
+  document.getElementById('sdot2').className = 'step-dot active';
+  document.getElementById('sline1').className = 'step-line done';
+
+  // Pre-compila ragione sociale dal template
+  var d = TEMPLATES[_selectedKey] || {};
+  if (!document.getElementById('az_nome').value) {
+    document.getElementById('az_nome').value = d.nome || '';
+  }
+  document.getElementById('az_nome').focus();
+}
+
+function tornaStep1() {
+  document.getElementById('step2-content').style.display = 'none';
+  document.getElementById('step1-content').style.display = 'block';
+  document.getElementById('sdot1').className = 'step-dot active';
+  document.getElementById('sdot2').className = 'step-dot todo';
+  document.getElementById('sline1').className = 'step-line';
+}
+
+async function generaDescrizioneAI() {
+  var nome    = document.getElementById('az_nome').value.trim();
+  var settore = (TEMPLATES[_selectedKey] || {}).settore || '';
+  var fond    = document.getElementById('az_fondazione').value.trim();
+  var btn     = document.getElementById('btnAI');
+  var status  = document.getElementById('ai-status');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Generazione…';
+  status.textContent = 'Generazione descrizione in corso…';
+
+  try {
+    var res = await fetch('/api/genera-testo', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        tipo: 'company',
+        nome: nome || 'Azienda',
+        settore: settore + (fond ? ' — ' + fond : ''),
+        sito_web: '',
+        dati_finanziari: null
+      })
+    });
+    if (!res.ok) throw new Error('API non disponibile');
+    var data = await res.json();
+    if (data.testo) {
+      document.getElementById('az_descrizione').value = data.testo;
+      status.textContent = '✅ Descrizione generata — puoi modificarla liberamente.';
+    }
+  } catch(e) {
+    status.textContent = '⚠️ ' + e.message + ' — inserisci la descrizione manualmente.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ Genera con AI';
+  }
+}
+
+async function generaBusinessPlan() {
+  var nome = document.getElementById('az_nome').value.trim();
+  if (!nome) { alert('Inserisci la ragione sociale.'); document.getElementById('az_nome').focus(); return; }
+
   var key = _selectedKey;
-  var d = TEMPLATES[key];
+  var d   = TEMPLATES[key];
   if (!d) return;
 
   var fat1 = parseFloat(document.getElementById('fat1').value);
@@ -861,47 +1028,110 @@ function confermaScegli() {
   var e2   = parseFloat(document.getElementById('ebitda2').value);
   var e3   = parseFloat(document.getElementById('ebitda3').value);
 
-  if (!fat1 || fat1 <= 0) { alert('Inserisci il fatturato previsto per il Anno 1.'); document.getElementById('fat1').focus(); return; }
-  if (!fat2 || fat2 <= 0) { alert('Inserisci il fatturato previsto per il Anno 2.'); document.getElementById('fat2').focus(); return; }
-  if (!fat3 || fat3 <= 0) { alert('Inserisci il fatturato previsto per il Anno 3.'); document.getElementById('fat3').focus(); return; }
-  if (isNaN(e1) || e1 < 0) { alert('Inserisci la marginalità EBITDA % per il Anno 1.'); document.getElementById('ebitda1').focus(); return; }
-  if (isNaN(e2) || e2 < 0) { alert('Inserisci la marginalità EBITDA % per il Anno 2.'); document.getElementById('ebitda2').focus(); return; }
-  if (isNaN(e3) || e3 < 0) { alert('Inserisci la marginalità EBITDA % per il Anno 3.'); document.getElementById('ebitda3').focus(); return; }
-
-  // Calcola le crescite % da fatturati assoluti inseriti dal cliente
   var g1 = Math.round(((fat1 / d.ricavi_base) - 1) * 100 * 10) / 10;
   var g2 = Math.round(((fat2 / fat1) - 1) * 100 * 10) / 10;
   var g3 = Math.round(((fat3 / fat2) - 1) * 100 * 10) / 10;
-
-  // EBITDA medio per il campo ebitda_margin (usato come riferimento storico)
   var ebitdaMedio = Math.round((e1 + e2 + e3) / 3 * 10) / 10;
-
   var annoBase = new Date().getFullYear() - 1;
 
+  var sede        = document.getElementById('az_sede').value.trim();
+  var forma       = document.getElementById('az_forma').value.trim();
+  var piva        = document.getElementById('az_piva').value.trim();
+  var descrizione = document.getElementById('az_descrizione').value.trim();
+
   var payload = {
-    nome: d.nome,
+    // Anagrafica
+    nome: nome,
     settore: d.settore,
+    sede_legale: sede,
+    forma_giuridica: forma,
+    partita_iva: piva,
+    analista: 'Dr. Leonardo Mascia',
+    data_report: new Date().toLocaleDateString('it-IT'),
+    nota_metodologica: 'Business plan elaborato su base settoriale (' + d.settore + '). Proiezioni triennali conforme EBA/GL/2020/06 e D.Lgs. 14/2019 (CCII).',
+    ipotesi_stress: 'Scenario stress: ricavi -20%, EBITDA margin -3pp. Analisi DSCR su finanziamenti.',
+    // Dati storici (benchmark settore)
     anno_base: annoBase,
     ricavi_base: d.ricavi_base,
-    ebitda_margin: ebitdaMedio,
+    ebitda_storico: Math.round(d.ricavi_base * d.ebitda_margin / 100),
     costo_pers_storico: d.costo_pers_storico,
-    n_dip: d.n_dip,
-    costi_fissi: d.costi_fissi,
-    perc_var: d.perc_var,
-    ammortamenti: d.ammortamenti,
-    // crescite calcolate dai fatturati assoluti
+    pfn_storico: 0,
+    pn_attuale: 0,
+    // Proiezioni
+    scenario: 'custom',
     g1: g1, g2: g2, g3: g3,
-    // scenari conservativo/ottimistico: scostamento fisso rispetto al base
     sc_conserv_g1: d.sc_conserv_g1, sc_conserv_g2: d.sc_conserv_g2, sc_conserv_g3: d.sc_conserv_g3,
     sc_ottim_g1: d.sc_ottim_g1,  sc_ottim_g2: d.sc_ottim_g2,  sc_ottim_g3: d.sc_ottim_g3,
-    // margini anno per anno per precompilazione
-    _ebitda_y1: e1, _ebitda_y2: e2, _ebitda_y3: e3,
-    _fat_y1: fat1, _fat_y2: fat2, _fat_y3: fat3,
+    // Margini
+    ebitda_margin: ebitdaMedio,
+    costi_fissi: d.costi_fissi,
+    perc_var: d.perc_var,
+    incr_fissi: 2,
+    var_materie: 2,
+    ammortamenti: d.ammortamenti,
+    tax_rate: 27.9,
+    dso: 60, dpo: 45, dio: 30,
+    perc_ccn: 8,
+    margine_lordo: 0,
+    // Personale
+    n_dip: d.n_dip,
+    costo_medio_dip: d.n_dip > 0 ? Math.round(d.costo_pers_storico / d.n_dip) : 35000,
+    incr_pers: 2,
+    tfr_perc: 6.91,
+    consulenze: 0,
+    assunzioni: [],
+    capex: [],
+    fonte_capex: '',
+    perc_fin_capex: 70,
+    // Finanza
+    deb_bt: 0, deb_mlt: 0,
+    rata_esistente: 0, interessi_esistenti: 0, anni_residui: 0,
+    nuovo_fin: false,
+    fin_importo: 0, fin_durata: 5, fin_tasso: 4.5,
+    fin_tipo: 'ipotecario', fin_periodicita: 12,
+    rata_capitale: 0, pre_amm: 0,
+    aum_capitale: 0, dividendi: 0,
+    // Qualitative
+    desc_aziendale: descrizione,
+    desc_progetto: '',
+    desc_mercato: '',
+    sito_web: '',
+    punti_forza: '',
+    punti_rischio: '',
     _template: { nome: d.nome, settore: d.settore }
   };
 
-  sessionStorage.setItem('abp_bp_from_template', JSON.stringify(payload));
-  window.location.href = 'business-plan.html?from_template=1';
+  // Mostra loading
+  document.getElementById('loadingOverlay').classList.add('open');
+  document.getElementById('btnGeneraFinale').disabled = true;
+
+  try {
+    var res = await fetch('/api/genera-bp', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      var err = await res.json().catch(function(){ return {}; });
+      throw new Error(err.error || 'Errore API');
+    }
+    var data = await res.json();
+
+    // Salva risultato in sessionStorage come fa business-plan.html
+    try {
+      sessionStorage.setItem('abp_bp_html', data.html || '');
+      sessionStorage.setItem('abp_bp_data', JSON.stringify({ ce: data.ce, sp: data.sp, cf: data.cf, be: data.be, kpi: data.kpi, alerts: data.alerts }));
+      sessionStorage.setItem('abp_bp_config', JSON.stringify({ nome: payload.nome, anno_base: payload.anno_base, g1: payload.g1, g2: payload.g2, g3: payload.g3 }));
+      sessionStorage.setItem('abp_report_payload', JSON.stringify(payload));
+    } catch(e) {}
+
+    window.location.href = 'report-bp.html';
+
+  } catch(e) {
+    document.getElementById('loadingOverlay').classList.remove('open');
+    document.getElementById('btnGeneraFinale').disabled = false;
+    alert('Errore nella generazione: ' + e.message);
+  }
 }
 
 function filtra() {
