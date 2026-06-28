@@ -149,7 +149,7 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
 .dati-storici{background:#eff6ff;border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:.85rem;color:#1e40af}
 
 /* Path selector */
-.path-selector{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:8px}
+.path-selector{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
 .path-card{border:2px solid var(--bordo);border-radius:14px;padding:28px 24px;text-align:center;cursor:pointer;transition:.2s;background:#fff;position:relative}
 .path-card:hover{border-color:var(--blu-light);background:#eff6ff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,.1)}
 .path-card.selected{border-color:var(--blu-light);background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
@@ -216,17 +216,11 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
           <div class="path-desc">Carica il file .xbrl / .xml scaricato da CCIAA o dal commercialista. I dati vengono importati automaticamente.</div>
           <div class="path-badge">⚡ Compilazione automatica</div>
         </div>
-        <div class="path-card" id="path-manuale" onclick="sceliPercorso('manuale')">
+        <div class="path-card" id="path-manuale" onclick="window.location.href='business-plan-start.html'">
           <div class="path-icon">✏️</div>
           <div class="path-title">Non ho il bilancio XBRL</div>
           <div class="path-desc">Inserisco manualmente i dati economico-finanziari storici dell'azienda (fatturato, EBITDA, debiti…).</div>
           <div class="path-badge" style="background:#eff6ff;color:var(--blu-light)">📝 Inserimento manuale</div>
-        </div>
-        <div class="path-card" id="path-template" onclick="window.location.href='business-plan-start.html'" style="border-color:rgba(124,58,237,.25);background:linear-gradient(135deg,#faf5ff,#ede9fe);">
-          <div class="path-icon">🗂️</div>
-          <div class="path-title" style="color:#6d28d9;">Parti da un modello</div>
-          <div class="path-desc">Scegli tra 38 template settoriali pre-compilati con benchmark realistici. Inserisci solo il tuo fatturato e la marginalità.</div>
-          <div class="path-badge" style="background:#ede9fe;color:#6d28d9;">✨ Scelta guidata</div>
         </div>
       </div>
 
