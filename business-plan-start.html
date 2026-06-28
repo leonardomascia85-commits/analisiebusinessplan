@@ -2,10 +2,688 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8"/>
-  <meta http-equiv="refresh" content="0;url=business-plan.html"/>
-  <title>Business Plan – AnalisiEBusinessPlan.it</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scegli il Settore — Business Plan Finanziario | AnalisiEBusinessPlan.it</title>
+  <meta name="description" content="Scegli il benchmark settoriale per il tuo business plan finanziario. 25 modelli pre-compilati per PMI italiane."/>
+  <meta name="robots" content="noindex"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='white' font-weight='bold'>A</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--blu:#1a3a5c;--blu-l:#2563eb;--verde:#059669;--bord:#e2e8f0;--bg:#f8fafc;--ink:#0f172a;--ink2:#334155;--ink3:#64748b}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+    header{background:linear-gradient(135deg,var(--blu) 0%,#2563eb 100%);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:16px}
+    .logo-text{font-size:1.15rem;font-weight:700;letter-spacing:-.3px}
+    .header-sub{font-size:.82rem;opacity:.6;margin-left:auto}
+    .container{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+    h1{font-size:1.55rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+    .subtitle{font-size:.95rem;color:var(--ink3);margin-bottom:32px}
+    .search-wrap{position:relative;max-width:420px;margin-bottom:32px}
+    .search-wrap input{width:100%;padding:11px 16px 11px 42px;border:1.5px solid var(--bord);border-radius:10px;font-size:.92rem;font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color .15s}
+    .search-wrap input:focus{border-color:var(--blu-l)}
+    .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--ink3);pointer-events:none}
+    .category-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--bord)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .card{background:#fff;border:1.5px solid var(--bord);border-radius:14px;padding:20px 18px;cursor:pointer;transition:border-color .15s,transform .15s,box-shadow .15s;position:relative}
+    .card:hover{border-color:var(--blu-l);transform:translateY(-3px);box-shadow:0 8px 24px rgba(37,99,235,.12)}
+    .card-icon{font-size:26px;margin-bottom:10px;display:block}
+    .card-name{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+    .card-ateco{font-size:.72rem;color:var(--ink3);margin-bottom:10px}
+    .card-tags{display:flex;flex-wrap:wrap;gap:5px}
+    .tag{font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:20px;background:#f1f5f9;color:var(--ink3)}
+    .tag.blu{background:#dbeafe;color:#1d4ed8}
+    .tag.grn{background:#d1fae5;color:#065f46}
+    .tag.amb{background:#fef3c7;color:#92400e}
+    .card.hidden{display:none}
+    .btn-skip{display:inline-flex;align-items:center;gap:8px;margin-top:36px;padding:11px 24px;border-radius:40px;background:transparent;border:1.5px solid var(--bord);color:var(--ink3);font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}
+    .btn-skip:hover{border-color:var(--blu-l);color:var(--blu-l)}
+    @media(max-width:600px){.container{padding:24px 16px 60px}.grid{grid-template-columns:1fr 1fr}}
+  </style>
 </head>
 <body>
-  <script>window.location.replace('business-plan.html');</script>
+
+<header>
+  <span class="logo-text">📋 Business Plan Finanziario</span>
+  <span class="header-sub">Proiezioni 3 anni · Modello CE+SP+CF integrato</span>
+</header>
+
+<div class="container">
+  <h1>Scegli il tuo settore</h1>
+  <p class="subtitle">Seleziona il modello più vicino alla tua azienda. I campi verranno pre-compilati con benchmark realistici — potrai modificarli liberamente.</p>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Cerca settore…" oninput="filtra()" autocomplete="off"/>
+  </div>
+
+  <!-- COMMERCIO & DISTRIBUZIONE -->
+  <div class="category-label">🛒 Commercio &amp; Distribuzione</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('commercio-ingrosso')">
+      <span class="card-icon">📦</span>
+      <div class="card-name">Commercio all'ingrosso</div>
+      <div class="card-ateco">ATECO 46.xx</div>
+      <div class="card-tags"><span class="tag">Volumi alti</span><span class="tag blu">Margini medi</span></div>
+    </div>
+    <div class="card" onclick="scegli('commercio-dettaglio')">
+      <span class="card-icon">🏪</span>
+      <div class="card-name">Commercio al dettaglio</div>
+      <div class="card-ateco">ATECO 47.xx</div>
+      <div class="card-tags"><span class="tag">B2C</span><span class="tag amb">Stagionalità</span></div>
+    </div>
+    <div class="card" onclick="scegli('ecommerce')">
+      <span class="card-icon">🛍️</span>
+      <div class="card-name">E-commerce / Retail digitale</div>
+      <div class="card-ateco">ATECO 47.91</div>
+      <div class="card-tags"><span class="tag blu">Digital</span><span class="tag grn">Crescita</span></div>
+    </div>
+    <div class="card" onclick="scegli('agente-commercio')">
+      <span class="card-icon">🤝</span>
+      <div class="card-name">Agente di commercio</div>
+      <div class="card-ateco">ATECO 46.1x</div>
+      <div class="card-tags"><span class="tag">B2B</span><span class="tag grn">Basso CapEx</span></div>
+    </div>
+  </div>
+
+  <!-- RISTORAZIONE & OSPITALITÀ -->
+  <div class="category-label">🍽️ Ristorazione &amp; Ospitalità</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('ristorante')">
+      <span class="card-icon">🍕</span>
+      <div class="card-name">Ristorante / Pizzeria</div>
+      <div class="card-ateco">ATECO 56.10</div>
+      <div class="card-tags"><span class="tag amb">Stagionalità</span><span class="tag">Alto personale</span></div>
+    </div>
+    <div class="card" onclick="scegli('bar-caffe')">
+      <span class="card-icon">☕</span>
+      <div class="card-name">Bar / Caffetteria</div>
+      <div class="card-ateco">ATECO 56.30</div>
+      <div class="card-tags"><span class="tag">Cash business</span><span class="tag blu">Frequenza alta</span></div>
+    </div>
+    <div class="card" onclick="scegli('hotel')">
+      <span class="card-icon">🏨</span>
+      <div class="card-name">Hotel / B&amp;B</div>
+      <div class="card-ateco">ATECO 55.10</div>
+      <div class="card-tags"><span class="tag amb">RevPAR</span><span class="tag">Asset-heavy</span></div>
+    </div>
+    <div class="card" onclick="scegli('catering')">
+      <span class="card-icon">🍱</span>
+      <div class="card-name">Catering / Banqueting</div>
+      <div class="card-ateco">ATECO 56.21</div>
+      <div class="card-tags"><span class="tag blu">B2B</span><span class="tag grn">Margini buoni</span></div>
+    </div>
+  </div>
+
+  <!-- MANIFATTURA & ARTIGIANATO -->
+  <div class="category-label">🏭 Manifattura &amp; Artigianato</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('manifattura-generica')">
+      <span class="card-icon">⚙️</span>
+      <div class="card-name">Manifattura generica</div>
+      <div class="card-ateco">ATECO 25-33</div>
+      <div class="card-tags"><span class="tag">Produzione</span><span class="tag blu">Magazzino</span></div>
+    </div>
+    <div class="card" onclick="scegli('metalmeccanica')">
+      <span class="card-icon">🔩</span>
+      <div class="card-name">Metalmeccanica</div>
+      <div class="card-ateco">ATECO 25.xx</div>
+      <div class="card-tags"><span class="tag">Export</span><span class="tag grn">Margini medi-alti</span></div>
+    </div>
+    <div class="card" onclick="scegli('abbigliamento-moda')">
+      <span class="card-icon">👗</span>
+      <div class="card-name">Abbigliamento / Moda</div>
+      <div class="card-ateco">ATECO 14.xx</div>
+      <div class="card-tags"><span class="tag amb">Stagionalità</span><span class="tag blu">Brand</span></div>
+    </div>
+    <div class="card" onclick="scegli('artigianato')">
+      <span class="card-icon">🪚</span>
+      <div class="card-name">Artigianato / Falegnameria</div>
+      <div class="card-ateco">ATECO 16.xx / 43.xx</div>
+      <div class="card-tags"><span class="tag">Su misura</span><span class="tag grn">Basso CapEx</span></div>
+    </div>
+  </div>
+
+  <!-- SERVIZI PROFESSIONALI -->
+  <div class="category-label">💼 Servizi Professionali</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('studio-commercialista')">
+      <span class="card-icon">📑</span>
+      <div class="card-name">Studio commercialista</div>
+      <div class="card-ateco">ATECO 69.20</div>
+      <div class="card-tags"><span class="tag grn">Ricorrente</span><span class="tag blu">Alto margine</span></div>
+    </div>
+    <div class="card" onclick="scegli('consulenza-aziendale')">
+      <span class="card-icon">📊</span>
+      <div class="card-name">Consulenza aziendale</div>
+      <div class="card-ateco">ATECO 70.22</div>
+      <div class="card-tags"><span class="tag grn">Alto margine</span><span class="tag">B2B</span></div>
+    </div>
+    <div class="card" onclick="scegli('studio-legale')">
+      <span class="card-icon">⚖️</span>
+      <div class="card-name">Studio legale</div>
+      <div class="card-ateco">ATECO 69.10</div>
+      <div class="card-tags"><span class="tag grn">Alto margine</span><span class="tag blu">Parcelle</span></div>
+    </div>
+    <div class="card" onclick="scegli('agenzia-marketing')">
+      <span class="card-icon">📣</span>
+      <div class="card-name">Agenzia marketing / web</div>
+      <div class="card-ateco">ATECO 73.11</div>
+      <div class="card-tags"><span class="tag blu">Digital</span><span class="tag grn">Retainer</span></div>
+    </div>
+  </div>
+
+  <!-- IT & TECH -->
+  <div class="category-label">💻 IT &amp; Tecnologia</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('software-saas')">
+      <span class="card-icon">☁️</span>
+      <div class="card-name">Software / SaaS</div>
+      <div class="card-ateco">ATECO 62.01</div>
+      <div class="card-tags"><span class="tag grn">Ricorrente</span><span class="tag blu">Scalabile</span></div>
+    </div>
+    <div class="card" onclick="scegli('it-services')">
+      <span class="card-icon">🖥️</span>
+      <div class="card-name">Servizi IT / Sistemistica</div>
+      <div class="card-ateco">ATECO 62.02</div>
+      <div class="card-tags"><span class="tag">B2B</span><span class="tag grn">Margini alti</span></div>
+    </div>
+    <div class="card" onclick="scegli('ecommerce-tech')">
+      <span class="card-icon">🤖</span>
+      <div class="card-name">Tech startup</div>
+      <div class="card-ateco">ATECO 62.xx / 63.xx</div>
+      <div class="card-tags"><span class="tag blu">Crescita rapida</span><span class="tag amb">Burn rate</span></div>
+    </div>
+  </div>
+
+  <!-- EDILIZIA & IMMOBILIARE -->
+  <div class="category-label">🏗️ Edilizia &amp; Immobiliare</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('impresa-edile')">
+      <span class="card-icon">🏗️</span>
+      <div class="card-name">Impresa edile</div>
+      <div class="card-ateco">ATECO 41.xx / 43.xx</div>
+      <div class="card-tags"><span class="tag">Cantieri</span><span class="tag amb">Stagionalità</span></div>
+    </div>
+    <div class="card" onclick="scegli('immobiliare')">
+      <span class="card-icon">🏢</span>
+      <div class="card-name">Agenzia immobiliare</div>
+      <div class="card-ateco">ATECO 68.31</div>
+      <div class="card-tags"><span class="tag blu">Commissioni</span><span class="tag">B2C</span></div>
+    </div>
+    <div class="card" onclick="scegli('impianti')">
+      <span class="card-icon">🔌</span>
+      <div class="card-name">Installazione impianti</div>
+      <div class="card-ateco">ATECO 43.21 / 43.22</div>
+      <div class="card-tags"><span class="tag">Subappalto</span><span class="tag grn">Margini medi</span></div>
+    </div>
+  </div>
+
+  <!-- SALUTE & BENESSERE -->
+  <div class="category-label">🏥 Salute &amp; Benessere</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('clinica-medica')">
+      <span class="card-icon">🩺</span>
+      <div class="card-name">Studio / Clinica medica</div>
+      <div class="card-ateco">ATECO 86.xx</div>
+      <div class="card-tags"><span class="tag grn">Stabile</span><span class="tag blu">Alto margine</span></div>
+    </div>
+    <div class="card" onclick="scegli('palestra-fitness')">
+      <span class="card-icon">🏋️</span>
+      <div class="card-name">Palestra / Centro fitness</div>
+      <div class="card-ateco">ATECO 93.13</div>
+      <div class="card-tags"><span class="tag grn">Abbonamenti</span><span class="tag">CapEx alto</span></div>
+    </div>
+    <div class="card" onclick="scegli('farmacia')">
+      <span class="card-icon">💊</span>
+      <div class="card-name">Farmacia / Parafarmacia</div>
+      <div class="card-ateco">ATECO 47.73</div>
+      <div class="card-tags"><span class="tag grn">Stabile</span><span class="tag">Regolamentato</span></div>
+    </div>
+  </div>
+
+  <!-- TRASPORTI & LOGISTICA -->
+  <div class="category-label">🚛 Trasporti &amp; Logistica</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('autotrasporto')">
+      <span class="card-icon">🚛</span>
+      <div class="card-name">Autotrasporto / Spedizioni</div>
+      <div class="card-ateco">ATECO 49.41</div>
+      <div class="card-tags"><span class="tag">Asset-heavy</span><span class="tag amb">Carburante</span></div>
+    </div>
+    <div class="card" onclick="scegli('logistica-magazzino')">
+      <span class="card-icon">🏭</span>
+      <div class="card-name">Logistica / Magazzino</div>
+      <div class="card-ateco">ATECO 52.10</div>
+      <div class="card-tags"><span class="tag blu">B2B</span><span class="tag">Contratti pluriennali</span></div>
+    </div>
+    <div class="card" onclick="scegli('noleggio-veicoli')">
+      <span class="card-icon">🚐</span>
+      <div class="card-name">Noleggio veicoli / NCC</div>
+      <div class="card-ateco">ATECO 49.39 / 77.11</div>
+      <div class="card-tags"><span class="tag">Fleet</span><span class="tag grn">Ricorrente</span></div>
+    </div>
+  </div>
+
+  <!-- AGRICOLTURA & ALIMENTARE -->
+  <div class="category-label">🌾 Agricoltura &amp; Alimentare</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('azienda-agricola')">
+      <span class="card-icon">🌾</span>
+      <div class="card-name">Azienda agricola</div>
+      <div class="card-ateco">ATECO 01.xx</div>
+      <div class="card-tags"><span class="tag amb">Stagionalità</span><span class="tag">PAC / sussidi</span></div>
+    </div>
+    <div class="card" onclick="scegli('vitivinicola')">
+      <span class="card-icon">🍷</span>
+      <div class="card-name">Cantina / Vitivinicola</div>
+      <div class="card-ateco">ATECO 11.02</div>
+      <div class="card-tags"><span class="tag grn">Export</span><span class="tag blu">Brand</span></div>
+    </div>
+    <div class="card" onclick="scegli('industria-alimentare')">
+      <span class="card-icon">🏭</span>
+      <div class="card-name">Industria alimentare</div>
+      <div class="card-ateco">ATECO 10.xx</div>
+      <div class="card-tags"><span class="tag">GDO</span><span class="tag blu">Volumi</span></div>
+    </div>
+    <div class="card" onclick="scegli('panificio-pasticceria')">
+      <span class="card-icon">🥐</span>
+      <div class="card-name">Panificio / Pasticceria</div>
+      <div class="card-ateco">ATECO 10.71</div>
+      <div class="card-tags"><span class="tag">Artigianale</span><span class="tag grn">Margini medi</span></div>
+    </div>
+  </div>
+
+  <!-- ISTRUZIONE & FORMAZIONE -->
+  <div class="category-label">🎓 Istruzione &amp; Formazione</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('scuola-formazione')">
+      <span class="card-icon">🎓</span>
+      <div class="card-name">Scuola / Ente formazione</div>
+      <div class="card-ateco">ATECO 85.xx</div>
+      <div class="card-tags"><span class="tag grn">Ricorrente</span><span class="tag blu">Alto margine</span></div>
+    </div>
+    <div class="card" onclick="scegli('asilo-nido')">
+      <span class="card-icon">👶</span>
+      <div class="card-name">Asilo nido / Infanzia</div>
+      <div class="card-ateco">ATECO 88.91</div>
+      <div class="card-tags"><span class="tag grn">Stabile</span><span class="tag">Convenzioni</span></div>
+    </div>
+    <div class="card" onclick="scegli('formazione-online')">
+      <span class="card-icon">📱</span>
+      <div class="card-name">Formazione online / e-learning</div>
+      <div class="card-ateco">ATECO 85.59</div>
+      <div class="card-tags"><span class="tag blu">Scalabile</span><span class="tag grn">Margini alti</span></div>
+    </div>
+  </div>
+
+  <!-- ENERGIA & AMBIENTE -->
+  <div class="category-label">⚡ Energia &amp; Ambiente</div>
+  <div class="grid">
+    <div class="card" onclick="scegli('energie-rinnovabili')">
+      <span class="card-icon">☀️</span>
+      <div class="card-name">Energie rinnovabili / Fotovoltaico</div>
+      <div class="card-ateco">ATECO 35.11 / 43.21</div>
+      <div class="card-tags"><span class="tag grn">Green</span><span class="tag blu">Incentivi</span></div>
+    </div>
+    <div class="card" onclick="scegli('gestione-rifiuti')">
+      <span class="card-icon">♻️</span>
+      <div class="card-name">Gestione rifiuti / Smaltimento</div>
+      <div class="card-ateco">ATECO 38.xx</div>
+      <div class="card-tags"><span class="tag grn">Contratti</span><span class="tag">Regolamentato</span></div>
+    </div>
+    <div class="card" onclick="scegli('efficienza-energetica')">
+      <span class="card-icon">🌡️</span>
+      <div class="card-name">Efficienza energetica / ESCo</div>
+      <div class="card-ateco">ATECO 71.12</div>
+      <div class="card-tags"><span class="tag grn">Risparmio</span><span class="tag blu">B2B</span></div>
+    </div>
+  </div>
+
+  <button class="btn-skip" onclick="window.location.href='business-plan.html'">
+    Salta e inserisci manualmente →
+  </button>
+</div>
+
+<script>
+const TEMPLATES = {
+  'commercio-ingrosso': {
+    nome:"Commercio all'ingrosso", settore:"Commercio all'ingrosso (ATECO 46)",
+    ricavi_base:2800000, ebitda_margin:8, costo_pers_storico:180000, n_dip:5,
+    costi_fissi:95000, perc_var:72, ammortamenti:22000,
+    g1:4, g2:4, g3:3,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:7, sc_ottim_g2:6, sc_ottim_g3:5
+  },
+  'commercio-dettaglio': {
+    nome:"Commercio al dettaglio", settore:"Commercio al dettaglio (ATECO 47)",
+    ricavi_base:650000, ebitda_margin:12, costo_pers_storico:95000, n_dip:3,
+    costi_fissi:60000, perc_var:58, ammortamenti:15000,
+    g1:3, g2:3, g3:2,
+    sc_conserv_g1:0, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:6, sc_ottim_g2:5, sc_ottim_g3:4
+  },
+  'ecommerce': {
+    nome:"E-commerce / Retail digitale", settore:"E-commerce (ATECO 47.91)",
+    ricavi_base:480000, ebitda_margin:14, costo_pers_storico:72000, n_dip:2,
+    costi_fissi:42000, perc_var:55, ammortamenti:8000,
+    g1:18, g2:15, g3:12,
+    sc_conserv_g1:8, sc_conserv_g2:8, sc_conserv_g3:7,
+    sc_ottim_g1:28, sc_ottim_g2:22, sc_ottim_g3:18
+  },
+  'agente-commercio': {
+    nome:"Agente di commercio", settore:"Agente di commercio (ATECO 46.1x)",
+    ricavi_base:220000, ebitda_margin:38, costo_pers_storico:30000, n_dip:1,
+    costi_fissi:18000, perc_var:18, ammortamenti:4000,
+    g1:6, g2:5, g3:5,
+    sc_conserv_g1:2, sc_conserv_g2:2, sc_conserv_g3:2,
+    sc_ottim_g1:10, sc_ottim_g2:9, sc_ottim_g3:8
+  },
+  'ristorante': {
+    nome:"Ristorante / Pizzeria", settore:"Ristorazione (ATECO 56.10)",
+    ricavi_base:380000, ebitda_margin:16, costo_pers_storico:110000, n_dip:6,
+    costi_fissi:55000, perc_var:30, ammortamenti:18000,
+    g1:5, g2:4, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:2, sc_conserv_g3:2,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'bar-caffe': {
+    nome:"Bar / Caffetteria", settore:"Bar e caffetteria (ATECO 56.30)",
+    ricavi_base:180000, ebitda_margin:20, costo_pers_storico:55000, n_dip:3,
+    costi_fissi:28000, perc_var:28, ammortamenti:8000,
+    g1:4, g2:3, g3:3,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:7, sc_ottim_g2:6, sc_ottim_g3:5
+  },
+  'hotel': {
+    nome:"Hotel / B&B", settore:"Alloggio (ATECO 55.10)",
+    ricavi_base:900000, ebitda_margin:28, costo_pers_storico:220000, n_dip:10,
+    costi_fissi:110000, perc_var:18, ammortamenti:65000,
+    g1:7, g2:6, g3:5,
+    sc_conserv_g1:2, sc_conserv_g2:2, sc_conserv_g3:2,
+    sc_ottim_g1:12, sc_ottim_g2:10, sc_ottim_g3:9
+  },
+  'catering': {
+    nome:"Catering / Banqueting", settore:"Catering (ATECO 56.21)",
+    ricavi_base:420000, ebitda_margin:22, costo_pers_storico:95000, n_dip:5,
+    costi_fissi:38000, perc_var:35, ammortamenti:12000,
+    g1:6, g2:5, g3:5,
+    sc_conserv_g1:2, sc_conserv_g2:2, sc_conserv_g3:1,
+    sc_ottim_g1:10, sc_ottim_g2:9, sc_ottim_g3:8
+  },
+  'manifattura-generica': {
+    nome:"Manifattura generica", settore:"Manifattura (ATECO 25-33)",
+    ricavi_base:1500000, ebitda_margin:14, costo_pers_storico:280000, n_dip:12,
+    costi_fissi:120000, perc_var:52, ammortamenti:55000,
+    g1:5, g2:4, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'metalmeccanica': {
+    nome:"Metalmeccanica", settore:"Metalmeccanica (ATECO 25)",
+    ricavi_base:2200000, ebitda_margin:16, costo_pers_storico:380000, n_dip:16,
+    costi_fissi:150000, perc_var:48, ammortamenti:80000,
+    g1:5, g2:5, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:2, sc_conserv_g3:2,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'abbigliamento-moda': {
+    nome:"Abbigliamento / Moda", settore:"Abbigliamento (ATECO 14)",
+    ricavi_base:800000, ebitda_margin:18, costo_pers_storico:150000, n_dip:7,
+    costi_fissi:85000, perc_var:42, ammortamenti:20000,
+    g1:6, g2:5, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:11, sc_ottim_g2:9, sc_ottim_g3:8
+  },
+  'artigianato': {
+    nome:"Artigianato / Falegnameria", settore:"Artigianato (ATECO 16 / 43)",
+    ricavi_base:280000, ebitda_margin:22, costo_pers_storico:68000, n_dip:3,
+    costi_fissi:28000, perc_var:38, ammortamenti:12000,
+    g1:5, g2:4, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'studio-commercialista': {
+    nome:"Studio commercialista", settore:"Studio commercialista (ATECO 69.20)",
+    ricavi_base:320000, ebitda_margin:42, costo_pers_storico:85000, n_dip:4,
+    costi_fissi:32000, perc_var:8, ammortamenti:6000,
+    g1:4, g2:4, g3:3,
+    sc_conserv_g1:1, sc_conserv_g2:2, sc_conserv_g3:2,
+    sc_ottim_g1:7, sc_ottim_g2:6, sc_ottim_g3:6
+  },
+  'consulenza-aziendale': {
+    nome:"Consulenza aziendale", settore:"Consulenza aziendale (ATECO 70.22)",
+    ricavi_base:480000, ebitda_margin:45, costo_pers_storico:120000, n_dip:4,
+    costi_fissi:30000, perc_var:5, ammortamenti:5000,
+    g1:8, g2:7, g3:6,
+    sc_conserv_g1:3, sc_conserv_g2:3, sc_conserv_g3:2,
+    sc_ottim_g1:14, sc_ottim_g2:12, sc_ottim_g3:10
+  },
+  'studio-legale': {
+    nome:"Studio legale", settore:"Studio legale (ATECO 69.10)",
+    ricavi_base:380000, ebitda_margin:48, costo_pers_storico:90000, n_dip:3,
+    costi_fissi:28000, perc_var:5, ammortamenti:5000,
+    g1:4, g2:4, g3:3,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:7, sc_ottim_g2:6, sc_ottim_g3:5
+  },
+  'agenzia-marketing': {
+    nome:"Agenzia marketing / web", settore:"Agenzia marketing (ATECO 73.11)",
+    ricavi_base:350000, ebitda_margin:40, costo_pers_storico:95000, n_dip:4,
+    costi_fissi:28000, perc_var:10, ammortamenti:6000,
+    g1:12, g2:10, g3:8,
+    sc_conserv_g1:4, sc_conserv_g2:3, sc_conserv_g3:3,
+    sc_ottim_g1:20, sc_ottim_g2:17, sc_ottim_g3:14
+  },
+  'software-saas': {
+    nome:"Software / SaaS", settore:"Software SaaS (ATECO 62.01)",
+    ricavi_base:280000, ebitda_margin:52, costo_pers_storico:95000, n_dip:3,
+    costi_fissi:22000, perc_var:5, ammortamenti:8000,
+    g1:20, g2:18, g3:15,
+    sc_conserv_g1:8, sc_conserv_g2:7, sc_conserv_g3:6,
+    sc_ottim_g1:35, sc_ottim_g2:28, sc_ottim_g3:22
+  },
+  'it-services': {
+    nome:"Servizi IT / Sistemistica", settore:"Servizi IT (ATECO 62.02)",
+    ricavi_base:420000, ebitda_margin:35, costo_pers_storico:130000, n_dip:5,
+    costi_fissi:30000, perc_var:12, ammortamenti:8000,
+    g1:8, g2:7, g3:6,
+    sc_conserv_g1:3, sc_conserv_g2:2, sc_conserv_g3:2,
+    sc_ottim_g1:14, sc_ottim_g2:12, sc_ottim_g3:10
+  },
+  'ecommerce-tech': {
+    nome:"Tech startup", settore:"Tech startup (ATECO 62/63)",
+    ricavi_base:120000, ebitda_margin:18, costo_pers_storico:85000, n_dip:3,
+    costi_fissi:35000, perc_var:18, ammortamenti:6000,
+    g1:40, g2:35, g3:28,
+    sc_conserv_g1:15, sc_conserv_g2:12, sc_conserv_g3:10,
+    sc_ottim_g1:65, sc_ottim_g2:55, sc_ottim_g3:45
+  },
+  'impresa-edile': {
+    nome:"Impresa edile", settore:"Edilizia (ATECO 41/43)",
+    ricavi_base:1800000, ebitda_margin:11, costo_pers_storico:320000, n_dip:14,
+    costi_fissi:95000, perc_var:60, ammortamenti:40000,
+    g1:5, g2:4, g3:4,
+    sc_conserv_g1:0, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:10, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'immobiliare': {
+    nome:"Agenzia immobiliare", settore:"Agenzia immobiliare (ATECO 68.31)",
+    ricavi_base:280000, ebitda_margin:38, costo_pers_storico:80000, n_dip:3,
+    costi_fissi:25000, perc_var:10, ammortamenti:5000,
+    g1:6, g2:5, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:12, sc_ottim_g2:10, sc_ottim_g3:8
+  },
+  'impianti': {
+    nome:"Installazione impianti", settore:"Installazione impianti (ATECO 43.21/22)",
+    ricavi_base:650000, ebitda_margin:15, costo_pers_storico:140000, n_dip:6,
+    costi_fissi:55000, perc_var:50, ammortamenti:20000,
+    g1:5, g2:4, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'clinica-medica': {
+    nome:"Studio / Clinica medica", settore:"Sanità (ATECO 86)",
+    ricavi_base:480000, ebitda_margin:36, costo_pers_storico:160000, n_dip:6,
+    costi_fissi:45000, perc_var:10, ammortamenti:22000,
+    g1:5, g2:5, g3:4,
+    sc_conserv_g1:2, sc_conserv_g2:2, sc_conserv_g3:1,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'palestra-fitness': {
+    nome:"Palestra / Centro fitness", settore:"Fitness (ATECO 93.13)",
+    ricavi_base:320000, ebitda_margin:26, costo_pers_storico:90000, n_dip:5,
+    costi_fissi:65000, perc_var:12, ammortamenti:28000,
+    g1:6, g2:5, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:11, sc_ottim_g2:9, sc_ottim_g3:8
+  },
+  'farmacia': {
+    nome:"Farmacia / Parafarmacia", settore:"Farmacia (ATECO 47.73)",
+    ricavi_base:1200000, ebitda_margin:9, costo_pers_storico:140000, n_dip:5,
+    costi_fissi:55000, perc_var:72, ammortamenti:12000,
+    g1:3, g2:3, g3:2,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:5, sc_ottim_g2:5, sc_ottim_g3:4
+  },
+  'autotrasporto': {
+    nome:"Autotrasporto / Spedizioni", settore:"Autotrasporto (ATECO 49.41)",
+    ricavi_base:1100000, ebitda_margin:10, costo_pers_storico:210000, n_dip:8,
+    costi_fissi:85000, perc_var:55, ammortamenti:70000,
+    g1:4, g2:3, g3:3,
+    sc_conserv_g1:0, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:8, sc_ottim_g2:7, sc_ottim_g3:6
+  },
+  'logistica-magazzino': {
+    nome:"Logistica / Magazzino", settore:"Logistica (ATECO 52.10)",
+    ricavi_base:1400000, ebitda_margin:12, costo_pers_storico:260000, n_dip:11,
+    costi_fissi:100000, perc_var:48, ammortamenti:55000,
+    g1:5, g2:4, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'noleggio-veicoli': {
+    nome:"Noleggio veicoli / NCC", settore:"Noleggio veicoli (ATECO 49.39 / 77.11)",
+    ricavi_base:380000, ebitda_margin:28, costo_pers_storico:75000, n_dip:3,
+    costi_fissi:45000, perc_var:20, ammortamenti:55000,
+    g1:6, g2:5, g3:5,
+    sc_conserv_g1:2, sc_conserv_g2:2, sc_conserv_g3:1,
+    sc_ottim_g1:10, sc_ottim_g2:9, sc_ottim_g3:8
+  },
+  'azienda-agricola': {
+    nome:"Azienda agricola", settore:"Agricoltura (ATECO 01)",
+    ricavi_base:420000, ebitda_margin:18, costo_pers_storico:65000, n_dip:3,
+    costi_fissi:40000, perc_var:42, ammortamenti:25000,
+    g1:3, g2:3, g3:2,
+    sc_conserv_g1:0, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:6, sc_ottim_g2:5, sc_ottim_g3:5
+  },
+  'vitivinicola': {
+    nome:"Cantina / Vitivinicola", settore:"Vitivinicola (ATECO 11.02)",
+    ricavi_base:680000, ebitda_margin:32, costo_pers_storico:120000, n_dip:5,
+    costi_fissi:70000, perc_var:28, ammortamenti:38000,
+    g1:7, g2:6, g3:5,
+    sc_conserv_g1:2, sc_conserv_g2:2, sc_conserv_g3:2,
+    sc_ottim_g1:12, sc_ottim_g2:10, sc_ottim_g3:9
+  },
+  'industria-alimentare': {
+    nome:"Industria alimentare", settore:"Industria alimentare (ATECO 10)",
+    ricavi_base:2100000, ebitda_margin:11, costo_pers_storico:310000, n_dip:13,
+    costi_fissi:130000, perc_var:58, ammortamenti:60000,
+    g1:4, g2:4, g3:3,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:7, sc_ottim_g2:7, sc_ottim_g3:6
+  },
+  'panificio-pasticceria': {
+    nome:"Panificio / Pasticceria", settore:"Panificio (ATECO 10.71)",
+    ricavi_base:260000, ebitda_margin:20, costo_pers_storico:72000, n_dip:4,
+    costi_fissi:32000, perc_var:35, ammortamenti:14000,
+    g1:4, g2:3, g3:3,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:7, sc_ottim_g2:6, sc_ottim_g3:5
+  },
+  'scuola-formazione': {
+    nome:"Scuola / Ente formazione", settore:"Formazione (ATECO 85)",
+    ricavi_base:480000, ebitda_margin:36, costo_pers_storico:160000, n_dip:7,
+    costi_fissi:48000, perc_var:8, ammortamenti:10000,
+    g1:6, g2:5, g3:5,
+    sc_conserv_g1:2, sc_conserv_g2:2, sc_conserv_g3:1,
+    sc_ottim_g1:10, sc_ottim_g2:9, sc_ottim_g3:8
+  },
+  'asilo-nido': {
+    nome:"Asilo nido / Infanzia", settore:"Servizi infanzia (ATECO 88.91)",
+    ricavi_base:280000, ebitda_margin:22, costo_pers_storico:120000, n_dip:6,
+    costi_fissi:35000, perc_var:5, ammortamenti:12000,
+    g1:4, g2:4, g3:3,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:7, sc_ottim_g2:6, sc_ottim_g3:6
+  },
+  'formazione-online': {
+    nome:"Formazione online / e-learning", settore:"E-learning (ATECO 85.59)",
+    ricavi_base:180000, ebitda_margin:55, costo_pers_storico:45000, n_dip:2,
+    costi_fissi:18000, perc_var:5, ammortamenti:4000,
+    g1:25, g2:20, g3:16,
+    sc_conserv_g1:10, sc_conserv_g2:8, sc_conserv_g3:7,
+    sc_ottim_g1:40, sc_ottim_g2:33, sc_ottim_g3:25
+  },
+  'energie-rinnovabili': {
+    nome:"Energie rinnovabili / Fotovoltaico", settore:"Energie rinnovabili (ATECO 35.11 / 43.21)",
+    ricavi_base:750000, ebitda_margin:30, costo_pers_storico:120000, n_dip:5,
+    costi_fissi:60000, perc_var:35, ammortamenti:45000,
+    g1:15, g2:12, g3:10,
+    sc_conserv_g1:5, sc_conserv_g2:4, sc_conserv_g3:4,
+    sc_ottim_g1:25, sc_ottim_g2:20, sc_ottim_g3:16
+  },
+  'gestione-rifiuti': {
+    nome:"Gestione rifiuti / Smaltimento", settore:"Gestione rifiuti (ATECO 38)",
+    ricavi_base:1100000, ebitda_margin:18, costo_pers_storico:200000, n_dip:9,
+    costi_fissi:90000, perc_var:38, ammortamenti:70000,
+    g1:5, g2:4, g3:4,
+    sc_conserv_g1:1, sc_conserv_g2:1, sc_conserv_g3:1,
+    sc_ottim_g1:9, sc_ottim_g2:8, sc_ottim_g3:7
+  },
+  'efficienza-energetica': {
+    nome:"Efficienza energetica / ESCo", settore:"Efficienza energetica (ATECO 71.12)",
+    ricavi_base:620000, ebitda_margin:28, costo_pers_storico:140000, n_dip:6,
+    costi_fissi:55000, perc_var:20, ammortamenti:18000,
+    g1:12, g2:10, g3:8,
+    sc_conserv_g1:4, sc_conserv_g2:3, sc_conserv_g3:3,
+    sc_ottim_g1:20, sc_ottim_g2:17, sc_ottim_g3:14
+  }
+};
+
+function scegli(key) {
+  var d = TEMPLATES[key];
+  if (!d) return;
+  var anno_base = new Date().getFullYear() - 1;
+  var payload = {
+    nome: d.nome,
+    settore: d.settore,
+    anno_base: anno_base,
+    ricavi_base: d.ricavi_base,
+    ebitda_margin: d.ebitda_margin,
+    costo_pers_storico: d.costo_pers_storico,
+    n_dip: d.n_dip,
+    costi_fissi: d.costi_fissi,
+    perc_var: d.perc_var,
+    ammortamenti: d.ammortamenti,
+    g1: d.g1, g2: d.g2, g3: d.g3,
+    sc_conserv_g1: d.sc_conserv_g1, sc_conserv_g2: d.sc_conserv_g2, sc_conserv_g3: d.sc_conserv_g3,
+    sc_ottim_g1: d.sc_ottim_g1,  sc_ottim_g2: d.sc_ottim_g2,  sc_ottim_g3: d.sc_ottim_g3,
+    _template: { nome: d.nome, settore: d.settore }
+  };
+  sessionStorage.setItem('abp_bp_from_template', JSON.stringify(payload));
+  window.location.href = 'business-plan.html?from_template=1';
+}
+
+function filtra() {
+  var q = document.getElementById('searchInput').value.toLowerCase().trim();
+  document.querySelectorAll('.card').forEach(function(card) {
+    var text = card.textContent.toLowerCase();
+    card.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+  });
+}
+</script>
 </body>
 </html>
