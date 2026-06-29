@@ -602,14 +602,14 @@
         </div>
       </div><!-- /step2-content -->
 
-      <!-- STEP 3: Dati azienda + dati patrimoniali -->
+      <!-- STEP 3: Dati azienda -->
       <div id="step3-content" style="display:none">
-        <p class="modal-intro">Inserisci i dati della tua azienda. La descrizione dell'attività verrà usata per generare il testo narrativo del Business Plan.</p>
+        <p class="modal-intro">Inserisci i dati della tua azienda. Le descrizioni vengono generate automaticamente — puoi modificarle liberamente.</p>
 
         <div class="azienda-grid">
           <div class="azienda-field">
             <label>Ragione Sociale *</label>
-            <input type="text" id="az_nome" placeholder="Es. ROSSI S.R.L."/>
+            <input type="text" id="az_nome" placeholder="Es. ROSSI S.R.L." oninput="agiornaDescrizioneNome(this.value)"/>
           </div>
           <div class="azienda-field">
             <label>Forma giuridica</label>
@@ -628,64 +628,38 @@
             <input type="text" id="az_fondazione" placeholder="Es. 2022 (o 'Nuova costituzione')"/>
           </div>
           <div class="azienda-field">
-            <label>Numero dipendenti</label>
-            <input type="number" id="az_ndip" min="0" step="1" placeholder="Es. 3"/>
-          </div>
-        </div>
-
-        <!-- Campi specifici per settore -->
-        <div id="campi-settore-extra"></div>
-
-        <!-- Dati patrimoniali iniziali -->
-        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bord)">
-          📊 Dati patrimoniali iniziali (opzionali — migliorano il report)
-        </div>
-        <div class="azienda-grid">
-          <div class="azienda-field">
             <label>Capitale sociale (€)</label>
             <input type="number" id="az_cap_soc" min="0" step="500" placeholder="Es. 10.000"/>
           </div>
-          <div class="azienda-field">
-            <label>Patrimonio netto (€)</label>
-            <input type="number" id="az_pn" min="0" step="1000" placeholder="Es. 15.000"/>
-          </div>
-          <div class="azienda-field">
-            <label>Debiti finanziari esistenti (PFN €)</label>
-            <input type="number" id="az_pfn" min="0" step="1000" placeholder="Es. 0"/>
-          </div>
-          <div class="azienda-field">
-            <label>Rata debitoria esistente (€/anno)</label>
-            <input type="number" id="az_rata_es" min="0" step="100" placeholder="Es. 0"/>
-          </div>
-          <div class="azienda-field">
-            <label>Investimenti previsti — CapEx (€)</label>
-            <input type="number" id="az_capex" min="0" step="1000" placeholder="Es. 80.000 (attrezzature, lavori…)"/>
-          </div>
-          <div class="azienda-field">
-            <label>Finalità del finanziamento</label>
-            <input type="text" id="az_finalita" placeholder="Es. Acquisto macchinari, avvio attività, ristrutturazione…"/>
-          </div>
         </div>
 
-        <!-- Descrizione -->
-        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bord)">
-          ✍️ Descrizione attività (per il testo narrativo del BP)
+        <!-- Campi specifici per settore (include n. dipendenti) -->
+        <div id="campi-settore-extra"></div>
+
+        <!-- Descrizione attività -->
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--bord)">
+          ✍️ Testi narrativi del Business Plan
         </div>
         <div class="azienda-field full" style="margin-bottom:10px">
-          <label style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            Descrizione attività *
-            <button class="btn-ai" id="btnAI" onclick="generaDescrizioneAI()">✨ Genera con AI</button>
+          <label style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+            <span>Descrizione attività aziendale</span>
+            <button class="btn-ai" id="btnAI" onclick="generaDescrizioneAI()">✨ Migliora con AI</button>
           </label>
-          <textarea id="az_descrizione" rows="4" placeholder="Descrivi brevemente l'azienda: cosa fa, prodotti/servizi offerti, mercati serviti, clienti principali, punti di forza…"></textarea>
-          <div id="ai-status" style="font-size:.72rem;color:#2563eb;margin-top:4px;min-height:16px"></div>
+          <textarea id="az_descrizione" rows="4" placeholder="Generata automaticamente — puoi modificarla…"></textarea>
         </div>
         <div class="azienda-field full" style="margin-bottom:4px">
-          <label style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            Descrizione progetto / obiettivi
-            <button class="btn-ai" onclick="generaDescrizioneProgettoAI()">✨ Genera con AI</button>
+          <label style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+            <span>Descrizione progetto e obiettivi</span>
+            <button class="btn-ai" onclick="generaDescrizioneProgettoAI()">✨ Migliora con AI</button>
           </label>
-          <textarea id="az_desc_progetto" rows="3" placeholder="Descrivi il progetto di sviluppo: cosa vuoi realizzare, perché stai richiedendo il finanziamento, obiettivi triennali…"></textarea>
+          <textarea id="az_desc_progetto" rows="4" placeholder="Generata automaticamente — puoi modificarla…"></textarea>
         </div>
+        <!-- Campi nascosti per compatibilità payload -->
+        <input type="hidden" id="az_pn" value="0"/>
+        <input type="hidden" id="az_pfn" value="0"/>
+        <input type="hidden" id="az_rata_es" value="0"/>
+        <input type="hidden" id="az_capex" value="0"/>
+        <input type="hidden" id="az_finalita" value=""/>
 
         <div class="modal-footer" style="margin-top:14px">
           <button class="btn-annulla" onclick="tornaStep2()">← Indietro</button>
@@ -1346,7 +1320,9 @@ function renderCampiSettore(key) {
     rows += '<div class="sx-field' + (f.full ? ' full' : '') + '"><label>' + f.label + '</label>' + inp + '</div>';
   });
 
-  cont.innerHTML = '<div class="sx-section"><div class="sx-section-title">' + cfg.icon + ' ' + cfg.label + '</div><div class="sx-grid">' + rows + '</div></div>';
+  // N. dipendenti sempre in testa al box blu
+  var ndipRow = '<div class="sx-field"><label>Numero dipendenti</label><input type="number" id="az_ndip" min="0" step="1" placeholder="Es. 3" style="padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;width:100%"/></div>';
+  cont.innerHTML = '<div class="sx-section"><div class="sx-section-title">' + cfg.icon + ' ' + cfg.label + '</div><div class="sx-grid">' + ndipRow + rows + '</div></div>';
 }
 
 // ── Raccoglie valori extra settore per il payload ──────────────────────────
@@ -1413,17 +1389,8 @@ function scegli(key) {
   aggiornaMOL(1); aggiornaMOL(2); aggiornaMOL(3);
   document.getElementById('modalSummary').style.display = 'none';
 
-  // Pre-popola descrizione con testo settoriale (modificabile dal cliente)
+  // Pre-popola campi settore e descrizioni
   renderCampiSettore(key);
-  var macro = SETTORE_MAP[key];
-  var cfg   = macro ? SETTORE_EXTRA[macro] : null;
-  if (cfg && document.getElementById('az_descrizione')) {
-    var descEl = document.getElementById('az_descrizione');
-    if (!descEl.value || descEl.dataset.lastKey !== key) {
-      descEl.value = cfg.desc(d);
-      descEl.dataset.lastKey = key;
-    }
-  }
 
   document.getElementById('modalOverlay').classList.add('open');
   document.getElementById('fat1').focus();
@@ -1500,6 +1467,58 @@ function tornaStep1() {
   document.getElementById('sline1').className = 'step-line';
 }
 
+function generaDescrizioniBase() {
+  var key  = _selectedKey;
+  var d    = TEMPLATES[key] || {};
+  var macro = SETTORE_MAP[key];
+  var cfg   = macro ? SETTORE_EXTRA[macro] : null;
+  var nome  = document.getElementById('az_nome').value.trim() || 'La tua azienda';
+
+  // ── Descrizione attività ──────────────────────────────────────────────
+  var descAz = cfg ? cfg.desc(d).replace(/\[Ragione Sociale\]/g, nome) : '';
+  if (!descAz) descAz = nome + ' è un\'azienda operante nel settore ' + d.settore + ', con l\'obiettivo di offrire prodotti e servizi di qualità sul mercato di riferimento.';
+  var elDesc = document.getElementById('az_descrizione');
+  if (elDesc && (!elDesc.value || elDesc.dataset.lastKey !== key)) {
+    elDesc.value = descAz;
+    elDesc.dataset.lastKey = key;
+  }
+
+  // ── Descrizione progetto ──────────────────────────────────────────────
+  var elProg = document.getElementById('az_desc_progetto');
+  if (!elProg || (elProg.value && elProg.dataset.lastKey === key)) return;
+
+  var fat1 = parseFloat(document.getElementById('fat1').value) || d.ricavi_base || 0;
+  var fat3 = parseFloat(document.getElementById('fat3').value) || 0;
+  var e1   = parseFloat(document.getElementById('ebitda1').value) || d.ebitda_margin || 0;
+  var annoBase = new Date().getFullYear() - 1;
+  var nuovoFin = document.getElementById('fin_toggle').checked;
+  var finImp   = nuovoFin ? (parseFloat(document.getElementById('fin_importo').value)||0) : 0;
+  var finDur   = nuovoFin ? (parseFloat(document.getElementById('fin_durata').value)||5) : 0;
+  var finTas   = nuovoFin ? (parseFloat(document.getElementById('fin_tasso').value)||0) : 0;
+  var finTipo  = nuovoFin ? document.getElementById('fin_tipo').value : '';
+
+  // Sotto-tipo settore per personalizzare testo
+  var triggerCampo = cfg && cfg.campi.find(function(c){ return c.trigger; });
+  var sottoTipo    = triggerCampo ? (document.getElementById(triggerCampo.id) || {}).value || '' : '';
+  if (sottoTipo.startsWith('—')) sottoTipo = '';
+
+  var righe = [];
+  righe.push('Il presente Business Plan illustra il progetto di avvio e sviluppo di ' + nome + ', operante nel settore ' + d.settore + '.');
+  if (sottoTipo) righe.push('L\'attività si configura come ' + sottoTipo.toLowerCase() + ', con un\'offerta focalizzata sulla qualità del servizio/prodotto e sulla soddisfazione della clientela target.');
+  if (nuovoFin && finImp > 0) righe.push('A supporto del progetto è previsto un finanziamento ' + (finTipo || 'bancario') + ' di € ' + finImp.toLocaleString('it-IT') + ' a ' + finDur + ' anni' + (finTas > 0 ? ' al tasso del ' + finTas + '%' : '') + ', finalizzato alla copertura degli investimenti iniziali in attrezzature, allestimenti e liquidità operativa.');
+  if (fat1 > 0) righe.push('Le proiezioni economiche del triennio ' + (annoBase+1) + '–' + (annoBase+3) + ' prevedono ricavi pari a € ' + Math.round(fat1).toLocaleString('it-IT') + ' nel primo anno' + (fat3 > 0 ? ', con una progressione stimata fino a € ' + Math.round(fat3).toLocaleString('it-IT') + ' al terzo anno' : '') + ', con un EBITDA margin atteso dell\'' + e1 + '%.');
+  righe.push('La strategia di sviluppo si basa sul consolidamento della clientela locale, sul posizionamento qualitativo dell\'offerta e sull\'ottimizzazione progressiva della struttura dei costi, con l\'obiettivo di raggiungere la piena redditività operativa entro il primo triennio.');
+
+  elProg.value = righe.join('\n\n');
+  elProg.dataset.lastKey = key;
+}
+
+function agiornaDescrizioneNome(nome) {
+  // Quando l'utente digita la ragione sociale, aggiorna [Ragione Sociale] nelle descrizioni
+  var el = document.getElementById('az_descrizione');
+  if (el && el.value) el.value = el.value.replace(/\[Ragione Sociale\]|La tua azienda/g, nome || 'La tua azienda');
+}
+
 function vaiStep3() {
   // Validazione finanziamento se attivo
   if (document.getElementById('fin_toggle').checked) {
@@ -1519,7 +1538,8 @@ function vaiStep3() {
 
   var d = TEMPLATES[_selectedKey] || {};
   if (!document.getElementById('az_nome').value) document.getElementById('az_nome').value = d.nome || '';
-  if (!document.getElementById('az_ndip').value && d.n_dip) document.getElementById('az_ndip').value = d.n_dip;
+  if (document.getElementById('az_ndip') && !document.getElementById('az_ndip').value && d.n_dip) document.getElementById('az_ndip').value = d.n_dip;
+  generaDescrizioniBase();
   document.getElementById('az_nome').focus();
 }
 
