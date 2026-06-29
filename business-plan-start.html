@@ -1031,11 +1031,11 @@ const SETTORE_EXTRA = {
     icon: '🏗️', label: 'Dati specifici — Costruzioni & Impianti',
     desc: (d) => `[Ragione Sociale] è un'impresa edile specializzata nella realizzazione di opere nel settore delle costruzioni (${d.settore}). Grazie a personale tecnico qualificato e a un parco mezzi adeguato, l'azienda è in grado di gestire interventi complessi con elevati standard qualitativi e nel rispetto delle tempistiche contrattuali. L'azienda opera prevalentemente su committenza privata e pubblica, offrendo soluzioni chiavi in mano che spaziano dalla progettazione esecutiva alla direzione lavori e consegna dell'opera finita.`,
     campi: [
-      { id:'sx_tipo_lavori', label:'Tipologia lavori prevalente', type:'select', full:false,
-        options:['Edilizia residenziale nuova','Ristrutturazioni edilizie','Edilizia commerciale/industriale','Opere pubbliche/infrastrutture','Impiantistica (elettrico, idraulico, termico)','Mista'] },
+      { id:'sx_tipo_lavori', label:'Tipologia lavori prevalente', type:'select', full:false, trigger:true,
+        options:['— Seleziona il tipo di lavori —','Edilizia residenziale nuova','Ristrutturazioni edilizie','Edilizia commerciale/industriale','Opere pubbliche/infrastrutture','Impiantistica (elettrico, idraulico, termico)','Mista'] },
       { id:'sx_soa', label:'Qualifica SOA / Attestazione', type:'text', full:false, placeholder:'Es. OG1 cl.II — OS3 — OG11, o "in fase di ottenimento"' },
-      { id:'sx_mezzi', label:'Mezzi e attrezzature principali da acquistare', type:'text', full:true, placeholder:'Es. Escavatore cingolato 20t, Autocarro con gru 18t, Ponteggi modulari, Miniescavatore, Betoniera' },
-      { id:'sx_val_mezzi', label:'Valore attrezzature/mezzi (€)', type:'number', full:false, placeholder:'Es. 180.000' },
+      { id:'sx_mezzi', label:'Mezzi e attrezzature suggerite (modifica liberamente)', type:'text', full:true, placeholder:'Scegli la tipologia sopra → i mezzi vengono suggeriti automaticamente' },
+      { id:'sx_val_mezzi', label:'Valore attrezzature/mezzi (€)', type:'number', full:false, placeholder:'Compilato automaticamente' },
       { id:'sx_cantieri_anno', label:'N. cantieri/commesse previsti per anno', type:'number', full:false, placeholder:'Es. 8' },
       { id:'sx_valore_medio', label:'Valore medio contratto (€)', type:'number', full:false, placeholder:'Es. 75.000' },
       { id:'sx_liquidita_op', label:'Liquidità operativa cantieri (€)', type:'number', full:false, placeholder:'Es. 50.000 (anticipi materiali, garanzie fideiussorie)' },
@@ -1061,13 +1061,14 @@ const SETTORE_EXTRA = {
     icon: '🍽️', label: 'Dati specifici — Ristorazione & Food',
     desc: (d) => `[Ragione Sociale] è un'attività del settore della ristorazione (${d.settore}), impegnata a offrire alla propria clientela un'esperienza gastronomica di qualità in un ambiente curato e accogliente. L'offerta si basa su materie prime selezionate, ricette tradizionali e di ricerca, e un servizio di sala professionale. La gestione è orientata all'efficienza operativa, al controllo dei food cost e alla soddisfazione del cliente come leva principale di fidelizzazione e passaparola.`,
     campi: [
-      { id:'sx_tipo_locale', label:'Tipologia locale', type:'select', full:false,
-        options:['Ristorante tradizionale','Trattoria/Osteria','Pizzeria','Bar/Caffetteria','Fast food / Street food','Catering / Banqueting','Tavola calda / Rosticceria','Pasticceria / Panificio'] },
+      { id:'sx_tipo_locale', label:'Tipologia locale', type:'select', full:false, trigger:true,
+        options:['— Seleziona il tipo di locale —','Ristorante tradizionale','Trattoria/Osteria','Pizzeria','Bar/Caffetteria','Fast food / Street food','Catering / Banqueting','Tavola calda / Rosticceria','Pasticceria / Panificio'] },
+      { id:'sx_attrezzature_lista', label:'Attrezzature suggerite (modifica liberamente)', type:'text', full:true, placeholder:'Scegli la tipologia sopra → le attrezzature vengono suggerite automaticamente' },
       { id:'sx_coperti_int', label:'N. coperti interni', type:'number', full:false, placeholder:'Es. 60' },
       { id:'sx_coperti_ext', label:'N. coperti esterni / dehors', type:'number', full:false, placeholder:'Es. 20 (0 se nessuno)' },
       { id:'sx_mq', label:'Superficie totale locale (mq)', type:'number', full:false, placeholder:'Es. 180' },
-      { id:'sx_attrezzature_cucina', label:'Attrezzature cucina/bar da acquistare (€)', type:'number', full:false, placeholder:'Es. 35.000' },
-      { id:'sx_arredo', label:'Arredamento sala (€)', type:'number', full:false, placeholder:'Es. 20.000' },
+      { id:'sx_attrezzature_cucina', label:'Valore attrezzature cucina/bar (€)', type:'number', full:false, placeholder:'Compilato automaticamente' },
+      { id:'sx_arredo', label:'Arredamento sala (€)', type:'number', full:false, placeholder:'Compilato automaticamente' },
       { id:'sx_delivery', label:'Servizio delivery/asporto', type:'select', full:false, options:['No','Sì — consegna diretta','Sì — piattaforme (Glovo, Deliveroo, Just Eat)','Sì — entrambi'] },
       { id:'sx_lavori', label:'Lavori di ristrutturazione/adeguamento locale (€)', type:'number', full:false, placeholder:'Es. 60.000 (0 se già pronto)' },
     ]
@@ -1077,8 +1078,8 @@ const SETTORE_EXTRA = {
     icon: '🏨', label: 'Dati specifici — Struttura Ricettiva',
     desc: (d) => `[Ragione Sociale] è una struttura ricettiva del settore alberghiero e del turismo (${d.settore}), che si propone di offrire ai propri ospiti un soggiorno confortevole e un servizio accurato in una location di pregio. La struttura investe costantemente nella qualità degli ambienti, nella formazione del personale e nelle tecnologie di gestione, con l'obiettivo di garantire alti livelli di soddisfazione, recensioni positive e un tasso di occupazione crescente nel triennio di piano.`,
     campi: [
-      { id:'sx_categoria', label:'Categoria / tipologia', type:'select', full:false,
-        options:['B&B / Affittacamere','Hotel 2 stelle','Hotel 3 stelle','Hotel 4 stelle','Hotel 5 stelle','Agriturismo','Resort / Spa','Ostello / Hostel'] },
+      { id:'sx_categoria', label:'Categoria / tipologia', type:'select', full:false, trigger:true,
+        options:['— Seleziona categoria —','B&B / Affittacamere','Hotel 2 stelle','Hotel 3 stelle','Hotel 4 stelle','Hotel 5 stelle','Agriturismo','Resort / Spa','Ostello / Hostel'] },
       { id:'sx_n_camere', label:'N. camere / unità abitative', type:'number', full:false, placeholder:'Es. 25' },
       { id:'sx_servizi', label:'Servizi aggiuntivi offerti', type:'text', full:true, placeholder:'Es. Ristorante, Prima colazione, Piscina, Sala conferenze, Spa, Parcheggio…' },
       { id:'sx_ristrutturazione', label:'Ristrutturazione/arredamento previsto (€)', type:'number', full:false, placeholder:'Es. 250.000' },
@@ -1091,10 +1092,10 @@ const SETTORE_EXTRA = {
     icon: '🏭', label: 'Dati specifici — Produzione & Manifattura',
     desc: (d) => `[Ragione Sociale] è un'azienda manifatturiera operante nel settore della produzione industriale (${d.settore}). L'impresa si distingue per l'elevata capacità tecnica, l'utilizzo di macchinari moderni e processi produttivi ottimizzati per garantire qualità costante e competitività sui costi. La struttura produttiva è organizzata per rispondere con flessibilità alle esigenze dei clienti, con capacità di personalizzazione dei prodotti e gestione efficiente dei tempi di lavorazione e consegna.`,
     campi: [
-      { id:'sx_tipo_prod', label:'Tipo di produzione', type:'select', full:false,
-        options:['Produzione conto terzi (terzismo)','Produzione prodotto proprio','Mista (proprio + terzismo)'] },
-      { id:'sx_macchinari', label:'Macchinari/impianti principali da acquistare', type:'text', full:true, placeholder:'Es. Tornio CNC, Centro di lavoro 5 assi, Linea di confezionamento, Forno industriale…' },
-      { id:'sx_val_macchinari', label:'Valore macchinari/impianti (€)', type:'number', full:false, placeholder:'Es. 300.000' },
+      { id:'sx_tipo_prod', label:'Tipo di produzione', type:'select', full:false, trigger:true,
+        options:['— Seleziona tipo —','Produzione conto terzi (terzismo)','Produzione prodotto proprio','Mista (proprio + terzismo)'] },
+      { id:'sx_macchinari', label:'Macchinari/impianti suggeriti (modifica liberamente)', type:'text', full:true, placeholder:'Scegli il tipo di produzione → i macchinari vengono suggeriti automaticamente' },
+      { id:'sx_val_macchinari', label:'Valore macchinari/impianti (€)', type:'number', full:false, placeholder:'Compilato automaticamente' },
       { id:'sx_mq_capannone', label:'Superficie capannone/laboratorio (mq)', type:'number', full:false, placeholder:'Es. 800' },
       { id:'sx_materie_prime', label:'Principali materie prime', type:'text', full:false, placeholder:'Es. Acciaio inox, resine plastiche, farina, tessuti…' },
       { id:'sx_certificazioni', label:'Certificazioni di qualità', type:'text', full:false, placeholder:'Es. ISO 9001, CE, BRC, IFS, o "in fase di ottenimento"' },
@@ -1157,8 +1158,8 @@ const SETTORE_EXTRA = {
     icon: '🏥', label: 'Dati specifici — Sanità & Benessere',
     desc: (d) => `[Ragione Sociale] opera nel settore della salute e del benessere (${d.settore}), offrendo servizi sanitari, diagnostici o di wellness di elevata qualità in un ambiente moderno, confortevole e tecnologicamente aggiornato. La struttura è gestita da professionisti abilitati e aggiornati, con l'obiettivo di garantire la massima efficacia terapeutica, la sicurezza del paziente e un'esperienza di cura positiva. La missione aziendale è quella di rendersi punto di riferimento affidabile per la salute dei pazienti del territorio.`,
     campi: [
-      { id:'sx_tipo_str', label:'Tipo di struttura', type:'select', full:false,
-        options:['Studio medico monoprofessionale','Poliambulatorio','Studio dentistico','Centro fisioterapia/riabilitazione','Palestra / Centro fitness','Farmacia','Ottica','Centro estetico / Spa','Veterinaria'] },
+      { id:'sx_tipo_str', label:'Tipo di struttura', type:'select', full:false, trigger:true,
+        options:['— Seleziona tipo —','Studio medico monoprofessionale','Poliambulatorio','Studio dentistico','Centro fisioterapia/riabilitazione','Palestra / Centro fitness','Farmacia','Ottica','Centro estetico / Spa','Veterinaria'] },
       { id:'sx_ambulatori', label:'N. ambulatori/sale/postazioni', type:'number', full:false, placeholder:'Es. 3' },
       { id:'sx_attrezzature_med', label:'Attrezzature sanitarie/specialistiche (€)', type:'number', full:false, placeholder:'Es. 80.000 (macchinari diagnostici, attrezzatura palestra…)' },
       { id:'sx_arredo_str', label:'Arredamento/adeguamento struttura (€)', type:'number', full:false, placeholder:'Es. 30.000' },
@@ -1185,11 +1186,11 @@ const SETTORE_EXTRA = {
     icon: '🚚', label: 'Dati specifici — Trasporti & Logistica',
     desc: (d) => `[Ragione Sociale] è un'azienda operante nel settore dei trasporti e della logistica (${d.settore}), specializzata nel trasporto di merci/persone con un parco mezzi moderno e personale specializzato. L'azienda si distingue per l'affidabilità del servizio, la puntualità delle consegne e la capacità di gestire spedizioni di varia natura e complessità. La strategia di sviluppo punta all'ampliamento del parco mezzi, all'espansione geografica delle tratte servite e all'adozione di sistemi di tracking avanzati per garantire la tracciabilità delle spedizioni.`,
     campi: [
-      { id:'sx_tipo_trasp', label:'Tipo di trasporto', type:'select', full:false,
-        options:['Trasporto merci conto terzi (nazionale)','Trasporto merci conto terzi (internazionale)','Corriere espresso / Last mile','Trasporto persone (taxi/NCC)','Trasporto scolastico','Logistica e magazzinaggio','Noleggio veicoli'] },
-      { id:'sx_n_mezzi', label:'N. mezzi da acquistare', type:'number', full:false, placeholder:'Es. 3' },
-      { id:'sx_tipo_mezzi', label:'Tipo di mezzi', type:'text', full:true, placeholder:'Es. Autocarro 35q, Furgone isotermico, Autoarticolato 44t, Autobus 50 posti…' },
-      { id:'sx_val_parco', label:'Valore parco mezzi (€)', type:'number', full:false, placeholder:'Es. 220.000' },
+      { id:'sx_tipo_trasp', label:'Tipo di trasporto', type:'select', full:false, trigger:true,
+        options:['— Seleziona tipo —','Trasporto merci conto terzi (nazionale)','Trasporto merci conto terzi (internazionale)','Corriere espresso / Last mile','Trasporto persone (taxi/NCC)','Trasporto scolastico','Logistica e magazzinaggio','Noleggio veicoli'] },
+      { id:'sx_n_mezzi', label:'N. mezzi da acquistare', type:'number', full:false, placeholder:'Compilato automaticamente' },
+      { id:'sx_tipo_mezzi', label:'Tipo di mezzi suggeriti (modifica liberamente)', type:'text', full:true, placeholder:'Scegli il tipo di trasporto → i mezzi vengono suggeriti automaticamente' },
+      { id:'sx_val_parco', label:'Valore parco mezzi (€)', type:'number', full:false, placeholder:'Compilato automaticamente' },
       { id:'sx_raggio', label:'Raggio operativo', type:'select', full:false, options:['Locale (entro 100 km)','Regionale','Nazionale','Internazionale (UE)','Internazionale (extra UE)'] },
       { id:'sx_autorizzazioni', label:'Autorizzazioni/Licenze', type:'text', full:false, placeholder:'Es. Albo autotrasportatori, licenza NCC, ADR, CQC…' },
     ]
@@ -1224,6 +1225,102 @@ const SETTORE_EXTRA = {
   }
 };
 
+// ── Suggerimenti automatici per sotto-tipo ───────────────────────────────────
+const SUGGERIMENTI = {
+  ristorazione: { sx_tipo_locale: {
+    'Ristorante tradizionale':  { sx_attrezzature_lista:'Cucina professionale 6 fuochi + forno combinato, Cella frigorifera walk-in, Abbattitore di temperatura, Piani di lavoro inox, Lavastoviglie industriale, Frigoriferi verticali, Cassa POS con gestionale', sx_attrezzature_cucina:40000, sx_arredo:25000, sx_coperti_int:50, sx_mq:160 },
+    'Trattoria/Osteria':        { sx_attrezzature_lista:'Cucina 4-6 fuochi + forno, Cella frigorifera, Piani lavoro inox, Lavastoviglie bar, Frigoriferi, Cassa POS', sx_attrezzature_cucina:28000, sx_arredo:15000, sx_coperti_int:40, sx_mq:130 },
+    'Pizzeria':                 { sx_attrezzature_lista:'Forno per pizza professionale (legna o elettrico), Impastatrice a spirale 30 kg, Banco pizza in marmo, Cella frigorifera, Cucina di supporto 4 fuochi, Lavastoviglie, Banco bar, Cassa POS', sx_attrezzature_cucina:32000, sx_arredo:18000, sx_coperti_int:60, sx_mq:180 },
+    'Bar/Caffetteria':          { sx_attrezzature_lista:'Macchina espresso 3 gruppi, Grinder caffè automatico, Banco bar refrigerato 3 mt, Vetrinetta pasticceria refrigerata, Frigoriferi verticali, Lavastoviglie bar, Cassa POS', sx_attrezzature_cucina:18000, sx_arredo:12000, sx_coperti_int:20, sx_mq:80 },
+    'Fast food / Street food':  { sx_attrezzature_lista:'Grill piano professionale, Friggitrici industriali 2×15L, Piano cottura, Banco distribuzione riscaldato, Display menù digitale, Forno a convezione, Cassa POS', sx_attrezzature_cucina:22000, sx_arredo:10000, sx_coperti_int:25, sx_mq:90 },
+    'Catering / Banqueting':    { sx_attrezzature_lista:'Cucina professionale mobile, Forni combinati Rational 10 GN, Abbattitore, Contenitori GN inox, Furgone refrigerato 35q, Chafing dish e buffet, Attrezzatura di servizio e mise en place', sx_attrezzature_cucina:55000, sx_arredo:8000, sx_mq:0 },
+    'Tavola calda / Rosticceria':{ sx_attrezzature_lista:'Cucina professionale 4 fuochi, Armadio espositivo riscaldato, Girarrosto, Friggitrici, Banco vendita, Cassa POS', sx_attrezzature_cucina:20000, sx_arredo:10000, sx_coperti_int:15, sx_mq:70 },
+    'Pasticceria / Panificio':  { sx_attrezzature_lista:'Forno a rotor professionale, Impastatrice a spirale 40 kg, Sfogliatrice automatica, Cella di lievitazione, Abbattitore di temperatura, Vetrine refrigerate 3 mt, Planetaria 40L, Cassa POS', sx_attrezzature_cucina:48000, sx_arredo:22000, sx_coperti_int:12, sx_mq:120 },
+  }},
+  costruzioni: { sx_tipo_lavori: {
+    'Edilizia residenziale nuova':       { sx_mezzi:'Escavatore cingolato 20t, Dumper da cantiere 10t, Betoniera 300L, Ponteggi modulari 1.000 mq, Autocarro 35q, Utensili da cantiere (flex, trapano, tassellatore)', sx_val_mezzi:180000, sx_cantieri_anno:6, sx_valore_medio:90000, sx_liquidita_op:60000 },
+    'Ristrutturazioni edilizie':         { sx_mezzi:'Miniescavatore 3t, Ponteggio di facciata modulare, Demolisher elettrico, Furgone attrezzato, Utensili professionali (flex, trapano SDS, levigatrice), Ponteggi interni', sx_val_mezzi:75000, sx_cantieri_anno:12, sx_valore_medio:35000, sx_liquidita_op:30000 },
+    'Edilizia commerciale/industriale':  { sx_mezzi:'Escavatore cingolato 30t, Gru da cantiere 40t, Autocarro con gru 18t, Dumper 10t, Compressore industriale, Ponteggi modulari 2.000 mq, Pala meccanica', sx_val_mezzi:350000, sx_cantieri_anno:3, sx_valore_medio:300000, sx_liquidita_op:120000 },
+    'Opere pubbliche/infrastrutture':    { sx_mezzi:'Escavatore cingolato 35t, Pala meccanica, Compattatore vibrante, Finitura stradale, Autocarro con ribaltabile, Gru da cantiere, Dumper 15t', sx_val_mezzi:500000, sx_cantieri_anno:2, sx_valore_medio:500000, sx_liquidita_op:200000 },
+    'Impiantistica (elettrico, idraulico, termico)': { sx_mezzi:'Furgone attrezzato (2 unità), Strumentazione collaudo (termoflussimetro, manometri, multimetro), Utensili professionali, Piega tubi idraulici, Pressa raccordi a pressare, Scale da lavoro', sx_val_mezzi:45000, sx_cantieri_anno:20, sx_valore_medio:18000, sx_liquidita_op:20000 },
+    'Mista': { sx_mezzi:'Miniescavatore 3t, Furgone attrezzato, Ponteggi modulari, Betoniera, Utensili professionali vari per edilizia civile e impianti', sx_val_mezzi:130000, sx_cantieri_anno:10, sx_valore_medio:50000, sx_liquidita_op:40000 },
+  }},
+  trasporti: { sx_tipo_trasp: {
+    'Trasporto merci conto terzi (nazionale)':      { sx_tipo_mezzi:'Autocarri 35q (3 unità), Transpallet elettrico, Cinghie e teloni, GPS fleet management', sx_n_mezzi:3, sx_val_parco:180000 },
+    'Trasporto merci conto terzi (internazionale)': { sx_tipo_mezzi:'Autoarticolati 44t — trattore + semirimorchio (2 unità), Tachimetro digitale, CMR e documentazione ADR, GPS satellitare', sx_n_mezzi:2, sx_val_parco:280000 },
+    'Corriere espresso / Last mile':                { sx_tipo_mezzi:'Furgoni 35q (5 unità), Scanner barcode, App gestione spedizioni, Terminale POS a bordo, Stamp labels', sx_n_mezzi:5, sx_val_parco:110000 },
+    'Trasporto persone (taxi/NCC)':                 { sx_tipo_mezzi:'Berlina premium o MPV (3 veicoli), App booking, Terminale POS a bordo, Tabella tariffe', sx_n_mezzi:3, sx_val_parco:75000 },
+    'Trasporto scolastico':                         { sx_tipo_mezzi:'Scuolabus 35 posti omologati (2 unità), Cinture di sicurezza, Cronotachigrafo, GPS monitoraggio', sx_n_mezzi:2, sx_val_parco:120000 },
+    'Logistica e magazzinaggio':                    { sx_tipo_mezzi:'Carrelli elevatori elettrici 2t (2 unità), Transpallet elettrici (4 unità), Scaffalature industriali, Software WMS, Pistola barcode', sx_n_mezzi:2, sx_val_parco:80000 },
+    'Noleggio veicoli':                             { sx_tipo_mezzi:'Autovetture categoria A-B-C (10 unità), Software gestionale noleggio, POS, GPS tracker su ogni veicolo', sx_n_mezzi:10, sx_val_parco:220000 },
+  }},
+  manifattura: { sx_tipo_prod: {
+    'Produzione conto terzi (terzismo)': { sx_macchinari:'Centro di lavoro CNC 3 assi, Tornio automatico, Pressa idraulica 100t, Strumentazione CMM controllo qualità, Carrello elevatore', sx_val_macchinari:220000 },
+    'Produzione prodotto proprio':       { sx_macchinari:'Linea di produzione dedicata, Confezionatrice automatica, Pallettizzatore, Laboratorio qualità con strumentazione, Sistema ERP produzione', sx_val_macchinari:380000 },
+    'Mista (proprio + terzismo)':        { sx_macchinari:'Centro di lavoro CNC, Linea di assemblaggio, Confezionatrice, Impianto di collaudo funzionale, Software gestione produzione MES', sx_val_macchinari:270000 },
+  }},
+  alberghiero: { sx_categoria: {
+    'B&B / Affittacamere': { sx_n_camere:6,  sx_ristrutturazione:40000,  sx_tariffa_media:65 },
+    'Hotel 2 stelle':      { sx_n_camere:20, sx_ristrutturazione:150000, sx_tariffa_media:55 },
+    'Hotel 3 stelle':      { sx_n_camere:35, sx_ristrutturazione:350000, sx_tariffa_media:80 },
+    'Hotel 4 stelle':      { sx_n_camere:50, sx_ristrutturazione:800000, sx_tariffa_media:130 },
+    'Hotel 5 stelle':      { sx_n_camere:60, sx_ristrutturazione:2000000,sx_tariffa_media:250 },
+    'Agriturismo':         { sx_n_camere:10, sx_ristrutturazione:120000, sx_tariffa_media:70 },
+    'Resort / Spa':        { sx_n_camere:40, sx_ristrutturazione:1500000,sx_tariffa_media:180 },
+    'Ostello / Hostel':    { sx_n_camere:30, sx_ristrutturazione:80000,  sx_tariffa_media:30 },
+  }},
+  sanitario: { sx_tipo_str: {
+    'Studio medico monoprofessionale':    { sx_ambulatori:1, sx_attrezzature_med:15000, sx_arredo_str:10000, sx_software_san:1800 },
+    'Poliambulatorio':                    { sx_ambulatori:4, sx_attrezzature_med:80000, sx_arredo_str:30000, sx_software_san:4800 },
+    'Studio dentistico':                  { sx_ambulatori:2, sx_attrezzature_med:90000, sx_arredo_str:20000, sx_software_san:3600 },
+    'Centro fisioterapia/riabilitazione': { sx_ambulatori:3, sx_attrezzature_med:55000, sx_arredo_str:15000, sx_software_san:2400 },
+    'Palestra / Centro fitness':          { sx_ambulatori:0, sx_attrezzature_med:60000, sx_arredo_str:25000, sx_software_san:1200 },
+    'Farmacia':                           { sx_ambulatori:1, sx_attrezzature_med:20000, sx_arredo_str:35000, sx_software_san:4800 },
+    'Ottica':                             { sx_ambulatori:1, sx_attrezzature_med:30000, sx_arredo_str:20000, sx_software_san:2400 },
+    'Centro estetico / Spa':              { sx_ambulatori:3, sx_attrezzature_med:30000, sx_arredo_str:40000, sx_software_san:1200 },
+    'Veterinaria':                        { sx_ambulatori:2, sx_attrezzature_med:45000, sx_arredo_str:15000, sx_software_san:2400 },
+  }},
+  it: { sx_tipo_prodotto: {
+    'SaaS — Software as a Service':         { sx_infra_cloud:15000, sx_clienti_saas:100, sx_arpu:150 },
+    'App mobile (iOS/Android)':             { sx_infra_cloud:8000,  sx_clienti_saas:500, sx_arpu:30  },
+    'Piattaforma web B2B':                  { sx_infra_cloud:20000, sx_clienti_saas:50,  sx_arpu:400 },
+    'IT Consulting & System Integration':   { sx_infra_cloud:3000,  sx_clienti_saas:20,  sx_arpu:3000},
+    'E-commerce / Marketplace':             { sx_infra_cloud:12000, sx_clienti_saas:1000,sx_arpu:20  },
+    'AI / Machine Learning':                { sx_infra_cloud:30000, sx_clienti_saas:30,  sx_arpu:500 },
+    'Cybersecurity':                        { sx_infra_cloud:10000, sx_clienti_saas:25,  sx_arpu:800 },
+  }},
+  formazione: { sx_tipo_form: {
+    'Asilo nido / Scuola dell\'infanzia':    { sx_n_iscritti:30,  sx_n_aule:3, sx_attrezzature_did:15000, sx_quota_media:500 },
+    'Centro formazione professionale':       { sx_n_iscritti:80,  sx_n_aule:5, sx_attrezzature_did:20000, sx_quota_media:1200 },
+    'Corsi di lingua':                       { sx_n_iscritti:60,  sx_n_aule:4, sx_attrezzature_did:5000,  sx_quota_media:800 },
+    'Formazione aziendale (B2B)':            { sx_n_iscritti:20,  sx_n_aule:2, sx_attrezzature_did:8000,  sx_quota_media:2500 },
+    'Piattaforma e-learning':                { sx_n_iscritti:500, sx_n_aule:0, sx_attrezzature_did:25000, sx_quota_media:200 },
+    'Scuola privata (materna/primaria/secondaria)':{ sx_n_iscritti:120, sx_n_aule:8, sx_attrezzature_did:30000, sx_quota_media:3500 },
+    'Accademia / Scuola d\'arte':            { sx_n_iscritti:50,  sx_n_aule:4, sx_attrezzature_did:20000, sx_quota_media:2000 },
+    'Doposcuola / Tutoraggio':               { sx_n_iscritti:40,  sx_n_aule:3, sx_attrezzature_did:4000,  sx_quota_media:600 },
+  }},
+  energia: { sx_tipo_en: {
+    'Installazione fotovoltaico (residenziale)':          { sx_inv_impianti:80000,  sx_n_contratti:40, sx_potenza:200 },
+    'Installazione fotovoltaico (industriale)':           { sx_inv_impianti:400000, sx_n_contratti:8,  sx_potenza:500 },
+    'Efficienza energetica (coibentazione, caldaie, LED)':{ sx_inv_impianti:60000,  sx_n_contratti:30, sx_potenza:0 },
+    'Gestione rifiuti / Raccolta differenziata':          { sx_inv_impianti:200000, sx_n_contratti:5,  sx_potenza:0 },
+    'Mobilità elettrica (colonnine, flotte)':             { sx_inv_impianti:150000, sx_n_contratti:15, sx_potenza:0 },
+    'Biomassa / Biogas':                                  { sx_inv_impianti:500000, sx_n_contratti:3,  sx_potenza:300 },
+  }},
+};
+
+function suggerisciValori(macro, campoId, val) {
+  var sg = (SUGGERIMENTI[macro] && SUGGERIMENTI[macro][campoId] && SUGGERIMENTI[macro][campoId][val]) || null;
+  if (!sg) return;
+  Object.keys(sg).forEach(function(fid) {
+    var el = document.getElementById(fid);
+    if (el) el.value = sg[fid];
+  });
+  // Feedback visivo rapido sui campi compilati
+  var flash = document.querySelectorAll('#campi-settore-extra input, #campi-settore-extra select');
+  flash.forEach(function(el){ el.style.transition='background .3s'; el.style.background='#f0fdf4'; setTimeout(function(){ el.style.background=''; }, 600); });
+}
+
 // ── Render campi settore in Step 3 ─────────────────────────────────────────
 function renderCampiSettore(key) {
   var macro = SETTORE_MAP[key];
@@ -1235,10 +1332,12 @@ function renderCampiSettore(key) {
   var rows = '';
   cfg.campi.forEach(function(f) {
     var inp = '';
+    var triggerAttr = f.trigger ? ' onchange="suggerisciValori(\'' + macro + '\',\'' + f.id + '\',this.value)"' : '';
     if (f.type === 'select') {
-      inp = '<select id="' + f.id + '" style="padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;width:100%">'
+      inp = '<select id="' + f.id + '"' + triggerAttr + ' style="padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;width:100%">'
         + f.options.map(function(o){ return '<option value="' + o + '">' + o + '</option>'; }).join('')
         + '</select>';
+      if (f.trigger) inp += '<div style="font-size:.68rem;color:#0369a1;margin-top:3px">▸ I valori sottostanti si aggiornano automaticamente alla scelta</div>';
     } else if (f.type === 'number') {
       inp = '<input type="number" id="' + f.id + '" min="0" step="1000" placeholder="' + (f.placeholder||'') + '" style="padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;width:100%"/>';
     } else {
