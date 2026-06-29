@@ -92,6 +92,15 @@
     #fin_slider{transition:background .2s}
     #fin_toggle:checked ~ #fin_slider{background:#2563eb}
     #fin_toggle:checked ~ #fin_knob{transform:translateX(20px)}
+    .sx-section{background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+    .sx-section-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0369a1;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+    .sx-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .sx-field{display:flex;flex-direction:column;gap:4px}
+    .sx-field.full{grid-column:1/-1}
+    .sx-field label{font-size:.72rem;font-weight:600;color:var(--ink2)}
+    .sx-field input,.sx-field select,.sx-field textarea{padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;transition:border-color .15s;width:100%}
+    .sx-field input:focus,.sx-field select:focus,.sx-field textarea:focus{border-color:#0284c7}
+    .sx-desc-box{background:#fffbeb;border:1.5px solid #fde68a;border-radius:10px;padding:12px 14px;margin-top:10px;font-size:.8rem;color:#92400e;line-height:1.6}
     .loading-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);z-index:1999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
     .loading-overlay.open{display:flex}
     .loading-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:#60a5fa;border-radius:50%;animation:spin .8s linear infinite}
@@ -624,6 +633,9 @@
           </div>
         </div>
 
+        <!-- Campi specifici per settore -->
+        <div id="campi-settore-extra"></div>
+
         <!-- Dati patrimoniali iniziali -->
         <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bord)">
           📊 Dati patrimoniali iniziali (opzionali — migliorano il report)
@@ -993,6 +1005,281 @@ const TEMPLATES = {
   }
 };
 
+// ── Mapping template → macro-settore ────────────────────────────────────────
+const SETTORE_MAP = {
+  'impresa-edile':'costruzioni','impianti':'costruzioni',
+  'commercio-ingrosso':'commercio','commercio-dettaglio':'commercio',
+  'ecommerce':'commercio','agente-commercio':'commercio','abbigliamento-moda':'commercio',
+  'ristorante':'ristorazione','bar-caffe':'ristorazione','catering':'ristorazione','panificio-pasticceria':'ristorazione',
+  'hotel':'alberghiero',
+  'manifattura-generica':'manifattura','metalmeccanica':'manifattura','industria-alimentare':'manifattura',
+  'artigianato':'artigianato',
+  'studio-commercialista':'servizi','consulenza-aziendale':'servizi','studio-legale':'servizi','agenzia-marketing':'servizi',
+  'software-saas':'it','it-services':'it','ecommerce-tech':'it',
+  'immobiliare':'immobiliare',
+  'clinica-medica':'sanitario','palestra-fitness':'sanitario','farmacia':'sanitario',
+  'asilo-nido':'formazione','scuola-formazione':'formazione','formazione-online':'formazione',
+  'autotrasporto':'trasporti','logistica-magazzino':'trasporti','noleggio-veicoli':'trasporti',
+  'azienda-agricola':'agricoltura','vitivinicola':'agricoltura',
+  'energie-rinnovabili':'energia','gestione-rifiuti':'energia','efficienza-energetica':'energia'
+};
+
+// ── Configurazione settori: descrizione base + campi extra ───────────────────
+const SETTORE_EXTRA = {
+
+  costruzioni: {
+    icon: '🏗️', label: 'Dati specifici — Costruzioni & Impianti',
+    desc: (d) => `[Ragione Sociale] è un'impresa edile specializzata nella realizzazione di opere nel settore delle costruzioni (${d.settore}). Grazie a personale tecnico qualificato e a un parco mezzi adeguato, l'azienda è in grado di gestire interventi complessi con elevati standard qualitativi e nel rispetto delle tempistiche contrattuali. L'azienda opera prevalentemente su committenza privata e pubblica, offrendo soluzioni chiavi in mano che spaziano dalla progettazione esecutiva alla direzione lavori e consegna dell'opera finita.`,
+    campi: [
+      { id:'sx_tipo_lavori', label:'Tipologia lavori prevalente', type:'select', full:false,
+        options:['Edilizia residenziale nuova','Ristrutturazioni edilizie','Edilizia commerciale/industriale','Opere pubbliche/infrastrutture','Impiantistica (elettrico, idraulico, termico)','Mista'] },
+      { id:'sx_soa', label:'Qualifica SOA / Attestazione', type:'text', full:false, placeholder:'Es. OG1 cl.II — OS3 — OG11, o "in fase di ottenimento"' },
+      { id:'sx_mezzi', label:'Mezzi e attrezzature principali da acquistare', type:'text', full:true, placeholder:'Es. Escavatore cingolato 20t, Autocarro con gru 18t, Ponteggi modulari, Miniescavatore, Betoniera' },
+      { id:'sx_val_mezzi', label:'Valore attrezzature/mezzi (€)', type:'number', full:false, placeholder:'Es. 180.000' },
+      { id:'sx_cantieri_anno', label:'N. cantieri/commesse previsti per anno', type:'number', full:false, placeholder:'Es. 8' },
+      { id:'sx_valore_medio', label:'Valore medio contratto (€)', type:'number', full:false, placeholder:'Es. 75.000' },
+      { id:'sx_liquidita_op', label:'Liquidità operativa cantieri (€)', type:'number', full:false, placeholder:'Es. 50.000 (anticipi materiali, garanzie fideiussorie)' },
+      { id:'sx_subapp', label:'Utilizzo subappaltatori', type:'select', full:false,
+        options:['No — tutto con personale proprio','Sì — limitato (<30% dei lavori)','Sì — significativo (>30% dei lavori)'] },
+    ]
+  },
+
+  commercio: {
+    icon: '🛒', label: 'Dati specifici — Attività Commerciale',
+    desc: (d) => `[Ragione Sociale] opera nel settore del commercio (${d.settore}), proponendo ai propri clienti una selezione di prodotti di qualità con un servizio attento e professionale. L'azienda si distingue per la capacità di rispondere tempestivamente alle esigenze del mercato, grazie a una rete di fornitori consolidata e a processi logistici efficienti. La strategia commerciale è orientata alla fidelizzazione della clientela e all'ampliamento progressivo del catalogo e dei canali di vendita.`,
+    campi: [
+      { id:'sx_tipo_merce', label:'Tipologia prodotti/merci trattate', type:'text', full:true, placeholder:'Es. Articoli da ferramenta, abbigliamento sportivo, materiali edili, prodotti alimentari…' },
+      { id:'sx_pdv', label:'Punto vendita fisico', type:'select', full:false, options:['Sì — locale commerciale esistente','Sì — da allestire/trovare','No — solo online o magazzino','No — agente/intermediario'] },
+      { id:'sx_mq_pdv', label:'Superficie punto vendita / magazzino (mq)', type:'number', full:false, placeholder:'Es. 200' },
+      { id:'sx_allestimento', label:'Allestimento/Arredamento negozio o magazzino (€)', type:'number', full:false, placeholder:'Es. 40.000' },
+      { id:'sx_ecommerce', label:'Canale e-commerce', type:'select', full:false, options:['No','Sì — marketplace (Amazon, eBay…)','Sì — sito proprio','Sì — entrambi'] },
+      { id:'sx_fornitori', label:'Principali fornitori / categorie merceologiche', type:'text', full:true, placeholder:'Es. Grossisti nazionali, importatori UE, produttori diretti…' },
+    ]
+  },
+
+  ristorazione: {
+    icon: '🍽️', label: 'Dati specifici — Ristorazione & Food',
+    desc: (d) => `[Ragione Sociale] è un'attività del settore della ristorazione (${d.settore}), impegnata a offrire alla propria clientela un'esperienza gastronomica di qualità in un ambiente curato e accogliente. L'offerta si basa su materie prime selezionate, ricette tradizionali e di ricerca, e un servizio di sala professionale. La gestione è orientata all'efficienza operativa, al controllo dei food cost e alla soddisfazione del cliente come leva principale di fidelizzazione e passaparola.`,
+    campi: [
+      { id:'sx_tipo_locale', label:'Tipologia locale', type:'select', full:false,
+        options:['Ristorante tradizionale','Trattoria/Osteria','Pizzeria','Bar/Caffetteria','Fast food / Street food','Catering / Banqueting','Tavola calda / Rosticceria','Pasticceria / Panificio'] },
+      { id:'sx_coperti_int', label:'N. coperti interni', type:'number', full:false, placeholder:'Es. 60' },
+      { id:'sx_coperti_ext', label:'N. coperti esterni / dehors', type:'number', full:false, placeholder:'Es. 20 (0 se nessuno)' },
+      { id:'sx_mq', label:'Superficie totale locale (mq)', type:'number', full:false, placeholder:'Es. 180' },
+      { id:'sx_attrezzature_cucina', label:'Attrezzature cucina/bar da acquistare (€)', type:'number', full:false, placeholder:'Es. 35.000' },
+      { id:'sx_arredo', label:'Arredamento sala (€)', type:'number', full:false, placeholder:'Es. 20.000' },
+      { id:'sx_delivery', label:'Servizio delivery/asporto', type:'select', full:false, options:['No','Sì — consegna diretta','Sì — piattaforme (Glovo, Deliveroo, Just Eat)','Sì — entrambi'] },
+      { id:'sx_lavori', label:'Lavori di ristrutturazione/adeguamento locale (€)', type:'number', full:false, placeholder:'Es. 60.000 (0 se già pronto)' },
+    ]
+  },
+
+  alberghiero: {
+    icon: '🏨', label: 'Dati specifici — Struttura Ricettiva',
+    desc: (d) => `[Ragione Sociale] è una struttura ricettiva del settore alberghiero e del turismo (${d.settore}), che si propone di offrire ai propri ospiti un soggiorno confortevole e un servizio accurato in una location di pregio. La struttura investe costantemente nella qualità degli ambienti, nella formazione del personale e nelle tecnologie di gestione, con l'obiettivo di garantire alti livelli di soddisfazione, recensioni positive e un tasso di occupazione crescente nel triennio di piano.`,
+    campi: [
+      { id:'sx_categoria', label:'Categoria / tipologia', type:'select', full:false,
+        options:['B&B / Affittacamere','Hotel 2 stelle','Hotel 3 stelle','Hotel 4 stelle','Hotel 5 stelle','Agriturismo','Resort / Spa','Ostello / Hostel'] },
+      { id:'sx_n_camere', label:'N. camere / unità abitative', type:'number', full:false, placeholder:'Es. 25' },
+      { id:'sx_servizi', label:'Servizi aggiuntivi offerti', type:'text', full:true, placeholder:'Es. Ristorante, Prima colazione, Piscina, Sala conferenze, Spa, Parcheggio…' },
+      { id:'sx_ristrutturazione', label:'Ristrutturazione/arredamento previsto (€)', type:'number', full:false, placeholder:'Es. 250.000' },
+      { id:'sx_stagionalita', label:'Stagionalità', type:'select', full:false, options:['Aperto tutto l\'anno','Stagionale estiva','Stagionale invernale','Stagionale bi-annuale'] },
+      { id:'sx_tariffa_media', label:'Tariffa media camera/notte (€)', type:'number', full:false, placeholder:'Es. 85' },
+    ]
+  },
+
+  manifattura: {
+    icon: '🏭', label: 'Dati specifici — Produzione & Manifattura',
+    desc: (d) => `[Ragione Sociale] è un'azienda manifatturiera operante nel settore della produzione industriale (${d.settore}). L'impresa si distingue per l'elevata capacità tecnica, l'utilizzo di macchinari moderni e processi produttivi ottimizzati per garantire qualità costante e competitività sui costi. La struttura produttiva è organizzata per rispondere con flessibilità alle esigenze dei clienti, con capacità di personalizzazione dei prodotti e gestione efficiente dei tempi di lavorazione e consegna.`,
+    campi: [
+      { id:'sx_tipo_prod', label:'Tipo di produzione', type:'select', full:false,
+        options:['Produzione conto terzi (terzismo)','Produzione prodotto proprio','Mista (proprio + terzismo)'] },
+      { id:'sx_macchinari', label:'Macchinari/impianti principali da acquistare', type:'text', full:true, placeholder:'Es. Tornio CNC, Centro di lavoro 5 assi, Linea di confezionamento, Forno industriale…' },
+      { id:'sx_val_macchinari', label:'Valore macchinari/impianti (€)', type:'number', full:false, placeholder:'Es. 300.000' },
+      { id:'sx_mq_capannone', label:'Superficie capannone/laboratorio (mq)', type:'number', full:false, placeholder:'Es. 800' },
+      { id:'sx_materie_prime', label:'Principali materie prime', type:'text', full:false, placeholder:'Es. Acciaio inox, resine plastiche, farina, tessuti…' },
+      { id:'sx_certificazioni', label:'Certificazioni di qualità', type:'text', full:false, placeholder:'Es. ISO 9001, CE, BRC, IFS, o "in fase di ottenimento"' },
+    ]
+  },
+
+  artigianato: {
+    icon: '🔨', label: 'Dati specifici — Impresa Artigiana',
+    desc: (d) => `[Ragione Sociale] è un'impresa artigiana iscritta all'Albo delle Imprese Artigiane, specializzata nella lavorazione e produzione di beni e servizi con elevato contenuto tecnico-manuale. La bottega/officina si distingue per la qualità delle lavorazioni, la cura del dettaglio e la capacità di realizzare prodotti su misura o di offrire servizi altamente personalizzati. Il rapporto diretto con il cliente, la tradizione del saper fare e l'utilizzo di tecnologie aggiornate rappresentano i principali punti di forza dell'impresa.`,
+    campi: [
+      { id:'sx_tipo_lav', label:'Tipo di lavorazione/attività', type:'text', full:true, placeholder:'Es. Falegnameria, imbiancatura, idraulico, elettricista, sarto, ceramista…' },
+      { id:'sx_attrezzature', label:'Attrezzature/macchinari da acquistare', type:'text', full:true, placeholder:'Es. Banco sega, tornio, compressore, attrezzatura professionale…' },
+      { id:'sx_val_attr', label:'Valore attrezzature (€)', type:'number', full:false, placeholder:'Es. 25.000' },
+      { id:'sx_mq_lab', label:'Superficie laboratorio/officina (mq)', type:'number', full:false, placeholder:'Es. 120' },
+      { id:'sx_clienti_tipo', label:'Tipo di clientela', type:'select', full:false, options:['Privati','Imprese/B2B','Pubblica Amministrazione','Mista'] },
+    ]
+  },
+
+  servizi: {
+    icon: '💼', label: 'Dati specifici — Servizi Professionali',
+    desc: (d) => `[Ragione Sociale] è uno studio professionale/società di consulenza operante nel settore dei servizi (${d.settore}), che offre ai propri clienti competenze specialistiche e soluzioni su misura per affrontare le sfide operative, legali, fiscali e strategiche del loro contesto di business. Il team è composto da professionisti con esperienza pluriennale, orientati alla qualità del servizio, alla riservatezza e al raggiungimento degli obiettivi del cliente. La struttura è organizzata per garantire reattività, affidabilità e aggiornamento continuo delle competenze.`,
+    campi: [
+      { id:'sx_target', label:'Tipo di clientela target', type:'select', full:false, options:['PMI e imprese','Privati/persone fisiche','Pubblica Amministrazione','Startup e innovazione','Mista'] },
+      { id:'sx_erogazione', label:'Modalità erogazione servizi', type:'select', full:false, options:['In sede (ufficio/studio)','In remoto (video-call, cloud)','Mista','A domicilio/presso il cliente'] },
+      { id:'sx_clienti_anno1', label:'N. clienti attivi previsti anno 1', type:'number', full:false, placeholder:'Es. 30' },
+      { id:'sx_software', label:'Software/licenze professionali (€/anno)', type:'number', full:false, placeholder:'Es. 5.000 (gestionali, CRM, piattaforme…)' },
+      { id:'sx_ufficio', label:'Ufficio/studio', type:'select', full:false, options:['Affitto — già individuato','Affitto — da trovare','Proprietà','Coworking / smartworking','Nessuno — attività remota'] },
+      { id:'sx_iscrizioni', label:'Iscrizioni Albi/Ordini professionali', type:'text', full:false, placeholder:'Es. Ordine dei Dottori Commercialisti, Albo Avvocati, CNF…' },
+    ]
+  },
+
+  it: {
+    icon: '💻', label: 'Dati specifici — Tech & Digitale',
+    desc: (d) => `[Ragione Sociale] è una società tecnologica operante nel settore dell'informatica e del digitale (${d.settore}), specializzata nello sviluppo di soluzioni software, piattaforme digitali e servizi IT che aiutano le aziende a ottimizzare i processi, ridurre i costi e sfruttare le opportunità della trasformazione digitale. Il team è composto da professionisti con competenze full-stack, esperienza in architetture cloud-native e orientamento all'innovazione continua.`,
+    campi: [
+      { id:'sx_tipo_prodotto', label:'Tipo di prodotto/servizio IT', type:'select', full:false,
+        options:['SaaS — Software as a Service','App mobile (iOS/Android)','Piattaforma web B2B','IT Consulting & System Integration','E-commerce / Marketplace','AI / Machine Learning','Cybersecurity','Altro software custom'] },
+      { id:'sx_target_mkt', label:'Mercato target', type:'select', full:false, options:['PMI italiane','Enterprise (grandi aziende)','Consumatori (B2C)','Pubblica Amministrazione','Internazionale','Misto'] },
+      { id:'sx_sviluppo', label:'Sviluppo software', type:'select', full:false, options:['Team interno','Outsourcing/freelance','Misto interno+esterno'] },
+      { id:'sx_infra_cloud', label:'Costi infrastruttura cloud/hosting (€/anno)', type:'number', full:false, placeholder:'Es. 12.000 (AWS, Azure, Google Cloud…)' },
+      { id:'sx_clienti_saas', label:'N. clienti/abbonati previsti a fine anno 1', type:'number', full:false, placeholder:'Es. 50' },
+      { id:'sx_arpu', label:'Ricavo medio per cliente/mese (€)', type:'number', full:false, placeholder:'Es. 200 (ARPU)' },
+    ]
+  },
+
+  immobiliare: {
+    icon: '🏢', label: 'Dati specifici — Settore Immobiliare',
+    desc: (d) => `[Ragione Sociale] è un'azienda operante nel settore immobiliare (${d.settore}), attiva nella compravendita, locazione e gestione di immobili residenziali, commerciali e industriali. L'azienda si distingue per la conoscenza approfondita del mercato locale, la capacità di individuare opportunità di valore e la professionalità nel seguire il cliente in ogni fase della transazione o gestione immobiliare. Il team combina competenze tecniche, giuridiche e commerciali per offrire un servizio completo e trasparente.`,
+    campi: [
+      { id:'sx_tipo_imm', label:'Tipo di attività immobiliare', type:'select', full:false,
+        options:['Agenzia (compravendita)','Agenzia (locazioni)','Property management','Trading immobiliare (acquisto/rivendita)','Sviluppo immobiliare','Mista'] },
+      { id:'sx_zone', label:'Zone operative', type:'text', full:false, placeholder:'Es. Provincia di Napoli, Centro-Sud Italia…' },
+      { id:'sx_portafoglio', label:'Portafoglio immobili da gestire/valore (€)', type:'number', full:false, placeholder:'Es. 3.000.000' },
+      { id:'sx_n_agenti', label:'N. agenti/collaboratori', type:'number', full:false, placeholder:'Es. 3' },
+      { id:'sx_crm', label:'Software CRM immobiliare (€/anno)', type:'number', full:false, placeholder:'Es. 2.400 (Gestionale immobiliare, portali…)' },
+    ]
+  },
+
+  sanitario: {
+    icon: '🏥', label: 'Dati specifici — Sanità & Benessere',
+    desc: (d) => `[Ragione Sociale] opera nel settore della salute e del benessere (${d.settore}), offrendo servizi sanitari, diagnostici o di wellness di elevata qualità in un ambiente moderno, confortevole e tecnologicamente aggiornato. La struttura è gestita da professionisti abilitati e aggiornati, con l'obiettivo di garantire la massima efficacia terapeutica, la sicurezza del paziente e un'esperienza di cura positiva. La missione aziendale è quella di rendersi punto di riferimento affidabile per la salute dei pazienti del territorio.`,
+    campi: [
+      { id:'sx_tipo_str', label:'Tipo di struttura', type:'select', full:false,
+        options:['Studio medico monoprofessionale','Poliambulatorio','Studio dentistico','Centro fisioterapia/riabilitazione','Palestra / Centro fitness','Farmacia','Ottica','Centro estetico / Spa','Veterinaria'] },
+      { id:'sx_ambulatori', label:'N. ambulatori/sale/postazioni', type:'number', full:false, placeholder:'Es. 3' },
+      { id:'sx_attrezzature_med', label:'Attrezzature sanitarie/specialistiche (€)', type:'number', full:false, placeholder:'Es. 80.000 (macchinari diagnostici, attrezzatura palestra…)' },
+      { id:'sx_arredo_str', label:'Arredamento/adeguamento struttura (€)', type:'number', full:false, placeholder:'Es. 30.000' },
+      { id:'sx_ssn', label:'Convenzione SSN / Accordi assicurativi', type:'select', full:false, options:['No — solo privato','Sì — SSN','Sì — assicurazioni sanitarie','Sì — SSN + assicurazioni'] },
+      { id:'sx_software_san', label:'Software gestionale/cartella clinica (€/anno)', type:'number', full:false, placeholder:'Es. 2.400' },
+    ]
+  },
+
+  formazione: {
+    icon: '📚', label: 'Dati specifici — Formazione & Istruzione',
+    desc: (d) => `[Ragione Sociale] è un ente di formazione operante nel settore dell'istruzione e dello sviluppo delle competenze (${d.settore}), con l'obiettivo di offrire percorsi formativi di qualità, in linea con le esigenze del mercato del lavoro e le aspettative degli studenti/utenti. La struttura si avvale di docenti qualificati, materiali didattici aggiornati e metodologie innovative per garantire un apprendimento efficace e un'esperienza formativa valorizzante. La mission è quella di contribuire alla crescita professionale e personale dei propri corsisti.`,
+    campi: [
+      { id:'sx_tipo_form', label:'Tipo di attività formativa', type:'select', full:false,
+        options:['Scuola privata (materna/primaria/secondaria)','Centro formazione professionale','Asilo nido / Scuola dell\'infanzia','Corsi di lingua','Formazione aziendale (B2B)','Piattaforma e-learning','Accademia / Scuola d\'arte','Doposcuola / Tutoraggio'] },
+      { id:'sx_n_iscritti', label:'N. iscritti/corsisti previsti anno 1', type:'number', full:false, placeholder:'Es. 80' },
+      { id:'sx_n_aule', label:'N. aule / spazi didattici', type:'number', full:false, placeholder:'Es. 4' },
+      { id:'sx_attrezzature_did', label:'Attrezzature didattiche (€)', type:'number', full:false, placeholder:'Es. 15.000 (LIM, PC, strumenti…)' },
+      { id:'sx_accredit', label:'Accreditamento regionale / Certificazioni', type:'text', full:false, placeholder:'Es. Accreditato Regione Campania, ISO 9001, ente bilaterale…' },
+      { id:'sx_quota_media', label:'Quota media per iscritto (€/anno)', type:'number', full:false, placeholder:'Es. 2.400' },
+    ]
+  },
+
+  trasporti: {
+    icon: '🚚', label: 'Dati specifici — Trasporti & Logistica',
+    desc: (d) => `[Ragione Sociale] è un'azienda operante nel settore dei trasporti e della logistica (${d.settore}), specializzata nel trasporto di merci/persone con un parco mezzi moderno e personale specializzato. L'azienda si distingue per l'affidabilità del servizio, la puntualità delle consegne e la capacità di gestire spedizioni di varia natura e complessità. La strategia di sviluppo punta all'ampliamento del parco mezzi, all'espansione geografica delle tratte servite e all'adozione di sistemi di tracking avanzati per garantire la tracciabilità delle spedizioni.`,
+    campi: [
+      { id:'sx_tipo_trasp', label:'Tipo di trasporto', type:'select', full:false,
+        options:['Trasporto merci conto terzi (nazionale)','Trasporto merci conto terzi (internazionale)','Corriere espresso / Last mile','Trasporto persone (taxi/NCC)','Trasporto scolastico','Logistica e magazzinaggio','Noleggio veicoli'] },
+      { id:'sx_n_mezzi', label:'N. mezzi da acquistare', type:'number', full:false, placeholder:'Es. 3' },
+      { id:'sx_tipo_mezzi', label:'Tipo di mezzi', type:'text', full:true, placeholder:'Es. Autocarro 35q, Furgone isotermico, Autoarticolato 44t, Autobus 50 posti…' },
+      { id:'sx_val_parco', label:'Valore parco mezzi (€)', type:'number', full:false, placeholder:'Es. 220.000' },
+      { id:'sx_raggio', label:'Raggio operativo', type:'select', full:false, options:['Locale (entro 100 km)','Regionale','Nazionale','Internazionale (UE)','Internazionale (extra UE)'] },
+      { id:'sx_autorizzazioni', label:'Autorizzazioni/Licenze', type:'text', full:false, placeholder:'Es. Albo autotrasportatori, licenza NCC, ADR, CQC…' },
+    ]
+  },
+
+  agricoltura: {
+    icon: '🌾', label: 'Dati specifici — Agricoltura & Agroalimentare',
+    desc: (d) => `[Ragione Sociale] è un'azienda agricola/agro-alimentare operante nel settore primario (${d.settore}), dedicata alla coltivazione, allevamento e/o trasformazione di prodotti agricoli di qualità. L'impresa valorizza le risorse del territorio, adottando tecniche colturali sostenibili e rispettose dell'ambiente, con l'obiettivo di produrre prodotti di eccellenza per il mercato locale, nazionale ed eventualmente estero. La tradizione agricola si fonde con l'innovazione tecnologica per migliorare le rese, ridurre gli sprechi e rispondere alle crescenti richieste di tracciabilità e qualità da parte dei consumatori.`,
+    campi: [
+      { id:'sx_tipo_agr', label:'Tipo di produzione agricola', type:'select', full:false,
+        options:['Cerealicoltura','Ortofrutta','Olivicoltura / Produzione olio','Vitivinicoltura','Zootecnia (bovini, suini, ovini)','Avicoltura','Florovivaismo','Produzione biologica','Agriturismo + produzione'] },
+      { id:'sx_ettari', label:'Superficie coltivata (ettari)', type:'number', full:false, placeholder:'Es. 25' },
+      { id:'sx_macchinari_agr', label:'Macchinari agricoli da acquistare (€)', type:'number', full:false, placeholder:'Es. 120.000 (trattore, mietitrebbia, attrezzatura…)' },
+      { id:'sx_biologico', label:'Produzione biologica certificata', type:'select', full:false, options:['No — convenzionale','Sì — certificata BIO','In conversione al biologico'] },
+      { id:'sx_certificazioni_agr', label:'Certificazioni / Denominazioni', type:'text', full:false, placeholder:'Es. DOP, IGP, DOC, DOCG, biologico AIAB…' },
+      { id:'sx_canali_vendita', label:'Canali di vendita', type:'text', full:false, placeholder:'Es. GDO, mercati locali, vendita diretta in azienda, export…' },
+    ]
+  },
+
+  energia: {
+    icon: '⚡', label: 'Dati specifici — Energia & Ambiente',
+    desc: (d) => `[Ragione Sociale] è una società operante nel settore dell'energia rinnovabile e dell'efficienza energetica (${d.settore}), impegnata a progettare, installare e gestire soluzioni tecnologiche per la produzione di energia pulita e la riduzione dei consumi energetici. L'azienda si rivolge a clienti privati, imprese e pubbliche amministrazioni, offrendo un servizio completo che va dall'audit energetico alla progettazione impiantistica, dall'installazione alla gestione e manutenzione dell'impianto nel lungo periodo.`,
+    campi: [
+      { id:'sx_tipo_en', label:'Tipo di attività', type:'select', full:false,
+        options:['Installazione fotovoltaico (residenziale)','Installazione fotovoltaico (industriale)','Efficienza energetica (coibentazione, caldaie, LED)','Gestione rifiuti / Raccolta differenziata','Biomassa / Biogas','Mobilità elettrica (colonnine, flotte)','Energy management','Mista'] },
+      { id:'sx_potenza', label:'Potenza impianti/anno (kW) o volume rifiuti (t/anno)', type:'number', full:false, placeholder:'Es. 500 kW/anno installati, 1.000 t/anno gestite' },
+      { id:'sx_inv_impianti', label:'Investimento impianti/attrezzature (€)', type:'number', full:false, placeholder:'Es. 400.000' },
+      { id:'sx_n_contratti', label:'N. contratti/installazioni previsti anno 1', type:'number', full:false, placeholder:'Es. 40' },
+      { id:'sx_incentivi', label:'Incentivi/agevolazioni previste', type:'text', full:false, placeholder:'Es. Superbonus, Transizione 4.0, GSE, Conto Termico, PNRR…' },
+      { id:'sx_autorizzazioni_en', label:'Autorizzazioni necessarie', type:'text', full:false, placeholder:'Es. SOA OS35, abilitazione F-gas, patentino elettrico, iscrizione Albo Gestori Ambientali…' },
+    ]
+  }
+};
+
+// ── Render campi settore in Step 3 ─────────────────────────────────────────
+function renderCampiSettore(key) {
+  var macro = SETTORE_MAP[key];
+  var cfg   = macro ? SETTORE_EXTRA[macro] : null;
+  var cont  = document.getElementById('campi-settore-extra');
+  if (!cont) return;
+  if (!cfg) { cont.innerHTML = ''; return; }
+
+  var rows = '';
+  cfg.campi.forEach(function(f) {
+    var inp = '';
+    if (f.type === 'select') {
+      inp = '<select id="' + f.id + '" style="padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;width:100%">'
+        + f.options.map(function(o){ return '<option value="' + o + '">' + o + '</option>'; }).join('')
+        + '</select>';
+    } else if (f.type === 'number') {
+      inp = '<input type="number" id="' + f.id + '" min="0" step="1000" placeholder="' + (f.placeholder||'') + '" style="padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;width:100%"/>';
+    } else {
+      inp = '<input type="text" id="' + f.id + '" placeholder="' + (f.placeholder||'') + '" style="padding:8px 11px;border:1.5px solid #bae6fd;border-radius:8px;font-size:.87rem;font-family:inherit;color:var(--ink);outline:none;background:#fff;width:100%"/>';
+    }
+    rows += '<div class="sx-field' + (f.full ? ' full' : '') + '"><label>' + f.label + '</label>' + inp + '</div>';
+  });
+
+  cont.innerHTML = '<div class="sx-section"><div class="sx-section-title">' + cfg.icon + ' ' + cfg.label + '</div><div class="sx-grid">' + rows + '</div></div>';
+}
+
+// ── Raccoglie valori extra settore per il payload ──────────────────────────
+function raccogliCampiSettore() {
+  var key   = _selectedKey;
+  var macro = SETTORE_MAP[key];
+  var cfg   = macro ? SETTORE_EXTRA[macro] : null;
+  if (!cfg) return {};
+  var vals = {};
+  cfg.campi.forEach(function(f) {
+    var el = document.getElementById(f.id);
+    if (el) vals[f.id] = el.value;
+  });
+  return vals;
+}
+
+// ── Costruisce desc extra settore per testo narrativo ─────────────────────
+function buildDescSettore(extraVals) {
+  var key  = _selectedKey;
+  var macro = SETTORE_MAP[key];
+  var cfg   = macro ? SETTORE_EXTRA[macro] : null;
+  if (!cfg) return '';
+  var lines = [];
+  for (var id in extraVals) {
+    var v = extraVals[id];
+    if (!v || v === 'No') continue;
+    var campo = cfg.campi.find(function(c){ return c.id === id; });
+    if (campo) lines.push(campo.label + ': ' + v);
+  }
+  return lines.join('; ');
+}
+
 var _selectedKey = null;
 
 function scegli(key) {
@@ -1026,6 +1313,19 @@ function scegli(key) {
 
   aggiornaMOL(1); aggiornaMOL(2); aggiornaMOL(3);
   document.getElementById('modalSummary').style.display = 'none';
+
+  // Pre-popola descrizione con testo settoriale (modificabile dal cliente)
+  renderCampiSettore(key);
+  var macro = SETTORE_MAP[key];
+  var cfg   = macro ? SETTORE_EXTRA[macro] : null;
+  if (cfg && document.getElementById('az_descrizione')) {
+    var descEl = document.getElementById('az_descrizione');
+    if (!descEl.value || descEl.dataset.lastKey !== key) {
+      descEl.value = cfg.desc(d);
+      descEl.dataset.lastKey = key;
+    }
+  }
+
   document.getElementById('modalOverlay').classList.add('open');
   document.getElementById('fat1').focus();
 }
@@ -1253,8 +1553,18 @@ async function generaBusinessPlan() {
   var sede        = document.getElementById('az_sede').value.trim();
   var forma       = document.getElementById('az_forma').value.trim();
   var piva        = document.getElementById('az_piva').value.trim();
-  var descrizione = document.getElementById('az_descrizione').value.trim();
+  var descrizione = document.getElementById('az_descrizione').value.trim().replace('[Ragione Sociale]', nome);
   var descProgetto = document.getElementById('az_desc_progetto').value.trim();
+
+  // Campi settore extra
+  var extraVals   = raccogliCampiSettore();
+  var extraDesc   = buildDescSettore(extraVals);
+  if (extraDesc) descProgetto = (descProgetto ? descProgetto + '\n\n' : '') + 'DATI SPECIFICI SETTORE: ' + extraDesc;
+
+  // CapEx aggiuntivo da campi settore (attrezzature, macchinari, mezzi)
+  var extraCapexDesc = extraVals['sx_mezzi'] || extraVals['sx_macchinari'] || extraVals['sx_tipo_mezzi'] || extraVals['sx_attrezzature'] || extraVals['sx_attrezzature_cucina'] || '';
+  var extraCapexVal  = parseFloat(extraVals['sx_val_mezzi'] || extraVals['sx_val_macchinari'] || extraVals['sx_val_parco'] || extraVals['sx_val_attr'] || extraVals['sx_attrezzature_cucina'] || extraVals['sx_attrezzature_med'] || 0) || 0;
+  var extraLiquidita = parseFloat(extraVals['sx_liquidita_op'] || 0) || 0;
 
   // Stato patrimoniale
   var capSoc    = parseFloat(document.getElementById('az_cap_soc').value) || 0;
@@ -1274,10 +1584,10 @@ async function generaBusinessPlan() {
   var finPeriod    = nuovoFin ? (parseInt(document.getElementById('fin_periodicita').value) || 12) : 12;
   var finTipo      = nuovoFin ? document.getElementById('fin_tipo').value : 'ipotecario';
 
-  // CapEx dal progetto
-  var capexList = capexImp > 0
-    ? [{ desc: finalita || 'Investimento progetto', tipo: 'materiali', a1: capexImp, a2: 0, a3: 0, vita: 5 }]
-    : [];
+  // CapEx dal progetto + da campi settore
+  var capexList = [];
+  if (capexImp > 0) capexList.push({ desc: finalita || 'Investimento progetto', tipo: 'materiali', a1: capexImp, a2: 0, a3: 0, vita: 5 });
+  if (extraCapexVal > 0 && !capexImp) capexList.push({ desc: extraCapexDesc || 'Attrezzature/mezzi settoriali', tipo: 'materiali', a1: extraCapexVal, a2: 0, a3: 0, vita: 5 });
 
   // ── Stato Patrimoniale sintetico ───────────────────────────────────────
   // Per nuove aziende / template si sintetizzano dati patrimoniali coerenti
@@ -1291,10 +1601,11 @@ async function generaBusinessPlan() {
   var synCreditiC= Math.round(R0 * 60 / 365);
   var synRimanenze= d.perc_var > 0 ? Math.round(R0 * (d.perc_var/100) * 30 / 365) : 0;
   var synLiquidita= Math.round(R0 * 0.05);
-  var synImmobMat = Math.round(d.ammortamenti * 5) + capexImp;
+  var totalCapex  = capexImp || extraCapexVal || 0;
+  var synImmobMat = Math.round(d.ammortamenti * 5) + totalCapex;
   var synDebForn  = Math.round(R0 * (d.perc_var/100) * 45 / 365);
   var synTfr      = Math.round(d.costo_pers_storico * 0.07);
-  var synTotAtt   = synImmobMat + synCreditiC + synRimanenze + synLiquidita;
+  var synTotAtt   = synImmobMat + synCreditiC + synRimanenze + synLiquidita + extraLiquidita;
   // Riserve = sbilancio passivo dopo PN e debiti
   var synRiserve  = Math.max(0, synTotAtt - synPn - synDebMLT - synDebBT - synDebForn - synTfr - synCapSoc);
 
