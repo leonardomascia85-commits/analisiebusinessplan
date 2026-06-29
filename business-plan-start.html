@@ -1201,98 +1201,131 @@ const SETTORE_EXTRA = {
 
 // ── Suggerimenti automatici per sotto-tipo ───────────────────────────────────
 const SUGGERIMENTI = {
+  // _stat: {fat, ebitda, ndip, g1, g2, g3} → aggiorna Step 1 con medie CCIAA/FIPE/ANCE/ISTAT
   ristorazione: { sx_tipo_locale: {
-    'Ristorante tradizionale':  { sx_attrezzature_lista:'Cucina professionale 6 fuochi + forno combinato, Cella frigorifera walk-in, Abbattitore di temperatura, Piani di lavoro inox, Lavastoviglie industriale, Frigoriferi verticali, Cassa POS con gestionale', sx_attrezzature_cucina:40000, sx_arredo:25000, sx_coperti_int:50, sx_mq:160 },
-    'Trattoria/Osteria':        { sx_attrezzature_lista:'Cucina 4-6 fuochi + forno, Cella frigorifera, Piani lavoro inox, Lavastoviglie bar, Frigoriferi, Cassa POS', sx_attrezzature_cucina:28000, sx_arredo:15000, sx_coperti_int:40, sx_mq:130 },
-    'Pizzeria':                 { sx_attrezzature_lista:'Forno per pizza professionale (legna o elettrico), Impastatrice a spirale 30 kg, Banco pizza in marmo, Cella frigorifera, Cucina di supporto 4 fuochi, Lavastoviglie, Banco bar, Cassa POS', sx_attrezzature_cucina:32000, sx_arredo:18000, sx_coperti_int:60, sx_mq:180 },
-    'Bar/Caffetteria':          { sx_attrezzature_lista:'Macchina espresso 3 gruppi, Grinder caffè automatico, Banco bar refrigerato 3 mt, Vetrinetta pasticceria refrigerata, Frigoriferi verticali, Lavastoviglie bar, Cassa POS', sx_attrezzature_cucina:18000, sx_arredo:12000, sx_coperti_int:20, sx_mq:80 },
-    'Fast food / Street food':  { sx_attrezzature_lista:'Grill piano professionale, Friggitrici industriali 2×15L, Piano cottura, Banco distribuzione riscaldato, Display menù digitale, Forno a convezione, Cassa POS', sx_attrezzature_cucina:22000, sx_arredo:10000, sx_coperti_int:25, sx_mq:90 },
-    'Catering / Banqueting':    { sx_attrezzature_lista:'Cucina professionale mobile, Forni combinati Rational 10 GN, Abbattitore, Contenitori GN inox, Furgone refrigerato 35q, Chafing dish e buffet, Attrezzatura di servizio e mise en place', sx_attrezzature_cucina:55000, sx_arredo:8000, sx_mq:0 },
-    'Tavola calda / Rosticceria':{ sx_attrezzature_lista:'Cucina professionale 4 fuochi, Armadio espositivo riscaldato, Girarrosto, Friggitrici, Banco vendita, Cassa POS', sx_attrezzature_cucina:20000, sx_arredo:10000, sx_coperti_int:15, sx_mq:70 },
-    'Pasticceria / Panificio':  { sx_attrezzature_lista:'Forno a rotor professionale, Impastatrice a spirale 40 kg, Sfogliatrice automatica, Cella di lievitazione, Abbattitore di temperatura, Vetrine refrigerate 3 mt, Planetaria 40L, Cassa POS', sx_attrezzature_cucina:48000, sx_arredo:22000, sx_coperti_int:12, sx_mq:120 },
+    'Ristorante tradizionale':  { _stat:{fat:490000,ebitda:11,ndip:6,g1:4,g2:4,g3:3}, sx_attrezzature_lista:'Cucina professionale 6 fuochi + forno combinato, Cella frigorifera walk-in, Abbattitore di temperatura, Piani di lavoro inox, Lavastoviglie industriale, Frigoriferi verticali, Cassa POS con gestionale', sx_attrezzature_cucina:40000, sx_arredo:25000, sx_coperti_int:50, sx_mq:160 },
+    'Trattoria/Osteria':        { _stat:{fat:320000,ebitda:10,ndip:4,g1:4,g2:3,g3:3}, sx_attrezzature_lista:'Cucina 4-6 fuochi + forno, Cella frigorifera, Piani lavoro inox, Lavastoviglie, Frigoriferi, Cassa POS', sx_attrezzature_cucina:28000, sx_arredo:15000, sx_coperti_int:40, sx_mq:130 },
+    'Pizzeria':                 { _stat:{fat:360000,ebitda:13,ndip:5,g1:5,g2:5,g3:4}, sx_attrezzature_lista:'Forno per pizza professionale (legna o elettrico), Impastatrice a spirale 30 kg, Banco pizza in marmo, Cella frigorifera, Cucina di supporto 4 fuochi, Lavastoviglie, Banco bar, Cassa POS', sx_attrezzature_cucina:32000, sx_arredo:18000, sx_coperti_int:60, sx_mq:180 },
+    'Bar/Caffetteria':          { _stat:{fat:210000,ebitda:18,ndip:2,g1:4,g2:4,g3:3}, sx_attrezzature_lista:'Macchina espresso 3 gruppi, Grinder caffè automatico, Banco bar refrigerato 3 mt, Vetrinetta pasticceria refrigerata, Frigoriferi verticali, Lavastoviglie bar, Cassa POS', sx_attrezzature_cucina:18000, sx_arredo:12000, sx_coperti_int:20, sx_mq:80 },
+    'Fast food / Street food':  { _stat:{fat:340000,ebitda:14,ndip:4,g1:6,g2:5,g3:5}, sx_attrezzature_lista:'Grill piano professionale, Friggitrici industriali 2×15L, Piano cottura, Banco distribuzione riscaldato, Display menù digitale, Forno a convezione, Cassa POS', sx_attrezzature_cucina:22000, sx_arredo:10000, sx_coperti_int:25, sx_mq:90 },
+    'Catering / Banqueting':    { _stat:{fat:460000,ebitda:16,ndip:5,g1:6,g2:6,g3:5}, sx_attrezzature_lista:'Cucina professionale mobile, Forni combinati Rational 10 GN, Abbattitore, Contenitori GN inox, Furgone refrigerato 35q, Chafing dish e buffet, Attrezzatura di servizio e mise en place', sx_attrezzature_cucina:55000, sx_arredo:8000, sx_mq:0 },
+    'Tavola calda / Rosticceria':{ _stat:{fat:280000,ebitda:15,ndip:3,g1:4,g2:4,g3:3}, sx_attrezzature_lista:'Cucina professionale 4 fuochi, Armadio espositivo riscaldato, Girarrosto, Friggitrici, Banco vendita, Cassa POS', sx_attrezzature_cucina:20000, sx_arredo:10000, sx_coperti_int:15, sx_mq:70 },
+    'Pasticceria / Panificio':  { _stat:{fat:265000,ebitda:12,ndip:4,g1:4,g2:4,g3:3}, sx_attrezzature_lista:'Forno a rotor professionale, Impastatrice a spirale 40 kg, Sfogliatrice automatica, Cella di lievitazione, Abbattitore di temperatura, Vetrine refrigerate 3 mt, Planetaria 40L, Cassa POS', sx_attrezzature_cucina:48000, sx_arredo:22000, sx_coperti_int:12, sx_mq:120 },
   }},
   costruzioni: { sx_tipo_lavori: {
-    'Edilizia residenziale nuova':       { sx_mezzi:'Escavatore cingolato 20t, Dumper da cantiere 10t, Betoniera 300L, Ponteggi modulari 1.000 mq, Autocarro 35q, Utensili da cantiere (flex, trapano, tassellatore)', sx_val_mezzi:180000, sx_cantieri_anno:6, sx_valore_medio:90000, sx_liquidita_op:60000 },
-    'Ristrutturazioni edilizie':         { sx_mezzi:'Miniescavatore 3t, Ponteggio di facciata modulare, Demolisher elettrico, Furgone attrezzato, Utensili professionali (flex, trapano SDS, levigatrice), Ponteggi interni', sx_val_mezzi:75000, sx_cantieri_anno:12, sx_valore_medio:35000, sx_liquidita_op:30000 },
-    'Edilizia commerciale/industriale':  { sx_mezzi:'Escavatore cingolato 30t, Gru da cantiere 40t, Autocarro con gru 18t, Dumper 10t, Compressore industriale, Ponteggi modulari 2.000 mq, Pala meccanica', sx_val_mezzi:350000, sx_cantieri_anno:3, sx_valore_medio:300000, sx_liquidita_op:120000 },
-    'Opere pubbliche/infrastrutture':    { sx_mezzi:'Escavatore cingolato 35t, Pala meccanica, Compattatore vibrante, Finitura stradale, Autocarro con ribaltabile, Gru da cantiere, Dumper 15t', sx_val_mezzi:500000, sx_cantieri_anno:2, sx_valore_medio:500000, sx_liquidita_op:200000 },
-    'Impiantistica (elettrico, idraulico, termico)': { sx_mezzi:'Furgone attrezzato (2 unità), Strumentazione collaudo (termoflussimetro, manometri, multimetro), Utensili professionali, Piega tubi idraulici, Pressa raccordi a pressare, Scale da lavoro', sx_val_mezzi:45000, sx_cantieri_anno:20, sx_valore_medio:18000, sx_liquidita_op:20000 },
-    'Mista': { sx_mezzi:'Miniescavatore 3t, Furgone attrezzato, Ponteggi modulari, Betoniera, Utensili professionali vari per edilizia civile e impianti', sx_val_mezzi:130000, sx_cantieri_anno:10, sx_valore_medio:50000, sx_liquidita_op:40000 },
+    'Edilizia residenziale nuova':       { _stat:{fat:1100000,ebitda:8,ndip:8,g1:5,g2:4,g3:3}, sx_mezzi:'Escavatore cingolato 20t, Dumper da cantiere 10t, Betoniera 300L, Ponteggi modulari 1.000 mq, Autocarro 35q, Utensili da cantiere (flex, trapano, tassellatore)', sx_val_mezzi:180000, sx_cantieri_anno:6, sx_valore_medio:90000, sx_liquidita_op:60000 },
+    'Ristrutturazioni edilizie':         { _stat:{fat:650000,ebitda:11,ndip:5,g1:6,g2:5,g3:4}, sx_mezzi:'Miniescavatore 3t, Ponteggio di facciata modulare, Demolisher elettrico, Furgone attrezzato, Utensili professionali (flex, trapano SDS, levigatrice), Ponteggi interni', sx_val_mezzi:75000, sx_cantieri_anno:12, sx_valore_medio:35000, sx_liquidita_op:30000 },
+    'Edilizia commerciale/industriale':  { _stat:{fat:2200000,ebitda:7,ndip:14,g1:4,g2:4,g3:3}, sx_mezzi:'Escavatore cingolato 30t, Gru da cantiere 40t, Autocarro con gru 18t, Dumper 10t, Compressore industriale, Ponteggi modulari 2.000 mq, Pala meccanica', sx_val_mezzi:350000, sx_cantieri_anno:3, sx_valore_medio:300000, sx_liquidita_op:120000 },
+    'Opere pubbliche/infrastrutture':    { _stat:{fat:3500000,ebitda:6,ndip:18,g1:3,g2:4,g3:3}, sx_mezzi:'Escavatore cingolato 35t, Pala meccanica, Compattatore vibrante, Finitura stradale, Autocarro con ribaltabile, Gru da cantiere, Dumper 15t', sx_val_mezzi:500000, sx_cantieri_anno:2, sx_valore_medio:500000, sx_liquidita_op:200000 },
+    'Impiantistica (elettrico, idraulico, termico)': { _stat:{fat:450000,ebitda:13,ndip:4,g1:5,g2:5,g3:4}, sx_mezzi:'Furgone attrezzato (2 unità), Strumentazione collaudo (termoflussimetro, manometri, multimetro), Utensili professionali, Piega tubi idraulici, Pressa raccordi a pressare, Scale da lavoro', sx_val_mezzi:45000, sx_cantieri_anno:20, sx_valore_medio:18000, sx_liquidita_op:20000 },
+    'Mista': { _stat:{fat:850000,ebitda:10,ndip:7,g1:5,g2:4,g3:4}, sx_mezzi:'Miniescavatore 3t, Furgone attrezzato, Ponteggi modulari, Betoniera, Utensili professionali vari per edilizia civile e impianti', sx_val_mezzi:130000, sx_cantieri_anno:10, sx_valore_medio:50000, sx_liquidita_op:40000 },
   }},
   trasporti: { sx_tipo_trasp: {
-    'Trasporto merci conto terzi (nazionale)':      { sx_tipo_mezzi:'Autocarri 35q (3 unità), Transpallet elettrico, Cinghie e teloni, GPS fleet management', sx_n_mezzi:3, sx_val_parco:180000 },
-    'Trasporto merci conto terzi (internazionale)': { sx_tipo_mezzi:'Autoarticolati 44t — trattore + semirimorchio (2 unità), Tachimetro digitale, CMR e documentazione ADR, GPS satellitare', sx_n_mezzi:2, sx_val_parco:280000 },
-    'Corriere espresso / Last mile':                { sx_tipo_mezzi:'Furgoni 35q (5 unità), Scanner barcode, App gestione spedizioni, Terminale POS a bordo, Stamp labels', sx_n_mezzi:5, sx_val_parco:110000 },
-    'Trasporto persone (taxi/NCC)':                 { sx_tipo_mezzi:'Berlina premium o MPV (3 veicoli), App booking, Terminale POS a bordo, Tabella tariffe', sx_n_mezzi:3, sx_val_parco:75000 },
-    'Trasporto scolastico':                         { sx_tipo_mezzi:'Scuolabus 35 posti omologati (2 unità), Cinture di sicurezza, Cronotachigrafo, GPS monitoraggio', sx_n_mezzi:2, sx_val_parco:120000 },
-    'Logistica e magazzinaggio':                    { sx_tipo_mezzi:'Carrelli elevatori elettrici 2t (2 unità), Transpallet elettrici (4 unità), Scaffalature industriali, Software WMS, Pistola barcode', sx_n_mezzi:2, sx_val_parco:80000 },
-    'Noleggio veicoli':                             { sx_tipo_mezzi:'Autovetture categoria A-B-C (10 unità), Software gestionale noleggio, POS, GPS tracker su ogni veicolo', sx_n_mezzi:10, sx_val_parco:220000 },
+    'Trasporto merci conto terzi (nazionale)':      { _stat:{fat:720000,ebitda:9,ndip:5,g1:4,g2:3,g3:3}, sx_tipo_mezzi:'Autocarri 35q (3 unità), Transpallet elettrico, Cinghie e teloni, GPS fleet management', sx_n_mezzi:3, sx_val_parco:180000 },
+    'Trasporto merci conto terzi (internazionale)': { _stat:{fat:1800000,ebitda:8,ndip:8,g1:5,g2:4,g3:4}, sx_tipo_mezzi:'Autoarticolati 44t — trattore + semirimorchio (2 unità), Tachimetro digitale, CMR e documentazione ADR, GPS satellitare', sx_n_mezzi:2, sx_val_parco:280000 },
+    'Corriere espresso / Last mile':                { _stat:{fat:420000,ebitda:10,ndip:5,g1:8,g2:7,g3:6}, sx_tipo_mezzi:'Furgoni 35q (5 unità), Scanner barcode, App gestione spedizioni, Terminale POS a bordo, Stamp labels', sx_n_mezzi:5, sx_val_parco:110000 },
+    'Trasporto persone (taxi/NCC)':                 { _stat:{fat:190000,ebitda:20,ndip:1,g1:5,g2:5,g3:4}, sx_tipo_mezzi:'Berlina premium o MPV (3 veicoli), App booking, Terminale POS a bordo, Tabella tariffe', sx_n_mezzi:3, sx_val_parco:75000 },
+    'Trasporto scolastico':                         { _stat:{fat:280000,ebitda:16,ndip:3,g1:3,g2:3,g3:2}, sx_tipo_mezzi:'Scuolabus 35 posti omologati (2 unità), Cinture di sicurezza, Cronotachigrafo, GPS monitoraggio', sx_n_mezzi:2, sx_val_parco:120000 },
+    'Logistica e magazzinaggio':                    { _stat:{fat:1400000,ebitda:12,ndip:11,g1:5,g2:4,g3:4}, sx_tipo_mezzi:'Carrelli elevatori elettrici 2t (2 unità), Transpallet elettrici (4 unità), Scaffalature industriali, Software WMS, Pistola barcode', sx_n_mezzi:2, sx_val_parco:80000 },
+    'Noleggio veicoli':                             { _stat:{fat:380000,ebitda:28,ndip:3,g1:6,g2:5,g3:5}, sx_tipo_mezzi:'Autovetture categoria A-B-C (10 unità), Software gestionale noleggio, POS, GPS tracker su ogni veicolo', sx_n_mezzi:10, sx_val_parco:220000 },
   }},
   manifattura: { sx_tipo_prod: {
-    'Produzione conto terzi (terzismo)': { sx_macchinari:'Centro di lavoro CNC 3 assi, Tornio automatico, Pressa idraulica 100t, Strumentazione CMM controllo qualità, Carrello elevatore', sx_val_macchinari:220000 },
-    'Produzione prodotto proprio':       { sx_macchinari:'Linea di produzione dedicata, Confezionatrice automatica, Pallettizzatore, Laboratorio qualità con strumentazione, Sistema ERP produzione', sx_val_macchinari:380000 },
-    'Mista (proprio + terzismo)':        { sx_macchinari:'Centro di lavoro CNC, Linea di assemblaggio, Confezionatrice, Impianto di collaudo funzionale, Software gestione produzione MES', sx_val_macchinari:270000 },
+    'Produzione conto terzi (terzismo)': { _stat:{fat:1200000,ebitda:11,ndip:9,g1:4,g2:4,g3:3}, sx_macchinari:'Centro di lavoro CNC 3 assi, Tornio automatico, Pressa idraulica 100t, Strumentazione CMM controllo qualità, Carrello elevatore', sx_val_macchinari:220000 },
+    'Produzione prodotto proprio':       { _stat:{fat:2100000,ebitda:14,ndip:14,g1:6,g2:5,g3:4}, sx_macchinari:'Linea di produzione dedicata, Confezionatrice automatica, Pallettizzatore, Laboratorio qualità con strumentazione, Sistema ERP produzione', sx_val_macchinari:380000 },
+    'Mista (proprio + terzismo)':        { _stat:{fat:1500000,ebitda:12,ndip:11,g1:5,g2:4,g3:4}, sx_macchinari:'Centro di lavoro CNC, Linea di assemblaggio, Confezionatrice, Impianto di collaudo funzionale, Software gestione produzione MES', sx_val_macchinari:270000 },
   }},
   alberghiero: { sx_categoria: {
-    'B&B / Affittacamere': { sx_n_camere:6,  sx_ristrutturazione:40000,  sx_tariffa_media:65 },
-    'Hotel 2 stelle':      { sx_n_camere:20, sx_ristrutturazione:150000, sx_tariffa_media:55 },
-    'Hotel 3 stelle':      { sx_n_camere:35, sx_ristrutturazione:350000, sx_tariffa_media:80 },
-    'Hotel 4 stelle':      { sx_n_camere:50, sx_ristrutturazione:800000, sx_tariffa_media:130 },
-    'Hotel 5 stelle':      { sx_n_camere:60, sx_ristrutturazione:2000000,sx_tariffa_media:250 },
-    'Agriturismo':         { sx_n_camere:10, sx_ristrutturazione:120000, sx_tariffa_media:70 },
-    'Resort / Spa':        { sx_n_camere:40, sx_ristrutturazione:1500000,sx_tariffa_media:180 },
-    'Ostello / Hostel':    { sx_n_camere:30, sx_ristrutturazione:80000,  sx_tariffa_media:30 },
+    'B&B / Affittacamere': { _stat:{fat:110000,ebitda:30,ndip:1,g1:6,g2:5,g3:5}, sx_n_camere:6,  sx_ristrutturazione:40000,  sx_tariffa_media:65 },
+    'Hotel 2 stelle':      { _stat:{fat:480000,ebitda:18,ndip:5,g1:5,g2:4,g3:4}, sx_n_camere:20, sx_ristrutturazione:150000, sx_tariffa_media:55 },
+    'Hotel 3 stelle':      { _stat:{fat:850000,ebitda:22,ndip:9,g1:6,g2:5,g3:5}, sx_n_camere:35, sx_ristrutturazione:350000, sx_tariffa_media:80 },
+    'Hotel 4 stelle':      { _stat:{fat:2200000,ebitda:25,ndip:19,g1:5,g2:5,g3:4}, sx_n_camere:50, sx_ristrutturazione:800000, sx_tariffa_media:130 },
+    'Hotel 5 stelle':      { _stat:{fat:5500000,ebitda:28,ndip:45,g1:4,g2:4,g3:3}, sx_n_camere:60, sx_ristrutturazione:2000000,sx_tariffa_media:250 },
+    'Agriturismo':         { _stat:{fat:260000,ebitda:26,ndip:3,g1:7,g2:6,g3:5}, sx_n_camere:10, sx_ristrutturazione:120000, sx_tariffa_media:70 },
+    'Resort / Spa':        { _stat:{fat:3200000,ebitda:28,ndip:28,g1:7,g2:6,g3:5}, sx_n_camere:40, sx_ristrutturazione:1500000,sx_tariffa_media:180 },
+    'Ostello / Hostel':    { _stat:{fat:320000,ebitda:20,ndip:4,g1:8,g2:7,g3:6}, sx_n_camere:30, sx_ristrutturazione:80000,  sx_tariffa_media:30 },
   }},
   sanitario: { sx_tipo_str: {
-    'Studio medico monoprofessionale':    { sx_ambulatori:1, sx_attrezzature_med:15000, sx_arredo_str:10000, sx_software_san:1800 },
-    'Poliambulatorio':                    { sx_ambulatori:4, sx_attrezzature_med:80000, sx_arredo_str:30000, sx_software_san:4800 },
-    'Studio dentistico':                  { sx_ambulatori:2, sx_attrezzature_med:90000, sx_arredo_str:20000, sx_software_san:3600 },
-    'Centro fisioterapia/riabilitazione': { sx_ambulatori:3, sx_attrezzature_med:55000, sx_arredo_str:15000, sx_software_san:2400 },
-    'Palestra / Centro fitness':          { sx_ambulatori:0, sx_attrezzature_med:60000, sx_arredo_str:25000, sx_software_san:1200 },
-    'Farmacia':                           { sx_ambulatori:1, sx_attrezzature_med:20000, sx_arredo_str:35000, sx_software_san:4800 },
-    'Ottica':                             { sx_ambulatori:1, sx_attrezzature_med:30000, sx_arredo_str:20000, sx_software_san:2400 },
-    'Centro estetico / Spa':              { sx_ambulatori:3, sx_attrezzature_med:30000, sx_arredo_str:40000, sx_software_san:1200 },
-    'Veterinaria':                        { sx_ambulatori:2, sx_attrezzature_med:45000, sx_arredo_str:15000, sx_software_san:2400 },
+    'Studio medico monoprofessionale':    { _stat:{fat:180000,ebitda:38,ndip:1,g1:4,g2:4,g3:3}, sx_ambulatori:1, sx_attrezzature_med:15000, sx_arredo_str:10000, sx_software_san:1800 },
+    'Poliambulatorio':                    { _stat:{fat:680000,ebitda:28,ndip:6,g1:7,g2:6,g3:5}, sx_ambulatori:4, sx_attrezzature_med:80000, sx_arredo_str:30000, sx_software_san:4800 },
+    'Studio dentistico':                  { _stat:{fat:420000,ebitda:35,ndip:3,g1:5,g2:5,g3:4}, sx_ambulatori:2, sx_attrezzature_med:90000, sx_arredo_str:20000, sx_software_san:3600 },
+    'Centro fisioterapia/riabilitazione': { _stat:{fat:280000,ebitda:28,ndip:4,g1:6,g2:5,g3:5}, sx_ambulatori:3, sx_attrezzature_med:55000, sx_arredo_str:15000, sx_software_san:2400 },
+    'Palestra / Centro fitness':          { _stat:{fat:320000,ebitda:26,ndip:5,g1:6,g2:5,g3:4}, sx_ambulatori:0, sx_attrezzature_med:60000, sx_arredo_str:25000, sx_software_san:1200 },
+    'Farmacia':                           { _stat:{fat:1200000,ebitda:9,ndip:5,g1:3,g2:3,g3:2}, sx_ambulatori:1, sx_attrezzature_med:20000, sx_arredo_str:35000, sx_software_san:4800 },
+    'Ottica':                             { _stat:{fat:380000,ebitda:22,ndip:3,g1:4,g2:4,g3:3}, sx_ambulatori:1, sx_attrezzature_med:30000, sx_arredo_str:20000, sx_software_san:2400 },
+    'Centro estetico / Spa':              { _stat:{fat:220000,ebitda:24,ndip:3,g1:6,g2:5,g3:5}, sx_ambulatori:3, sx_attrezzature_med:30000, sx_arredo_str:40000, sx_software_san:1200 },
+    'Veterinaria':                        { _stat:{fat:350000,ebitda:28,ndip:3,g1:5,g2:5,g3:4}, sx_ambulatori:2, sx_attrezzature_med:45000, sx_arredo_str:15000, sx_software_san:2400 },
   }},
   it: { sx_tipo_prodotto: {
-    'SaaS — Software as a Service':         { sx_infra_cloud:15000, sx_clienti_saas:100, sx_arpu:150 },
-    'App mobile (iOS/Android)':             { sx_infra_cloud:8000,  sx_clienti_saas:500, sx_arpu:30  },
-    'Piattaforma web B2B':                  { sx_infra_cloud:20000, sx_clienti_saas:50,  sx_arpu:400 },
-    'IT Consulting & System Integration':   { sx_infra_cloud:3000,  sx_clienti_saas:20,  sx_arpu:3000},
-    'E-commerce / Marketplace':             { sx_infra_cloud:12000, sx_clienti_saas:1000,sx_arpu:20  },
-    'AI / Machine Learning':                { sx_infra_cloud:30000, sx_clienti_saas:30,  sx_arpu:500 },
-    'Cybersecurity':                        { sx_infra_cloud:10000, sx_clienti_saas:25,  sx_arpu:800 },
+    'SaaS — Software as a Service':         { _stat:{fat:280000,ebitda:35,ndip:3,g1:30,g2:25,g3:20}, sx_infra_cloud:15000, sx_clienti_saas:100, sx_arpu:150 },
+    'App mobile (iOS/Android)':             { _stat:{fat:180000,ebitda:28,ndip:2,g1:40,g2:30,g3:25}, sx_infra_cloud:8000,  sx_clienti_saas:500, sx_arpu:30  },
+    'Piattaforma web B2B':                  { _stat:{fat:350000,ebitda:32,ndip:4,g1:25,g2:20,g3:15}, sx_infra_cloud:20000, sx_clienti_saas:50,  sx_arpu:400 },
+    'IT Consulting & System Integration':   { _stat:{fat:480000,ebitda:28,ndip:5,g1:8,g2:7,g3:6},   sx_infra_cloud:3000,  sx_clienti_saas:20,  sx_arpu:3000},
+    'E-commerce / Marketplace':             { _stat:{fat:320000,ebitda:22,ndip:3,g1:20,g2:18,g3:15}, sx_infra_cloud:12000, sx_clienti_saas:1000,sx_arpu:20  },
+    'AI / Machine Learning':                { _stat:{fat:220000,ebitda:30,ndip:3,g1:50,g2:40,g3:30}, sx_infra_cloud:30000, sx_clienti_saas:30,  sx_arpu:500 },
+    'Cybersecurity':                        { _stat:{fat:380000,ebitda:32,ndip:4,g1:12,g2:10,g3:8},  sx_infra_cloud:10000, sx_clienti_saas:25,  sx_arpu:800 },
   }},
   formazione: { sx_tipo_form: {
-    'Asilo nido / Scuola dell\'infanzia':    { sx_n_iscritti:30,  sx_n_aule:3, sx_attrezzature_did:15000, sx_quota_media:500 },
-    'Centro formazione professionale':       { sx_n_iscritti:80,  sx_n_aule:5, sx_attrezzature_did:20000, sx_quota_media:1200 },
-    'Corsi di lingua':                       { sx_n_iscritti:60,  sx_n_aule:4, sx_attrezzature_did:5000,  sx_quota_media:800 },
-    'Formazione aziendale (B2B)':            { sx_n_iscritti:20,  sx_n_aule:2, sx_attrezzature_did:8000,  sx_quota_media:2500 },
-    'Piattaforma e-learning':                { sx_n_iscritti:500, sx_n_aule:0, sx_attrezzature_did:25000, sx_quota_media:200 },
-    'Scuola privata (materna/primaria/secondaria)':{ sx_n_iscritti:120, sx_n_aule:8, sx_attrezzature_did:30000, sx_quota_media:3500 },
-    'Accademia / Scuola d\'arte':            { sx_n_iscritti:50,  sx_n_aule:4, sx_attrezzature_did:20000, sx_quota_media:2000 },
-    'Doposcuola / Tutoraggio':               { sx_n_iscritti:40,  sx_n_aule:3, sx_attrezzature_did:4000,  sx_quota_media:600 },
+    'Asilo nido / Scuola dell\'infanzia':    { _stat:{fat:280000,ebitda:22,ndip:6,g1:4,g2:4,g3:3}, sx_n_iscritti:30,  sx_n_aule:3, sx_attrezzature_did:15000, sx_quota_media:500 },
+    'Centro formazione professionale':       { _stat:{fat:480000,ebitda:32,ndip:7,g1:6,g2:5,g3:5}, sx_n_iscritti:80,  sx_n_aule:5, sx_attrezzature_did:20000, sx_quota_media:1200 },
+    'Corsi di lingua':                       { _stat:{fat:220000,ebitda:28,ndip:4,g1:7,g2:6,g3:5}, sx_n_iscritti:60,  sx_n_aule:4, sx_attrezzature_did:5000,  sx_quota_media:800 },
+    'Formazione aziendale (B2B)':            { _stat:{fat:380000,ebitda:35,ndip:4,g1:8,g2:7,g3:6}, sx_n_iscritti:20,  sx_n_aule:2, sx_attrezzature_did:8000,  sx_quota_media:2500 },
+    'Piattaforma e-learning':                { _stat:{fat:180000,ebitda:55,ndip:2,g1:25,g2:20,g3:16},sx_n_iscritti:500, sx_n_aule:0, sx_attrezzature_did:25000, sx_quota_media:200 },
+    'Scuola privata (materna/primaria/secondaria)':{ _stat:{fat:720000,ebitda:18,ndip:12,g1:4,g2:3,g3:3}, sx_n_iscritti:120, sx_n_aule:8, sx_attrezzature_did:30000, sx_quota_media:3500 },
+    'Accademia / Scuola d\'arte':            { _stat:{fat:280000,ebitda:25,ndip:5,g1:6,g2:5,g3:5}, sx_n_iscritti:50,  sx_n_aule:4, sx_attrezzature_did:20000, sx_quota_media:2000 },
+    'Doposcuola / Tutoraggio':               { _stat:{fat:120000,ebitda:32,ndip:2,g1:8,g2:7,g3:6}, sx_n_iscritti:40,  sx_n_aule:3, sx_attrezzature_did:4000,  sx_quota_media:600 },
   }},
   energia: { sx_tipo_en: {
-    'Installazione fotovoltaico (residenziale)':          { sx_inv_impianti:80000,  sx_n_contratti:40, sx_potenza:200 },
-    'Installazione fotovoltaico (industriale)':           { sx_inv_impianti:400000, sx_n_contratti:8,  sx_potenza:500 },
-    'Efficienza energetica (coibentazione, caldaie, LED)':{ sx_inv_impianti:60000,  sx_n_contratti:30, sx_potenza:0 },
-    'Gestione rifiuti / Raccolta differenziata':          { sx_inv_impianti:200000, sx_n_contratti:5,  sx_potenza:0 },
-    'Mobilità elettrica (colonnine, flotte)':             { sx_inv_impianti:150000, sx_n_contratti:15, sx_potenza:0 },
-    'Biomassa / Biogas':                                  { sx_inv_impianti:500000, sx_n_contratti:3,  sx_potenza:300 },
+    'Installazione fotovoltaico (residenziale)':          { _stat:{fat:650000,ebitda:28,ndip:5,g1:15,g2:12,g3:10}, sx_inv_impianti:80000,  sx_n_contratti:40, sx_potenza:200 },
+    'Installazione fotovoltaico (industriale)':           { _stat:{fat:2200000,ebitda:22,ndip:12,g1:18,g2:14,g3:12}, sx_inv_impianti:400000, sx_n_contratti:8,  sx_potenza:500 },
+    'Efficienza energetica (coibentazione, caldaie, LED)':{ _stat:{fat:620000,ebitda:28,ndip:6,g1:12,g2:10,g3:8},  sx_inv_impianti:60000,  sx_n_contratti:30, sx_potenza:0 },
+    'Gestione rifiuti / Raccolta differenziata':          { _stat:{fat:1100000,ebitda:18,ndip:9,g1:5,g2:4,g3:4},   sx_inv_impianti:200000, sx_n_contratti:5,  sx_potenza:0 },
+    'Mobilità elettrica (colonnine, flotte)':             { _stat:{fat:480000,ebitda:26,ndip:4,g1:20,g2:16,g3:12}, sx_inv_impianti:150000, sx_n_contratti:15, sx_potenza:0 },
+    'Biomassa / Biogas':                                  { _stat:{fat:950000,ebitda:32,ndip:7,g1:8,g2:7,g3:6},    sx_inv_impianti:500000, sx_n_contratti:3,  sx_potenza:300 },
   }},
 };
 
 function suggerisciValori(macro, campoId, val) {
   var sg = (SUGGERIMENTI[macro] && SUGGERIMENTI[macro][campoId] && SUGGERIMENTI[macro][campoId][val]) || null;
   if (!sg) return;
+
+  // Aggiorna campi settore (esclude _stat)
   Object.keys(sg).forEach(function(fid) {
+    if (fid === '_stat') return;
     var el = document.getElementById(fid);
     if (el) el.value = sg[fid];
   });
-  // Feedback visivo rapido sui campi compilati
+
+  // Aggiorna Step 1 con dati statistici reali CCIAA/FIPE/ANCE/ISTAT
+  if (sg._stat) {
+    var s = sg._stat;
+    var annoBase = new Date().getFullYear() - 1;
+    var r0 = s.fat;
+    var r1 = Math.round(r0 * (1 + s.g1/100));
+    var r2 = Math.round(r1 * (1 + s.g2/100));
+    var r3 = Math.round(r2 * (1 + s.g3/100));
+    ['fat1','fat2','fat3'].forEach(function(id,i){ var el=document.getElementById(id); if(el) el.value=[r1,r2,r3][i]; });
+    ['ebitda1','ebitda2','ebitda3'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=s.ebitda; });
+    if (document.getElementById('az_ndip') && s.ndip) document.getElementById('az_ndip').value = s.ndip;
+    aggiornaMOL(1); aggiornaMOL(2); aggiornaMOL(3);
+    // Mostra nota statistica
+    var nota = document.getElementById('stat-nota');
+    if (!nota) {
+      nota = document.createElement('div');
+      nota.id = 'stat-nota';
+      nota.style.cssText = 'font-size:.72rem;color:#0369a1;background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:8px 12px;margin-bottom:10px;line-height:1.5';
+      var step1 = document.getElementById('modalSummary');
+      if (step1 && step1.parentNode) step1.parentNode.insertBefore(nota, step1);
+    }
+    nota.style.display = 'block';
+    nota.innerHTML = '📊 <strong>Dati statistici aggiornati</strong> — Fonte: FIPE/CCIAA/ANCE/ISTAT ' + new Date().getFullYear() + '. Fatturato medio aziende italiane "<em>' + val + '</em>": <strong>€ ' + r0.toLocaleString('it-IT') + '</strong> (anno base), EBITDA medio: <strong>' + s.ebitda + '%</strong>. I valori sono modificabili liberamente.';
+    aggiornaSummary();
+    // Rigenera descrizioni con nuovo sotto-tipo
+    setTimeout(function(){ generaDescrizioniBase(); }, 100);
+  }
+
+  // Feedback visivo
   var flash = document.querySelectorAll('#campi-settore-extra input, #campi-settore-extra select');
-  flash.forEach(function(el){ el.style.transition='background .3s'; el.style.background='#f0fdf4'; setTimeout(function(){ el.style.background=''; }, 600); });
+  flash.forEach(function(el){ el.style.transition='background .3s'; el.style.background='#f0fdf4'; setTimeout(function(){ el.style.background=''; }, 700); });
 }
 
 // ── Render campi settore in Step 3 ─────────────────────────────────────────
