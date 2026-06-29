@@ -1279,6 +1279,25 @@ async function generaBusinessPlan() {
     ? [{ desc: finalita || 'Investimento progetto', tipo: 'materiali', a1: capexImp, a2: 0, a3: 0, vita: 5 }]
     : [];
 
+  // ── Stato Patrimoniale sintetico ───────────────────────────────────────
+  // Per nuove aziende / template si sintetizzano dati patrimoniali coerenti
+  // con il benchmark settoriale in modo da mostrare un report completo.
+  var R0 = d.ricavi_base;
+  var synCapSoc  = capSoc  > 0 ? capSoc  : (nuovoFin ? Math.max(10000, Math.round(finImporto * 0.10)) : 10000);
+  var synPn      = pnAttuale > 0 ? pnAttuale : synCapSoc;
+  var synPfn     = pfnStorico > 0 ? pfnStorico : (nuovoFin ? finImporto : 0);
+  var synDebMLT  = synPfn > 0 ? synPfn : 0;
+  var synDebBT   = 0;
+  var synCreditiC= Math.round(R0 * 60 / 365);
+  var synRimanenze= d.perc_var > 0 ? Math.round(R0 * (d.perc_var/100) * 30 / 365) : 0;
+  var synLiquidita= Math.round(R0 * 0.05);
+  var synImmobMat = Math.round(d.ammortamenti * 5) + capexImp;
+  var synDebForn  = Math.round(R0 * (d.perc_var/100) * 45 / 365);
+  var synTfr      = Math.round(d.costo_pers_storico * 0.07);
+  var synTotAtt   = synImmobMat + synCreditiC + synRimanenze + synLiquidita;
+  // Riserve = sbilancio passivo dopo PN e debiti
+  var synRiserve  = Math.max(0, synTotAtt - synPn - synDebMLT - synDebBT - synDebForn - synTfr - synCapSoc);
+
   var payload = {
     // Anagrafica
     nome: nome,
@@ -1293,11 +1312,23 @@ async function generaBusinessPlan() {
     // Dati storici (benchmark settore)
     anno_base: annoBase,
     ricavi_base: d.ricavi_base,
-    ebitda_storico: Math.round(d.ricavi_base * d.ebitda_margin / 100),
     costo_pers_storico: d.costo_pers_storico,
-    pfn_storico: pfnStorico,
-    pn_attuale: pnAttuale,
-    cap_soc: capSoc,
+    pfn_storico: synPfn,
+    pn_attuale: synPn,
+    cap_soc: synCapSoc,
+    riserve: synRiserve,
+    tfr_storico: synTfr,
+    crediti_clienti: synCreditiC,
+    rimanenze_storiche: synRimanenze,
+    liquidita: synLiquidita,
+    immob_mat: synImmobMat,
+    tot_attivo: synTotAtt,
+    debiti_fornitori: synDebForn,
+    deb_bt: synDebBT,
+    deb_mlt: synDebMLT,
+    ebitda_storico: Math.round(R0 * d.ebitda_margin / 100),
+    ammortamenti_storici: d.ammortamenti,
+    utile_storico: Math.round(R0 * d.ebitda_margin / 100 - d.ammortamenti),
     // Proiezioni
     scenario: 'custom',
     g1: g1, g2: g2, g3: g3,
@@ -1325,7 +1356,6 @@ async function generaBusinessPlan() {
     fonte_capex: nuovoFin ? 'finanziamento' : '',
     perc_fin_capex: 70,
     // Finanza
-    deb_bt: 0, deb_mlt: pfnStorico > 0 ? pfnStorico : 0,
     rata_esistente: rataEsistente, interessi_esistenti: 0, anni_residui: 0,
     nuovo_fin: nuovoFin,
     fin_importo: finImporto, fin_durata: finDurata, fin_tasso: finTasso,
