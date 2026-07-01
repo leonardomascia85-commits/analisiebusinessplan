@@ -1307,7 +1307,20 @@ function suggerisciValori(macro, campoId, val) {
     ['ebitda1','ebitda2','ebitda3'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=s.ebitda; });
     if (document.getElementById('az_ndip') && s.ndip) document.getElementById('az_ndip').value = s.ndip;
     aggiornaMOL(1); aggiornaMOL(2); aggiornaMOL(3);
-    // Mostra nota statistica
+    // Mostra nota statistica (in Step 3 sotto il box settore, e in Step 1)
+    var notaContent = '📊 <strong>Dati statistici</strong> — Fonte FIPE/CCIAA/ANCE/ISTAT ' + new Date().getFullYear() + '. Fatturato medio "<em>' + val + '</em>": <strong>€ ' + r0.toLocaleString('it-IT') + '</strong>, EBITDA medio: <strong>' + s.ebitda + '%</strong>. Valori precompilati nel Passo 1, modificabili liberamente.';
+    // Banner in Step 3 (dopo il box settore)
+    var nota3 = document.getElementById('stat-nota-3');
+    if (!nota3) {
+      nota3 = document.createElement('div');
+      nota3.id = 'stat-nota-3';
+      nota3.style.cssText = 'font-size:.72rem;color:#0369a1;background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:8px 12px;margin-bottom:12px;line-height:1.5';
+      var cse = document.getElementById('campi-settore-extra');
+      if (cse && cse.parentNode) cse.parentNode.insertBefore(nota3, cse.nextSibling);
+    }
+    nota3.style.display = 'block';
+    nota3.innerHTML = notaContent;
+    // Banner in Step 1 (visibile quando si torna indietro)
     var nota = document.getElementById('stat-nota');
     if (!nota) {
       nota = document.createElement('div');
@@ -1317,7 +1330,7 @@ function suggerisciValori(macro, campoId, val) {
       if (step1 && step1.parentNode) step1.parentNode.insertBefore(nota, step1);
     }
     nota.style.display = 'block';
-    nota.innerHTML = '📊 <strong>Dati statistici aggiornati</strong> — Fonte: FIPE/CCIAA/ANCE/ISTAT ' + new Date().getFullYear() + '. Fatturato medio aziende italiane "<em>' + val + '</em>": <strong>€ ' + r0.toLocaleString('it-IT') + '</strong> (anno base), EBITDA medio: <strong>' + s.ebitda + '%</strong>. I valori sono modificabili liberamente.';
+    nota.innerHTML = notaContent;
     aggiornaSummary();
     // Rigenera descrizioni con nuovo sotto-tipo
     setTimeout(function(){ generaDescrizioniBase(); }, 100);
