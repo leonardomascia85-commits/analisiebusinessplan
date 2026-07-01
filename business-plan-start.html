@@ -1709,7 +1709,13 @@ async function generaBusinessPlan() {
   var e2   = parseFloat(document.getElementById('ebitda2').value);
   var e3   = parseFloat(document.getElementById('ebitda3').value);
 
-  var g1 = Math.round(((fat1 / d.ricavi_base) - 1) * 100 * 10) / 10;
+  // R0 = anno base sintetico: fat1 retroproiettato al tasso naturale del template.
+  // Evita che il benchmark settoriale (d.ricavi_base) venga trattato come storico reale
+  // quando il cliente ha inserito ricavi molto diversi dal benchmark (es. B&B da 110k
+  // invece del benchmark hotel da 900k). In questo modo g1 risulta il tasso naturale
+  // del settore e il "storico" è coerente con le proiezioni inserite.
+  var R0 = Math.round(fat1 / (1 + Math.max(d.g1, 1) / 100));
+  var g1 = Math.round(((fat1 / R0) - 1) * 100 * 10) / 10;
   var g2 = Math.round(((fat2 / fat1) - 1) * 100 * 10) / 10;
   var g3 = Math.round(((fat3 / fat2) - 1) * 100 * 10) / 10;
   var ebitdaMedio = Math.round((e1 + e2 + e3) / 3 * 10) / 10;
@@ -1755,21 +1761,26 @@ async function generaBusinessPlan() {
   if (extraCapexVal > 0 && !capexImp) capexList.push({ desc: extraCapexDesc || 'Attrezzature/mezzi settoriali', tipo: 'materiali', a1: extraCapexVal, a2: 0, a3: 0, vita: 5 });
 
   // ── Stato Patrimoniale sintetico ───────────────────────────────────────
-  // Per nuove aziende / template si sintetizzano dati patrimoniali coerenti
-  // con il benchmark settoriale in modo da mostrare un report completo.
-  var R0 = d.ricavi_base;
-  var synCapSoc  = capSoc  > 0 ? capSoc  : (nuovoFin ? Math.max(10000, Math.round(finImporto * 0.10)) : 10000);
-  var synPn      = pnAttuale > 0 ? pnAttuale : synCapSoc;
-  var synPfn     = pfnStorico > 0 ? pfnStorico : (nuovoFin ? finImporto : 0);
-  var synDebMLT  = synPfn > 0 ? synPfn : 0;
-  var synDebBT   = 0;
-  var synCreditiC= Math.round(R0 * 60 / 365);
+  // R0 è già calcolato sopra come retroproiezione di fat1.
+  // Tutti i parametri dimensionali (costo personale, ammortamenti, costi fissi)
+  // vengono scalati con il rapporto R0/d.ricavi_base per essere coerenti con
+  // le dimensioni aziendali reali (non con il benchmark di settore).
+  var _scale      = d.ricavi_base > 0 ? R0 / d.ricavi_base : 1;
+  var synCostoPers = Math.round(d.costo_pers_storico * _scale);
+  var synAmmort    = Math.round(d.ammortamenti * _scale);
+  var synCostiFissi= Math.round(d.costi_fissi * _scale);
+  var synCapSoc   = capSoc  > 0 ? capSoc  : (nuovoFin ? Math.max(10000, Math.round(finImporto * 0.10)) : 10000);
+  var synPn       = pnAttuale > 0 ? pnAttuale : synCapSoc;
+  var synPfn      = pfnStorico > 0 ? pfnStorico : (nuovoFin ? finImporto : 0);
+  var synDebMLT   = synPfn > 0 ? synPfn : 0;
+  var synDebBT    = 0;
+  var synCreditiC = Math.round(R0 * 60 / 365);
   var synRimanenze= d.perc_var > 0 ? Math.round(R0 * (d.perc_var/100) * 30 / 365) : 0;
   var synLiquidita= Math.round(R0 * 0.05);
   var totalCapex  = capexImp || extraCapexVal || 0;
-  var synImmobMat = Math.round(d.ammortamenti * 5) + totalCapex;
+  var synImmobMat = Math.round(synAmmort * 5) + totalCapex;
   var synDebForn  = Math.round(R0 * (d.perc_var/100) * 45 / 365);
-  var synTfr      = Math.round(d.costo_pers_storico * 0.07);
+  var synTfr      = Math.round(synCostoPers * 0.07);
   var synTotAtt   = synImmobMat + synCreditiC + synRimanenze + synLiquidita + extraLiquidita;
   // Riserve = sbilancio passivo dopo PN e debiti
   var synRiserve  = Math.max(0, synTotAtt - synPn - synDebMLT - synDebBT - synDebForn - synTfr - synCapSoc);
@@ -1787,8 +1798,8 @@ async function generaBusinessPlan() {
     ipotesi_stress: 'Scenario stress: ricavi -20%, EBITDA margin -3pp. Analisi DSCR su finanziamenti.',
     // Dati storici (benchmark settore)
     anno_base: annoBase,
-    ricavi_base: d.ricavi_base,
-    costo_pers_storico: d.costo_pers_storico,
+    ricavi_base: R0,
+    costo_pers_storico: synCostoPers,
     pfn_storico: synPfn,
     pn_attuale: synPn,
     cap_soc: synCapSoc,
@@ -1803,8 +1814,8 @@ async function generaBusinessPlan() {
     deb_bt: synDebBT,
     deb_mlt: synDebMLT,
     ebitda_storico: Math.round(R0 * d.ebitda_margin / 100),
-    ammortamenti_storici: d.ammortamenti,
-    utile_storico: Math.round(R0 * d.ebitda_margin / 100 - d.ammortamenti),
+    ammortamenti_storici: synAmmort,
+    utile_storico: Math.round(R0 * d.ebitda_margin / 100 - synAmmort),
     // Proiezioni
     scenario: 'custom',
     g1: g1, g2: g2, g3: g3,
@@ -1812,18 +1823,18 @@ async function generaBusinessPlan() {
     sc_ottim_g1: d.sc_ottim_g1,  sc_ottim_g2: d.sc_ottim_g2,  sc_ottim_g3: d.sc_ottim_g3,
     // Margini
     ebitda_margin: ebitdaMedio,
-    costi_fissi: d.costi_fissi,
+    costi_fissi: synCostiFissi,
     perc_var: d.perc_var,
     incr_fissi: 2,
     var_materie: 2,
-    ammortamenti: d.ammortamenti,
+    ammortamenti: synAmmort,
     tax_rate: 27.9,
     dso: 60, dpo: 45, dio: 30,
     perc_ccn: 8,
     margine_lordo: 0,
     // Personale
     n_dip: nDip,
-    costo_medio_dip: nDip > 0 ? Math.round(d.costo_pers_storico / nDip) : 35000,
+    costo_medio_dip: nDip > 0 ? Math.round(synCostoPers / nDip) : 35000,
     incr_pers: 2,
     tfr_perc: 6.91,
     consulenze: 0,
