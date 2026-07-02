@@ -158,6 +158,12 @@
 <div id="toast"></div>
 
 <script>
+/* ── Auth guard ── */
+(function(){
+  try{ var u=JSON.parse(localStorage.getItem('abp_user')||'null'); if(!u) window.location.replace('auth.html'); }
+  catch(e){ window.location.replace('auth.html'); }
+})();
+
 const LS_KEY = 'abp_projects';
 
 function loadProjects() {
