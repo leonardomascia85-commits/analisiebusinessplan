@@ -3,5 +3,11 @@
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*\\.html)", "destination": "/$1" },
     { "source": "/", "destination": "/index.html" }
+  ],
+  "crons": [
+    {
+      "path": "/api/ping",
+      "schedule": "0 9 */3 * *"
+    }
   ]
 }
