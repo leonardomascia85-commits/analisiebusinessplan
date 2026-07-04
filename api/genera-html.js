@@ -379,7 +379,7 @@ function buildReportHTML(data, config) {
   const mcc = calcMCC(c, d);
   const anno = config.anno || '2024';
   const nome = config.nome || d.nome || 'Azienda';
-  const analista = config.analista || 'AnalisiEBusinessPlan.it';
+  const analista = config.analista || 'AnalisiEBusinessPlan.com';
   const dataReport = config.dataReport || new Date().toLocaleDateString('it-IT');
   const note = config.note || '';
   const colore = config.colore === 'green' ? '#059669' : config.colore === 'dark' ? '#1E293B' : '#1D4ED8';
@@ -633,7 +633,7 @@ function buildReportHTML(data, config) {
 <!-- COPERTINA -->
 <div class="cover">
   <div style="position:relative;z-index:1;">
-    <div class="cv-brand">AnalisiEBusinessPlan.it — Software professionale di analisi bilancio</div>
+    <div class="cv-brand">AnalisiEBusinessPlan.com — Software professionale di analisi bilancio</div>
     <div class="cv-tipo">Analisi di Bilancio d'Esercizio</div>
     <div class="cv-nome">${nome}</div>
     <div class="cv-sub">Esercizio chiuso al 31/12/${anno}</div>
@@ -649,7 +649,7 @@ function buildReportHTML(data, config) {
       <div><div class="cv-meta-lbl">Analista</div><div class="cv-meta-val">${analista}</div></div>
       <div><div class="cv-meta-lbl">Data report</div><div class="cv-meta-val">${dataReport}</div></div>
     </div>
-    <div class="cv-footer">Documento riservato · AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + Trigger CCII</div>
+    <div class="cv-footer">Documento riservato · AnalisiEBusinessPlan.com · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + Trigger CCII</div>
   </div>
 </div>
 
@@ -721,7 +721,7 @@ function buildReportHTML(data, config) {
     </div>
   </div>
 
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 2</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 2</span></div>
 </div>
 
 <!-- PAG 3: EXECUTIVE SUMMARY + GRAFICI -->
@@ -772,7 +772,7 @@ function buildReportHTML(data, config) {
       <span class="sem-val" style="color:${color}">${val}</span>
     </div>`).join('')}
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 3</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 3</span></div>
 </div>
 
 <!-- PAG 4: STATO PATRIMONIALE -->
@@ -803,7 +803,7 @@ function buildReportHTML(data, config) {
       <tr class="tot-main"><td>TOTALE PASSIVO</td><td class="r">${fmt(d.tot_att)}</td>${d1?`<td class="r">${fmt(d1.tot_att)}</td><td class="r ${varCls(d.tot_att,d1.tot_att)}">${varPct(d.tot_att,d1.tot_att)}</td>`:''}</tr>
     </tbody>
   </table>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 4</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 4</span></div>
 </div>
 
 <!-- PAG 5: CONTO ECONOMICO + WATERFALL -->
@@ -844,7 +844,7 @@ function buildReportHTML(data, config) {
       </div>
     </div>
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 5</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 5</span></div>
 </div>
 
 <!-- PAG 6: EVOLUZIONE BIENNALE (solo se _prev disponibile) -->
@@ -982,7 +982,7 @@ ${d1 ? (() => {
     </div>
   </div>
 
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 6</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 6</span></div>
 </div>`;
 })() : ''}
 
@@ -1052,7 +1052,7 @@ ${d1 ? (() => {
       <div class="ind-action">💡 <strong>Cosa fare:</strong> ${c.acid>=1.0?'Ottima posizione. Mantenere una gestione prudente del magazzino.':c.acid>=0.7?'Ridurre le scorte di magazzino e velocizzare gli incassi. Valutare anticipo fatture.':'Riduzione urgente del magazzino (sconti, promozioni), accelerare gli incassi, sospendere nuovi acquisti di stock.'}</div>
     </div>
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 5</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 5</span></div>
 </div>
 
 <!-- PAG 6: SOLIDITÀ + EFFICIENZA -->
@@ -1120,7 +1120,7 @@ ${d1 ? (() => {
       <div class="ind-action">💡 <strong>Cosa fare:</strong> ${isNaN(c.dpo)?'Inserire i dati di debiti verso fornitori e acquisti per calcolare questo indice.':c.dpo>=60?'Ottima gestione. Mantenere i termini negoziati con i fornitori.':c.dpo>=30?'Negoziare con i fornitori principali dilazioni a 60-90 gg. Offrire garanzie o volumi per ottenere condizioni migliori.':'Rinegoziare immediatamente i termini di pagamento. Ogni giorno in più è liquidità gratuita.'}</div>
     </div>
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 6</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 6</span></div>
 </div>
 
 <!-- PAG 7: BANCABILITÀ EBA -->
@@ -1147,7 +1147,7 @@ ${d1 ? (() => {
       <div class="banc-desc">${desc}</div>
     </div>`).join('')}
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 7</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 7</span></div>
 </div>
 
 ${hasRF ? `
@@ -1182,7 +1182,7 @@ ${hasRF ? `
     <div class="rf-kpi"><div class="rf-kpi-lbl">Variazione liquidità (A+B+C)</div><div class="rf-kpi-val ${((d.rf_a||0)+(d.rf_b||0)+(d.rf_c||0))>=0?'pos':'neg'}">${fmt((d.rf_a||0)+(d.rf_b||0)+(d.rf_c||0))}</div></div>
     <div class="rf-kpi"><div class="rf-kpi-lbl">Free Cash Flow (A+B)</div><div class="rf-kpi-val ${((d.rf_a||0)+(d.rf_b||0))>=0?'pos':'neg'}">${fmt((d.rf_a||0)+(d.rf_b||0))}</div></div>
   </div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. 8</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 8</span></div>
 </div>` : ''}
 
 <!-- PAG RATING FINALE -->
@@ -1248,8 +1248,8 @@ ${hasRF ? `
     </div>
   </div>
   ${note?`<div class="note-box"><div class="note-title">Note analista</div><div class="note-text">${note}</div></div>`:''}
-  <div class="disclaimer">Report generato da AnalisiEBusinessPlan.it · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + verifica trigger CCII (D.Lgs. 14/2019) · Generato il ${dataReport} · Basato esclusivamente su dati di bilancio (non include componente andamentale Centrale Rischi).</div>
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Pag. ${hasRF?'9':'8'}</span></div>
+  <div class="disclaimer">Report generato da AnalisiEBusinessPlan.com · Rating: Z'-Score Altman PMI (30%) + Scorecard EBA/GL/2020/06 (70%) + verifica trigger CCII (D.Lgs. 14/2019) · Generato il ${dataReport} · Basato esclusivamente su dati di bilancio (non include componente andamentale Centrale Rischi).</div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. ${hasRF?'9':'8'}</span></div>
 </div>
 
 <!-- PAG MCC: RATING FONDO DI GARANZIA PMI -->
@@ -1328,7 +1328,7 @@ ${hasRF ? `
     </div>
   </div>
 
-  <div class="pf"><span>AnalisiEBusinessPlan.it</span><span>${nome} — ${anno}</span><span>Ultima pagina</span></div>
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Ultima pagina</span></div>
 </div>
 
 </body></html>`;

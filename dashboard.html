@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard Progetti | AnalisiEBusinessPlan.it</title>
+  <title>Dashboard Progetti | AnalisiEBusinessPlan.com</title>
   <meta name="robots" content="noindex"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -158,6 +158,12 @@
 <div id="toast"></div>
 
 <script>
+/* ── Auth guard ── */
+(function(){
+  try{ var u=JSON.parse(localStorage.getItem('abp_user')||'null'); if(!u) window.location.replace('auth.html'); }
+  catch(e){ window.location.replace('auth.html'); }
+})();
+
 const LS_KEY = 'abp_projects';
 
 function loadProjects() {

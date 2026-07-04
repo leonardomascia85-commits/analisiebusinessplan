@@ -11,6 +11,6 @@ module.exports = async function handler(req, res) {
   // Per ora restituisce 404 con messaggio chiaro
   return res.status(404).json({
     error: 'Fattura non disponibile',
-    message: 'Il download delle fatture sarà disponibile a breve. Contatta info@analisiebusinessplan.it per ricevere la tua fattura.'
+    message: 'Il download delle fatture sarà disponibile a breve. Contatta info@analisiebusinessplan.com per ricevere la tua fattura.'
   });
 };

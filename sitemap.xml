@@ -3,7 +3,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://analisiebusinessplan.it/</loc>
+    <loc>https://analisiebusinessplan.com/</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -11,25 +11,25 @@
 
   <!-- Prodotti principali -->
   <url>
-    <loc>https://analisiebusinessplan.it/importa-xbrl.html</loc>
+    <loc>https://analisiebusinessplan.com/importa-xbrl.html</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://analisiebusinessplan.it/bilancio-multianno.html</loc>
+    <loc>https://analisiebusinessplan.com/bilancio-multianno.html</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://analisiebusinessplan.it/business-plan.html</loc>
+    <loc>https://analisiebusinessplan.com/business-plan.html</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://analisiebusinessplan.it/bilancio.html</loc>
+    <loc>https://analisiebusinessplan.com/bilancio.html</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -37,7 +37,7 @@
 
   <!-- Contenuto informativo -->
   <url>
-    <loc>https://analisiebusinessplan.it/guide.html</loc>
+    <loc>https://analisiebusinessplan.com/guide.html</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -45,19 +45,19 @@
 
   <!-- Legal -->
   <url>
-    <loc>https://analisiebusinessplan.it/privacy.html</loc>
+    <loc>https://analisiebusinessplan.com/privacy.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://analisiebusinessplan.it/termini.html</loc>
+    <loc>https://analisiebusinessplan.com/termini.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://analisiebusinessplan.it/cookie-policy.html</loc>
+    <loc>https://analisiebusinessplan.com/cookie-policy.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
