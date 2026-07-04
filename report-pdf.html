@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Genera Report PDF Analisi Bilancio Professionale | AnalisiEBusinessPlan.it</title>
+  <title>Genera Report PDF Analisi Bilancio Professionale | AnalisiEBusinessPlan.com</title>
   <meta name="description" content="Genera un report PDF professionale di analisi bilancio pronto per banche e investitori. Include SP, CE, indici, bancabilita, rating sintetico e rendiconto finanziario."/>
   <meta name="robots" content="noindex"/>
-  <link rel="canonical" href="https://analisiebusinessplan.it/report-pdf.html"/>
+  <link rel="canonical" href="https://analisiebusinessplan.com/report-pdf.html"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://analisiebusinessplan.it/report-pdf.html"/>
-  <meta property="og:title" content="Genera Report PDF Analisi Bilancio Professionale | AnalisiEBusinessPlan.it"/>
+  <meta property="og:url" content="https://analisiebusinessplan.com/report-pdf.html"/>
+  <meta property="og:title" content="Genera Report PDF Analisi Bilancio Professionale | AnalisiEBusinessPlan.com"/>
   <meta property="og:description" content="Genera un report PDF professionale di analisi bilancio pronto per banche e investitori. Include SP, CE, indici, bancabilita, rating sintetico e rendiconto finanziario."/>
   <meta property="og:locale" content="it_IT"/>
-  <meta property="og:site_name" content="AnalisiEBusinessPlan.it"/>
+  <meta property="og:site_name" content="AnalisiEBusinessPlan.com"/>
   <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="Genera Report PDF Analisi Bilancio Professionale | AnalisiEBusinessPlan.it"/>
+  <meta name="twitter:title" content="Genera Report PDF Analisi Bilancio Professionale | AnalisiEBusinessPlan.com"/>
   <meta name="twitter:description" content="Genera un report PDF professionale di analisi bilancio pronto per banche e investitori. Include SP, CE, indici, bancabilita, rating sintetico e rendiconto finanziario."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -246,7 +246,7 @@
           <!-- PDF MOCK -->
           <div class="pdf-mock">
             <div class="pm-cover">
-              <div class="pm-logo-line">AnalisiEBusinessPlan.it</div>
+              <div class="pm-logo-line">AnalisiEBusinessPlan.com</div>
               <div class="pm-azienda" id="prev-nome">AZIENDA S.R.L.</div>
               <div class="pm-tipo">ANALISI DI BILANCIO · <span id="prev-anno">2024</span></div>
               <div class="pm-rating" id="prev-rating" style="background:rgba(16,185,129,.3);color:#10B981;">A</div>
@@ -265,7 +265,7 @@
                 <div class="pm-row"><span>PFN/EBITDA</span><span class="pm-row-val">—</span></div>
               </div>
             </div>
-            <div class="pm-footer">Documento generato da AnalisiEBusinessPlan.it · Uso riservato</div>
+            <div class="pm-footer">Documento generato da AnalisiEBusinessPlan.com · Uso riservato</div>
           </div>
         </div>
 
@@ -438,7 +438,7 @@
       const config = {
         nome: nome,
         anno: document.getElementById('conf-anno').value,
-        analista: document.getElementById('conf-analista').value || 'AnalisiEBusinessPlan.it',
+        analista: document.getElementById('conf-analista').value || 'AnalisiEBusinessPlan.com',
         dataReport: document.getElementById('conf-data').value,
         note: document.getElementById('conf-note').value,
         colore: document.getElementById('conf-colore').value,
@@ -586,7 +586,7 @@
     <!-- COVER -->
     <div class="page">
     <div class="cover">
-      <div class="cv-logo">AnalisiEBusinessPlan.it</div>
+      <div class="cv-logo">AnalisiEBusinessPlan.com</div>
       <div class="cv-main">
         <div class="cv-tipo">Analisi di Bilancio d'Esercizio</div>
         <div class="cv-nome">${nome}</div>
@@ -601,11 +601,11 @@
         <div class="cv-divider"></div>
         <div class="cv-meta">
           <div class="cv-meta-item"><div class="cv-meta-lbl">Bilancio</div><div class="cv-meta-val">Esercizio ${anno}</div></div>
-          <div class="cv-meta-item"><div class="cv-meta-lbl">Analista</div><div class="cv-meta-val">${analista||'AnalisiEBusinessPlan.it'}</div></div>
+          <div class="cv-meta-item"><div class="cv-meta-lbl">Analista</div><div class="cv-meta-val">${analista||'AnalisiEBusinessPlan.com'}</div></div>
           <div class="cv-meta-item"><div class="cv-meta-lbl">Data report</div><div class="cv-meta-val">${document.getElementById('conf-data').value||new Date().toLocaleDateString('it-IT')}</div></div>
         </div>
       </div>
-      <div class="cv-footer">Documento riservato — generato da AnalisiEBusinessPlan.it — uso professionale</div>
+      <div class="cv-footer">Documento riservato — generato da AnalisiEBusinessPlan.com — uso professionale</div>
     </div>
     </div>
 
@@ -645,7 +645,7 @@
       <tr class="sub"><td>Debiti verso fornitori</td><td class="right">${fmt(d.deb_for)}</td></tr>
       <tr class="total-main"><td>TOTALE PASSIVO</td><td class="right">${fmt(d.tot_att)}</td></tr>
     </table>
-    <div class="page-footer"><span>AnalisiEBusinessPlan.it</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 2</span></div>
+    <div class="page-footer"><span>AnalisiEBusinessPlan.com</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 2</span></div>
     </div>
 
     <!-- CE PAGE -->
@@ -685,7 +685,7 @@
         <div class="ic-row"><span class="ic-lbl">PFN / EBITDA</span><span class="ic-val ${pfn<=0||ebitda>0&&pfn/ebitda<3?'g':'r'}">${ebitda>0&&pfn>0?(pfn/ebitda).toFixed(2)+'x':pfn<=0?'< 0':'—'}</span></div>
       </div>
     </div>
-    <div class="page-footer"><span>AnalisiEBusinessPlan.it</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 3</span></div>
+    <div class="page-footer"><span>AnalisiEBusinessPlan.com</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 3</span></div>
     </div>
 
     <!-- RATING PAGE -->
@@ -698,9 +698,9 @@
     </div>
     ${note?`<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-top:20px;"><div style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Note</div><div style="font-size:11px;color:#374151;line-height:1.7;">${note}</div></div>`:''}
     <div style="text-align:center;margin-top:30px;font-size:10px;color:#94a3b8;">
-      Report generato da AnalisiEBusinessPlan.it · I dati sono tratti dal bilancio ufficiale depositato al Registro Imprese · Uso professionale riservato
+      Report generato da AnalisiEBusinessPlan.com · I dati sono tratti dal bilancio ufficiale depositato al Registro Imprese · Uso professionale riservato
     </div>
-    <div class="page-footer"><span>AnalisiEBusinessPlan.it</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 4</span></div>
+    <div class="page-footer"><span>AnalisiEBusinessPlan.com</span><span>${nome} — Bilancio ${anno}</span><span>Pag. 4</span></div>
     </div>
 
     </body></html>`;

@@ -148,7 +148,7 @@ function buildExcel(data, config) {
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
 <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Title>Business Plan ${escXml(nome)} ${annoBase+1}–${annoBase+3}</Title>
-  <Author>AnalisiEBusinessPlan.it</Author>
+  <Author>AnalisiEBusinessPlan.com</Author>
   <Created>${new Date().toISOString()}</Created>
 </DocumentProperties>
 ${styles}
