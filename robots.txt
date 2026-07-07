@@ -11,4 +11,4 @@ Disallow: /report-bp.html
 Disallow: /report.html
 Disallow: /analisi-comparativa.html
 
-Sitemap: https://analisiebusinessplan.it/sitemap.xml
+Sitemap: https://analisiebusinessplan.com/sitemap.xml
