@@ -55,7 +55,14 @@
   window.CookieConsent = {
     get: function () { return getConsent(); },
     hasAnalytics: function () { return !!getConsent().analytics; },
-    reset: function () { localStorage.removeItem(STORAGE_KEY); location.reload(); }
+    reset: function () {
+      localStorage.removeItem(STORAGE_KEY);
+      var existing = document.getElementById('abp-cookie-banner');
+      if (existing) existing.remove();
+      var existingCss = document.getElementById('abp-cookie-css');
+      if (existingCss) existingCss.remove();
+      initBanner();
+    }
   };
 
   /* ── CSS ───────────────────────────────────────────────────── */
