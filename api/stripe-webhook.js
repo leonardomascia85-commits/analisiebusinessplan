@@ -19,7 +19,7 @@ const CEDENTE = {
   comune:      'Palma Campania',
   provincia:   'NA',
   nazione:     'IT',
-  regime:      'RF19', // forfettario — cambia se ordinario
+  regime:      'RF01', // ordinario
 };
 
 // ─── Auth Aruba FE ───────────────────────────────────────────────────────────
@@ -190,7 +190,7 @@ export default async function handler(req, res) {
     // Leggi metadati del cliente da Stripe (salvati al checkout)
     const meta = session.metadata || {};
     const amountTotal = session.amount_total || 0; // in centesimi
-    const aliquota = 22; // IVA 22% — adatta se sei forfettario (0%)
+    const aliquota = 22; // IVA 22% — regime ordinario
     const importoIvato = amountTotal / 100;
     const imponibile   = aliquota > 0 ? importoIvato / (1 + aliquota / 100) : importoIvato;
     const iva          = importoIvato - imponibile;
