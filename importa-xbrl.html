@@ -449,7 +449,8 @@
         deb_b_lt:get('DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheLungoTermine',ctxI),
         deb_for:get('DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI)||get('DebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI)||get('DebitiVersoFornitori',ctxI),
         deb_trib:get('DebitiDebitiTributariTotaleDebitiTributari',ctxI)||get('DebitiTributariTotaleDebitiTributari',ctxI)||get('DebitiTributari',ctxI),
-        deb_prev:get('DebitiDebitiVersoIstitutiPrevidenzialiTotaleDebitiVersoIstitutiPrevidenziali',ctxI)||get('DebitiVersoIstitutiPrevidenziali',ctxI),
+        deb_prev:get('DebitiDebitiVersoIstitutiPrevidenzialiTotaleDebitiVersoIstitutiPrevidenziali',ctxI)||get('DebitiVersoIstitutiPrevidenziali',ctxI)||get('DebitiDebitiVersoIstitutiPrevidenzaSicurezzaSocialeTotaleDebitiVersoIstitutiPrevidenzaSicurezzaSociale',ctxI)||get('DebitiDebitiVersoIstitutiPrevidenzaSicurezzaSocialeEsigibiliEntroEsercizioSuccessivo',ctxI),
+        deb_soci:get('DebitiDebitiVersoSociFinanziamentiTotaleDebitiVersoSociFinanziamenti',ctxI)||get('DebitiVersoSociFinanziamentiTotale',ctxI)||get('DebitiVersoSociFinanziamenti',ctxI),
         alt_deb_other:get('DebitiAltriDebitiTotaleAltriDebiti',ctxI)||get('AltriDebitiTotale',ctxI)||get('AltriDebiti',ctxI),
         tot_deb:get('TotaleDebiti',ctxI),
         ric_vend:get('ValoreProduzioneRicaviVenditePrestazioni',ctxD),
@@ -467,7 +468,7 @@
         utile_n:get('UtilePerditaEsercizio',ctxD),
       };
       // schema abbreviato: se debiti specifici tutti 0 ma tot_deb > 0, aggrega in alt_deb
-      const granularDeb=(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)+(d.deb_trib||0)+(d.deb_prev||0)+(d.alt_deb_other||0);
+      const granularDeb=(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)+(d.deb_trib||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0);
       if(d.tot_deb>0&&granularDeb===0){
         d.alt_deb=d.tot_deb;
         d._bilancio_abbreviato=true;
