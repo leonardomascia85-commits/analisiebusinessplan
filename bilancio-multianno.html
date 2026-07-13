@@ -1268,10 +1268,11 @@ async function generaExcel() {
   // Mappa chiavi importa-xbrl → data-key bilancio-multianno
   const MAP={
     imm_imm:'imm_imm',imm_mat:'imm_mat',imm_fin:'imm_fin',
-    rimanenze:'rimanenze',cred_cl:'cred_cl',liquidita:'liquidita',
+    rimanenze:'rimanenze',cred_cl:'cred_cl',alt_cr:'alt_cr',liquidita:'liquidita',ratei_att:'ratei_att',
     cap_sociale:'cap_soc',utili_pn:'utili_pn',utile_es:'utile_es',utile_n:'utile_es',
-    deb_b_bt:'deb_b_bt',deb_b_lt:'deb_b_lt',deb_for:'deb_for',deb_trib:'deb_trib',alt_deb:'alt_deb',
-    ric_vend:'ric_vend',alt_ric:'alt_ric',
+    deb_b_bt:'deb_b_bt',deb_b_lt:'deb_b_lt',deb_for:'deb_for',deb_trib:'deb_trib',
+    fondi:'fondi',tfr:'tfr',ratei_pass:'ratei_pass',
+    ric_vend:'ric_vend',alt_ric:'alt_ric',var_rim:'var_rim',
     mat_prime:'mat_prime',servizi:'servizi',godimento:'godimento',
     personale:'personale',ammort:'ammort',var_mat:'var_mat',oneri_div:'oneri_div',oneri_f:'oneri_f',imposte:'imposte',
   };
@@ -1285,7 +1286,10 @@ async function generaExcel() {
       Object.entries(MAP).forEach(([src,dst])=>{
         if(d[src]!==undefined&&d[src]!==0)DATA[anno][dst]=d[src];
       });
-      // calcola riserve come tot_pn - cap_sociale - utile_es
+      // deb_prev + deb_soci + alt_deb_other + alt_deb tutti confluiscono in alt_deb
+      const altDeb=(d.alt_deb||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0);
+      if(altDeb>0)DATA[anno].alt_deb=altDeb;
+      // calcola riserve come tot_pn - cap_sociale - utili_pn - utile_es
       if(d.tot_pn&&d.cap_sociale){
         DATA[anno].riserve=Math.max(0,(d.tot_pn||0)-(d.cap_sociale||0)-(d.utili_pn||0)-(d.utile_es||0));
       }
