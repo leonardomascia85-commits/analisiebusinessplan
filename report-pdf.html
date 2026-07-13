@@ -186,9 +186,8 @@
             <div class="fi full"><label>Ragione sociale *</label><input type="text" id="conf-nome" placeholder="es. Mario Rossi S.r.l."/></div>
             <div class="fi"><label>P.IVA</label><input type="text" id="conf-piva" placeholder="es. 12345678901"/></div>
             <div class="fi"><label>Anno bilancio</label>
-              <select id="conf-anno">
-                <option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option>
-              </select>
+              <select id="conf-anno"></select>
+              <script>(function(){const cy=new Date().getFullYear(),s=document.getElementById('conf-anno');if(!s)return;let h='';for(let y=cy;y>=cy-5;y--)h+=`<option${y===cy?' selected':''}>${y}</option>`;s.innerHTML=h;})();</script>
             </div>
             <div class="fi"><label>Analista / Studio</label><input type="text" id="conf-analista" placeholder="es. Studio Rossi & Associati"/></div>
             <div class="fi"><label>Data report</label><input type="date" id="conf-data"/></div>

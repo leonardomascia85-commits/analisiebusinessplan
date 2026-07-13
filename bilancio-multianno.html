@@ -1136,6 +1136,22 @@ function updateYearLabel(y){
   se(`ryt-lbl-${y}`,yr);
 }
 
+function initYears(){
+  const cy=new Date().getFullYear();
+  [0,1,2].forEach(i=>{
+    const sel=document.getElementById(`ysel-${i}`);
+    if(!sel)return;
+    const base=cy-i;
+    let html='';
+    for(let y=cy+1;y>=cy-6;y--){
+      html+=`<option value="${y}"${y===base?' selected':''}>${y}</option>`;
+    }
+    sel.innerHTML=html;
+    updateYearLabel(i);
+  });
+}
+initYears();
+
 function updateHeader(){}
 
 function resetAll(){
@@ -1173,7 +1189,7 @@ async function generaReport(tipo) {
     data: mainData,
     config: {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
-      anno: document.getElementById('ysel-0')?.value || '2025',
+      anno: document.getElementById('ysel-0')?.value || String(new Date().getFullYear()),
       dataReport: new Date().toLocaleDateString('it-IT'),
       report_type: tipo || 'cliente',
     }
@@ -1189,7 +1205,7 @@ async function generaWord() {
     data: mainData,
     config: {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
-      anno: document.getElementById('ysel-0')?.value || '2025',
+      anno: document.getElementById('ysel-0')?.value || String(new Date().getFullYear()),
       dataReport: new Date().toLocaleDateString('it-IT'),
     }
   };
@@ -1227,7 +1243,7 @@ async function generaExcel() {
     data: mainData,
     config: {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
-      anno: document.getElementById('ysel-0')?.value || '2025',
+      anno: document.getElementById('ysel-0')?.value || String(new Date().getFullYear()),
       dataReport: new Date().toLocaleDateString('it-IT'),
     }
   };
@@ -1328,7 +1344,7 @@ async function generaExcel() {
 function apriBusinessPlan(){
   const d = buildAnnoData(0);
   const nome = document.getElementById('rag_soc')?.value || '';
-  const anno = document.getElementById('ysel-0')?.value || '2025';
+  const anno = document.getElementById('ysel-0')?.value || String(new Date().getFullYear());
   const settore = document.getElementById('settore')?.value || '';
   const ebitda = (d.ric_vend||0)+(d.alt_ric||0)-(d.mat_prime||0)-(d.servizi||0)-(d.godimento||0)-(d.personale||0);
   const pfn = (d.deb_b_bt||0)+(d.deb_b_lt||0)-(d.liquidita||0);

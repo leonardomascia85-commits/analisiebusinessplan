@@ -186,7 +186,8 @@
         </select>
       </div>
       <div class="form-group"><label>Anno bilancio</label>
-        <select id="anno"><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option></select>
+        <select id="anno"></select>
+        <script>(function(){const cy=new Date().getFullYear(),s=document.getElementById('anno');if(!s)return;let h='';for(let y=cy;y>=cy-5;y--)h+=`<option${y===cy?' selected':''}>${y}</option>`;s.innerHTML=h;})();</script>
       </div>
       <div class="form-group"><label>Forma giuridica</label>
         <select id="forma"><option value="srl">S.r.l.</option><option value="spa">S.p.A.</option><option value="snc">S.n.c.</option><option value="ind">Impresa individuale</option><option value="pro">Libero professionista</option></select>

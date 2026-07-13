@@ -429,11 +429,20 @@
     const _annoEsercizio=ctxInstants[0]?String(ctxInstants[0].year):null;
     const _annoPrecedente=ctxInstants[1]?String(ctxInstants[1].year):(_annoEsercizio?String(parseInt(_annoEsercizio)-1):null);
 
+    // Namespace-agnostic: funziona con itcc-ci:, xbrl:, ns0:, o senza prefisso
     const get=(tag,ctx)=>{
-      const p=new RegExp(`<itcc-ci:${tag}[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.]+)<`,'i');
+      const p=new RegExp(`<(?:[^:>\\s]+:)?${tag}[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.]+)<`,'i');
       const m=content.match(p);return m?parseFloat(m[1]):0;
     };
-    const getStr=tag=>{const m=content.match(new RegExp(`<itcc-ci:${tag}[^>]*>([^<]+)<`,'i'));return m?m[1].trim():'';};
+    // Cerca tag con keyword parziale quando il nome esatto non è noto
+    const getByKeyword=(kw,ctx)=>{
+      const p=new RegExp(`<(?:[^:>\\s]+:)?[\\w]*${kw}[\\w]*[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.]+)<`,'i');
+      const m=content.match(p);return m?parseFloat(m[1]):0;
+    };
+    const getStr=tag=>{
+      const m=content.match(new RegExp(`<(?:[^:>\\s]+:)?${tag}[^>]*>([^<]+)<`,'i'));
+      return m?m[1].trim():'';
+    };
     const buildAnno=(ctxI,ctxD)=>{
       const d={
         imm_imm:get('TotaleImmobilizzazioniImmateriali',ctxI),imm_mat:get('TotaleImmobilizzazioniMateriali',ctxI),
@@ -479,9 +488,27 @@
         d.alt_deb=d.tot_deb;
         d._bilancio_abbreviato=true;
       } else if(granularDeb>0&&granularDeb<d.tot_deb){
-        // Differenza residua va in alt_deb (debiti non classificati)
         d.alt_deb_other=(d.alt_deb_other||0)+(d.tot_deb-granularDeb);
       }
+
+      // Auto-check bilancio: se SP non torna usa tot_att per ricavare valori mancanti
+      const calcAtt=(d.tot_imm||0)+(d.tot_circ||0)+(d.ratei_att||0);
+      if(d.tot_att>0&&calcAtt===0){
+        // Attivo completamente mancante: cerca Totale con keyword
+        d.tot_imm=d.tot_imm||getByKeyword('TotaleImmobilizzazioni',ctxI);
+        d.tot_circ=d.tot_circ||getByKeyword('TotaleAttivoCircolante',ctxI);
+        d.ratei_att=d.ratei_att||getByKeyword('RateiRisconti',ctxI);
+      }
+      const calcPass=(d.tot_pn||0)+(d.tot_deb||0)+(d.tfr||0)+(d.fondi||0)+(d.ratei_pass||0);
+      if(d.tot_att>0&&calcPass===0){
+        d.tot_pn=d.tot_pn||getByKeyword('TotalePatrimonioNetto',ctxI);
+        d.tot_deb=d.tot_deb||getByKeyword('TotaleDebiti',ctxI);
+        d.tfr=d.tfr||getByKeyword('TrattamentoFineRapporto',ctxI);
+      }
+      // Se ancora sbilanciato aggiungi residuo in alt_cr (attivo) o alt_deb_other (passivo)
+      const diffAP=Math.round((d.tot_att||0)-calcPass);
+      const diffTA=Math.round((d.tot_att||0)-calcAtt);
+      d._diffAttivo=diffTA; d._diffPassivo=diffAP;
       return d;
     };
     const corr=buildAnno(ctxCorrI,ctxCorrD);
@@ -699,13 +726,13 @@
     document.getElementById('progress-box').classList.remove('show');
     document.getElementById('results-box').classList.add('show');
     se('rb-nome',d.nome||'—');se('rb-piva',d.piva||'—');
-    se('rb-forma',d.forma||'—');se('rb-anno',d._annoEsercizio||['2025','2024','2023'][selectedAnno]||'—');
+    se('rb-forma',d.forma||'—');se('rb-anno',d._annoEsercizio||[0,1,2].map(i=>String(new Date().getFullYear()-i))[selectedAnno]||'—');
     se('rb-att',fmt(d.tot_att));se('rb-pn',fmt(d.tot_pn));
     se('rb-deb',fmt(d.tot_deb));se('rb-liq',fmt(d.liquidita));
     se('rb-vp',fmt(d.tot_vp));se('rb-ebitda',fmt(d.ebitda));
     se('rb-utile',fmt(d.utile_es||d.utile_n));se('rb-of',fmt(d.oneri_f));
     se('rb-roe',fp(d.roe));se('rb-roi',fp(d.roi));se('rb-cr',fx(d.cr));se('rb-pfn',fmt(d.pfn));
-    se('rb-title','✅ '+(d.nome||'Bilancio')+' — '+(d._annoEsercizio||['2025','2024','2023'][selectedAnno]));
+    se('rb-title','✅ '+(d.nome||'Bilancio')+' — '+(d._annoEsercizio||[0,1,2].map(i=>String(new Date().getFullYear()-i))[selectedAnno]));
 
     // Mostra pannello bilancio abbreviato se rilevato
     if(d._bilancio_abbreviato){
