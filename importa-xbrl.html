@@ -693,13 +693,13 @@
     document.getElementById('progress-box').classList.remove('show');
     document.getElementById('results-box').classList.add('show');
     se('rb-nome',d.nome||'—');se('rb-piva',d.piva||'—');
-    se('rb-forma',d.forma||'—');se('rb-anno',d._annoEsercizio||['2024','2023','2022'][selectedAnno]||'—');
+    se('rb-forma',d.forma||'—');se('rb-anno',d._annoEsercizio||['2025','2024','2023'][selectedAnno]||'—');
     se('rb-att',fmt(d.tot_att));se('rb-pn',fmt(d.tot_pn));
     se('rb-deb',fmt(d.tot_deb));se('rb-liq',fmt(d.liquidita));
     se('rb-vp',fmt(d.tot_vp));se('rb-ebitda',fmt(d.ebitda));
     se('rb-utile',fmt(d.utile_es||d.utile_n));se('rb-of',fmt(d.oneri_f));
     se('rb-roe',fp(d.roe));se('rb-roi',fp(d.roi));se('rb-cr',fx(d.cr));se('rb-pfn',fmt(d.pfn));
-    se('rb-title','✅ '+(d.nome||'Bilancio')+' — '+(d._annoEsercizio||['2024','2023','2022'][selectedAnno]));
+    se('rb-title','✅ '+(d.nome||'Bilancio')+' — '+(d._annoEsercizio||['2025','2024','2023'][selectedAnno]));
 
     // Mostra pannello bilancio abbreviato se rilevato
     if(d._bilancio_abbreviato){
