@@ -289,26 +289,26 @@
     <div class="year-cards">
       <div class="year-card active" id="ycard-0" onclick="selectYear(0)">
         <div class="yc-label">Anno corrente *</div>
-        <div class="yc-year" id="ylabel-0">2024</div>
+        <div class="yc-year" id="ylabel-0">2025</div>
         <div class="yc-status empty" id="ystatus-0">Nessun dato inserito</div>
         <select id="ysel-0" style="background:none;border:none;color:var(--cyan);font-size:11px;margin-top:6px;cursor:pointer;padding:0;" onchange="updateYearLabel(0)">
-          <option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option>
+          <option value="2026">2026</option><option value="2025" selected>2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option>
         </select>
       </div>
       <div class="year-card" id="ycard-1" onclick="selectYear(1)">
         <div class="yc-label">Anno precedente</div>
-        <div class="yc-year" id="ylabel-1">2023</div>
+        <div class="yc-year" id="ylabel-1">2024</div>
         <div class="yc-status empty" id="ystatus-1"></div>
         <select id="ysel-1" style="background:none;border:none;color:var(--cyan);font-size:11px;margin-top:6px;cursor:pointer;padding:0;" onchange="updateYearLabel(1)">
-          <option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option>
+          <option value="2025">2025</option><option value="2024" selected>2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option>
         </select>
       </div>
       <div class="year-card" id="ycard-2" onclick="selectYear(2)">
         <div class="yc-label">Anno precedente -2</div>
-        <div class="yc-year" id="ylabel-2">2022</div>
+        <div class="yc-year" id="ylabel-2">2023</div>
         <div class="yc-status empty" id="ystatus-2"></div>
         <select id="ysel-2" style="background:none;border:none;color:var(--cyan);font-size:11px;margin-top:6px;cursor:pointer;padding:0;" onchange="updateYearLabel(2)">
-          <option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option>
+          <option value="2024">2024</option><option value="2023" selected>2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option>
         </select>
       </div>
     </div>
@@ -321,9 +321,9 @@
     <div class="form-area">
       <!-- Year tabs -->
       <div class="form-year-tabs">
-        <button class="fyt active" id="fyt-0" onclick="switchFormYear(0)">📊 <span id="fyt-lbl-0">2024</span></button>
-        <button class="fyt" id="fyt-1" onclick="switchFormYear(1)">📊 <span id="fyt-lbl-1">2023</span></button>
-        <button class="fyt" id="fyt-2" onclick="switchFormYear(2)">📊 <span id="fyt-lbl-2">2022</span></button>
+        <button class="fyt active" id="fyt-0" onclick="switchFormYear(0)">📊 <span id="fyt-lbl-0">2025</span></button>
+        <button class="fyt" id="fyt-1" onclick="switchFormYear(1)">📊 <span id="fyt-lbl-1">2024</span></button>
+        <button class="fyt" id="fyt-2" onclick="switchFormYear(2)">📊 <span id="fyt-lbl-2">2023</span></button>
       </div>
 
       <!-- Section tabs (SP / CE / RF / DF) -->
@@ -505,9 +505,9 @@
           <div class="rbadge bw" id="r-status">In attesa dati</div>
         </div>
         <div class="result-year-tabs">
-          <button class="ryt active" id="ryt-0" onclick="switchResultYear(0)">📊 <span id="ryt-lbl-0">2024</span></button>
-          <button class="ryt" id="ryt-1" onclick="switchResultYear(1)" disabled>📊 <span id="ryt-lbl-1">2023</span></button>
-          <button class="ryt" id="ryt-2" onclick="switchResultYear(2)" disabled>📊 <span id="ryt-lbl-2">2022</span></button>
+          <button class="ryt active" id="ryt-0" onclick="switchResultYear(0)">📊 <span id="ryt-lbl-0">2025</span></button>
+          <button class="ryt" id="ryt-1" onclick="switchResultYear(1)" disabled>📊 <span id="ryt-lbl-1">2024</span></button>
+          <button class="ryt" id="ryt-2" onclick="switchResultYear(2)" disabled>📊 <span id="ryt-lbl-2">2023</span></button>
           <button class="ryt" id="ryt-comp" onclick="switchResultYear('comp')" disabled>↔ Confronto</button>
         </div>
 
@@ -1178,7 +1178,7 @@ async function generaReport(tipo) {
     data: mainData,
     config: {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
-      anno: document.getElementById('ysel-0')?.value || '2024',
+      anno: document.getElementById('ysel-0')?.value || '2025',
       dataReport: new Date().toLocaleDateString('it-IT'),
       report_type: tipo || 'cliente',
     }
@@ -1194,7 +1194,7 @@ async function generaWord() {
     data: mainData,
     config: {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
-      anno: document.getElementById('ysel-0')?.value || '2024',
+      anno: document.getElementById('ysel-0')?.value || '2025',
       dataReport: new Date().toLocaleDateString('it-IT'),
     }
   };
@@ -1232,7 +1232,7 @@ async function generaExcel() {
     data: mainData,
     config: {
       nome: document.getElementById('rag_soc')?.value || 'Azienda',
-      anno: document.getElementById('ysel-0')?.value || '2024',
+      anno: document.getElementById('ysel-0')?.value || '2025',
       dataReport: new Date().toLocaleDateString('it-IT'),
     }
   };
@@ -1314,6 +1314,7 @@ async function generaExcel() {
           const sel0=document.getElementById('ysel-0');if(sel0)sel0.value=first._annoEsercizio;
           const sel1=document.getElementById('ysel-1');if(sel1&&first._annoPrecedente)sel1.value=first._annoPrecedente;
           const sel2=document.getElementById('ysel-2');if(sel2&&first._annoPrecedente)sel2.value=String(parseInt(first._annoPrecedente)-1);
+          updateYearLabel(0);updateYearLabel(1);updateYearLabel(2);
         }
       }catch(e){}
     }
@@ -1328,7 +1329,7 @@ async function generaExcel() {
 function apriBusinessPlan(){
   const d = buildAnnoData(0);
   const nome = document.getElementById('rag_soc')?.value || '';
-  const anno = document.getElementById('ysel-0')?.value || '2024';
+  const anno = document.getElementById('ysel-0')?.value || '2025';
   const settore = document.getElementById('settore')?.value || '';
   const ebitda = (d.ric_vend||0)+(d.alt_ric||0)-(d.mat_prime||0)-(d.servizi||0)-(d.godimento||0)-(d.personale||0);
   const pfn = (d.deb_b_bt||0)+(d.deb_b_lt||0)-(d.liquidita||0);
