@@ -352,7 +352,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  if(typeof pdfjsLib!=='undefined')
+    pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
   let currentFile=null,currentFileType=null,selectedAnno=0,parsedData={};
   const fmt=n=>isNaN(n)||!isFinite(n)?'—':new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
@@ -433,7 +434,8 @@
     ─────────────────────────────────────────────────────────────── */
     const FM=new Map();                    // "localName|ctxId" → float
     const BY_CTX=new Map();               // ctxId → Map(localName→float)
-    const factRe=/<(?:\w+:)?(\w{4,})\b[^>]*\bcontextRef="([^"]+)"[^>]*?>\s*([-\d.,]+)\s*</g;
+    // [^\s>:]+ cattura namespace con trattini (itcc-ci-abb, itcc-ci, ecc.)
+    const factRe=/<(?:[^\s>:]+:)?(\w{4,})[^>]*contextRef="([^"]+)"[^>]*>\s*([-\d.,]+)\s*</g;
     let fm;
     while((fm=factRe.exec(content))!==null){
       const [,name,ctx,raw]=fm;
@@ -469,7 +471,7 @@
       return 0;
     };
     const getStr=kw=>{
-      const re=new RegExp(`<(?:\\w+:)?[\\w]*${kw}[\\w]*[^>]*>([^<]{1,200})<`,'i');
+      const re=new RegExp(`<(?:[^\\s>:]+:)?[\\w]*${kw}[\\w]*[^>]*>([^<]{1,200})<`,'i');
       const m=content.match(re);return m?m[1].trim():'';
     };
 
