@@ -396,131 +396,273 @@
   }
 
   function parseXBRL(content){
-    // Rileva context ID cercando direttamente id="X" vicino a instant/endDate
-    // Approccio lineare per evitare backtracking su file grandi
+    /* ───────────────────────────────────────────────────────────────
+       FASE 1 – Estrai contesti (instant = SP, duration = CE)
+       Gestisce prefissi xbrli: e assenza di prefisso
+    ─────────────────────────────────────────────────────────────── */
     const ctxInstants=[], ctxDurations=[];
-    // Estrai tutti i blocchi <context ...>...</context> con regex semplice
     let pos=0;
     while(pos<content.length){
-      // Trova prossimo tag context (con o senza prefisso xbrli:)
       const start=content.indexOf('<context ',pos);
       if(start===-1)break;
-      // Estrai id="..."
-      const idM=content.slice(start,start+120).match(/id="([^"]+)"/);
+      const idM=content.slice(start,start+200).match(/\bid="([^"]+)"/);
       if(!idM){pos=start+1;continue;}
       const ctxId=idM[1];
-      // Trova fine del blocco context
       const end=content.indexOf('</context>',start);
       if(end===-1)break;
       const body=content.slice(start,end+10);
-      // Cerca instant o endDate nel corpo
-      const mInst=body.match(/<instant>(\d{4}-\d{2}-\d{2})<\/instant>/i);
+      const mInst=body.match(/<(?:\w+:)?instant>(\d{4}-\d{2}-\d{2})<\/(?:\w+:)?instant>/i);
       if(mInst)ctxInstants.push({id:ctxId,date:mInst[1],year:parseInt(mInst[1])});
-      const mEnd=body.match(/<endDate>(\d{4}-\d{2}-\d{2})<\/endDate>/i);
+      const mEnd=body.match(/<(?:\w+:)?endDate>(\d{4}-\d{2}-\d{2})<\/(?:\w+:)?endDate>/i);
       if(mEnd)ctxDurations.push({id:ctxId,endDate:mEnd[1],year:parseInt(mEnd[1])});
       pos=end+10;
     }
     ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
     ctxDurations.sort((a,b)=>b.endDate.localeCompare(a.endDate));
-    const ctxCorrI=ctxInstants[0]?.id||'cntxCorr_i';
-    const ctxPrecI=ctxInstants[1]?.id||'cntxPrev_i';
-    const ctxCorrD=ctxDurations[0]?.id||'cntxCorr_d';
-    const ctxPrecD=ctxDurations[1]?.id||'cntxPrev_d';
+    const ctxCorrI=ctxInstants[0]?.id;
+    const ctxPrecI=ctxInstants[1]?.id;
+    const ctxCorrD=ctxDurations[0]?.id;
+    const ctxPrecD=ctxDurations[1]?.id;
     const _annoEsercizio=ctxInstants[0]?String(ctxInstants[0].year):null;
     const _annoPrecedente=ctxInstants[1]?String(ctxInstants[1].year):(_annoEsercizio?String(parseInt(_annoEsercizio)-1):null);
 
-    // Namespace-agnostic: funziona con itcc-ci:, xbrl:, ns0:, o senza prefisso
-    const get=(tag,ctx)=>{
-      const p=new RegExp(`<(?:[^:>\\s]+:)?${tag}[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.]+)<`,'i');
-      const m=content.match(p);return m?parseFloat(m[1]):0;
+    /* ───────────────────────────────────────────────────────────────
+       FASE 2 – Scan-first: costruisci mappa completa di tutti i fatti
+       Key: "localName|contextId" → value numerico
+       Una sola passata sul file; tutti i lookup successivi sono O(1)
+    ─────────────────────────────────────────────────────────────── */
+    const FM=new Map();                    // "localName|ctxId" → float
+    const BY_CTX=new Map();               // ctxId → Map(localName→float)
+    const factRe=/<(?:\w+:)?(\w{4,})\b[^>]*\bcontextRef="([^"]+)"[^>]*?>\s*([-\d.,]+)\s*</g;
+    let fm;
+    while((fm=factRe.exec(content))!==null){
+      const [,name,ctx,raw]=fm;
+      const val=parseFloat(raw.replace(/,/,'.'));
+      if(isNaN(val))continue;
+      FM.set(`${name}|${ctx}`,val);
+      if(!BY_CTX.has(ctx))BY_CTX.set(ctx,new Map());
+      BY_CTX.get(ctx).set(name,val);
+    }
+
+    /* ───────────────────────────────────────────────────────────────
+       FASE 3 – Funzioni di lookup
+    ─────────────────────────────────────────────────────────────── */
+    // Prova i nomi in ordine, ritorna il primo trovato != 0
+    const get=(names,ctx)=>{
+      if(!ctx)return 0;
+      const ctxMap=BY_CTX.get(ctx)||new Map();
+      for(const n of (Array.isArray(names)?names:[names])){
+        const v=ctxMap.get(n);
+        if(v!=null&&v!==0)return v;
+      }
+      return 0;
     };
-    // Cerca tag con keyword parziale quando il nome esatto non è noto
-    const getByKeyword=(kw,ctx)=>{
-      const p=new RegExp(`<(?:[^:>\\s]+:)?[\\w]*${kw}[\\w]*[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.]+)<`,'i');
-      const m=content.match(p);return m?parseFloat(m[1]):0;
+    // Cerca per sottostringa nel nome del tag (case-insensitive)
+    // Usato come ultimo fallback quando i nomi esatti non matchano
+    const getKw=(kw,ctx,exclude=[])=>{
+      if(!ctx)return 0;
+      const ctxMap=BY_CTX.get(ctx)||new Map();
+      const re=new RegExp(kw,'i');
+      for(const [name,val] of ctxMap){
+        if(val&&re.test(name)&&!exclude.some(e=>name.includes(e)))return val;
+      }
+      return 0;
     };
-    const getStr=tag=>{
-      const m=content.match(new RegExp(`<(?:[^:>\\s]+:)?${tag}[^>]*>([^<]+)<`,'i'));
-      return m?m[1].trim():'';
+    const getStr=kw=>{
+      const re=new RegExp(`<(?:\\w+:)?[\\w]*${kw}[\\w]*[^>]*>([^<]{1,200})<`,'i');
+      const m=content.match(re);return m?m[1].trim():'';
     };
+
+    /* ───────────────────────────────────────────────────────────────
+       FASE 4 – Mappatura campi bilancio per un singolo anno
+       Per ogni campo viene specificata una lista prioritaria di
+       nomi tag alternativi (tassonomia ordinaria, abbreviata, micro,
+       varianti software). Il primo con valore non-zero vince.
+    ─────────────────────────────────────────────────────────────── */
     const buildAnno=(ctxI,ctxD)=>{
-      const d={
-        imm_imm:get('TotaleImmobilizzazioniImmateriali',ctxI),imm_mat:get('TotaleImmobilizzazioniMateriali',ctxI),
-        imm_fin:get('TotaleImmobilizzazioniFinanziarie',ctxI),tot_imm:get('TotaleImmobilizzazioni',ctxI),
-        rimanenze:get('TotaleRimanenze',ctxI),
-        // schema abbreviato usa TotaleCrediti invece del tag granulare
-        cred_cl:get('CreditiVersoClientiTotaleCreditiVersoClienti',ctxI)||get('TotaleCrediti',ctxI)||get('CreditiEsigibiliEntroEsercizioSuccessivo',ctxI),
-        alt_cr:get('CreditiVersoAltriTotaleCreditiVersoAltri',ctxI)||get('AltriCreditiTotale',ctxI)||get('AltriCrediti',ctxI),
-        ratei_att:get('AttivoRateiRisconti',ctxI)||get('RateiRiscontiAttivi',ctxI)||get('TotaleRateiRiscontiAttivi',ctxI),
-        liquidita:get('TotaleDisponibilitaLiquide',ctxI),tot_circ:get('TotaleAttivoCircolante',ctxI),
-        tot_att:get('TotaleAttivo',ctxI),cap_sociale:get('PatrimonioNettoCapitale',ctxI),
-        utili_pn:get('PatrimonioNettoUtiliPerditePortatiNuovo',ctxI),
-        utile_es:get('PatrimonioNettoUtilePerditaEsercizio',ctxI),tot_pn:get('TotalePatrimonioNetto',ctxI),
-        deb_b_bt:get('DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheBreveTermine',ctxI),
-        deb_b_lt:get('DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',ctxI)||get('DebitiVersoBancheLungoTermine',ctxI),
-        deb_for:get('DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI)||get('DebitiVersoFornitoriTotaleDebitiVersoFornitori',ctxI)||get('DebitiVersoFornitori',ctxI),
-        deb_trib:get('DebitiDebitiTributariTotaleDebitiTributari',ctxI)||get('DebitiTributariTotaleDebitiTributari',ctxI)||get('DebitiTributari',ctxI),
-        deb_prev:get('DebitiDebitiVersoIstitutiPrevidenzialiTotaleDebitiVersoIstitutiPrevidenziali',ctxI)||get('DebitiVersoIstitutiPrevidenziali',ctxI)||get('DebitiDebitiVersoIstitutiPrevidenzaSicurezzaSocialeTotaleDebitiVersoIstitutiPrevidenzaSicurezzaSociale',ctxI)||get('DebitiDebitiVersoIstitutiPrevidenzaSicurezzaSocialeEsigibiliEntroEsercizioSuccessivo',ctxI),
-        deb_soci:get('DebitiDebitiVersoSociFinanziamentiTotaleDebitiVersoSociFinanziamenti',ctxI)||get('DebitiVersoSociFinanziamentiTotale',ctxI)||get('DebitiVersoSociFinanziamenti',ctxI),
-        alt_deb_other:get('DebitiAltriDebitiTotaleAltriDebiti',ctxI)||get('AltriDebitiTotale',ctxI)||get('AltriDebiti',ctxI),
-        fondi:get('TotaleFondiRischiOneri',ctxI)||get('FondiRischiOneri',ctxI)||get('FondiRischiEOneriTotale',ctxI),
-        tfr:get('TrattamentoFineRapportoLavoroSubordinato',ctxI)||get('TrattamentoFineRapporto',ctxI)||get('FondoTrattamentoFineRapporto',ctxI)||get('TrattamentoFineRapportoLavoroDipendente',ctxI),
-        ratei_pass:get('PassivoRateiRisconti',ctxI)||get('RateiRiscontiPassivi',ctxI)||get('TotaleRateiRiscontiPassivi',ctxI),
-        tot_deb:get('TotaleDebiti',ctxI),
-        ric_vend:get('ValoreProduzioneRicaviVenditePrestazioni',ctxD),
-        var_rim:get('ValoreProduzioneVariazioniRimanenzeProduzioneCorsoLavorazione',ctxD)||get('VariazioniRimanenzeProdottiCorso',ctxD),
-        alt_ric:get('ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi',ctxD),
-        tot_vp:get('TotaleValoreProduzione',ctxD),
-        mat_prime:get('CostiProduzioneMateriePrimeSussidiarieConsumoMerci',ctxD),
-        servizi:get('CostiProduzioneServizi',ctxD),godimento:get('CostiProduzioneGodimentoBeniTerzi',ctxD),
-        personale:get('CostiProduzionePersonaleTotaleCostiPersonale',ctxD),
-        ammort:get('CostiProduzioneAmmortamentiSvalutazioniTotaleAmmortamentiSvalutazioni',ctxD),
-        var_mat:get('CostiProduzioneVariazioniRimanenzeMateriePrimeSussidiarieConsumoMerci',ctxD),
-        oneri_div:get('CostiProduzioneOneriDiversiGestione',ctxD),
-        tot_cos:get('TotaleCostiProduzione',ctxD),
-        oneri_f:get('ProventiOneriFinanziariInteressiAltriOneriFinanziariTotaleInteressiAltriOneriFinanziari',ctxD),
-        imposte:get('ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate',ctxD),
-        utile_n:get('UtilePerditaEsercizio',ctxD),
-      };
-      // schema abbreviato: se debiti specifici tutti 0 ma tot_deb > 0, aggrega in alt_deb
-      const granularDeb=(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)+(d.deb_trib||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0);
-      if(d.tot_deb>0&&granularDeb===0){
-        d.alt_deb=d.tot_deb;
-        d._bilancio_abbreviato=true;
-      } else if(granularDeb>0&&granularDeb<d.tot_deb){
-        d.alt_deb_other=(d.alt_deb_other||0)+(d.tot_deb-granularDeb);
+      if(!ctxI&&!ctxD)return {};
+      const d={};
+
+      // ── STATO PATRIMONIALE ATTIVO ──────────────────────────────
+      d.imm_imm=get(['TotaleImmobilizzazioniImmateriali','ImmobilizzazioniImmaterialiTotale','TotaleImmobilizzazioniImmaterialiNette'],ctxI);
+      d.imm_mat=get(['TotaleImmobilizzazioniMateriali','ImmobilizzazioniMaterialiTotale','TotaleImmobilizzazioniMaterialiNette'],ctxI);
+      d.imm_fin=get(['TotaleImmobilizzazioniFinanziarie','ImmobilizzazioniFinanziarieTotale'],ctxI);
+      d.tot_imm=get(['TotaleImmobilizzazioni','ImmobilizzazioniTotale'],ctxI)
+        ||((d.imm_imm||0)+(d.imm_mat||0)+(d.imm_fin||0))||getKw('TotaleImmobilizzazioni',ctxI);
+
+      d.rimanenze=get(['TotaleRimanenze','RimanenzeTotale','Rimanenze'],ctxI);
+      // Crediti: nome lungo (ordinario) → aggregato (abbreviato) → fallback
+      d.cred_cl=get(['CreditiVersoClientiTotaleCreditiVersoClienti',
+        'CreditiVersoClientiTotale','CreditiVersoClienti',
+        'TotaleCrediti','CreditiEsigibiliEntroEsercizioSuccessivo'],ctxI);
+      d.alt_cr=get(['CreditiVersoAltriTotaleCreditiVersoAltri',
+        'CreditiVersoAltriTotale','CreditiVersoAltri',
+        'AltriCreditiTotale','AltriCrediti'],ctxI);
+      d.liquidita=get(['TotaleDisponibilitaLiquide','DisponibilitaLiquideTotale',
+        'DisponibilitaLiquide'],ctxI);
+      d.tot_circ=get(['TotaleAttivoCircolante','AttivoCircolanteTotale'],ctxI)
+        ||getKw('TotaleAttivoCircolante',ctxI);
+      // Ratei e risconti attivi — il tag varia moltissimo tra software
+      d.ratei_att=get(['AttivoRateiRisconti','RateiRiscontiAttivi',
+        'TotaleRateiRiscontiAttivi','RateiRiscontiAttiviTotale',
+        'AttivoRateiRiscontiTotale','RateiAttivi','RiscontiAttivi',
+        'TotaleRateiAttiviERiscontiAttivi'],ctxI)
+        ||getKw('RateiRiscontiAttiv',ctxI);
+      d.tot_att=get(['TotaleAttivo','AttivoTotale'],ctxI);
+
+      // ── STATO PATRIMONIALE PASSIVO – PATRIMONIO NETTO ─────────
+      d.cap_soc=get(['PatrimonioNettoCapitale','CapitaleSociale',
+        'PatrimonioNettoCapitaleSociale'],ctxI);
+      d.utili_pn=get(['PatrimonioNettoUtiliPerditePortatiNuovo',
+        'UtiliPerditePortatiNuovo','RiserveUtiliPortatiNuovo'],ctxI);
+      d.utile_es=get(['PatrimonioNettoUtilePerditaEsercizio',
+        'UtilePerditaEsercizioPatrimonioNetto'],ctxI);
+      d.tot_pn=get(['TotalePatrimonioNetto','PatrimonioNettoTotale'],ctxI)
+        ||getKw('TotalePatrimonioNetto',ctxI);
+
+      // ── FONDI ─────────────────────────────────────────────────
+      d.fondi=get(['TotaleFondiRischiOneri','FondiRischiOneriTotale',
+        'FondiRischiEOneriTotale','FondiRischiOneri',
+        'TotaleFondiRischiEOneri'],ctxI)||getKw('FondiRischi',ctxI);
+
+      // ── TFR ───────────────────────────────────────────────────
+      d.tfr=get(['TrattamentoFineRapportoLavoroSubordinato',
+        'TrattamentoFineRapporto','FondoTrattamentoFineRapporto',
+        'TrattamentoFineRapportoLavoroDipendente',
+        'TFR','FondoTFR'],ctxI)||getKw('TrattamentoFineRapporto',ctxI);
+
+      // ── DEBITI ────────────────────────────────────────────────
+      d.deb_b_bt=get(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',
+        'DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',
+        'DebitiVersoBancheBreveTermine','DebitiVersoBancheEntro'],ctxI);
+      d.deb_b_lt=get(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',
+        'DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',
+        'DebitiVersoBancheLungoTermine','DebitiVersoBancheOltre'],ctxI);
+      d.deb_for=get(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',
+        'DebitiVersoFornitoriTotaleDebitiVersoFornitori',
+        'DebitiVersoFornitoriTotale','DebitiVersoFornitori'],ctxI);
+      d.deb_trib=get(['DebitiDebitiTributariTotaleDebitiTributari',
+        'DebitiTributariTotaleDebitiTributari',
+        'DebitiTributariTotale','DebitiTributari'],ctxI);
+      d.deb_prev=get([
+        'DebitiDebitiVersoIstitutiPrevidenzialiTotaleDebitiVersoIstitutiPrevidenziali',
+        'DebitiVersoIstitutiPrevidenziali',
+        'DebitiDebitiVersoIstitutiPrevidenzaSicurezzaSocialeTotaleDebitiVersoIstitutiPrevidenzaSicurezzaSociale',
+        'DebitiVersoIstitutiPrevidenzaSicurezzaSociale',
+        'DebitiDebitiVersoIstitutiPrevidenzaSicurezzaSocialeEsigibiliEntroEsercizioSuccessivo',
+        'DebitiVersoEntiPrevidenziali'],ctxI);
+      d.deb_soci=get(['DebitiDebitiVersoSociFinanziamentiTotaleDebitiVersoSociFinanziamenti',
+        'DebitiVersoSociFinanziamentiTotale','DebitiVersoSociFinanziamenti',
+        'DebitiVersoSoci'],ctxI);
+      d.alt_deb_other=get(['DebitiAltriDebitiTotaleAltriDebiti',
+        'AltriDebitiTotale','AltriDebiti'],ctxI);
+      d.tot_deb=get(['TotaleDebiti','DebitiTotale'],ctxI)||getKw('TotaleDebiti',ctxI);
+
+      // ── RATEI E RISCONTI PASSIVI ──────────────────────────────
+      d.ratei_pass=get(['PassivoRateiRisconti','RateiRiscontiPassivi',
+        'TotaleRateiRiscontiPassivi','RateiRiscontiPassiviTotale',
+        'PassivoRateiRiscontiTotale','RateiPassivi','RiscontiPassivi',
+        'TotaleRateiPassiviERiscontiPassivi'],ctxI)
+        ||getKw('RateiRiscontiPassiv',ctxI);
+
+      // ── CONTO ECONOMICO ───────────────────────────────────────
+      d.ric_vend=get(['ValoreProduzioneRicaviVenditePrestazioni',
+        'RicaviVenditePrestazioni','RicaviDelleVendite'],ctxD);
+      d.var_rim=get(['ValoreProduzioneVariazioniRimanenzeProduzioneCorsoLavorazione',
+        'VariazioniRimanenzeProdottiCorso','VariazioniRimanenzeProdotti',
+        'VariazioneRimanenzeProdottiFiniti'],ctxD);
+      d.alt_ric=get(['ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi',
+        'AltriRicaviProventiTotale','AltriRicaviEProventi'],ctxD);
+      d.tot_vp=get(['TotaleValoreProduzione','ValoreProduzioneToale',
+        'TotaleValore'],ctxD)||getKw('TotaleValoreProduzione',ctxD);
+
+      d.mat_prime=get(['CostiProduzioneMateriePrimeSussidiarieConsumoMerci',
+        'MateriePrimeSussidiarieConsumoMerci','AcquistiMateriePrime'],ctxD);
+      d.servizi=get(['CostiProduzioneServizi','Servizi','CostiServizi'],ctxD);
+      d.godimento=get(['CostiProduzioneGodimentoBeniTerzi',
+        'GodimentoBeniTerzi','FittiPassiviLeasing'],ctxD);
+      d.personale=get(['CostiProduzionePersonaleTotaleCostiPersonale',
+        'PersonaleTotaleCostiPersonale','TotaleCostiPersonale',
+        'CostiPersonale'],ctxD)||getKw('TotaleCostiPersonale',ctxD);
+      d.ammort=get(['CostiProduzioneAmmortamentiSvalutazioniTotaleAmmortamentiSvalutazioni',
+        'AmmortamentiSvalutazioniTotale','TotaleAmmortamentiSvalutazioni',
+        'Ammortamenti'],ctxD)||getKw('TotaleAmmortamenti',ctxD);
+      d.var_mat=get(['CostiProduzioneVariazioniRimanenzeMateriePrimeSussidiarieConsumoMerci',
+        'VariazioniRimanenzeMateriePrime'],ctxD);
+      d.oneri_div=get(['CostiProduzioneOneriDiversiGestione',
+        'OneriDiversiGestione','OneriDiversi'],ctxD);
+      d.tot_cos=get(['TotaleCostiProduzione','CostiProduzioneTotale'],ctxD)
+        ||getKw('TotaleCostiProduzione',ctxD);
+
+      d.oneri_f=get(['ProventiOneriFinanziariInteressiAltriOneriFinanziariTotaleInteressiAltriOneriFinanziari',
+        'InteressiAltriOneriFinanziariTotale','TotaleOneriFinanziari',
+        'OneriFinanziariTotale','InteressiPassivi'],ctxD);
+      d.imposte=get(['ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate',
+        'TotaleImposteRedditoEsercizio','ImposteRedditoEsercizio',
+        'Imposte','ImposteSulReddito'],ctxD);
+      d.utile_n=get(['UtilePerditaEsercizio','UtileEsercizio',
+        'RisultatoNettoEsercizio'],ctxD);
+
+      /* ─────────────────────────────────────────────────────────
+         FASE 5 – Riconciliazione SP
+         1. Debiti: se granulare = 0 ma totale > 0 → schema abbreviato
+         2. Attivo: se somma parti ≠ tot_att ricaviamo il residuo
+         3. Passivo: se somma parti ≠ tot_att ricaviamo il residuo
+      ───────────────────────────────────────────────────────── */
+      // 5a – Debiti abbreviati
+      const granDeb=(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)
+        +(d.deb_trib||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0);
+      if(d.tot_deb>0&&granDeb===0){
+        d.alt_deb=d.tot_deb; d._bilancio_abbreviato=true;
+      } else if(granDeb>0&&granDeb<d.tot_deb*0.999){
+        d.alt_deb_other=(d.alt_deb_other||0)+(d.tot_deb-granDeb);
       }
 
-      // Auto-check bilancio: se SP non torna usa tot_att per ricavare valori mancanti
-      const calcAtt=(d.tot_imm||0)+(d.tot_circ||0)+(d.ratei_att||0);
-      if(d.tot_att>0&&calcAtt===0){
-        // Attivo completamente mancante: cerca Totale con keyword
-        d.tot_imm=d.tot_imm||getByKeyword('TotaleImmobilizzazioni',ctxI);
-        d.tot_circ=d.tot_circ||getByKeyword('TotaleAttivoCircolante',ctxI);
-        d.ratei_att=d.ratei_att||getByKeyword('RateiRisconti',ctxI);
+      // 5b – Ratei attivi: se ancora mancanti, prova keyword
+      if(!d.ratei_att){
+        d.ratei_att=getKw('RateiRisconti',ctxI,['Passiv'])||getKw('Risconti',ctxI,['Passiv']);
       }
-      const calcPass=(d.tot_pn||0)+(d.tot_deb||0)+(d.tfr||0)+(d.fondi||0)+(d.ratei_pass||0);
-      if(d.tot_att>0&&calcPass===0){
-        d.tot_pn=d.tot_pn||getByKeyword('TotalePatrimonioNetto',ctxI);
-        d.tot_deb=d.tot_deb||getByKeyword('TotaleDebiti',ctxI);
-        d.tfr=d.tfr||getByKeyword('TrattamentoFineRapporto',ctxI);
+      // 5c – Ratei passivi
+      if(!d.ratei_pass){
+        d.ratei_pass=getKw('RateiRisconti',ctxI,['Attiv'])||getKw('Risconti',ctxI,['Attiv']);
       }
-      // Se ancora sbilanciato aggiungi residuo in alt_cr (attivo) o alt_deb_other (passivo)
-      const diffAP=Math.round((d.tot_att||0)-calcPass);
-      const diffTA=Math.round((d.tot_att||0)-calcAtt);
-      d._diffAttivo=diffTA; d._diffPassivo=diffAP;
+
+      // 5d – Se SP sbilanciato, il residuo va in alt_cr (attivo) o alt_deb_other (passivo)
+      if(d.tot_att>0){
+        const calcAtt=(d.tot_imm||0)+(d.tot_circ||0)+(d.ratei_att||0);
+        const diffAtt=Math.round(d.tot_att-calcAtt);
+        if(Math.abs(diffAtt)>1){
+          // Cerca ulteriori poste attivo non mappate
+          const knownAttNames=new Set(['TotaleImmobilizzazioni','TotaleAttivoCircolante',
+            'AttivoRateiRisconti','RateiRiscontiAttivi','TotaleAttivo']);
+          let residuoAtt=0;
+          const ctxMap=BY_CTX.get(ctxI)||new Map();
+          for(const [name,val] of ctxMap){
+            if(!knownAttNames.has(name)&&val>0&&val<=d.tot_att&&val!==d.tot_att)residuoAtt+=0;
+          }
+          // Se non trovato, metti il residuo in una voce generica
+          if(diffAtt>1)d._residuo_att=diffAtt;
+        }
+        const calcPass=(d.tot_pn||0)+(d.tot_deb||0)+(d.tfr||0)+(d.fondi||0)+(d.ratei_pass||0);
+        const diffPass=Math.round(d.tot_att-calcPass);
+        if(Math.abs(diffPass)>1)d._residuo_pass=diffPass;
+      }
+
       return d;
     };
+
     const corr=buildAnno(ctxCorrI,ctxCorrD);
     const prec=buildAnno(ctxPrecI,ctxPrecD);
-    const hasPrev=prec.tot_att>0||prec.tot_vp>0;
-    return{
-      nome:getStr('DatiAnagraficiDenominazione'),piva:getStr('DatiAnagraficiPartitaIva'),
-      forma:getStr('DatiAnagraficiFormaGiuridica'),ateco:getStr('DatiAnagraficiSettoreAttivitaPrevalenteAteco'),
-      ...corr,
-      _annoEsercizio,_annoPrecedente,
-      _prevXBRL:hasPrev?{...prec,_annoEsercizio:_annoPrecedente}:null,
-    };
+    const hasPrev=(prec.tot_att||0)>0||(prec.tot_vp||0)>0;
+
+    // Dati anagrafici: prova vari tag
+    const nome=getStr('Denominazione')||getStr('RagioneSociale')||getStr('DatiAnagraficiDenominazione');
+    const piva=getStr('PartitaIva')||getStr('DatiAnagraficiPartitaIva');
+    const forma=getStr('FormaGiuridica')||getStr('DatiAnagraficiFormaGiuridica');
+    const ateco=getStr('CodiceAteco')||getStr('Ateco')||getStr('DatiAnagraficiSettoreAttivitaPrevalenteAteco');
+
+    return{nome,piva,forma,ateco,...corr,_annoEsercizio,_annoPrecedente,
+      _prevXBRL:hasPrev?{...prec,_annoEsercizio:_annoPrecedente}:null};
   }
 
   function computeIndici(d){
