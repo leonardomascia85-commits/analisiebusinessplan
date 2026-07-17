@@ -599,11 +599,23 @@
       d.oneri_f=get(['ProventiOneriFinanziariInteressiAltriOneriFinanziariTotaleInteressiAltriOneriFinanziari',
         'InteressiAltriOneriFinanziariTotale','TotaleOneriFinanziari',
         'OneriFinanziariTotale','InteressiPassivi'],ctxD);
+      d.prov_f=get(['ProventiFinanziariTotale','TotaleProventiFinanziari',
+        'ProventiFinanziari','ProventiDaPartecipazioni','ProventiDaPartecipazioniTotale',
+        'AltriProventiFinanziari'],ctxD)||getKw('ProventiFinanziari',ctxD);
+      d.rettifiche=get(['RettificheValoreAttivitaPassivitaFinanziarieTotale',
+        'TotaleRettificheValoreAttivitaFinanziarie','RettificheValoreAttivitaFinanziarie',
+        'SvalutazioniPartecipazioni','RivalutazioniPartecipazioni'],ctxD)||getKw('Rettifiche',ctxD);
       d.imposte=get(['ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate',
         'TotaleImposteRedditoEsercizio','ImposteRedditoEsercizio',
         'Imposte','ImposteSulReddito'],ctxD);
       d.utile_n=get(['UtilePerditaEsercizio','UtileEsercizio',
         'RisultatoNettoEsercizio'],ctxD);
+      // Numero dipendenti (media/fine anno)
+      d.n_dip=get(['NumeroDipendentiMedioAnnuo','NumeroMedioAddetti','NumeroAddetti',
+        'NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio'],ctxD)
+        ||get(['NumeroDipendentiMedioAnnuo','NumeroMedioAddetti','NumeroAddetti',
+        'NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio'],ctxI)
+        ||getKw('NumeroDipendenti',ctxD)||getKw('NumeroAddetti',ctxD)||getKw('NumeroAddetti',ctxI);
 
       /* ─────────────────────────────────────────────────────────
          FASE 5 – Riconciliazione SP

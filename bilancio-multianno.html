@@ -756,7 +756,7 @@ const DATA = Array.from({length:YEARS}, () => ({
   // CE
   ric_vend:0,var_rim:0,alt_ric:0,
   mat_prime:0,servizi:0,godimento:0,personale:0,ammort:0,var_mat:0,oneri_div:0,
-  oneri_f:0,prov_f:0,rettifiche:0,imposte:0,
+  oneri_f:0,prov_f:0,rettifiche:0,imposte:0,n_dip:0,
   // RF
   rf_utile:0,rf_ammort:0,rf_rim:0,rf_cred:0,rf_deb:0,rf_ccn:0,rf_int:0,rf_tax:0,
   rf_inv_mat:0,rf_disinv:0,rf_inv_imm:0,rf_inv_fin:0,
@@ -1285,7 +1285,7 @@ async function generaExcel() {
     fondi:'fondi',tfr:'tfr',ratei_pass:'ratei_pass',
     ric_vend:'ric_vend',alt_ric:'alt_ric',var_rim:'var_rim',
     mat_prime:'mat_prime',servizi:'servizi',godimento:'godimento',
-    personale:'personale',ammort:'ammort',var_mat:'var_mat',oneri_div:'oneri_div',oneri_f:'oneri_f',imposte:'imposte',
+    personale:'personale',ammort:'ammort',var_mat:'var_mat',oneri_div:'oneri_div',oneri_f:'oneri_f',prov_f:'prov_f',rettifiche:'rettifiche',imposte:'imposte',n_dip:'n_dip',
   };
   let loaded=false;
   for(let i=0;i<3;i++){
