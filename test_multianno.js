@@ -19,9 +19,10 @@ const fs = require('fs');
   await page.locator('#input-xbrl').setInputFiles('/tmp/timevision.xbrl');
 
   // Aspetta che il parsing completi (rb-title aggiornato)
+  // Aspetta che rb-att abbia un valore reale (non il default —)
   await page.waitForFunction(
-    () => (document.getElementById('rb-title')?.textContent||'').includes('TIME VISION'),
-    { timeout: 12000 }
+    () => { const t=document.getElementById('rb-att')?.textContent||''; return t!=='—'&&t.length>2; },
+    { timeout: 15000 }
   );
   await page.waitForTimeout(300);
 
