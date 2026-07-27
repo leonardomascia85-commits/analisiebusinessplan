@@ -402,21 +402,22 @@
        Gestisce prefissi xbrli: e assenza di prefisso
     ─────────────────────────────────────────────────────────────── */
     const ctxInstants=[], ctxDurations=[];
-    let pos=0;
-    while(pos<content.length){
-      const start=content.indexOf('<context ',pos);
-      if(start===-1)break;
-      const idM=content.slice(start,start+200).match(/\bid="([^"]+)"/);
-      if(!idM){pos=start+1;continue;}
-      const ctxId=idM[1];
-      const end=content.indexOf('</context>',start);
-      if(end===-1)break;
-      const body=content.slice(start,end+10);
+    // Supporta sia <context che <xbrli:context (entrambe varianti valide)
+    const ctxRe=/<(?:xbrli:)?context\s[^>]*\bid="([^"]+)"/g;
+    let ctxM;
+    while((ctxM=ctxRe.exec(content))!==null){
+      const ctxId=ctxM[1];
+      const bodyStart=ctxM.index;
+      // Cerca la chiusura corrispondente (con o senza prefisso)
+      const closeTag=content.indexOf('</context>',bodyStart);
+      const closeTagX=content.indexOf('</xbrli:context>',bodyStart);
+      const end=closeTag===-1?closeTagX:(closeTagX===-1?closeTag:Math.min(closeTag,closeTagX));
+      if(end===-1)continue;
+      const body=content.slice(bodyStart,end+20);
       const mInst=body.match(/<(?:\w+:)?instant>(\d{4}-\d{2}-\d{2})<\/(?:\w+:)?instant>/i);
       if(mInst)ctxInstants.push({id:ctxId,date:mInst[1],year:parseInt(mInst[1])});
       const mEnd=body.match(/<(?:\w+:)?endDate>(\d{4}-\d{2}-\d{2})<\/(?:\w+:)?endDate>/i);
       if(mEnd)ctxDurations.push({id:ctxId,endDate:mEnd[1],year:parseInt(mEnd[1])});
-      pos=end+10;
     }
     ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
     ctxDurations.sort((a,b)=>b.endDate.localeCompare(a.endDate));
