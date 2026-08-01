@@ -493,14 +493,27 @@
       d.tot_imm=get(['TotaleImmobilizzazioni','ImmobilizzazioniTotale'],ctxI)
         ||((d.imm_imm||0)+(d.imm_mat||0)+(d.imm_fin||0))||getKw('TotaleImmobilizzazioni',ctxI);
 
-      d.rimanenze=get(['TotaleRimanenze','RimanenzeTotale','Rimanenze'],ctxI);
+      d.rimanenze=get(['TotaleRimanenze','RimanenzeTotale','Rimanenze',
+        'TotaleRimanenzeMerciMateriePrimeSussidiarieConsumoSemilavorati'],ctxI);
       // Crediti: nome lungo (ordinario) → aggregato (abbreviato) → fallback
       d.cred_cl=get(['CreditiVersoClientiTotaleCreditiVersoClienti',
         'CreditiVersoClientiTotale','CreditiVersoClienti',
         'TotaleCrediti','CreditiEsigibiliEntroEsercizioSuccessivo'],ctxI);
-      d.alt_cr=get(['CreditiVersoAltriTotaleCreditiVersoAltri',
+      // Crediti tributari attivo (D II 4-bis) — confluisce in alt_cr se presente
+      const _cred_trib_att=get(['CreditiCreditiTributariTotaleCreditiTributari',
+        'CreditiTributariTotale','CreditiTributari',
+        'CreditiVersoPubblicaAmministrazioneTotale'],ctxI)||0;
+      // Crediti per imposte anticipate (D II 4-ter)
+      const _cred_imp_ant=get(['CreditiImpostAnticipate','ImpostAnticipate',
+        'AttivitaFiscaliAnticipate'],ctxI)||0;
+      // Crediti verso imprese collegate/controllate/controllanti
+      const _cred_group=get(['CreditiVersoImpreseCollegateTotaleCreditiVersoImpreseCollegate',
+        'CreditiVersoControllanteTotaleCreditiVersoControllante',
+        'CreditiVersoControllateTotaleCreditiVersoControllate'],ctxI)||0;
+      d.alt_cr=(get(['CreditiVersoAltriTotaleCreditiVersoAltri',
         'CreditiVersoAltriTotale','CreditiVersoAltri',
-        'AltriCreditiTotale','AltriCrediti'],ctxI);
+        'AltriCreditiTotale','AltriCrediti'],ctxI)||0)
+        +_cred_trib_att+_cred_imp_ant+_cred_group;
       d.liquidita=get(['TotaleDisponibilitaLiquide','DisponibilitaLiquideTotale',
         'DisponibilitaLiquide'],ctxI);
       d.tot_circ=get(['TotaleAttivoCircolante','AttivoCircolanteTotale'],ctxI)
@@ -557,8 +570,22 @@
       d.deb_soci=get(['DebitiDebitiVersoSociFinanziamentiTotaleDebitiVersoSociFinanziamenti',
         'DebitiVersoSociFinanziamentiTotale','DebitiVersoSociFinanziamenti',
         'DebitiVersoSoci'],ctxI);
-      d.alt_deb_other=get(['DebitiAltriDebitiTotaleAltriDebiti',
-        'AltriDebitiTotale','AltriDebiti'],ctxI);
+      // Debiti verso altri finanziatori (es. leasing, factoring, confidi)
+      d.deb_alt_fin=get(['DebitiDebitiVersoAltriFinanziatoriTotaleDebitiVersoAltriFinanziatori',
+        'DebitiVersoAltriFinanziatoriTotale','DebitiVersoAltriFinanziatori'],ctxI);
+      // Acconti da clienti (D3)
+      d.deb_acconti=get(['DebitiDebitiPerAccontiTotaleDebitiPerAcconti',
+        'DebitiPerAccontiTotale','DebitiPerAcconti','AccontiClienti'],ctxI);
+      // Debiti verso imprese collegate/controllate/controllanti
+      const _deb_group=
+        (get(['DebitiDebitiVersoImpreseCollegateTotaleDebitiVersoImpreseCollegate',
+          'DebitiVersoImpreseCollegateTotale','DebitiVersoImpreseCollegate'],ctxI)||0)+
+        (get(['DebitiDebitiVersoControllateTotaleDebitiVersoControllate',
+          'DebitiVersoControllateTotale','DebitiVersoControllate'],ctxI)||0)+
+        (get(['DebitiDebitiVersoControllanteTotaleDebitiVersoControllante',
+          'DebitiVersoControllanteTotale','DebitiVersoControllante'],ctxI)||0);
+      d.alt_deb_other=(get(['DebitiAltriDebitiTotaleAltriDebiti',
+        'AltriDebitiTotale','AltriDebiti'],ctxI)||0)+_deb_group;
       d.tot_deb=get(['TotaleDebiti','DebitiTotale'],ctxI)||getKw('TotaleDebiti',ctxI);
 
       // ── RATEI E RISCONTI PASSIVI ──────────────────────────────
@@ -572,8 +599,15 @@
       d.ric_vend=get(['ValoreProduzioneRicaviVenditePrestazioni',
         'RicaviVenditePrestazioni','RicaviDelleVendite'],ctxD);
       d.var_rim=get(['ValoreProduzioneVariazioniRimanenzeProduzioneCorsoLavorazione',
+        'ValoreProduzioneVariazioniRimanenzeProdottiCorsoLavorazioneSemilavoratiFiniti',
         'VariazioniRimanenzeProdottiCorso','VariazioniRimanenzeProdotti',
         'VariazioneRimanenzeProdottiFiniti'],ctxD);
+      // A3 – Variazioni lavori in corso su ordinazione
+      d.var_lav=get(['ValoreProduzioneVariazioniLavoriInCorsoOrdiniCommesse',
+        'VariazioniLavoriInCorso','LavoriInCorsoVariazioni'],ctxD);
+      // A4 – Incrementi immobilizzazioni per lavori interni
+      d.incr_imm=get(['ValoreProduzioneIncrementoImmobilizzazioniPerLavoriInterni',
+        'IncrementoImmobilizzazioniLavoriInterni','IncrementoImmobilizzazioni'],ctxD);
       d.alt_ric=get(['ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi',
         'AltriRicaviProventiTotale','AltriRicaviEProventi'],ctxD);
       d.tot_vp=get(['TotaleValoreProduzione','ValoreProduzioneToale',
@@ -600,7 +634,10 @@
       d.oneri_f=get(['ProventiOneriFinanziariInteressiAltriOneriFinanziariTotaleInteressiAltriOneriFinanziari',
         'InteressiAltriOneriFinanziariTotale','TotaleOneriFinanziari',
         'OneriFinanziariTotale','InteressiPassivi'],ctxD);
-      d.prov_f=get(['ProventiFinanziariTotale','TotaleProventiFinanziari',
+      d.prov_f=get([
+        'ProventiOneriFinanziariProventiPartecipazioniTotaleProventiPartecipazioni',
+        'ProventiOneriFinanziariAltriProventiFinanziariTotaleAltriProventiFinanziari',
+        'ProventiFinanziariTotale','TotaleProventiFinanziari',
         'ProventiFinanziari','ProventiDaPartecipazioni','ProventiDaPartecipazioniTotale',
         'AltriProventiFinanziari'],ctxD)||getKw('ProventiFinanziari',ctxD);
       d.rettifiche=get(['RettificheValoreAttivitaPassivitaFinanziarieTotale',
@@ -612,11 +649,16 @@
       d.utile_n=get(['UtilePerditaEsercizio','UtileEsercizio',
         'RisultatoNettoEsercizio'],ctxD);
       // Numero dipendenti (media/fine anno)
-      d.n_dip=get(['NumeroDipendentiMedioAnnuo','NumeroMedioAddetti','NumeroAddetti',
-        'NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio'],ctxD)
-        ||get(['NumeroDipendentiMedioAnnuo','NumeroMedioAddetti','NumeroAddetti',
-        'NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio'],ctxI)
-        ||getKw('NumeroDipendenti',ctxD)||getKw('NumeroAddetti',ctxD)||getKw('NumeroAddetti',ctxI);
+      d.n_dip=get([
+        'TotaleDipendentiNumeroMedio','TotaleDipendenti','NumeroDipendentiMedioAnnuo',
+        'NumeroMedioAnnuoDipendenti','NumeroMedioAddetti','NumeroAddetti',
+        'NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio',
+        'TotaleAddetti','TotaleNumeroMedioDipendenti'],ctxD)
+        ||get(['TotaleDipendentiNumeroMedio','TotaleDipendenti','NumeroDipendentiMedioAnnuo',
+        'NumeroMedioAnnuoDipendenti','NumeroMedioAddetti','NumeroAddetti',
+        'NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio',
+        'TotaleAddetti','TotaleNumeroMedioDipendenti'],ctxI)
+        ||getKw('NumeroDipendenti',ctxI)||getKw('NumeroMedio',ctxD)||getKw('TotaleDipendenti',ctxI);
 
       /* ─────────────────────────────────────────────────────────
          FASE 5 – Riconciliazione SP
@@ -626,7 +668,8 @@
       ───────────────────────────────────────────────────────── */
       // 5a – Debiti abbreviati
       const granDeb=(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)
-        +(d.deb_trib||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0);
+        +(d.deb_trib||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0)
+        +(d.deb_alt_fin||0)+(d.deb_acconti||0);
       if(d.tot_deb>0&&granDeb===0){
         d.alt_deb=d.tot_deb; d._bilancio_abbreviato=true;
       } else if(granDeb>0&&granDeb<d.tot_deb*0.999){

@@ -1297,8 +1297,9 @@ async function generaExcel() {
       Object.entries(MAP).forEach(([src,dst])=>{
         if(d[src]!==undefined&&d[src]!==0)DATA[anno][dst]=d[src];
       });
-      // deb_prev + deb_soci + alt_deb_other + alt_deb tutti confluiscono in alt_deb
-      const altDeb=(d.alt_deb||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0);
+      // deb_prev + deb_soci + alt_deb_other + deb_alt_fin + deb_acconti + alt_deb tutti confluiscono in alt_deb
+      const altDeb=(d.alt_deb||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0)
+        +(d.deb_alt_fin||0)+(d.deb_acconti||0);
       if(altDeb>0)DATA[anno].alt_deb=altDeb;
       // calcola riserve come tot_pn - cap_sociale - utili_pn - utile_es
       if(d.tot_pn){
