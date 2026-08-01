@@ -1144,186 +1144,151 @@ function handleXbrlFile(file){
   reader.readAsText(file, 'UTF-8');
 }
 
-// ─── Parser XBRL completo (tassonomia CCIAA italiana) ────
+// ─── Parser XBRL completo (tassonomia CCIAA italiana PCI_2018-11-04) ────
 function parseXBRL(xml){
   const content = xml;
 
-  // ── Contesti: trova istanti e durate, ordina per data desc ──
+  // FASE 1 – Contesti (supporta <context> e <xbrli:context>)
   const ctxInstants=[], ctxDurations=[];
-  let pos=0;
-  while(pos<content.length){
-    const start=content.indexOf('<context ',pos);
-    if(start===-1)break;
-    const idM=content.slice(start,start+120).match(/id="([^"]+)"/);
-    if(!idM){pos=start+1;continue;}
-    const ctxId=idM[1];
-    const end=content.indexOf('</context>',start);
-    if(end===-1)break;
-    const body=content.slice(start,end+10);
-    const mInst=body.match(/<instant>(\d{4}-\d{2}-\d{2})<\/instant>/i);
+  const ctxRe=/<(?:xbrli:)?context\s[^>]*\bid="([^"]+)"/g;
+  let ctxM;
+  while((ctxM=ctxRe.exec(content))!==null){
+    const ctxId=ctxM[1];
+    const bodyStart=ctxM.index;
+    const closeTag=content.indexOf('</context>',bodyStart);
+    const closeTagX=content.indexOf('</xbrli:context>',bodyStart);
+    const end=closeTag===-1?closeTagX:(closeTagX===-1?closeTag:Math.min(closeTag,closeTagX));
+    if(end===-1)continue;
+    const body=content.slice(bodyStart,end+20);
+    const mInst=body.match(/<(?:\w+:)?instant>(\d{4}-\d{2}-\d{2})<\/(?:\w+:)?instant>/i);
     if(mInst)ctxInstants.push({id:ctxId,date:mInst[1],year:parseInt(mInst[1])});
-    const mEnd=body.match(/<endDate>(\d{4}-\d{2}-\d{2})<\/endDate>/i);
+    const mEnd=body.match(/<(?:\w+:)?endDate>(\d{4}-\d{2}-\d{2})<\/(?:\w+:)?endDate>/i);
     if(mEnd)ctxDurations.push({id:ctxId,endDate:mEnd[1],year:parseInt(mEnd[1])});
-    pos=end+10;
   }
   ctxInstants.sort((a,b)=>b.date.localeCompare(a.date));
   ctxDurations.sort((a,b)=>b.endDate.localeCompare(a.endDate));
-  const ctxCorrI=ctxInstants[0]?.id||'cntxCorr_i';
-  const ctxCorrD=ctxDurations[0]?.id||'cntxCorr_d';
+  const ctxCorrI=ctxInstants[0]?.id;
+  const ctxCorrD=ctxDurations[0]?.id;
+  const anno=ctxInstants[0]?String(ctxInstants[0].year):(ctxDurations[0]?String(ctxDurations[0].year):'');
 
-  // ── Estrazione valore/stringa con contextRef (taxonomy itcc-ci) ──
-  function getRaw(tag, ctx){
-    const p=new RegExp(`<itcc-ci:${tag}[^>]*contextRef="${ctx}"[^>]*>([\\-\\d\\.,]+)<`,'i');
-    const m=content.match(p);
-    if(m) return parseFloat(m[1].replace(/\./g,'').replace(',','.'));
-    // fallback senza vincolo di contextRef (alcuni file non hanno il context atteso)
-    const p2=new RegExp(`<itcc-ci:${tag}[^>]*>([\\-\\d\\.,]+)<`,'i');
-    const m2=content.match(p2);
-    return m2?parseFloat(m2[1].replace(/\./g,'').replace(',','.')):0;
+  // FASE 2 – Scan-first: una sola passata → Map per lookup O(1)
+  // Cattura namespace con trattini (itcc-ci, itcc-ci-abb, xbrli, ecc.)
+  const BY_CTX=new Map();
+  const factRe=/<(?:[^\s>:]+:)?(\w{4,})[^>]*contextRef="([^"]+)"[^>]*>\s*([-\d.,]+)\s*</g;
+  let fm;
+  while((fm=factRe.exec(content))!==null){
+    const [,name,ctx,raw]=fm;
+    const val=parseFloat(raw.replace(/,/,'.'));
+    if(isNaN(val))continue;
+    if(!BY_CTX.has(ctx))BY_CTX.set(ctx,new Map());
+    BY_CTX.get(ctx).set(name,val);
   }
-  function getVal(tags, ctx){
-    const list = Array.isArray(tags) ? tags : [tags];
-    for(const tag of list){
-      const n = getRaw(tag, ctx);
-      if(!isNaN(n) && n !== 0) return Math.abs(n);
+
+  // FASE 3 – Funzioni di lookup
+  const get=(names,ctx)=>{
+    if(!ctx)return 0;
+    const m=BY_CTX.get(ctx)||new Map();
+    for(const n of (Array.isArray(names)?names:[names])){
+      const v=m.get(n);
+      if(v!=null&&v!==0)return v;
     }
     return 0;
-  }
-  function getValSigned(tags, ctx){
-    const list = Array.isArray(tags) ? tags : [tags];
-    for(const tag of list){
-      const n = getRaw(tag, ctx);
-      if(!isNaN(n) && n !== 0) return n;
+  };
+  const getKw=(kw,ctx,excl=[])=>{
+    if(!ctx)return 0;
+    const m=BY_CTX.get(ctx)||new Map();
+    const re=new RegExp(kw,'i');
+    for(const [name,val] of m){
+      if(val&&re.test(name)&&!excl.some(e=>name.includes(e)))return val;
     }
     return 0;
-  }
-  function getStr(tags){
-    const list = Array.isArray(tags) ? tags : [tags];
-    for(const tag of list){
-      const m=content.match(new RegExp(`<itcc-ci:${tag}[^>]*>([^<]+)<`,'i'));
-      if(m && m[1].trim() && m[1].trim().length < 200) return m[1].trim();
-    }
-    return '';
-  }
+  };
+  const getStr=kw=>{
+    const re=new RegExp(`<(?:[^\\s>:]+:)?[\\w]*${kw}[\\w]*[^>]*>([^<]{1,200})<`,'i');
+    const m=content.match(re);return m?m[1].trim():'';
+  };
 
-  // ── Anno: dal contesto corrente ──
-  const anno = ctxInstants[0] ? String(ctxInstants[0].year) : (ctxDurations[0] ? String(ctxDurations[0].year) : '');
+  // FASE 4 – Mappatura tassonomia completa
+  const ctxI=ctxCorrI, ctxD=ctxCorrD;
 
-  // ── Ragione Sociale ──
-  const nome = getStr(['DatiAnagraficiDenominazione','RagioneSociale']);
+  // ── SP ATTIVO ──
+  const imm_imm=get(['TotaleImmobilizzazioniImmateriali','ImmobilizzazioniImmaterialiTotale'],ctxI);
+  const imm_mat=get(['TotaleImmobilizzazioniMateriali','ImmobilizzazioniMaterialiTotale'],ctxI);
+  const imm_fin=get(['TotaleImmobilizzazioniFinanziarie','ImmobilizzazioniFinanziarieTotale'],ctxI);
+  const crediti_clienti=get(['CreditiVersoClientiTotaleCreditiVersoClienti','CreditiVersoClientiTotale','CreditiVersoClienti','TotaleCrediti'],ctxI);
+  const _cred_trib=get(['CreditiCreditiTributariTotaleCreditiTributari','CreditiTributariTotale','CreditiTributari','CreditiVersoPubblicaAmministrazioneTotale'],ctxI)||0;
+  const _cred_imp=get(['CreditiImpostAnticipate','ImpostAnticipate','AttivitaFiscaliAnticipate'],ctxI)||0;
+  const _cred_grp=get(['CreditiVersoImpreseCollegateTotaleCreditiVersoImpreseCollegate','CreditiVersoControllanteTotaleCreditiVersoControllante','CreditiVersoControllateTotaleCreditiVersoControllate'],ctxI)||0;
+  const altri_crediti=(get(['CreditiVersoAltriTotaleCreditiVersoAltri','CreditiVersoAltriTotale','AltriCreditiTotale','AltriCrediti'],ctxI)||0)+_cred_trib+_cred_imp+_cred_grp;
+  const rimanenze=get(['TotaleRimanenze','RimanenzeTotale','Rimanenze'],ctxI);
+  const liquid=get(['TotaleDisponibilitaLiquide','DisponibilitaLiquideTotale','DisponibilitaLiquide'],ctxI);
+  const ratei_att=get(['AttivoRateiRisconti','RateiRiscontiAttivi','TotaleRateiRiscontiAttivi','RateiRiscontiAttiviTotale','RateiAttivi'],ctxI)||getKw('RateiRiscontiAttiv',ctxI);
+  const tot_attivo=get(['TotaleAttivo','AttivoTotale'],ctxI);
 
-  // ════════════════════════════════
-  // CONTO ECONOMICO (valori sul context di durata corrente)
-  // ════════════════════════════════
+  // ── SP PASSIVO ──
+  const cap_soc=get(['PatrimonioNettoCapitale','CapitaleSociale','PatrimonioNettoCapitaleSociale'],ctxI);
+  const utile_es=get(['PatrimonioNettoUtilePerditaEsercizio','UtilePerditaEsercizioPatrimonioNetto'],ctxI);
+  const pn=get(['TotalePatrimonioNetto','PatrimonioNettoTotale'],ctxI)||getKw('TotalePatrimonioNetto',ctxI);
+  const tfr=get(['TrattamentoFineRapportoLavoroSubordinato','TrattamentoFineRapporto','FondoTrattamentoFineRapporto'],ctxI)||getKw('TrattamentoFineRapporto',ctxI);
+  const debiti_fornitori=get(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitoriTotale','DebitiVersoFornitori'],ctxI);
+  const deb_bt=get(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheBreveTermine','DebitiVersoBancheEntro'],ctxI);
+  const deb_mlt=get(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheLungoTermine','DebitiVersoBancheOltre'],ctxI);
+  const deb_trib=get(['DebitiDebitiTributariTotaleDebitiTributari','DebitiTributariTotale','DebitiTributari'],ctxI);
+  const deb_prev=get(['DebitiDebitiVersoIstitutiPrevidenzialiTotaleDebitiVersoIstitutiPrevidenziali','DebitiVersoIstitutiPrevidenziali','DebitiVersoEntiPrevidenziali'],ctxI);
+  const deb_alt_fin=get(['DebitiDebitiVersoAltriFinanziatoriTotaleDebitiVersoAltriFinanziatori','DebitiVersoAltriFinanziatoriTotale','DebitiVersoAltriFinanziatori'],ctxI);
+  const deb_acconti=get(['DebitiDebitiPerAccontiTotaleDebitiPerAcconti','DebitiPerAccontiTotale','DebitiPerAcconti','AccontiClienti'],ctxI);
+  const _deb_grp=(get(['DebitiDebitiVersoImpreseCollegateTotaleDebitiVersoImpreseCollegate','DebitiVersoImpreseCollegateTotale'],ctxI)||0)+(get(['DebitiDebitiVersoControllateTotaleDebitiVersoControllate','DebitiVersoControllateTotale'],ctxI)||0)+(get(['DebitiDebitiVersoControllanteTotaleDebitiVersoControllante','DebitiVersoControllanteTotale'],ctxI)||0);
+  const alt_deb=(get(['DebitiAltriDebitiTotaleAltriDebiti','AltriDebitiTotale','AltriDebiti'],ctxI)||0)+_deb_grp+deb_prev+deb_alt_fin+deb_acconti;
+  const tot_deb=get(['TotaleDebiti','DebitiTotale'],ctxI)||getKw('TotaleDebiti',ctxI);
 
-  // A) Valore della produzione
-  const ricavi    = getVal(['ValoreProduzioneRicaviVenditePrestazioni'], ctxCorrD);
-  const altri_ric = getVal(['ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi'], ctxCorrD);
-  const varRim    = getValSigned(['ValoreProduzioneVariazioniRimanenzeProdotti'], ctxCorrD);
-  let val_prod  = ricavi + altri_ric + (varRim > 0 ? varRim : 0);
-  // Fallback: se ricavi=0 ma il totale valore produzione è disponibile
-  const val_prod_raw = getVal(['TotaleValoreProduzione'], ctxCorrD);
-  if(ricavi === 0 && val_prod_raw > 0) val_prod = val_prod_raw;
+  // ── CE ──
+  const ricavi=get(['ValoreProduzioneRicaviVenditePrestazioni','RicaviVenditePrestazioni','RicaviDelleVendite'],ctxD);
+  const altri_ric=get(['ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi','AltriRicaviProventiTotale','AltriRicaviEProventi'],ctxD);
+  const varRimRaw=get(['ValoreProduzioneVariazioniRimanenzeProduzioneCorsoLavorazione','ValoreProduzioneVariazioniRimanenzeProdottiCorsoLavorazioneSemilavoratiFiniti','VariazioniRimanenzeProdotti'],ctxD);
+  const val_prod_tot=get(['TotaleValoreProduzione','ValoreProduzioneToale'],ctxD)||getKw('TotaleValoreProduzione',ctxD);
+  const mat_prime=get(['CostiProduzioneMateriePrimeSussidiarieConsumoMerci','MateriePrimeSussidiarieConsumoMerci','AcquistiMateriePrime'],ctxD);
+  const servizi=get(['CostiProduzioneServizi','Servizi','CostiServizi'],ctxD);
+  const godimento=get(['CostiProduzioneGodimentoBeniTerzi','GodimentoBeniTerzi','FittiPassiviLeasing'],ctxD);
+  const costo_pers=get(['CostiProduzionePersonaleTotaleCostiPersonale','PersonaleTotaleCostiPersonale','TotaleCostiPersonale','CostiPersonale'],ctxD)||getKw('TotaleCostiPersonale',ctxD);
+  const ammortamenti=get(['CostiProduzioneAmmortamentiSvalutazioniTotaleAmmortamentiSvalutazioni','AmmortamentiSvalutazioniTotale','TotaleAmmortamentiSvalutazioni','Ammortamenti'],ctxD)||getKw('TotaleAmmortamenti',ctxD);
+  const altri_costi=get(['CostiProduzioneOneriDiversiGestione','OneriDiversiGestione','OneriDiversi'],ctxD);
+  const costi_prod_tot=get(['TotaleCostiProduzione','CostiProduzioneTotale'],ctxD)||getKw('TotaleCostiProduzione',ctxD);
+  const oneri_fin=get(['ProventiOneriFinanziariInteressiAltriOneriFinanziariTotaleInteressiAltriOneriFinanziari','InteressiAltriOneriFinanziariTotale','TotaleOneriFinanziari','InteressiPassivi'],ctxD);
+  const prov_fin=get(['ProventiOneriFinanziariProventiPartecipazioniTotaleProventiPartecipazioni','ProventiOneriFinanziariAltriProventiFinanziariTotaleAltriProventiFinanziari','ProventiFinanziariTotale','TotaleProventiFinanziari','ProventiFinanziari','AltriProventiFinanziari'],ctxD)||getKw('ProventiFinanziari',ctxD);
+  const n_dip=get(['TotaleDipendentiNumeroMedio','TotaleDipendenti','NumeroDipendentiMedioAnnuo','NumeroMedioAnnuoDipendenti','NumeroMedioAddetti','NumeroAddetti','NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio','TotaleAddetti'],ctxD)||get(['TotaleDipendentiNumeroMedio','TotaleDipendenti','NumeroDipendenti'],ctxI)||getKw('NumeroDipendenti',ctxI)||getKw('NumeroMedio',ctxD);
 
-  // B) Costi della produzione
-  const mat_prime  = getVal(['CostiProduzioneMateriePrimeSussidiarieConsumoMerci'], ctxCorrD);
-  const servizi    = getVal(['CostiProduzioneServizi'], ctxCorrD);
-  const godimento  = getVal(['CostiProduzioneGodimentoBeniTerzi'], ctxCorrD);
-  const costo_pers = getVal(['CostiProduzionePersonaleTotaleCostiPersonale'], ctxCorrD);
-  const ammortamenti = getVal(['CostiProduzioneAmmortamentiSvalutazioniTotaleAmmortamentiSvalutazioni'], ctxCorrD);
-  const altri_costi= getVal(['CostiProduzioneOneriDiversiGestione'], ctxCorrD);
-  const var_rim_neg= varRim < 0 ? Math.abs(varRim) : 0;
+  // Anagrafica
+  const nome=getStr('Denominazione')||getStr('RagioneSociale')||getStr('DatiAnagraficiDenominazione');
+  const codice_ateco=getStr('CodiceAteco')||getStr('Ateco')||getStr('DatiAnagraficiSettoreAttivitaPrevalenteAteco');
 
-  let costi_prod = getVal(['TotaleCostiProduzione'], ctxCorrD);
-  if(!costi_prod) costi_prod = mat_prime + servizi + godimento + costo_pers + ammortamenti + altri_costi + var_rim_neg;
+  // ── Metriche derivate per proiezioni ──
+  const ricavi_eff=ricavi>0?ricavi:val_prod_tot;
+  const costi_prod=costi_prod_tot||(mat_prime+servizi+godimento+costo_pers+ammortamenti+altri_costi);
+  const val_prod=val_prod_tot||(ricavi_eff+altri_ric);
+  const ebit=val_prod-costi_prod;
+  const ebitda=ebit+ammortamenti;
+  const pfn=deb_bt+deb_mlt-liquid;
+  const ebitda_margin=ricavi_eff>0?(ebitda/ricavi_eff*100):0;
+  const margine_lordo=ricavi_eff>0?((ricavi_eff-mat_prime)/ricavi_eff*100):0;
+  const costi_var_est=mat_prime+servizi*0.6;
+  const perc_var=ricavi_eff>0?(costi_var_est/ricavi_eff*100):0;
+  const costi_fissi=godimento+altri_costi+servizi*0.4;
+  const ricavi_gg=ricavi_eff/365;
+  const costi_gg=(mat_prime+servizi)/365||ricavi_gg*0.5;
+  const dso=ricavi_gg>0?Math.round(crediti_clienti/ricavi_gg):60;
+  const dpo=costi_gg>0?Math.round(debiti_fornitori/costi_gg):45;
+  const dio=costi_gg>0?Math.round(rimanenze/costi_gg):30;
+  const costo_medio_dip=(n_dip>0&&costo_pers>0)?Math.round(costo_pers/n_dip):0;
 
-  // Se ricavi rimane 0, usa val_prod come base (valore produzione totale)
-  const ricavi_eff = ricavi > 0 ? ricavi : val_prod;
-
-  // EBIT e EBITDA
-  const ebit  = val_prod - costi_prod;
-  const ebitda = ebit + ammortamenti;
-
-  // C) Proventi/Oneri finanziari
-  const prov_fin   = getVal(['ProventiOneriFinanziariAltriProventiFinanziari'], ctxCorrD);
-  const oneri_fin  = getVal(['TotaleInteressiAltriOneriFinanziari'], ctxCorrD);
-
-  // ════════════════════════════════
-  // STATO PATRIMONIALE ATTIVO (valori sul context istantaneo corrente)
-  // ════════════════════════════════
-
-  // Crediti verso clienti (per DSO)
-  const crediti_clienti = getVal(['CreditiVersoClientiTotaleCreditiVersoClienti'], ctxCorrI);
-
-  // Rimanenze (per DIO)
-  const rimanenze = getVal(['TotaleRimanenze'], ctxCorrI);
-
-  // Liquidità
-  const liquid = getVal(['TotaleDisponibilitaLiquide'], ctxCorrI);
-
-  // Immobilizzazioni (per capex storico di riferimento)
-  const immob_mat  = getVal(['TotaleImmobilizzazioniMateriali'], ctxCorrI);
-  const immob_imm  = getVal(['TotaleImmobilizzazioniImmateriali'], ctxCorrI);
-  const tot_attivo = getVal(['TotaleAttivo'], ctxCorrI);
-
-  // ════════════════════════════════
-  // STATO PATRIMONIALE PASSIVO
-  // ════════════════════════════════
-
-  // Debiti verso fornitori (per DPO) — prova più tag (schema abbreviato vs completo)
-  const debiti_fornitori = getVal(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitori'], ctxCorrI);
-
-  // Debiti bancari — prova più tag
-  const deb_bt  = getVal(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheBreveTermine'], ctxCorrI);
-  const deb_mlt = getVal(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheLungoTermine'], ctxCorrI);
-
-  // Patrimonio netto
-  const cap_soc = getVal(['PatrimonioNettoCapitale'], ctxCorrI);
-  const riserve = getVal(['PatrimonioNettoRiserveTotaleAltreRiserve','PatrimonioNettoRiservaLegale'], ctxCorrI);
-  const utile_es= getValSigned(['PatrimonioNettoUtilePerditaEsercizio','UtilePerditaEsercizio'], ctxCorrI);
-  const pn = getVal(['TotalePatrimonioNetto'], ctxCorrI)
-             || cap_soc + riserve + utile_es;
-
-  // TFR
-  const tfr = getVal(['TrattamentoFineRapportoLavoroSubordinato'], ctxCorrI);
-
-  // ════════════════════════════════
-  // METRICHE DERIVATE PER PROIEZIONI
-  // ════════════════════════════════
-
-  const pfn = deb_bt + deb_mlt - liquid;
-  const ebitda_margin = ricavi_eff > 0 ? (ebitda / ricavi_eff * 100) : 0;
-  const margine_lordo = ricavi_eff > 0 ? ((ricavi_eff - mat_prime - (varRim<0?Math.abs(varRim):0)) / ricavi_eff * 100) : 0;
-
-  // Costi variabili = mat_prime + % servizi (stima 60% variabili)
-  const costi_var_est = mat_prime + servizi * 0.6;
-  const perc_var = ricavi_eff > 0 ? (costi_var_est / ricavi_eff * 100) : 0;
-
-  // Costi fissi = godimento + altri_costi + servizi*0.4 + costo_pers (parte fissa)
-  const costi_fissi = godimento + altri_costi + servizi * 0.4;
-
-  // Working capital days (con protezione da divisione per zero)
-  const ricavi_gg = ricavi_eff / 365;
-  const costi_gg  = (mat_prime + servizi) / 365 || ricavi_gg * 0.5;
-  const dso = ricavi_gg > 0 ? Math.round(crediti_clienti / ricavi_gg) : 60;
-  const dpo = costi_gg  > 0 ? Math.round(debiti_fornitori / costi_gg)  : 45;
-  const dio = costi_gg  > 0 ? Math.round(rimanenze / costi_gg)         : 30;
-
-  // N. dipendenti (se disponibile)
-  const n_dip = getVal(['TotaleDipendentiNumeroMedio'], ctxCorrD);
-  const costo_medio_dip = (n_dip > 0 && costo_pers > 0) ? Math.round(costo_pers / n_dip) : 0;
+  // Riserve = tot_pn - cap_soc - utili portati a nuovo - utile esercizio
+  const riserve_calc=pn?Math.max(0,pn-cap_soc-utile_es):get(['PatrimonioNettoRiserveTotaleAltreRiserve','PatrimonioNettoRiservaLegale'],ctxI);
 
   return {
-    // Anagrafica
-    nome, anno,
-    // CE (ricavi = ricavi_eff per garantire il dato anche da val_prod)
+    nome, anno, codice_ateco,
     ricavi: ricavi_eff, altri_ric, mat_prime, servizi, godimento, costo_pers,
     ammortamenti, altri_costi, ebitda, ebit, oneri_fin, prov_fin, utile_es,
-    // SP attivo
-    crediti_clienti, rimanenze, liquid, immob_mat, immob_imm, tot_attivo,
-    // SP passivo
-    debiti_fornitori, deb_bt, deb_mlt, pn, cap_soc, riserve, tfr,
-    // Metriche derivate
+    crediti_clienti, rimanenze, liquid, imm_imm, immob_mat: imm_mat, immob_imm: imm_imm, imm_fin, tot_attivo,
+    debiti_fornitori, deb_bt, deb_mlt, alt_deb, deb_trib, tfr, pn, cap_soc, riserve: riserve_calc, tot_deb,
     pfn, ebitda_margin, margine_lordo, perc_var, costi_fissi,
     dso: (dso>0&&dso<365)?dso:60,
     dpo: (dpo>0&&dpo<365)?dpo:45,
