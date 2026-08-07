@@ -1215,11 +1215,14 @@ function parseXBRL(xml){
   const imm_imm=get(['TotaleImmobilizzazioniImmateriali','ImmobilizzazioniImmaterialiTotale'],ctxI);
   const imm_mat=get(['TotaleImmobilizzazioniMateriali','ImmobilizzazioniMaterialiTotale'],ctxI);
   const imm_fin=get(['TotaleImmobilizzazioniFinanziarie','ImmobilizzazioniFinanziarieTotale'],ctxI);
-  const crediti_clienti=get(['CreditiVersoClientiTotaleCreditiVersoClienti','CreditiVersoClientiTotale','CreditiVersoClienti','TotaleCrediti'],ctxI);
+  const crediti_clienti_spec=get(['CreditiVersoClientiTotaleCreditiVersoClienti','CreditiVersoClientiTotale','CreditiVersoClienti'],ctxI);
+  const _usaTotCred=!crediti_clienti_spec;
+  const crediti_clienti=crediti_clienti_spec||get(['TotaleCrediti','CreditiEsigibiliEntroEsercizioSuccessivo'],ctxI);
   const _cred_trib=get(['CreditiCreditiTributariTotaleCreditiTributari','CreditiTributariTotale','CreditiTributari','CreditiVersoPubblicaAmministrazioneTotale'],ctxI)||0;
-  const _cred_imp=get(['CreditiImpostAnticipate','ImpostAnticipate','AttivitaFiscaliAnticipate'],ctxI)||0;
+  const _cred_imp=_usaTotCred?0:get(['CreditiImposteAnticipateTotaleImposteAnticipate','CreditiImpostAnticipate','ImpostAnticipate','AttivitaFiscaliAnticipate'],ctxI)||0;
   const _cred_grp=get(['CreditiVersoImpreseCollegateTotaleCreditiVersoImpreseCollegate','CreditiVersoControllanteTotaleCreditiVersoControllante','CreditiVersoControllateTotaleCreditiVersoControllate'],ctxI)||0;
-  const altri_crediti=(get(['CreditiVersoAltriTotaleCreditiVersoAltri','CreditiVersoAltriTotale','AltriCreditiTotale','AltriCrediti'],ctxI)||0)+_cred_trib+_cred_imp+_cred_grp;
+  const _cred_soci_ver=get(['TotaleCreditiVersoSociVersamentiAncoraDovuti','CreditiVersoSociVersamentiAncoraDovutiTotale'],ctxI)||0;
+  const altri_crediti=(get(['CreditiVersoAltriTotaleCreditiVersoAltri','CreditiVersoAltriTotale','AltriCreditiTotale','AltriCrediti'],ctxI)||0)+_cred_trib+_cred_imp+_cred_grp+_cred_soci_ver;
   const rimanenze=get(['TotaleRimanenze','RimanenzeTotale','Rimanenze'],ctxI);
   const liquid=get(['TotaleDisponibilitaLiquide','DisponibilitaLiquideTotale','DisponibilitaLiquide'],ctxI);
   const ratei_att=get(['AttivoRateiRisconti','RateiRiscontiAttivi','TotaleRateiRiscontiAttivi','RateiRiscontiAttiviTotale','RateiAttivi'],ctxI)||getKw('RateiRiscontiAttiv',ctxI);
@@ -1231,8 +1234,10 @@ function parseXBRL(xml){
   const pn=get(['TotalePatrimonioNetto','PatrimonioNettoTotale'],ctxI)||getKw('TotalePatrimonioNetto',ctxI);
   const tfr=get(['TrattamentoFineRapportoLavoroSubordinato','TrattamentoFineRapporto','FondoTrattamentoFineRapporto'],ctxI)||getKw('TrattamentoFineRapporto',ctxI);
   const debiti_fornitori=get(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitoriTotaleDebitiVersoFornitori','DebitiVersoFornitoriTotale','DebitiVersoFornitori'],ctxI);
-  const deb_bt=get(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheBreveTermine','DebitiVersoBancheEntro'],ctxI);
+  let deb_bt=get(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo','DebitiVersoBancheBreveTermine','DebitiVersoBancheEntro'],ctxI);
   const deb_mlt=get(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo','DebitiVersoBancheLungoTermine','DebitiVersoBancheOltre'],ctxI);
+  // Schema abbreviato: debiti banche totali quando BT/LT non sono distinti
+  if(!deb_bt&&!deb_mlt)deb_bt=get(['DebitiDebitiVersoBancheTotaleDebitiVersoBanche','DebitiVersoBancheTotale','DebitiVersoBanche'],ctxI);
   const deb_trib=get(['DebitiDebitiTributariTotaleDebitiTributari','DebitiTributariTotale','DebitiTributari'],ctxI);
   const deb_prev=get(['DebitiDebitiVersoIstitutiPrevidenzialiTotaleDebitiVersoIstitutiPrevidenziali','DebitiVersoIstitutiPrevidenziali','DebitiVersoEntiPrevidenziali'],ctxI);
   const deb_alt_fin=get(['DebitiDebitiVersoAltriFinanziatoriTotaleDebitiVersoAltriFinanziatori','DebitiVersoAltriFinanziatoriTotale','DebitiVersoAltriFinanziatori'],ctxI);

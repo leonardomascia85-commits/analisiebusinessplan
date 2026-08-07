@@ -495,25 +495,30 @@
 
       d.rimanenze=get(['TotaleRimanenze','RimanenzeTotale','Rimanenze',
         'TotaleRimanenzeMerciMateriePrimeSussidiarieConsumoSemilavorati'],ctxI);
-      // Crediti: nome lungo (ordinario) → aggregato (abbreviato) → fallback
+      // Crediti verso clienti (schema completo prima, poi fallback abbreviato TotaleCrediti)
       d.cred_cl=get(['CreditiVersoClientiTotaleCreditiVersoClienti',
-        'CreditiVersoClientiTotale','CreditiVersoClienti',
-        'TotaleCrediti','CreditiEsigibiliEntroEsercizioSuccessivo'],ctxI);
+        'CreditiVersoClientiTotale','CreditiVersoClienti'],ctxI);
+      const _usaTotaleCrediti=!d.cred_cl; // true = schema abbreviato (TotaleCrediti aggrega tutto)
+      if(!d.cred_cl)d.cred_cl=get(['TotaleCrediti','CreditiEsigibiliEntroEsercizioSuccessivo'],ctxI);
       // Crediti tributari attivo (D II 4-bis) — confluisce in alt_cr se presente
       const _cred_trib_att=get(['CreditiCreditiTributariTotaleCreditiTributari',
         'CreditiTributariTotale','CreditiTributari',
         'CreditiVersoPubblicaAmministrazioneTotale'],ctxI)||0;
-      // Crediti per imposte anticipate (D II 4-ter)
-      const _cred_imp_ant=get(['CreditiImpostAnticipate','ImpostAnticipate',
+      // Crediti per imposte anticipate (D II 4-ter): non aggiungere se già in TotaleCrediti
+      const _cred_imp_ant=_usaTotaleCrediti?0:get(['CreditiImposteAnticipateTotaleImposteAnticipate',
+        'CreditiImpostAnticipate','ImpostAnticipate',
         'AttivitaFiscaliAnticipate'],ctxI)||0;
       // Crediti verso imprese collegate/controllate/controllanti
       const _cred_group=get(['CreditiVersoImpreseCollegateTotaleCreditiVersoImpreseCollegate',
         'CreditiVersoControllanteTotaleCreditiVersoControllante',
         'CreditiVersoControllateTotaleCreditiVersoControllate'],ctxI)||0;
+      // Crediti verso soci per versamenti ancora dovuti (voce A attivo, fuori circolante)
+      const _cred_soci_ver=get(['TotaleCreditiVersoSociVersamentiAncoraDovuti',
+        'CreditiVersoSociVersamentiAncoraDovutiTotale'],ctxI)||0;
       d.alt_cr=(get(['CreditiVersoAltriTotaleCreditiVersoAltri',
         'CreditiVersoAltriTotale','CreditiVersoAltri',
         'AltriCreditiTotale','AltriCrediti'],ctxI)||0)
-        +_cred_trib_att+_cred_imp_ant+_cred_group;
+        +_cred_trib_att+_cred_imp_ant+_cred_group+_cred_soci_ver;
       d.liquidita=get(['TotaleDisponibilitaLiquide','DisponibilitaLiquideTotale',
         'DisponibilitaLiquide'],ctxI);
       d.tot_circ=get(['TotaleAttivoCircolante','AttivoCircolanteTotale'],ctxI)
@@ -666,6 +671,12 @@
          2. Attivo: se somma parti ≠ tot_att ricaviamo il residuo
          3. Passivo: se somma parti ≠ tot_att ricaviamo il residuo
       ───────────────────────────────────────────────────────── */
+      // 5a-pre – Schema abbreviato: debiti banche totali quando BT/LT non sono distinti
+      if(!d.deb_b_bt&&!d.deb_b_lt){
+        const _deb_b_tot=get(['DebitiDebitiVersoBancheTotaleDebitiVersoBanche',
+          'DebitiVersoBancheTotale','DebitiVersoBanche'],ctxI);
+        if(_deb_b_tot)d.deb_b_bt=_deb_b_tot;
+      }
       // 5a – Debiti abbreviati
       const granDeb=(d.deb_b_bt||0)+(d.deb_b_lt||0)+(d.deb_for||0)
         +(d.deb_trib||0)+(d.deb_prev||0)+(d.deb_soci||0)+(d.alt_deb_other||0)
