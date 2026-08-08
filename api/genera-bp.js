@@ -377,8 +377,8 @@ function buildCERows(R0, R1, R2, R3, E0, E1, E2, E3,
     { label: 'EBIT (Risultato operativo)', s: E0 - ammBase, a1: EBIT1, a2: EBIT2, a3: EBIT3, total: true },
     { label: 'Oneri finanziari netti', s: -(d.interessi_esistenti || 0), a1: -OF1, a2: -OF2, a3: -OF3, sub: true },
     { label: 'EBT (Risultato ante imposte)', s: E0 - ammBase - (d.interessi_esistenti || 0), a1: EBT1, a2: EBT2, a3: EBT3, total: true },
-    { label: 'Imposte sul reddito', s: null, a1: -TAX1, a2: -TAX2, a3: -TAX3, sub: true },
-    { label: 'UTILE NETTO', s: null, a1: UN1, a2: UN2, a3: UN3, total: true, positive: UN1 > 0, negative: UN1 < 0 },
+    { label: 'Imposte sul reddito', s: d.imposte_storiche > 0 ? -d.imposte_storiche : null, a1: -TAX1, a2: -TAX2, a3: -TAX3, sub: true },
+    { label: 'UTILE NETTO', s: d.utile_storico || null, a1: UN1, a2: UN2, a3: UN3, total: true, positive: UN1 > 0, negative: UN1 < 0 },
   ];
 }
 

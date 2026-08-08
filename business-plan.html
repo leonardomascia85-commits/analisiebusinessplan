@@ -1260,6 +1260,8 @@ function parseXBRL(xml){
   const costi_prod_tot=get(['TotaleCostiProduzione','CostiProduzioneTotale'],ctxD)||getKw('TotaleCostiProduzione',ctxD);
   const oneri_fin=get(['ProventiOneriFinanziariInteressiAltriOneriFinanziariTotaleInteressiAltriOneriFinanziari','InteressiAltriOneriFinanziariTotale','TotaleOneriFinanziari','InteressiPassivi'],ctxD);
   const prov_fin=get(['ProventiOneriFinanziariProventiPartecipazioniTotaleProventiPartecipazioni','ProventiOneriFinanziariAltriProventiFinanziariTotaleAltriProventiFinanziari','ProventiFinanziariTotale','TotaleProventiFinanziari','ProventiFinanziari','AltriProventiFinanziari'],ctxD)||getKw('ProventiFinanziari',ctxD);
+  const imposte=get(['ImposteRedditoEsercizioCorrentiDifferiteAnticipateTotaleImposteRedditoEsercizioCorrentiDifferiteAnticipate','TotaleImposteRedditoEsercizio','ImposteRedditoEsercizio','Imposte','ImposteSulReddito'],ctxD);
+  const utile_n=get(['UtilePerditaEsercizio','UtileEsercizio','RisultatoNettoEsercizio'],ctxD);
   const n_dip=get(['TotaleDipendentiNumeroMedio','TotaleDipendenti','NumeroDipendentiMedioAnnuo','NumeroMedioAnnuoDipendenti','NumeroMedioAddetti','NumeroAddetti','NumeroDipendenti','MediaDipendenti','AddettiFineEsercizio','TotaleAddetti'],ctxD)||get(['TotaleDipendentiNumeroMedio','TotaleDipendenti','NumeroDipendenti'],ctxI)||getKw('NumeroDipendenti',ctxI)||getKw('NumeroMedio',ctxD);
 
   // Anagrafica
@@ -1291,7 +1293,7 @@ function parseXBRL(xml){
   return {
     nome, anno, codice_ateco,
     ricavi: ricavi_eff, altri_ric, mat_prime, servizi, godimento, costo_pers,
-    ammortamenti, altri_costi, ebitda, ebit, oneri_fin, prov_fin, utile_es,
+    ammortamenti, altri_costi, ebitda, ebit, oneri_fin, prov_fin, imposte, utile_n, utile_es,
     crediti_clienti, rimanenze, liquid, imm_imm, immob_mat: imm_mat, immob_imm: imm_imm, imm_fin, tot_attivo,
     debiti_fornitori, deb_bt, deb_mlt, alt_deb, deb_trib, tfr, pn, cap_soc, riserve: riserve_calc, tot_deb,
     pfn, ebitda_margin, margine_lordo, perc_var, costi_fissi,
@@ -1546,7 +1548,8 @@ async function generaBPdaXBRL(){
     tot_attivo:         Math.round(p.tot_attivo||0),
     debiti_fornitori:   Math.round(p.debiti_fornitori||0),
     oneri_fin_storici:  Math.round(p.oneri_fin||0),
-    utile_storico:      Math.round(p.utile_es||0),
+    imposte_storiche:   Math.round(p.imposte||0),
+    utile_storico:      Math.round(p.utile_n||p.utile_es||0),
     mat_prime:          Math.round(p.mat_prime||0),
     servizi:            Math.round(p.servizi||0),
     ammortamenti_storici: Math.round(p.ammortamenti||0),
