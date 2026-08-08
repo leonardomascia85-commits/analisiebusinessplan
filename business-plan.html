@@ -357,9 +357,39 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
               </div>
             </div>
 
-            <!-- 1. Nuovo finanziamento -->
+            <!-- 2. MOL target -->
+            <div style="margin-bottom:20px">
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">2. Margine operativo lordo (MOL / EBITDA)</label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <!-- Storico da XBRL -->
+                <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:14px 14px;">
+                  <div style="font-size:.75rem;font-weight:600;color:#64748B;margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Storico XBRL</div>
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <div id="mol-storico-val" style="font-size:1.5rem;font-weight:800;color:#1D4ED8;">—</div>
+                    <div style="font-size:.8rem;color:#64748B;">%</div>
+                  </div>
+                  <div style="font-size:.72rem;color:#94A3B8;margin-top:3px;">Calcolato dall'ultimo bilancio</div>
+                </div>
+                <!-- Target proiezioni -->
+                <div style="background:#EFF6FF;border:2px solid #BFDBFE;border-radius:10px;padding:14px 14px;">
+                  <div style="font-size:.75rem;font-weight:600;color:#1D4ED8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Target proiezioni</div>
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <div class="input-group" style="flex:1;max-width:110px;">
+                      <input type="number" id="mol-target-xbrl" class="has-suffix"
+                             step="0.5" min="0" max="100" placeholder="—"
+                             style="font-size:1.1rem;font-weight:700;"
+                             oninput="onMolTargetChange(this.value)">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                  <div style="font-size:.72rem;color:#3B82F6;margin-top:3px;" id="mol-target-hint">Lascia invariato = mantieni storico</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Nuovo finanziamento -->
             <div>
-              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">1. Nuovo finanziamento bancario?</label>
+              <label style="display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">3. Nuovo finanziamento bancario?</label>
               <div class="toggle-row" style="margin-bottom:12px">
                 <label class="toggle">
                   <input type="checkbox" id="toggle-fin-xbrl" onchange="toggleFinanziamento('xbrl')">
@@ -1092,6 +1122,13 @@ function handleXbrlFile(file){
         const hint = document.getElementById('xbrl-ebitda-hint');
         if(hint) hint.textContent = `Storico ${parsed.anno}: ${parsed.ebitda_margin.toFixed(1)}%`;
       }
+      // Popola sezione MOL nella scelta scenario
+      if(parsed.ebitda_margin > 0){
+        const molSt = document.getElementById('mol-storico-val');
+        const molTg = document.getElementById('mol-target-xbrl');
+        if(molSt) molSt.textContent = parsed.ebitda_margin.toFixed(1);
+        if(molTg && !molTg.value) molTg.value = parsed.ebitda_margin.toFixed(1);
+      }
       // Testo nome/anno nelle card riepilogo
       const ndv = document.getElementById('nome_xbrl_display');
       const adv = document.getElementById('anno_base_xbrl');
@@ -1444,6 +1481,31 @@ function selectScenario(key){
 }
 
 let _xbrlSelectedScenario = 'base';
+function onMolTargetChange(val){
+  const hint = document.getElementById('mol-target-hint');
+  if(!hint) return;
+  const molSt = parseFloat(document.getElementById('mol-storico-val')?.textContent)||0;
+  const target = parseFloat(val)||0;
+  if(!val || !target){
+    hint.textContent = 'Lascia invariato = mantieni storico';
+    hint.style.color = '#3B82F6';
+  } else if(target > molSt + 0.05){
+    const diff = (target - molSt).toFixed(1);
+    hint.textContent = `+${diff}pp rispetto allo storico — miglioramento efficienza`;
+    hint.style.color = '#16A34A';
+  } else if(target < molSt - 0.05){
+    const diff = (molSt - target).toFixed(1);
+    hint.textContent = `−${diff}pp rispetto allo storico — scenario prudenziale`;
+    hint.style.color = '#DC2626';
+  } else {
+    hint.textContent = 'In linea con lo storico XBRL';
+    hint.style.color = '#3B82F6';
+  }
+  // Sincronizza con il campo ebitda_margin di Step 1
+  const em = document.getElementById('ebitda_margin');
+  if(em && target > 0) em.value = target.toFixed(1);
+}
+
 function selectXbrlScenario(key){
   _xbrlSelectedScenario = key;
   const rates = {
@@ -1560,7 +1622,7 @@ async function generaBPdaXBRL(){
     sc_ottim_g1: og1, sc_ottim_g2: og2, sc_ottim_g3: og3,
     // Costi proiettati automaticamente da XBRL
     margine_lordo:  Math.max(p.margine_lordo||0, 0),
-    ebitda_margin:  p.ebitda_margin||0,
+    ebitda_margin:  parseFloat(document.getElementById('mol-target-xbrl')?.value)||p.ebitda_margin||0,
     costi_fissi:    Math.round(p.costi_fissi||0),
     perc_var:       parseFloat((p.perc_var||60).toFixed(1)),
     incr_fissi:     2,
