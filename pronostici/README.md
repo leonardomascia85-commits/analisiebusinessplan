@@ -93,9 +93,23 @@ probabilità implicita corrispondente (`probabilita_stimata` ≈
 è il prodotto delle quote dei singoli eventi; la probabilità combinata è
 `1/quota_combinata`.
 
-Le schedine vanno costruite per **centrare una quota di vincita totale
-target, crescente sia tra le 4 schedine dello stesso livello sia tra un
-livello di rischio e il successivo**. Schema adottato (4 schedine per
+**Principio prioritario: le schedine devono essere predisposte per una
+vincita potenziale reale, non solo per centrare un numero.** La
+progressione di quota qui sotto è una guida di massima, non un vincolo
+rigido: non va mai raggiunta scegliendo pick contrarian (contro il
+consenso di mercato senza un motivo statistico forte), pick a bassa
+probabilità reale (< 0.55 circa) usati solo per aggiustare la quota
+combinata, o eventi a bassa confidenza dati quando esiste un'alternativa
+più solida sulla stessa partita (es. preferire la doppia chance al segno
+secco se i dati non sostengono con forza un vincitore netto). Meglio una
+schedina che si allontana leggermente dalla quota target ma con eventi
+tutti realisticamente vincibili, che una che centra il numero includendo
+1-2 pick deboli o rischiosi solo per matematica.
+
+Le schedine vanno quindi costruite per **avvicinarsi quanto possibile a
+una quota di vincita totale target, crescente sia tra le 4 schedine dello
+stesso livello sia tra un livello di rischio e il successivo**, ma sempre
+subordinatamente al criterio sopra. Schema adottato (4 schedine per
 livello, quote target crescenti):
 
 | Livello (eventi) | Quota #1 | Quota #2 | Quota #3 | Quota #4 |
