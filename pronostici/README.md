@@ -124,12 +124,28 @@ un'estrapolazione di quanto indicato dall'utente per il livello 4 (4/9/14/18)
 e per la prima schedina del livello 5 (6); va confermata o corretta se la
 progressione voluta per i livelli 6 e 7 è diversa.
 
+**Se il pool di partite con dati solidi (campionati principali) non basta
+per avvicinarsi alla quota target di un livello senza pick deboli/contrarian:**
+1. Prima cosa da fare: **allargare la ricerca** ad altri campionati/coppe
+   con partite reali nella finestra e dati verificabili (es. Serie B,
+   Championship inglese, Eredivisie, Primeira Liga, Süper Lig, Champions/
+   Europa/Conference League, ecc.) per avere più partite solide da cui
+   costruire quote più alte senza sacrificare la qualità.
+2. Solo se anche allargando la ricerca non ci sono abbastanza pick solidi:
+   **accettare una quota combinata più bassa del target** per quella
+   schedina, dichiarandolo onestamente in `nota_dati`, piuttosto che
+   includere pick deboli/contrarian solo per arrivare al numero.
+
 ## Flusso operativo
 
 1. **Prima del turno**: ricerca reale (classifiche, forma, statistiche gol,
    assenze) sui campionati principali (Serie A, Premier League, La Liga,
-   Bundesliga, Ligue 1, coppe europee se in calendario), poi generazione
-   delle schedine e creazione di `data/<id>.json` con `stato:
+   Bundesliga, Ligue 1, coppe europee se in calendario); se il numero di
+   partite con dati solidi non è sufficiente per costruire le 16 schedine
+   rispettando sia il principio di qualità sia la progressione di quota,
+   allargare la ricerca ad altri campionati/coppe con partite reali nella
+   finestra (vedi sopra) prima di rinunciare alla quota target. Poi
+   generazione delle schedine e creazione di `data/<id>.json` con `stato:
    "pubblicata"`, più aggiornamento di `settimane.json`.
 2. **Dopo le partite**: verifica dei risultati reali sulle fonti web,
    aggiornamento di `esito` e `risultato_reale` per ogni evento, e
