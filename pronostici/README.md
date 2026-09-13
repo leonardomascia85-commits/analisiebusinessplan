@@ -56,8 +56,31 @@ non serve salvarlo.
 ## Regola di generazione settimanale
 
 Per ogni settimana si preparano **16 schedine** (4 per ciascuno dei 4 livelli
-di rischio: 4, 5, 6 e 7 eventi calcistici), usando solo mercati da statistiche
-di squadra: 1X2, Under/Over 2.5 gol, Gol/No Gol (BTTS), doppia chance.
+di rischio: 4, 5, 6 e 7 eventi calcistici).
+
+**Ogni pronostico deve partire da un'analisi statistica reale della squadra**
+(non solo dalla quota di mercato): gol fatti e subiti (in totale, in casa,
+in trasferta), forma recente, precedenti scontri diretti, assenze/infortuni,
+classifica. La quota di mercato (se disponibile) è un riscontro aggiuntivo,
+non l'unica base del pronostico.
+
+Mercati utilizzabili (a scelta in base a cosa i dati supportano meglio per
+quella partita, variandoli tra le schedine invece di ripetere sempre lo
+stesso tipo):
+- **1X2** — esito finale
+- **Doppia chance** (1X, X2, 12)
+- **Under/Over 2.5** gol (o altre soglie: 1.5, 3.5, se i dati sui gol lo
+  giustificano)
+- **Gol/No Gol (GG/NG, BTTS)** — entrambe le squadre segnano o no
+- **Combo multi-mercato sulla stessa partita**, quando i dati lo
+  supportano, es. "Over 2.5 + GG", "Under 2.5 + NG", "1 + Over 1.5",
+  "Multigol 2-3 + NG" — utili per differenziare il rischio senza dover
+  aggiungere un'altra partita
+
+Non usare sempre lo stesso mercato per tutte le partite: scegliere quello
+più supportato dai dati raccolti per quella specifica partita (es. due
+squadre con pochi gol fatti/subiti → Under o combo Under+NG; due attacchi
+prolifici e difese fragili → Over o GG).
 
 > Nota: la richiesta iniziale indicava sia "10 schedine totali" sia "4 per
 > ciascuno dei 4 livelli" (= 16). Si è adottata la seconda; va
