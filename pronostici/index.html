@@ -166,14 +166,16 @@ function renderWeek(week){
             <div class="ev-league">${ev.campionato} — ${fmtDate(ev.data)}</div>
           </td>
           <td class="ev-pick">${ev.pronostico}<br><span class="ev-league">${MARKET_LABELS[ev.mercato]||ev.mercato}</span></td>
-          <td class="ev-p">${fmtPct(ev.probabilita_stimata)}</td>
+          <td class="ev-p">${fmtPct(ev.probabilita_stimata)}${ev.quota_stimata ? '<br><span class="ev-league">@'+ev.quota_stimata.toFixed(2)+'</span>' : ''}</td>
           <td class="ev-res">${resTxt}</td>
         </tr>`;
       }).join('');
 
+      const quotaTxt = sch.quota_combinata ? `<span class="prob" style="background:rgba(245,158,11,.15);color:var(--amber)">Quota ${sch.quota_combinata.toFixed(2)}</span>` : '';
       card.innerHTML = `
         <div class="card-head">
           <span class="name">Schedina ${level}E — #${idx+1}</span>
+          ${quotaTxt}
           <span class="prob">Prob. combinata ${fmtPct(sch.probabilita_combinata)}</span>
           <span class="status-pill status-${st}">${STATUS_LABELS[st]}</span>
         </div>

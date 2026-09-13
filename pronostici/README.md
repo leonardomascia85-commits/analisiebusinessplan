@@ -22,20 +22,24 @@ ed è protetta dallo stesso login già usato in `dashboard.html` (chiave
   "titolo": "Turno 15–21 settembre 2026",
   "generato_il": "2026-09-13",
   "stato": "generazione_in_corso | pubblicata | completata",
+  "campionati_coperti": ["Serie A", "Premier League", "La Liga", "Bundesliga"],
+  "nota_dati": "eventuali esclusioni/limiti dei dati di questo turno",
   "schedine": [
     {
       "id": "L4-1",
       "livello_rischio": 4,
-      "probabilita_combinata": 0.35,
+      "quota_combinata": 4.00,
+      "probabilita_combinata": 0.25,
       "eventi": [
         {
           "partita": "Inter - Sassuolo",
           "campionato": "Serie A",
           "data": "2026-09-20T18:00:00+02:00",
-          "mercato": "1X2 | OU25 | GGNG | DC",
-          "pronostico": "1 | X | 2 | Over 2.5 | Under 2.5 | GG | NG | 1X | X2 | 12",
+          "mercato": "1X2 | Doppia chance | Under/Over 2.5",
+          "pronostico": "1 | X2 | Over 2.5 | ...",
           "probabilita_stimata": 0.68,
-          "motivazione": "breve nota sui dati usati (forma, h2h, statistiche gol)",
+          "quota_stimata": 1.47,
+          "motivazione": "breve nota sui dati usati (forma, h2h, statistiche gol, quote di mercato)",
           "esito": "null | vinto | perso",
           "risultato_reale": "null | \"2-0\""
         }
@@ -51,19 +55,37 @@ non serve salvarlo.
 
 ## Regola di generazione settimanale
 
-Per ogni settimana si preparano schedine su 4 livelli di rischio crescente
-(4, 5, 6 e 7 eventi calcistici), usando solo mercati da statistiche di
-squadra: 1X2, Under/Over 2.5 gol, Gol/No Gol (BTTS), doppia chance.
+Per ogni settimana si preparano **16 schedine** (4 per ciascuno dei 4 livelli
+di rischio: 4, 5, 6 e 7 eventi calcistici), usando solo mercati da statistiche
+di squadra: 1X2, Under/Over 2.5 gol, Gol/No Gol (BTTS), doppia chance.
 
 > Nota: la richiesta iniziale indicava sia "10 schedine totali" sia "4 per
-> ciascuno dei 4 livelli" (= 16). In assenza di una scelta esplicita si è
-> adottata la seconda (16 schedine, 4 per livello); va confermato/corretto
-> con l'utente e questo file va aggiornato di conseguenza se cambia.
+> ciascuno dei 4 livelli" (= 16). Si è adottata la seconda; va
+> confermato/corretto con l'utente se cambia.
 
-Ogni evento riporta una probabilità stimata individuale (da forma recente,
-classifica, h2h, medie gol); la probabilità combinata della schedina è il
-prodotto delle probabilità dei singoli eventi (assumendo indipendenza
-approssimata), eventualmente arrotondata per difetto per prudenza.
+Ogni evento riporta una **quota stimata** (`quota_stimata`, derivata da quote
+di mercato quando disponibili, altrimenti da una stima qualitativa) e la
+probabilità implicita corrispondente (`probabilita_stimata` ≈
+`1/quota_stimata`). La **quota combinata** della schedina (`quota_combinata`)
+è il prodotto delle quote dei singoli eventi; la probabilità combinata è
+`1/quota_combinata`.
+
+Le schedine vanno costruite per **centrare una quota di vincita totale
+target, crescente sia tra le 4 schedine dello stesso livello sia tra un
+livello di rischio e il successivo**. Schema adottato (4 schedine per
+livello, quote target crescenti):
+
+| Livello (eventi) | Quota #1 | Quota #2 | Quota #3 | Quota #4 |
+|---|---|---|---|---|
+| 4 | ~4  | ~9  | ~14 | ~18 |
+| 5 | ~6  | ~11 | ~16 | ~20 |
+| 6 | ~8  | ~13 | ~18 | ~22 |
+| 7 | ~10 | ~15 | ~20 | ~24 |
+
+La base di ogni livello (prima colonna) e l'incremento tra i livelli sono
+un'estrapolazione di quanto indicato dall'utente per il livello 4 (4/9/14/18)
+e per la prima schedina del livello 5 (6); va confermata o corretta se la
+progressione voluta per i livelli 6 e 7 è diversa.
 
 ## Flusso operativo
 
