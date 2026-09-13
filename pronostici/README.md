@@ -94,23 +94,52 @@ probabilità implicita corrispondente (`probabilita_stimata` ≈
 `1/quota_combinata`.
 
 **Principio prioritario: le schedine devono essere predisposte per una
-vincita potenziale reale, non solo per centrare un numero.** La
-progressione di quota qui sotto è una guida di massima, non un vincolo
-rigido: non va mai raggiunta scegliendo pick contrarian (contro il
-consenso di mercato senza un motivo statistico forte), pick a bassa
-probabilità reale (< 0.55 circa) usati solo per aggiustare la quota
-combinata, o eventi a bassa confidenza dati quando esiste un'alternativa
-più solida sulla stessa partita (es. preferire la doppia chance al segno
-secco se i dati non sostengono con forza un vincitore netto). Meglio una
-schedina che si allontana leggermente dalla quota target ma con eventi
-tutti realisticamente vincibili, che una che centra il numero includendo
-1-2 pick deboli o rischiosi solo per matematica.
+vincita potenziale reale, non solo per centrare un numero.** Non va mai
+scelto un pick contrarian (contro il consenso di mercato senza un
+motivo statistico forte) o un pick a bassa confidenza dati quando esiste
+un'alternativa più solida sulla stessa partita (es. preferire la doppia
+chance al segno secco se i dati non sostengono con forza un vincitore
+netto).
 
-Le schedine vanno quindi costruite per **avvicinarsi quanto possibile a
-una quota di vincita totale target, crescente sia tra le 4 schedine dello
-stesso livello sia tra un livello di rischio e il successivo**, ma sempre
-subordinatamente al criterio sopra. Schema adottato (4 schedine per
-livello, quote target crescenti):
+**Soglia minima di probabilità per singolo evento, differenziata per
+livello di rischio** (più basso è il numero di eventi, più alta deve
+essere la probabilità di ciascun pick — è lì che conta avere un tasso di
+successo molto alto; sui livelli con più eventi va bene invece "rompere
+il muro" e accettare pick con probabilità più moderata, perché il
+rischio più alto è intrinseco a quei livelli):
+
+| Livello (eventi) | Probabilità minima per evento | Note |
+|---|---|---|
+| 4 | ≥ 0.70 (idealmente 0.75-0.80+) | priorità assoluta al tasso di successo |
+| 5 | ≥ 0.65 | transizione |
+| 6 | ≥ 0.55 | qui si può "rompere il muro" per costruire la quota |
+| 7 | ≥ 0.55 | idem, rischio più alto intrinseco al livello |
+
+Per i livelli 4 e 5, con questa soglia più alta la quota combinata
+risultante sarà quasi sempre più bassa della progressione target
+indicata sotto — è corretto ed è il comportamento voluto: la quota
+target per questi due livelli è solo indicativa, il tasso di successo
+reale ha sempre priorità. Per i livelli 6 e 7, invece, la quota target
+resta l'obiettivo primario da centrare (qui "rompere il muro" è
+esplicitamente permesso).
+
+Per trovare pick ad alta probabilità sui livelli bassi, sfruttare
+soprattutto **l'analisi statistica di forma/streak** (non solo la
+posizione in classifica: una squadra in trasferta ma reduce da vittorie
+consecutive può essere un pick più solido di una squadra in casa ma in
+crisi) e i **mercati sui gol** (Under/Over, GG/NG), che spesso permettono
+di raggiungere probabilità più alte con maggiore facilità rispetto
+all'esito secco 1X2.
+
+Per i livelli 6 e 7 (dove la soglia di probabilità minima è 0.55), le
+schedine vanno costruite per **avvicinarsi quanto possibile a una quota
+di vincita totale target, crescente sia tra le 4 schedine dello stesso
+livello sia tra un livello di rischio e il successivo**. Per i livelli 4
+e 5, invece, si costruiscono semplicemente le combinazioni più solide
+possibili rispettando la soglia di probabilità (0.70 e 0.65), ordinandole
+per quota risultante crescente tra le 4 schedine dello stesso livello,
+senza forzare un numero target. Schema di riferimento per i livelli 6-7
+(quote target crescenti):
 
 | Livello (eventi) | Quota #1 | Quota #2 | Quota #3 | Quota #4 |
 |---|---|---|---|---|
