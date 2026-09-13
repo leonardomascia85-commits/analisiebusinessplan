@@ -108,7 +108,11 @@ const STATUS_LABELS = { pending:'In attesa', win:'Vinto', lose:'Perso' };
 
 function fmtPct(x){ return Math.round(x*100) + '%'; }
 function fmtDate(iso){
-  try{ const d = new Date(iso); return d.toLocaleDateString('it-IT',{weekday:'short',day:'2-digit',month:'2-digit'}) + ' ' + d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'}); }
+  try{
+    const d = new Date(iso);
+    const opts = { timeZone: 'Europe/Rome' };
+    return d.toLocaleDateString('it-IT',{...opts,weekday:'short',day:'2-digit',month:'2-digit'}) + ' ' + d.toLocaleTimeString('it-IT',{...opts,hour:'2-digit',minute:'2-digit'});
+  }
   catch(e){ return iso; }
 }
 
@@ -166,7 +170,7 @@ function renderWeek(week){
             <div class="ev-league">${ev.campionato} — ${fmtDate(ev.data)}</div>
           </td>
           <td class="ev-pick">${ev.pronostico}<br><span class="ev-league">${MARKET_LABELS[ev.mercato]||ev.mercato}</span></td>
-          <td class="ev-p">${fmtPct(ev.probabilita_stimata)}${ev.quota_stimata ? '<br><span class="ev-league">@'+ev.quota_stimata.toFixed(2)+'</span>' : ''}</td>
+          <td class="ev-p">${fmtPct(ev.probabilita_stimata)}${ev.quota_stimata ? '<br><span class="ev-league">@'+ev.quota_stimata.toFixed(2)+'</span>' : ''}${ev.confidenza_dati ? '<br><span class="ev-league">dati: '+ev.confidenza_dati+'</span>' : ''}</td>
           <td class="ev-res">${resTxt}</td>
         </tr>`;
       }).join('');
