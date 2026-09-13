@@ -1,7 +1,8 @@
 {
   "id": "2026-09-15-uo",
-  "titolo": "Turno 15–21 settembre 2026 — Solo Under/Over (mondiale)",
+  "titolo": "Weekend 18–20 settembre 2026 — Solo Under/Over (mondiale)",
   "generato_il": "2026-09-13",
+  "aggiornato_il": "2026-09-13 (finestra ristretta al weekend venerdi-sabato-domenica)",
   "stato": "pubblicata",
   "campionati_coperti": [
     "Eredivisie",
@@ -15,7 +16,7 @@
     "MLS",
     "Belgian Pro League"
   ],
-  "nota_dati": "Blocco dedicato SOLO al mercato Under/Over 2.5 gol, allargato a campionati mondiali oltre ai big europei. Stessa soglia di probabilita' differenziata per livello di rischio: livello 4 >= 0.70, livello 5 >= 0.65, livelli 6-7 >= 0.55. Saudi Pro League esclusa (turno rinviato a ottobre), A-League Australia esclusa (stagione non iniziata), K League 1 esclusa per dati non verificabili con certezza. Diversi orari esatti non confermati dalla lega al momento della generazione, segnalati caso per caso. Alcune partite (es. Twente-PSV, Feyenoord-Utrecht, Antwerp-Union SG, Sanfrecce-Avispa, Inter Miami-San Diego) compaiono sia nel blocco Gol/No Gol sia in questo, con market diverso: e' normale, sono due blocchi indipendenti.",
+  "nota_dati": "AGGIORNAMENTO: finestra ristretta al solo weekend 18-20 settembre; rimosso LAFC-San Jose (venerdi/sabato locale ma per coerenza con la nuova regola). Saudi Pro League esclusa (turno rinviato a ottobre), A-League Australia esclusa (stagione non iniziata), K League 1 esclusa per dati non verificabili. Diversi orari esatti non confermati dalla lega al momento della generazione.",
   "schedine": [
     {
       "id": "L4-1",
@@ -32,7 +33,7 @@
           "probabilita_stimata": 0.78,
           "quota_stimata": 1.28,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10 stagionali. Orario da confermare.",
+          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -58,7 +59,7 @@
           "probabilita_stimata": 0.85,
           "quota_stimata": 1.18,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti; Monterrey miglior attacco della Liga MX, Cruz Azul altrettanto prolifico. Orario esatto da confermare.",
+          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -71,7 +72,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita: pattern molto favorevole all'Over.",
+          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita.",
           "esito": null,
           "risultato_reale": null
         }
@@ -105,7 +106,7 @@
           "probabilita_stimata": 0.85,
           "quota_stimata": 1.18,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti; Monterrey miglior attacco della Liga MX, Cruz Azul altrettanto prolifico. Orario esatto da confermare.",
+          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -118,7 +119,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita: pattern molto favorevole all'Over.",
+          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita.",
           "esito": null,
           "risultato_reale": null
         },
@@ -131,7 +132,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026 (2,63 gol/partita fatti).",
+          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026.",
           "esito": null,
           "risultato_reale": null
         }
@@ -152,7 +153,7 @@
           "probabilita_stimata": 0.78,
           "quota_stimata": 1.28,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10 stagionali. Orario da confermare.",
+          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -178,7 +179,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita: pattern molto favorevole all'Over.",
+          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita.",
           "esito": null,
           "risultato_reale": null
         },
@@ -191,7 +192,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026 (2,63 gol/partita fatti).",
+          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026.",
           "esito": null,
           "risultato_reale": null
         }
@@ -225,7 +226,7 @@
           "probabilita_stimata": 0.7,
           "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS storico H2H all'84% ed entrambe le squadre con discreto attacco (media gol H2H 2,41), pattern favorevole all'Over.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         },
@@ -238,7 +239,7 @@
           "probabilita_stimata": 0.74,
           "quota_stimata": 1.35,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord, difesa indebolita da 5 assenze.",
           "esito": null,
           "risultato_reale": null
         },
@@ -251,7 +252,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026 (2,63 gol/partita fatti).",
+          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026.",
           "esito": null,
           "risultato_reale": null
         }
@@ -272,7 +273,7 @@
           "probabilita_stimata": 0.78,
           "quota_stimata": 1.28,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10 stagionali. Orario da confermare.",
+          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -298,7 +299,7 @@
           "probabilita_stimata": 0.85,
           "quota_stimata": 1.18,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti; Monterrey miglior attacco della Liga MX, Cruz Azul altrettanto prolifico. Orario esatto da confermare.",
+          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -311,7 +312,7 @@
           "probabilita_stimata": 0.68,
           "quota_stimata": 1.47,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed è in pessima forma generale (1 punto nelle ultime 5).",
+          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed e' in pessima forma generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -324,7 +325,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026 (2,63 gol/partita fatti).",
+          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026.",
           "esito": null,
           "risultato_reale": null
         }
@@ -345,7 +346,7 @@
           "probabilita_stimata": 0.78,
           "quota_stimata": 1.28,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10 stagionali. Orario da confermare.",
+          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -371,7 +372,7 @@
           "probabilita_stimata": 0.68,
           "quota_stimata": 1.47,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed è in pessima forma generale (1 punto nelle ultime 5).",
+          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed e' in pessima forma generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -384,7 +385,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita: pattern molto favorevole all'Over.",
+          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita.",
           "esito": null,
           "risultato_reale": null
         },
@@ -397,7 +398,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026 (2,63 gol/partita fatti).",
+          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026.",
           "esito": null,
           "risultato_reale": null
         }
@@ -418,7 +419,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre (Osimhen, Sané, Sara squalificato/infortunato per il Galatasaray; Visca, Oulai per il Trabzonspor): attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -431,7 +432,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare (9/10) e attacco molto prolifico in generale, nonostante Hearts abbia una buona difesa in trasferta.",
+          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare e attacco molto prolifico in generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -444,7 +445,7 @@
           "probabilita_stimata": 0.85,
           "quota_stimata": 1.18,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti; Monterrey miglior attacco della Liga MX, Cruz Azul altrettanto prolifico. Orario esatto da confermare.",
+          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -457,7 +458,7 @@
           "probabilita_stimata": 0.7,
           "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS storico H2H all'84% ed entrambe le squadre con discreto attacco (media gol H2H 2,41), pattern favorevole all'Over.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         },
@@ -470,7 +471,7 @@
           "probabilita_stimata": 0.74,
           "quota_stimata": 1.35,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord, difesa indebolita da 5 assenze.",
           "esito": null,
           "risultato_reale": null
         }
@@ -491,7 +492,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre (Osimhen, Sané, Sara squalificato/infortunato per il Galatasaray; Visca, Oulai per il Trabzonspor): attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -504,7 +505,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare (9/10) e attacco molto prolifico in generale, nonostante Hearts abbia una buona difesa in trasferta.",
+          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare e attacco molto prolifico in generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -517,7 +518,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita: pattern molto favorevole all'Over.",
+          "motivazione": "BTTS Antwerp nel 90% delle ultime gare e Union SG con trend recente di 2,6 gol/partita.",
           "esito": null,
           "risultato_reale": null
         },
@@ -530,7 +531,7 @@
           "probabilita_stimata": 0.74,
           "quota_stimata": 1.35,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord, difesa indebolita da 5 assenze.",
           "esito": null,
           "risultato_reale": null
         },
@@ -543,7 +544,7 @@
           "probabilita_stimata": 0.72,
           "quota_stimata": 1.39,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026 (2,63 gol/partita fatti).",
+          "motivazione": "Inter Miami Over 2,5 nel 72% delle proprie gare 2026.",
           "esito": null,
           "risultato_reale": null
         }
@@ -564,7 +565,7 @@
           "probabilita_stimata": 0.78,
           "quota_stimata": 1.28,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10 stagionali. Orario da confermare.",
+          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -577,7 +578,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre (Osimhen, Sané, Sara squalificato/infortunato per il Galatasaray; Visca, Oulai per il Trabzonspor): attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -590,7 +591,7 @@
           "probabilita_stimata": 0.85,
           "quota_stimata": 1.18,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti; Monterrey miglior attacco della Liga MX, Cruz Azul altrettanto prolifico. Orario esatto da confermare.",
+          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -616,7 +617,7 @@
           "probabilita_stimata": 0.7,
           "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS storico H2H all'84% ed entrambe le squadre con discreto attacco (media gol H2H 2,41), pattern favorevole all'Over.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         },
@@ -629,7 +630,7 @@
           "probabilita_stimata": 0.74,
           "quota_stimata": 1.35,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord, difesa indebolita da 5 assenze.",
           "esito": null,
           "risultato_reale": null
         }
@@ -650,7 +651,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre (Osimhen, Sané, Sara squalificato/infortunato per il Galatasaray; Visca, Oulai per il Trabzonspor): attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -663,7 +664,7 @@
           "probabilita_stimata": 0.68,
           "quota_stimata": 1.47,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed è in pessima forma generale (1 punto nelle ultime 5).",
+          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed e' in pessima forma generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -676,7 +677,7 @@
           "probabilita_stimata": 0.6,
           "quota_stimata": 1.67,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite (alto punteggio totale).",
+          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite.",
           "esito": null,
           "risultato_reale": null
         },
@@ -702,7 +703,7 @@
           "probabilita_stimata": 0.7,
           "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS storico H2H all'84% ed entrambe le squadre con discreto attacco (media gol H2H 2,41), pattern favorevole all'Over.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         },
@@ -715,7 +716,7 @@
           "probabilita_stimata": 0.74,
           "quota_stimata": 1.35,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord, difesa indebolita da 5 assenze.",
           "esito": null,
           "risultato_reale": null
         }
@@ -724,7 +725,7 @@
     {
       "id": "L6-3",
       "livello_rischio": 6,
-      "quota_combinata": 18.0,
+      "quota_combinata": 17.99,
       "probabilita_combinata": 0.056,
       "eventi": [
         {
@@ -736,7 +737,20 @@
           "probabilita_stimata": 0.62,
           "quota_stimata": 1.61,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Old Firm: Over 2,5 in 4 dei 5 precedenti diretti; entrambe le squadre imbattute e in striscia di 4 vittorie consecutive, segnale di buona forma offensiva su entrambi i fronti.",
+          "motivazione": "Old Firm: Over 2,5 in 4 dei 5 precedenti diretti; entrambe imbattute e in striscia di 4 vittorie consecutive.",
+          "esito": null,
+          "risultato_reale": null
+        },
+        {
+          "partita": "FC Tokyo - Nagoya Grampus",
+          "campionato": "J1 League (Giappone)",
+          "data": "2026-09-19T18:00:00+09:00",
+          "mercato": "Under/Over 2.5",
+          "pronostico": "Over 2.5",
+          "probabilita_stimata": 0.68,
+          "quota_stimata": 1.47,
+          "confidenza_dati": "MEDIA",
+          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed e' in pessima forma generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -749,20 +763,7 @@
           "probabilita_stimata": 0.58,
           "quota_stimata": 1.72,
           "confidenza_dati": "MEDIA-ALTA",
-          "motivazione": "Orsolini (miglior attaccante Bologna) infortunato e assente; entrambe le squadre poco prolifiche.",
-          "esito": null,
-          "risultato_reale": null
-        },
-        {
-          "partita": "Brentford - Chelsea",
-          "campionato": "Premier League",
-          "data": "2026-09-18T20:00:00+01:00",
-          "mercato": "Under/Over 2.5",
-          "pronostico": "Over 2.5",
-          "probabilita_stimata": 0.6,
-          "quota_stimata": 1.67,
-          "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite (alto punteggio totale).",
+          "motivazione": "Orsolini infortunato e assente; entrambe le squadre poco prolifiche.",
           "esito": null,
           "risultato_reale": null
         },
@@ -780,28 +781,28 @@
           "risultato_reale": null
         },
         {
-          "partita": "LAFC - San Jose Earthquakes",
+          "partita": "Seattle Sounders - Colorado Rapids",
           "campionato": "MLS (USA/Canada)",
-          "data": "2026-09-19T22:30:00-07:00",
+          "data": "2026-09-19T21:00:00-07:00",
           "mercato": "Under/Over 2.5",
           "pronostico": "Under 2.5",
-          "probabilita_stimata": 0.6,
-          "quota_stimata": 1.67,
+          "probabilita_stimata": 0.56,
+          "quota_stimata": 1.79,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe le squadre attualmente tra le migliori difese della lega (San Jose una delle migliori difese, LAFC con ottimo record di clean sheet di Lloris): il dato storico H2H molto offensivo (media 4,17 gol) è vecchio e meno rappresentativo della forma attuale.",
+          "motivazione": "Entrambe intorno al 43-46% di gare Over 2,5 individualmente: segnale debole ma leggermente a favore dell'Under.",
           "esito": null,
           "risultato_reale": null
         },
         {
-          "partita": "Feyenoord - FC Utrecht",
-          "campionato": "Eredivisie (Olanda)",
-          "data": "2026-09-20T16:30:00+02:00",
+          "partita": "Sanfrecce Hiroshima - Avispa Fukuoka",
+          "campionato": "J1 League (Giappone)",
+          "data": "2026-09-19T15:00:00+09:00",
           "mercato": "Under/Over 2.5",
           "pronostico": "Over 2.5",
-          "probabilita_stimata": 0.74,
-          "quota_stimata": 1.35,
+          "probabilita_stimata": 0.7,
+          "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         }
@@ -822,7 +823,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre (Osimhen, Sané, Sara squalificato/infortunato per il Galatasaray; Visca, Oulai per il Trabzonspor): attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -835,7 +836,7 @@
           "probabilita_stimata": 0.62,
           "quota_stimata": 1.61,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Old Firm: Over 2,5 in 4 dei 5 precedenti diretti; entrambe le squadre imbattute e in striscia di 4 vittorie consecutive, segnale di buona forma offensiva su entrambi i fronti.",
+          "motivazione": "Old Firm: Over 2,5 in 4 dei 5 precedenti diretti; entrambe imbattute e in striscia di 4 vittorie consecutive.",
           "esito": null,
           "risultato_reale": null
         },
@@ -848,7 +849,7 @@
           "probabilita_stimata": 0.58,
           "quota_stimata": 1.72,
           "confidenza_dati": "MEDIA-ALTA",
-          "motivazione": "Orsolini (miglior attaccante Bologna) infortunato e assente; entrambe le squadre poco prolifiche.",
+          "motivazione": "Orsolini infortunato e assente; entrambe le squadre poco prolifiche.",
           "esito": null,
           "risultato_reale": null
         },
@@ -861,7 +862,7 @@
           "probabilita_stimata": 0.6,
           "quota_stimata": 1.67,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite (alto punteggio totale).",
+          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite.",
           "esito": null,
           "risultato_reale": null
         },
@@ -908,7 +909,7 @@
           "probabilita_stimata": 0.78,
           "quota_stimata": 1.28,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10 stagionali. Orario da confermare.",
+          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -921,7 +922,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre (Osimhen, Sané, Sara squalificato/infortunato per il Galatasaray; Visca, Oulai per il Trabzonspor): attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -947,7 +948,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare (9/10) e attacco molto prolifico in generale, nonostante Hearts abbia una buona difesa in trasferta.",
+          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare e attacco molto prolifico in generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -960,7 +961,7 @@
           "probabilita_stimata": 0.85,
           "quota_stimata": 1.18,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti; Monterrey miglior attacco della Liga MX, Cruz Azul altrettanto prolifico. Orario esatto da confermare.",
+          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -973,7 +974,7 @@
           "probabilita_stimata": 0.68,
           "quota_stimata": 1.47,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed è in pessima forma generale (1 punto nelle ultime 5).",
+          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed e' in pessima forma generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -986,7 +987,7 @@
           "probabilita_stimata": 0.7,
           "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS storico H2H all'84% ed entrambe le squadre con discreto attacco (media gol H2H 2,41), pattern favorevole all'Over.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         }
@@ -1020,7 +1021,7 @@
           "probabilita_stimata": 0.85,
           "quota_stimata": 1.18,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti; Monterrey miglior attacco della Liga MX, Cruz Azul altrettanto prolifico. Orario esatto da confermare.",
+          "motivazione": "Media combinata di circa 4 gol totali a partita per entrambe le squadre nei precedenti. Orario da confermare.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1033,7 +1034,7 @@
           "probabilita_stimata": 0.58,
           "quota_stimata": 1.72,
           "confidenza_dati": "MEDIA-ALTA",
-          "motivazione": "Orsolini (miglior attaccante Bologna) infortunato e assente; entrambe le squadre poco prolifiche.",
+          "motivazione": "Orsolini infortunato e assente; entrambe le squadre poco prolifiche.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1046,7 +1047,7 @@
           "probabilita_stimata": 0.6,
           "quota_stimata": 1.67,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite (alto punteggio totale).",
+          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1072,7 +1073,7 @@
           "probabilita_stimata": 0.7,
           "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS storico H2H all'84% ed entrambe le squadre con discreto attacco (media gol H2H 2,41), pattern favorevole all'Over.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1085,7 +1086,7 @@
           "probabilita_stimata": 0.74,
           "quota_stimata": 1.35,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord, difesa indebolita da 5 assenze.",
           "esito": null,
           "risultato_reale": null
         }
@@ -1106,7 +1107,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre (Osimhen, Sané, Sara squalificato/infortunato per il Galatasaray; Visca, Oulai per il Trabzonspor): attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1119,7 +1120,7 @@
           "probabilita_stimata": 0.65,
           "quota_stimata": 1.54,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare (9/10) e attacco molto prolifico in generale, nonostante Hearts abbia una buona difesa in trasferta.",
+          "motivazione": "Kilmarnock Over 2,5 nel 90% delle ultime gare e attacco molto prolifico in generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1132,7 +1133,7 @@
           "probabilita_stimata": 0.68,
           "quota_stimata": 1.47,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed è in pessima forma generale (1 punto nelle ultime 5).",
+          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed e' in pessima forma generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1145,7 +1146,7 @@
           "probabilita_stimata": 0.6,
           "quota_stimata": 1.67,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite (alto punteggio totale).",
+          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1171,7 +1172,7 @@
           "probabilita_stimata": 0.7,
           "quota_stimata": 1.43,
           "confidenza_dati": "MEDIA",
-          "motivazione": "BTTS storico H2H all'84% ed entrambe le squadre con discreto attacco (media gol H2H 2,41), pattern favorevole all'Over.",
+          "motivazione": "BTTS storico H2H all'84% ed entrambe con discreto attacco: pattern favorevole all'Over.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1184,7 +1185,7 @@
           "probabilita_stimata": 0.74,
           "quota_stimata": 1.35,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord, difesa indebolita da 5 assenze.",
           "esito": null,
           "risultato_reale": null
         }
@@ -1193,19 +1194,32 @@
     {
       "id": "L7-4",
       "livello_rischio": 7,
-      "quota_combinata": 24.0,
+      "quota_combinata": 24.01,
       "probabilita_combinata": 0.042,
       "eventi": [
         {
-          "partita": "St Mirren - Dundee United",
-          "campionato": "Scottish Premiership",
-          "data": "2026-09-19T15:00:00+01:00",
+          "partita": "FC Twente - PSV",
+          "campionato": "Eredivisie (Olanda)",
+          "data": "2026-09-20T14:30:00+02:00",
+          "mercato": "Under/Over 2.5",
+          "pronostico": "Over 2.5",
+          "probabilita_stimata": 0.78,
+          "quota_stimata": 1.28,
+          "confidenza_dati": "MEDIA",
+          "motivazione": "Media gol H2H 3,83, Over 2,5 coperto nel 79% dei precedenti diretti; PSV Over 2,5 in 9 gare su 10. Orario da confermare.",
+          "esito": null,
+          "risultato_reale": null
+        },
+        {
+          "partita": "Trabzonspor - Galatasaray",
+          "campionato": "Süper Lig (Turchia)",
+          "data": "2026-09-19T20:00:00+03:00",
           "mercato": "Under/Over 2.5",
           "pronostico": "Under 2.5",
-          "probabilita_stimata": 0.75,
-          "quota_stimata": 1.33,
-          "confidenza_dati": "MEDIA-ALTA",
-          "motivazione": "St Mirren Under 2,5 in 8 delle ultime 10 gare (80%), trend molto consistente.",
+          "probabilita_stimata": 0.65,
+          "quota_stimata": 1.54,
+          "confidenza_dati": "MEDIA",
+          "motivazione": "4 giocatori offensivi/chiave assenti tra le due squadre: attacchi indeboliti su entrambi i fronti riducono il numero di gol attesi.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1218,7 +1232,20 @@
           "probabilita_stimata": 0.62,
           "quota_stimata": 1.61,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Old Firm: Over 2,5 in 4 dei 5 precedenti diretti; entrambe le squadre imbattute e in striscia di 4 vittorie consecutive, segnale di buona forma offensiva su entrambi i fronti.",
+          "motivazione": "Old Firm: Over 2,5 in 4 dei 5 precedenti diretti; entrambe imbattute e in striscia di 4 vittorie consecutive.",
+          "esito": null,
+          "risultato_reale": null
+        },
+        {
+          "partita": "FC Tokyo - Nagoya Grampus",
+          "campionato": "J1 League (Giappone)",
+          "data": "2026-09-19T18:00:00+09:00",
+          "mercato": "Under/Over 2.5",
+          "pronostico": "Over 2.5",
+          "probabilita_stimata": 0.68,
+          "quota_stimata": 1.47,
+          "confidenza_dati": "MEDIA",
+          "motivazione": "Tokyo 1,55 gol fatti/partita contro una difesa del Nagoya che ne concede 1,6 a partita ed e' in pessima forma generale.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1231,7 +1258,7 @@
           "probabilita_stimata": 0.58,
           "quota_stimata": 1.72,
           "confidenza_dati": "MEDIA-ALTA",
-          "motivazione": "Orsolini (miglior attaccante Bologna) infortunato e assente; entrambe le squadre poco prolifiche.",
+          "motivazione": "Orsolini infortunato e assente; entrambe le squadre poco prolifiche.",
           "esito": null,
           "risultato_reale": null
         },
@@ -1244,46 +1271,20 @@
           "probabilita_stimata": 0.6,
           "quota_stimata": 1.67,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite (alto punteggio totale).",
+          "motivazione": "Entrambe reduci da partite molto prolifiche nelle ultime uscite.",
           "esito": null,
           "risultato_reale": null
         },
         {
-          "partita": "Bayer Leverkusen - RB Leipzig",
-          "campionato": "Bundesliga",
-          "data": "2026-09-20T15:30:00+02:00",
-          "mercato": "Under/Over 2.5",
-          "pronostico": "Over 2.5",
-          "probabilita_stimata": 0.58,
-          "quota_stimata": 1.72,
-          "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe di media classifica, entrambe in buona forma offensiva.",
-          "esito": null,
-          "risultato_reale": null
-        },
-        {
-          "partita": "LAFC - San Jose Earthquakes",
+          "partita": "Seattle Sounders - Colorado Rapids",
           "campionato": "MLS (USA/Canada)",
-          "data": "2026-09-19T22:30:00-07:00",
+          "data": "2026-09-19T21:00:00-07:00",
           "mercato": "Under/Over 2.5",
           "pronostico": "Under 2.5",
-          "probabilita_stimata": 0.6,
-          "quota_stimata": 1.67,
+          "probabilita_stimata": 0.56,
+          "quota_stimata": 1.79,
           "confidenza_dati": "MEDIA",
-          "motivazione": "Entrambe le squadre attualmente tra le migliori difese della lega (San Jose una delle migliori difese, LAFC con ottimo record di clean sheet di Lloris): il dato storico H2H molto offensivo (media 4,17 gol) è vecchio e meno rappresentativo della forma attuale.",
-          "esito": null,
-          "risultato_reale": null
-        },
-        {
-          "partita": "Feyenoord - FC Utrecht",
-          "campionato": "Eredivisie (Olanda)",
-          "data": "2026-09-20T16:30:00+02:00",
-          "mercato": "Under/Over 2.5",
-          "pronostico": "Over 2.5",
-          "probabilita_stimata": 0.74,
-          "quota_stimata": 1.35,
-          "confidenza_dati": "MEDIA",
-          "motivazione": "Over 2,5 coperto nel 75% delle ultime gare del Feyenoord (2,3 gol/partita fatti), difesa indebolita da 5 assenze.",
+          "motivazione": "Entrambe intorno al 43-46% di gare Over 2,5 individualmente: segnale debole ma leggermente a favore dell'Under.",
           "esito": null,
           "risultato_reale": null
         }

@@ -167,15 +167,23 @@ per avvicinarsi alla quota target di un livello senza pick deboli/contrarian:**
 
 ## Flusso operativo
 
-1. **Prima del turno**: ricerca reale (classifiche, forma, statistiche gol,
-   assenze) sui campionati principali (Serie A, Premier League, La Liga,
-   Bundesliga, Ligue 1, coppe europee se in calendario); se il numero di
-   partite con dati solidi non è sufficiente per costruire le 16 schedine
-   rispettando sia il principio di qualità sia la progressione di quota,
-   allargare la ricerca ad altri campionati/coppe con partite reali nella
-   finestra (vedi sopra) prima di rinunciare alla quota target. Poi
-   generazione delle schedine e creazione di `data/<id>.json` con `stato:
-   "pubblicata"`, più aggiornamento di `settimane.json`.
+1. **Prima del turno**: la finestra di riferimento è **solo venerdì,
+   sabato e domenica** (il weekend del turno principale), non l'intera
+   settimana martedì-lunedì — partite infrasettimanali (martedì, mercoledì,
+   giovedì) e del lunedì vanno escluse dal pool, anche se cadono nella
+   stessa settimana solare. Fa fede il giorno mostrato nell'app (fuso
+   Europe/Rome): una partita che nel fuso locale è di sabato sera ma che
+   convertita in orario italiano risulta già domenica (o lunedì) va
+   classificata in base all'orario italiano mostrato. Ricerca reale
+   (classifiche, forma, statistiche gol, assenze) sui campionati principali
+   (Serie A, Premier League, La Liga, Bundesliga, Ligue 1, coppe europee se
+   in calendario nel weekend); se il numero di partite con dati solidi non
+   è sufficiente per costruire le 16 schedine rispettando sia il principio
+   di qualità sia la progressione di quota, allargare la ricerca ad altri
+   campionati/coppe con partite reali nel weekend (vedi sopra) prima di
+   rinunciare alla quota target. Poi generazione delle schedine e creazione
+   di `data/<id>.json` con `stato: "pubblicata"`, più aggiornamento di
+   `settimane.json`.
 2. **Dopo le partite**: verifica dei risultati reali sulle fonti web,
    aggiornamento di `esito` e `risultato_reale` per ogni evento, e
    passaggio dello `stato` della settimana a `"completata"`.
