@@ -1,5 +1,6 @@
 {
   "settimane": [
+    { "id": "2026-09-13-test", "titolo": "[TEST] Giornata di domenica 13 settembre 2026", "file": "2026-09-13-test.json" },
     { "id": "2026-09-15", "titolo": "Turno 15–21 settembre 2026", "file": "2026-09-15.json" }
   ]
 }
