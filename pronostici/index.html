@@ -176,10 +176,12 @@ function renderWeek(week){
       }).join('');
 
       const quotaTxt = sch.quota_combinata ? `<span class="prob" style="background:rgba(245,158,11,.15);color:var(--amber)">Quota ${sch.quota_combinata.toFixed(2)}</span>` : '';
+      const probMedia = sch.eventi.reduce((sum, ev) => sum + ev.probabilita_stimata, 0) / sch.eventi.length;
       card.innerHTML = `
         <div class="card-head">
           <span class="name">Schedina ${level}E — #${idx+1}</span>
           ${quotaTxt}
+          <span class="prob" style="background:rgba(148,163,184,.15);color:#cbd5e1">Prob. media ${fmtPct(probMedia)}</span>
           <span class="prob">Prob. combinata ${fmtPct(sch.probabilita_combinata)}</span>
           <span class="status-pill status-${st}">${STATUS_LABELS[st]}</span>
         </div>
