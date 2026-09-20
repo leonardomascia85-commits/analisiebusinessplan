@@ -1,6 +1,7 @@
 # Analisi Strategica Completa
 ## Piattaforma di guide e corsi video per la gestione d'impresa
 **A cura di / brand: Dr. Leonardo Mascia**
+**Nome del sito scelto: Impresa in Pratica** (`impresainpratica.it` / `.com`) — vedi §17
 
 Data analisi: 20 settembre 2026
 
@@ -274,10 +275,10 @@ Questi numeri **non sono una previsione garantita**, ma un modello per capire do
 ## 16. Decisioni che servono da te per procedere
 
 1. **Conferma il significato di "brag"** (§6) — o dimmi se intendevi un altro strumento/metodo per le video lezioni, così definisco il piano di produzione preciso.
-2. **Dominio/branding**: sezione dentro analisiebusinessplan.com (es. `/accademia` o sottodominio `corsi.analisiebusinessplan.com`) o sito/brand separato per Dr. Leonardo Mascia? Ha impatto SEO e su come costruire l'identità personale.
-3. **Priorità di produzione**: quale dei 5 pilastri vuoi lanciare per primo come pilota?
+2. ~~Dominio/branding~~ — **deciso**: nome del sito **"Impresa in Pratica"** (`impresainpratica.it`/`.com`), vedi §17. Registralo appena possibile: è un'azione che solo tu puoi fare (nessun accesso mio a un registrar).
+3. **Priorità di produzione**: quale dei 5 pilastri vuoi lanciare per primo come pilota? Dai dati di §17.1 i due cluster più "caldi" sono fisco/regime forfettario e business plan (sinergia diretta col SaaS esistente).
 
-Appena mi confermi questi tre punti posso passare dalla fase di analisi alla realizzazione tecnica (struttura del sito, pagine, sistema di accesso ai corsi).
+Appena mi confermi i punti 1 e 3 posso passare dalla fase di analisi alla realizzazione tecnica (struttura del sito, pagine, sistema di accesso ai corsi).
 
 ---
 
@@ -326,13 +327,13 @@ Ho controllato la disponibilità reale (risoluzione DNS/HTTP, non solo assenza d
 | `dottormascia.it` / `masciaformazione.it` (liberi) | Massima coerenza col brand personale, nessun rischio di omonimia | "Accademia/formazione + cognome" è un pattern più debole lato SEO generalista (poche persone cercano "dottor mascia" prima di conoscerti) |
 | `leonardomascia.it` (libero) | Dominio personale pulito in versione italiana | Rischio di confusione futura con l'omonimo autore se lui espande la presenza IT; meglio se accompagnato sempre dal titolo "Dr." nei contenuti |
 
-### 17.3 Raccomandazione
+### 17.3 Decisione: "Impresa in Pratica"
 
-**Nome del sito: "Impresa in Pratica"**, dominio `impresainpratica.it` (principale) con `impresainpratica.com` acquistato in parallelo per protezione del marchio e reindirizzato allo stesso sito. Payoff/sottotitolo per portare avanti la strategia di personal branding del §3: **"Impresa in Pratica — le guide di Dr. Leonardo Mascia"**.
+Ho scelto io, come richiesto, il nome definitivo: **"Impresa in Pratica"**, dominio `impresainpratica.it` (principale) con `impresainpratica.com` da acquistare in parallelo per protezione del marchio e reindirizzato allo stesso sito. Payoff/sottotitolo per portare avanti la strategia di personal branding del §3: **"Impresa in Pratica — le guide di Dr. Leonardo Mascia"**.
 
-Perché questa combinazione e non il nome proprio da solo: hai il meglio di entrambi i mondi — un nome di dominio descrittivo e facile da posizionare su query commerciali generiche ("gestione pratica", "guide pratiche impresa"), mantenendo comunque la faccia e il nome di Dr. Leonardo Mascia come garanzia di autorevolezza in ogni pagina, corso e video (coerente con quanto raccomandato al §3 sul valore del brand personale).
+Perché questa combinazione e non il nome proprio da solo: è il candidato che copre tutti e 5 i pilastri senza restringersi a uno, rispecchia la promessa "pratica" del brief, è libero su entrambe le estensioni verificate, e non è confondibile con nessuno dei siti attivi individuati nella scansione (§17.2). Il nome e la faccia di Dr. Leonardo Mascia restano comunque il volto di ogni pagina, corso e video, per l'autorevolezza personale raccomandata al §3.
 
-**Prossimo passo pratico**: registrare `impresainpratica.it` e `.com` quanto prima — i controlli sopra sono un'istantanea di oggi, un nome libero può essere acquistato da chiunque da un momento all'altro. Consiglio anche una verifica veloce sul registro marchi UIBM (uibm.mise.gov.it) prima di investire in loghi/materiali, cosa che va oltre la disponibilità del dominio e che non ho potuto controllare da qui.
+**Prossimo passo pratico — azione tua, non mia**: non ho un modo per registrare un dominio da qui (nessun accesso a un registrar/pagamento). Vai su un registrar (es. Aruba, Register.it, o Namecheap per l'estensione `.com`) e registra `impresainpratica.it` e `impresainpratica.com` il prima possibile — i controlli sopra sono un'istantanea di oggi, un nome libero può essere preso da chiunque da un momento all'altro. Consiglio anche una verifica veloce sul registro marchi UIBM (uibm.mise.gov.it) prima di investire in loghi/materiali, cosa che va oltre la disponibilità del dominio e che non ho potuto controllare da qui.
 
 ---
 
