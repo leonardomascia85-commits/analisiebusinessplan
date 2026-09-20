@@ -281,6 +281,61 @@ Appena mi confermi questi tre punti posso passare dalla fase di analisi alla rea
 
 ---
 
+## 17. Naming del sito e verifica parole chiave (aggiornamento)
+
+**Nota metodologica onesta**: in questo ambiente non ho accesso diretto a Google Keyword Planner, SEMrush o Ahrefs (dati di volume di ricerca esatti). Ho quindi verificato la domanda in due modi indiretti ma concreti:
+1. **Densità competitiva reale**: quante aziende/contenuti dedicati esistono già per una query (query molto presidiate = domanda alta e validata dal mercato).
+2. **Verifica live di occupazione dominio** (risoluzione DNS + HTTP reale, non solo menzioni sui motori di ricerca) per ogni nome candidato — questo ha permesso di scartare nomi che sembravano liberi da una semplice ricerca ma che in realtà sono già siti attivi (es. *numerichiari.it*, live e funzionante, non emerso nella ricerca web).
+
+Per numeri di ricerca esatti (utile prima di investire in contenuti SEO pesanti), il passo successivo resta Google Keyword Planner (gratuito, basta un account Google Ads senza attivare campagne) o Google Trends per confrontare l'andamento tra varianti.
+
+### 17.1 Domanda per cluster di parole chiave (evidenza qualitativa raccolta)
+
+| Cluster | Segnali di domanda osservati |
+|---|---|
+| **Fisco / Partita IVA / regime forfettario** | Domanda molto alta e continua: nel solo Q1 2026 sono state aperte **184.895 nuove partite IVA**, il **56,3%** in regime forfettario. Decine di siti (partitaiva.it, fiscoetasse.com, flextax.it, agnesefebbraro.it) competono ogni anno per l'aggiornamento normativo — segnale di ricerca ricorrente e stagionale (picchi a inizio anno e vicino alle scadenze). |
+| **Contabilità (corso/come si fa)** | Alta: decine di scuole (Corsidia, UniD Formazione, Accademia Domani, Accademia Telematica) vendono corsi simili da anni — mercato validato, ma affollato lato "corso base per principianti". |
+| **Come leggere/interpretare un bilancio** | Domanda medio-alta, molto ricorrente tra imprenditori non tecnici; competizione già presente (FareNumeri, Corsi.it, Meliusform) ma nessuno lo lega a uno strumento operativo — conferma il varco individuato al §2.3. |
+| **Controllo di gestione (corso)** | Domanda medio-alta, ma quasi tutta l'offerta è B2B/master costosi (Alma Laboris, Meliusform, ManagerLab) — poco per il singolo imprenditore/dipendente a prezzo accessibile. |
+| **Business plan (corso/guida)** | Domanda alta e diretta sinergia con il SaaS esistente: è l'unico cluster dove hai già traffico e autorità comprovata (analisiebusinessplan.com). |
+| **Gestione aziendale (corso online)** | Domanda alta ma molto generica/dispersiva: utile come contenuto "ombrello" più che come query di conversione diretta. |
+
+**Implicazione per il catalogo**: le query più "calde e ricorrenti" restano fisco/partita IVA (stagionali, alto volume) e business plan (dove hai già autorità). Consiglio di lanciare il corso pilota su uno di questi due cluster, non su "gestione aziendale" (troppo generico per convertire bene in fase iniziale).
+
+### 17.2 Nomi verificati per il sito/brand
+
+Ho controllato la disponibilità reale (risoluzione DNS/HTTP, non solo assenza dai risultati di ricerca) per una rosa di candidati coerenti col posizionamento (pratico, per imprenditori e dipendenti, legato ai 5 pilastri):
+
+**Nomi già occupati (da scartare) — utile saperlo anche solo per non confonderti con la concorrenza:**
+- `numerichiari.it/.com` — sito attivo (hosting Aruba)
+- `fiscopratico.eu` — piattaforma esistente di Euroconference per professionisti (anche se `fiscopratico.it` risulta libero, il nome è già un marchio riconosciuto nel settore fiscale: **da evitare** per rischio di confusione)
+- `accademiadimpresa.it/.com` — scuola di formazione già esistente e attiva
+- `farenumeri.it` — content site già attivo sul tema "leggere il bilancio"
+- `bilanciofacile.it` e `bilanciofacile.cloud` — gestionale PMI già attivo
+- `contabilitafacile.it/.com`, `fiscosemplice.it/.com`, `gestionesemplice.it`, `gestionepratica.it/.com`, `fiscoinchiaro.it/.com`, `contabilitapratica.it`, `imprenditoreinformato.it` — tutti già occupati
+- **`leonardomascia.com`** — ⚠️ **occupato da un omonimo**: un autore (Leonardo Mascia, scrittore di "The Golden Cage", tematiche di lavoro/burocrazia/integrazione europea) ha già questo dominio esatto, con sito multilingua IT/EN/FR. Usare il tuo nome e cognome nudi come dominio `.com` creerebbe confusione con quest'altra persona. La versione `.it` (`leonardomascia.it`) risulta invece libera.
+
+**Nomi verificati liberi (candidati validi):**
+
+| Candidato | Perché funziona | Perché no/attenzione |
+|---|---|---|
+| **`impresainpratica.it` e `.com`** (entrambi liberi) | Rispecchia esattamente la promessa del brief ("devono essere pratiche"), copre tutti e 5 i pilastri senza restringersi a uno, funziona sia per imprenditori sia per dipendenti, facile da scrivere/ricordare, ottimo anche come nome corso su Udemy | Nome descrittivo, non include il tuo nome — l'autorevolezza personale va costruita nel sottotitolo/branding ("con Dr. Leonardo Mascia") |
+| `numeridimpresa.it/.com` (liberi) | Buon richiamo a contabilità/fisco/finanza, semplice | Meno adatto per "gestione aziendale" in senso ampio |
+| `controlloimpresa.it/.com` (liberi) | Pulito, professionale | Suona più legato al solo pilastro "controllo di gestione" |
+| `accademiaimpresa.it/.com` (liberi) | Pattern riconoscibile ("accademia + tema") | Troppo simile a `accademiadimpresa.it` già esistente e attivo: rischio concreto di confusione, sconsigliato |
+| `dottormascia.it` / `masciaformazione.it` (liberi) | Massima coerenza col brand personale, nessun rischio di omonimia | "Accademia/formazione + cognome" è un pattern più debole lato SEO generalista (poche persone cercano "dottor mascia" prima di conoscerti) |
+| `leonardomascia.it` (libero) | Dominio personale pulito in versione italiana | Rischio di confusione futura con l'omonimo autore se lui espande la presenza IT; meglio se accompagnato sempre dal titolo "Dr." nei contenuti |
+
+### 17.3 Raccomandazione
+
+**Nome del sito: "Impresa in Pratica"**, dominio `impresainpratica.it` (principale) con `impresainpratica.com` acquistato in parallelo per protezione del marchio e reindirizzato allo stesso sito. Payoff/sottotitolo per portare avanti la strategia di personal branding del §3: **"Impresa in Pratica — le guide di Dr. Leonardo Mascia"**.
+
+Perché questa combinazione e non il nome proprio da solo: hai il meglio di entrambi i mondi — un nome di dominio descrittivo e facile da posizionare su query commerciali generiche ("gestione pratica", "guide pratiche impresa"), mantenendo comunque la faccia e il nome di Dr. Leonardo Mascia come garanzia di autorevolezza in ogni pagina, corso e video (coerente con quanto raccomandato al §3 sul valore del brand personale).
+
+**Prossimo passo pratico**: registrare `impresainpratica.it` e `.com` quanto prima — i controlli sopra sono un'istantanea di oggi, un nome libero può essere acquistato da chiunque da un momento all'altro. Consiglio anche una verifica veloce sul registro marchi UIBM (uibm.mise.gov.it) prima di investire in loghi/materiali, cosa che va oltre la disponibilità del dominio e che non ho potuto controllare da qui.
+
+---
+
 ## Fonti
 
 - [L'e-learning in Italia nel 2025 e 2026: analisi di un settore in piena espansione — Business Intelligence Group](https://www.businessintelligencegroup.it/e-learning-italia-2025-2026-analisi-mercato/)
@@ -295,3 +350,6 @@ Appena mi confermi questi tre punti posso passare dalla fase di analisi alla rea
 - [Kajabi vs. Teachable (2026): Honest comparison — Podia](https://www.podia.com/articles/kajabi-vs-teachable)
 - [HeyGen vs Synthesia (2026): Pricing & Features — Colossyan](https://www.colossyan.com/posts/heygen-vs-synthesia/)
 - [Best AI Video Generators 2026: 12 Tools Tested & Ranked — HeyGen](https://www.heygen.com/blog/best-ai-video-generators-tested-and-reviewed)
+- [Regime forfettario 2026, dalle tasse ai contributi — Partitaiva.it](https://www.partitaiva.it/regime-forfettario-2026-guida/)
+- [Aperture P. IVA Q1 2026: perché il forfettario resta popolare](https://www.comunicati-stampa.biz/2026/09/nuove-partite-iva-in-crescita-quasi-185mila-aperture-nel-primo-trimestre-2026/)
+- Verifica disponibilità nomi dominio: risoluzione DNS/HTTP diretta eseguita il 20/09/2026 (non un servizio esterno, dato soggetto a cambiare nel tempo)
