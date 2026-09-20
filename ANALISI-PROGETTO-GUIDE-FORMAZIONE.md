@@ -337,6 +337,44 @@ Perché questa combinazione e non il nome proprio da solo: è il candidato che c
 
 ---
 
+## 18. Dove poggiare la struttura: Studio Mascia, AnalisiEBusinessPlan.com o un sito nuovo
+
+Con l'informazione che esiste anche **Studio Mascia** (verificato: `studiomascia.com`, "Studio Mascia — Commercialisti e Revisori Legali", consulenza fiscale/societaria/aziendale, Palma Campania/Napoli, 13 anni di esperienza) il quadro ha **tre proprietà digitali**, non due. La domanda giusta non è "su quale dei tre lo mettiamo", ma **che ruolo gioca ciascuno** — perché hanno intenti di ricerca incompatibili tra loro.
+
+### 18.1 Perché non conviene ospitare i corsi su Studio Mascia o sul SaaS
+
+- **Studio Mascia** è, ed è giusto che resti, un sito a **intento locale/transazionale**: chi lo trova sta cercando "un commercialista a Palma Campania/Napoli" per affidargli la propria contabilità, non un percorso di autoformazione nazionale. Caricarci sopra decine di corsi e video lezioni confonde Google su "di cosa parla" il sito (peggiora il posizionamento locale, che oggi probabilmente già funziona) e confonde il visitatore (chi cerca un professionista locale non vuole scorrere un catalogo corsi, e viceversa).
+- **AnalisiEBusinessPlan.com** è a intento nazionale ma **transazionale-operativo** ("voglio analizzare ORA il mio bilancio/generare un business plan"), non **informativo-formativo** ("voglio imparare"). Un catalogo corsi strutturato con percorsi, avanzamento e attestati è un prodotto abbastanza diverso (UX, architettura, aspettative dell'utente) da meritare un proprio spazio, come già raccomandato al §1.
+- Un impianto con **percorsi strutturati + attestato finale** è un impegno tecnico maggiore di qualche pagina di guide (serve tracciare progressi, generare certificati, gestire iscrizioni ai singoli corsi): mescolarlo dentro un sito con uno scopo diverso complica entrambi, invece di rafforzarli.
+
+### 18.2 Decisione: tre proprietà, tre ruoli, un'unica persona al centro
+
+| Proprietà | Ruolo | Intento di chi arriva | Cosa NON deve fare |
+|---|---|---|---|
+| **Studio Mascia** (studiomascia.com) | Vetrina professionale/istituzionale: prova che sei un commercialista e revisore legale regolarmente iscritto agli albi, con clienti veri | Locale, cerca un professionista da assumere | Non deve vendere corsi; al massimo un box "Formatore — scopri i miei corsi su Impresa in Pratica" |
+| **AnalisiEBusinessPlan.com** | Strumento operativo SaaS | Nazionale, vuole un risultato immediato (report, business plan) | Non deve diventare un LMS; resta cross-sell leggero verso/da Impresa in Pratica |
+| **Impresa in Pratica** (nuovo, impresainpratica.it) | Scuola online: guide, video corsi, percorsi, attestati | Nazionale, vuole imparare | Non deve provare a fare consulenza personalizzata (rischio deontologico, vedi §18.4) |
+
+**Il collante tra i tre è Dr. Leonardo Mascia**, non il dominio: ogni proprietà rimanda esplicitamente alle altre due (banner/link reciproci), così chi ti scopre in un punto qualsiasi dell'ecosistema può finire per diventare cliente dello studio, utente del SaaS o studente dei corsi — a seconda di cosa cerca davvero.
+
+**Perché questa è la scelta giusta e non solo "una delle opzioni"**: separare per intento di ricerca è una regola SEO/UX consolidata (mescolare intenti diversi sullo stesso dominio peggiora entrambi in modo misurabile), e i tre asset che hai già costruito (o stai costruendo) corrispondono naturalmente ai tre intenti — non è un caso, è la conferma che il progetto formazione merita la sua casa propria.
+
+### 18.3 Canale YouTube: abbinato a "Impresa in Pratica", non a Studio Mascia
+
+- Il canale YouTube va **brandizzato come "Impresa in Pratica"** (nome canale, banner, watermark), con Dr. Leonardo Mascia come volto in ogni video — coerente con la struttura sopra: YouTube alimenta il funnel informativo/didattico (§11), non quello dei clienti-studio.
+- **Ogni descrizione video deve avere link a impresainpratica.it** (mai a Udemy come primo link, per lo stesso motivo di margine spiegato al §7) e, dove pertinente, un secondo link al SaaS per chi ha già capito il concetto e vuole applicarlo subito.
+- Doppia fonte di incasso dal canale, come chiedevi: (1) traffico che converte in corsi/abbonamento sul sito proprio — la fonte principale attesa; (2) monetizzazione diretta YouTube (Programma Partner: pubblicità, eventuali membership/canali) — utile ma accessoria, va vista come un bonus, non come obiettivo primario, altrimenti si ottimizza per "durata di visione" invece che per "portare le persone sul sito che vende".
+- Cadenza consigliata per partire senza sovraccaricarti: 1 video/settimana da 8-12 minuti su un tema specifico e cercato (usa i cluster ad alta domanda del §17.1: regime forfettario, scadenze fiscali, lettura del bilancio), con un CTA chiaro a fine video verso il corso/percorso corrispondente su Impresa in Pratica.
+
+### 18.4 Attestato di frequenza: cosa puoi rilasciare subito e cosa richiede un passo in più
+
+Ho verificato le regole reali per un professionista iscritto come te, perché cambiano molto in base a chi riceve l'attestato:
+
+- **Per imprenditori e dipendenti (il tuo pubblico attuale)**: un **attestato di frequenza/partecipazione** rilasciato direttamente da te tramite la piattaforma è pienamente legittimo fin da subito — è un documento privato che certifica il completamento del corso, non una qualifica di Stato. Attenzione solo alla formulazione: non deve mai suggerire che equivale a un titolo professionale o a crediti formativi per iscritti ad albi, per restare nei limiti di correttezza pubblicitaria dell'art. 44 del Codice Deontologico dei commercialisti (pubblicità sempre "veritiera, corretta e non ingannevole"; puoi però — anzi, dovresti — indicare chiaramente sul sito la tua iscrizione all'Albo dei Dottori Commercialisti ed Esperti Contabili e al Registro dei Revisori Legali: è un elemento di autorevolezza che l'art. 44 esplicitamente permette di comunicare, ed è la tua arma competitiva più forte contro i formatori anonimi di Udemy, come già evidenziato al §3).
+- **Se in futuro vorrai che i tuoi corsi valgano come crediti formativi (CFP) per ALTRI commercialisti** (il segmento B2B ad alto prezzo di cui parla Commercialista Telematico, §2.3) — cosa diversa e più ambiziosa — serve un percorso di accreditamento presso il CNDCEC: il nuovo regolamento del triennio formativo 2026-2028 richiede corsi di **durata complessiva non inferiore a 200 ore** con **almeno l'80% di frequenza** per rilasciare un attestato che il CNDCEC riconosce valido ai fini della formazione professionale continua. È un progetto a sé, con requisiti organizzativi importanti: lo segnalo come possibile **Fase 3** dell'espansione (dopo aver validato il mercato imprenditori/dipendenti), non come priorità per il lancio.
+
+---
+
 ## Fonti
 
 - [L'e-learning in Italia nel 2025 e 2026: analisi di un settore in piena espansione — Business Intelligence Group](https://www.businessintelligencegroup.it/e-learning-italia-2025-2026-analisi-mercato/)
@@ -354,3 +392,7 @@ Perché questa combinazione e non il nome proprio da solo: è il candidato che c
 - [Regime forfettario 2026, dalle tasse ai contributi — Partitaiva.it](https://www.partitaiva.it/regime-forfettario-2026-guida/)
 - [Aperture P. IVA Q1 2026: perché il forfettario resta popolare](https://www.comunicati-stampa.biz/2026/09/nuove-partite-iva-in-crescita-quasi-185mila-aperture-nel-primo-trimestre-2026/)
 - Verifica disponibilità nomi dominio: risoluzione DNS/HTTP diretta eseguita il 20/09/2026 (non un servizio esterno, dato soggetto a cambiare nel tempo)
+- [Studio Mascia — Commercialisti e Revisori Legali (verifica sito esistente)](https://www.studiomascia.com/)
+- [Codice deontologico commercialisti e promozione dello studio professionale — Fisco 7](https://www.fisco7.it/2025/11/codice-deontologico-commercialisti-e-promozione-dello-studio-professionale-cosa-si-puo-e-non-si-puo-fare/)
+- [Codice Deontologico — Consiglio Nazionale dei Dottori Commercialisti e degli Esperti Contabili](https://commercialisti.it/norme-per-la-professione/codice-deontologico/)
+- [Formazione, Regolamento e Triennio Formativo 2026-2028 — CNDCEC](https://commercialisti.it/norme-per-la-professione/formazione/il-regolamento/)
