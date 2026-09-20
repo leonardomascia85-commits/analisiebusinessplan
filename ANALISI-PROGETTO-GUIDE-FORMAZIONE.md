@@ -272,13 +272,15 @@ Questi numeri **non sono una previsione garantita**, ma un modello per capire do
 
 ---
 
-## 16. Decisioni che servono da te per procedere
+## 16. Decisioni (chiuse — mi sono occupato io del resto)
 
-1. **Conferma il significato di "brag"** (§6) — o dimmi se intendevi un altro strumento/metodo per le video lezioni, così definisco il piano di produzione preciso.
-2. ~~Dominio/branding~~ — **deciso**: nome del sito **"Impresa in Pratica"** (`impresainpratica.it`/`.com`), vedi §17. Registralo appena possibile: è un'azione che solo tu puoi fare (nessun accesso mio a un registrar).
-3. **Priorità di produzione**: quale dei 5 pilastri vuoi lanciare per primo come pilota? Dai dati di §17.1 i due cluster più "caldi" sono fisco/regime forfettario e business plan (sinergia diretta col SaaS esistente).
+1. ~~Significato di "brag"~~ — **deciso**: nessuna risposta arrivata, quindi procedo con l'approccio ibrido già raccomandato al §6 (volto reale per intro/autorità + screen recording per i tutorial operativi). Se "brag" indicava uno strumento preciso, dimmelo e adatto il piano di produzione — nel frattempo non è più un blocco.
+2. ~~Dominio/branding~~ — **deciso**: nome del sito **"Impresa in Pratica"** (`impresainpratica.it`/`.com`), vedi §17. Resta un'azione tua registrarlo (nessun accesso mio a un registrar/pagamento).
+3. ~~Priorità di produzione~~ — **deciso**: due corsi pilota in parallelo invece di uno solo, per coprire sia il cluster a domanda più alta sia quello a maggiore sinergia (dettagli e struttura al §19):
+   - **Pilota A — "Partita IVA e Regime Forfettario: la Guida Pratica"** (pilastro Fisco): domanda enorme e ricorrente (§17.1), pubblico ampio (dipendenti che valutano di aprire P.IVA + imprenditori già forfettari), candidato naturale come corso civetta su Udemy.
+   - **Pilota B — "Leggere il Bilancio e Costruire il Business Plan"** (pilastri Controllo di gestione + Programmazione e finanza): sinergia diretta con AnalisiEBusinessPlan.com, pubblico imprenditori, prezzo più alto, resta sul sito proprio.
 
-Appena mi confermi i punti 1 e 3 posso passare dalla fase di analisi alla realizzazione tecnica (struttura del sito, pagine, sistema di accesso ai corsi).
+Ho scaffoldato la prima versione tecnica del sito e il piano didattico dei due corsi pilota — vedi §19.
 
 ---
 
@@ -396,3 +398,16 @@ Ho verificato le regole reali per un professionista iscritto come te, perché ca
 - [Codice deontologico commercialisti e promozione dello studio professionale — Fisco 7](https://www.fisco7.it/2025/11/codice-deontologico-commercialisti-e-promozione-dello-studio-professionale-cosa-si-puo-e-non-si-puo-fare/)
 - [Codice Deontologico — Consiglio Nazionale dei Dottori Commercialisti e degli Esperti Contabili](https://commercialisti.it/norme-per-la-professione/codice-deontologico/)
 - [Formazione, Regolamento e Triennio Formativo 2026-2028 — CNDCEC](https://commercialisti.it/norme-per-la-professione/formazione/il-regolamento/)
+
+---
+
+## 19. Cosa ho realizzato in autonomia in questo giro
+
+Su tua richiesta ("occupati tu di tutto il resto") ho chiuso le decisioni ancora aperte (§16) e costruito la prima versione tecnica del sito, invece di continuare a chiedere conferme:
+
+- **`impresa-in-pratica/index.html`** — homepage del nuovo sito: hero, autorità professionale in evidenza, 5 pilastri, i 2 corsi pilota, sezione "perché qui e non altrove", cross-link a Studio Mascia e AnalisiEBusinessPlan.com. Identità visiva volutamente "sorella ma distinta" da AnalisiEBusinessPlan.com (stessa struttura/font Fraunces+Inter, accento ambra invece di blu, per sembrare parte della stessa famiglia senza essere confusa con lo strumento SaaS).
+- **`impresa-in-pratica/corso-regime-forfettario.html`** — programma completo del corso pilota A: 6 moduli, ~2,5 ore, dal "prima di aprire la P.IVA" all'esercitazione finale con attestato.
+- **`impresa-in-pratica/corso-business-plan.html`** — programma completo del corso pilota B: 6 moduli, ~4 ore, con cross-sell esplicito verso AnalisiEBusinessPlan.com subito sotto l'hero.
+- **`impresa-in-pratica/README.md`** — stato del lavoro e prossimi passi tecnici.
+
+**Cosa NON ho potuto fare da qui, e resta tuo** (blocchi reali, non scelte rimandate): registrare i domini `impresainpratica.it`/`.com`; creare il canale YouTube; aprire un account Udemy; girare le video lezioni (serve la tua voce/presenza); creare un repository dedicato per il nuovo sito quando vorrai separarlo da questo. Le pagine create sono landing di presentazione/validazione dell'offerta: non hanno ancora login, pagamento né generazione automatica dell'attestato — quello è lo sviluppo successivo, da agganciare all'infrastruttura Supabase esistente come indicato al §8, quando avrai deciso di procedere con lo sviluppo vero e proprio.
