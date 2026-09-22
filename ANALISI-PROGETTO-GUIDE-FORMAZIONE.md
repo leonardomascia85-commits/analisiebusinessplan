@@ -1,7 +1,7 @@
 # Analisi Strategica Completa
 ## Piattaforma di guide e corsi video per la gestione d'impresa
 **A cura di / brand: Dr. Leonardo Mascia**
-**Nome del sito scelto: PrimoFisco** (`primofisco.it` / `.com`) — vedi §17
+**Nome del sito scelto: Scuola Numeri** (`scuolanumeri.it` / `.com`) — vedi §17.5
 
 Data analisi: 20 settembre 2026
 
@@ -275,7 +275,7 @@ Questi numeri **non sono una previsione garantita**, ma un modello per capire do
 ## 16. Decisioni (chiuse — mi sono occupato io del resto)
 
 1. ~~Significato di "brag"~~ — **deciso**: nessuna risposta arrivata, quindi procedo con l'approccio ibrido già raccomandato al §6 (volto reale per intro/autorità + screen recording per i tutorial operativi). Se "brag" indicava uno strumento preciso, dimmelo e adatto il piano di produzione — nel frattempo non è più un blocco.
-2. ~~Dominio/branding~~ — **deciso**: nome del sito **"PrimoFisco"** (`primofisco.it`/`.com`), vedi §17. Resta un'azione tua registrarlo (nessun accesso mio a un registrar/pagamento).
+2. ~~Dominio/branding~~ — **deciso**: nome del sito **"Scuola Numeri"** (`scuolanumeri.it`/`.com`), vedi §17. Resta un'azione tua registrarlo (nessun accesso mio a un registrar/pagamento).
 3. ~~Priorità di produzione~~ — **deciso**: due corsi pilota in parallelo invece di uno solo, per coprire sia il cluster a domanda più alta sia quello a maggiore sinergia (dettagli e struttura al §19):
    - **Pilota A — "Partita IVA e Regime Forfettario: la Guida Pratica"** (pilastro Fisco): domanda enorme e ricorrente (§17.1), pubblico ampio (dipendenti che valutano di aprire P.IVA + imprenditori già forfettari), candidato naturale come corso civetta su Udemy.
    - **Pilota B — "Leggere il Bilancio e Costruire il Business Plan"** (pilastri Controllo di gestione + Programmazione e finanza): sinergia diretta con AnalisiEBusinessPlan.com, pubblico imprenditori, prezzo più alto, resta sul sito proprio.
@@ -337,26 +337,25 @@ Percorso delle proposte, per trasparenza:
 2. **"Mascia Academy"** — proposta come alternativa basata sul brand personale, ma non richiesta con convinzione.
 3. **Richiesta esplicita**: un nome corto, d'impatto, basato sulle parole più cercate per questo tipo di formazione → analisi rifatta da zero in quest'ottica, risultato al §17.4.
 
-### 17.4 Ricerca keyword per il naming e nome finale: "PrimoFisco"
+### 17.4 Ricerca keyword per il naming: perché "fisco" domina il mercato (ma non doveva essere il nome)
 
 **Cosa ho verificato**: non ho accesso a Google Keyword Planner/SEMrush/Ahrefs per numeri esatti di volume (limite di questo ambiente, già segnalato al §17.1). Ho usato lo stesso metodo indiretto ma concreto già validato in precedenza: densità competitiva reale (quante aziende vere costruiscono il proprio nome attorno a una parola = prova di mercato che quella parola converte) e controllo live di occupazione dominio.
 
-**Cosa emerge, in modo netto**: la radice **"fisco"** non è solo la keyword a domanda più alta tra tutte quelle analizzate (regime forfettario/Partita IVA — 184.895 nuove P.IVA nel solo Q1 2026, §17.1) — è anche, per distacco, la radice su cui il mercato italiano ha costruito più nomi di brand in assoluto. Nel controllare la disponibilità ho trovato **occupati quasi tutti** i domini con "fisco": `fiscolab`, `fiscogo`, `fiscozero` (azienda vera, Palermo, 30 anni di attività), `fiscohub`, `fiscozen`, `fiscoflow`, `fiscopiu`, `fiscoclick`, `iofisco`, `fiscopratico` (marchio Euroconference, §17.2) — segno che chiunque nel settore, istintivamente, prova a costruire il nome su questa parola. È la conferma più forte possibile, meglio di un numero di volume astratto, che "fisco" è la parola giusta su cui ancorare un nome breve e d'impatto.
+**Cosa è emerso, in modo netto**: la radice **"fisco"** non è solo la keyword a domanda più alta tra tutte quelle analizzate (regime forfettario/Partita IVA — 184.895 nuove P.IVA nel solo Q1 2026, §17.1) — è anche, per distacco, la radice su cui il mercato italiano ha costruito più nomi di brand in assoluto. Ho trovato **occupati quasi tutti** i domini con "fisco": `fiscolab`, `fiscogo`, `fiscozero` (azienda vera, Palermo, 30 anni di attività), `fiscohub`, `fiscozen`, `fiscoflow`, `fiscopiu`, `fiscoclick`, `iofisco`, `fiscopratico` (marchio Euroconference, §17.2). Su questa base avevo proposto **"PrimoFisco"** (`primofisco.it/.com`, liberi, nessun conflitto), scegliendo di ancorare il nome alla keyword a domanda comprovata più alta.
 
-Tra le poche combinazioni brevi rimaste libere e senza conflitti (verificati anche via ricerca, non solo DNS — scartate `ContaLab`, già marchio di un'azienda reale di commercialisti a Salerno, e la famiglia "Soldi*", vicina a "Soldi Academy" già esistente):
+**Correzione del cliente, e perché aveva ragione**: hai chiarito che il sito non deve essere percepito come legato al solo fisco, ma come **una scuola** per imprenditori, amministrativi e contabili — coerente con l'obiettivo originale di coprire tutti e 5 i pilastri e con l'attestato di frequenza (§18.4), che ha senso proprio per un'istituzione "scuola", non per un sito verticale su un solo argomento fiscale. "PrimoFisco" comunicava il pilastro sbagliato come identità principale: era il trade-off che avevo segnalato onestamente ma che, giustamente, hai deciso di non accettare.
 
-| Candidato | Esito |
-|---|---|
-| `fiscozero.it/.com` | Occupato (azienda vera) |
-| `fiscolab.it/.com`, `fiscohub.it/.com`, `fiscoway.it` | Occupati o troppo vicini a marchi esistenti |
-| **`primofisco.it` e `.com`** | **Liberi, nessun conflitto trovato** |
-| `fiscobase.it/.com` | Liberi, nessun conflitto — valida alternativa |
+### 17.5 Nome finale: "Scuola Numeri"
 
-**Nome scelto: "PrimoFisco"** — dominio `primofisco.it` (principale) + `primofisco.com` in parallelo per protezione. Corto (10 caratteri), facile da dire e scrivere, ancorato alla parola a domanda più alta e più validata dal mercato tra tutte quelle analizzate, e con un doppio significato che funziona a favore: "il tuo primo fisco" (per chi apre la Partita IVA da zero — esattamente il corso pilota A, §16) e "il fisco al primo posto" (chiarezza prima di tutto).
+Tra i domini brevi liberi e senza conflitti già identificati, ho scelto **"Scuola Numeri"** (`scuolanumeri.it` principale + `scuolanumeri.com` in parallelo, entrambi verificati liberi, nessun marchio o azienda esistente trovato con questo nome):
 
-**Trade-off da sapere, con onestà**: è un nome che nasce dal pilastro Fisco, quindi comunica meno immediatamente gli altri quattro pilastri (gestione, contabilità, controllo di gestione, finanza) rispetto a un nome ombrello come "Impresa in Pratica". Non è un problema per iniziare (il corso pilota A è proprio sul fisco), ma se in futuro il catalogo cresce molto sugli altri pilastri, il nome andrà accompagnato da un payoff che lo allarghi esplicitamente: **"PrimoFisco — corsi pratici di fisco, contabilità e gestione, con Dr. Leonardo Mascia"**.
+- **"Scuola"** è esplicito, letterale, ed è esattamente il posizionamento richiesto: comunica in una parola percorsi strutturati, docenza, attestato finale — non un blog di guide né un corso isolato. È anche un pattern di naming molto riconosciuto in Italia (Scuola Holden, Scuola Leonardo da Vinci): funziona.
+- **"Numeri"** copre trasversalmente tutti e 5 i pilastri senza restringersi a uno solo: contabilità, fisco, controllo di gestione e finanza sono letteralmente "numeri"; anche gestione aziendale, alla fine, è decidere guardando i numeri. Risolve il problema di "PrimoFisco" mantenendo comunque un aggancio a una parola concreta (non un'astrazione tipo "Academy").
+- Alternative scartate nello stesso giro: `scuolaimpresa.it/.com` e `scuoladimpresa.it` — già occupati; `scuolagestione.it` — libero ma troppo vicino a un uso descrittivo già diffuso ("scuola di gestione aziendale" per altri settori, es. ottica), meno distintivo come marchio.
 
-**Prossimo passo pratico — azione tua, non mia**: registra `primofisco.it` e `primofisco.com` su un registrar (Aruba, Register.it, Namecheap) il prima possibile — i controlli sopra sono un'istantanea di oggi. Verifica veloce consigliata anche sul registro marchi UIBM (uibm.mise.gov.it) prima di investire in loghi/materiali.
+**Riepilogo di tutte le iterazioni** (per trasparenza, così la cronologia resta leggibile): 1) "Impresa in Pratica" — scartato, non piaceva; 2) "Mascia Academy" — proposto, non entusiasmante; 3) "PrimoFisco" — scelto su ricerca keyword, poi corretto perché legava il brand al solo pilastro Fisco; 4) **"Scuola Numeri" — nome attuale**, che risolve sia la richiesta di un nome corto e d'impatto sia il posizionamento "scuola per tutti i pilastri" richiesto qui.
+
+**Prossimo passo pratico — azione tua, non mia**: registra `scuolanumeri.it` e `scuolanumeri.com` su un registrar (Aruba, Register.it, Namecheap) il prima possibile — i controlli sopra sono un'istantanea di oggi. Verifica veloce consigliata anche sul registro marchi UIBM (uibm.mise.gov.it) prima di investire in loghi/materiali.
 
 ---
 
@@ -374,20 +373,20 @@ Con l'informazione che esiste anche **Studio Mascia** (verificato: `studiomascia
 
 | Proprietà | Ruolo | Intento di chi arriva | Cosa NON deve fare |
 |---|---|---|---|
-| **Studio Mascia** (studiomascia.com) | Vetrina professionale/istituzionale: prova che sei un commercialista e revisore legale regolarmente iscritto agli albi, con clienti veri | Locale, cerca un professionista da assumere | Non deve vendere corsi; al massimo un box "Formatore — scopri i miei corsi su PrimoFisco" |
-| **AnalisiEBusinessPlan.com** | Strumento operativo SaaS | Nazionale, vuole un risultato immediato (report, business plan) | Non deve diventare un LMS; resta cross-sell leggero verso/da PrimoFisco |
-| **PrimoFisco** (nuovo, primofisco.it) | Scuola online: guide, video corsi, percorsi, attestati | Nazionale, vuole imparare | Non deve provare a fare consulenza personalizzata (rischio deontologico, vedi §18.4) |
+| **Studio Mascia** (studiomascia.com) | Vetrina professionale/istituzionale: prova che sei un commercialista e revisore legale regolarmente iscritto agli albi, con clienti veri | Locale, cerca un professionista da assumere | Non deve vendere corsi; al massimo un box "Formatore — scopri i miei corsi su Scuola Numeri" |
+| **AnalisiEBusinessPlan.com** | Strumento operativo SaaS | Nazionale, vuole un risultato immediato (report, business plan) | Non deve diventare un LMS; resta cross-sell leggero verso/da Scuola Numeri |
+| **Scuola Numeri** (nuovo, scuolanumeri.it) | Scuola online: guide, video corsi, percorsi, attestati | Nazionale, vuole imparare | Non deve provare a fare consulenza personalizzata (rischio deontologico, vedi §18.4) |
 
 **Il collante tra i tre è Dr. Leonardo Mascia**, non il dominio: ogni proprietà rimanda esplicitamente alle altre due (banner/link reciproci), così chi ti scopre in un punto qualsiasi dell'ecosistema può finire per diventare cliente dello studio, utente del SaaS o studente dei corsi — a seconda di cosa cerca davvero.
 
 **Perché questa è la scelta giusta e non solo "una delle opzioni"**: separare per intento di ricerca è una regola SEO/UX consolidata (mescolare intenti diversi sullo stesso dominio peggiora entrambi in modo misurabile), e i tre asset che hai già costruito (o stai costruendo) corrispondono naturalmente ai tre intenti — non è un caso, è la conferma che il progetto formazione merita la sua casa propria.
 
-### 18.3 Canale YouTube: abbinato a "PrimoFisco", non a Studio Mascia
+### 18.3 Canale YouTube: abbinato a "Scuola Numeri", non a Studio Mascia
 
-- Il canale YouTube va **brandizzato come "PrimoFisco"** (nome canale, banner, watermark), con Dr. Leonardo Mascia come volto in ogni video — coerente con la struttura sopra: YouTube alimenta il funnel informativo/didattico (§11), non quello dei clienti-studio.
-- **Ogni descrizione video deve avere link a primofisco.it** (mai a Udemy come primo link, per lo stesso motivo di margine spiegato al §7) e, dove pertinente, un secondo link al SaaS per chi ha già capito il concetto e vuole applicarlo subito.
+- Il canale YouTube va **brandizzato come "Scuola Numeri"** (nome canale, banner, watermark), con Dr. Leonardo Mascia come volto in ogni video — coerente con la struttura sopra: YouTube alimenta il funnel informativo/didattico (§11), non quello dei clienti-studio.
+- **Ogni descrizione video deve avere link a scuolanumeri.it** (mai a Udemy come primo link, per lo stesso motivo di margine spiegato al §7) e, dove pertinente, un secondo link al SaaS per chi ha già capito il concetto e vuole applicarlo subito.
 - Doppia fonte di incasso dal canale, come chiedevi: (1) traffico che converte in corsi/abbonamento sul sito proprio — la fonte principale attesa; (2) monetizzazione diretta YouTube (Programma Partner: pubblicità, eventuali membership/canali) — utile ma accessoria, va vista come un bonus, non come obiettivo primario, altrimenti si ottimizza per "durata di visione" invece che per "portare le persone sul sito che vende".
-- Cadenza consigliata per partire senza sovraccaricarti: 1 video/settimana da 8-12 minuti su un tema specifico e cercato (usa i cluster ad alta domanda del §17.1: regime forfettario, scadenze fiscali, lettura del bilancio), con un CTA chiaro a fine video verso il corso/percorso corrispondente su PrimoFisco.
+- Cadenza consigliata per partire senza sovraccaricarti: 1 video/settimana da 8-12 minuti su un tema specifico e cercato (usa i cluster ad alta domanda del §17.1: regime forfettario, scadenze fiscali, lettura del bilancio), con un CTA chiaro a fine video verso il corso/percorso corrispondente su Scuola Numeri.
 
 ### 18.4 Attestato di frequenza: cosa puoi rilasciare subito e cosa richiede un passo in più
 
@@ -426,9 +425,9 @@ Ho verificato le regole reali per un professionista iscritto come te, perché ca
 
 Su tua richiesta ("occupati tu di tutto il resto") ho chiuso le decisioni ancora aperte (§16) e costruito la prima versione tecnica del sito, invece di continuare a chiedere conferme:
 
-- **`primofisco/index.html`** — homepage del nuovo sito: hero, autorità professionale in evidenza, 5 pilastri, i 2 corsi pilota, sezione "perché qui e non altrove", cross-link a Studio Mascia e AnalisiEBusinessPlan.com. Identità visiva volutamente "sorella ma distinta" da AnalisiEBusinessPlan.com (stessa struttura/font Fraunces+Inter, accento ambra invece di blu, per sembrare parte della stessa famiglia senza essere confusa con lo strumento SaaS).
-- **`primofisco/corso-regime-forfettario.html`** — programma completo del corso pilota A: 6 moduli, ~2,5 ore, dal "prima di aprire la P.IVA" all'esercitazione finale con attestato.
-- **`primofisco/corso-business-plan.html`** — programma completo del corso pilota B: 6 moduli, ~4 ore, con cross-sell esplicito verso AnalisiEBusinessPlan.com subito sotto l'hero.
-- **`primofisco/README.md`** — stato del lavoro e prossimi passi tecnici.
+- **`scuolanumeri/index.html`** — homepage del nuovo sito: hero, autorità professionale in evidenza, 5 pilastri, i 2 corsi pilota, sezione "perché qui e non altrove", cross-link a Studio Mascia e AnalisiEBusinessPlan.com. Identità visiva volutamente "sorella ma distinta" da AnalisiEBusinessPlan.com (stessa struttura/font Fraunces+Inter, accento ambra invece di blu, per sembrare parte della stessa famiglia senza essere confusa con lo strumento SaaS).
+- **`scuolanumeri/corso-regime-forfettario.html`** — programma completo del corso pilota A: 6 moduli, ~2,5 ore, dal "prima di aprire la P.IVA" all'esercitazione finale con attestato.
+- **`scuolanumeri/corso-business-plan.html`** — programma completo del corso pilota B: 6 moduli, ~4 ore, con cross-sell esplicito verso AnalisiEBusinessPlan.com subito sotto l'hero.
+- **`scuolanumeri/README.md`** — stato del lavoro e prossimi passi tecnici.
 
-**Cosa NON ho potuto fare da qui, e resta tuo** (blocchi reali, non scelte rimandate): registrare i domini `primofisco.it`/`.com`; creare il canale YouTube; aprire un account Udemy; girare le video lezioni (serve la tua voce/presenza); creare un repository dedicato per il nuovo sito quando vorrai separarlo da questo. Le pagine create sono landing di presentazione/validazione dell'offerta: non hanno ancora login, pagamento né generazione automatica dell'attestato — quello è lo sviluppo successivo, da agganciare all'infrastruttura Supabase esistente come indicato al §8, quando avrai deciso di procedere con lo sviluppo vero e proprio.
+**Cosa NON ho potuto fare da qui, e resta tuo** (blocchi reali, non scelte rimandate): registrare i domini `scuolanumeri.it`/`.com`; creare il canale YouTube; aprire un account Udemy; girare le video lezioni (serve la tua voce/presenza); creare un repository dedicato per il nuovo sito quando vorrai separarlo da questo. Le pagine create sono landing di presentazione/validazione dell'offerta: non hanno ancora login, pagamento né generazione automatica dell'attestato — quello è lo sviluppo successivo, da agganciare all'infrastruttura Supabase esistente come indicato al §8, quando avrai deciso di procedere con lo sviluppo vero e proprio.
