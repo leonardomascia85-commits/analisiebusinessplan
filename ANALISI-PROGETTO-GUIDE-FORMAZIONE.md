@@ -431,3 +431,32 @@ Su tua richiesta ("occupati tu di tutto il resto") ho chiuso le decisioni ancora
 - **`scuolanumeri/README.md`** — stato del lavoro e prossimi passi tecnici.
 
 **Cosa NON ho potuto fare da qui, e resta tuo** (blocchi reali, non scelte rimandate): registrare i domini `scuolanumeri.it`/`.com`; creare il canale YouTube; aprire un account Udemy; girare le video lezioni (serve la tua voce/presenza); creare un repository dedicato per il nuovo sito quando vorrai separarlo da questo. Le pagine create sono landing di presentazione/validazione dell'offerta: non hanno ancora login, pagamento né generazione automatica dell'attestato — quello è lo sviluppo successivo, da agganciare all'infrastruttura Supabase esistente come indicato al §8, quando avrai deciso di procedere con lo sviluppo vero e proprio.
+
+---
+
+## 20. Conferma nome + aspettative reali sui tempi SEO
+
+Ricontrollato il 25/09/2026: `scuolanumeri.it` e `scuolanumeri.com` **sono ancora entrambi liberi**. Resta la scelta giusta rispetto a quanto richiesto in questo giro — corto, facilmente memorizzabile, ancorato a una parola di ricerca reale ("numeri") che attraversa tutti e 5 i pilastri invece di uno solo — quindi non ho rifatto da zero l'intera ricerca nomi (già coperta in 4 iterazioni, §17), ma ho verificato che la base sia ancora solida e ho aggiunto qui la parte nuova che hai chiesto: portarlo in prima pagina e usare i social.
+
+**Aspettative oneste sui tempi**, verificate ora perché è importante pianificare bene senza illusioni:
+- Indicizzazione di un sito nuovo su Google: **da qualche giorno a 4 mesi** senza fare nulla; **entro 24-48 ore** se sottoponi sitemap e pagine via Google Search Console (primo passo tecnico da fare appena il sito è online, gratuito).
+- Prima pagina su keyword a media competizione (es. "corso regime forfettario", non "fisco" da sola): **3-6 mesi** di lavoro costante su contenuti e backlink.
+- Traffico organico realmente significativo: **8-12 mesi**.
+- Primissime posizioni su keyword molto competitive (es. "partita iva", "business plan"): **anche oltre 1 anno**.
+
+Questo significa una cosa operativa importante: **la SEO non sostituisce i social nei primi 6-9 mesi, li precede**. Nel frattempo il traffico deve arrivare da LinkedIn/Instagram/Facebook/YouTube (§21) e da Udemy come civetta (§7) — la SEO è l'investimento che nel tempo abbassa il costo di acquisizione, non la fonte di lancio.
+
+## 21. Piano social media: Facebook, Instagram, LinkedIn (+ YouTube già coperto al §18.3)
+
+Ogni piattaforma ha un ruolo diverso nel funnel (§11) — non postare lo stesso contenuto ovunque:
+
+| Canale | Ruolo | Cosa pubblicare | Formato che funziona di più | Cadenza consigliata |
+|---|---|---|---|---|
+| **LinkedIn** | Autorevolezza professionale, canale prioritario per un commercialista che vuole essere percepito come esperto verificabile | Spiegazioni di concetti (es. "3 errori che vedo sempre nei bilanci delle PMI"), commenti a novità normative, dietro le quinte dei corsi | **Caroselli**: il formato con l'engagement più alto rilevato nel 2026 (fino a ~50% di engagement rate) | 2-3 post/settimana |
+| **Facebook** | Considerazione e lead generation — resta efficace in particolare nel settore "formazione professionale" (dato confermato per il 2026) | Testimonianze di studenti, promemoria scadenze fiscali, annunci corsi/promozioni, eventuali gruppo community a supporto degli iscritti | Post con immagine/breve video, gruppo Facebook per chi ha comprato un corso | 2-3 post/settimana + gestione gruppo |
+| **Instagram** | Awareness verso il pubblico più giovane (dipendenti, neo-P.IVA) | Micro-lezioni in Reels (30-60 secondi, stesso contenuto delle clip ricavate da YouTube, §18.3), infografiche su scadenze/numeri chiave | Reels > caroselli > post singoli | 3-4 Reels/settimana (riciclati dai video lunghi, zero lavoro aggiuntivo) |
+| **YouTube** | Motore didattico principale, già pianificato al §18.3 | Video da 8-12 minuti su temi a domanda alta (§17.1) | Video lungo, sorgente per tutti i tagli social sopra | 1 video/settimana |
+
+**Il principio che tiene insieme tutto**: **un solo video a settimana genera tutto il resto**. Registri il video YouTube lungo, ne tagli 3-4 Reels/clip per Instagram e Facebook, ne estrai 1 carosello LinkedIn con i concetti chiave, e posti un annuncio Facebook quando il video tratta un tema legato a un corso in vendita. Questo evita il rischio reale di questo tipo di piano — disperdersi su 4 canali e non produrre contenuto per nessuno — e rende sostenibile la cadenza anche senza un team dietro.
+
+**Call-to-action univoca ovunque**: ogni post, su qualsiasi canale, porta a `scuolanumeri.it` (mai a Udemy come primo link, per lo stesso motivo di margine del §7). Bio di ogni profilo social con lo stesso link, stesso nome utente ovunque possibile (`@scuolanumeri` su Instagram/Facebook/LinkedIn, verificare disponibilità handle prima di registrare i profili).
