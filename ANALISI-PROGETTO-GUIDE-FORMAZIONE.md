@@ -171,7 +171,20 @@ Proposta a 3 livelli sul sito proprio:
 2. **Percorso completo per pilastro**: 129-249 € (imprenditori) — più esercitazioni, template Excel, checklist scaricabili.
 3. **Abbonamento "Accademia" mensile/annuale**: accesso a tutta la libreria + aggiornamenti normativi continui + eventuale sconto sul SaaS di business plan. Prezzo indicativo 19-29 €/mese o 149-249 €/anno (ancoraggio simile ai prezzi Commercialista Telematico ma per un pubblico più ampio e a prezzo molto più accessibile — differenziazione chiara).
 
-Su Udemy: prezzo di listino massimo consentito dalla piattaforma per il segmento (spesso 84,99-94,99 $), sapendo che il prezzo reale pagato sarà quasi sempre scontato dalla piattaforma stessa.
+Su Udemy: prezzo di listino massimo consentito dalla piattaforma per il segmento (spesso 84,99-94,99 $), sapendo che il prezzo reale pagato sarà quasi sempre scontato dalla piattaforma stessa. Un bundle multi-corso come quello del punto 9.1 non è vendibile su Udemy: lì restano solo i singoli corsi civetta (§7).
+
+### 9.1 Decisione: prezzo del bundle "tutte e 5 le guide" (sul sito proprio)
+
+Con il catalogo delle 5 guide completo (§16, ~100 lezioni, ~17 ore di video), il prezzo del bundle è:
+
+| Opzione | Prezzo | Cosa include |
+|---|---|---|
+| Guida singola | 69 € | 1 pilastro, accesso permanente |
+| **Bundle 5 guide — prezzo di lancio** | **199 €** | Tutti e 5 i pilastri, una tantum, per le prime settimane/primi clienti (nessuna recensione ancora: serve a costruire prova sociale in fretta) |
+| **Bundle 5 guide — prezzo a regime** | **249 €** | Tutti e 5 i pilastri, una tantum |
+| Abbonamento Accademia | 199 €/anno | Tutto il catalogo + aggiornamenti + corsi futuri + sconto sul SaaS |
+
+Logica: il bundle a regime (249 €) resta ancorato al valore cumulativo delle 5 guide singole (5 × 69-79 € ≈ 395 €, sconto ~35-40%), ma **non deve mai costare meno dell'abbonamento annuale** (199 €/anno) — altrimenti nessuno si abbonerebbe più. L'abbonamento resta così la scelta a maggior valore nel tempo (aggiornamenti + sconto SaaS inclusi), senza bisogno di scoraggiare l'acquisto una tantum per chi lo preferisce.
 
 ---
 
