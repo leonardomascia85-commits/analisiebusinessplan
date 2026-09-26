@@ -274,7 +274,7 @@ Mettendo insieme tutta la guida, la richiesta di finanziamento di Verdi Srl si p
 4. **Indici storici e prospettici**: DSCR 1,67 (Lezione 3), PFN/EBITDA 2,5 (Lezione 4), Altman Z' 1,97 in zona grigia ma migliorabile (Lezione 5), rating stimato C (Lezione 6).
 5. **Punti di attenzione dichiarati apertamente in fase di presentazione**: l'Autonomia finanziaria (28,6%) è un'area di miglioramento — Verdi Srl la accompagna con un piano di rafforzamento patrimoniale (utili non distribuiti nei prossimi anni), invece di ignorarla (Lezione 19).
 
-📌 **Se hai seguito tutte e cinque le guide di Scuola Numeri**: hai lo stesso set di strumenti — dalla singola registrazione contabile fino alla presentazione di un business plan in banca — che un piccolo team di controllo di gestione userebbe in un'azienda strutturata. Il passo pratico successivo è applicarlo alla tua azienda reale, caricando il tuo bilancio su **AnalisiEBusinessPlan.com** per ottenere in pochi minuti gli stessi indici calcolati qui a mano.
+📌 **Se hai seguito tutte e cinque le guide di SkillEasy**: hai lo stesso set di strumenti — dalla singola registrazione contabile fino alla presentazione di un business plan in banca — che un piccolo team di controllo di gestione userebbe in un'azienda strutturata. Il passo pratico successivo è applicarlo alla tua azienda reale, caricando il tuo bilancio su **AnalisiEBusinessPlan.com** per ottenere in pochi minuti gli stessi indici calcolati qui a mano.
 
 ---
 

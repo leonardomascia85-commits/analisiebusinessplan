@@ -1,7 +1,7 @@
 # Analisi Strategica Completa
 ## Piattaforma di guide e corsi video per la gestione d'impresa
 **A cura di / brand: Dr. Leonardo Mascia**
-**Nome del sito scelto: Scuola Numeri** (`scuolanumeri.it` / `.com`) — vedi §17.5
+**Nome del sito scelto: SkillEasy** (`skilleasy.it`, registrato direttamente dal cliente) — vedi §17.6
 
 Data analisi: 20 settembre 2026
 
@@ -288,7 +288,7 @@ Questi numeri **non sono una previsione garantita**, ma un modello per capire do
 ## 16. Decisioni (chiuse — mi sono occupato io del resto)
 
 1. ~~Significato di "brag"~~ — **deciso**: nessuna risposta arrivata, quindi procedo con l'approccio ibrido già raccomandato al §6 (volto reale per intro/autorità + screen recording per i tutorial operativi). Se "brag" indicava uno strumento preciso, dimmelo e adatto il piano di produzione — nel frattempo non è più un blocco.
-2. ~~Dominio/branding~~ — **deciso**: nome del sito **"Scuola Numeri"** (`scuolanumeri.it`/`.com`), vedi §17. Resta un'azione tua registrarlo (nessun accesso mio a un registrar/pagamento).
+2. ~~Dominio/branding~~ — **deciso**: nome del sito **"SkillEasy"** (`skilleasy.it`/`.com`), vedi §17. Resta un'azione tua registrarlo (nessun accesso mio a un registrar/pagamento).
 3. ~~Priorità di produzione~~ — **deciso**: due corsi pilota in parallelo invece di uno solo, per coprire sia il cluster a domanda più alta sia quello a maggiore sinergia (dettagli e struttura al §19):
    - **Pilota A — "Partita IVA e Regime Forfettario: la Guida Pratica"** (pilastro Fisco): domanda enorme e ricorrente (§17.1), pubblico ampio (dipendenti che valutano di aprire P.IVA + imprenditori già forfettari), candidato naturale come corso civetta su Udemy.
    - **Pilota B — "Leggere il Bilancio e Costruire il Business Plan"** (pilastri Controllo di gestione + Programmazione e finanza): sinergia diretta con AnalisiEBusinessPlan.com, pubblico imprenditori, prezzo più alto, resta sul sito proprio.
@@ -358,17 +358,19 @@ Percorso delle proposte, per trasparenza:
 
 **Correzione del cliente, e perché aveva ragione**: hai chiarito che il sito non deve essere percepito come legato al solo fisco, ma come **una scuola** per imprenditori, amministrativi e contabili — coerente con l'obiettivo originale di coprire tutti e 5 i pilastri e con l'attestato di frequenza (§18.4), che ha senso proprio per un'istituzione "scuola", non per un sito verticale su un solo argomento fiscale. "PrimoFisco" comunicava il pilastro sbagliato come identità principale: era il trade-off che avevo segnalato onestamente ma che, giustamente, hai deciso di non accettare.
 
-### 17.5 Nome finale: "Scuola Numeri"
+### 17.5 Nome scartato in corsa: "Scuola Numeri"
 
-Tra i domini brevi liberi e senza conflitti già identificati, ho scelto **"Scuola Numeri"** (`scuolanumeri.it` principale + `scuolanumeri.com` in parallelo, entrambi verificati liberi, nessun marchio o azienda esistente trovato con questo nome):
+Prima di questa decisione, avevo proposto e implementato **"Scuola Numeri"** (`scuolanumeri.it/.com`, allora liberi): "Scuola" per il posizionamento letterale richiesto (percorsi strutturati, attestato finale), "Numeri" come parola trasversale ai 5 pilastri. Alternative scartate nello stesso giro: `scuolaimpresa.it/.com` e `scuoladimpresa.it` (già occupati), `scuolagestione.it` (libero ma troppo descrittivo/poco distintivo).
 
-- **"Scuola"** è esplicito, letterale, ed è esattamente il posizionamento richiesto: comunica in una parola percorsi strutturati, docenza, attestato finale — non un blog di guide né un corso isolato. È anche un pattern di naming molto riconosciuto in Italia (Scuola Holden, Scuola Leonardo da Vinci): funziona.
-- **"Numeri"** copre trasversalmente tutti e 5 i pilastri senza restringersi a uno solo: contabilità, fisco, controllo di gestione e finanza sono letteralmente "numeri"; anche gestione aziendale, alla fine, è decidere guardando i numeri. Risolve il problema di "PrimoFisco" mantenendo comunque un aggancio a una parola concreta (non un'astrazione tipo "Academy").
-- Alternative scartate nello stesso giro: `scuolaimpresa.it/.com` e `scuoladimpresa.it` — già occupati; `scuolagestione.it` — libero ma troppo vicino a un uso descrittivo già diffuso ("scuola di gestione aziendale" per altri settori, es. ottica), meno distintivo come marchio.
+### 17.6 Nome finale, deciso e registrato da te: "SkillEasy"
 
-**Riepilogo di tutte le iterazioni** (per trasparenza, così la cronologia resta leggibile): 1) "Impresa in Pratica" — scartato, non piaceva; 2) "Mascia Academy" — proposto, non entusiasmante; 3) "PrimoFisco" — scelto su ricerca keyword, poi corretto perché legava il brand al solo pilastro Fisco; 4) **"Scuola Numeri" — nome attuale**, che risolve sia la richiesta di un nome corto e d'impatto sia il posizionamento "scuola per tutti i pilastri" richiesto qui.
+Hai registrato tu stesso, in autonomia, il dominio **`skilleasy.it`** — una scelta reale e già effettuata, non più un'ipotesi da verificare: questa volta l'azione (e la decisione) è partita direttamente da te, non da una mia proposta. Ho aggiornato tutto lo scaffold del sito e questo documento di conseguenza.
 
-**Prossimo passo pratico — azione tua, non mia**: registra `scuolanumeri.it` e `scuolanumeri.com` su un registrar (Aruba, Register.it, Namecheap) il prima possibile — i controlli sopra sono un'istantanea di oggi. Verifica veloce consigliata anche sul registro marchi UIBM (uibm.mise.gov.it) prima di investire in loghi/materiali.
+**Verifica tecnica fatta a valle della tua registrazione** (26/09/2026): `skilleasy.it` non risolve ancora (normale se appena registrato e non ancora puntato a un hosting); `skilleasy.com` **risulta già occupato** (risponde con un IP attivo) — se volevi registrare anche il `.com` per protezione del marchio, verifica direttamente perché potrebbe non essere più disponibile, o valuta un'estensione alternativa (`.eu`, `.online`).
+
+**Riepilogo di tutte le iterazioni** (per trasparenza, così la cronologia resta leggibile): 1) "Impresa in Pratica" — scartato, non piaceva; 2) "Mascia Academy" — proposto, non entusiasmante; 3) "PrimoFisco" — scelto su ricerca keyword, poi corretto perché legava il brand al solo pilastro Fisco; 4) "Scuola Numeri" — implementato, poi superato; 5) **"SkillEasy" — nome attuale**, scelto e registrato direttamente da te.
+
+**Prossimo passo pratico**: puntare il DNS di `skilleasy.it` all'hosting scelto quando il sito sarà pronto per andare online (§19); nel frattempo, verifica sul registro marchi UIBM (uibm.mise.gov.it) che il nome non confligga con marchi già registrati, prima di investire in loghi/materiali definitivi.
 
 ---
 
@@ -386,20 +388,20 @@ Con l'informazione che esiste anche **Studio Mascia** (verificato: `studiomascia
 
 | Proprietà | Ruolo | Intento di chi arriva | Cosa NON deve fare |
 |---|---|---|---|
-| **Studio Mascia** (studiomascia.com) | Vetrina professionale/istituzionale: prova che sei un commercialista e revisore legale regolarmente iscritto agli albi, con clienti veri | Locale, cerca un professionista da assumere | Non deve vendere corsi; al massimo un box "Formatore — scopri i miei corsi su Scuola Numeri" |
-| **AnalisiEBusinessPlan.com** | Strumento operativo SaaS | Nazionale, vuole un risultato immediato (report, business plan) | Non deve diventare un LMS; resta cross-sell leggero verso/da Scuola Numeri |
-| **Scuola Numeri** (nuovo, scuolanumeri.it) | Scuola online: guide, video corsi, percorsi, attestati | Nazionale, vuole imparare | Non deve provare a fare consulenza personalizzata (rischio deontologico, vedi §18.4) |
+| **Studio Mascia** (studiomascia.com) | Vetrina professionale/istituzionale: prova che sei un commercialista e revisore legale regolarmente iscritto agli albi, con clienti veri | Locale, cerca un professionista da assumere | Non deve vendere corsi; al massimo un box "Formatore — scopri i miei corsi su SkillEasy" |
+| **AnalisiEBusinessPlan.com** | Strumento operativo SaaS | Nazionale, vuole un risultato immediato (report, business plan) | Non deve diventare un LMS; resta cross-sell leggero verso/da SkillEasy |
+| **SkillEasy** (nuovo, skilleasy.it) | Scuola online: guide, video corsi, percorsi, attestati | Nazionale, vuole imparare | Non deve provare a fare consulenza personalizzata (rischio deontologico, vedi §18.4) |
 
 **Il collante tra i tre è Dr. Leonardo Mascia**, non il dominio: ogni proprietà rimanda esplicitamente alle altre due (banner/link reciproci), così chi ti scopre in un punto qualsiasi dell'ecosistema può finire per diventare cliente dello studio, utente del SaaS o studente dei corsi — a seconda di cosa cerca davvero.
 
 **Perché questa è la scelta giusta e non solo "una delle opzioni"**: separare per intento di ricerca è una regola SEO/UX consolidata (mescolare intenti diversi sullo stesso dominio peggiora entrambi in modo misurabile), e i tre asset che hai già costruito (o stai costruendo) corrispondono naturalmente ai tre intenti — non è un caso, è la conferma che il progetto formazione merita la sua casa propria.
 
-### 18.3 Canale YouTube: abbinato a "Scuola Numeri", non a Studio Mascia
+### 18.3 Canale YouTube: abbinato a "SkillEasy", non a Studio Mascia
 
-- Il canale YouTube va **brandizzato come "Scuola Numeri"** (nome canale, banner, watermark), con Dr. Leonardo Mascia come volto in ogni video — coerente con la struttura sopra: YouTube alimenta il funnel informativo/didattico (§11), non quello dei clienti-studio.
-- **Ogni descrizione video deve avere link a scuolanumeri.it** (mai a Udemy come primo link, per lo stesso motivo di margine spiegato al §7) e, dove pertinente, un secondo link al SaaS per chi ha già capito il concetto e vuole applicarlo subito.
+- Il canale YouTube va **brandizzato come "SkillEasy"** (nome canale, banner, watermark), con Dr. Leonardo Mascia come volto in ogni video — coerente con la struttura sopra: YouTube alimenta il funnel informativo/didattico (§11), non quello dei clienti-studio.
+- **Ogni descrizione video deve avere link a skilleasy.it** (mai a Udemy come primo link, per lo stesso motivo di margine spiegato al §7) e, dove pertinente, un secondo link al SaaS per chi ha già capito il concetto e vuole applicarlo subito.
 - Doppia fonte di incasso dal canale, come chiedevi: (1) traffico che converte in corsi/abbonamento sul sito proprio — la fonte principale attesa; (2) monetizzazione diretta YouTube (Programma Partner: pubblicità, eventuali membership/canali) — utile ma accessoria, va vista come un bonus, non come obiettivo primario, altrimenti si ottimizza per "durata di visione" invece che per "portare le persone sul sito che vende".
-- Cadenza consigliata per partire senza sovraccaricarti: 1 video/settimana da 8-12 minuti su un tema specifico e cercato (usa i cluster ad alta domanda del §17.1: regime forfettario, scadenze fiscali, lettura del bilancio), con un CTA chiaro a fine video verso il corso/percorso corrispondente su Scuola Numeri.
+- Cadenza consigliata per partire senza sovraccaricarti: 1 video/settimana da 8-12 minuti su un tema specifico e cercato (usa i cluster ad alta domanda del §17.1: regime forfettario, scadenze fiscali, lettura del bilancio), con un CTA chiaro a fine video verso il corso/percorso corrispondente su SkillEasy.
 
 ### 18.4 Attestato di frequenza: cosa puoi rilasciare subito e cosa richiede un passo in più
 
@@ -438,18 +440,18 @@ Ho verificato le regole reali per un professionista iscritto come te, perché ca
 
 Su tua richiesta ("occupati tu di tutto il resto") ho chiuso le decisioni ancora aperte (§16) e costruito la prima versione tecnica del sito, invece di continuare a chiedere conferme:
 
-- **`scuolanumeri/index.html`** — homepage del nuovo sito: hero, autorità professionale in evidenza, 5 pilastri, i 2 corsi pilota, sezione "perché qui e non altrove", cross-link a Studio Mascia e AnalisiEBusinessPlan.com. Identità visiva volutamente "sorella ma distinta" da AnalisiEBusinessPlan.com (stessa struttura/font Fraunces+Inter, accento ambra invece di blu, per sembrare parte della stessa famiglia senza essere confusa con lo strumento SaaS).
-- **`scuolanumeri/corso-regime-forfettario.html`** — programma completo del corso pilota A: 6 moduli, ~2,5 ore, dal "prima di aprire la P.IVA" all'esercitazione finale con attestato.
-- **`scuolanumeri/corso-business-plan.html`** — programma completo del corso pilota B: 6 moduli, ~4 ore, con cross-sell esplicito verso AnalisiEBusinessPlan.com subito sotto l'hero.
-- **`scuolanumeri/README.md`** — stato del lavoro e prossimi passi tecnici.
+- **`skilleasy/index.html`** — homepage del nuovo sito: hero, autorità professionale in evidenza, 5 pilastri, i 2 corsi pilota, sezione "perché qui e non altrove", cross-link a Studio Mascia e AnalisiEBusinessPlan.com. Identità visiva volutamente "sorella ma distinta" da AnalisiEBusinessPlan.com (stessa struttura/font Fraunces+Inter, accento ambra invece di blu, per sembrare parte della stessa famiglia senza essere confusa con lo strumento SaaS).
+- **`skilleasy/corso-regime-forfettario.html`** — programma completo del corso pilota A: 6 moduli, ~2,5 ore, dal "prima di aprire la P.IVA" all'esercitazione finale con attestato.
+- **`skilleasy/corso-business-plan.html`** — programma completo del corso pilota B: 6 moduli, ~4 ore, con cross-sell esplicito verso AnalisiEBusinessPlan.com subito sotto l'hero.
+- **`skilleasy/README.md`** — stato del lavoro e prossimi passi tecnici.
 
-**Cosa NON ho potuto fare da qui, e resta tuo** (blocchi reali, non scelte rimandate): registrare i domini `scuolanumeri.it`/`.com`; creare il canale YouTube; aprire un account Udemy; girare le video lezioni (serve la tua voce/presenza); creare un repository dedicato per il nuovo sito quando vorrai separarlo da questo. Le pagine create sono landing di presentazione/validazione dell'offerta: non hanno ancora login, pagamento né generazione automatica dell'attestato — quello è lo sviluppo successivo, da agganciare all'infrastruttura Supabase esistente come indicato al §8, quando avrai deciso di procedere con lo sviluppo vero e proprio.
+**Cosa NON ho potuto fare da qui, e resta tuo** (blocchi reali, non scelte rimandate): registrare i domini `skilleasy.it`/`.com`; creare il canale YouTube; aprire un account Udemy; girare le video lezioni (serve la tua voce/presenza); creare un repository dedicato per il nuovo sito quando vorrai separarlo da questo. Le pagine create sono landing di presentazione/validazione dell'offerta: non hanno ancora login, pagamento né generazione automatica dell'attestato — quello è lo sviluppo successivo, da agganciare all'infrastruttura Supabase esistente come indicato al §8, quando avrai deciso di procedere con lo sviluppo vero e proprio.
 
 ---
 
 ## 20. Conferma nome + aspettative reali sui tempi SEO
 
-Ricontrollato il 25/09/2026: `scuolanumeri.it` e `scuolanumeri.com` **sono ancora entrambi liberi**. Resta la scelta giusta rispetto a quanto richiesto in questo giro — corto, facilmente memorizzabile, ancorato a una parola di ricerca reale ("numeri") che attraversa tutti e 5 i pilastri invece di uno solo — quindi non ho rifatto da zero l'intera ricerca nomi (già coperta in 4 iterazioni, §17), ma ho verificato che la base sia ancora solida e ho aggiunto qui la parte nuova che hai chiesto: portarlo in prima pagina e usare i social.
+*(Nota: questo paragrafo, scritto il 25/09/2026, riconfermava il nome "Scuola Numeri" allora in uso. Il nome del sito è stato poi sostituito da te con "SkillEasy", già registrato — vedi §17.6. Il resto di questa sezione, su tempi SEO e social, resta valido indipendentemente dal nome scelto.)*
 
 **Aspettative oneste sui tempi**, verificate ora perché è importante pianificare bene senza illusioni:
 - Indicizzazione di un sito nuovo su Google: **da qualche giorno a 4 mesi** senza fare nulla; **entro 24-48 ore** se sottoponi sitemap e pagine via Google Search Console (primo passo tecnico da fare appena il sito è online, gratuito).
@@ -472,7 +474,7 @@ Ogni piattaforma ha un ruolo diverso nel funnel (§11) — non postare lo stesso
 
 **Il principio che tiene insieme tutto**: **un solo video a settimana genera tutto il resto**. Registri il video YouTube lungo, ne tagli 3-4 Reels/clip per Instagram e Facebook, ne estrai 1 carosello LinkedIn con i concetti chiave, e posti un annuncio Facebook quando il video tratta un tema legato a un corso in vendita. Questo evita il rischio reale di questo tipo di piano — disperdersi su 4 canali e non produrre contenuto per nessuno — e rende sostenibile la cadenza anche senza un team dietro.
 
-**Call-to-action univoca ovunque**: ogni post, su qualsiasi canale, porta a `scuolanumeri.it` (mai a Udemy come primo link, per lo stesso motivo di margine del §7). Bio di ogni profilo social con lo stesso link, stesso nome utente ovunque possibile (`@scuolanumeri` su Instagram/Facebook/LinkedIn, verificare disponibilità handle prima di registrare i profili).
+**Call-to-action univoca ovunque**: ogni post, su qualsiasi canale, porta a `skilleasy.it` (mai a Udemy come primo link, per lo stesso motivo di margine del §7). Bio di ogni profilo social con lo stesso link, stesso nome utente ovunque possibile (`@skilleasy` su Instagram/Facebook/LinkedIn, verificare disponibilità handle prima di registrare i profili).
 
 ---
 
@@ -496,3 +498,27 @@ Con il catalogo dei 5 pilastri completo (§16, ~100 lezioni), le estensioni natu
 9. **Guida settoriale edilizia** — coerenza narrativa con Verdi Srl (materiali per l'edilizia), utile come case study verticale "avanzato" per differenziarsi dai concorrenti generalisti.
 
 Raccomandazione: iniziare da **Sicurezza sul lavoro** (volume di pubblico più ampio, obbligo di legge) o **Crisi d'impresa** (massima sinergia col lavoro già fatto), a seconda che si voglia dare priorità alla portata o alla coerenza con l'ecosistema esistente.
+
+---
+
+## 23. Catalogo completo: tutte e 9 le guide della roadmap sono state scritte
+
+Su richiesta esplicita ("preparale tutte, facciamo un bel sito per le aziende"), tutte e 9 le guide della roadmap (§22) sono state scritte, in `skilleasy/guide/`, seguendo lo stesso metodo delle 5 guide base: spiegazione semplice, esempio numerico concreto, punto chiave, con Verdi Srl come filo conduttore in tutte (con l'aggiunta di Rossi Srl come azienda di confronto in difficoltà nella guida Crisi d'Impresa). Ogni dato normativo soggetto a variazione annuale è stato verificato via ricerca web prima di essere scritto, con fonti elencate in fondo a ciascun documento.
+
+| # | Guida | Lezioni | Note |
+|---|---|---|---|
+| 6 | Sicurezza sul lavoro (D.Lgs 81/08) | 18 | DVR, RSPP/RLS, formazione, DPI, DUVRI, responsabilità penale |
+| 7 | Crisi d'impresa e allerta precoce | 16 | Assetti adeguati, DSCR trimestrale, composizione negoziata |
+| 8 | Welfare aziendale e fringe benefit | 12 | Soglie 2026 (1.000/2.000 €), confronto vs aumento in busta paga |
+| 9 | Agevolazioni e bandi per le PMI | 14 | Iperammortamento 2026, Nuova Sabatini, click day |
+| 10 | Privacy e GDPR essenziale per PMI | 12 | Registro trattamenti, data breach nelle 72 ore |
+| 11 | IVA avanzata | 14 | Reverse charge, regime OSS, esportazioni |
+| 12 | Marketing digitale per PMI | 14 | L'unica guida prevalentemente strategica, non normativa |
+| 13 | Passaggio generazionale e successione | 12 | Aliquote 2026, novità separazione franchigie, patto di famiglia |
+| 14 | Guida settoriale edilizia | 12 | Caso di studio verticale che integra tutte le altre guide |
+
+**Totale catalogo (5 pilastri base + 9 estensioni)**: 14 guide, ~226 lezioni, ~36 ore di video stimate.
+
+**Sito aggiornato**: la homepage (`skilleasy/index.html`) ha una nuova sezione "Catalogo" che presenta tutte e 14 le guide, con nota di trasparenza che il testo è pronto mentre le video lezioni sono in produzione — non promette contenuti che non esistono ancora.
+
+**Cosa resta da fare, fuori dalla portata di questa sessione**: girare le video lezioni (~36 ore totali stimate, un impegno di produzione reale da pianificare — non tutto in una volta), e per le 9 guide di estensione valutare se e come inserirle nel catalogo prezzi (§9): probabile che restino incluse nell'abbonamento Accademia come contenuto di approfondimento, mentre i 5 pilastri base restano la base del bundle una tantum (§9.1), per non svalutare il posizionamento "5 pilastri completi" già comunicato.

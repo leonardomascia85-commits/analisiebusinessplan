@@ -8,7 +8,7 @@
 
 Dodicesima guida del catalogo, l'unica che riguarda principalmente come **farsi trovare** dai clienti, non come gestirli una volta trovati. Continua a seguire **Verdi Srl**, che valuta di aprire un e-commerce (guida IVA Avanzata, Lezione 9) oltre al punto vendita fisico.
 
-🔗 **Nota**: questa guida applica, spiegandoli, gli stessi principi che abbiamo usato per far crescere Scuola Numeri stessa (documento di analisi principale, §11 e §21) — non è teoria astratta, è il metodo con cui questo catalogo di guide viene promosso.
+🔗 **Nota**: questa guida applica, spiegandoli, gli stessi principi che abbiamo usato per far crescere SkillEasy stessa (documento di analisi principale, §11 e §21) — non è teoria astratta, è il metodo con cui questo catalogo di guide viene promosso.
 
 ---
 
@@ -62,7 +62,7 @@ La SEO (ottimizzazione per i motori di ricerca) serve a comparire quando qualcun
 
 📌 **Esempio pratico**: se Verdi Srl scrive sul proprio sito una guida su "come scegliere i materiali isolanti per una ristrutturazione", intercetta chi sta già cercando esattamente quell'informazione su Google — un pubblico con un'intenzione molto più concreta di chi scorre passivamente un social.
 
-📌 **Punto chiave**: come già visto per Scuola Numeri stessa (documento di analisi, §20), i risultati SEO richiedono tempo (mesi, non giorni) — è un investimento che si costruisce con contenuti pubblicati con costanza, non un interruttore da accendere.
+📌 **Punto chiave**: come già visto per SkillEasy stessa (documento di analisi, §20), i risultati SEO richiedono tempo (mesi, non giorni) — è un investimento che si costruisce con contenuti pubblicati con costanza, non un interruttore da accendere.
 
 ---
 
@@ -128,7 +128,7 @@ Un'azienda con un punto vendita fisico (Verdi Srl oggi) punta su SEO locale (com
 
 ## Lezione 12 — Costruire un piano editoriale sostenibile senza un team dedicato
 
-Il rischio più concreto per una PMI che inizia con il marketing digitale è produrre molto nelle prime settimane e sparire dopo un mese. Un piano editoriale minimo e sostenibile: un contenuto principale a settimana (es. una guida sul sito, Lezione 5), ritagliato in 2-3 contenuti più brevi per i social (Lezione 7) — lo stesso principio, applicato a un'azienda commerciale, già descritto per Scuola Numeri (documento di analisi, §21: "un solo video a settimana genera tutto il resto").
+Il rischio più concreto per una PMI che inizia con il marketing digitale è produrre molto nelle prime settimane e sparire dopo un mese. Un piano editoriale minimo e sostenibile: un contenuto principale a settimana (es. una guida sul sito, Lezione 5), ritagliato in 2-3 contenuti più brevi per i social (Lezione 7) — lo stesso principio, applicato a un'azienda commerciale, già descritto per SkillEasy (documento di analisi, §21: "un solo video a settimana genera tutto il resto").
 
 📌 **Punto chiave**: la costanza nel tempo conta più dell'intensità iniziale — un contenuto a settimana per un anno intero batte dieci contenuti in una settimana seguiti da silenzio.
 

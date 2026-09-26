@@ -142,7 +142,7 @@ Il modo più concreto per rispettare l'art. 2086 (Lezione 2) è integrare gli in
 | Esposizioni bancarie scadute | Oltre 60 giorni, > 5% del totale | Lezione 3 di questa guida |
 | Altman Z'-Score | Sotto 1,23 (zona di allerta) | Guida Programmazione e Finanza, Lezione 5 |
 
-📌 **Punto chiave**: nessuno di questi indicatori richiede strumenti nuovi rispetto a quelli già insegnati nel catalogo Scuola Numeri — richiede solo la disciplina di calcolarli con la cadenza corretta (trimestrale, non annuale) e di non ignorarli quando peggiorano.
+📌 **Punto chiave**: nessuno di questi indicatori richiede strumenti nuovi rispetto a quelli già insegnati nel catalogo SkillEasy — richiede solo la disciplina di calcolarli con la cadenza corretta (trimestrale, non annuale) e di non ignorarli quando peggiorano.
 
 ---
 

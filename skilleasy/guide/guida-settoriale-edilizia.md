@@ -122,7 +122,7 @@ Mettendo insieme tutta la guida: Verdi Srl riceve un ordine da un'impresa edile 
 4. **Verifica il PSC del cantiere** prima di autorizzare la consegna diretta in loco (Lezione 7).
 5. **Monitora il DSO specifico** di questo cliente nel proprio cruscotto (Lezione 10, guida Controllo di gestione Lezione 20).
 
-📌 **Se hai seguito tutto il catalogo Scuola Numeri fino a qui**: questa guida mostra come i 5 pilastri base e le 8 guide di approfondimento non sono compartimenti separati — in un caso reale come questo, contabilità, fisco, gestione, controllo e finanza si intrecciano sempre insieme, esattamente come nella gestione quotidiana di un'azienda vera.
+📌 **Se hai seguito tutto il catalogo SkillEasy fino a qui**: questa guida mostra come i 5 pilastri base e le 8 guide di approfondimento non sono compartimenti separati — in un caso reale come questo, contabilità, fisco, gestione, controllo e finanza si intrecciano sempre insieme, esattamente come nella gestione quotidiana di un'azienda vera.
 
 ---
 
