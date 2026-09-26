@@ -473,3 +473,26 @@ Ogni piattaforma ha un ruolo diverso nel funnel (§11) — non postare lo stesso
 **Il principio che tiene insieme tutto**: **un solo video a settimana genera tutto il resto**. Registri il video YouTube lungo, ne tagli 3-4 Reels/clip per Instagram e Facebook, ne estrai 1 carosello LinkedIn con i concetti chiave, e posti un annuncio Facebook quando il video tratta un tema legato a un corso in vendita. Questo evita il rischio reale di questo tipo di piano — disperdersi su 4 canali e non produrre contenuto per nessuno — e rende sostenibile la cadenza anche senza un team dietro.
 
 **Call-to-action univoca ovunque**: ogni post, su qualsiasi canale, porta a `scuolanumeri.it` (mai a Udemy come primo link, per lo stesso motivo di margine del §7). Bio di ogni profilo social con lo stesso link, stesso nome utente ovunque possibile (`@scuolanumeri` su Instagram/Facebook/LinkedIn, verificare disponibilità handle prima di registrare i profili).
+
+---
+
+## 22. Roadmap del catalogo: prossime guide oltre i 5 pilastri base
+
+Con il catalogo dei 5 pilastri completo (§16, ~100 lezioni), le estensioni naturali per un pubblico di aziende, in ordine di priorità:
+
+**Priorità alta** (obbligo di legge o sinergia diretta con contenuti già scritti):
+1. **Sicurezza sul lavoro (D.Lgs. 81/08)** — obbligo per qualunque azienda con anche un dipendente (DVR, RSPP, formazione), domanda di ricerca altissima, tema quasi assente dalla concorrenza in forma pratica.
+2. **Crisi d'impresa e allerta precoce** (Codice della Crisi, D.Lgs. 14/2019) — usa direttamente DSCR e Altman Z' già insegnati nella guida Programmazione e Finanza; sinergia immediata con le FAQ già esistenti su AnalisiEBusinessPlan.com.
+3. **Welfare aziendale e fringe benefit** — fiscalmente vantaggioso, molto cercato, cambia ogni anno con la Legge di Bilancio: buon motivo di rinnovo per l'abbonamento Accademia.
+4. **Agevolazioni e bandi per le PMI** (credito d'imposta, Transizione 5.0, Nuova Sabatini) — contenuto che si aggiorna spesso, coerente con un modello ad abbonamento più che un acquisto una tantum.
+
+**Priorità media** (compliance trasversale spesso trascurata dalle micro imprese):
+5. **Privacy e GDPR essenziale per PMI**.
+6. **IVA avanzata**: reverse charge, operazioni intracomunitarie, e-commerce/OSS — approfondimento della guida Fisco per chi cresce oltre il mercato locale.
+
+**Priorità più bassa ma utile per differenziarsi** (nuovi filoni, più lavoro di produzione):
+7. **Marketing digitale per PMI** — sinergia diretta: è ciò che la scuola stessa sta applicando, contenuto "meta" a basso costo di produzione.
+8. **Passaggio generazionale e successione d'impresa** — nicchia ad alto valore, target imprenditori più maturi, prezzo sostenibile più alto.
+9. **Guida settoriale edilizia** — coerenza narrativa con Verdi Srl (materiali per l'edilizia), utile come case study verticale "avanzato" per differenziarsi dai concorrenti generalisti.
+
+Raccomandazione: iniziare da **Sicurezza sul lavoro** (volume di pubblico più ampio, obbligo di legge) o **Crisi d'impresa** (massima sinergia col lavoro già fatto), a seconda che si voglia dare priorità alla portata o alla coerenza con l'ecosistema esistente.
