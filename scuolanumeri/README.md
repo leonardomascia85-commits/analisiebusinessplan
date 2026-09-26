@@ -10,7 +10,7 @@ Prima versione tecnica del nuovo sito "Scuola Numeri" (guide + corsi + attestati
 - `corso-regime-forfettario.html` — programma corso pilota A (Fisco, livello base).
 - `corso-business-plan.html` — programma corso pilota B (Controllo di gestione + Finanza, livello avanzato, con cross-sell diretto al SaaS).
 - `guide/` — guide scritte, complete di spiegazione + esempio numerico per ogni lezione. Ogni lezione è anche lo script di base per la video lezione corrispondente. In lavorazione, una guida alla volta:
-  - `contabilita-base-avanzato.md` — pilastro Contabilità, 20 lezioni su 3 livelli (Base/Intermedio/Avanzato), azienda di esempio ricorrente ("Verdi Srl") per continuità tra gli esempi.
+  - `contabilita-base-avanzato.md` — pilastro Contabilità, 22 lezioni su 3 livelli (Base/Intermedio/Avanzato), con i riferimenti ai principi contabili OIC (11, 12, 13, 15, 16, 19, 25, 31) integrati lezione per lezione, azienda di esempio ricorrente ("Verdi Srl") per continuità tra gli esempi.
 
 ## Prossimi passi (fuori dalla portata di questa sessione)
 
