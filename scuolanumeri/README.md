@@ -9,6 +9,8 @@ Prima versione tecnica del nuovo sito "Scuola Numeri" (guide + corsi + attestati
 - `index.html` — homepage: pilastri, corsi pilota, cross-link a Studio Mascia e AnalisiEBusinessPlan.com.
 - `corso-regime-forfettario.html` — programma corso pilota A (Fisco, livello base).
 - `corso-business-plan.html` — programma corso pilota B (Controllo di gestione + Finanza, livello avanzato, con cross-sell diretto al SaaS).
+- `guide/` — guide scritte, complete di spiegazione + esempio numerico per ogni lezione. Ogni lezione è anche lo script di base per la video lezione corrispondente. In lavorazione, una guida alla volta:
+  - `contabilita-base-avanzato.md` — pilastro Contabilità, 20 lezioni su 3 livelli (Base/Intermedio/Avanzato), azienda di esempio ricorrente ("Verdi Srl") per continuità tra gli esempi.
 
 ## Prossimi passi (fuori dalla portata di questa sessione)
 
