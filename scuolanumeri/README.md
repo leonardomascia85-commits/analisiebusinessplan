@@ -11,6 +11,7 @@ Prima versione tecnica del nuovo sito "Scuola Numeri" (guide + corsi + attestati
 - `corso-business-plan.html` — programma corso pilota B (Controllo di gestione + Finanza, livello avanzato, con cross-sell diretto al SaaS).
 - `guide/` — guide scritte, complete di spiegazione + esempio numerico per ogni lezione. Ogni lezione è anche lo script di base per la video lezione corrispondente. In lavorazione, una guida alla volta:
   - `contabilita-base-avanzato.md` — pilastro Contabilità, 22 lezioni su 3 livelli (Base/Intermedio/Avanzato), con i riferimenti ai principi contabili OIC (11, 12, 13, 15, 16, 19, 25, 31) integrati lezione per lezione, azienda di esempio ricorrente ("Verdi Srl") per continuità tra gli esempi.
+  - `fisco-base-avanzato.md` — pilastro Fisco, 20 lezioni su 3 livelli. Due persone di esempio: Marco Bruni (freelance, Partita IVA/regime forfettario) per Base/Intermedio, Verdi Srl (stessa azienda della guida Contabilità) per IRES/IRAP in Intermedio/Avanzato. Copre regime forfettario, coefficienti di redditività, IRPEF/IRES/IRAP con le aliquote 2026 verificate via ricerca web, deduzioni vs detrazioni, ravvedimento operoso, scelta della forma giuridica, controlli fiscali e pianificazione fiscale lecita. Contiene un avviso esplicito che aliquote/soglie vanno riverificate ogni anno (la Legge di Bilancio le cambia) prima di qualunque uso reale.
 
 ## Prossimi passi (fuori dalla portata di questa sessione)
 
