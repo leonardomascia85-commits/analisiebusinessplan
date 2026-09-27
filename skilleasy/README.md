@@ -7,7 +7,8 @@ Sito di "SkillEasy" (guide + corsi + attestati), dominio `skilleasy.it`. Il pian
 ## File
 
 - `index.html` — homepage: pilastri, corsi pilota, catalogo completo (14 card cliccabili), cross-link a Studio Mascia e AnalisiEBusinessPlan.com.
-- `prezzi.html` — pagina prezzi: guida singola (69 €), Bundle 5 Pilastri (199 € lancio / 249 € a regime), Abbonamento Accademia (199 €/anno, unico modo per accedere alle 9 guide di approfondimento), FAQ.
+- `prezzi.html` — pagina prezzi (rivista rispetto alla proposta iniziale del §9.1, su richiesta del cliente — prezzi più bassi, tutte le guide acquistabili singolarmente): Guida singola (29 € lancio / 49 € a regime, qualsiasi delle 14 guide), Bundle 5 Pilastri Base (129 €/179 €), Bundle Catalogo Completo (249 €/349 €, tutte le 14 guide una tantum), Abbonamento Accademia (149 €/anno lancio, 199 €/anno a regime, tutto il catalogo + guide future), FAQ.
+- `grazie.html` — pagina di ringraziamento post-pagamento (redirect configurato nei Payment Link Stripe), evasione manuale finché i video non sono pronti.
 - `privacy-policy.html`, `cookie-policy.html`, `termini-condizioni.html` — pagine legali minime ma reali (GDPR, cookie tecnici only, diritto di recesso contenuti digitali, natura non professionale/non abilitante dell'attestato). Contengono placeholder `[da inserire]` per PEC/email di contatto, da completare prima del lancio.
 - `corso-regime-forfettario.html` — programma corso pilota A (Fisco, livello base — sottoinsieme introduttivo del pilastro Fisco).
 - `corso-business-plan.html` — programma corso pilota B (Controllo di gestione + Finanza, livello avanzato, con cross-sell diretto al SaaS).
@@ -37,7 +38,7 @@ Sito di "SkillEasy" (guide + corsi + attestati), dominio `skilleasy.it`. Il pian
 
 ## Stato del sito (27/09/2026)
 
-Il sito ha ora una landing page dedicata per tutte le 14 guide del catalogo (più i 2 corsi pilota "starter"), una pagina prezzi coerente con la decisione presa al §9.1 del documento di analisi (guida singola 69 €, Bundle 5 Pilastri 199 €/249 €, Abbonamento Accademia 199 €/anno — unico canale per le 9 guide di approfondimento) e le 3 pagine legali minime richieste per vendere online (Privacy Policy, Cookie Policy, Termini e Condizioni). Nessuna di queste pagine ha ancora un backend: sono tutte landing/informative statiche, coerenti tra loro, pronte per essere collegate a un vero checkout.
+Il sito ha ora una landing page dedicata per tutte le 14 guide del catalogo (più i 2 corsi pilota "starter"), una pagina prezzi con 4 livelli — Guida singola 29 €, Bundle 5 Pilastri 129 €, Bundle Catalogo Completo 249 €, Abbonamento Accademia 149 €/anno, tutti prezzi di lancio — e le 3 pagine legali minime richieste per vendere online (Privacy Policy, Cookie Policy, Termini e Condizioni). Il checkout viene gestito con Stripe Payment Links (nessun backend/carrello custom): un link per livello, collegati manualmente dal pulsante corrispondente in `prezzi.html` una volta creati sull'account Stripe già in uso per AnalisiEBusinessPlan.com. Evasione dei contenuti manuale via email finché le video lezioni non sono pronte (redirect post-pagamento su `grazie.html`).
 
 ## Prossimi passi (fuori dalla portata di questa sessione)
 

@@ -173,9 +173,9 @@ Proposta a 3 livelli sul sito proprio:
 
 Su Udemy: prezzo di listino massimo consentito dalla piattaforma per il segmento (spesso 84,99-94,99 $), sapendo che il prezzo reale pagato sarà quasi sempre scontato dalla piattaforma stessa. Un bundle multi-corso come quello del punto 9.1 non è vendibile su Udemy: lì restano solo i singoli corsi civetta (§7).
 
-### 9.1 Decisione: prezzo del bundle "tutte e 5 le guide" (sul sito proprio)
+### 9.1 Decisione originale (superata, vedi 9.2): prezzo del bundle "tutte e 5 le guide" (sul sito proprio)
 
-Con il catalogo delle 5 guide completo (§16, ~100 lezioni, ~17 ore di video), il prezzo del bundle è:
+Con il catalogo delle 5 guide completo (§16, ~100 lezioni, ~17 ore di video), il prezzo del bundle proposto inizialmente era:
 
 | Opzione | Prezzo | Cosa include |
 |---|---|---|
@@ -184,7 +184,20 @@ Con il catalogo delle 5 guide completo (§16, ~100 lezioni, ~17 ore di video), i
 | **Bundle 5 guide — prezzo a regime** | **249 €** | Tutti e 5 i pilastri, una tantum |
 | Abbonamento Accademia | 199 €/anno | Tutto il catalogo + aggiornamenti + corsi futuri + sconto sul SaaS |
 
-Logica: il bundle a regime (249 €) resta ancorato al valore cumulativo delle 5 guide singole (5 × 69-79 € ≈ 395 €, sconto ~35-40%), ma **non deve mai costare meno dell'abbonamento annuale** (199 €/anno) — altrimenti nessuno si abbonerebbe più. L'abbonamento resta così la scelta a maggior valore nel tempo (aggiornamenti + sconto SaaS inclusi), senza bisogno di scoraggiare l'acquisto una tantum per chi lo preferisce.
+Logica originale: il bundle a regime (249 €) resta ancorato al valore cumulativo delle 5 guide singole (5 × 69-79 € ≈ 395 €, sconto ~35-40%), ma non deve mai costare meno dell'abbonamento annuale (199 €/anno) — altrimenti nessuno si abbonerebbe più.
+
+### 9.2 Prezzi rivisti su richiesta del cliente (in vigore su skilleasy.it/prezzi.html)
+
+Il cliente ha chiesto prezzi più bassi ("non siamo un ente specializzato, deve essere un prezzo di lancio") e che **tutte e 14 le guide** (non solo i 5 pilastri base) siano acquistabili singolarmente, oltre ai bundle. Prezzi effettivi implementati sul sito:
+
+| Opzione | Prezzo di lancio | Prezzo a regime | Cosa include |
+|---|---|---|---|
+| Guida singola | **29 €** | 49 € | Una qualsiasi delle 14 guide (5 pilastri base + 9 di approfondimento), accesso permanente |
+| Bundle 5 Pilastri Base | **129 €** | 179 € | Tutti e 5 i pilastri base, una tantum |
+| Bundle Catalogo Completo (nuovo) | **249 €** | 349 € | Tutte le 14 guide, una tantum |
+| Abbonamento Accademia | **149 €/anno** | 199 €/anno | Tutto il catalogo attuale e futuro + aggiornamenti + sconto SaaS |
+
+Logica: prezzo d'ingresso (29 €) accessibile anche a un dipendente per una singola guida; i bundle restano nettamente scontati rispetto alla somma delle guide singole; l'Abbonamento Accademia (149 €/anno) resta più conveniente del Bundle Catalogo Completo (249 € una tantum) per chi vuole anche gli aggiornamenti e le guide future, mantenendo la stessa logica di ancoraggio del §9.1 ma a valori più bassi e con esplicita inclusione delle 9 guide di approfondimento anche nella vendita singola. Checkout implementato con Stripe Payment Links (un link per livello), riusando l'account Stripe già attivo su AnalisiEBusinessPlan.com.
 
 ---
 
