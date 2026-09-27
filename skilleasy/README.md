@@ -6,9 +6,15 @@ Prima versione tecnica del nuovo sito "SkillEasy" (guide + corsi + attestati), d
 
 ## File
 
-- `index.html` — homepage: pilastri, corsi pilota, cross-link a Studio Mascia e AnalisiEBusinessPlan.com.
-- `corso-regime-forfettario.html` — programma corso pilota A (Fisco, livello base).
+- `index.html` — homepage: pilastri, corsi pilota, catalogo completo (14 card cliccabili), cross-link a Studio Mascia e AnalisiEBusinessPlan.com.
+- `prezzi.html` — pagina prezzi: guida singola (69 €), Bundle 5 Pilastri (199 € lancio / 249 € a regime), Abbonamento Accademia (199 €/anno, unico modo per accedere alle 9 guide di approfondimento), FAQ.
+- `privacy-policy.html`, `cookie-policy.html`, `termini-condizioni.html` — pagine legali minime ma reali (GDPR, cookie tecnici only, diritto di recesso contenuti digitali, natura non professionale/non abilitante dell'attestato). Contengono placeholder `[da inserire]` per PEC/email di contatto, da completare prima del lancio.
+- `corso-regime-forfettario.html` — programma corso pilota A (Fisco, livello base — sottoinsieme introduttivo del pilastro Fisco).
 - `corso-business-plan.html` — programma corso pilota B (Controllo di gestione + Finanza, livello avanzato, con cross-sell diretto al SaaS).
+- `guida-fisco.html` — landing page completa del pilastro Fisco (20 lezioni, 3 livelli); `corso-regime-forfettario.html` resta come mini-corso introduttivo a parte.
+- `guida-contabilita.html`, `guida-gestione-aziendale.html` — landing page complete dei pilastri Contabilità e Gestione aziendale.
+- `guida-sicurezza-lavoro.html`, `guida-crisi-impresa.html`, `guida-welfare-aziendale.html`, `guida-agevolazioni-bandi.html`, `guida-privacy-gdpr.html`, `guida-iva-avanzata.html`, `guida-marketing-digitale.html`, `guida-passaggio-generazionale.html`, `guida-edilizia.html` — landing page delle 9 guide di approfondimento del catalogo esteso.
+  (Il pilastro Controllo di gestione e il pilastro Programmazione e finanza non hanno una pagina propria separata: nel catalogo puntano entrambi a `corso-business-plan.html`, che li copre già combinati.)
 - `guide/` — guide scritte, complete di spiegazione + esempio numerico per ogni lezione. Ogni lezione è anche lo script di base per la video lezione corrispondente. In lavorazione, una guida alla volta:
   - `contabilita-base-avanzato.md` — pilastro Contabilità, 22 lezioni su 3 livelli (Base/Intermedio/Avanzato), con i riferimenti ai principi contabili OIC (11, 12, 13, 15, 16, 19, 25, 31) integrati lezione per lezione, azienda di esempio ricorrente ("Verdi Srl") per continuità tra gli esempi.
   - `fisco-base-avanzato.md` — pilastro Fisco, 20 lezioni su 3 livelli. Due persone di esempio: Marco Bruni (freelance, Partita IVA/regime forfettario) per Base/Intermedio, Verdi Srl (stessa azienda della guida Contabilità) per IRES/IRAP in Intermedio/Avanzato. Copre regime forfettario, coefficienti di redditività, IRPEF/IRES/IRAP con le aliquote 2026 verificate via ricerca web, deduzioni vs detrazioni, ravvedimento operoso, scelta della forma giuridica, controlli fiscali e pianificazione fiscale lecita. Contiene un avviso esplicito che aliquote/soglie vanno riverificate ogni anno (la Legge di Bilancio le cambia) prima di qualunque uso reale.
@@ -29,10 +35,15 @@ Prima versione tecnica del nuovo sito "SkillEasy" (guide + corsi + attestati), d
 
 **Totale catalogo**: 14 guide, ~226 lezioni, ~36 ore di video stimate.
 
+## Stato del sito (27/09/2026)
+
+Il sito ha ora una landing page dedicata per tutte le 14 guide del catalogo (più i 2 corsi pilota "starter"), una pagina prezzi coerente con la decisione presa al §9.1 del documento di analisi (guida singola 69 €, Bundle 5 Pilastri 199 €/249 €, Abbonamento Accademia 199 €/anno — unico canale per le 9 guide di approfondimento) e le 3 pagine legali minime richieste per vendere online (Privacy Policy, Cookie Policy, Termini e Condizioni). Nessuna di queste pagine ha ancora un backend: sono tutte landing/informative statiche, coerenti tra loro, pronte per essere collegate a un vero checkout.
+
 ## Prossimi passi (fuori dalla portata di questa sessione)
 
 1. ~~Registrare `skilleasy.it`~~ — fatto, dominio già registrato dal cliente (§17.6 del documento di analisi). Verificare `.com` (risultava già occupato al 26/09/2026) e puntare il DNS all'hosting scelto.
 2. Creare un repository dedicato per il sito (o spostare questa cartella lì) e collegarlo a Vercel/hosting come dominio a sé stante.
-3. Girare le video lezioni dei due moduli pilota (script ricavabile direttamente dai titoli dei moduli in ciascuna pagina corso).
-4. Collegare l'accesso ai corsi al sistema di autenticazione/pagamento già esistente su AnalisiEBusinessPlan.com (Supabase), come raccomandato al §8 — non ancora implementato qui: le pagine corso attuali non hanno ancora login, pagamento né generazione dell'attestato, sono landing page di presentazione/validazione dell'offerta.
-5. Aprire il canale YouTube "SkillEasy" e iniziare la pubblicazione settimanale (§18.3).
+3. Completare i placeholder `[da inserire]` nelle pagine legali (PEC/email di contatto) prima di andare online.
+4. Girare le video lezioni, partendo dai 5 pilastri base + Sicurezza sul lavoro (pubblico più ampio) — lo script di ogni modulo è già nel programma di ciascuna pagina `guida-*.html`/`corso-*.html`.
+5. Collegare l'accesso ai corsi al sistema di autenticazione/pagamento già esistente su AnalisiEBusinessPlan.com (Supabase), come raccomandato al §8 — non ancora implementato qui: tutte le pagine corso/guida attuali sono landing page di presentazione/validazione dell'offerta, senza login, pagamento né generazione automatica dell'attestato.
+6. Aprire il canale YouTube "SkillEasy" e iniziare la pubblicazione settimanale (§18.3).
