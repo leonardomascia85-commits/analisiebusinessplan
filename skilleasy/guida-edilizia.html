@@ -44,7 +44,11 @@
     padding:0 6%;height:64px;background:rgba(11,17,32,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
   .logo{font-family:'Fraunces',serif;font-weight:800;font-size:18px}
   .logo em{font-style:normal;color:var(--amber)}
+  .nav-r{display:flex;align-items:center;gap:6px}
+  .nav-link{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--muted)}
+  .nav-link:hover{color:#fff;background:rgba(255,255,255,.06)}
   .nav-cta{padding:9px 18px;border-radius:8px;font-size:14px;font-weight:700;color:var(--bg);background:var(--amber)}
+  .nav-cta:hover{background:var(--amber-d)}
   header.hero{padding:130px 6% 50px;max-width:900px;margin:0 auto}
   .badge{display:inline-block;background:rgba(245,158,11,.15);color:var(--amber);font-size:12px;font-weight:700;
     text-transform:uppercase;letter-spacing:.05em;padding:6px 14px;border-radius:20px;margin-bottom:18px}
@@ -72,7 +76,12 @@
 <body>
 <nav>
   <a class="logo" href="index.html">Skill<em>Easy</em></a>
-  <a class="nav-cta" href="prezzi.html">Prezzi</a>
+  <div class="nav-r">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="index.html#catalogo">Catalogo</a>
+    <a class="nav-link" href="index.html#chi-sono">Chi sono</a>
+    <a class="nav-cta" href="prezzi.html">Prezzi</a>
+  </div>
 </nav>
 
 <header class="hero">

@@ -1,8 +1,8 @@
 # SkillEasy — scaffold
 
-Prima versione tecnica del nuovo sito "SkillEasy" (guide + corsi + attestati), deciso in `../ANALISI-PROGETTO-GUIDE-FORMAZIONE.md` (§17-19).
+Sito di "SkillEasy" (guide + corsi + attestati), dominio `skilleasy.it`. Il piano strategico completo (mercato, prezzi, roadmap) è nel repository `analisiebusinessplan`, file `ANALISI-PROGETTO-GUIDE-FORMAZIONE.md`.
 
-**Stato**: bozza statica (HTML/CSS puro, nessuna dipendenza), pensata per essere migrata sul dominio proprio `skilleasy.it` non appena registrato — vive qui solo perché è l'unico repository disponibile in questa sessione.
+**Stato**: sito statico (HTML/CSS puro, nessuna dipendenza, nessun build step) pronto per il deploy su Vercel, puntato sul dominio `skilleasy.it`.
 
 ## File
 
