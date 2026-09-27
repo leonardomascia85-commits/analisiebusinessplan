@@ -514,7 +514,7 @@ Raccomandazione: iniziare da **Sicurezza sul lavoro** (volume di pubblico più a
 
 ---
 
-## 23. Catalogo completo: tutte e 9 le guide della roadmap sono state scritte
+## 23. Catalogo completo: tutte e 9 le guide della roadmap sono state scritte, più una 10a fuori roadmap
 
 Su richiesta esplicita ("preparale tutte, facciamo un bel sito per le aziende"), tutte e 9 le guide della roadmap (§22) sono state scritte, in `skilleasy/guide/`, seguendo lo stesso metodo delle 5 guide base: spiegazione semplice, esempio numerico concreto, punto chiave, con Verdi Srl come filo conduttore in tutte (con l'aggiunta di Rossi Srl come azienda di confronto in difficoltà nella guida Crisi d'Impresa). Ogni dato normativo soggetto a variazione annuale è stato verificato via ricerca web prima di essere scritto, con fonti elencate in fondo a ciascun documento.
 
@@ -529,8 +529,9 @@ Su richiesta esplicita ("preparale tutte, facciamo un bel sito per le aziende"),
 | 12 | Marketing digitale per PMI | 14 | L'unica guida prevalentemente strategica, non normativa |
 | 13 | Passaggio generazionale e successione | 12 | Aliquote 2026, novità separazione franchigie, patto di famiglia |
 | 14 | Guida settoriale edilizia | 12 | Caso di studio verticale che integra tutte le altre guide |
+| 15 | Responsabilità amministratori e D.Lgs 231 | 16 | Richiesta ad hoc dal cliente, non nella roadmap §22: responsabilità civile/penale dell'amministratore (artt. 2392/2394/2395 c.c.), business judgement rule, reati societari/tributari, D.Lgs 231/2001 (MOG, Organismo di Vigilanza, sanzioni), assicurazione D&O |
 
-**Totale catalogo (5 pilastri base + 9 estensioni)**: 14 guide, ~226 lezioni, ~36 ore di video stimate.
+**Totale catalogo (5 pilastri base + 10 estensioni)**: 15 guide, ~242 lezioni, ~39 ore di video stimate.
 
 **Sito aggiornato**: la homepage (`skilleasy/index.html`) ha una nuova sezione "Catalogo" che presenta tutte e 14 le guide, con nota di trasparenza che il testo è pronto mentre le video lezioni sono in produzione — non promette contenuti che non esistono ancora.
 
