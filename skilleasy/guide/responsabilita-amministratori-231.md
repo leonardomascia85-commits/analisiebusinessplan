@@ -153,16 +153,55 @@ Oltre al Modello 231, molti amministratori si tutelano con una polizza **D&O (Di
 
 ---
 
-## Lezione 16 — Caso pratico riassuntivo: Verdi Srl valuta l'adozione di un Modello 231
+## Lezione 16 — Il whistleblowing (D.Lgs 24/2023): obblighi per l'ente e canali di segnalazione interna
+
+Il D.Lgs 24/2023, che recepisce la direttiva UE 2019/1937, impone a molti soggetti privati di istituire **canali di segnalazione interna** per chi (dipendenti, collaboratori, fornitori) viene a conoscenza di violazioni normative o illeciti commessi nel contesto lavorativo. L'obbligo riguarda i soggetti privati che hanno impiegato, in media, almeno 50 lavoratori subordinati nell'ultimo anno, quelli che operano in settori regolati specifici indipendentemente dal numero di dipendenti, e — punto rilevante per questa guida — **tutti gli enti che hanno adottato un Modello 231**, a prescindere dalle dimensioni.
+
+Il canale deve garantire la **riservatezza del segnalante**, essere gestito da un soggetto o ufficio dotato di autonomia, e prevedere il divieto di ritorsioni (demansionamento, licenziamento, discriminazioni) con onere della prova a carico del datore di lavoro in caso di contestazione.
+
+📌 **Esempio pratico**: Verdi Srl, avendo adottato un Modello 231, istituisce un canale di segnalazione gestito da un soggetto esterno indipendente: le segnalazioni relative a violazioni del Modello o a condotte illecite vengono ricevute in forma riservata e trasmesse, quando rilevanti, all'Organismo di Vigilanza (Lezione 13).
+
+📌 **Punto chiave**: per un ente che ha adottato un Modello 231, il whistleblowing non è più un adempimento separato — è un elemento **integrato** nel Modello stesso. Un Modello privo di un canale di segnalazione realmente funzionante e indipendente rischia di non superare il test dell'"efficace attuazione" richiesto per l'esimente vista nella Lezione 13.
+
+🔖 **Riferimento normativo**: D.Lgs 24/2023, attuativo della direttiva UE 2019/1937 sulla protezione delle persone che segnalano violazioni.
+
+---
+
+## Lezione 17 — La responsabilità 231 nei gruppi di società: quando risponde anche la capogruppo
+
+Nei gruppi di società, la responsabilità ex D.Lgs 231/2001 è in linea di principio autonoma per ciascun ente: risponde la società nel cui interesse o vantaggio il reato è stato commesso. La giurisprudenza ha però riconosciuto che anche la **capogruppo (holding)** può rispondere quando ricorrono due condizioni congiunte: un soggetto della capogruppo ha concorso nella commissione del reato (ad esempio impartendo direttive che hanno determinato la condotta illecita nella controllata), e il reato è stato commesso anche nell'interesse o a vantaggio della capogruppo stessa.
+
+Questo si collega direttamente a quanto visto nella guida Passaggio Generazionale (Lezione 13) sulla holding di famiglia: chi struttura un gruppo societario con una capogruppo di controllo ottiene vantaggi di pianificazione e di governance, ma deve considerare anche un'esposizione 231 aggiuntiva per la capogruppo stessa.
+
+📌 **Esempio pratico**: se una holding di controllo impartisse alla società operativa direttive che portano a violare le norme sulla sicurezza sul lavoro per ridurre i costi, e da questo derivasse un infortunio grave (reato presupposto ex art. 25-septies, Lezione 11), la capogruppo potrebbe essere chiamata a rispondere in proprio ai sensi del D.Lgs 231/2001, in aggiunta alla controllata, se viene dimostrato il concorso nella direttiva e il vantaggio di gruppo che ne è derivato.
+
+📌 **Punto chiave**: un Modello 231 adottato solo dalla società operativa, senza considerare i rapporti di controllo e le direttive che arrivano dalla capogruppo, lascia scoperto un rischio reale nei gruppi societari — la mappatura dei rischi (Lezione 12) deve includere sempre anche i rapporti infragruppo, non solo l'attività della singola società.
+
+---
+
+## Lezione 18 — Il Modello 231 "semplificato" per le PMI
+
+Le Linee Guida di Confindustria per la costruzione dei Modelli 231 riconoscono esplicitamente il **principio di proporzionalità**: un Modello adeguato alle dimensioni, alla complessità organizzativa e ai rischi reali di una PMI non deve replicare la struttura pensata per un grande gruppo quotato. Per una piccola impresa, un Modello realisticamente proporzionato può prevedere: un Organismo di Vigilanza monosoggettivo, anche esterno (un professionista indipendente, invece di un organo collegiale, Lezione 13); una mappatura dei rischi concentrata sulle aree effettivamente rilevanti per l'attività specifica, non un elenco teorico ed esaustivo di tutti i reati presupposto esistenti (Lezione 11); protocolli scritti in modo semplice e realmente applicabili dal personale esistente; un sistema disciplinare integrato nel CCNL già applicato (guida Gestione aziendale) invece che costruito ex novo.
+
+📌 **Esempio pratico**: per Verdi Srl, un Modello 231 semplificato concentra la mappatura dei rischi su sicurezza sul lavoro, gestione dei dati personali e rapporti con la Pubblica Amministrazione per le gare — le aree effettivamente rilevanti per la sua attività — affida la funzione di Organismo di Vigilanza a un professionista esterno indipendente con un mandato proporzionato alle dimensioni aziendali, e integra il canale di whistleblowing (Lezione 16) nella stessa struttura, invece di creare un ufficio dedicato a tempo pieno che l'azienda non potrebbe sostenere economicamente.
+
+📌 **Punto chiave**: la proporzionalità non è una scusa per fare un Modello meno serio — è un principio riconosciuto dalla prassi (Linee Guida Confindustria) e dalla giurisprudenza, per cui l'efficacia di un Modello si misura sulla sua reale applicabilità nella specifica organizzazione, non sulla sua lunghezza o complessità formale.
+
+🔖 **Riferimento normativo**: Linee Guida di Confindustria per la costruzione dei Modelli di organizzazione, gestione e controllo ex D.Lgs 231/2001 (periodicamente aggiornate).
+
+---
+
+## Lezione 19 — Caso pratico riassuntivo: Verdi Srl valuta l'adozione di un Modello 231
 
 Verdi Srl, cresciuta in organico e in fatturato (guida Gestione aziendale), valuta l'adozione di un Modello 231 dopo aver iniziato a partecipare a gare che richiedono requisiti di compliance. Il percorso seguito:
 
-1. **Mappatura dei rischi reali**: sicurezza sul lavoro (guida dedicata), gestione dati personali (guida Privacy e GDPR), rapporti con la Pubblica Amministrazione per le gare.
+1. **Mappatura dei rischi reali**: sicurezza sul lavoro (guida dedicata), gestione dati personali (guida Privacy e GDPR), rapporti con la Pubblica Amministrazione per le gare, ed eventuali rapporti infragruppo se l'azienda è controllata da una holding (Lezione 17).
 2. **Verifica degli assetti già esistenti**: contabilità e controllo di gestione già solidi (guide dedicate) vengono formalizzati nei protocolli del Modello, non ricostruiti da zero.
-3. **Nomina di un Organismo di Vigilanza** proporzionato alle dimensioni dell'azienda, con reali poteri di accesso a documenti e flussi informativi.
-4. **Valutazione di una polizza D&O** per l'amministratore, vista la maggiore esposizione dovuta alla crescita dell'azienda.
+3. **Costruzione di un Modello proporzionato alle dimensioni** (Lezione 18): niente strutture pensate per un grande gruppo, ma protocolli realmente applicabili dal personale esistente.
+4. **Nomina di un Organismo di Vigilanza** proporzionato alle dimensioni dell'azienda, con reali poteri di accesso a documenti e flussi informativi, a cui fa capo anche il canale di whistleblowing obbligatorio per gli enti dotati di Modello 231 (Lezione 16).
+5. **Valutazione di una polizza D&O** per l'amministratore, vista la maggiore esposizione dovuta alla crescita dell'azienda.
 
-📌 **Se hai seguito la guida fin qui**: hai collegato la responsabilità personale dell'amministratore (Lezioni 1-9) alla prevenzione strutturale che la stessa legge premia (Lezioni 10-15) — il Modello 231 non è un costo burocratico isolato, ma la naturale evoluzione degli assetti adeguati già richiesti dall'art. 2086 c.c. e già trattati nel resto del catalogo SkillEasy.
+📌 **Se hai seguito la guida fin qui**: hai collegato la responsabilità personale dell'amministratore (Lezioni 1-9) alla prevenzione strutturale che la stessa legge premia (Lezioni 10-15) e ai suoi sviluppi più recenti — whistleblowing, gruppi societari, proporzionalità per le PMI (Lezioni 16-18) — il Modello 231 non è un costo burocratico isolato, ma la naturale evoluzione degli assetti adeguati già richiesti dall'art. 2086 c.c. e già trattati nel resto del catalogo SkillEasy.
 
 ---
 
@@ -185,9 +224,12 @@ Verdi Srl, cresciuta in organico e in fatturato (guida Gestione aziendale), valu
 | 13 | L'Organismo di Vigilanza e l'esimente | Avanzato | 10 min |
 | 14 | Sanzioni 231: pecuniarie e interdittive | Avanzato | 10 min |
 | 15 | Assicurazione D&O e checklist pratica | Avanzato | 8 min |
-| 16 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 16 | Il whistleblowing (D.Lgs 24/2023) | Avanzato | 10 min |
+| 17 | La responsabilità 231 nei gruppi di società | Avanzato | 10 min |
+| 18 | Il Modello 231 "semplificato" per le PMI | Avanzato | 10 min |
+| 19 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~158 minuti (~2h40) di video.
+**Totale stimato**: ~188 minuti (~3h08) di video.
 
 ---
 
@@ -197,5 +239,7 @@ Verdi Srl, cresciuta in organico e in fatturato (guida Gestione aziendale), valu
 - D.Lgs. 231/2001 e successive modifiche (in particolare art. 25-septies introdotto nel 2007 e art. 25-quinquiesdecies introdotto nel 2020)
 - D.Lgs. 74/2000 (reati tributari) e successive modifiche
 - Art. 2086 Codice Civile (richiamato dalla guida Crisi d'Impresa)
+- D.Lgs. 24/2023 (whistleblowing, attuativo della direttiva UE 2019/1937)
+- Linee Guida di Confindustria per la costruzione dei Modelli 231 (principio di proporzionalità per le PMI)
 
 Ricontrollate al 27/09/2026 tramite ricerca web mirata: l'elenco dei reati presupposto 231 viene ampliato periodicamente dal legislatore e le soglie dei reati tributari possono cambiare — verificare sempre l'aggiornamento normativo con un professionista abilitato prima di un uso reale, in particolare prima di redigere o aggiornare un Modello 231.

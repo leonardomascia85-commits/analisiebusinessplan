@@ -112,17 +112,57 @@ Le imprese edili clienti di un fornitore come Verdi Srl spesso pagano con tempi 
 
 ---
 
-## Lezione 12 — Caso pratico riassuntivo: il ciclo completo di una fornitura in cantiere
+## Lezione 12 — Il subappalto in edilizia: regole, limiti percentuali e responsabilità solidale
+
+Riprendendo la Lezione 6, vale la pena approfondire le regole specifiche del subappalto. Negli appalti pubblici, il nuovo Codice dei Contratti Pubblici (D.Lgs 36/2023) ha superato il vecchio limite generale fisso di subappaltabilità: non esiste più un tetto percentuale unico stabilito dalla legge, ma è la stazione appaltante a poter indicare nel bando un limite specifico, motivato da esigenze di controllo dell'esecuzione. Restano invece fermi alcuni obblighi procedurali: il subappalto va autorizzato preventivamente dalla stazione appaltante, le lavorazioni da subappaltare vanno dichiarate già in sede di gara, e il subappaltatore deve possedere gli stessi requisiti di qualificazione richiesti all'appaltatore principale.
+
+Sul piano della responsabilità, oltre alla solidarietà fiscale sulle ritenute già vista nella Lezione 6, l'art. 29 del D.Lgs 276/2003 prevede una **responsabilità solidale retributiva e contributiva**: committente, appaltatore e subappaltatore rispondono in solido, **entro 2 anni dalla cessazione dell'appalto**, per i trattamenti retributivi e i contributi previdenziali dovuti ai lavoratori impiegati nell'opera.
+
+📌 **Esempio numerico**: Verdi Srl affida a un subappaltatore la posa di un impianto in un cantiere. Un anno dopo la fine dei lavori, alcuni operai del subappaltatore agiscono per 8.000 € di retribuzioni arretrate mai pagate: essendo ancora entro i 2 anni dalla cessazione dell'appalto, Verdi Srl può essere chiamata a rispondere in solido di quella somma, pur non avendo mai avuto un rapporto di lavoro diretto con quei lavoratori.
+
+📌 **Punto chiave**: verificare il DURC del subappaltatore (Lezione 2) al momento dell'affidamento non esaurisce il rischio — la responsabilità solidale retributiva dura fino a 2 anni dopo la fine del rapporto, quindi conviene conservare per tutto questo periodo la documentazione dei pagamenti effettuati dal subappaltatore ai propri lavoratori.
+
+🔖 **Riferimento normativo**: art. 105 D.Lgs 36/2023 (subappalto negli appalti pubblici); art. 29 D.Lgs 276/2003 (responsabilità solidale retributiva e contributiva).
+
+---
+
+## Lezione 13 — La tracciabilità dei pagamenti e la normativa antimafia: il DURC di Congruità
+
+Il settore edile è storicamente tra i più esposti a lavoro nero e infiltrazioni criminali, e la normativa lo riflette con controlli aggiuntivi rispetto ad altri settori. Negli appalti pubblici vige l'obbligo di **tracciabilità dei flussi finanziari** (L. 136/2010): i pagamenti relativi all'appalto devono transitare su conti correnti dedicati e riportare il CIG (Codice Identificativo Gara), pena la nullità del contratto in caso di violazioni gravi.
+
+Un controllo specifico e più recente è il **DURC di Congruità** (D.M. 143/2021): prima di rilasciare il DURC finale su un cantiere, l'ente verifica che l'incidenza della manodopera effettivamente utilizzata sia coerente con le tabelle ministeriali di settore per quella tipologia di lavori. Se l'incidenza risulta inferiore alla soglia minima, l'impresa deve regolarizzare la posizione contributiva prima di ottenere il documento.
+
+📌 **Esempio pratico**: su un cantiere con tabella di congruità che richiede un'incidenza minima della manodopera del 32% sul valore dell'opera, un'impresa che dichiara solo il 22% deve versare la differenza contributiva corrispondente prima di poter ottenere il DURC finale — un meccanismo pensato proprio per scoraggiare la sottodichiarazione della manodopera realmente impiegata.
+
+📌 **Punto chiave**: la congruità della manodopera è un filtro aggiuntivo rispetto alla semplice regolarità contributiva generica già vista nella Lezione 2 — verifica non solo che i contributi versati siano corretti, ma che siano proporzionati al lavoro effettivamente necessario per l'opera, contrastando così il lavoro nero e il dumping contrattuale.
+
+🔖 **Riferimento normativo**: D.M. 143/2021 (DURC di Congruità); L. 136/2010 (tracciabilità dei flussi finanziari); D.Lgs 159/2011 (Codice Antimafia, per le certificazioni richieste negli appalti pubblici sopra soglia).
+
+---
+
+## Lezione 14 — Il computo metrico e la contabilità di cantiere: collegamento con il controllo di gestione
+
+Il **computo metrico estimativo** è il documento tecnico che quantifica, voce per voce, le lavorazioni e i materiali necessari per realizzare un'opera, ed è la base sia dei preventivi sia della successiva contabilità di cantiere. Durante l'esecuzione, i **Stati di Avanzamento Lavori (SAL)** periodici misurano quanto è stato effettivamente realizzato — fisicamente ed economicamente — rispetto a quel computo iniziale.
+
+Il collegamento con la guida Controllo di gestione è diretto: il computo metrico è, in sostanza, il **budget tecnico** di un cantiere (guida Controllo di gestione, Lezione 10), e il confronto periodico tra SAL e computo metrico iniziale è l'equivalente, a livello di singolo cantiere, dell'analisi degli scostamenti vista nella stessa guida (Lezione 11).
+
+📌 **Esempio numerico**: il computo metrico di un cantiere prevede 500 mq di pavimentazione per un costo materiali stimato di 15.000 €. Al primo SAL, risultano posati solo 200 mq (40% dell'opera) ma già consumati materiali per 9.000 € (60% del budget): uno scostamento che segnala un probabile spreco di materiale, un furto in cantiere, o un errore nel computo metrico iniziale — da verificare subito, non a lavori conclusi.
+
+📌 **Punto chiave**: un computo metrico impreciso si traduce direttamente in un budget di cantiere sbagliato — collegare sistematicamente la contabilità di cantiere (SAL) al controllo di gestione aziendale (guida Controllo di gestione, Lezioni 9-11) permette di intercettare per tempo le deviazioni su un singolo cantiere, invece di scoprirle solo a consuntivo, quando ormai non è più possibile correggerle.
+
+---
+
+## Lezione 15 — Caso pratico riassuntivo: il ciclo completo di una fornitura in cantiere
 
 Mettendo insieme tutta la guida: Verdi Srl riceve un ordine da un'impresa edile per una fornitura di materiali con posa in opera per un cantiere di ristrutturazione di un privato.
 
-1. **Verifica il DURC** dell'impresa edile cliente prima di accettare condizioni di pagamento dilazionate (Lezioni 2, 6).
+1. **Verifica il DURC**, comprensivo della congruità della manodopera, dell'impresa edile cliente prima di accettare condizioni di pagamento dilazionate (Lezioni 2, 6, 12-13).
 2. **Distingue in fattura** la vendita di materiali (IVA ordinaria) dal servizio di posa in opera (reverse charge, Lezione 5).
 3. **Informa il cliente finale** (tramite l'impresa edile) sullo stato aggiornato dei bonus edilizi disponibili per la sua ristrutturazione (Lezioni 3-4).
 4. **Verifica il PSC del cantiere** prima di autorizzare la consegna diretta in loco (Lezione 7).
-5. **Monitora il DSO specifico** di questo cliente nel proprio cruscotto (Lezione 10, guida Controllo di gestione Lezione 20).
+5. **Monitora il computo metrico e i SAL** del cantiere insieme al proprio controllo di gestione (Lezione 14) e il **DSO specifico** di questo cliente nel proprio cruscotto (Lezione 10, guida Controllo di gestione Lezione 20).
 
-📌 **Se hai seguito tutto il catalogo SkillEasy fino a qui**: questa guida mostra come i 5 pilastri base e le 8 guide di approfondimento non sono compartimenti separati — in un caso reale come questo, contabilità, fisco, gestione, controllo e finanza si intrecciano sempre insieme, esattamente come nella gestione quotidiana di un'azienda vera.
+📌 **Se hai seguito tutto il catalogo SkillEasy fino a qui**: questa guida mostra come i 5 pilastri base e le altre guide di approfondimento non sono compartimenti separati — in un caso reale come questo, contabilità, fisco, gestione, controllo, finanza e diritto del lavoro si intrecciano sempre insieme, esattamente come nella gestione quotidiana di un'azienda vera.
 
 ---
 
@@ -141,9 +181,12 @@ Mettendo insieme tutta la guida: Verdi Srl riceve un ordine da un'impresa edile 
 | 9 | Gestire la stagionalità | Avanzato | 10 min |
 | 10 | Crediti verso clienti nel settore edile | Avanzato | 10 min |
 | 11 | Errori comuni | Avanzato | 8 min |
-| 12 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 12 | Il subappalto: regole, limiti e responsabilità solidale | Avanzato | 10 min |
+| 13 | Tracciabilità dei pagamenti e DURC di Congruità | Avanzato | 10 min |
+| 14 | Computo metrico e contabilità di cantiere | Avanzato | 10 min |
+| 15 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~106 minuti (~1h45) di video.
+**Totale stimato**: ~136 minuti (~2h16) di video.
 
 ---
 
@@ -153,5 +196,7 @@ Mettendo insieme tutta la guida: Verdi Srl riceve un ordine da un'impresa edile 
 - Bonus Ristrutturazione, Ecobonus, Sismabonus 2026: aliquote e massimali (verificati via ricerca web)
 - Cessazione di cessione del credito e sconto in fattura dal 1° gennaio 2026, con le eccezioni residuali (crediti maturati, zone sismiche, barriere architettoniche)
 - Disciplina del DURC e responsabilità solidale negli appalti
+- Art. 105 D.Lgs 36/2023 (nuovo Codice dei Contratti Pubblici, subappalto); art. 29 D.Lgs 276/2003 (responsabilità solidale retributiva e contributiva)
+- D.M. 143/2021 (DURC di Congruità); L. 136/2010 (tracciabilità dei flussi finanziari); D.Lgs 159/2011 (Codice Antimafia)
 
 Ricontrollate al 26/09/2026 tramite ricerca web mirata: la normativa sui bonus edilizi è tra le più soggette a modifiche del catalogo, insieme alla guida Agevolazioni e Bandi.

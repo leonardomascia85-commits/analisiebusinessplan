@@ -143,7 +143,44 @@ Le agevolazioni non dovrebbero essere l'ultimo pensiero dopo aver deciso un inve
 
 ---
 
-## Lezione 14 — Caso pratico riassuntivo: il nuovo punto vendita di Verdi Srl con le agevolazioni
+## Lezione 14 — Il credito d'imposta Ricerca, Sviluppo e Innovazione: come funziona e cosa serve per non perderlo in un controllo
+
+La Lezione 7 ha introdotto solo per cenni il credito d'imposta Ricerca e Sviluppo, Innovazione tecnologica e Design (art. 1, commi 200-206, L. 160/2019 e proroghe successive): una percentuale delle spese ammissibili (personale impiegato nel progetto, quote di ammortamento della strumentazione, contratti di ricerca commissionata a terzi) riconosciuta come credito d'imposta compensabile direttamente in F24, con aliquote differenziate secondo che si tratti di R&S "vera", innovazione tecnologica ordinaria o 4.0/green, oppure design.
+
+A differenza dell'iperammortamento (Lezione 3), il beneficio è quindi **immediato**, ma è anche tra le misure più controllate dall'Agenzia delle Entrate, proprio perché la qualificazione di un'attività come R&S ammissibile lascia margini di interpretazione. Per non perdere il credito in un controllo servono, sin dall'inizio del progetto:
+
+1. Una **relazione tecnica dettagliata** (Lezione 7), redatta e conservata prima della fruizione del credito — non ricostruita a posteriori quando arriva la verifica.
+2. Una **perizia asseverata** da un professionista abilitato, sempre più spesso richiesta per importi rilevanti.
+3. **Tracciabilità delle spese**: fatture, timesheet del personale coinvolto, contratti di ricerca commissionata — documentazione ordinata durante il progetto, con lo stesso principio già visto per la gestione documentale fiscale (guida Fisco, Lezione 13).
+
+📌 **Esempio pratico**: se Verdi Srl sviluppasse una propria linea di scaffalature intelligenti a marchio proprio (lo scenario ipotizzato nella Lezione 7), non basterebbe la fattura del fornitore che ha realizzato il prototipo — servirebbe un timesheet del personale interno coinvolto, una relazione tecnica che descriva l'incertezza tecnologica superata (requisito chiave per qualificare l'attività come R&S) e, per importi significativi, una perizia asseverata: documentazione da costruire **durante** il progetto, non da recuperare l'anno dopo quando arriva un controllo.
+
+📌 **Punto chiave**: la causa più frequente di revoca di questo credito non è l'assenza di un'attività innovativa reale, ma la documentazione insufficiente o ricostruita a posteriori — lo stesso principio degli errori di rendicontazione già visti in generale nella Lezione 12, qui ancora più delicato per la natura tecnica della qualificazione richiesta.
+
+---
+
+## Lezione 15 — I contratti di sviluppo per investimenti di grandi dimensioni
+
+Per progetti di investimento di dimensioni significative — tipicamente milioni di euro, quindi fuori dalla portata della maggior parte delle micro e piccole imprese, ma rilevanti per una PMI in forte crescita o per un'iniziativa di filiera tra più imprese — esiste lo strumento del **Contratto di Sviluppo**, gestito da Invitalia: agevola programmi di investimento nell'industria, nel turismo e nella tutela ambientale, combinando un finanziamento agevolato e, in alcuni casi, un contributo a fondo perduto, con importi minimi di investimento che ne escludono l'uso per interventi di piccola scala.
+
+📌 **Punto chiave**: rispetto alle misure viste all'inizio di questa guida (iperammortamento, Nuova Sabatini, Lezioni 3-4), pensate per investimenti "ordinari" di una PMI, il Contratto di Sviluppo si colloca a un livello dimensionale superiore — utile da conoscere per una PMI in forte espansione, ma non lo strumento a cui pensare per un investimento come lo scaffale automatizzato di Verdi Srl (Lezione 4), che resta nell'ambito delle misure "PMI" viste all'inizio della guida.
+
+---
+
+## Lezione 16 — Le agevolazioni per l'internazionalizzazione delle PMI (SIMEST, SACE): finanziamenti e garanzie per chi esporta
+
+Per le PMI che vendono all'estero — un tema già affrontato dal lato IVA nella guida IVA Avanzata (esportazioni Lezione 3, cessioni intracomunitarie Lezione 4, plafond per esportatori abituali Lezione 11) — esistono agevolazioni dedicate specificamente all'internazionalizzazione:
+
+- **SIMEST** (società del gruppo Cassa Depositi e Prestiti) eroga finanziamenti agevolati per progetti di internazionalizzazione — apertura di showroom all'estero, partecipazione a fiere internazionali, e-commerce per l'export — con una quota del finanziamento a fondo perduto per le PMI.
+- **SACE** fornisce garanzie assicurative sui crediti all'esportazione e garanzie sui finanziamenti bancari legati a progetti export, riducendo il rischio percepito dalla banca — lo stesso meccanismo di garanzia pubblica già visto per il Fondo di Garanzia PMI (Lezione 6), qui specifico per l'export.
+
+📌 **Esempio pratico**: se Verdi Srl, oltre a vendere materiali edili sul mercato interno, iniziasse a esportare stabilmente in Svizzera (già citata come cliente extra-UE nella guida IVA Avanzata, Lezione 3) e a rifornire clienti in altri paesi UE, potrebbe richiedere un finanziamento SIMEST per partecipare a una fiera di settore all'estero, con una quota a fondo perduto, e una garanzia SACE sul credito concesso a un nuovo cliente estero, riducendo il rischio di insoluto senza dover rinunciare alla vendita.
+
+📌 **Punto chiave**: come per il Fondo di Garanzia PMI (Lezione 6), anche qui la logica non è "un'agevolazione al posto di un'altra", ma la possibilità di **combinare** uno strumento di finanziamento/garanzia dedicato all'export con le misure generali già viste in questa guida, quando la crescita di un'azienda inizia a includere i mercati esteri — uno scenario che cambia anche gli adempimenti IVA da gestire (guida IVA Avanzata).
+
+---
+
+## Lezione 17 — Caso pratico riassuntivo: il nuovo punto vendita di Verdi Srl con le agevolazioni
 
 Riprendendo il progetto di espansione di Verdi Srl (guida Programmazione e Finanza, Lezione 20: investimento 50.000 €, mutuo 35.000 € con garanzia Fondo PMI all'80%):
 
@@ -151,6 +188,7 @@ Riprendendo il progetto di espansione di Verdi Srl (guida Programmazione e Finan
 2. Lo stesso bene, in quanto tecnologicamente avanzato, beneficia dell'**iperammortamento 2026** (Lezione 3), con maggiori quote di ammortamento deducibili nei prossimi anni.
 3. Il mutuo complessivo resta assistito dalla garanzia dell'**80% del Fondo PMI** (Lezione 6, guida Programmazione e Finanza).
 4. Prima di procedere, Verdi Srl verifica sul portale della propria Regione (Lezione 8) l'eventuale disponibilità di un bando specifico per la digitalizzazione del punto vendita, da presentare in parallelo.
+5. Se in futuro Verdi Srl sviluppasse una propria linea di prodotti (Lezione 14) o iniziasse a esportare stabilmente (Lezione 16), sa già quali agevolazioni aggiuntive valutare, senza dover ripartire da zero nella ricerca.
 
 📌 **Se hai seguito la guida fin qui**: hai lo schema per non lasciare mai un'agevolazione disponibile "sul tavolo" quando pianifichi un investimento — il principio non è rincorrere ogni bando che esce, ma integrare sistematicamente questa verifica in ogni business plan che costruisci (guida Programmazione e Finanza).
 
@@ -173,9 +211,12 @@ Riprendendo il progetto di espansione di Verdi Srl (guida Programmazione e Finan
 | 11 | Il ruolo del consulente specializzato | Avanzato | 6 min |
 | 12 | Errori che fanno perdere un'agevolazione | Avanzato | 10 min |
 | 13 | Integrare le agevolazioni nel piano investimenti | Avanzato | 10 min |
-| 14 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 14 | Credito d'imposta R&S, Innovazione: come non perderlo | Avanzato | 12 min |
+| 15 | I contratti di sviluppo per investimenti di grandi dimensioni | Avanzato | 8 min |
+| 16 | Agevolazioni per l'internazionalizzazione (SIMEST, SACE) | Avanzato | 10 min |
+| 17 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~122 minuti (~2h) di video.
+**Totale stimato**: ~152 minuti (~2h32) di video.
 
 ---
 
@@ -184,6 +225,9 @@ Riprendendo il progetto di espansione di Verdi Srl (guida Programmazione e Finan
 - Iperammortamento 2026 (in vigore dal 1° gennaio 2026 al 30 settembre 2028, sostituisce Transizione 4.0/5.0)
 - Nuova Sabatini: aliquote tasso convenzionale 2026 (2,75% beni ordinari, 3,575% beni 4.0/green) e regole di cumulo con Transizione 5.0
 - Fondo di Garanzia PMI (rimando alla guida Programmazione e Finanza)
+- Credito d'imposta Ricerca e Sviluppo, Innovazione tecnologica e Design (art. 1, commi 200-206, L. 160/2019 e proroghe successive)
+- Contratti di Sviluppo (Invitalia)
+- Strumenti per l'internazionalizzazione: SIMEST (gruppo Cassa Depositi e Prestiti) e SACE
 - Portale incentivi.gov.it
 
 Ricontrollate al 26/09/2026 tramite ricerca web mirata: questa è la guida del catalogo con il contenuto più soggetto a cambiamenti rapidi — verificare sempre lo stato attuale delle misure prima di ogni domanda reale, idealmente con un consulente specializzato nella misura specifica.

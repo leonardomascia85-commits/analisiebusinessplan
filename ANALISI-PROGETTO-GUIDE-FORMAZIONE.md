@@ -518,20 +518,27 @@ Raccomandazione: iniziare da **Sicurezza sul lavoro** (volume di pubblico più a
 
 Su richiesta esplicita ("preparale tutte, facciamo un bel sito per le aziende"), tutte e 9 le guide della roadmap (§22) sono state scritte, in `skilleasy/guide/`, seguendo lo stesso metodo delle 5 guide base: spiegazione semplice, esempio numerico concreto, punto chiave, con Verdi Srl come filo conduttore in tutte (con l'aggiunta di Rossi Srl come azienda di confronto in difficoltà nella guida Crisi d'Impresa). Ogni dato normativo soggetto a variazione annuale è stato verificato via ricerca web prima di essere scritto, con fonti elencate in fondo a ciascun documento.
 
+Successivamente, su richiesta esplicita del cliente ("rendi le guide più complete e più lunghe"), **tutte e 15 le guide** (i 5 pilastri base inclusi) sono state ampliate con nuove lezioni su argomenti non ancora coperti, mantenendo lo stesso stile e senza contraddire i numeri di bilancio/esempi già stabiliti per Verdi Srl. I conteggi lezioni/ore nella tabella sotto sono quelli aggiornati dopo l'ampliamento.
+
 | # | Guida | Lezioni | Note |
 |---|---|---|---|
-| 6 | Sicurezza sul lavoro (D.Lgs 81/08) | 18 | DVR, RSPP/RLS, formazione, DPI, DUVRI, responsabilità penale |
-| 7 | Crisi d'impresa e allerta precoce | 16 | Assetti adeguati, DSCR trimestrale, composizione negoziata |
-| 8 | Welfare aziendale e fringe benefit | 12 | Soglie 2026 (1.000/2.000 €), confronto vs aumento in busta paga |
-| 9 | Agevolazioni e bandi per le PMI | 14 | Iperammortamento 2026, Nuova Sabatini, click day |
-| 10 | Privacy e GDPR essenziale per PMI | 12 | Registro trattamenti, data breach nelle 72 ore |
-| 11 | IVA avanzata | 14 | Reverse charge, regime OSS, esportazioni |
-| 12 | Marketing digitale per PMI | 14 | L'unica guida prevalentemente strategica, non normativa |
-| 13 | Passaggio generazionale e successione | 12 | Aliquote 2026, novità separazione franchigie, patto di famiglia |
-| 14 | Guida settoriale edilizia | 12 | Caso di studio verticale che integra tutte le altre guide |
-| 15 | Responsabilità amministratori e D.Lgs 231 | 16 | Richiesta ad hoc dal cliente, non nella roadmap §22: responsabilità civile/penale dell'amministratore (artt. 2392/2394/2395 c.c.), business judgement rule, reati societari/tributari, D.Lgs 231/2001 (MOG, Organismo di Vigilanza, sanzioni), assicurazione D&O |
+| 1 | Contabilità da zero ad avanzato | 27 | Principi OIC, più rendiconto finanziario, nota integrativa, leasing, valuta estera, bilancio consolidato |
+| 2 | Fisco da zero ad avanzato | 24 | Regime forfettario/IRES/IRAP, più redditometro, crediti d'imposta in F24, interpello |
+| 3 | Gestione aziendale | 25 | Organizzazione/persone, più piano industriale, vendor rating, smart working, conflitti interni |
+| 4 | Controllo di gestione | 25 | Break-even/indici/budget, più full costing/direct costing, ABC, Balanced Scorecard |
+| 5 | Programmazione e finanza | 25 | DSCR/business plan/finanziamenti, più factoring, mini-bond, valutazione d'azienda, PE/VC |
+| 6 | Sicurezza sul lavoro (D.Lgs 81/08) | 23 | DVR, RSPP/RLS, formazione, DPI, DUVRI, responsabilità penale, più stress lavoro-correlato, appalti a rischio specifico |
+| 7 | Crisi d'impresa e allerta precoce | 20 | Assetti adeguati, DSCR trimestrale, composizione negoziata, più indici settoriali CNDCEC, concordato semplificato |
+| 8 | Welfare aziendale e fringe benefit | 15 | Soglie 2026 (1.000/2.000 €), confronto vs aumento in busta paga, più piano welfare strutturato, previdenza complementare |
+| 9 | Agevolazioni e bandi per le PMI | 17 | Iperammortamento 2026, Nuova Sabatini, click day, più credito R&S, SIMEST/SACE |
+| 10 | Privacy e GDPR essenziale per PMI | 15 | Registro trattamenti, data breach nelle 72 ore, più videosorveglianza, trasferimenti extra-UE, DPIA |
+| 11 | IVA avanzata | 17 | Reverse charge, regime OSS, esportazioni, più Gruppo IVA, pro-rata, note di variazione |
+| 12 | Marketing digitale per PMI | 17 | L'unica guida prevalentemente strategica, non normativa, più branding, marketing automation, reputazione online |
+| 13 | Passaggio generazionale e successione | 15 | Aliquote 2026, novità separazione franchigie, patto di famiglia, più trust, holding di famiglia, governance familiare |
+| 14 | Guida settoriale edilizia | 15 | Caso di studio verticale che integra tutte le altre guide, più subappalto, tracciabilità pagamenti, computo metrico |
+| 15 | Responsabilità amministratori e D.Lgs 231 | 19 | Richiesta ad hoc dal cliente, non nella roadmap §22: responsabilità civile/penale dell'amministratore (artt. 2392/2394/2395 c.c.), business judgement rule, reati societari/tributari, D.Lgs 231/2001 (MOG, Organismo di Vigilanza, sanzioni), assicurazione D&O, whistleblowing, gruppi di società |
 
-**Totale catalogo (5 pilastri base + 10 estensioni)**: 15 guide, ~242 lezioni, ~39 ore di video stimate.
+**Totale catalogo (5 pilastri base + 10 estensioni)**: 15 guide, 299 lezioni, ~49 ore di video stimate. Tutte le guide sono state ampliate su richiesta esplicita del cliente ("rendi le guide più complete e più lunghe") con nuove lezioni su argomenti non ancora coperti, verificato sommando direttamente le tabelle "Indice riassuntivo dei moduli" di ciascun file .md (non un totale stimato a occhio).
 
 **Sito aggiornato**: la homepage (`skilleasy/index.html`) ha una nuova sezione "Catalogo" che presenta tutte e 14 le guide, con nota di trasparenza che il testo è pronto mentre le video lezioni sono in produzione — non promette contenuti che non esistono ancora.
 

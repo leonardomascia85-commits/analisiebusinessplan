@@ -195,7 +195,71 @@ Le lezioni precedenti coprono gli obblighi formali. Ma un'azienda che tratta la 
 
 ---
 
-## Lezione 18 — Caso pratico riassuntivo: il sistema sicurezza di Verdi Srl
+## Lezione 18 — Lo stress lavoro-correlato: la valutazione obbligatoria che spesso si dimentica
+
+L'art. 28 del D.Lgs. 81/08 include esplicitamente lo stress lavoro-correlato tra i rischi che il DVR (Lezione 3) deve valutare — non solo i rischi fisici o infortunistici visti finora. È un obbligo spesso trascurato dalle PMI, proprio perché meno "visibile" di uno scaffale che può cadere.
+
+La metodologia tipica prevede due fasi: una **valutazione preliminare** basata su indicatori oggettivi (assenteismo, turnover, infortuni, lamentele formali, andamento degli orari di lavoro) e, solo se emergono criticità, una **valutazione approfondita** che coinvolge la percezione soggettiva dei lavoratori (tramite questionari).
+
+📌 **Esempio pratico**: nella valutazione preliminare, Verdi Srl rileva un aumento dell'assenteismo nel reparto vendite durante i mesi di picco stagionale — un indicatore oggettivo che richiede di approfondire se il carico di lavoro in quei periodi genera stress lavoro-correlato, prima che si traduca in un problema più serio (turnover, errori, infortuni).
+
+🔖 **Riferimenti**: art. 28 D.Lgs. 81/08; Accordo europeo sullo stress lavoro-correlato (8 ottobre 2004) recepito in Italia; indicazioni metodologiche della Commissione Consultiva permanente (circolare del 18 novembre 2010).
+
+📌 **Punto chiave**: la valutazione dello stress lavoro-correlato non è facoltativa né rimandabile "perché nessuno si è mai lamentato" — è parte integrante del DVR (Lezione 3) tanto quanto la valutazione del rischio di caduta da uno scaffale, e la sua assenza è una delle lacune più comuni riscontrate nei controlli.
+
+---
+
+## Lezione 19 — La sicurezza negli appalti a rischio specifico: lavori in quota e spazi confinati
+
+Nella Lezione 12 abbiamo visto il DUVRI come obbligo generale per gli appalti che comportano interferenza tra attività diverse. Alcune categorie di lavori comportano rischi specifici che richiedono procedure aggiuntive rispetto al DUVRI generico:
+
+- **Lavori in quota** (oltre 2 metri di altezza): richiedono DPI anticaduta, formazione specifica e, spesso, l'uso di sistemi di ancoraggio verificati.
+- **Spazi confinati** (serbatoi, cisterne, silos, pozzi): rischio di asfissia o intossicazione, disciplinato in modo specifico dal DPR 177/2011, che richiede procedure di autorizzazione all'ingresso, sorveglianza esterna continua e un piano di salvataggio predisposto prima dell'inizio dei lavori.
+
+📌 **Esempio pratico**: se un'impresa esterna interviene su un silos di stoccaggio del magazzino di Verdi Srl (spazio confinato) o deve accedere alla copertura del capannone per manutenzione (lavoro in quota), il DUVRI generico (Lezione 12) non basta: serve una valutazione specifica del rischio e, soprattutto, la verifica preventiva dei requisiti di qualificazione dell'impresa appaltatrice (formazione specifica, DPI adeguati, esperienza documentata) **prima** dell'affidamento dei lavori, non a lavori iniziati.
+
+📌 **Punto chiave**: per queste categorie di rischio, la legge prevede requisiti di qualificazione più stringenti per le imprese ammesse ai lavori (in particolare il DPR 177/2011 per gli spazi confinati) — il committente (Verdi Srl in questo caso) ha l'obbligo di verificarli concretamente prima dell'affidamento, non solo di redigere un documento formale.
+
+---
+
+## Lezione 20 — Il registro degli infortuni e la gestione dei "near miss" (quasi-infortuni)
+
+Oltre agli obblighi di comunicazione già visti nella Lezione 11 per gli infortuni effettivamente accaduti (oggi assolti tramite i flussi telematici INAIL, che hanno sostituito il vecchio registro cartaceo), una buona prassi di prevenzione consiste nel tracciare sistematicamente anche i **near miss**: episodi che avrebbero potuto causare un infortunio, ma che per circostanza non lo hanno fatto (un carico quasi caduto, uno scivolamento senza conseguenze).
+
+📌 **Esempio pratico**: Verdi Srl introduce un semplice registro interno (anche un foglio condiviso) dove i magazzinieri segnalano i near miss — ad esempio "scatola caduta da uno scaffale senza colpire nessuno". Nei tre mesi successivi, il registro rivela che lo stesso scaffale ha generato due segnalazioni distinte: un campanello d'allarme che porta ad aggiornare il DVR (Lezione 3) e a intervenire prima che accada un infortunio vero.
+
+📌 **Punto chiave**: i near miss sono statisticamente molto più frequenti degli infortuni veri (la cosiddetta "piramide di Heinrich": per ogni infortunio grave si stimano decine di quasi-infortuni e centinaia di comportamenti a rischio non segnalati) — un'azienda che raccoglie sistematicamente questi segnali intercetta i rischi prima che diventino infortuni, invece di scoprirli soltanto a posteriori.
+
+---
+
+## Lezione 21 — La sorveglianza sanitaria e l'idoneità alla mansione: casi pratici di gestione
+
+Nella Lezione 7 abbiamo visto il principio base: il giudizio del medico competente vincola il datore di lavoro. Vediamo ora come si gestisce nella pratica un caso frequente: un giudizio di **idoneità con prescrizioni o limitazioni**, non una piena idoneità né una non idoneità totale.
+
+📌 **Esempio pratico**: il medico competente di Verdi Srl esprime, per un magazziniere dopo un infortunio alla schiena, un giudizio di "idoneità con prescrizione: non movimentare carichi superiori a 10 kg per 6 mesi". Il datore di lavoro deve adattare concretamente la mansione — ad esempio assegnando temporaneamente il lavoratore a compiti di controllo qualità o inventario che non richiedono sollevamento pesi — invece di lasciarlo formalmente sulla stessa mansione "facendo attenzione". Ignorare la prescrizione, anche solo per carenza temporanea di personale, espone a responsabilità dirette in caso di aggravamento (collegamento alla Lezione 13 sulla responsabilità).
+
+📌 **Punto chiave**: un giudizio di idoneità con limitazioni non è un'indicazione facoltativa da "tenere in considerazione" — è vincolante al pari di un giudizio di piena idoneità o di non idoneità (Lezione 7): il datore di lavoro che non riorganizza concretamente la mansione risponde comunque, anche se in buona fede, di un eventuale aggravamento. Se il lavoratore o il datore di lavoro non concordano con il giudizio, possono fare ricorso all'organo di vigilanza territorialmente competente entro 30 giorni.
+
+---
+
+## Lezione 22 — Il ruolo dell'RSPP esterno vs interno: vantaggi, limiti e quando conviene l'uno o l'altro
+
+Nella Lezione 4 abbiamo visto che il datore di lavoro può nominare sé stesso RSPP, con la formazione richiesta. Confrontiamo ora le due opzioni disponibili — **RSPP interno** (il datore di lavoro stesso o un dipendente formato) e **RSPP esterno** (un consulente o uno studio specializzato) — con vantaggi e limiti reciproci:
+
+| | RSPP interno | RSPP esterno |
+|---|---|---|
+| Conoscenza dell'azienda | Molto alta, quotidiana | Da costruire, richiede un buon referente interno |
+| Aggiornamento normativo | Dipende dal tempo che può dedicarci, non è il suo mestiere principale | Costante, è la sua attività principale |
+| Terzietà nel segnalare criticità | Può esitare a segnalare problemi legati a scelte del proprio datore di lavoro | Maggiore distacco e indipendenza di giudizio |
+| Costo | Spesso "assorbito" nel tempo del titolare o di un dipendente | Canone ricorrente, ma proporzionato alla complessità |
+
+📌 **Esempio pratico**: nei primi anni, con pochi dipendenti, Verdi Srl ha scelto il titolare come RSPP interno (Lezione 4) per contenere i costi. Crescendo l'azienda — più reparti, più complessità dei rischi (magazzino, consegne, punto vendita, e i rischi specifici visti nella Lezione 19) — valuta il passaggio a un RSPP esterno qualificato, per un aggiornamento normativo più continuo e una valutazione più distaccata dei rischi, mentre il titolare mantiene comunque la responsabilità primaria non delegabile della valutazione dei rischi (Lezione 2).
+
+📌 **Punto chiave**: non esiste una scelta "giusta in assoluto" — per una micro-impresa con rischi semplici, l'RSPP interno è spesso sufficiente ed economico; per un'azienda che cresce in complessità, un RSPP esterno specializzato porta spesso un livello di aggiornamento e distacco difficile da mantenere internamente. In ogni caso, la nomina del RSPP resta un obbligo non delegabile del datore di lavoro (Lezione 2), che ne risponde comunque, interno o esterno che sia.
+
+---
+
+## Lezione 23 — Caso pratico riassuntivo: il sistema sicurezza di Verdi Srl
 
 Il sistema di sicurezza che Verdi Srl ha costruito seguendo questa guida:
 
@@ -231,16 +295,23 @@ Il sistema di sicurezza che Verdi Srl ha costruito seguendo questa guida:
 | 15 | Cenni ai cantieri (Titolo IV) | Avanzato | 8 min |
 | 16 | Cultura della sicurezza | Avanzato | 8 min |
 | 17 | Errori comuni | Avanzato | 8 min |
-| 18 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 18 | Stress lavoro-correlato | Avanzato | 10 min |
+| 19 | Appalti a rischio specifico (quota, spazi confinati) | Avanzato | 10 min |
+| 20 | Registro infortuni e near miss | Avanzato | 8 min |
+| 21 | Sorveglianza sanitaria e idoneità: casi pratici | Avanzato | 10 min |
+| 22 | RSPP esterno vs interno | Avanzato | 8 min |
+| 23 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~164 minuti (~2h45) di video.
+**Totale stimato**: ~210 minuti (~3h30) di video.
 
 ---
 
 ## Fonti normative e verifiche usate per questa guida
 
-- D.Lgs. 81/08 (Testo Unico Sicurezza sul Lavoro), artt. 17 e ss.
+- D.Lgs. 81/08 (Testo Unico Sicurezza sul Lavoro), artt. 17 e ss., art. 28 (valutazione dello stress lavoro-correlato)
 - Accordo Stato-Regioni 2025/2026 sulla formazione in materia di sicurezza
+- Accordo europeo sullo stress lavoro-correlato (8 ottobre 2004) e indicazioni della Commissione Consultiva permanente (circolare 18 novembre 2010)
+- DPR 177/2011 (qualificazione delle imprese per lavori in ambienti sospetti di inquinamento o confinati)
 - D.Lgs. 231/2001 (responsabilità amministrativa degli enti)
 
 Ricontrollate al 26/09/2026 tramite ricerca web mirata: ore di formazione e scadenze vanno sempre riverificate con un consulente della sicurezza abilitato prima di un uso reale.

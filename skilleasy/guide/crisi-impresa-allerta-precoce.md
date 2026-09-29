@@ -163,16 +163,67 @@ Se un indicatore segnala un peggioramento (Lezione 13), il momento peggiore per 
 
 ---
 
-## Lezione 16 — Caso pratico riassuntivo: il sistema di allerta di Verdi Srl
+## Lezione 16 — Gli indici di allerta settoriali elaborati dal CNDCEC: perché completano gli indici generali già visti
+
+Gli indicatori quantitativi della Lezione 3 e il DSCR trimestrale della Lezione 4 sono soglie **uguali per tutte le imprese**, indipendentemente dal settore in cui operano. Il CNDCEC (Consiglio Nazionale dei Dottori Commercialisti e degli Esperti Contabili) ha elaborato, ad affiancamento di quegli indicatori, un sistema di **cinque indici di allerta con soglie differenziate per settore ATECO**: sostenibilità degli oneri finanziari, adeguatezza patrimoniale, ritorno liquido dell'attivo, liquidità e indebitamento previdenziale e tributario.
+
+L'idea alla base è semplice: un'azienda commerciale come Verdi Srl, che ruota il magazzino rapidamente (guida Controllo di gestione, Lezione 15), ha fisiologicamente un indice di liquidità diverso da quello di un'impresa di costruzioni, che per la natura del proprio ciclo produttivo incassa più lentamente dai propri clienti (guida settoriale Edilizia, Lezione 10). Applicare a entrambe la stessa soglia rischierebbe di generare un falso allarme per l'una, o di non intercettare un problema reale per l'altra.
+
+📌 **Esempio pratico**: nel cruscotto di allerta di Verdi Srl (Lezione 13), l'indice di liquidità viene confrontato non con una soglia generica, ma con la soglia pubblicata dal CNDCEC per il settore commercio in cui opera l'azienda — più stringente di quella che si applicherebbe, a parità di numero, a un'impresa edile.
+
+📌 **Punto chiave**: questi indici settoriali non sostituiscono gli indicatori generali della Lezione 3 né il DSCR della Lezione 4 — li **completano**, aggiungendo un livello di lettura che tiene conto delle caratteristiche strutturali del settore in cui l'azienda opera davvero.
+
+🔖 **Nota normativa**: il sistema degli indici CNDCEC nasce con la prima versione del Codice della Crisi come parte del meccanismo di allerta esterna; i correttivi successivi (fino al D.Lgs. 136/2024) ne hanno ridimensionato il valore di presunzione automatica di crisi, ma restano uno strumento tecnico di riferimento diffuso tra i professionisti per interpretare gli indicatori generali alla luce del settore di appartenenza.
+
+---
+
+## Lezione 17 — Il ruolo del collegio sindacale o del revisore nella segnalazione tempestiva della crisi
+
+Quando una Srl supera le soglie dell'art. 2477 c.c. (Lezione 6) ed è quindi tenuta a un organo di controllo o a un revisore, la legge assegna a questo organo un compito che va oltre la semplice verifica dei conti: l'art. 25-octies del Codice della Crisi impone al collegio sindacale (o al sindaco unico, o al revisore) di **segnalare tempestivamente e per iscritto** all'organo amministrativo l'esistenza di fondati indizi di crisi, quando li rileva nello svolgimento del proprio incarico.
+
+La segnalazione deve essere motivata, deve indicare un termine (di norma 30 giorni) entro cui gli amministratori devono riferire sulle soluzioni individuate e sulle iniziative intraprese, e deve restare agli atti: non basta un avviso informale a voce durante una riunione.
+
+📌 **Esempio pratico (confronto)**: se Rossi Srl avesse avuto un organo di controllo nel momento in cui i debiti fornitori scaduti hanno superato la soglia del 60% (Lezione 3), il sindaco avrebbe dovuto formalizzare per iscritto la segnalazione agli amministratori, con un termine per la risposta — cosa che, nel nostro caso di confronto, non è avvenuta, aggravando la posizione di tutti gli organi sociali coinvolti.
+
+📌 **Punto chiave**: la segnalazione tempestiva non è solo un adempimento burocratico — è anche una forma di **autotutela** per chi la fa: un sindaco o un revisore che segnala per iscritto e nei termini, ed eventualmente attiva da sé la composizione negoziata (Lezione 8) in caso di inerzia degli amministratori, riduce sensibilmente il rischio di essere chiamato a rispondere in solido con gli amministratori stessi per i danni successivi — una responsabilità che affianca, per l'organo di controllo, quella già vista per gli amministratori nella guida Responsabilità Amministratori e D.Lgs. 231.
+
+---
+
+## Lezione 18 — Il concordato semplificato per la liquidazione del patrimonio: cos'è e quando si usa
+
+Quando la composizione negoziata (Lezione 8) viene avviata in buona fede ma l'esperto indipendente (Lezione 9), nella propria relazione finale, conclude che non esistono soluzioni percorribili né per il risanamento né per un accordo con i creditori, l'imprenditore non è costretto a scivolare direttamente nella liquidazione giudiziale (Lezione 10, l'ex fallimento). Il Codice della Crisi prevede, in questo caso specifico, il **concordato semplificato per la liquidazione del patrimonio** (art. 25-sexies CCII).
+
+È uno strumento eccezionale, accessibile **solo** entro 60 giorni dalla comunicazione dell'esito negativo della composizione negoziata — non si può richiedere direttamente, saltando il tentativo di negoziazione. La differenza principale rispetto al concordato preventivo "ordinario" (Lezione 10) è che qui **non c'è voto dei creditori**: è il tribunale a valutare direttamente la fattibilità del piano di liquidazione e la sua convenienza per i creditori rispetto all'alternativa della liquidazione giudiziale, rendendo la procedura più rapida.
+
+📌 **Esempio pratico**: se il percorso di composizione negoziata di Rossi Srl (Lezione 8) si concludesse con una relazione dell'esperto che esclude ogni possibilità di risanamento, Rossi Srl potrebbe presentare, entro 60 giorni, una proposta di concordato semplificato per liquidare ordinatamente magazzino e cespiti residui — offrendo ai creditori un soddisfacimento comunque superiore a quello, tipicamente più lento e costoso, di una liquidazione giudiziale.
+
+📌 **Punto chiave**: proprio perché è una via d'uscita eccezionale legata a un tentativo di composizione negoziata già fatto e fallito, il concordato semplificato conferma quanto detto nella Lezione 11 — anche lo strumento "di ultima istanza" resta più efficace se attivato per tempo, seguendo la sequenza logica di questa guida, invece che come tentativo isolato dell'ultimo minuto.
+
+---
+
+## Lezione 19 — La transazione fiscale e contributiva nella crisi d'impresa
+
+Tra i debiti che aggravano la crisi di un'impresa (Lezione 3) ci sono spesso anche i debiti verso l'Erario (IVA, ritenute) e verso gli enti previdenziali (contributi INPS). All'interno di un concordato preventivo o di un accordo di ristrutturazione dei debiti (Lezione 10), la legge consente di negoziare anche questi debiti attraverso la **transazione fiscale e contributiva** (artt. 63 e 88 CCII): una proposta di pagamento parziale (falcidia) e/o dilazionato del debito tributario e contributivo, inserita nel piano complessivo.
+
+A differenza della rateizzazione ordinaria dei debiti con l'Agenzia delle Entrate-Riscossione (guida Fisco, Lezione 17) — che lascia il debito intero, solo diluito nel tempo — la transazione fiscale può prevedere una **riduzione** dell'importo dovuto, a condizione di dimostrare che l'Erario e gli enti previdenziali ricevono, con questo piano, un soddisfacimento non inferiore a quello che otterrebbero da una liquidazione giudiziale immediata. In alcuni casi, se l'Erario non si esprime o vota contro senza giustificazione, il tribunale può comunque omologare il piano (il cosiddetto **cram-down fiscale**), quando la proposta è più conveniente per lo Stato rispetto all'alternativa liquidatoria.
+
+📌 **Esempio pratico**: nel piano di concordato preventivo predisposto da Rossi Srl (Lezione 10), oltre ai debiti verso banche e fornitori, viene inserita una proposta di transazione fiscale per il debito IVA scaduto — pagamento del 40% dell'importo dovuto, dilazionato in 5 anni — accompagnata da una perizia che dimostra come questo scenario garantisca all'Erario un recupero superiore a quello ottenibile liquidando subito l'azienda.
+
+📌 **Punto chiave**: la transazione fiscale non è un condono e non si attiva da sola — è sempre parte di uno strumento di regolazione della crisi più ampio (concordato preventivo, concordato semplificato della Lezione 18, accordo di ristrutturazione) e richiede di dimostrare la convenienza per l'Erario, non solo la difficoltà del debitore.
+
+---
+
+## Lezione 20 — Caso pratico riassuntivo: il sistema di allerta di Verdi Srl
 
 Il sistema che Verdi Srl ha costruito seguendo questa guida:
 
 1. **Assetti adeguati**: contabilità mensile, controllo di gestione (guide 1 e 4), monitoraggio trimestrale del DSCR (Lezione 4).
-2. **Cruscotto di allerta** con le 5 soglie della Lezione 13, riviste ogni trimestre insieme al cruscotto operativo già esistente.
-3. **Verifica annuale delle soglie dell'organo di controllo** (Lezione 6), per non farsi trovare impreparati quando l'azienda crescerà oltre i 4 milioni di attivo/ricavi o i 20 dipendenti.
+2. **Cruscotto di allerta** con le 5 soglie della Lezione 13, lette anche alla luce degli indici settoriali CNDCEC (Lezione 16), e riviste ogni trimestre insieme al cruscotto operativo già esistente.
+3. **Verifica annuale delle soglie dell'organo di controllo** (Lezione 6), per non farsi trovare impreparati quando l'azienda crescerà oltre i 4 milioni di attivo/ricavi o i 20 dipendenti — e, da quel momento, consapevolezza dell'obbligo di segnalazione tempestiva a carico dell'organo di controllo (Lezione 17).
 4. **Rapporto trasparente con la banca**, con comunicazione proattiva in caso di segnali di rallentamento (Lezione 14).
+5. **Consapevolezza degli strumenti di extrema ratio** (concordato semplificato, Lezione 18; transazione fiscale, Lezione 19) — utili da conoscere in anticipo, anche se l'obiettivo resta non doverli mai usare.
 
-📌 **Se hai seguito la guida fin qui**: hai collegato tra loro tutti gli strumenti già visti nel catalogo (contabilità, controllo di gestione, indici bancari) sotto un unico obiettivo — non arrivare mai a dover usare gli strumenti "di emergenza" del Codice della Crisi (Lezione 10), perché il problema è stato intercettato e gestito molto prima.
+📌 **Se hai seguito la guida fin qui**: hai collegato tra loro tutti gli strumenti già visti nel catalogo (contabilità, controllo di gestione, indici bancari) sotto un unico obiettivo — non arrivare mai a dover usare gli strumenti "di emergenza" del Codice della Crisi (Lezioni 10, 18 e 19), perché il problema è stato intercettato e gestito molto prima.
 
 ---
 
@@ -195,16 +246,24 @@ Il sistema che Verdi Srl ha costruito seguendo questa guida:
 | 13 | Costruire un cruscotto di allerta | Avanzato | 12 min |
 | 14 | Il dialogo con le banche | Avanzato | 10 min |
 | 15 | Errori comuni | Avanzato | 8 min |
-| 16 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 16 | Gli indici di allerta settoriali CNDCEC | Avanzato | 10 min |
+| 17 | Il ruolo del collegio sindacale nella segnalazione tempestiva | Avanzato | 10 min |
+| 18 | Il concordato semplificato per la liquidazione del patrimonio | Avanzato | 10 min |
+| 19 | La transazione fiscale e contributiva | Avanzato | 10 min |
+| 20 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~158 minuti (~2h40) di video.
+**Totale stimato**: ~198 minuti (~3h18) di video.
 
 ---
 
 ## Fonti normative e verifiche usate per questa guida
 
-- D.Lgs. 14/2019 (Codice della Crisi d'Impresa e dell'Insolvenza) e correttivi successivi
+- D.Lgs. 14/2019 (Codice della Crisi d'Impresa e dell'Insolvenza) e correttivi successivi, incluso il D.Lgs. 136/2024 (c.d. correttivo-ter)
 - Art. 2086 e art. 2477 Codice Civile
+- Art. 25-octies CCII (obbligo di segnalazione tempestiva dell'organo di controllo)
+- Art. 25-sexies CCII (concordato semplificato per la liquidazione del patrimonio)
+- Artt. 63 e 88 CCII (transazione fiscale e contributiva)
+- Indici di allerta settoriali elaborati dal CNDCEC
 - Linee Guida EBA/GL/2020/06 (richiamate dalla guida Programmazione e Finanza)
 
-Ricontrollate al 26/09/2026 tramite ricerca web mirata: le soglie dell'organo di controllo e i dettagli procedurali degli strumenti di regolazione della crisi vanno sempre verificati con un professionista abilitato prima di un uso reale.
+Ricontrollate al 26/09/2026 tramite ricerca web mirata: le soglie dell'organo di controllo, gli indici settoriali CNDCEC e i dettagli procedurali degli strumenti di regolazione della crisi (compresi concordato semplificato e transazione fiscale) vanno sempre verificati con un professionista abilitato prima di un uso reale.

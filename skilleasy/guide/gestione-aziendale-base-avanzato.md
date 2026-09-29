@@ -282,7 +282,57 @@ Un **processo scritto** (anche solo una checklist) permette a un'attività di es
 
 ---
 
-## Lezione 20 — Caso pratico riassuntivo: la riorganizzazione di Verdi Srl
+## Lezione 20 — Il piano industriale e gli obiettivi strategici a 3-5 anni
+
+Gli obiettivi SMART della Lezione 5 hanno un orizzonte breve, tipicamente annuale. Il **piano industriale** è lo strumento con cui un'azienda fissa invece **dove vuole arrivare in 3-5 anni** e con quali leve: nuovi mercati o prodotti, investimenti, assunzioni chiave, nuovi canali di vendita. Non è un esercizio astratto — è la cornice dentro cui gli obiettivi annuali di ogni reparto smettono di essere scelte isolate e diventano tappe di un percorso comune.
+
+📌 **Esempio pratico**: Verdi Srl, dopo aver strutturato l'organizzazione descritta nelle lezioni precedenti, fissa un piano industriale a 3 anni: aprire un secondo punto vendita, portare il fatturato del reparto B — attrezzi, oggi a 70.000 € (guida **Controllo di gestione**) — a 150.000 €, e assumere un responsabile commerciale dedicato. L'obiettivo SMART "aumentare il fatturato del reparto B del 15% entro giugno" (Lezione 5) diventa così la tappa di un anno di un percorso pluriennale più ampio, non un traguardo isolato deciso senza una direzione complessiva.
+
+📌 **Punto chiave**: un piano industriale senza i numeri finanziari a supporto — quanto costano gli investimenti previsti, come si finanziano, quale rating bancario serve per ottenerli — resta un'intenzione, non un piano. È esattamente la parte che la guida **Programmazione e Finanza** costruisce nel dettaglio (proiezioni di Conto Economico, Stato Patrimoniale e Cash Flow a 3 anni, DSCR, rating di bancabilità), prendendo in input proprio gli obiettivi strategici definiti qui.
+
+---
+
+## Lezione 21 — La gestione dei fornitori strategici e il vendor rating
+
+Non tutti i fornitori sono uguali: un **fornitore strategico** — per volume d'acquisto, per unicità del prodotto/servizio, per difficoltà a sostituirlo rapidamente — va gestito e monitorato diversamente da un fornitore occasionale. Il **vendor rating** è un sistema, anche semplice per una PMI, per valutare periodicamente i fornitori su criteri oggettivi: puntualità di consegna, qualità e tasso di difettosità, competitività di prezzo, flessibilità sulle condizioni di pagamento, solidità finanziaria.
+
+📌 **Esempio pratico**: Verdi Srl acquista l'80% dei materiali edili da un unico fornitore. Introduce un vendor rating trimestrale su 4 criteri (puntualità, difettosità dei resi, prezzo rispetto al mercato, flessibilità sui pagamenti), con un punteggio da 1 a 5 per ciascuno. Il fornitore principale ottiene una media di 4,5/5, ma solo 2/5 sulla puntualità delle ultime consegne — un segnale che, se non intercettato per tempo, rischia di tradursi in rotture di stock proprio nei periodi di maggiore domanda (collegamento diretto alla rotazione di magazzino, KPI trattato nella guida **Controllo di gestione**).
+
+📌 **Punto chiave**: dipendere da un unico fornitore strategico senza monitorarne nel tempo le prestazioni è un rischio di continuità operativa non diverso da dipendere da un'unica persona chiave (Lezione 18) — il vendor rating serve esattamente a intercettare un peggioramento prima che diventi un problema per i clienti finali di Verdi Srl.
+
+---
+
+## Lezione 22 — Il lavoro agile (smart working): regole essenziali per le PMI
+
+Il **lavoro agile** (o smart working, **L. 81/2017**) non è un contratto a parte: è una **modalità di esecuzione** di un rapporto di lavoro subordinato già in essere (una delle forme contrattuali della Lezione 7), caratterizzata dall'assenza di vincoli fissi di orario e di luogo di lavoro, spesso con l'uso di strumenti tecnologici. Richiede un **accordo individuale scritto** tra azienda e lavoratore (non un accordo collettivo obbligatorio, salvo casi specifici), che disciplina i tempi di riposo, il diritto alla disconnessione, le modalità di esercizio del potere direttivo e di controllo, e la strumentazione fornita. Il lavoratore in smart working ha diritto allo **stesso trattamento economico e normativo** dei colleghi che lavorano in sede, incluse le tutele di salute e sicurezza, con un'informativa specifica sui rischi legati all'esecuzione della prestazione fuori sede.
+
+📌 **Esempio pratico**: Verdi Srl introduce 2 giorni a settimana di smart working per l'impiegata amministrativa (Lezione 18) per le attività che non richiedono presenza fisica in negozio, come la chiusura della liquidazione IVA (guida **Contabilità**, Lezione 7). L'accordo individuale scritto definisce le fasce orarie di reperibilità, il diritto alla disconnessione fuori da quelle fasce, e le condizioni d'uso del PC aziendale fornito.
+
+📌 **Punto chiave**: lo smart working non è "lavorare da casa quando si vuole" — è un modo diverso di organizzare la stessa prestazione lavorativa, con le stesse tutele, formalizzato in un accordo scritto che protegge sia l'azienda (definendo obiettivi e reperibilità) sia il lavoratore (diritto alla disconnessione, parità di trattamento). Introdurlo senza un accordo scritto espone entrambe le parti ad ambiguità su orari, responsabilità in caso di infortunio e valutazione delle prestazioni — lo stesso principio, applicato al lavoro, dei contratti scritti con clienti e fornitori (Lezione 13).
+
+---
+
+## Lezione 23 — La gestione dei conflitti interni in azienda
+
+Crescere in struttura (Lezioni 16-17) porta inevitabilmente più persone e più interfacce tra loro, quindi più occasioni di conflitto: tra colleghi dello stesso livello, tra un responsabile e il suo team, o tra reparti (es. vendite che promette consegne che il magazzino non riesce a rispettare). Il conflitto in sé non è un fallimento organizzativo — lo diventa quando non viene gestito e comincia a intaccare la collaborazione quotidiana. Alcuni principi pratici: **separare la persona dal problema** (parlare di comportamenti e fatti osservabili, non di caratteristiche personali); **chiarire da chi dipende davvero la decisione** — spesso il conflitto nasce proprio da un'Accountability non chiara nella matrice RACI (Lezione 3); **intervenire presto**, perché un conflitto minore gestito subito costa molto meno di uno cronicizzato; e ricorrere a un **terzo neutrale** (il responsabile di livello superiore, o una mediazione esterna nei casi più seri) quando le parti non trovano da sole un accordo.
+
+📌 **Esempio pratico**: in Verdi Srl, il responsabile vendite (Lezione 16) promette ai clienti tempi di consegna che il responsabile di magazzino considera irrealistici, generando tensione crescente a ogni ordine urgente. Il titolare, invece di arbitrare ogni singolo caso — tornando così a essere collo di bottiglia (Lezione 4) — fissa con entrambi i responsabili una regola RACI esplicita: chi decide i tempi di consegna promessi (R vendite, ma C — consultato — il magazzino obbligatoriamente prima di promettere date sotto una certa soglia). Il conflitto specifico si risolve, e la regola scritta previene che si ripresenti identico la settimana successiva.
+
+📌 **Punto chiave**: la maggior parte dei conflitti interni cronici nelle PMI non nasce da persone "difficili", ma da ruoli e responsabilità poco chiari (Lezione 3) o da obiettivi di reparto in competizione tra loro senza un criterio esplicito per arbitrare i casi limite — risolvere la struttura, spesso, risolve anche il conflitto che sembrava solo "personale".
+
+---
+
+## Lezione 24 — Il passaggio da PMI familiare a struttura manageriale: quando e come professionalizzare il management
+
+Molte PMI italiane restano, anche crescendo, gestite solo da membri della famiglia fondatrice nei ruoli chiave — una scelta che funziona fino a un certo punto, poi diventa un limite quando le competenze richieste (gestione finanziaria complessa, internazionalizzazione, digitalizzazione) superano quelle disponibili in famiglia. **Professionalizzare il management** significa inserire manager esterni — non necessariamente in sostituzione della famiglia, spesso in affiancamento — in ruoli chiave, con obiettivi e responsabilità definiti (ancora la matrice RACI, Lezione 3) e non solo per fiducia personale. Ai segnali già visti nella Lezione 17 (crescita che l'organizzazione della fase 1 non regge più) se ne aggiunge uno specifico: quando le competenze richieste da una funzione non sono più presenti in famiglia a un livello adeguato.
+
+📌 **Esempio pratico**: Verdi Srl, arrivata a 20 dipendenti e 2 punti vendita, valuta l'apertura di un e-commerce e l'accesso a un nuovo finanziamento bancario per l'investimento (guida **Programmazione e Finanza**). Nessuno in famiglia ha competenze specifiche di e-commerce o di rapporti bancari strutturati: il titolare assume un responsabile digital esterno e affida la funzione finanza a un manager con esperienza, mantenendo per sé le decisioni di proprietà e di indirizzo strategico (Lezione 20) ma delegando l'esecuzione specialistica a chi possiede competenze che in famiglia non ci sono.
+
+📌 **Punto chiave**: professionalizzare il management non significa che la famiglia si faccia da parte — significa distinguere tra il ruolo di proprietà/indirizzo strategico, che può restare in famiglia, e i ruoli operativi che richiedono competenze specifiche, che possono e spesso devono essere affidati a chi le possiede davvero. Confondere i due piani — pensare che "essere di famiglia" garantisca automaticamente la competenza giusta per ogni ruolo — è un errore che rallenta la crescita in molte PMI italiane, ed è un tema che la guida **Passaggio Generazionale e Successione d'Impresa** approfondisce quando la transizione riguarda anche la proprietà, non solo il management operativo.
+
+---
+
+## Lezione 25 — Caso pratico riassuntivo: la riorganizzazione di Verdi Srl
 
 Verdi Srl è passata, nell'arco delle lezioni di questa guida, da un'azienda di 5 persone gestita interamente dal titolare a un'organizzazione strutturata:
 
@@ -320,9 +370,14 @@ Verdi Srl è passata, nell'arco delle lezioni di questa guida, da un'azienda di 
 | 17 | Gestire la crescita | Avanzato | 10 min |
 | 18 | Processi vs persone | Avanzato | 10 min |
 | 19 | Errori comuni | Avanzato | 8 min |
-| 20 | Caso pratico riassuntivo | Avanzato | 14 min |
+| 20 | Il piano industriale e gli obiettivi strategici | Avanzato | 12 min |
+| 21 | Fornitori strategici e vendor rating | Avanzato | 10 min |
+| 22 | Il lavoro agile (smart working) | Avanzato | 12 min |
+| 23 | La gestione dei conflitti interni | Avanzato | 10 min |
+| 24 | Da PMI familiare a struttura manageriale | Avanzato | 12 min |
+| 25 | Caso pratico riassuntivo | Avanzato | 14 min |
 
-**Totale stimato**: ~206 minuti (~3h25) di video.
+**Totale stimato**: ~262 minuti (~4h22) di video.
 
 ---
 
@@ -331,5 +386,6 @@ Verdi Srl è passata, nell'arco delle lezioni di questa guida, da un'azienda di 
 - Codice Civile: artt. 1321 e ss. (contratti in generale), art. 1456 (clausola risolutiva espressa), art. 1523 (riserva di proprietà), artt. 1742 e ss. (contratto di agenzia)
 - Aliquote contributive INPS 2026 (ordinarie e agevolazioni apprendistato)
 - CCNL di settore (varia per attività — nell'esempio, CCNL Commercio)
+- Legge 81/2017 (disciplina del lavoro agile/smart working)
 
 Ricontrollate al 26/09/2026 tramite ricerca web mirata: come per la guida Fisco, le percentuali su costo del lavoro e agevolazioni contributive vanno riverificate a ogni utilizzo reale, perché cambiano con la contrattazione collettiva e la normativa annuale.

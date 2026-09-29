@@ -287,7 +287,90 @@ Tutti gli strumenti visti finora servono a poco se restano in un foglio Excel ch
 
 ---
 
-## Lezione 20 — Caso pratico riassuntivo: il cruscotto di controllo di gestione di Verdi Srl
+## Lezione 20 — Il costo pieno (full costing) vs il costo variabile (direct costing)
+
+Finora abbiamo distinto i costi in fissi e variabili (Lezione 3) per calcolare break-even e margine di contribuzione. Quando si tratta di valorizzare il costo di un singolo prodotto, esistono due approcci alternativi:
+
+- **Direct costing (costo variabile)**: il costo del prodotto include solo i costi variabili (materie prime, provvigioni) — i costi fissi vengono trattati come "costi di periodo", non allocati sul singolo pezzo.
+- **Full costing (costo pieno)**: il costo del prodotto include anche una quota di costi fissi allocati (ammortamenti, affitto, personale strutturale), ripartiti con un criterio scelto — la stessa logica di ripartizione già vista per i costi comuni di reparto (Lezione 2).
+
+📌 **Esempio pratico**: il prodotto del reparto A già visto nella Lezione 16 ha un costo pieno di 65 € (usato lì per il pricing cost-plus). Scomponendolo: 45 € di costo variabile (materiale, provvigione) e 20 € di quota di costi fissi allocati (affitto, personale). Un cliente occasionale propone di acquistare un lotto extra a 55 € a pezzo — un prezzo inferiore al costo pieno (65 €), che con una lettura full costing sembrerebbe da rifiutare come "sotto costo". Ma se questo lotto non sposta vendite già previste al prezzo pieno e la capacità produttiva/di vendita è comunque disponibile, con un'ottica direct costing il margine è positivo: 55 − 45 = **10 € a pezzo**, che contribuisce comunque a coprire i costi fissi già sostenuti (Lezione 5).
+
+📌 **Punto chiave**: il full costing è lo strumento corretto per due usi specifici — la valorizzazione del magazzino a bilancio (obbligo OIC 13, guida Contabilità Lezione 14) e la definizione del prezzo di listino "normale" (Lezione 16), perché nel lungo periodo ogni vendita deve coprire anche i costi fissi. Il direct costing è lo strumento corretto per decisioni di breve periodo su volumi incrementali (ordini speciali come in questo esempio, o il make or buy della Lezione 15) — usare il full costing per rifiutare un ordine incrementale che genera comunque margine positivo è uno degli errori più comuni nel controllo di gestione delle PMI.
+
+---
+
+## Lezione 21 — L'Activity Based Costing (ABC): allocare i costi indiretti in modo più preciso
+
+Nella Lezione 2 abbiamo ripartito i costi comuni di Verdi Srl (25.000 €) tra i due reparti in proporzione al fatturato (72%/28%) — un criterio semplice, ma non sempre il più preciso: un reparto può generare più "attività" (e quindi più costo indiretto reale) di quanto il suo solo fatturato suggerirebbe.
+
+L'**Activity Based Costing (ABC)** riparte i costi indiretti non in base a un driver generico (fatturato, ore di manodopera), ma in base alle **attività specifiche** che li generano, usando un driver più aderente alla causa reale del costo (numero di ordini, numero di resi, numero di consegne, ore di setup).
+
+📌 **Esempio pratico**: supponiamo che, oltre ai 25.000 € di costi comuni già visti nella Lezione 2, Verdi Srl sostenga un costo specifico di gestione resi pari a 10.000 €/anno, finora non ripartito. Il reparto A genera 40 resi/anno, il reparto B (nonostante il fatturato minore) ne genera 160, perché vende prodotti più soggetti a restituzione.
+
+> Ripartizione per fatturato (criterio semplice, 72%/28%): A = 7.200 €, B = 2.800 €
+> Ripartizione ABC (driver: numero di resi, 40/200 e 160/200): A = 2.000 €, B = **8.000 €**
+
+La differenza è enorme: il criterio semplice attribuirebbe al reparto B, già in perdita (Lezioni 2 e 4), un costo molto più basso di quello che genera davvero — nascondendo ulteriormente l'entità reale del problema visto nelle prime lezioni della guida.
+
+📌 **Punto chiave**: l'ABC non sostituisce la contabilità analitica di base (Lezione 2) — la rende più precisa nei casi in cui un singolo driver generico (il fatturato) distorce sistematicamente l'allocazione dei costi indiretti. Non serve applicarlo a ogni voce di costo: conviene concentrarlo sulle voci più rilevanti in valore, dove un'allocazione imprecisa avrebbe l'impatto maggiore sulle decisioni.
+
+---
+
+## Lezione 22 — La Balanced Scorecard: KPI oltre i numeri finanziari
+
+Tutti gli indici visti finora in questa guida — ROE, ROI, margine di contribuzione, DSO — sono indicatori **finanziari**, per definizione "a consuntivo": quando un indice finanziario peggiora, spesso il problema che lo ha causato esiste già da mesi. La **Balanced Scorecard** (Kaplan e Norton) affianca ai KPI finanziari altre tre prospettive, per intercettare i problemi prima che si trasformino in numeri finanziari negativi:
+
+1. **Prospettiva finanziaria** — gli indici già visti (Lezioni 7-9, 14).
+2. **Prospettiva clienti** — soddisfazione, fidelizzazione, tasso di resi/reclami.
+3. **Prospettiva dei processi interni** — efficienza operativa, tempi di evasione, qualità.
+4. **Prospettiva di apprendimento e crescita** — formazione, competenze, turnover del personale.
+
+📌 **Esempio pratico**: un cruscotto Balanced Scorecard semplificato per Verdi Srl:
+
+| Prospettiva | KPI | Valore |
+|---|---|---|
+| Finanziaria | ROE (Lezione 7) | 25% |
+| Clienti | Tasso di resi reparto B (Lezione 21) | 160/anno, in aumento |
+| Processi interni | Rotazione di magazzino (Lezione 14) | da monitorare vs anno precedente |
+| Apprendimento e crescita | Ore di formazione per dipendente (guida Sicurezza sul lavoro, Lezioni 5 e 10) | tracciate nello scadenzario |
+
+Il tasso di resi elevato nel reparto B (prospettiva clienti) è un segnale d'allarme che precede — e in parte spiega — la sua debolezza finanziaria già vista nella Lezione 2: agire su quel segnale operativo, prima che il risultato di reparto peggiori ulteriormente, è esattamente la logica della Balanced Scorecard.
+
+📌 **Punto chiave**: una Balanced Scorecard fatta bene non aggiunge KPI per il gusto di misurare di più — sceglie pochi indicatori per prospettiva, collegati causalmente ai risultati finanziari che si vogliono ottenere, così che un peggioramento nelle prospettive "non finanziarie" diventi un segnale di allerta anticipato, non una sorpresa scoperta solo a bilancio chiuso.
+
+---
+
+## Lezione 23 — L'analisi degli scostamenti di prezzo e di quantità: scomporre lo scostamento totale
+
+Nella Lezione 11 abbiamo visto, in modo qualitativo, che uno scostamento di budget può derivare da un effetto volume o da un effetto prezzo. Ora formalizziamo la scomposizione con due formule:
+
+> **Scostamento di quantità (volume) = (Quantità effettiva − Quantità a budget) × Prezzo a budget**
+> **Scostamento di prezzo = (Prezzo effettivo − Prezzo a budget) × Quantità effettiva**
+
+📌 **Esempio pratico**: riprendendo esattamente il caso della Lezione 11 — Verdi Srl aveva previsto 20.000 € di ricavi a marzo per il reparto A (budget: 200 pezzi a 100 €), consuntivando 17.000 € (180 pezzi venduti, a un prezzo medio effettivo di 17.000 ÷ 180 = 94,4 €).
+
+> Scostamento di quantità = (180 − 200) × 100 = **−2.000 €**
+> Scostamento di prezzo = (94,4 − 100) × 180 = **−1.000 €**
+> Scostamento totale = −2.000 + (−1.000) = **−3.000 €** ✓ (coerente con i 20.000 − 17.000 € visti nella Lezione 11)
+
+La scomposizione conferma quantitativamente quanto già indicato nella Lezione 11: la causa principale è il volume (−2.000 €, due terzi dello scostamento totale), non il prezzo (−1.000 €) — un'indicazione precisa su dove concentrare l'azione correttiva (più attività commerciale, più che una revisione della disciplina sugli sconti).
+
+📌 **Punto chiave**: la scomposizione numerica, non solo qualitativa, permette di quantificare il peso relativo delle due cause — utile soprattutto quando entrambe vanno nella stessa direzione (meno pezzi venduti *e* a prezzo più basso) e serve capire quale delle due pesa di più per decidere dove intervenire prima.
+
+---
+
+## Lezione 24 — Il controllo di gestione per commessa/progetto
+
+Tutta la guida, finora, ha seguito un controllo di gestione **per periodo** (mensile, trimestrale, annuale) su un'attività continuativa (i due reparti di Verdi Srl). Molte aziende — in particolare chi opera nell'edilizia, nell'impiantistica o nella consulenza (guida settoriale Edilizia) — lavorano invece prevalentemente **su commessa**: ogni progetto ha un proprio budget, una propria durata e un proprio margine, indipendentemente dal periodo contabile in cui viene eseguito.
+
+📌 **Esempio pratico**: supponiamo che Verdi Srl accetti occasionalmente commesse di allestimento scaffalature per clienti corporate, oltre alla vendita a catalogo dei due reparti. Una commessa viene preventivata a 25.000 €, con costi previsti (materiali, manodopera diretta, eventuale subappalto) di 18.000 € — margine di commessa atteso: 7.000 € (28%, in linea con il margine di contribuzione medio dell'azienda, Lezione 5). A metà dei lavori (50% di avanzamento fisico), i costi già sostenuti sono 12.000 €, cioè il 66,7% del totale previsto — più della metà attesa per quello stadio di avanzamento: un segnale di possibile sforamento da verificare subito, non a fine commessa quando ormai non si può più intervenire.
+
+📌 **Punto chiave**: la differenza chiave rispetto al controllo "per periodo" è che il confronto budget vs consuntivo (stessa logica della Lezione 11) va fatto **lungo la vita della commessa**, non a fine mese o fine anno — una commessa che dura sei mesi può attraversare due o tre chiusure contabili periodiche senza che nessuna di esse, da sola, mostri il problema in tempo utile.
+
+---
+
+## Lezione 25 — Caso pratico riassuntivo: il cruscotto di controllo di gestione di Verdi Srl
 
 Mettendo insieme tutta la guida, il cruscotto mensile che Verdi Srl usa ora:
 
@@ -327,6 +410,11 @@ Mettendo insieme tutta la guida, il cruscotto mensile che Verdi Srl usa ora:
 | 17 | Valutare un investimento (payback, cenni VAN) | Avanzato | 12 min |
 | 18 | Reporting direzionale | Avanzato | 8 min |
 | 19 | Errori comuni | Avanzato | 8 min |
-| 20 | Caso pratico riassuntivo | Avanzato | 14 min |
+| 20 | Full costing vs direct costing | Avanzato | 12 min |
+| 21 | Activity Based Costing (ABC) | Avanzato | 12 min |
+| 22 | La Balanced Scorecard | Avanzato | 10 min |
+| 23 | Scostamenti di prezzo e di quantità | Avanzato | 12 min |
+| 24 | Controllo di gestione per commessa | Avanzato | 10 min |
+| 25 | Caso pratico riassuntivo | Avanzato | 14 min |
 
-**Totale stimato**: ~220 minuti (~3h40) di video.
+**Totale stimato**: ~276 minuti (~4h36) di video.

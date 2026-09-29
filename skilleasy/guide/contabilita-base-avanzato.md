@@ -369,7 +369,97 @@ Questo tema è il ponte naturale verso il pilastro **Controllo di gestione** di 
 
 ---
 
-## Lezione 22 — Caso pratico riassuntivo: un mese di Verdi Srl
+## Lezione 22 — Il rendiconto finanziario (OIC 10): perché "utile" non è "cassa"
+
+Nella Lezione 19 abbiamo anticipato che un'azienda può avere un buon utile e restare comunque senza soldi in cassa. Il documento che spiega **esattamente perché**, con i numeri e non solo a parole, è il **rendiconto finanziario**, disciplinato dall'**OIC 10**. Non è un documento facoltativo: l'**art. 2425-ter del Codice Civile** lo rende obbligatorio per tutte le società che redigono il bilancio in forma ordinaria (ne sono esonerate le società in forma abbreviata ex art. 2435-bis e le micro-imprese ex art. 2435-ter c.c., che restano comunque libere di predisporlo per proprio uso interno).
+
+Il rendiconto riclassifica **tutti i movimenti di cassa** dell'anno (non i costi e i ricavi di competenza del Conto Economico) in tre aree, quasi sempre con il **metodo indiretto** (si parte dall'utile e lo si rettifica), che l'OIC 10 indica come il più diffuso nella prassi italiana:
+
+- **Flusso della gestione reddituale (operativa)** — utile, rettificato per gli ammortamenti (un costo che non è mai un'uscita di cassa, Lezione 13) e per la variazione di crediti, rimanenze e debiti.
+- **Flusso dell'attività di investimento** — acquisto o vendita di immobilizzazioni (es. il furgone della Lezione 13).
+- **Flusso dell'attività di finanziamento** — nuovi finanziamenti ricevuti, rimborsi di capitale, dividendi distribuiti.
+
+📌 **Esempio pratico**: Verdi Srl chiude l'anno con un utile netto di 15.000 € (lo stesso dato usato per l'esempio della contabilità analitica, Lezione 20), ammortamenti dell'anno per 4.000 € (Lezione 13) e crediti v/clienti aumentati di 8.000 € rispetto all'anno precedente (nessun nuovo investimento né finanziamento nell'anno).
+
+> Flusso di cassa operativo = 15.000 (utile) + 4.000 (ammortamenti, costo non monetario) − 8.000 (crediti aumentati, cassa non ancora incassata) = **11.000 €**
+
+📌 **Punto chiave**: 11.000 € di cassa generata contro 15.000 € di utile — la differenza (4.000 €) è proprio l'aumento dei crediti ancora da incassare. Per il calcolo completo con tutte e tre le aree e i KPI di incasso/pagamento costruiti sugli stessi numeri di Verdi Srl, la guida **Controllo di gestione** (Lezioni 13-14) riprende esattamente questo esempio e lo sviluppa nel dettaglio gestionale.
+
+🔖 **Nota OIC 10**: predisporre un rendiconto finanziario anche più spesso di una volta l'anno — a prescindere dall'obbligo di legge — è una delle abitudini più utili in assoluto per un'azienda: è lo strumento che segnala una crisi di liquidità in anticipo, spesso mesi prima che il Conto Economico mostri qualsiasi segnale negativo (lo stesso principio alla base degli indicatori di allerta precoce trattati nella guida **Crisi d'Impresa e Allerta Precoce**).
+
+---
+
+## Lezione 23 — La nota integrativa: cosa deve contenere e perché non è un allegato formale
+
+Molti pensano al bilancio come a "Stato Patrimoniale e Conto Economico" e basta. In realtà l'**art. 2423 del Codice Civile** è chiaro: il bilancio è composto da Stato Patrimoniale, Conto Economico, **nota integrativa** e (per le società non esonerate, Lezione 22) rendiconto finanziario — la nota integrativa è **parte integrante del bilancio**, con lo stesso valore legale degli schemi numerici, non un allegato di cortesia.
+
+Il suo contenuto obbligatorio è elencato dall'**art. 2427 c.c.** (la struttura pratica segue anche l'OIC 12, Lezione 17-18 di questa guida). Tra le informazioni più rilevanti:
+
+- **I criteri di valutazione adottati** — es. quale metodo si è scelto per le rimanenze tra costo specifico, FIFO o costo medio ponderato (Lezione 14): senza dichiararlo, nessuno può verificare se il criterio è stato applicato con costanza negli anni (postulato OIC 11, Lezione 2).
+- **Il dettaglio e i movimenti delle voci più aggregate** dello Stato Patrimoniale (es. la composizione del fondo svalutazione crediti, Lezione 12, o del fondo ammortamento, Lezione 13).
+- **Impegni, garanzie e rischi non risultanti dallo Stato Patrimoniale** — es. fideiussioni rilasciate a favore di terzi, che non compaiono tra i debiti ma sono un'informazione essenziale per chi valuta l'affidabilità dell'azienda.
+- **Compensi ad amministratori e sindaci**, numero medio dei dipendenti, informazioni sui rapporti con parti correlate.
+
+📌 **Esempio pratico**: nella propria nota integrativa, Verdi Srl dichiara di valutare le rimanenze a costo medio ponderato (Lezione 14) e riporta che il fondo svalutazione crediti (Lezione 12) è stato calcolato al 2% dei crediti totali sulla base dell'esperienza storica di incasso. Senza questa informazione, chi legge il bilancio vedrebbe solo i due numeri finali (8.000 € di rimanenze, 49.000 € di crediti netti) senza sapere **come** l'azienda è arrivata a quei valori, né se lo ha fatto in modo prudente e coerente con gli anni precedenti.
+
+📌 **Punto chiave**: due bilanci con identici numeri in Stato Patrimoniale e Conto Economico possono raccontare storie molto diverse se le note integrative dietro sono diverse (o assenti) — è per questo che un revisore legale o un analista di banca, prima ancora dei numeri, leggono sempre la nota integrativa. Le micro-imprese (art. 2435-ter c.c.) possono essere esonerate dalla nota integrativa vera e propria solo se forniscono le informazioni minime richieste in calce allo Stato Patrimoniale — un esonero parziale, non totale.
+
+---
+
+## Lezione 24 — Leasing finanziario: contabilizzazione e differenze rispetto all'acquisto diretto
+
+Nella Lezione 2 avevamo anticipato, parlando del postulato della **prevalenza della sostanza sulla forma**, che il leasing è l'esempio scolastico di questa regola. È il momento di vedere cosa succede davvero in pratica, perché per i bilanci civilistici italiani (a differenza degli standard internazionali IFRS 16, che capitalizzano sempre) si applica il cosiddetto **metodo patrimoniale**:
+
+- I **canoni di leasing** sono interamente un **costo a Conto Economico**, per competenza, esattamente come un affitto (Lezione 11).
+- Il bene **non compare nello Stato Patrimoniale** di chi lo utilizza durante la locazione: non è un'immobilizzazione, non genera un fondo ammortamento (Lezione 13), e il debito verso la società di leasing non compare tra i debiti (OIC 19).
+- Tuttavia, l'**art. 2427 n. 22 c.c.** impone di indicare in nota integrativa (Lezione 23) i dati **come se** il leasing fosse stato contabilizzato con il metodo finanziario (valore attuale dei canoni residui, quota interessi impliciti, effetto sul Patrimonio Netto e sul risultato) — un'informativa aggiuntiva pensata proprio per rendere il bilancio comparabile con uno redatto secondo i principi internazionali.
+
+📌 **Esempio pratico**: Verdi Srl valuta l'acquisto di un secondo furgone (oltre a quello della Lezione 13, valore 20.000 €) e confronta due strade.
+
+| | Leasing finanziario (5 anni, canone 400 €/mese + maxicanone iniziale 2.000 €) | Acquisto diretto (finanziato con mutuo) |
+|---|---|---|
+| Costo a Conto Economico nell'anno | Canoni (4.800 €) + quota di competenza del maxicanone (2.000 € ÷ 5 anni = 400 €) = **5.200 €** | Ammortamento 20.000 × 20% = **4.000 €** (Lezione 13) + interessi sul mutuo (separati) |
+| Il furgone compare nello Stato Patrimoniale? | No (metodo patrimoniale) | Sì, tra le immobilizzazioni, al netto del fondo ammortamento |
+| Il debito residuo compare nello Stato Patrimoniale? | No (solo in nota integrativa, art. 2427 n. 22) | Sì, tra i debiti verso banche (OIC 19) |
+
+📌 **Punto chiave**: il leasing non "cancella" il debito, lo sposta solo di forma contabile — dal punto di vista degli indici di bilancio (indebitamento, rapporto Patrimonio Netto/Attivo) un'azienda che finanzia i propri beni con il leasing può apparire meno indebitata di quanto lo sia sostanzialmente. È per questo che una banca informata, in fase di istruttoria, chiede sempre anche i canoni di leasing in corso, non si ferma ai debiti finanziari iscritti in bilancio (tema ripreso nella guida **Programmazione e Finanza** quando si calcola la Posizione Finanziaria Netta).
+
+---
+
+## Lezione 25 — Le operazioni in valuta estera e la gestione delle differenze cambio
+
+Un'azienda che fattura o acquista in una valuta diversa dall'euro (tipicamente il dollaro USA) deve gestire un problema che le operazioni interne non hanno: il **cambio cambia nel tempo** tra il giorno dell'operazione e il giorno dell'incasso o del pagamento. La regola, disciplinata dall'**OIC 26**, prevede due momenti distinti:
+
+1. **Alla rilevazione iniziale**, il credito o debito in valuta si registra convertendolo al cambio del giorno dell'operazione.
+2. **A fine esercizio** (art. 2426, comma 8-bis, c.c.), i crediti e debiti in valuta ancora aperti si **riconvertono al cambio a pronti di chiusura**: la differenza rispetto al valore storicamente registrato è una **differenza cambio**, che va interamente a Conto Economico (tra i proventi o gli oneri finanziari) nell'esercizio in corso — anche se il credito non è ancora stato incassato.
+
+Questa è una delle poche vere eccezioni al postulato della prudenza (Lezione 2): si può registrare un utile su cambi non ancora realizzato. Per bilanciare l'eccezione, se dalla valutazione di fine anno emerge un **utile netto complessivo** su cambi, una quota di pari importo dell'utile dell'esercizio va **accantonata in una riserva non distribuibile** fino a quando l'utile non si realizza davvero (incasso, vendita del credito).
+
+📌 **Esempio pratico**: Verdi Srl vende merce a un cliente statunitense per 10.000 USD il 1° novembre, quando il cambio è 1 EUR = 1,05 USD: registra un credito e un ricavo di 10.000 ÷ 1,05 = **9.524 €**. Al 31 dicembre il cambio è sceso a 1 EUR = 1,00 USD: lo stesso credito di 10.000 USD, riconvertito al cambio di chiusura, vale ora **10.000 €**.
+
+> Differenza cambio attiva = 10.000 − 9.524 = **476 €**, iscritta a Conto Economico tra i proventi finanziari dell'anno, anche se il cliente non ha ancora pagato.
+
+📌 **Punto chiave**: le differenze cambio non realizzate aumentano l'utile civilistico ma **non sono cassa** — esattamente il tema della Lezione 22 di questa guida. Un'azienda che fattura una quota significativa del proprio fatturato in valuta estera deve monitorare l'esposizione al cambio come una voce a parte, non solo guardare l'utile di bilancio. Per gli aspetti IVA delle cessioni e prestazioni verso clienti esteri (fatturazione, reverse charge, esportazioni), la guida **IVA Avanzata** tratta l'argomento in modo specifico e non lo ripetiamo qui.
+
+---
+
+## Lezione 26 — Cenni al bilancio consolidato: quando un gruppo di società è obbligato a redigerlo
+
+Quando un'azienda cresce fino a controllare una o più altre società (rapporto di controllo ai sensi dell'**art. 2359 c.c.**), la capogruppo può essere obbligata, oltre al proprio bilancio d'esercizio, a redigere anche un **bilancio consolidato**: un documento che rappresenta la situazione economica, patrimoniale e finanziaria dell'intero gruppo **come se fosse un'unica azienda**, disciplinato dal **D.Lgs. 127/1991** e, nella sua tecnica di redazione, dall'**OIC 17**.
+
+L'obbligo non è automatico per ogni gruppo: esistono esoneri per i cosiddetti "piccoli gruppi" che non superano, per due esercizi consecutivi, determinati limiti dimensionali complessivi (totale attivo, ricavi, numero medio di dipendenti del gruppo) — parametri concettualmente simili a quelli che distinguono bilancio ordinario, abbreviato e micro-impresa per la singola società (Lezione 23), ma riferiti alla somma delle società del gruppo.
+
+Tecnicamente, il consolidamento più diffuso è quello **integrale**: si sommano voce per voce i bilanci delle singole società del gruppo, e si **eliminano ("elidono") i rapporti infragruppo** — vendite tra società dello stesso gruppo, crediti e debiti reciproci — perché altrimenti il fatturato e i valori patrimoniali del gruppo risulterebbero gonfiati da operazioni che, dal punto di vista del gruppo nel suo complesso, non sono mai uscite "verso l'esterno".
+
+📌 **Esempio pratico**: ipotizziamo che Verdi Srl, dopo una fase di crescita (guida **Gestione aziendale**), costituisca una società collegata, "Verdi Attrezzi Srl", a cui conferisce il reparto B (attrezzi, Lezione 20), detenendone il 100% delle quote. Se il gruppo così formato supera le soglie dimensionali previste, Verdi Srl (capogruppo) dovrà redigere anche un bilancio consolidato che sommi i dati delle due società, eliminando le eventuali vendite di merce che Verdi Srl effettua verso Verdi Attrezzi Srl e viceversa.
+
+📌 **Punto chiave**: il bilancio consolidato **non sostituisce** il bilancio della singola società, che resta comunque obbligatorio e viene depositato separatamente — lo affianca, per dare a chi legge (soci, banche, fisco) una fotografia corretta del gruppo nel suo complesso, non distorta dalle operazioni che le società del gruppo si scambiano tra loro.
+
+🔖 **Nota**: le soglie dimensionali che fanno scattare l'obbligo (o l'esonero per i piccoli gruppi) cambiano nel tempo con la normativa, esattamente come le soglie fiscali viste nella guida **Fisco** — vanno sempre riverificate all'atto pratico con il proprio commercialista o revisore prima di concludere se un gruppo è obbligato o esonerato.
+
+---
+
+## Lezione 27 — Caso pratico riassuntivo: un mese di Verdi Srl
 
 Mettiamo insieme tutto quello visto finora in un caso unico. Nel mese di marzo, Verdi Srl registra queste operazioni:
 
@@ -414,6 +504,11 @@ Mettiamo insieme tutto quello visto finora in un caso unico. Nel mese di marzo, 
 | 19 | 5 numeri da guardare nel bilancio | Avanzato | — | 10 min |
 | 20 | Introduzione alla contabilità analitica | Avanzato | — | 10 min |
 | 21 | Errori comuni | Avanzato | — | 8 min |
-| 22 | Caso pratico riassuntivo | Avanzato | — | 16 min |
+| 22 | Il rendiconto finanziario | Avanzato | OIC 10 | 12 min |
+| 23 | La nota integrativa | Avanzato | OIC 12 | 10 min |
+| 24 | Leasing finanziario | Avanzato | — | 12 min |
+| 25 | Operazioni in valuta estera e differenze cambio | Avanzato | OIC 26 | 12 min |
+| 26 | Cenni al bilancio consolidato | Avanzato | OIC 17 | 10 min |
+| 27 | Caso pratico riassuntivo | Avanzato | — | 16 min |
 
-**Totale stimato**: ~234 minuti (~3h55) di video — coerente con corsi strutturati "da zero ad avanzato" analoghi già presenti sul mercato (§2.3 del documento di analisi principale), ma con l'aggancio pratico, i riferimenti normativi OIC precisi e l'attestato che i concorrenti generalisti non offrono.
+**Totale stimato**: ~290 minuti (~4h50) di video — coerente con corsi strutturati "da zero ad avanzato" analoghi già presenti sul mercato (§2.3 del documento di analisi principale), ma con l'aggancio pratico, i riferimenti normativi OIC precisi e l'attestato che i concorrenti generalisti non offrono.

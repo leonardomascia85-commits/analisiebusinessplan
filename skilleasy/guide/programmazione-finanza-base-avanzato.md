@@ -264,7 +264,81 @@ Dall'11 gennaio 2026 sono pienamente applicabili alle banche europee le nuove Li
 
 ---
 
-## Lezione 20 — Caso pratico riassuntivo: il business plan di Verdi Srl per il nuovo punto vendita
+## Lezione 20 — Il factoring e l'anticipo fatture: come funzionano e quando convengono
+
+Il **factoring** è già stato citato nella Lezione 13 come una delle forme di finanziamento disponibili: cedere i propri crediti verso clienti a un intermediario (la "società di factoring") per anticipare la cassa invece di aspettare i termini di pagamento naturali. Approfondiamo come funziona davvero.
+
+Due varianti principali:
+
+- **Pro solvendo**: il rischio di insolvenza del cliente resta a carico dell'azienda cedente (Verdi Srl) — se il cliente non paga, il factor si rivale su Verdi Srl. Costo più basso.
+- **Pro soluto**: il rischio di insolvenza passa al factor, che lo valuta prima di accettare il credito. Costo più alto, ma protegge davvero l'azienda cedente.
+
+In entrambi i casi, il factor anticipa tipicamente l'80-90% del valore nominale della fattura, trattenendo il resto come garanzia fino all'incasso, e applica una commissione più un tasso di interesse sull'anticipo.
+
+📌 **Esempio pratico**: Verdi Srl ha Crediti v/clienti per 45.000 € e un DSO reale di 66 giorni, contro termini contrattuali di 30 (guida Controllo di gestione, Lezione 14). Decide di cedere pro soluto 20.000 € di fatture scadute da oltre 60 giorni, ottenendo un anticipo dell'85% (17.000 € subito), a fronte di una commissione del 2% (400 €) più gli interessi sull'anticipo. Il costo va confrontato non con "zero", ma con il costo-opportunità reale della liquidità mancante — ad esempio il tasso di un fido di cassa alternativo (Lezione 13), o il margine perso su vendite non concluse per mancanza di cassa disponibile.
+
+📌 **Punto chiave**: il factoring non è "un segnale di difficoltà" in sé — è uno strumento per trasformare in cassa un attivo (i crediti) che altrimenti resta immobilizzato per settimane. Conviene tanto più quanto più alto è il DSO reale dell'azienda rispetto ai termini contrattuali concordati, ed è particolarmente utile quando i clienti ceduti hanno un buon merito creditizio (condizione che il factor stesso verifica, soprattutto nel pro soluto).
+
+---
+
+## Lezione 21 — Il crowdfunding e i mini-bond per le PMI: alternative al credito bancario
+
+Oltre al canale bancario tradizionale (Lezioni 13-14) e al factoring (Lezione 20), esistono strumenti di finanziamento alternativi, nati soprattutto negli ultimi quindici anni:
+
+- **Equity crowdfunding**: raccolta di capitale di rischio (non debito) tramite portali online autorizzati, in cambio di una quota societaria — una platea diffusa di piccoli investitori sostituisce il singolo socio o la banca.
+- **Lending crowdfunding (P2P lending)**: prestiti erogati da una pluralità di prestatori privati tramite piattaforma online, con logica simile a un finanziamento bancario ma processo di istruttoria diverso.
+- **Mini-bond**: titoli di debito emessi direttamente dalla PMI (anche non quotata), sottoscritti da investitori istituzionali o professionali, spesso in forma aggregata (Basket Bond) e talvolta assistiti da una garanzia parziale del Fondo di Garanzia PMI (Lezione 14).
+
+📌 **Esempio pratico**: Verdi Srl, per un'espansione più ambiziosa del solo nuovo punto vendita (Lezione 11) — ad esempio l'apertura di più negozi in pochi anni — valuta l'emissione di un mini-bond come alternativa al solo canale bancario. Nella pratica, però, la taglia minima tipica di un'emissione di mini-bond (spesso a partire da alcune centinaia di migliaia di euro, con costi di emissione fissi non trascurabili) la rende conveniente solo per fabbisogni ben superiori al mutuo di 35.000 € già visto: per un fabbisogno di quella entità resta più efficiente il canale bancario tradizionale con garanzia del Fondo PMI.
+
+📌 **Punto chiave**: questi strumenti sono complementari, non sostitutivi, al credito bancario — e richiedono comunque un business plan solido (Lezioni 7-12) e una trasparenza sui numeri spesso più stringente di una normale istruttoria bancaria, perché ci si rivolge a una platea di investitori esterni invece che a un singolo interlocutore che già conosce l'azienda.
+
+---
+
+## Lezione 22 — La valutazione d'azienda: cenni sui metodi principali
+
+Sapere quanto "vale" un'azienda serve in molte situazioni: una cessione, l'ingresso di un nuovo socio, un passaggio generazionale (guida Passaggio generazionale), la richiesta di un finanziamento importante. I tre approcci principali usati nella prassi professionale italiana:
+
+- **Metodo patrimoniale**: il valore corrisponde al Patrimonio Netto **rettificato** a valori correnti (non ai valori storici di bilancio) — es. un immobile iscritto al costo storico ammortizzato ma con un valore di mercato più alto.
+- **Metodo reddituale**: il valore è dato dall'attualizzazione dei redditi futuri attesi, con un tasso che riflette il rischio dell'attività — la stessa logica di attualizzazione già vista per il VAN (guida Controllo di gestione, Lezione 17), applicata all'intera azienda invece che al singolo investimento.
+- **Metodo misto (patrimoniale-reddituale)**: combina i due, spesso calcolando un avviamento come extra-reddito rispetto al solo valore patrimoniale — l'approccio più diffuso nella prassi professionale italiana, perché bilancia i limiti di entrambi i metodi puri.
+
+📌 **Esempio pratico (semplificato)**: valutazione di Verdi Srl con i tre metodi.
+
+> Patrimoniale: Patrimonio Netto contabile 60.000 € (guida Controllo di gestione, Lezione 9), rettificato per un plusvalore latente sull'immobile di magazzino di 40.000 € → **100.000 €**
+> Reddituale: Reddito Operativo medio atteso 22.000 €/anno, capitalizzato a un tasso del 10% (che riflette il rischio del settore) → 22.000 ÷ 0,10 = **220.000 €**
+> Misto (media semplice dei due, per semplicità): (100.000 + 220.000) ÷ 2 = **160.000 €**
+
+📌 **Punto chiave**: nessun metodo è "quello giusto" in assoluto. Il patrimoniale è più oggettivo ma ignora la capacità dell'azienda di generare reddito futuro; il reddituale è più previsionale ma molto sensibile alle ipotesi scelte (tasso di attualizzazione, redditi attesi) — due valutatori con ipotesi leggermente diverse possono arrivare a valori anche molto distanti. Per questo, nella prassi, si preferisce quasi sempre un metodo misto, e si dichiarano sempre esplicitamente le ipotesi usate.
+
+---
+
+## Lezione 23 — Il private equity e il venture capital: quando hanno senso per una PMI
+
+Private equity e venture capital sono entrambi capitale di rischio (non debito): un fondo entra nel capitale sociale dell'azienda, diventandone socio, in cambio di un apporto di liquidità — la differenza principale è la fase di vita dell'azienda a cui si rivolgono.
+
+- **Venture capital**: investe in startup o aziende molto giovani, ad alto potenziale di crescita ma spesso senza ancora utili consolidati — il rischio (e il rendimento atteso) è più alto.
+- **Private equity**: investe in aziende già mature, con l'obiettivo di accelerarne la crescita, ristrutturarle, o accompagnare un'operazione straordinaria (fusione, passaggio generazionale, uscita di un socio).
+
+📌 **Esempio pratico**: si immagini che Verdi Srl, invece del solo nuovo punto vendita (Lezione 11), pianifichi un'espansione molto più rapida — cinque nuovi negozi in tre anni, per un investimento complessivo stimato di 500.000 €. A quei volumi, il solo debito bancario diventerebbe difficile da sostenere: il DSCR proiettato (Lezione 3) scenderebbe probabilmente sotto la soglia di sicurezza vista nella Lezione 3, perché le rate di più mutui contemporanei assorbirebbero una quota crescente del flusso di cassa. In un caso così, un fondo di private equity che entra con una quota di minoranza apporterebbe capitale di rischio invece di ulteriore debito, **riducendo** la leva finanziaria (Lezione 15) invece di aumentarla.
+
+📌 **Punto chiave**: accettare capitale di private equity o venture capital significa accettare la diluizione della proprietà e un socio che partecipa alle decisioni strategiche — una scelta che va ben oltre l'aspetto puramente finanziario, e che per una PMI a conduzione familiare come Verdi Srl ha senso solo in scenari specifici: una crescita che il debito non potrebbe sostenere, oppure un passaggio generazionale complesso in cui il fondo accompagna l'uscita ordinata di un socio (guida Passaggio generazionale).
+
+---
+
+## Lezione 24 — La gestione della tesoreria e il cash pooling nei gruppi di società
+
+Oltre alla pianificazione finanziaria di medio periodo vista nelle Lezioni 10-12 (proiezioni a 3 anni), un'azienda ha bisogno di una **gestione di tesoreria** quotidiana o settimanale: prevedere gli incassi e i pagamenti nel brevissimo termine, per non trovarsi a corto di cassa da un giorno all'altro, anche quando le proiezioni annuali sono positive.
+
+Nei **gruppi di società** (più società collegate, come può accadere dopo un passaggio generazionale con una holding, guida Passaggio generazionale), una tecnica diffusa è il **cash pooling**: la liquidità di tutte le società del gruppo confluisce in un unico conto accentrato, che compensa automaticamente le eccedenze di una società con i fabbisogni di un'altra, riducendo il ricorso complessivo al credito bancario di gruppo e gli interessi complessivamente pagati.
+
+📌 **Esempio pratico**: se Verdi Srl, crescendo, arrivasse a costituire più società distinte (ad esempio una società immobiliare separata per i punti vendita di proprietà), il cash pooling permetterebbe di compensare il surplus di cassa di un negozio ormai maturo con il fabbisogno di uno appena aperto — che, come visto nella Lezione 12, assorbe cassa nei primi mesi di attività — evitando che la società più giovane debba aprire un proprio fido bancario a condizioni meno favorevoli, mentre il gruppo nel suo complesso ha liquidità sufficiente.
+
+📌 **Punto chiave**: la gestione di tesoreria non è solo "controllare il saldo in banca" — è un processo attivo di previsione a brevissimo termine che anticipa i fabbisogni prima che diventino un problema, esattamente come fa il Cash Flow previsionale (Lezione 12) su un orizzonte pluriennale ma applicato a un orizzonte operativo molto più ravvicinato (giorni o settimane).
+
+---
+
+## Lezione 25 — Caso pratico riassuntivo: il business plan di Verdi Srl per il nuovo punto vendita
 
 Mettendo insieme tutta la guida, la richiesta di finanziamento di Verdi Srl si presenta così:
 
@@ -301,9 +375,14 @@ Mettendo insieme tutta la guida, la richiesta di finanziamento di Verdi Srl si p
 | 17 | Errori che fanno saltare un finanziamento | Avanzato | 8 min |
 | 18 | I criteri ESG nel credito | Avanzato | 8 min |
 | 19 | Errori comuni in banca | Avanzato | 8 min |
-| 20 | Caso pratico riassuntivo | Avanzato | 16 min |
+| 20 | Factoring e anticipo fatture | Avanzato | 10 min |
+| 21 | Crowdfunding e mini-bond per le PMI | Avanzato | 10 min |
+| 22 | La valutazione d'azienda | Avanzato | 12 min |
+| 23 | Private equity e venture capital | Avanzato | 10 min |
+| 24 | Tesoreria e cash pooling | Avanzato | 10 min |
+| 25 | Caso pratico riassuntivo | Avanzato | 16 min |
 
-**Totale stimato**: ~210 minuti (~3h30) di video.
+**Totale stimato**: ~262 minuti (~4h22) di video.
 
 ---
 
@@ -313,5 +392,6 @@ Mettendo insieme tutta la guida, la richiesta di finanziamento di Verdi Srl si p
 - Linee Guida EBA/GL/2025/01 (rischi ESG nel credito, in vigore dall'11 gennaio 2026)
 - Formula Altman Z'-Score per aziende non quotate (letteratura finanziaria consolidata)
 - Regole e percentuali di copertura del Fondo di Garanzia PMI 2026 (circolare Mediocredito Centrale, proroga confermata per tutto il 2026)
+- Disciplina dei mini-bond (D.L. 83/2012 conv. L. 134/2012 e successive modifiche) ed equity crowdfunding (Regolamento Consob sulla raccolta di capitali tramite portali online)
 
-Ricontrollate al 26/09/2026 tramite ricerca web mirata: come per le guide Fisco e Gestione aziendale, le percentuali di garanzia pubblica e i riferimenti normativi vanno riverificati a ogni utilizzo reale.
+Ricontrollate al 26/09/2026 tramite ricerca web mirata: come per le guide Fisco e Gestione aziendale, le percentuali di garanzia pubblica e i riferimenti normativi vanno riverificati a ogni utilizzo reale. I metodi di valutazione d'azienda (Lezione 22) e i tassi/parametri usati negli esempi sono cenni didattici semplificati, non una perizia di stima: una valutazione reale richiede sempre un professionista abilitato.

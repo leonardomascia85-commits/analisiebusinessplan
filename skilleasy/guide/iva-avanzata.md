@@ -129,10 +129,50 @@ Oltre alle liquidazioni periodiche (mensili o trimestrali, guida Contabilità Le
 2. **Confondere non imponibilità ed esenzione** (Lezione 2), con impatti sbagliati sulla detrazione.
 3. **Ignorare la soglia OSS** (Lezione 9) fino a scoprirla superata da tempo, con l'obbligo retroattivo di regolarizzare l'IVA nei paesi di destinazione.
 4. **Applicare il reverse charge dove non spetta, o non applicarlo dove spetta** (Lezioni 5-6) — entrambi gli errori generano contestazioni in caso di controllo.
+5. **Detrarre per intero l'IVA su acquisti promiscui** senza calcolare il pro-rata quando si svolgono anche attività esenti (Lezione 15).
+6. **Emettere una nota di variazione per mancato pagamento** senza che si siano verificate le condizioni di legge richieste (Lezione 16).
 
 ---
 
-## Lezione 14 — Caso pratico riassuntivo: Verdi Srl vende all'estero
+## Lezione 14 — Il Gruppo IVA: cos'è, requisiti e quando conviene a un gruppo di società
+
+Il **Gruppo IVA** (artt. 70-bis e seguenti del DPR 633/1972) è un istituto che permette a più soggetti giuridicamente distinti, ma legati da vincoli finanziari, economici e organizzativi definiti dalla legge, di essere considerati **un unico soggetto passivo IVA**. Conseguenza pratica: le operazioni tra le società del gruppo diventano fuori campo IVA (non generano né IVA a debito né IVA a credito), mentre verso l'esterno il gruppo opera con un'unica partita IVA e un'unica liquidazione periodica (guida Contabilità, Lezione 7).
+
+I requisiti principali sono tre e devono coesistere: un **vincolo finanziario** stabile (tipicamente un controllo ai sensi dell'art. 2359 c.c., in essere da almeno due anni), un **vincolo economico** (attività complementari o comunque di reciproco interesse) e un **vincolo organizzativo** (coordinamento tra gli organi decisionali). L'opzione, inoltre, va esercitata da **tutte** le società del gruppo che soddisfano i requisiti insieme — non si può scegliere di farne entrare solo alcune ("all in, all out").
+
+📌 **Esempio pratico**: se in futuro Verdi Srl costituisse una società collegata per gestire separatamente l'e-commerce (Lezione 9), il Gruppo IVA avrebbe senso solo se il vincolo di controllo dura da almeno due anni e se tra le due società circolano regolarmente servizi o beni di importo rilevante (es. logistica condivisa, locazione degli spazi) — per una singola PMI senza controllate, resta un'opzione futura, non un tema per l'oggi.
+
+📌 **Punto chiave**: il Gruppo IVA non è solo un vantaggio di semplificazione — comporta anche la **responsabilità solidale** tra tutte le società partecipanti per i debiti IVA del gruppo nel suo complesso, quindi la decisione va valutata insieme al commercialista guardando anche ai rischi, non solo ai benefici di liquidità e di gestione infragruppo.
+
+---
+
+## Lezione 15 — La detrazione IVA: pro-rata e limitazioni per chi svolge sia attività imponibili che esenti
+
+Come visto alla Lezione 2, le operazioni **esenti** non danno diritto a detrarre l'IVA sugli acquisti correlati. Quando un'azienda svolge **sia** attività che danno diritto alla detrazione (imponibili, non imponibili) **sia** attività esenti, l'IVA sugli acquisti "promiscui" — usati indistintamente per entrambe le attività — non si detrae per intero, ma applicando una percentuale, il **pro-rata di detraibilità** (art. 19, comma 5, e art. 19-bis DPR 633/1972): il rapporto tra il volume d'affari delle operazioni che danno diritto a detrazione e il volume d'affari complessivo dell'anno.
+
+In alternativa al pro-rata generale (che si applica a tutti gli acquisti dell'anno), un'azienda può optare per la **contabilità separata per attività** (art. 36 DPR 633/1972), tenendo conti IVA distinti per l'attività imponibile e per quella esente — spesso conveniente quando l'attività esente è marginale, per non "diluire" inutilmente la detrazione su tutti gli acquisti comuni.
+
+📌 **Esempio pratico**: se Verdi Srl, oltre alla vendita di materiali edili (imponibile), affittasse anche una porzione del proprio capannone con un contratto di locazione esente da IVA, un costo comune come le utenze generali sarebbe detraibile solo in parte. Con un volume d'affari imponibile di 950.000 € e uno esente di 50.000 € (totale 1.000.000 €), il pro-rata è 95%: su 10.000 € di IVA a credito relativa a costi comuni, solo 9.500 € risulterebbero detraibili.
+
+📌 **Punto chiave**: la scelta tra pro-rata generale e contabilità separata (art. 36) va valutata insieme al commercialista guardando ai numeri reali dell'azienda — non è una scelta neutra, incide direttamente sull'IVA effettivamente recuperabile ogni anno, esattamente come la corretta liquidazione periodica vista alla Lezione 10.
+
+---
+
+## Lezione 16 — Le note di variazione IVA: casi pratici (resi, sconti, mancati pagamenti)
+
+La **nota di variazione IVA** (art. 26 DPR 633/1972) permette di rettificare, in aumento o in diminuzione, l'imponibile e l'IVA di una fattura già emessa, quando successivamente si verifica un evento che ne modifica l'importo. I casi più frequenti per una PMI:
+
+- **Reso di merce**: il cliente restituisce beni difettosi o non conformi → nota di credito che riduce sia l'imponibile sia l'IVA corrispondente.
+- **Sconto concordato dopo la fattura** (es. uno sconto quantità riconosciuto a fine anno): nota di variazione in diminuzione per l'importo dello sconto e la relativa IVA.
+- **Mancato pagamento del cliente**: la nota di variazione in diminuzione è ammessa, alle condizioni previste dalla legge, dall'apertura di una procedura concorsuale a carico del debitore (senza dover più attendere, come in passato, l'esito infruttuoso della procedura) oppure, per il mancato pagamento "ordinario", al termine di una procedura esecutiva individuale rimasta infruttuosa — le regole sono state più volte semplificate nel tempo.
+
+📌 **Esempio pratico**: Verdi Srl vende una fornitura di materiali per 12.200 € (10.000 € + IVA 22%, pari a 2.200 €). Il cliente restituisce parte della merce per un valore di 2.000 € + IVA 440 €: Verdi Srl emette una nota di credito di 2.440 €, riducendo sia i ricavi imponibili sia l'IVA a debito del periodo di 440 €.
+
+📌 **Punto chiave**: la nota di variazione per mancato pagamento non è automatica al primo ritardo — richiede che si verifichi una delle condizioni di legge (apertura di una procedura concorsuale, o l'esito infruttuoso di una procedura esecutiva individuale). Confondere "il cliente non paga da mesi" con "posso emettere subito la nota di credito" è un errore comune quanto costoso; nel frattempo, il ritardo va comunque monitorato tra i KPI di incasso (DSO, guida Controllo di gestione, Lezione 14).
+
+---
+
+## Lezione 17 — Caso pratico riassuntivo: Verdi Srl vende all'estero
 
 Verdi Srl, nell'ambito della propria crescita (guida Programmazione e Finanza), inizia a operare su più fronti:
 
@@ -140,6 +180,7 @@ Verdi Srl, nell'ambito della propria crescita (guida Programmazione e Finanza), 
 2. **Una fornitura in subappalto con posa in opera** per un'impresa edile italiana: reverse charge edilizia (Lezione 6).
 3. **Un nuovo e-commerce** (guida Marketing Digitale) che vende anche a privati in Francia: sotto i 10.000 €/anno, IVA italiana; superata la soglia, passaggio al regime OSS (Lezione 9).
 4. **Dichiarazione IVA annuale** che riepiloga tutte queste componenti in un unico quadro coerente (Lezione 12).
+5. **Un cliente in difficoltà finanziaria** che non paga una fornitura: se venisse aperta una procedura concorsuale a suo carico, Verdi Srl valuterebbe una nota di variazione in diminuzione alle condizioni previste dalla legge (Lezione 16), monitorando nel frattempo il ritardo tra i propri KPI di incasso.
 
 📌 **Se hai seguito la guida fin qui**: hai gli strumenti per riconoscere quale regime IVA si applica a ciascun tipo di operazione internazionale — il principio che le tiene insieme è sempre lo stesso: prima di fatturare, chiediti sempre "chi è il cliente, dov'è, e cosa gli sto vendendo davvero" (bene o servizio, a un'azienda o a un privato) prima di decidere se e come applicare l'IVA.
 
@@ -162,9 +203,12 @@ Verdi Srl, nell'ambito della propria crescita (guida Programmazione e Finanza), 
 | 11 | Il plafond per gli esportatori abituali | Avanzato | 10 min |
 | 12 | Dichiarazione IVA annuale | Avanzato | 8 min |
 | 13 | Errori comuni | Avanzato | 8 min |
-| 14 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 14 | Il Gruppo IVA | Avanzato | 10 min |
+| 15 | La detrazione IVA: pro-rata e limitazioni | Avanzato | 12 min |
+| 16 | Le note di variazione IVA | Avanzato | 10 min |
+| 17 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~120 minuti (~2h) di video.
+**Totale stimato**: ~152 minuti (~2h45) di video.
 
 ---
 
@@ -173,5 +217,8 @@ Verdi Srl, nell'ambito della propria crescita (guida Programmazione e Finanza), 
 - DPR 633/1972 (disciplina IVA)
 - Regime del reverse charge in edilizia
 - Regime OSS (One Stop Shop) e soglia dei 10.000 € per le vendite a distanza intracomunitarie, con le modifiche tecniche previste dal 2027
+- Artt. 70-bis – 70-duodecies DPR 633/1972 (Gruppo IVA), introdotti in attuazione della Direttiva 2006/112/CE, art. 11
+- Artt. 19, comma 5, 19-bis e 36 DPR 633/1972 (pro-rata di detrazione e contabilità separata per attività)
+- Art. 26 DPR 633/1972 (note di variazione), incluse le semplificazioni per il mancato pagamento in presenza di procedure concorsuali
 
-Ricontrollate al 26/09/2026 tramite ricerca web mirata.
+Ricontrollate al 26/09/2026 tramite ricerca web mirata; riferimenti su Gruppo IVA, pro-rata e note di variazione aggiunti e verificati al 29/09/2026.

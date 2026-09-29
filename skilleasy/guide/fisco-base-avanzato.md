@@ -277,7 +277,49 @@ Ogni fine anno, la **Legge di Bilancio** può modificare aliquote, soglie, deduz
 
 ---
 
-## Lezione 20 — Caso pratico riassuntivo: da Marco Bruni forfettario a una possibile Srl
+## Lezione 20 — Il redditometro e gli accertamenti sintetici: come funzionano
+
+Oltre ai controlli visti nella Lezione 16, esiste uno strumento specifico riservato alle **persone fisiche**: l'**accertamento sintetico** (comunemente detto **redditometro**, art. 38, commi 4 e seguenti, DPR 600/1973). Invece di partire dalla dichiarazione dei redditi, l'Agenzia delle Entrate ricostruisce il reddito presunto di una persona a partire dalle sue **spese e manifestazioni di capacità contributiva** — immobili, auto, viaggi, polizze — quando emerge uno scostamento significativo tra quanto dichiarato e quanto, di fatto, la persona sembra spendere.
+
+Prima di emettere l'accertamento, la legge impone un **contraddittorio preventivo obbligatorio**: il contribuente può giustificare lo scostamento con redditi esenti o già tassati alla fonte, disinvestimenti, prestiti da familiari documentati, o risparmi accumulati negli anni precedenti.
+
+📌 **Esempio pratico**: Marco Bruni, come persona fisica, dichiara un reddito imponibile di 15.000 € in un anno, ma acquista un'auto nuova da 40.000 € e sostiene spese significative per una seconda casa. Lo scostamento tra reddito dichiarato e capacità di spesa può attivare un controllo sintetico. Se Marco dimostra, con documenti, che l'acquisto è stato finanziato con i risparmi accumulati negli anni precedenti di attività da forfettario (Lezione 4) e con un prestito familiare tracciabile, l'accertamento sintetico viene superato già in sede di contraddittorio.
+
+📌 **Punto chiave**: il redditometro non guarda "quanto guadagni", guarda "quanto spendi rispetto a quanto dichiari" — per questo conservare la documentazione di ogni fonte di provvista (eredità, donazioni, vendite di beni, prestiti) è utile anche per chi non ha nulla da nascondere: è l'unico modo per giustificare, se richiesto, uno scostamento che in realtà ha una spiegazione del tutto lecita. Lo strumento riguarda le persone fisiche: per le società come Verdi Srl restano applicabili le forme di controllo della Lezione 16.
+
+---
+
+## Lezione 21 — I crediti d'imposta e la loro compensazione in F24: attenzione ai limiti annui
+
+Molti crediti d'imposta (per investimenti in beni strumentali, ricerca e sviluppo, formazione — la guida **Agevolazioni e Bandi PMI** li tratta nel dettaglio) si utilizzano in **compensazione nel modello F24**: si scalano direttamente dalle imposte e dai contributi da versare, senza dover attendere un rimborso. Ma la compensazione "orizzontale" (tra tributi diversi, es. un credito IVA usato per pagare l'IRES) è soggetta a un **plafond annuo complessivo** fissato per legge, che si calcola sommando **tutti** i crediti compensati nell'anno, qualunque sia la loro origine — oltre a obblighi di preventiva presentazione della dichiarazione da cui il credito emerge e, sopra determinate soglie, al **visto di conformità** di un professionista abilitato.
+
+📌 **Esempio pratico**: Verdi Srl matura nell'anno un credito IVA di 30.000 € (Lezione 6 della guida Contabilità) e un credito d'imposta per investimenti in beni strumentali di 20.000 € (guida Agevolazioni e Bandi PMI). Se nello stesso anno Verdi Srl ha già utilizzato il plafond di compensazione disponibile per altri 40.000 € di crediti, la parte eccedente il plafond residuo **non può essere compensata nell'anno in corso**: va riportata all'anno successivo (o richiesta a rimborso, se ne ricorrono i presupposti) — un vincolo di cassa spesso sottovalutato da chi pianifica la liquidità guardando solo "quanto credito ho", non "quanto posso effettivamente compensare quest'anno".
+
+📌 **Punto chiave**: avere un credito d'imposta non equivale ad avere liquidità disponibile subito. Se il plafond annuo è già saturo, il credito resta "sulla carta" fino all'anno successivo: pianificare in anticipo l'ordine di utilizzo dei crediti (di norma iniziando da quelli con scadenza più vicina) evita di perderne il beneficio o di doverlo rinviare quando servirebbe davvero.
+
+---
+
+## Lezione 22 — Il regime forfettario e i limiti sui dipendenti/collaboratori: una causa di esclusione poco conosciuta
+
+Tornando al regime forfettario (Lezione 2), c'è una causa di esclusione che quasi nessuno conosce finché non ci finisce dentro: oltre ai limiti di ricavo (85.000 €/100.000 €, Lezione 2 e Lezione 6) e alle altre cause già viste, **si è esclusi dal regime forfettario anche superando una soglia di spesa per lavoro dipendente e collaboratori** (compresi gli utili corrisposti a soci/associati che apportano solo lavoro) — fissata per legge in **20.000 € lordi annui**. Chi ha una piccola Partita IVA forfettaria tende a pensare solo al limite sui ricavi, dimenticando che anche i costi per il personale che impiega hanno un tetto a sé.
+
+📌 **Esempio pratico**: Marco Bruni, cresciuto professionalmente, assume una collaboratrice part-time per la segreteria e affianca un secondo grafico in collaborazione occasionale, per un costo lordo complessivo annuo di 22.000 €. Anche se i suoi ricavi restano ben sotto gli 85.000 € (requisito principale, Lezione 2), il solo superamento della soglia sui costi del personale (22.000 € > 20.000 €) lo fa uscire dal regime forfettario dall'anno successivo, esattamente come se avesse superato la soglia di ricavi.
+
+📌 **Punto chiave**: la crescita di un forfettario che inizia ad assumere collaboratori è spesso il primo segnale che il regime forfettario non è più adatto alla fase dell'attività — un motivo in più, insieme al confronto tra costi reali e coefficiente forfettario (Lezione 9), per valutare per tempo il passaggio al regime ordinario o a una società (Lezione 15), invece di scoprire l'esclusione solo a consuntivo.
+
+---
+
+## Lezione 23 — L'interpello e la consulenza giuridica: quando conviene chiedere un parere preventivo all'Agenzia delle Entrate
+
+Quando un caso concreto lascia dubbi interpretativi legittimi sull'applicazione di una norma fiscale — non un caso già chiarito da prassi consolidata — il contribuente può rivolgersi preventivamente all'Agenzia delle Entrate con un **interpello** (art. 11, L. 212/2000, Statuto del Contribuente, lo stesso che disciplina l'abuso del diritto visto nella Lezione 18), per ottenere una risposta scritta e vincolante per l'Amministrazione sul caso specifico, **prima** di compiere l'operazione. Esistono diverse tipologie (interpretativo, probatorio, antiabuso, disapplicativo), con termini di risposta in genere di 90 giorni (120 per i casi più complessi): se l'Agenzia non risponde nei termini, si forma il **silenzio-assenso** sulla soluzione prospettata dal contribuente. Per questioni di carattere generale, non legate a un'operazione specifica già decisa, esiste uno strumento più snello, la **consulenza giuridica**, che non ha lo stesso vincolo formale dell'interpello ma orienta comunque il comportamento degli uffici.
+
+📌 **Esempio pratico**: Verdi Srl valuta un'operazione straordinaria mai affrontata prima (una scissione societaria per separare i due reparti in due società distinte, tema accennato nella guida Contabilità a proposito del bilancio consolidato) e ha dubbi legittimi sull'applicazione di una specifica norma antiabuso a quel caso concreto. Prima di procedere, il commercialista di Verdi Srl presenta un interpello antiabuso: una risposta favorevole dà certezza preventiva e vincola l'ufficio a non contestare successivamente quella specifica operazione per quel motivo.
+
+📌 **Punto chiave**: l'interpello non è uno strumento per "qualsiasi dubbio" — ha senso solo davanti a un caso concreto, con obiettive condizioni di incertezza normativa non già risolte da circolari o prassi consolidata. Usarlo per chiedere conferma di regole già pacifiche (es. l'aliquota IRES della Lezione 11) sarebbe un uso improprio dello strumento, oltre che una perdita di tempo rispetto ai suoi tempi di risposta.
+
+---
+
+## Lezione 24 — Caso pratico riassuntivo: da Marco Bruni forfettario a una possibile Srl
 
 Marco Bruni, dopo 4 anni di attività da grafico freelance in regime forfettario, si trova con ricavi annui di 90.000 € — **sopra la soglia degli 85.000 €** (Lezione 2): dall'anno successivo dovrà passare al regime ordinario.
 
@@ -314,19 +356,25 @@ Marco Bruni, dopo 4 anni di attività da grafico freelance in regime forfettario
 | 17 | Rateizzazione dei debiti tributari | Avanzato | 8 min |
 | 18 | Risparmio, elusione, evasione | Avanzato | 12 min |
 | 19 | Perché il fisco cambia ogni anno | Avanzato | 8 min |
-| 20 | Caso pratico riassuntivo | Avanzato | 14 min |
+| 20 | Il redditometro e gli accertamenti sintetici | Avanzato | 12 min |
+| 21 | Crediti d'imposta e compensazione in F24 | Avanzato | 12 min |
+| 22 | Forfettario: il limite sui dipendenti/collaboratori | Avanzato | 10 min |
+| 23 | Interpello e consulenza giuridica | Avanzato | 12 min |
+| 24 | Caso pratico riassuntivo | Avanzato | 14 min |
 
-**Totale stimato**: ~212 minuti (~3h30) di video.
+**Totale stimato**: ~258 minuti (~4h18) di video.
 
 ---
 
 ## Fonti normative e verifiche usate per questa guida
 
-- Legge 190/2014 e successive modifiche (regime forfettario)
+- Legge 190/2014 e successive modifiche (regime forfettario, inclusa la causa di esclusione per costo del lavoro oltre 20.000 €, art. 1 comma 57 lett. d-bis)
 - Legge di Bilancio 2026 (riforma scaglioni IRPEF, aliquote confermate IRES/IRAP)
 - Aliquote contributive Gestione Separata INPS 2026 (circolare INPS)
 - D.Lgs. 471/1997 (sanzioni tributarie e ravvedimento operoso)
 - Art. 10-bis Legge 212/2000, Statuto del Contribuente (abuso del diritto/elusione)
-- DPR 600/1973 (controlli automatizzati e formali)
+- Art. 11 Legge 212/2000, Statuto del Contribuente (interpello)
+- DPR 600/1973 (controlli automatizzati e formali; art. 38, redditometro/accertamento sintetico)
+- Normativa sulla compensazione in F24 (D.Lgs. 241/1997 e limiti annui di compensazione dei crediti d'imposta, incluso l'obbligo di visto di conformità sopra soglia)
 
 Ricontrollate al 26/09/2026 tramite ricerca web mirata (non tramite un accesso diretto e continuativo alle banche dati fiscali ufficiali): prima di ogni utilizzo pubblico o commerciale della guida, consiglio una verifica finale da parte tua in quanto professionista abilitato.

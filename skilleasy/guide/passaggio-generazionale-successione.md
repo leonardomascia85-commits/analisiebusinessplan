@@ -116,7 +116,50 @@ Per famiglie con patrimoni aziendali complessi o più eredi con ruoli diversi (L
 
 ---
 
-## Lezione 12 — Caso pratico riassuntivo: il passaggio generazionale di Verdi Srl
+## Lezione 12 — Il trust come strumento di passaggio generazionale
+
+Il **trust** è un istituto di origine anglosassone, riconosciuto in Italia tramite la Convenzione dell'Aja del 1° luglio 1985 (ratificata con L. 364/1989): un soggetto (il **disponente**) trasferisce beni a un **trustee**, che li amministra secondo le regole fissate nell'atto istitutivo, nell'interesse di uno o più **beneficiari**. Applicato a un'azienda, il disponente può conferire le quote sociali in trust, affidandone la gestione (compreso l'esercizio del voto) al trustee fino a quando si verificano le condizioni previste — tipicamente, il raggiungimento di un'età o di un livello di maturità del successore designato.
+
+📌 **Esempio pratico**: se il fondatore di Verdi Srl avesse eredi ancora minorenni o non pronti a gestire l'azienda, potrebbe conferire le proprie quote in un trust con un trustee professionista che vota secondo linee guida scritte nell'atto istitutivo (ad esempio: "mantenere l'attuale management, distribuire utili secondo un piano definito"), fino a quando gli eredi raggiungono un'età stabilita — evitando così un passaggio di controllo immediato a soggetti non ancora in grado di esercitarlo.
+
+📌 **Punto chiave**: la differenza rispetto al patto di famiglia (Lezione 4) è sostanziale — il patto di famiglia è un trasferimento **immediato e definitivo** della proprietà, con il solo vincolo dei 5 anni di continuità (Lezione 6); il trust è invece uno strumento di **gestione differita e protetta**, utile proprio quando i beneficiari non sono ancora pronti, per età o capacità, a ricevere e amministrare direttamente le quote.
+
+🔖 **Riferimento normativo**: Convenzione dell'Aja del 1° luglio 1985, ratificata con L. 364/1989; la tassazione del trust va sempre verificata con un professionista caso per caso, perché dipende dalla struttura specifica dell'atto istitutivo (trust "trasparente" o "opaco") e dall'individuazione dei beneficiari finali.
+
+---
+
+## Lezione 13 — La holding di famiglia: vantaggi e rischi da conoscere
+
+Riprendendo il cenno della Lezione 10, vale la pena approfondire perché una **holding di famiglia** — una società che detiene le partecipazioni nell'azienda operativa, con le quote della holding distribuite tra gli eredi — è uno degli strumenti più usati nel passaggio generazionale delle PMI italiane più strutturate.
+
+**Vantaggi**:
+- **Centralizzazione del controllo**: la holding vota come un unico socio nell'assemblea dell'operativa, anche se al proprio interno il capitale è ripartito tra più eredi con categorie di quote a voto differenziato (Lezione 7).
+- **Pianificazione fiscale sui dividendi**: gli utili distribuiti dall'operativa alla holding beneficiano, tra soggetti IRES, di un regime di tassazione ridotta sui dividendi infragruppo (imponibile limitato al 5% dell'importo, contro la ritenuta piena che si applicherebbe se il dividendo fosse incassato direttamente da una persona fisica).
+- **Trasferimento più semplice tra generazioni**: si trasferiscono le quote della holding (con i patti parasociali già definiti), non quelle dell'operativa, semplificando il passaggio successivo.
+
+**Rischi**:
+- **Costi di struttura doppia**: due bilanci, due contabilità, due assemblee da gestire correttamente.
+- **Rischio di contestazione**: una holding priva di reale sostanza economica (nessuna attività di indirizzo strategico, solo un contenitore fiscale) espone a contestazioni dell'Agenzia delle Entrate per interposizione fittizia o abuso del diritto.
+
+📌 **Esempio numerico**: Verdi Srl distribuisce 100.000 € di utili a Verdi Holding Srl, proprietaria del 100% delle quote operative. Il dividendo è tassato solo sul 5% del suo importo (5.000 € di imponibile, aliquota IRES 24%): imposta effettiva pari a circa 1.200 €, contro la ritenuta del 26% che si applicherebbe (26.000 €) se lo stesso dividendo fosse incassato direttamente da una persona fisica. La holding può così reinvestire la liquidità residua, anche per compensare economicamente gli eredi non operativi (Lezione 7).
+
+📌 **Punto chiave**: la holding conviene quando c'è una reale attività di indirizzo strategico e di pianificazione da centralizzare, non come mero contenitore per abbattere le imposte — un uso puramente fiscale, senza sostanza economica, è il primo elemento che un controllo dell'Agenzia delle Entrate verifica.
+
+---
+
+## Lezione 14 — La preparazione emotiva e la governance familiare
+
+La maggior parte dei passaggi generazionali che falliscono non fallisce per un errore fiscale o legale — fallisce per **conflitti familiari irrisolti**, mancanza di comunicazione tra le generazioni, o per la resistenza del fondatore a cedere davvero il controllo, anche dopo aver firmato tutti i documenti necessari (patto di famiglia, holding, trust). Gli strumenti tecnici visti in questa guida risolvono il "come" trasferire legalmente l'azienda, non il "se" la famiglia è pronta a farlo funzionare nella pratica.
+
+Un elemento spesso sottovalutato è la **governance familiare** vera e propria: un organo di confronto tra i membri della famiglia (distinto dalle riunioni operative di lavoro, guida Gestione aziendale Lezione 6), spesso formalizzato in una "carta dei valori familiari" o family constitution, che definisce regole condivise su temi delicati come l'assunzione di familiari in azienda (solo con requisiti oggettivi), la gestione dei dividendi, e i tempi e le modalità di uscita graduale del fondatore dalla gestione operativa.
+
+📌 **Esempio pratico**: nel caso di Verdi Srl, anche dopo il trasferimento formale delle quote (patto di famiglia, Lezione 4) il fondatore continua per mesi a intervenire nelle decisioni operative quotidiane, generando confusione con il successore già designato (Lezione 9). Un consulente esterno aiuta la famiglia a mettere per iscritto un calendario di uscita graduale e a istituire un momento di confronto familiare periodico, separato dalle riunioni aziendali — permettendo al fondatore di restare coinvolto senza bloccare le decisioni del successore.
+
+📌 **Punto chiave**: gli strumenti fiscali e legali di questa guida (Lezioni 2-4, 12-13) funzionano solo se accompagnati da una preparazione emotiva reale e da regole di governance familiare esplicite (collegamento diretto alla Lezione 8) — senza questo, anche il piano fiscale più efficiente non impedisce che il passaggio fallisca nella pratica.
+
+---
+
+## Lezione 15 — Caso pratico riassuntivo: il passaggio generazionale di Verdi Srl
 
 Il piano che il fondatore di Verdi Srl costruisce seguendo questa guida:
 
@@ -125,7 +168,7 @@ Il piano che il fondatore di Verdi Srl costruisce seguendo questa guida:
 3. **Sfruttamento delle franchigie separate 2026** (Lezione 3): una parte del valore trasferita in donazione già ora, il resto pianificato per la successione futura.
 4. **Governance transitoria** con ruoli chiari tra fondatore e successore per un periodo definito di affiancamento (Lezione 8).
 
-📌 **Se hai seguito la guida fin qui**: hai lo schema per affrontare uno dei momenti più delicati nella vita di un'azienda familiare — con gli strumenti fiscali giusti (Lezioni 2-4) messi al servizio di un progetto di continuità reale (Lezioni 5-9), non il contrario.
+📌 **Se hai seguito la guida fin qui**: hai lo schema per affrontare uno dei momenti più delicati nella vita di un'azienda familiare — con gli strumenti fiscali e societari giusti (Lezioni 2-4, 12-13) messi al servizio di un progetto di continuità reale, fatto di persone prima ancora che di documenti (Lezioni 5-9, 14), non il contrario.
 
 ---
 
@@ -144,9 +187,12 @@ Il piano che il fondatore di Verdi Srl costruisce seguendo questa guida:
 | 9 | Preparare il successore per tempo | Avanzato | 10 min |
 | 10 | Holding di famiglia e patti parasociali | Avanzato | 8 min |
 | 11 | Errori comuni | Avanzato | 8 min |
-| 12 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 12 | Il trust come strumento di passaggio generazionale | Avanzato | 10 min |
+| 13 | La holding di famiglia: vantaggi e rischi | Avanzato | 10 min |
+| 14 | La preparazione emotiva e la governance familiare | Avanzato | 8 min |
+| 15 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~108 minuti (~1h50) di video.
+**Totale stimato**: ~136 minuti (~2h16) di video.
 
 ---
 
@@ -155,5 +201,7 @@ Il piano che il fondatore di Verdi Srl costruisce seguendo questa guida:
 - Artt. 768-bis e ss. Codice Civile (patto di famiglia)
 - D.Lgs. 123/2025 (Testo Unico successioni e donazioni, separazione delle franchigie dal 2026)
 - Tabella aliquote e franchigie imposta di successione 2026 (Agenzia delle Entrate)
+- Convenzione dell'Aja del 1° luglio 1985 sul trust, ratificata con L. 364/1989
+- Regime di tassazione dei dividendi infragruppo tra soggetti IRES (artt. 89 e 87 TUIR, participation exemption)
 
 Ricontrollate al 26/09/2026 tramite ricerca web mirata.

@@ -141,10 +141,46 @@ Il rischio più concreto per una PMI che inizia con il marketing digitale è pro
 3. **Vendere sempre, mai dare valore prima** (Lezione 6) — spegne l'attenzione del pubblico nel tempo.
 4. **Investire in pubblicità senza misurare il ritorno** (Lezione 10) — non sapere mai se una campagna abbia davvero funzionato.
 5. **Sito trascurato mentre si investe tutto sui social** (Lezione 4) — costruire la propria presenza su un terreno che non si possiede.
+6. **Nessuna gestione delle recensioni online**, positive o negative (Lezione 16) — un cliente che legge un profilo Google pieno di recensioni senza risposta ne trae un giudizio, anche se nessuna è negativa.
+7. **Lead persi per assenza di un minimo di automazione** (Lezione 15) — richieste dal sito dimenticate tra le email, non per scelta ma per disorganizzazione.
 
 ---
 
-## Lezione 14 — Caso pratico riassuntivo: il piano marketing di Verdi Srl
+## Lezione 14 — Il posizionamento di marca (branding) per un professionista o una PMI: differenziarsi senza un budget da grande azienda
+
+Il branding non è "avere un logo carino" — è l'insieme percepito di valori, tono e promesse che un'azienda comunica in modo coerente, e risponde a una domanda precisa: perché un cliente dovrebbe scegliere te e non un concorrente che vende un prodotto simile a un prezzo simile? Per una PMI senza il budget di una grande azienda, il branding si costruisce su tre elementi alla portata di tutti: una proposta di valore chiara (chi è il tuo cliente ideale e quale problema gli risolvi, Lezione 3), coerenza di tono su ogni canale (sito, social, materiali), e costanza nel tempo — non serve un restyling costoso, serve ripetere lo stesso messaggio ovunque.
+
+📌 **Esempio pratico**: Verdi Srl non può competere sul prezzo con un grande distributore di materiali edili, che avrà sempre condizioni d'acquisto migliori. Può però differenziarsi con un posizionamento specifico — ad esempio "il fornitore che consiglia, non solo vende" — mantenuto identico sul sito (Lezione 4), nel tono dei post social (Lezione 7) e persino nel modo in cui risponde alle recensioni dei clienti (Lezione 16): un cliente che nota questa coerenza percepisce un'azienda seria, non tre canali scollegati gestiti da persone diverse.
+
+📌 **Punto chiave**: un posizionamento vago ("qualità e affidabilità", frase che potrebbe dire chiunque) non differenzia nulla — un posizionamento specifico e vero, anche se modesto nelle dimensioni, sì. Il branding di una PMI si gioca sulla coerenza e sulla specificità della promessa, non sul budget disponibile.
+
+---
+
+## Lezione 15 — La marketing automation: gli strumenti essenziali per non perdere lead per disorganizzazione
+
+La marketing automation è l'insieme di strumenti che automatizzano azioni ripetitive lungo il funnel (Lezione 2): un'email di benvenuto inviata automaticamente a chi si iscrive alla newsletter (Lezione 8), un promemoria al commerciale se un contatto non riceve risposta entro pochi giorni, un modulo del sito collegato direttamente a un CRM invece che a una casella email dove si perde tra le altre. Per una PMI non serve un budget elevato: molti strumenti economici o gratuiti offrono già queste funzioni di base.
+
+Gli elementi essenziali per non perdere lead: un modulo di contatto sul sito (Lezione 4) collegato automaticamente a una lista o a un CRM; una sequenza email automatica per chi si iscrive alla newsletter; un promemoria automatico che segnali quando una richiesta resta senza risposta oltre un tempo massimo stabilito.
+
+📌 **Esempio pratico**: oggi, se un cliente scrive dal modulo del sito di Verdi Srl chiedendo un preventivo per una ristrutturazione, quella richiesta rischia di perdersi tra le email quotidiane. Con un minimo di marketing automation, la richiesta genera automaticamente un promemoria assegnato a un commerciale, con una scadenza per la risposta — nessun contatto interessato perso per pura disorganizzazione, non per una scelta consapevole.
+
+📌 **Punto chiave**: la marketing automation non sostituisce il rapporto umano con il cliente nella fase di conversione (Lezione 2) — garantisce che nessun lead venga perso per dimenticanza, lo stesso principio di "scrivere i processi invece di affidarli alla memoria" già visto nella guida Gestione aziendale (Lezione 18).
+
+---
+
+## Lezione 16 — Le recensioni online e la gestione della reputazione digitale: come rispondere (anche alle recensioni negative)
+
+Le recensioni online (Google Business Profile, Facebook, portali di settore) fanno ormai parte della fase di *consideration* del funnel (Lezione 2) quasi quanto il sito stesso: un potenziale cliente le legge prima ancora di contattare l'azienda. Gestire la reputazione digitale significa sollecitare attivamente recensioni ai clienti soddisfatti (senza aspettare passivamente che arrivino), rispondere a **tutte** le recensioni, positive e negative, e non ignorare mai una recensione negativa legittima.
+
+Come rispondere a una recensione negativa: riconoscere il problema senza atteggiamento difensivo; offrire una soluzione concreta o un contatto diretto per risolvere fuori dalla piattaforma pubblica; mantenere un tono professionale anche quando la recensione sembra ingiusta — a leggere la risposta non è solo l'autore della recensione, ma ogni potenziale cliente che verrà dopo.
+
+📌 **Esempio pratico**: se un cliente privato lamenta su Google un ritardo nella consegna di materiali da parte di Verdi Srl, rispondere pubblicamente riconoscendo il ritardo, spiegandone la causa senza scuse eccessive e offrendo un contatto diretto per chiarire, trasmette l'immagine di un'azienda seria; ignorare la recensione, o rispondere in modo aggressivo, danneggia la percezione anche di chi non era coinvolto.
+
+📌 **Punto chiave normativo**: acquistare recensioni false o incentivare recensioni non genuine senza dichiararlo è una pratica commerciale scorretta espressamente vietata dal Codice del Consumo, come modificato dal D.Lgs. 26/2023 di recepimento della Direttiva Omnibus (UE 2019/2161) — oltre al danno reputazionale se scoperto, espone l'azienda a sanzioni dell'Autorità Garante della Concorrenza e del Mercato (AGCM).
+
+---
+
+## Lezione 17 — Caso pratico riassuntivo: il piano marketing di Verdi Srl
 
 Il piano marketing che Verdi Srl costruisce seguendo questa guida:
 
@@ -153,8 +189,11 @@ Il piano marketing che Verdi Srl costruisce seguendo questa guida:
 3. **Un contenuto principale a settimana** (Lezione 12), ritagliato per i social di riferimento di ciascun pubblico.
 4. **Newsletter periodica** (Lezione 8) per i clienti già acquisiti, con consigli utili e non solo promozioni.
 5. **Misurazione mensile** del costo di acquisizione cliente per canale (Lezione 10), integrata nel cruscotto già esistente (guida Controllo di gestione, Lezione 20).
+6. **Posizionamento coerente** ("il fornitore che consiglia, non solo vende") ripetuto su sito, social e risposte alle recensioni (Lezione 14).
+7. **Automazione minima delle richieste dal sito**, con promemoria automatico per il commerciale in caso di mancata risposta (Lezione 15).
+8. **Gestione attiva delle recensioni** su Google, con risposta a tutte, comprese quelle negative (Lezione 16).
 
-📌 **Se hai seguito la guida fin qui**: hai lo stesso schema che questa scuola applica a sé stessa per farsi conoscere — la differenza tra un'azienda che "prova i social" e una che fa marketing digitale sul serio è tutta in questi 14 principi, non nel budget disponibile.
+📌 **Se hai seguito la guida fin qui**: hai lo stesso schema che questa scuola applica a sé stessa per farsi conoscere — la differenza tra un'azienda che "prova i social" e una che fa marketing digitale sul serio è tutta in questi 17 principi, non nel budget disponibile.
 
 ---
 
@@ -175,6 +214,18 @@ Il piano marketing che Verdi Srl costruisce seguendo questa guida:
 | 11 | Locale vs e-commerce | Avanzato | 8 min |
 | 12 | Un piano editoriale sostenibile | Avanzato | 10 min |
 | 13 | Errori comuni | Avanzato | 8 min |
-| 14 | Caso pratico riassuntivo | Avanzato | 12 min |
+| 14 | Il posizionamento di marca (branding) | Avanzato | 10 min |
+| 15 | La marketing automation | Avanzato | 10 min |
+| 16 | Recensioni online e reputazione digitale | Avanzato | 10 min |
+| 17 | Caso pratico riassuntivo | Avanzato | 12 min |
 
-**Totale stimato**: ~132 minuti (~2h15) di video.
+**Totale stimato**: ~162 minuti (~2h45) di video.
+
+---
+
+## Fonti normative e verifiche usate per questa guida
+
+- Codice del Consumo (D.Lgs. 206/2005), come modificato dal D.Lgs. 26/2023 di recepimento della Direttiva Omnibus (UE 2019/2161), in tema di divieto di recensioni false o non genuine
+- Regolamento (UE) 2016/679 (GDPR), per il consenso alla raccolta di indirizzi email a fini di marketing (guida Privacy e GDPR, Lezione 8)
+
+Riferimenti verificati al 29/09/2026 tramite ricerca web mirata.

@@ -124,14 +124,49 @@ Alcuni CCNL (guida Gestione aziendale, Lezione 8) prevedono **premi di risultato
 
 ---
 
-## Lezione 12 — Caso pratico riassuntivo: il piano welfare di Verdi Srl
+## Lezione 12 — I piani di welfare aziendale strutturati: oltre i fringe benefit "spot", un piano annuale organico
+
+Molte PMI si fermano a un uso "spot" del welfare: un buono spesa a Natale, qualche buono carburante quando c'è margine di budget, deciso volta per volta senza una vera regia. La Lezione 8 ha già visto gli elementi minimi di un piano (regolamento scritto, plafond monitorato). Un piano di welfare aziendale davvero strutturato va oltre: è un **piano annuale**, approvato prima dell'inizio dell'esercizio, che integra in un'unica regia tutti gli strumenti già visti in questa guida — fringe benefit ordinari (Lezione 2), buoni pasto (Lezione 5), welfare allargato (Lezione 6), premi di risultato convertibili (Lezione 10) — insieme ai due che vediamo nelle prossime due lezioni (previdenza complementare, Lezione 13; genitorialità, Lezione 14) — con un budget complessivo per dipendente o per categoria, deciso a monte e non rincorso mese per mese.
+
+📌 **Esempio pratico**: invece di decidere ogni volta se e quanto welfare offrire, Verdi Srl approva a gennaio un piano annuale con un plafond di 1.000 € (o 2.000 € per chi ha figli a carico, Lezione 2) suddiviso in categorie predefinite — ad esempio 40% fringe benefit liberi, 30% buoni pasto (Lezione 5), 30% welfare allargato/fondo sanitario (Lezione 6) — e lo comunica a tutti i dipendenti a inizio anno, invece di farlo scoprire benefit per benefit durante l'anno.
+
+📌 **Punto chiave**: un piano annuale organico non costa necessariamente di più di un uso spot degli stessi strumenti — cambia radicalmente la sua efficacia percepita come leva di attrazione (Lezione 9) e riduce il rischio di superare per errore la soglia di esenzione (Lezione 4), perché il monitoraggio del plafond diventa parte strutturale del piano stesso, non un controllo affannoso a posteriori.
+
+---
+
+## Lezione 13 — La previdenza complementare aziendale: come funziona e i vantaggi fiscali per azienda e dipendente
+
+La previdenza complementare (fondi pensione negoziali o aperti, PIP) permette al dipendente di destinare parte della propria retribuzione — incluso, in tutto o in parte, il TFR maturando — a un fondo pensione, con la possibilità che l'azienda vi aggiunga un proprio contributo. I contributi versati dal dipendente sono **deducibili** dal suo reddito IRPEF fino a 5.164,57 € l'anno (guida Fisco, Lezione 12, sulla differenza tra deduzioni e detrazioni) — una deduzione tanto più preziosa quanto più alta è l'aliquota marginale del dipendente (guida Fisco, Lezione 10). Anche il contributo versato direttamente dall'azienda a un fondo di previdenza complementare, entro lo stesso limite complessivo, non concorre a formare reddito da lavoro dipendente ed è deducibile per l'azienda come costo del personale (guida Gestione aziendale, Lezione 9).
+
+📌 **Esempio pratico numerico**: se Verdi Srl versasse 1.500 €/anno a un fondo di previdenza complementare per un dipendente, invece che come aumento di stipendio lordo equivalente, otterrebbe lo stesso tipo di risparmio già quantificato nella Lezione 7 per i fringe benefit ordinari — nessun contributo INPS aggiuntivo sulla somma versata al fondo — mentre il dipendente costruisce una pensione integrativa senza pagare IRPEF su quell'importo oggi.
+
+📌 **Punto chiave**: a differenza dei fringe benefit ordinari (Lezione 2), la previdenza complementare ha un proprio limite di deducibilità distinto (5.164,57 €) e non concorre al calcolo della soglia di 1.000/2.000 € — è un canale ulteriore, cumulabile con gli altri, da inserire nel piano annuale organico della Lezione 12.
+
+🔖 **Nota normativa**: TFR e previdenza complementare seguono regole specifiche (D.Lgs. 252/2005) che vanno oltre lo scopo di questa guida — un piano di previdenza complementare aziendale va sempre strutturato con il supporto di un consulente previdenziale o del proprio commercialista.
+
+---
+
+## Lezione 14 — Il welfare per la genitorialità e il work-life balance: cosa prevede la normativa e cosa può fare in più l'azienda
+
+Oltre agli asili nido e ai campus estivi già visti nel welfare allargato (Lezione 6), esistono misure specifiche dedicate alla genitorialità: contributi per rette di asili nido e forme di assistenza ai figli, congedi parentali con una quota di retribuzione a carico dello Stato (variabile secondo la normativa vigente, da riverificare ogni anno come per le soglie fiscali, guida Fisco Lezione 19), ed eventuali esoneri contributivi per le lavoratrici madri previsti dalla Legge di Bilancio dell'anno in corso.
+
+Oltre al minimo di legge, un'azienda può scegliere di fare di più: integrare la retribuzione durante il congedo parentale oltre quanto previsto, offrire forme di lavoro flessibile (orario flessibile, lavoro agile) nei primi mesi di rientro, o riservare nel piano di welfare (Lezione 12) un plafond dedicato specificamente alle spese per i figli, più ampio di quello ordinario.
+
+📌 **Esempio pratico**: nel proprio piano di welfare annuale (Lezione 12), Verdi Srl riserva ai genitori con figli under 3 un plafond aggiuntivo per rette di asili nido, cumulabile con la soglia più alta di 2.000 € già prevista per i fringe benefit dei lavoratori con figli a carico (Lezione 2), e concorda con chi rientra dal congedo parentale un periodo di orario flessibile — senza costi aggiuntivi diretti, ma con un impatto misurabile sulla fidelizzazione del personale (Lezione 9).
+
+📌 **Punto chiave**: le misure per la genitorialità, come il welfare in generale (Lezione 9), non sono solo un costo o un adempimento — per una PMI che fatica a trattenere personale qualificato (guida Gestione aziendale, Lezione 10), un pacchetto genitorialità concreto è spesso più decisivo, nella scelta di restare in azienda dopo la nascita di un figlio, di un piccolo aumento di stipendio.
+
+---
+
+## Lezione 15 — Caso pratico riassuntivo: il piano welfare di Verdi Srl
 
 Il piano che Verdi Srl ha costruito seguendo questa guida:
 
-1. **Plafond fringe benefit differenziato**: 1.000 € standard, 2.000 € per i dipendenti con figli a carico (Lezione 2), monitorato mensilmente per evitare il superamento (Lezione 4).
+1. **Piano annuale organico** (Lezione 12), approvato a inizio anno, con plafond differenziato: 1.000 € standard, 2.000 € per i dipendenti con figli a carico (Lezione 2), monitorato mensilmente per evitare il superamento (Lezione 4).
 2. **Buoni pasto elettronici** a 8 €/giorno, gestiti su un canale separato (Lezione 5).
-3. **Convenzione con un fondo sanitario integrativo** per tutto il personale (Lezione 6), senza impatto sul plafond fringe benefit.
-4. **Regolamento scritto** condiviso con tutti i dipendenti in fase di assunzione (Lezione 8), comunicato esplicitamente anche ai candidati in fase di colloquio (Lezione 9).
+3. **Convenzione con un fondo sanitario integrativo** per tutto il personale (Lezione 6) e un piano di **previdenza complementare aziendale** (Lezione 13), entrambi senza impatto sul plafond fringe benefit.
+4. **Plafond dedicato alla genitorialità** per i dipendenti con figli piccoli, con orario flessibile al rientro dal congedo parentale (Lezione 14).
+5. **Regolamento scritto** condiviso con tutti i dipendenti in fase di assunzione (Lezione 8), comunicato esplicitamente anche ai candidati in fase di colloquio (Lezione 9).
 
 📌 **Se hai seguito la guida fin qui**: hai lo schema per costruire un piano di welfare che costa meno di un aumento equivalente e che, comunicato bene, diventa uno strumento reale di attrazione e fidelizzazione del personale — non solo un vantaggio fiscale.
 
@@ -152,9 +187,12 @@ Il piano che Verdi Srl ha costruito seguendo questa guida:
 | 9 | Welfare come leva di attrazione | Avanzato | 8 min |
 | 10 | Premi di risultato convertibili | Avanzato | 10 min |
 | 11 | Errori comuni | Avanzato | 8 min |
-| 12 | Caso pratico riassuntivo | Avanzato | 10 min |
+| 12 | Piani di welfare strutturati: il piano annuale organico | Avanzato | 8 min |
+| 13 | La previdenza complementare aziendale | Avanzato | 10 min |
+| 14 | Welfare per la genitorialità e work-life balance | Avanzato | 10 min |
+| 15 | Caso pratico riassuntivo | Avanzato | 10 min |
 
-**Totale stimato**: ~102 minuti (~1h45) di video.
+**Totale stimato**: ~130 minuti (~2h10) di video.
 
 ---
 
@@ -162,5 +200,7 @@ Il piano che Verdi Srl ha costruito seguendo questa guida:
 
 - Art. 51 TUIR (redditi di lavoro dipendente, commi 2 e 3)
 - Legge di Bilancio 2025 (soglie fringe benefit confermate per il triennio 2025-2027)
+- D.Lgs. 252/2005 (disciplina delle forme pensionistiche complementari)
+- Normativa su congedi parentali ed esoneri contributivi per la genitorialità (variabile anno per anno con la Legge di Bilancio vigente)
 
-Ricontrollate al 26/09/2026 tramite ricerca web mirata: le soglie sono confermate fino al 2027, ma vanno riverificate per gli anni successivi.
+Ricontrollate al 26/09/2026 tramite ricerca web mirata: le soglie fringe benefit sono confermate fino al 2027, il limite di deducibilità della previdenza complementare (5.164,57 €) è invariato da anni ma va comunque riverificato, mentre le misure per la genitorialità cambiano più spesso e vanno controllate a ogni Legge di Bilancio.
