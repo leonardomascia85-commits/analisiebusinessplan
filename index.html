@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Software professionale per PMI e commercialisti: analisi bilancio XBRL in 10 secondi con rating bancabilità e indici EBA. Business plan 3 anni conforme EBA/GL/2020/06."/>
   <meta name="twitter:image" content="https://analisiebusinessplan.com/og-image.svg"/>
   <link rel="canonical" href="https://analisiebusinessplan.com/"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D4ED8'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='white' font-weight='bold'>A</text></svg>"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a1628'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='white' font-weight='bold'>A</text></svg>"/>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AnalisiEBusinessPlan.com",
    "applicationCategory":"BusinessApplication","operatingSystem":"Web",
@@ -45,33 +45,43 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,600;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
-      --navy:   #0F172A;
-      --ink:    #1E293B;
-      --ink2:   #334155;
-      --ink3:   #64748B;
-      --ink4:   #94A3B8;
-      --bg:     #F4F1EA;
-      --bg2:    #EDE9DF;
-      --white:  #FAFAF8;
-      --blue:   #1D4ED8;
-      --blue-h: #1E40AF;
-      --blue-l: #EFF6FF;
-      --green:  #059669;
-      --green-h:#047857;
-      --green-l:#ECFDF5;
-      --bord:   #E2E8F0;
-      --bord2:  #CBD5E1;
+      /* === Palette studiomascia.com === */
+      --ink:      #0a1628;   /* testo principale — blu notte */
+      --ink2:     #3a3020;   /* testo secondario scuro */
+      --muted:    #7a7060;   /* testo attenuato */
+      --gold:     #c4a05a;   /* accent — oro */
+      --gold-h:   #8a6a1e;   /* oro hover */
+      --gold-l:   #f5ead3;   /* oro chiaro background */
+      --cream:    #f5f0e8;   /* sfondo sezioni */
+      --parchment:#faf8f4;   /* sfondo principale */
+      --line:     #e8e0d0;   /* bordi */
+      --line2:    #d8cfba;   /* bordi più scuri */
+      /* alias per compatibilità interna */
+      --navy:     #0a1628;
+      --ink3:     #7a7060;
+      --ink4:     #aaa098;
+      --bg:       #f5f0e8;
+      --bg2:      #e8e0d0;
+      --white:    #faf8f4;
+      --blue:     #c4a05a;
+      --blue-h:   #8a6a1e;
+      --blue-l:   #f5ead3;
+      --green:    #c4a05a;
+      --green-h:  #8a6a1e;
+      --green-l:  #f5ead3;
+      --bord:     #e8e0d0;
+      --bord2:    #d8cfba;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--white);
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--parchment);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
       padding-top: 68px;
@@ -82,17 +92,17 @@
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(250,250,248,.97);
+      background: rgba(250,248,244,.97);
       border-bottom: 1px solid var(--bord);
       backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 6%; height: 68px;
     }
     .logo {
-      font-family: 'Fraunces', serif; font-weight: 700; font-size: 17px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: 17px;
       color: var(--navy); letter-spacing: -.3px;
     }
-    .logo em { font-style: normal; color: var(--blue); }
+    .logo em { font-style: normal; color: var(--gold); }
     .nav-r { display: flex; align-items: center; gap: 4px; }
     .nav-link {
       padding: 8px 14px; border-radius: 6px;
@@ -119,11 +129,11 @@
     .hero-eyebrow {
       display: inline-block;
       font-size: 12px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--ink3);
+      text-transform: uppercase; color: var(--muted);
       margin-bottom: 28px;
     }
     .hero h1 {
-      font-family: 'Fraunces', serif; font-weight: 700;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700;
       font-size: clamp(38px, 5.5vw, 68px); line-height: 1.06;
       letter-spacing: -2px; color: var(--navy); margin-bottom: 28px;
     }
@@ -171,18 +181,18 @@
     }
     .comp-dot {
       width: 5px; height: 5px; border-radius: 50%;
-      background: var(--ink4); flex-shrink: 0;
+      background: var(--gold); flex-shrink: 0;
     }
 
     /* SECTION HELPERS */
     .wrap { max-width: 1100px; margin: 0 auto; }
     .section-label {
       font-size: 11px; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--ink3);
+      text-transform: uppercase; color: var(--muted);
       margin-bottom: 16px;
     }
     .section-title {
-      font-family: 'Fraunces', serif; font-size: clamp(28px, 3.2vw, 44px);
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px, 3.2vw, 44px);
       font-weight: 700; color: var(--navy); line-height: 1.1; margin-bottom: 16px;
       letter-spacing: -1px;
     }
@@ -217,21 +227,21 @@
     }
     .svc-card:hover { background: var(--bg); }
     .svc-num {
-      font-family: 'Fraunces', serif; font-size: 13px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px;
       font-weight: 600; color: var(--ink4); letter-spacing: .05em;
     }
     .svc-title {
-      font-family: 'Fraunces', serif; font-size: 19px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px;
       font-weight: 700; color: var(--navy); line-height: 1.2;
     }
     .svc-desc {
       font-size: 14px; color: var(--ink2); line-height: 1.7; flex: 1;
     }
     .svc-link {
-      font-size: 13px; font-weight: 600; color: var(--navy);
+      font-size: 13px; font-weight: 600; color: var(--ink);
       display: inline-flex; align-items: center; gap: 5px;
     }
-    .svc-link:hover { color: var(--blue); }
+    .svc-link:hover { color: var(--gold); }
 
     /* PER CHI */
     .perchi {
@@ -252,11 +262,11 @@
     }
     .perchi-item:first-child { border-top: 1px solid var(--bord2); }
     .perchi-n {
-      font-family: 'Fraunces', serif; font-size: 13px;
-      font-weight: 700; color: var(--ink4); padding-top: 3px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px;
+      font-weight: 600; color: var(--muted); padding-top: 3px;
     }
     .perchi-name {
-      font-family: 'Fraunces', serif; font-size: 18px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px;
       font-weight: 700; color: var(--navy); margin-bottom: 8px;
     }
     .perchi-desc {
@@ -278,7 +288,7 @@
     }
     .stat:last-child { border-right: none; }
     .stat-n {
-      font-family: 'Fraunces', serif; font-size: 2.6rem;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.6rem;
       font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px;
     }
     .stat-l { font-size: 12px; color: rgba(255,255,255,.45); letter-spacing: .04em; }
@@ -313,7 +323,7 @@
     }
     .price-card--featured .price-tag { color: rgba(255,255,255,.5); }
     .price-name {
-      font-family: 'Fraunces', serif; font-size: 22px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px;
       font-weight: 700; color: var(--navy); margin-bottom: 8px;
       line-height: 1.1;
     }
@@ -323,7 +333,7 @@
     }
     .price-card--featured .price-desc { color: rgba(255,255,255,.55); }
     .price-amount {
-      font-family: 'Fraunces', serif; font-size: 2.2rem;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.2rem;
       font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1;
     }
     .price-card--featured .price-amount { color: #fff; }
@@ -390,26 +400,26 @@
     }
     .studio-card--featured .studio-pkg { color: rgba(255,255,255,.45); }
     .studio-name {
-      font-family: 'Fraunces', serif; font-size: 22px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px;
       font-weight: 700; color: var(--navy); margin-bottom: 6px;
     }
     .studio-card--featured .studio-name { color: #fff; }
     .studio-sub { font-size: 13px; color: var(--ink3); margin-bottom: 24px; }
     .studio-card--featured .studio-sub { color: rgba(255,255,255,.45); }
     .studio-price {
-      font-family: 'Fraunces', serif; font-size: 2.4rem;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.4rem;
       font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 4px;
     }
     .studio-card--featured .studio-price { color: #fff; }
     .studio-price-note { font-size: 12px; color: var(--ink4); margin-bottom: 6px; }
     .studio-card--featured .studio-price-note { color: rgba(255,255,255,.4); }
     .studio-credits {
-      font-size: 14px; font-weight: 600; color: var(--blue);
+      font-size: 14px; font-weight: 600; color: var(--gold);
       margin-bottom: 4px;
     }
-    .studio-card--featured .studio-credits { color: #93C5FD; }
-    .studio-saving { font-size: 12px; color: var(--green); margin-bottom: 24px; }
-    .studio-card--featured .studio-saving { color: #6EE7B7; }
+    .studio-card--featured .studio-credits { color: var(--gold-l); }
+    .studio-saving { font-size: 12px; color: var(--gold); margin-bottom: 24px; }
+    .studio-card--featured .studio-saving { color: var(--gold-l); }
     .studio-feats {
       list-style: none; display: flex; flex-direction: column; gap: 10px;
       margin-bottom: 28px; flex: 1;
@@ -466,12 +476,12 @@
       background: var(--white); padding: 36px 32px;
     }
     .step-num {
-      font-family: 'Fraunces', serif; font-size: 13px;
-      font-weight: 700; color: var(--ink4); margin-bottom: 20px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px;
+      font-weight: 600; color: var(--muted); margin-bottom: 20px;
       display: block;
     }
     .step-title {
-      font-family: 'Fraunces', serif; font-size: 19px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px;
       font-weight: 700; color: var(--navy); margin-bottom: 12px;
     }
     .step-desc {
@@ -495,14 +505,14 @@
       border-radius: 12px; padding: 32px;
       display: flex; flex-direction: column; gap: 18px;
     }
-    .review-stars { color: #F59E0B; font-size: 14px; letter-spacing: 2px; }
+    .review-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; }
     .review-text {
       font-size: 14.5px; color: var(--ink2); line-height: 1.75; flex: 1;
       font-style: italic;
     }
     .review-author { display: flex; align-items: center; gap: 12px; }
     .review-avatar {
-      width: 38px; height: 38px; border-radius: 50%; background: var(--navy);
+      width: 38px; height: 38px; border-radius: 50%; background: var(--ink);
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
     }
@@ -534,14 +544,14 @@
       flex-shrink: 0; transition: transform .25s;
     }
     .faq-arrow svg { width: 10px; height: 10px; stroke: var(--ink3); stroke-width: 2.5; fill: none; }
-    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); border-color: var(--gold); }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     .faq-item.open .faq-a { max-height: 400px; }
     .faq-a-inner {
       padding: 0 0 22px;
       font-size: 14px; color: var(--ink2); line-height: 1.8;
     }
-    .faq-a-inner a { color: var(--blue); text-decoration: underline; }
+    .faq-a-inner a { color: var(--gold); text-decoration: underline; }
 
     /* FOOTER */
     footer { background: var(--navy); }
@@ -551,10 +561,10 @@
       gap: 48px; padding: 64px 6% 48px;
     }
     .foot-logo {
-      font-family: 'Fraunces', serif; font-size: 18px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px;
       font-weight: 700; color: #fff; display: block; margin-bottom: 14px;
     }
-    .foot-logo em { font-style: normal; color: #60A5FA; }
+    .foot-logo em { font-style: normal; color: var(--gold); }
     .foot-brand p {
       font-size: 13px; color: rgba(255,255,255,.4);
       line-height: 1.75; max-width: 240px; margin-bottom: 22px;
@@ -1013,7 +1023,7 @@
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"Dovevo presentare un business plan per un finanziamento da 500K€. Con questo strumento ho creato un documento di 14 pagine con proiezioni CE, SP e Cash Flow in meno di un'ora. La banca ha approvato."</p>
         <div class="review-author">
-          <div class="review-avatar" style="background:var(--green)">GT</div>
+          <div class="review-avatar" style="background:var(--ink)">GT</div>
           <div>
             <div class="review-name">Giulia T.</div>
             <div class="review-role">CFO, Settore manifatturiero</div>
@@ -1042,7 +1052,7 @@
       <div class="section-label">Domande frequenti</div>
       <h2 class="section-title">Tutto quello <em>che vuoi sapere</em></h2>
       <div class="section-divider"></div>
-      <p style="font-size:14px;color:var(--ink3)">Non trovi la risposta? Scrivici a <a href="mailto:info@analisiebusinessplan.com" style="color:var(--blue)">info@analisiebusinessplan.com</a></p>
+      <p style="font-size:14px;color:var(--ink3)">Non trovi la risposta? Scrivici a <a href="mailto:info@analisiebusinessplan.com" style="color:var(--gold)">info@analisiebusinessplan.com</a></p>
     </div>
 
     <div class="faq-grid">
