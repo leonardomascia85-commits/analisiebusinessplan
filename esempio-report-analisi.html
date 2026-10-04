@@ -7,22 +7,22 @@
   <meta name="robots" content="noindex"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600" rel="stylesheet"/>
   <style>
     :root{
-      --ink:#0F172A;--ink2:#334155;--ink3:#64748B;--ink4:#94A3B8;
-      --bg:#F4F1EA;--bg2:#EDE9DF;--white:#FAFAF8;
-      --blue:#1D4ED8;--blue-bg:#EFF6FF;
-      --green:#059669;--green-bg:#ECFDF5;
-      --red:#DC2626;--gold:#D97706;
-      --border:#E2E8F0;
+      --ink:#0a1628;--ink2:#3a3020;--ink3:#7a7060;--ink4:#aaa098;
+      --bg:#f5f0e8;--bg2:#e8e0d0;--white:#faf8f4;
+      --blue:#c4a05a;--blue-bg:#f5ead3;
+      --green:#c4a05a;--green-bg:#f5ead3;
+      --red:#DC2626;--gold:#c4a05a;
+      --border:#e8e0d0;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;padding-top:64px;}
+    body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;padding-top:68px;}
 
     /* NAV */
     .screen-only nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:60px;backdrop-filter:blur(10px);}
-    .screen-only .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;}
+    .screen-only .nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;}
     .screen-only .nav-logo span{color:var(--blue);}
     .screen-only .nav-actions{display:flex;gap:10px;align-items:center;}
     .screen-only .btn-print{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;}
@@ -42,9 +42,9 @@
 
     /* ── COPERTINA ── */
     .cover-header{background:linear-gradient(135deg,#1e3a8a 0%,#1D4ED8 100%);padding:40px 36px 32px;}
-    .cover-logo{font-family:'Fraunces',serif;font-weight:700;font-size:16px;color:rgba(255,255,255,.6);margin-bottom:24px;letter-spacing:-.2px;}
+    .cover-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:16px;color:rgba(255,255,255,.6);margin-bottom:24px;letter-spacing:-.2px;}
     .cover-logo span{color:#fff;}
-    .cover-company{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:6px;}
+    .cover-company{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:6px;}
     .cover-piva{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px;}
     .cover-meta{display:flex;gap:16px;flex-wrap:wrap;}
     .cover-meta-item{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;font-size:12px;color:#fff;}
@@ -52,7 +52,7 @@
     .cover-body{padding:28px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
     .rating-block{text-align:center;}
     .rating-label{font-size:11px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
-    .rating-badge{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:#fff;background:var(--green);margin:0 auto 8px;}
+    .rating-badge{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;font-weight:800;color:#fff;background:var(--green);margin:0 auto 8px;}
     .rating-desc{font-size:12px;color:var(--ink3);}
     .score-block{flex:1;}
     .score-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
@@ -68,7 +68,7 @@
     .sh-blue{background:var(--blue-bg);}
     .sh-green{background:var(--green-bg);}
     .sh-gold{background:#FFFBEB;}
-    .section-head-title{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--ink);}
+    .section-head-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:700;color:var(--ink);}
     .section-head-sub{font-size:11px;color:var(--ink3);margin-top:1px;}
 
     /* TABELLA INDICI */
@@ -120,7 +120,7 @@
     .altman-needle{position:absolute;top:-5px;width:4px;height:24px;background:var(--ink);border-radius:2px;transform:translateX(-50%);}
     .altman-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--ink4);margin-bottom:16px;}
     .altman-result{display:flex;align-items:center;gap:14px;}
-    .altman-score{font-family:'Fraunces',serif;font-size:32px;font-weight:800;color:var(--green);}
+    .altman-score{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:800;color:var(--green);}
     .altman-desc{font-size:13px;color:var(--ink2);line-height:1.6;}
 
     /* FOOTER PAGE */

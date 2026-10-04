@@ -35,20 +35,20 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L58FLY4JKJ');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600" rel="stylesheet"/>
   <style>
-    :root{--white:#FAFAF8;--bg:#F4F1EA;--bg2:#EDE9DF;--ink:#0F172A;--ink2:#334155;--ink3:#64748B;--ink4:#94A3B8;--blue:#1D4ED8;--blue-light:#3B82F6;--blue-bg:#EFF6FF;--green:#059669;--green-bg:#ECFDF5;--red:#DC2626;--red-bg:#FEF2F2;--gold:#D97706;--gold-bg:#FFFBEB;--border:#E2E8F0;--border2:#CBD5E1;--shadow:0 4px 16px rgba(0,0,0,.07),0 2px 6px rgba(0,0,0,.04);--shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);--radius:12px;--radius-sm:8px;--radius-lg:20px;}
+    :root{--white:#faf8f4;--bg:#f5f0e8;--bg2:#e8e0d0;--ink:#0a1628;--ink2:#3a3020;--ink3:#7a7060;--ink4:#aaa098;--blue:#c4a05a;--blue-light:#d4b06a;--blue-bg:#f5ead3;--green:#c4a05a;--green-bg:#f5ead3;--red:#DC2626;--red-bg:#FEF2F2;--gold:#c4a05a;--gold-bg:#f5ead3;--border:#e8e0d0;--border2:#d8cfba;--shadow:0 4px 16px rgba(0,0,0,.07),0 2px 6px rgba(0,0,0,.04);--shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);--radius:12px;--radius-sm:8px;--radius-lg:20px;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Inter',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;padding-top:64px;}
-    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;}
+    body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;padding-top:68px;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:68px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;}
     .nav-logo span{color:var(--blue);}
     .nav-back{font-size:14px;color:var(--ink3);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s;}
     .nav-back:hover{color:var(--ink);}
     .wrap{max-width:860px;margin:0 auto;padding:52px 6%;}
     .page-header{margin-bottom:44px;}
     .page-eyebrow{font-size:12px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
-    .page-title{font-family:'Fraunces',serif;font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:-.3px;margin-bottom:12px;}
+    .page-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:-.3px;margin-bottom:12px;}
     .page-sub{font-size:16px;color:var(--ink2);line-height:1.7;max-width:580px;}
 
     /* INFO CARDS */
@@ -68,9 +68,9 @@
     .badge-blue{background:var(--blue-bg);color:var(--blue);border:1px solid #BFDBFE;}
     .badge-gold{background:var(--gold-bg);color:var(--gold);border:1px solid #FDE68A;}
     .uc-icon{font-size:36px;margin-bottom:12px;}
-    .uc-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+    .uc-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;}
     .uc-desc{font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:18px;}
-    .btn-upload{background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 22px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;}
+    .btn-upload{background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 22px;font-family:'DM Sans',-apple-system,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;}
     .btn-upload:hover{background:#1E40AF;}
     input[type="file"]{display:none;}
     .file-loaded{display:none;align-items:center;gap:10px;background:var(--green-bg);border:1px solid #A7F3D0;border-radius:var(--radius-sm);padding:10px 14px;margin-top:12px;font-size:12px;text-align:left;}
@@ -88,7 +88,7 @@
     .anno-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer;transition:all .2s;}
     .anno-card:hover{border-color:var(--blue-light);}
     .anno-card.sel{border-color:var(--blue);background:var(--blue-bg);}
-    .anno-year{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);}
+    .anno-year{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700;color:var(--ink);}
     .anno-ctx{font-size:11px;color:var(--ink3);margin-top:3px;}
     .anno-actions{display:flex;gap:10px;justify-content:flex-end;}
 
@@ -115,7 +115,7 @@
     .results-box{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px;display:none;}
     .results-box.show{display:block;}
     .rb-header{background:var(--green-bg);border-bottom:1px solid #A7F3D0;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;}
-    .rb-title{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--green);}
+    .rb-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:700;color:var(--green);}
     .rb-sub{font-size:12px;color:var(--ink3);}
     .rb-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);}
     .rb-col{padding:18px 22px;border-right:1px solid var(--border);}
@@ -128,9 +128,9 @@
     .rb-footer{padding:16px 22px;display:flex;gap:10px;flex-wrap:wrap;}
 
     /* BUTTONS */
-    .btn-primary{background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px 24px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+    .btn-primary{background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px 24px;font-family:'DM Sans',-apple-system,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
     .btn-primary:hover{background:#1E40AF;transform:translateY(-1px);box-shadow:0 6px 20px rgba(29,78,216,.25);}
-    .btn-secondary{background:transparent;color:var(--ink2);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:11px 20px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;}
+    .btn-secondary{background:transparent;color:var(--ink2);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:11px 20px;font-family:'DM Sans',-apple-system,sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;}
     .btn-secondary:hover{border-color:var(--ink3);color:var(--ink);}
 
     .alert-info{background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:var(--radius-sm);padding:14px 18px;font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:24px;}
@@ -142,7 +142,7 @@
     .abbr-header{background:#FFFBEB;border-bottom:1px solid #FDE68A;padding:16px 22px;display:flex;align-items:center;gap:12px;}
     .abbr-header-icon{font-size:20px;}
     .abbr-header-text{flex:1;}
-    .abbr-title{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#92400E;margin-bottom:2px;}
+    .abbr-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:700;color:#92400E;margin-bottom:2px;}
     .abbr-subtitle{font-size:12px;color:#78350F;line-height:1.5;}
     .abbr-body{padding:20px 22px;}
     .abbr-intro{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:18px;padding:10px 14px;background:#FFFBEB;border-radius:var(--radius-sm);border:1px solid #FDE68A;}
@@ -152,7 +152,7 @@
     .abbr-field{display:flex;flex-direction:column;gap:4px;}
     .abbr-label{font-size:12px;color:var(--ink3);font-weight:500;}
     .abbr-label span{font-size:10px;color:var(--ink4);font-weight:400;}
-    .abbr-input{background:var(--white);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:8px 11px;font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);width:100%;transition:border-color .15s;}
+    .abbr-input{background:var(--white);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:8px 11px;font-family:'DM Sans',-apple-system,sans-serif;font-size:13px;color:var(--ink);width:100%;transition:border-color .15s;}
     .abbr-input:focus{outline:none;border-color:var(--blue);}
     .abbr-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
     .abbr-skip{font-size:12px;color:var(--ink4);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;}
@@ -186,7 +186,7 @@
     <!-- Intestazione -->
     <div style="text-align:center;margin-bottom:52px;">
       <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Analisi di Bilancio XBRL</div>
-      <h2 style="font-family:'Fraunces',serif;font-size:clamp(26px,3vw,38px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:14px;">Tutto quello che devi sapere<br/>prima di iniziare</h2>
+      <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3vw,38px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:14px;">Tutto quello che devi sapere<br/>prima di iniziare</h2>
       <p style="font-size:16px;color:var(--ink2);line-height:1.75;max-width:580px;margin:0 auto;">Un report professionale conforme EBA/GL/2020/06 con indici, rating bancabilità A–E e confronto settoriale ATECO.</p>
     </div>
 
@@ -195,14 +195,14 @@
 
       <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px;">
         <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">📊</div>
-        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Cos'è l'analisi di bilancio</h3>
+        <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Cos'è l'analisi di bilancio</h3>
         <p style="font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:14px;">È una lettura sistematica del bilancio depositato in Camera di Commercio. Estrae e calcola automaticamente oltre <strong>12 indici finanziari</strong> — redditività, liquidità, solidità patrimoniale e copertura del debito — confrontandoli con le soglie EBA e con la media del tuo settore ATECO.</p>
         <p style="font-size:13.5px;color:var(--ink2);line-height:1.7;">Il risultato è un <strong>rating di bancabilità da A a E</strong> e l'Altman Z'-Score: gli stessi strumenti che le banche usano per classificare le imprese.</p>
       </div>
 
       <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px;">
         <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">⚡</div>
-        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Come funziona</h3>
+        <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Come funziona</h3>
         <ol style="padding-left:18px;display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink2);line-height:1.65;">
           <li><strong>Carica il file XBRL</strong> del bilancio depositato al Registro Imprese (formato .xbrl o .zip).</li>
           <li><strong>10 secondi di analisi</strong> — il sistema legge tassonomia, Stato Patrimoniale, Conto Economico e Rendiconto Finanziario.</li>
@@ -213,7 +213,7 @@
 
       <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px;">
         <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">📁</div>
-        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Cosa ti serve</h3>
+        <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Cosa ti serve</h3>
         <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink2);">
           <li style="display:flex;align-items:flex-start;gap:9px;line-height:1.6;"><span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">✓</span><span>Il <strong>file XBRL</strong> del bilancio (tassonomia italiana 2018-11-04 — compatibile con bilancio ordinario, abbreviato e micro-impresa)</span></li>
           <li style="display:flex;align-items:flex-start;gap:9px;line-height:1.6;"><span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">✓</span><span>Nessun software installato — funziona direttamente nel browser</span></li>
@@ -228,7 +228,7 @@
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px;">
         <div>
           <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Cosa trovi nel report</div>
-          <h3 style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--ink);margin:0;">Tutti gli indici calcolati</h3>
+          <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:700;color:var(--ink);margin:0;">Tutti gli indici calcolati</h3>
         </div>
         <a href="/esempio-report-analisi.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='#1E40AF'" onmouseout="this.style.background='#1D4ED8'">
           ⬇ Scarica esempio report PDF
@@ -292,7 +292,7 @@
           <div style="background:#1e3a8a;padding:20px 12px;">
             <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:10px;margin-bottom:8px;">
               <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Rating bancabilità</div>
-              <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:#fff;">A</div>
+              <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:800;color:#fff;">A</div>
             </div>
             <div style="font-size:9px;color:rgba(255,255,255,.4);">Score 87/100</div>
           </div>

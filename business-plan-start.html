@@ -8,14 +8,13 @@
   <meta name="robots" content="noindex"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='white' font-weight='bold'>A</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600" rel="stylesheet"/>
   <style>
-    :root{--blu:#1a3a5c;--blu-l:#2563eb;--verde:#059669;--bord:#e2e8f0;--bg:#f8fafc;--ink:#0f172a;--ink2:#334155;--ink3:#64748b}
+    :root{--blu:#0a1628;--blu-l:#c4a05a;--verde:#c4a05a;--bord:#e8e0d0;--bg:#faf8f4;--ink:#0a1628;--ink2:#3a3020;--ink3:#7a7060}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
-    header{background:linear-gradient(135deg,var(--blu) 0%,#2563eb 100%);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:16px}
+    body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding-top:68px;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:68px;background:rgba(250,248,244,.97);backdrop-filter:blur(12px);border-bottom:1px solid #e8e0d0;}
     .logo-text{font-size:1.15rem;font-weight:700;letter-spacing:-.3px}
-    .header-sub{font-size:.82rem;opacity:.6;margin-left:auto}
     .container{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
     h1{font-size:1.55rem;font-weight:700;color:var(--ink);margin-bottom:6px}
     .subtitle{font-size:.95rem;color:var(--ink3);margin-bottom:32px}
@@ -43,7 +42,7 @@
     .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
     .modal-overlay.open{display:flex}
     .modal{background:#fff;border-radius:20px;width:100%;max-width:600px;box-shadow:0 24px 60px rgba(0,0,0,.2);overflow:hidden;display:flex;flex-direction:column;max-height:92vh}
-    .modal-header{background:linear-gradient(135deg,var(--blu),#2563eb);color:#fff;padding:22px 28px;flex-shrink:0}
+    .modal-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:68px;background:rgba(250,248,244,.97);backdrop-filter:blur(12px);border-bottom:1px solid #e8e0d0;}
     .modal-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
     .modal-title{font-size:1.1rem;font-weight:700}
     .modal-close{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:30px;height:30px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
@@ -113,14 +112,27 @@
       .year-grid{grid-template-columns:1fr}
       .modal-body{padding:20px 18px}
     }
+      .nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:17px;color:#0a1628;letter-spacing:-.3px;text-decoration:none;}
+    .nav-logo em{font-style:normal;color:#c4a05a;}
+    .nav-r{display:flex;align-items:center;gap:4px;}
+    .nav-link{padding:8px 14px;border-radius:6px;font-size:14px;font-weight:500;color:#3a3020;transition:color .15s,background .15s;text-decoration:none;}
+    .nav-link:hover{color:#0a1628;background:#f5f0e8;}
+    .nav-cta{margin-left:10px;padding:9px 22px;border-radius:7px;font-size:14px;font-weight:600;color:#fff;background:#0a1628;border:none;cursor:pointer;transition:background .15s;text-decoration:none;}
   </style>
 </head>
 <body>
 
-<header>
-  <span class="logo-text">📋 Business Plan Finanziario</span>
-  <span class="header-sub">Proiezioni 3 anni · Modello CE+SP+CF integrato</span>
-</header>
+<nav>
+  <a href="index.html" class="nav-logo">Analisi<em>e</em>BusinessPlan</a>
+  <div class="nav-r">
+    <a href="importa-xbrl.html" class="nav-link">Analisi Bilancio</a>
+    <a href="business-plan.html" class="nav-link">Business Plan</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="auth.html" class="nav-link" id="nav-accedi">Accedi</a>
+    <a href="importa-xbrl.html" class="nav-cta">Inizia ora →</a>
+  </div>
+</nav>
+<script>(function(){try{const u=JSON.parse(localStorage.getItem('abp_user'));if(u&&u.email){const el=document.getElementById('nav-accedi');if(el){el.href='account.html';el.textContent='👤 '+(u.nome||u.email.split('@')[0]);}}}catch(e){}})();</script>
 
 <div class="container">
   <h1>Scegli il tuo settore</h1>

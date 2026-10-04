@@ -7,21 +7,21 @@
   <meta name="robots" content="noindex"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600" rel="stylesheet"/>
   <style>
     :root{
-      --navy:#0B1628;--navy2:#132040;--navy3:#1c2f52;
-      --blue:#2563EB;--cyan:#06B6D4;--green:#10B981;
+      --navy:#0a1628;--navy2:#132040;--navy3:#1c2f52;
+      --blue:#c4a05a;--cyan:#c4a05a;--green:#c4a05a;
       --gold:#F59E0B;--red:#EF4444;--gray:#94A3B8;--white:#fff;
       --border:rgba(255,255,255,0.08);--glass:rgba(255,255,255,0.04);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{font-family:'Inter',sans-serif;background:#0A1628;color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;padding-top:64px;}
+    body{font-family:'DM Sans',-apple-system,sans-serif;background:#0A1628;color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;padding-top:68px;}
 
     /* NAV */
-    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:64px;background:rgba(10,22,40,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-    .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--white);text-decoration:none;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:68px;background:rgba(250,248,244,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:18px;color:var(--white);text-decoration:none;}
     .nav-logo span{color:var(--cyan);}
     .nav-links{display:flex;align-items:center;gap:4px;}
     .nav-link{padding:7px 14px;border-radius:7px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s,background .15s;}
@@ -34,11 +34,11 @@
     /* HERO */
     .hero{text-align:center;padding:48px 24px 32px;background:var(--navy2);border:1px solid var(--border);border-radius:18px;margin-bottom:32px;}
     .hero-sub{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cyan);margin-bottom:10px;}
-    .hero-title{font-family:'Fraunces',serif;font-size:30px;font-weight:700;margin-bottom:6px;}
+    .hero-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;font-weight:700;margin-bottom:6px;}
     .hero-date{font-size:13px;color:var(--gray);margin-bottom:24px;}
     .hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
     .rating-badge{display:inline-flex;flex-direction:column;align-items:center;padding:16px 28px;border-radius:14px;min-width:120px;}
-    .rating-letter{font-family:'Fraunces',serif;font-size:40px;font-weight:700;line-height:1;}
+    .rating-letter{font-family:'Cormorant Garamond',Georgia,serif;font-size:40px;font-weight:700;line-height:1;}
     .rating-label{font-size:12px;margin-top:4px;opacity:.9;}
     .mcc-badge{display:inline-flex;flex-direction:column;align-items:center;padding:16px 28px;border-radius:14px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);min-width:120px;}
     .mcc-fascia{font-size:28px;font-weight:700;color:var(--gold);}
@@ -57,7 +57,7 @@
 
     /* DOWNLOAD BUTTONS */
     .dl-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:32px 0;}
-    .btn-dl-big{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 32px;border-radius:14px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;min-width:160px;transition:transform .2s,opacity .2s;}
+    .btn-dl-big{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 32px;border-radius:14px;border:none;cursor:pointer;font-family:'DM Sans',-apple-system,sans-serif;font-size:15px;font-weight:700;min-width:160px;transition:transform .2s,opacity .2s;}
     .btn-dl-big:hover{transform:translateY(-3px);opacity:.9;}
     .btn-dl-big .icon{font-size:28px;}
     .btn-dl-pdf{background:linear-gradient(135deg,#DC2626,#b91c1c);color:#fff;}
