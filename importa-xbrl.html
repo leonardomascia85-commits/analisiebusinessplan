@@ -159,6 +159,13 @@
     .abbr-skip:hover{color:var(--ink3);}
 
     @media(max-width:700px){.upload-grid,.info-grid,.anno-grid,.rb-grid,.abbr-grid{grid-template-columns:1fr;}}
+    @media(max-width:820px){
+      .xinfo-3col{grid-template-columns:1fr 1fr!important;}
+      .xinfo-4col{grid-template-columns:1fr 1fr!important;}
+    }
+    @media(max-width:560px){
+      .xinfo-3col,.xinfo-4col{grid-template-columns:1fr!important;}
+    }
   </style>
 </head>
 <body>
@@ -169,6 +176,167 @@
     <a href="index.html" class="nav-back">← Home</a>
   </div>
 </nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SEZIONE INFORMATIVA — Cos'è, Come funziona, Cosa serve
+     ════════════════════════════════════════════════════════ -->
+<section style="background:var(--bg);border-bottom:1px solid var(--border);padding:64px 6%;">
+  <div style="max-width:1000px;margin:0 auto;">
+
+    <!-- Intestazione -->
+    <div style="text-align:center;margin-bottom:52px;">
+      <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Analisi di Bilancio XBRL</div>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(26px,3vw,38px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:14px;">Tutto quello che devi sapere<br/>prima di iniziare</h2>
+      <p style="font-size:16px;color:var(--ink2);line-height:1.75;max-width:580px;margin:0 auto;">Un report professionale conforme EBA/GL/2020/06 con indici, rating bancabilità A–E e confronto settoriale ATECO.</p>
+    </div>
+
+    <!-- 3 colonne: Cos'è / Come funziona / Cosa serve -->
+    <div class="xinfo-3col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:52px;">
+
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">📊</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Cos'è l'analisi di bilancio</h3>
+        <p style="font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:14px;">È una lettura sistematica del bilancio depositato in Camera di Commercio. Estrae e calcola automaticamente oltre <strong>12 indici finanziari</strong> — redditività, liquidità, solidità patrimoniale e copertura del debito — confrontandoli con le soglie EBA e con la media del tuo settore ATECO.</p>
+        <p style="font-size:13.5px;color:var(--ink2);line-height:1.7;">Il risultato è un <strong>rating di bancabilità da A a E</strong> e l'Altman Z'-Score: gli stessi strumenti che le banche usano per classificare le imprese.</p>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">⚡</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Come funziona</h3>
+        <ol style="padding-left:18px;display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink2);line-height:1.65;">
+          <li><strong>Carica il file XBRL</strong> del bilancio depositato al Registro Imprese (formato .xbrl o .zip).</li>
+          <li><strong>10 secondi di analisi</strong> — il sistema legge tassonomia, Stato Patrimoniale, Conto Economico e Rendiconto Finanziario.</li>
+          <li><strong>Verifica i dati estratti</strong> e, se necessario, correggi manualmente le singole voci.</li>
+          <li><strong>Scarica il report PDF</strong> in due versioni: Report Banca (formale, per istituti di credito) e Report Cliente (narrativo, per il titolare).</li>
+        </ol>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">📁</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px;">Cosa ti serve</h3>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink2);">
+          <li style="display:flex;align-items:flex-start;gap:9px;line-height:1.6;"><span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">✓</span><span>Il <strong>file XBRL</strong> del bilancio (tassonomia italiana 2018-11-04 — compatibile con bilancio ordinario, abbreviato e micro-impresa)</span></li>
+          <li style="display:flex;align-items:flex-start;gap:9px;line-height:1.6;"><span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">✓</span><span>Nessun software installato — funziona direttamente nel browser</span></li>
+          <li style="display:flex;align-items:flex-start;gap:9px;line-height:1.6;"><span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">✓</span><span>Per l'analisi multi-anno: fino a 3 file XBRL (esercizi diversi)</span></li>
+          <li style="display:flex;align-items:flex-start;gap:9px;line-height:1.6;"><span style="color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;">→</span><span><strong>Dove scaricarlo:</strong> <a href="https://www.registroimprese.it" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:underline;">registroimprese.it</a> → cerca l'azienda → Bilanci → scarica XBRL</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Cosa contiene il report — indici -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:32px 28px;margin-bottom:40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Cosa trovi nel report</div>
+          <h3 style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--ink);margin:0;">Tutti gli indici calcolati</h3>
+        </div>
+        <a href="/esempio-report-analisi.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='#1E40AF'" onmouseout="this.style.background='#1D4ED8'">
+          ⬇ Scarica esempio report PDF
+        </a>
+      </div>
+      <div class="xinfo-4col" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+
+        <div style="padding:18px 16px;border-right:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;">Redditività</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:var(--ink2);">
+            <li>ROE — Return on Equity</li>
+            <li>ROI — Return on Investment</li>
+            <li>ROS — Return on Sales</li>
+            <li>EBITDA Margin</li>
+            <li>Utile / Valore produzione</li>
+          </ul>
+        </div>
+
+        <div style="padding:18px 16px;border-right:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;">Liquidità &amp; Struttura</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:var(--ink2);">
+            <li>Current Ratio</li>
+            <li>Quick Ratio (Acid Test)</li>
+            <li>Capitale Circolante Netto</li>
+            <li>Indice di autonomia finanziaria</li>
+            <li>Debt/Equity Ratio</li>
+          </ul>
+        </div>
+
+        <div style="padding:18px 16px;border-right:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;">Indici EBA/Bancari</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:var(--ink2);">
+            <li>DSCR — Debt Service Coverage</li>
+            <li>ICR — Interest Coverage Ratio</li>
+            <li>PFN / EBITDA</li>
+            <li>PFN / Patrimonio netto</li>
+            <li>Rating bancabilità A–E</li>
+          </ul>
+        </div>
+
+        <div style="padding:18px 16px;">
+          <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;">Allerta &amp; Settore</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:var(--ink2);">
+            <li>Altman Z'-Score</li>
+            <li>Indicatori CCII (D.Lgs. 14/2019)</li>
+            <li>Confronto 18 settori ATECO</li>
+            <li>DSO, DPO, DIO (ciclo operativo)</li>
+            <li>Trend multi-anno (fino a 3 anni)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Anteprime pagine report -->
+    <div style="margin-bottom:8px;">
+      <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;text-align:center;">Anteprima del report</div>
+      <p style="text-align:center;font-size:14px;color:var(--ink3);margin-bottom:24px;">Il PDF scaricabile include tutte queste sezioni</p>
+      <div class="xinfo-4col" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;text-align:center;">
+          <div style="background:#1e3a8a;padding:20px 12px;">
+            <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:10px;margin-bottom:8px;">
+              <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Rating bancabilità</div>
+              <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:#fff;">A</div>
+            </div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);">Score 87/100</div>
+          </div>
+          <div style="padding:10px 12px;font-size:12px;font-weight:600;color:var(--ink2);">Copertina &amp; Rating</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;text-align:center;">
+          <div style="background:var(--bg2);padding:20px 12px;">
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;justify-content:space-between;font-size:9px;padding:4px 6px;background:var(--white);border-radius:4px;"><span style="color:var(--ink3);">ROE</span><span style="font-weight:700;color:var(--green);">12,4%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;padding:4px 6px;background:var(--white);border-radius:4px;"><span style="color:var(--ink3);">DSCR</span><span style="font-weight:700;color:var(--green);">1,32x</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;padding:4px 6px;background:var(--white);border-radius:4px;"><span style="color:var(--ink3);">Current R.</span><span style="font-weight:700;color:#D97706);">0,98x</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;padding:4px 6px;background:var(--white);border-radius:4px;"><span style="color:var(--ink3);">ICR</span><span style="font-weight:700;color:var(--green);">4,1x</span></div>
+            </div>
+          </div>
+          <div style="padding:10px 12px;font-size:12px;font-weight:600;color:var(--ink2);">Indici EBA</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;text-align:center;">
+          <div style="background:var(--bg2);padding:20px 12px;">
+            <div style="margin-bottom:6px;">
+              <div style="height:36px;background:linear-gradient(to right,var(--blue) 72%,var(--bg) 72%);border-radius:4px;margin-bottom:4px;"></div>
+              <div style="height:36px;background:linear-gradient(to right,var(--green) 48%,var(--bg) 48%);border-radius:4px;margin-bottom:4px;"></div>
+              <div style="height:36px;background:linear-gradient(to right,#D97706 28%,var(--bg) 28%);border-radius:4px;"></div>
+            </div>
+            <div style="font-size:8px;color:var(--ink4);">Confronto settoriale ATECO</div>
+          </div>
+          <div style="padding:10px 12px;font-size:12px;font-weight:600;color:var(--ink2);">Benchmark ATECO</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;text-align:center;">
+          <div style="background:var(--bg2);padding:20px 12px;">
+            <div style="text-align:left;font-size:8.5px;color:var(--ink3);line-height:1.7;">
+              <div style="font-weight:700;color:var(--ink);margin-bottom:4px;font-size:9px;">SP — Stato Patrimoniale</div>
+              <div style="display:flex;justify-content:space-between;"><span>Totale attivo</span><span style="color:var(--ink);">2.341.000</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>Patrimonio netto</span><span style="color:var(--green);">487.000</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>Debiti totali</span><span style="color:var(--ink);">1.854.000</span></div>
+            </div>
+          </div>
+          <div style="padding:10px 12px;font-size:12px;font-weight:600;color:var(--ink2);">Dati di bilancio</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ═══════════════ FINE SEZIONE INFORMATIVA ═══════════════ -->
 
 <div class="wrap">
   <div class="page-header">

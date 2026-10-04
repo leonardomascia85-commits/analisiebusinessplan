@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Esempio Report Analisi di Bilancio — AnalisiEBusinessPlan.com</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --ink:#0F172A;--ink2:#334155;--ink3:#64748B;--ink4:#94A3B8;
+      --bg:#F4F1EA;--bg2:#EDE9DF;--white:#FAFAF8;
+      --blue:#1D4ED8;--blue-bg:#EFF6FF;
+      --green:#059669;--green-bg:#ECFDF5;
+      --red:#DC2626;--gold:#D97706;
+      --border:#E2E8F0;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    /* NAV */
+    .screen-only nav{position:sticky;top:0;z-index:100;background:rgba(250,250,248,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:60px;backdrop-filter:blur(10px);}
+    .screen-only .nav-logo{font-family:'Fraunces',serif;font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;}
+    .screen-only .nav-logo span{color:var(--blue);}
+    .screen-only .nav-actions{display:flex;gap:10px;align-items:center;}
+    .screen-only .btn-print{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;}
+    .screen-only .btn-back{font-size:13.5px;color:var(--ink3);text-decoration:none;}
+    .screen-only .btn-back:hover{color:var(--ink);}
+
+    /* DISCLAIMER BANNER */
+    .screen-only .banner{background:#FFFBEB;border-bottom:1px solid #FDE68A;padding:12px 5%;display:flex;align-items:center;gap:12px;font-size:13px;color:#92400E;}
+    .screen-only .banner strong{font-weight:700;}
+
+    /* REPORT PAGES wrapper */
+    .report-pages{max-width:800px;margin:0 auto;padding:32px 5% 64px;}
+    .screen-only .report-pages{display:flex;flex-direction:column;gap:32px;}
+
+    /* SINGOLA PAGINA / SEZIONE */
+    .rpage{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+
+    /* ── COPERTINA ── */
+    .cover-header{background:linear-gradient(135deg,#1e3a8a 0%,#1D4ED8 100%);padding:40px 36px 32px;}
+    .cover-logo{font-family:'Fraunces',serif;font-weight:700;font-size:16px;color:rgba(255,255,255,.6);margin-bottom:24px;letter-spacing:-.2px;}
+    .cover-logo span{color:#fff;}
+    .cover-company{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:6px;}
+    .cover-piva{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px;}
+    .cover-meta{display:flex;gap:16px;flex-wrap:wrap;}
+    .cover-meta-item{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;font-size:12px;color:#fff;}
+    .cover-meta-item span{color:rgba(255,255,255,.55);display:block;font-size:10px;margin-bottom:2px;}
+    .cover-body{padding:28px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+    .rating-block{text-align:center;}
+    .rating-label{font-size:11px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+    .rating-badge{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:#fff;background:var(--green);margin:0 auto 8px;}
+    .rating-desc{font-size:12px;color:var(--ink3);}
+    .score-block{flex:1;}
+    .score-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+    .score-lbl{font-size:12px;color:var(--ink3);width:140px;flex-shrink:0;}
+    .score-bar{flex:1;height:8px;background:var(--bg2);border-radius:4px;overflow:hidden;}
+    .score-fill{height:100%;border-radius:4px;}
+    .score-val{font-size:12px;font-weight:700;width:44px;text-align:right;color:var(--ink2);}
+    .cover-footer{background:var(--bg);border-top:1px solid var(--border);padding:14px 36px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--ink3);}
+
+    /* ── SEZIONI DATI ── */
+    .section-head{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+    .section-head-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+    .sh-blue{background:var(--blue-bg);}
+    .sh-green{background:var(--green-bg);}
+    .sh-gold{background:#FFFBEB;}
+    .section-head-title{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--ink);}
+    .section-head-sub{font-size:11px;color:var(--ink3);margin-top:1px;}
+
+    /* TABELLA INDICI */
+    .indices-table{width:100%;border-collapse:collapse;}
+    .indices-table th{background:var(--bg);font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;padding:10px 16px;border-bottom:1px solid var(--border);text-align:left;}
+    .indices-table th:not(:first-child){text-align:right;}
+    .indices-table td{padding:9px 16px;border-bottom:.5px solid var(--border);font-size:13px;color:var(--ink2);}
+    .indices-table td:not(:first-child){text-align:right;font-weight:600;color:var(--ink);}
+    .indices-table tr:last-child td{border-bottom:none;}
+    .pill{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;}
+    .pill-g{background:var(--green-bg);color:var(--green);}
+    .pill-r{background:#FEF2F2;color:var(--red);}
+    .pill-a{background:#FFFBEB;color:var(--gold);}
+
+    /* SP GRIGLIA */
+    .sp-grid{display:grid;grid-template-columns:1fr 1fr;border-top:none;}
+    .sp-col{padding:20px 24px;border-right:1px solid var(--border);}
+    .sp-col:last-child{border-right:none;}
+    .sp-col-title{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;}
+    .sp-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:.5px solid var(--border);font-size:12.5px;}
+    .sp-row:last-child{border-bottom:none;}
+    .sp-row-lbl{color:var(--ink3);}
+    .sp-row-val{font-weight:600;color:var(--ink);}
+    .sp-row-total .sp-row-lbl{font-weight:700;color:var(--ink);}
+    .sp-row-total .sp-row-val{color:var(--blue);}
+
+    /* BENCHMARK */
+    .bm-grid{padding:20px 24px;display:flex;flex-direction:column;gap:12px;}
+    .bm-row{display:flex;align-items:center;gap:12px;}
+    .bm-lbl{font-size:12px;color:var(--ink2);width:120px;flex-shrink:0;}
+    .bm-bar-wrap{flex:1;display:flex;flex-direction:column;gap:4px;}
+    .bm-bar-company{height:10px;border-radius:4px;background:var(--blue);}
+    .bm-bar-sector{height:10px;border-radius:4px;background:var(--bg2);}
+    .bm-vals{font-size:11px;display:flex;gap:6px;color:var(--ink4);}
+    .bm-val-c{color:var(--blue);font-weight:700;}
+    .bm-val-s{color:var(--ink3);}
+    .bm-legend{display:flex;gap:16px;padding:0 24px 16px;font-size:11px;color:var(--ink3);}
+    .bm-legend-dot{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle;}
+
+    /* NARRATIVE */
+    .narrative{padding:20px 24px;font-size:13.5px;color:var(--ink2);line-height:1.75;}
+    .narrative p{margin-bottom:12px;}
+    .narrative p:last-child{margin-bottom:0;}
+    .narrative strong{color:var(--ink);}
+
+    /* ALTMAN */
+    .altman-body{padding:20px 24px;}
+    .altman-meter{background:linear-gradient(to right,#DC2626 0%,#D97706 33%,#059669 66%,#059669 100%);height:14px;border-radius:7px;position:relative;margin-bottom:8px;}
+    .altman-needle{position:absolute;top:-5px;width:4px;height:24px;background:var(--ink);border-radius:2px;transform:translateX(-50%);}
+    .altman-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--ink4);margin-bottom:16px;}
+    .altman-result{display:flex;align-items:center;gap:14px;}
+    .altman-score{font-family:'Fraunces',serif;font-size:32px;font-weight:800;color:var(--green);}
+    .altman-desc{font-size:13px;color:var(--ink2);line-height:1.6;}
+
+    /* FOOTER PAGE */
+    .page-footer{background:var(--bg);border-top:1px solid var(--border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:var(--ink4);}
+    .page-footer a{color:var(--blue);text-decoration:none;}
+
+    /* PRINT */
+    @media print{
+      .screen-only{display:none!important;}
+      body{background:#fff;}
+      .rpage{break-inside:avoid;border:none;border-radius:0;border-bottom:2px solid #e2e8f0;margin-bottom:0;page-break-after:always;}
+      .rpage:last-child{page-break-after:avoid;}
+      .report-pages{padding:0;max-width:100%;gap:0;}
+    }
+    @media(max-width:620px){
+      .sp-grid,.cover-body{grid-template-columns:1fr!important;flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="screen-only">
+  <nav>
+    <a href="index.html" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
+    <div class="nav-actions">
+      <a href="importa-xbrl.html" class="btn-back">← Torna all'analisi</a>
+      <button class="btn-print" onclick="window.print()">⬇ Salva come PDF</button>
+    </div>
+  </nav>
+  <div class="banner">
+    <span>📄</span>
+    <span><strong>Documento di esempio</strong> — Dati simulati a scopo dimostrativo. Clicca <strong>"Salva come PDF"</strong> per scaricare questo report. Nel browser scegli <em>Salva come PDF</em> come stampante.</span>
+  </div>
+</div>
+
+<div class="report-pages">
+
+  <!-- ══════════════ PAG 1 — COPERTINA ══════════════ -->
+  <div class="rpage">
+    <div class="cover-header">
+      <div class="cover-logo">Analisi<span>e</span>BusinessPlan.com</div>
+      <div class="cover-company">Esempio S.r.l.</div>
+      <div class="cover-piva">P.IVA 01234567890 — Cod. ATECO 10.71 (Panificazione e pasticceria)</div>
+      <div class="cover-meta">
+        <div class="cover-meta-item"><span>Esercizio</span>2023</div>
+        <div class="cover-meta-item"><span>Anno precedente</span>2022</div>
+        <div class="cover-meta-item"><span>Schema</span>Ordinario (art. 2424 c.c.)</div>
+        <div class="cover-meta-item"><span>Generato il</span>04/10/2026</div>
+      </div>
+    </div>
+    <div class="cover-body">
+      <div class="rating-block">
+        <div class="rating-label">Rating bancabilità</div>
+        <div class="rating-badge">B</div>
+        <div class="rating-desc">Rischio moderato<br/>Stage 2 EBA</div>
+      </div>
+      <div class="score-block">
+        <div class="score-row">
+          <span class="score-lbl">Redditività</span>
+          <div class="score-bar"><div class="score-fill" style="width:62%;background:#1D4ED8;"></div></div>
+          <span class="score-val" style="color:#1D4ED8;">62/100</span>
+        </div>
+        <div class="score-row">
+          <span class="score-lbl">Liquidità</span>
+          <div class="score-bar"><div class="score-fill" style="width:54%;background:#D97706;"></div></div>
+          <span class="score-val" style="color:#D97706;">54/100</span>
+        </div>
+        <div class="score-row">
+          <span class="score-lbl">Solidità patrimoniale</span>
+          <div class="score-bar"><div class="score-fill" style="width:71%;background:#059669;"></div></div>
+          <span class="score-val" style="color:#059669;">71/100</span>
+        </div>
+        <div class="score-row">
+          <span class="score-lbl">Copertura del debito</span>
+          <div class="score-bar"><div class="score-fill" style="width:68%;background:#059669;"></div></div>
+          <span class="score-val" style="color:#059669;">68/100</span>
+        </div>
+        <div class="score-row">
+          <span class="score-lbl">Score complessivo</span>
+          <div class="score-bar"><div class="score-fill" style="width:64%;background:#1D4ED8;"></div></div>
+          <span class="score-val" style="color:#1D4ED8;font-size:14px;">64/100</span>
+        </div>
+      </div>
+    </div>
+    <div class="cover-footer">
+      <span>Conforme EBA/GL/2020/06 — D.Lgs. 14/2019 (CCII)</span>
+      <span>analisiebusinessplan.com — pagina 1 di 6</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAG 2 — INDICI EBA ══════════════ -->
+  <div class="rpage">
+    <div class="section-head">
+      <div class="section-head-icon sh-blue">📊</div>
+      <div>
+        <div class="section-head-title">Indici finanziari EBA</div>
+        <div class="section-head-sub">Confronto con soglie EBA/GL/2020/06 — esercizi 2023 vs 2022</div>
+      </div>
+    </div>
+    <table class="indices-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Indice</th>
+          <th>2023</th>
+          <th>2022</th>
+          <th>Soglia EBA</th>
+          <th>Giudizio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>ROE — Return on Equity</td><td>9,4%</td><td>7,1%</td><td>&gt; 5%</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>ROI — Return on Investment</td><td>6,2%</td><td>5,8%</td><td>&gt; 4%</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>ROS — Return on Sales</td><td>4,8%</td><td>4,1%</td><td>&gt; 3%</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>EBITDA Margin</td><td>11,2%</td><td>9,7%</td><td>&gt; 8%</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>Current Ratio</td><td>0,94x</td><td>1,02x</td><td>&gt; 1,0x</td><td><span class="pill pill-r">✗ Sotto soglia</span></td></tr>
+        <tr><td>Quick Ratio</td><td>0,71x</td><td>0,82x</td><td>&gt; 0,8x</td><td><span class="pill pill-r">✗ Sotto soglia</span></td></tr>
+        <tr><td>DSCR — Debt Service Coverage</td><td>1,18x</td><td>1,09x</td><td>&gt; 1,1x</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>ICR — Interest Coverage Ratio</td><td>3,4x</td><td>2,9x</td><td>&gt; 3,0x</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>PFN / EBITDA</td><td>3,2x</td><td>3,8x</td><td>&lt; 4,0x</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>PFN / Patrimonio netto</td><td>1,4x</td><td>1,7x</td><td>&lt; 2,0x</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>Debt/Equity Ratio</td><td>2,1x</td><td>2,4x</td><td>&lt; 3,0x</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        <tr><td>Indice autonomia finanziaria</td><td>31,4%</td><td>28,2%</td><td>&gt; 25%</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+      </tbody>
+    </table>
+    <div class="page-footer"><span>Analisi di bilancio — Esempio S.r.l. — 2023</span><span>pagina 2 di 6</span></div>
+  </div>
+
+  <!-- ══════════════ PAG 3 — STATO PATRIMONIALE ══════════════ -->
+  <div class="rpage">
+    <div class="section-head">
+      <div class="section-head-icon sh-blue">🏛</div>
+      <div>
+        <div class="section-head-title">Stato Patrimoniale</div>
+        <div class="section-head-sub">Valori in €  —  esercizi 2023 e 2022</div>
+      </div>
+    </div>
+    <div class="sp-grid" style="display:grid;grid-template-columns:1fr 1fr;">
+      <div class="sp-col">
+        <div class="sp-col-title">Attivo</div>
+        <div class="sp-row"><span class="sp-row-lbl">Immobilizzazioni immateriali</span><span class="sp-row-val">34.200</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Immobilizzazioni materiali</span><span class="sp-row-val">487.000</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Immobilizzazioni finanziarie</span><span class="sp-row-val">12.000</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Totale immobilizzazioni</span><span class="sp-row-val">533.200</span></div>
+        <div class="sp-row" style="margin-top:8px;"><span class="sp-row-lbl">Rimanenze</span><span class="sp-row-val">198.400</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Crediti verso clienti</span><span class="sp-row-val">312.100</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Liquidità</span><span class="sp-row-val">87.300</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Totale attivo circolante</span><span class="sp-row-val">597.800</span></div>
+        <div class="sp-row sp-row-total" style="margin-top:8px;border-top:1.5px solid var(--border);padding-top:8px;"><span class="sp-row-lbl">TOTALE ATTIVO</span><span class="sp-row-val">1.131.000</span></div>
+      </div>
+      <div class="sp-col" style="border-right:none;">
+        <div class="sp-col-title">Passivo &amp; Patrimonio netto</div>
+        <div class="sp-row"><span class="sp-row-lbl">Capitale sociale</span><span class="sp-row-val">50.000</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Riserve</span><span class="sp-row-val">218.000</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Utile d'esercizio</span><span class="sp-row-val">87.400</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Totale patrimonio netto</span><span class="sp-row-val">355.400</span></div>
+        <div class="sp-row" style="margin-top:8px;"><span class="sp-row-lbl">TFR</span><span class="sp-row-val">48.200</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Debiti verso banche (BT)</span><span class="sp-row-val">124.000</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Debiti verso banche (LT)</span><span class="sp-row-val">284.000</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Debiti verso fornitori</span><span class="sp-row-val">219.400</span></div>
+        <div class="sp-row"><span class="sp-row-lbl">Altri debiti</span><span class="sp-row-val">100.000</span></div>
+        <div class="sp-row sp-row-total" style="margin-top:8px;border-top:1.5px solid var(--border);padding-top:8px;"><span class="sp-row-lbl">TOTALE PASSIVO</span><span class="sp-row-val">1.131.000</span></div>
+      </div>
+    </div>
+    <div class="page-footer"><span>Analisi di bilancio — Esempio S.r.l. — 2023</span><span>pagina 3 di 6</span></div>
+  </div>
+
+  <!-- ══════════════ PAG 4 — CONTO ECONOMICO ══════════════ -->
+  <div class="rpage">
+    <div class="section-head">
+      <div class="section-head-icon sh-blue">📈</div>
+      <div>
+        <div class="section-head-title">Conto Economico</div>
+        <div class="section-head-sub">Valori in €  —  esercizi 2023 e 2022</div>
+      </div>
+    </div>
+    <table class="indices-table">
+      <thead>
+        <tr><th>Voce CE</th><th>2023</th><th>2022</th><th>Δ%</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ricavi delle vendite</td><td>1.820.000</td><td>1.643.000</td><td style="color:#059669;">+10,8%</td></tr>
+        <tr><td>Altri ricavi e proventi</td><td>24.000</td><td>19.000</td><td style="color:#059669;">+26,3%</td></tr>
+        <tr><td><strong>Valore della produzione</strong></td><td><strong>1.844.000</strong></td><td><strong>1.662.000</strong></td><td style="color:#059669;"><strong>+11,0%</strong></td></tr>
+        <tr><td>Costi per materie prime</td><td>-724.000</td><td>-672.000</td><td></td></tr>
+        <tr><td>Costi per servizi</td><td>-318.000</td><td>-290.000</td><td></td></tr>
+        <tr><td>Costo del personale</td><td>-492.000</td><td>-448.000</td><td></td></tr>
+        <tr><td><strong>EBITDA</strong></td><td><strong>206.600</strong></td><td><strong>161.300</strong></td><td style="color:#059669;"><strong>+28,1%</strong></td></tr>
+        <tr><td>Ammortamenti</td><td>-64.200</td><td>-58.000</td><td></td></tr>
+        <tr><td><strong>EBIT</strong></td><td><strong>142.400</strong></td><td><strong>103.300</strong></td><td style="color:#059669;"><strong>+37,9%</strong></td></tr>
+        <tr><td>Oneri finanziari</td><td>-28.400</td><td>-26.100</td><td></td></tr>
+        <tr><td>Imposte (IRES + IRAP)</td><td>-26.600</td><td>-22.000</td><td></td></tr>
+        <tr><td><strong>UTILE NETTO</strong></td><td><strong>87.400</strong></td><td><strong>55.200</strong></td><td style="color:#059669;"><strong>+58,3%</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="page-footer"><span>Analisi di bilancio — Esempio S.r.l. — 2023</span><span>pagina 4 di 6</span></div>
+  </div>
+
+  <!-- ══════════════ PAG 5 — BENCHMARK SETTORIALE ══════════════ -->
+  <div class="rpage">
+    <div class="section-head">
+      <div class="section-head-icon sh-green">📍</div>
+      <div>
+        <div class="section-head-title">Confronto settoriale ATECO</div>
+        <div class="section-head-sub">Settore 10.71 — Panificazione e pasticceria — 18 macro-settori disponibili</div>
+      </div>
+    </div>
+    <div class="bm-grid">
+      <div class="bm-row">
+        <span class="bm-lbl">ROE</span>
+        <div class="bm-bar-wrap">
+          <div class="bm-bar-company" style="width:62%;"></div>
+          <div class="bm-bar-sector" style="width:47%;"></div>
+          <div class="bm-vals"><span class="bm-val-c">Azienda 9,4%</span><span class="bm-val-s">Media settore 7,1%</span></div>
+        </div>
+      </div>
+      <div class="bm-row">
+        <span class="bm-lbl">EBITDA Margin</span>
+        <div class="bm-bar-wrap">
+          <div class="bm-bar-company" style="width:74%;"></div>
+          <div class="bm-bar-sector" style="width:60%;"></div>
+          <div class="bm-vals"><span class="bm-val-c">Azienda 11,2%</span><span class="bm-val-s">Media settore 9,0%</span></div>
+        </div>
+      </div>
+      <div class="bm-row">
+        <span class="bm-lbl">Current Ratio</span>
+        <div class="bm-bar-wrap">
+          <div class="bm-bar-company" style="width:47%;background:#DC2626;"></div>
+          <div class="bm-bar-sector" style="width:65%;"></div>
+          <div class="bm-vals"><span style="color:#DC2626;font-weight:700;">Azienda 0,94x ✗</span><span class="bm-val-s">Media settore 1,30x</span></div>
+        </div>
+      </div>
+      <div class="bm-row">
+        <span class="bm-lbl">PFN/EBITDA</span>
+        <div class="bm-bar-wrap">
+          <div class="bm-bar-company" style="width:53%;"></div>
+          <div class="bm-bar-sector" style="width:58%;"></div>
+          <div class="bm-vals"><span class="bm-val-c">Azienda 3,2x</span><span class="bm-val-s">Media settore 3,5x</span></div>
+        </div>
+      </div>
+      <div class="bm-row">
+        <span class="bm-lbl">DSO (giorni cred.)</span>
+        <div class="bm-bar-wrap">
+          <div class="bm-bar-company" style="width:41%;"></div>
+          <div class="bm-bar-sector" style="width:55%;"></div>
+          <div class="bm-vals"><span class="bm-val-c">Azienda 62 gg</span><span class="bm-val-s">Media settore 83 gg</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="bm-legend">
+      <span><span class="bm-legend-dot" style="background:#1D4ED8;"></span>Azienda analizzata</span>
+      <span><span class="bm-legend-dot" style="background:var(--bg2);"></span>Media settore ATECO</span>
+    </div>
+    <div class="page-footer"><span>Analisi di bilancio — Esempio S.r.l. — 2023</span><span>pagina 5 di 6</span></div>
+  </div>
+
+  <!-- ══════════════ PAG 6 — ALTMAN + CCII + NARRATIVE ══════════════ -->
+  <div class="rpage">
+    <div class="section-head">
+      <div class="section-head-icon sh-gold">⚠️</div>
+      <div>
+        <div class="section-head-title">Altman Z'-Score &amp; Indicatori CCII</div>
+        <div class="section-head-sub">D.Lgs. 14/2019 — Codice della Crisi d'Impresa e dell'Insolvenza</div>
+      </div>
+    </div>
+    <div class="altman-body">
+      <div class="altman-meter">
+        <div class="altman-needle" style="left:54%;"></div>
+      </div>
+      <div class="altman-labels">
+        <span>Zona crisi (&lt;1,23)</span>
+        <span>Zona grigia</span>
+        <span>Zona sicura (&gt;2,90)</span>
+      </div>
+      <div class="altman-result">
+        <div class="altman-score">1,87</div>
+        <div class="altman-desc">
+          <strong style="color:var(--gold);">Zona grigia</strong> — Il punteggio è compreso tra 1,23 e 2,90: l'azienda non presenta segnali di crisi imminente ma richiede monitoraggio. Il miglioramento del Current Ratio e della liquidità a breve porterebbe lo score in zona sicura.<br/>
+          <span style="font-size:12px;color:var(--ink3);">Formula Z' = 0,717·X1 + 0,847·X2 + 3,107·X3 + 0,420·X4 + 0,998·X5 (Altman 1995, per imprese non quotate)</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--border);">
+      <div class="section-head" style="border-bottom:none;">
+        <div class="section-head-icon sh-blue">📋</div>
+        <div>
+          <div class="section-head-title">Indicatori CCII (D.Lgs. 14/2019)</div>
+          <div class="section-head-sub">Verifica degli indicatori di allerta previsti dal Codice della Crisi</div>
+        </div>
+      </div>
+      <table class="indices-table" style="margin-top:0;">
+        <thead><tr><th>Indicatore</th><th>Valore</th><th>Soglia</th><th>Esito</th></tr></thead>
+        <tbody>
+          <tr><td>DSCR a 6 mesi (stimato)</td><td>1,14x</td><td>&gt; 1,0x</td><td><span class="pill pill-g">✓ Adeguato</span></td></tr>
+          <tr><td>Patrimonio netto negativo</td><td>No</td><td>—</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+          <tr><td>Ritardi reiterati pagamenti fornitori</td><td>Non rilevati</td><td>—</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+          <tr><td>Esposizione debitoria vs banche &gt; 90 gg</td><td>No</td><td>—</td><td><span class="pill pill-g">✓ OK</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="narrative" style="border-top:1px solid var(--border);">
+      <p><strong>Sintesi del profilo finanziario:</strong> Esempio S.r.l. presenta un profilo di rischio moderato (rating B). I punti di forza sono la crescita dei ricavi (+11%), il miglioramento dell'EBITDA margin (11,2%) e l'andamento positivo del DSCR (1,18x, sopra la soglia EBA di 1,10x).</p>
+      <p>Le aree di attenzione riguardano la liquidità a breve termine: il Current Ratio (0,94x) e il Quick Ratio (0,71x) sono entrambi sotto le rispettive soglie EBA. Si raccomanda di monitorare le scadenze dei debiti a breve e valutare il rinnovo delle linee di credito revolving.</p>
+    </div>
+    <div class="page-footer"><span>Analisi di bilancio — Esempio S.r.l. — 2023</span><span>pagina 6 di 6 — analisiebusinessplan.com</span></div>
+  </div>
+
+</div>
+
+</body>
+</html>
