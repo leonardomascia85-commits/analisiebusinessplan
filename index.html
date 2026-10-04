@@ -205,43 +205,6 @@
       width: 40px; height: 2px; background: var(--navy); margin: 24px 0 40px;
     }
 
-    /* SERVICES (numbered cards) */
-    .services {
-      padding: 96px 6%;
-      background: var(--white);
-    }
-    .services-head {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 48px; align-items: end; margin-bottom: 64px;
-    }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--bord);
-      border: 1px solid var(--bord);
-      border-radius: 12px; overflow: hidden;
-    }
-    .svc-card {
-      background: var(--white); padding: 36px 32px;
-      transition: background .2s;
-      display: flex; flex-direction: column; gap: 14px;
-    }
-    .svc-card:hover { background: var(--bg); }
-    .svc-num {
-      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px;
-      font-weight: 600; color: var(--ink4); letter-spacing: .05em;
-    }
-    .svc-title {
-      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px;
-      font-weight: 700; color: var(--navy); line-height: 1.2;
-    }
-    .svc-desc {
-      font-size: 14px; color: var(--ink2); line-height: 1.7; flex: 1;
-    }
-    .svc-link {
-      font-size: 13px; font-weight: 600; color: var(--ink);
-      display: inline-flex; align-items: center; gap: 5px;
-    }
-    .svc-link:hover { color: var(--gold); }
 
     /* PER CHI */
     .perchi {
@@ -595,12 +558,12 @@
 
     /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .services-head, .cf-head, .perchi-inner { grid-template-columns: 1fr; gap: 32px; }
+      .cf-head, .perchi-inner { grid-template-columns: 1fr; gap: 32px; }
       .footer-main { grid-template-columns: 1fr 1fr; gap: 36px; }
       .foot-brand { grid-column: 1 / -1; }
     }
     @media (max-width: 820px) {
-      .services-grid, .pricing-grid, .studio-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .pricing-grid, .studio-grid, .reviews-grid { grid-template-columns: 1fr; }
       .stats-inner { grid-template-columns: 1fr 1fr; }
       .stat:nth-child(2) { border-right: none; }
       .stat:nth-child(3) { border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px; margin-top: 16px; }
@@ -671,77 +634,6 @@
     <div class="comp-item"><span class="comp-dot"></span> Dott. Leonardo Mascia — Commercialista &amp; Revisore Legale</div>
   </div>
 </div>
-
-<!-- SERVICES -->
-<section class="services">
-  <div class="wrap">
-    <div class="services-head">
-      <div>
-        <div class="section-label">I nostri strumenti</div>
-        <h2 class="section-title">Tutto quello che serve per l'analisi <em>finanziaria</em></h2>
-        <div class="section-divider"></div>
-      </div>
-      <div>
-        <p class="section-sub">Due strumenti professionali pensati per PMI, commercialisti e consulenti. Anteprima sempre gratuita — paghi solo il report che scarichi.</p>
-      </div>
-    </div>
-
-    <div class="services-grid">
-
-      <div class="svc-card">
-        <div class="svc-num">01</div>
-        <div class="svc-title">Analisi di Bilancio XBRL</div>
-        <p class="svc-desc">Importa il file XBRL dal Registro Imprese e ottieni in 10 secondi 12+ indici finanziari, rating bancabilità A–E e confronto con 18 settori ATECO. Report PDF pronto per banca e commercialista.</p>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-          <a href="importa-xbrl.html" class="svc-link">Inizia l'analisi →</a>
-          <span style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--navy)">€ 20</span>
-        </div>
-      </div>
-
-      <div class="svc-card">
-        <div class="svc-num">02</div>
-        <div class="svc-title">Business Plan Finanziario</div>
-        <p class="svc-desc">Proiezioni 3 anni con CE, Stato Patrimoniale e Cash Flow integrati. DSCR, ICR, PFN/EBITDA proiettati anno per anno. Break-even analysis e scenario stress −20% ricavi. Conforme EBA/GL/2020/06.</p>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-          <a href="business-plan.html" class="svc-link">Crea il piano →</a>
-          <span style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--navy)">€ 149,99</span>
-        </div>
-      </div>
-
-      <div class="svc-card">
-        <div class="svc-num">03</div>
-        <div class="svc-title">Analisi Multi-Anno</div>
-        <p class="svc-desc">Confronta fino a 3 esercizi consecutivi con grafici di trend, variazioni percentuali anno su anno e andamento degli indici EBA nel tempo. Ideale per istruttorie bancarie e due diligence finanziarie.</p>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-          <a href="bilancio-multianno.html" class="svc-link">Confronta bilanci →</a>
-          <span style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--navy)">€ 49,99</span>
-        </div>
-      </div>
-
-      <div class="svc-card">
-        <div class="svc-num">04</div>
-        <div class="svc-title">Rating Bancabilità A–E</div>
-        <p class="svc-desc">Il sistema calcola automaticamente il rating secondo i criteri EBA/GL/2020/06 — lo stesso usato dalle banche per classificare le imprese in Stage 1, 2 o 3. Con semaforo a colori e commento narrativo.</p>
-        <a href="importa-xbrl.html" class="svc-link" style="margin-top:4px">Scopri il tuo rating →</a>
-      </div>
-
-      <div class="svc-card">
-        <div class="svc-num">05</div>
-        <div class="svc-title">Conformità CCII</div>
-        <p class="svc-desc">Tutti gli indicatori previsti dal D.Lgs. 14/2019 (Codice della Crisi d'Impresa): DSCR, liquidità, PFN/EBITDA e Altman Z'-Score. Analisi del rischio pre-crisi con soglie di allerta normate.</p>
-        <a href="importa-xbrl.html" class="svc-link" style="margin-top:4px">Verifica la conformità →</a>
-      </div>
-
-      <div class="svc-card">
-        <div class="svc-num">06</div>
-        <div class="svc-title">Pacchetti per Studi</div>
-        <p class="svc-desc">Acquista crediti in anticipo e usali quando vuoi, senza scadenza. Da 5 a 50 analisi con risparmio fino al 50% rispetto al singolo report. Dashboard dedicata per monitorare i crediti residui.</p>
-        <a href="#piano-studio" class="svc-link" style="margin-top:4px">Vedi i pacchetti →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- PER CHI -->
 <section class="perchi">
