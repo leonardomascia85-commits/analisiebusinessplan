@@ -11,7 +11,8 @@
     "@supabase/supabase-js": "^2.45.0",
     "express": "^5.2.1",
     "puppeteer-core": "19.7.2",
-    "resend": "^6.28.1"
+    "resend": "^6.28.1",
+    "stripe": "^23.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
