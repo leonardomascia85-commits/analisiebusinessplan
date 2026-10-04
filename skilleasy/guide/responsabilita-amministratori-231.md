@@ -136,7 +136,7 @@ L'ente non risponde se dimostra di aver adottato ed **efficacemente attuato**, p
 
 Le sanzioni per l'ente sono di due tipi: **pecuniarie** (calcolate in "quote", ciascuna tra circa 258 € e 1.549 €, moltiplicate per il numero di quote stabilito dal giudice in base alla gravità) e **interdittive** (interdizione dall'esercizio dell'attività, sospensione o revoca di autorizzazioni/licenze, divieto di contrattare con la Pubblica Amministrazione, esclusione da agevolazioni e finanziamenti, divieto di pubblicizzare beni o servizi).
 
-📌 **Punto chiave**: per una piccola impresa, una sanzione interdittiva — ad esempio il divieto di contrattare con la PA o l'esclusione dai finanziamenti agevolati (guida Agevolazioni e Bandi) — è spesso più dannosa nel tempo della sanzione pecuniaria stessa.
+📌 **Punto chiave**: per una piccola impresa, una sanzione interdittiva — ad esempio il divieto di contrattare con la PA o l'esclusione dai finanziamenti agevolati — è spesso più dannosa nel tempo della sanzione pecuniaria stessa.
 
 ---
 
@@ -171,7 +171,7 @@ Il canale deve garantire la **riservatezza del segnalante**, essere gestito da u
 
 Nei gruppi di società, la responsabilità ex D.Lgs 231/2001 è in linea di principio autonoma per ciascun ente: risponde la società nel cui interesse o vantaggio il reato è stato commesso. La giurisprudenza ha però riconosciuto che anche la **capogruppo (holding)** può rispondere quando ricorrono due condizioni congiunte: un soggetto della capogruppo ha concorso nella commissione del reato (ad esempio impartendo direttive che hanno determinato la condotta illecita nella controllata), e il reato è stato commesso anche nell'interesse o a vantaggio della capogruppo stessa.
 
-Questo si collega direttamente a quanto visto nella guida Passaggio Generazionale (Lezione 13) sulla holding di famiglia: chi struttura un gruppo societario con una capogruppo di controllo ottiene vantaggi di pianificazione e di governance, ma deve considerare anche un'esposizione 231 aggiuntiva per la capogruppo stessa.
+Questo vale anche per la holding di famiglia usata come strumento di pianificazione del passaggio generazionale: chi struttura un gruppo societario con una capogruppo di controllo ottiene vantaggi di pianificazione e di governance, ma deve considerare anche un'esposizione 231 aggiuntiva per la capogruppo stessa.
 
 📌 **Esempio pratico**: se una holding di controllo impartisse alla società operativa direttive che portano a violare le norme sulla sicurezza sul lavoro per ridurre i costi, e da questo derivasse un infortunio grave (reato presupposto ex art. 25-septies, Lezione 11), la capogruppo potrebbe essere chiamata a rispondere in proprio ai sensi del D.Lgs 231/2001, in aggiunta alla controllata, se viene dimostrato il concorso nella direttiva e il vantaggio di gruppo che ne è derivato.
 

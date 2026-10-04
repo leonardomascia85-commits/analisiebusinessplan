@@ -199,4 +199,4 @@ Mettendo insieme tutta la guida: Verdi Srl riceve un ordine da un'impresa edile 
 - Art. 105 D.Lgs 36/2023 (nuovo Codice dei Contratti Pubblici, subappalto); art. 29 D.Lgs 276/2003 (responsabilità solidale retributiva e contributiva)
 - D.M. 143/2021 (DURC di Congruità); L. 136/2010 (tracciabilità dei flussi finanziari); D.Lgs 159/2011 (Codice Antimafia)
 
-Ricontrollate al 26/09/2026 tramite ricerca web mirata: la normativa sui bonus edilizi è tra le più soggette a modifiche del catalogo, insieme alla guida Agevolazioni e Bandi.
+Ricontrollate al 26/09/2026 tramite ricerca web mirata: la normativa sui bonus edilizi è tra le più soggette a modifiche di tutto il catalogo.

@@ -523,23 +523,21 @@ Successivamente, su richiesta esplicita del cliente ("rendi le guide più comple
 | # | Guida | Lezioni | Note |
 |---|---|---|---|
 | 1 | Contabilità da zero ad avanzato | 27 | Principi OIC, più rendiconto finanziario, nota integrativa, leasing, valuta estera, bilancio consolidato |
-| 2 | Fisco da zero ad avanzato | 24 | Regime forfettario/IRES/IRAP, più redditometro, crediti d'imposta in F24, interpello |
+| 2 | Fisco da zero ad avanzato | 29 | Regime forfettario, meccanismo e liquidazione IVA, IRES con variazioni in aumento/diminuzione, IRAP, altre imposte d'impresa (IMU/TARI/diritto camerale), più redditometro, crediti d'imposta in F24, interpello |
 | 3 | Gestione aziendale | 25 | Organizzazione/persone, più piano industriale, vendor rating, smart working, conflitti interni |
 | 4 | Controllo di gestione | 25 | Break-even/indici/budget, più full costing/direct costing, ABC, Balanced Scorecard |
 | 5 | Programmazione e finanza | 25 | DSCR/business plan/finanziamenti, più factoring, mini-bond, valutazione d'azienda, PE/VC |
 | 6 | Sicurezza sul lavoro (D.Lgs 81/08) | 23 | DVR, RSPP/RLS, formazione, DPI, DUVRI, responsabilità penale, più stress lavoro-correlato, appalti a rischio specifico |
 | 7 | Crisi d'impresa e allerta precoce | 20 | Assetti adeguati, DSCR trimestrale, composizione negoziata, più indici settoriali CNDCEC, concordato semplificato |
 | 8 | Welfare aziendale e fringe benefit | 15 | Soglie 2026 (1.000/2.000 €), confronto vs aumento in busta paga, più piano welfare strutturato, previdenza complementare |
-| 9 | Agevolazioni e bandi per le PMI | 17 | Iperammortamento 2026, Nuova Sabatini, click day, più credito R&S, SIMEST/SACE |
-| 10 | Privacy e GDPR essenziale per PMI | 15 | Registro trattamenti, data breach nelle 72 ore, più videosorveglianza, trasferimenti extra-UE, DPIA |
-| 11 | IVA avanzata | 17 | Reverse charge, regime OSS, esportazioni, più Gruppo IVA, pro-rata, note di variazione |
-| 12 | Marketing digitale per PMI | 17 | L'unica guida prevalentemente strategica, non normativa, più branding, marketing automation, reputazione online |
-| 13 | Passaggio generazionale e successione | 15 | Aliquote 2026, novità separazione franchigie, patto di famiglia, più trust, holding di famiglia, governance familiare |
-| 14 | Guida settoriale edilizia | 15 | Caso di studio verticale che integra tutte le altre guide, più subappalto, tracciabilità pagamenti, computo metrico |
-| 15 | Responsabilità amministratori e D.Lgs 231 | 19 | Richiesta ad hoc dal cliente, non nella roadmap §22: responsabilità civile/penale dell'amministratore (artt. 2392/2394/2395 c.c.), business judgement rule, reati societari/tributari, D.Lgs 231/2001 (MOG, Organismo di Vigilanza, sanzioni), assicurazione D&O, whistleblowing, gruppi di società |
+| 9 | Privacy e GDPR essenziale per PMI | 15 | Registro trattamenti, data breach nelle 72 ore, più videosorveglianza, trasferimenti extra-UE, DPIA |
+| 10 | IVA avanzata | 17 | Reverse charge, regime OSS, esportazioni, più Gruppo IVA, pro-rata, note di variazione |
+| 11 | Marketing digitale per PMI | 17 | L'unica guida prevalentemente strategica, non normativa, più branding, marketing automation, reputazione online |
+| 12 | Guida settoriale edilizia | 15 | Caso di studio verticale che integra tutte le altre guide, più subappalto, tracciabilità pagamenti, computo metrico |
+| 13 | Responsabilità amministratori e D.Lgs 231 | 19 | Richiesta ad hoc dal cliente, non nella roadmap §22: responsabilità civile/penale dell'amministratore (artt. 2392/2394/2395 c.c.), business judgement rule, reati societari/tributari, D.Lgs 231/2001 (MOG, Organismo di Vigilanza, sanzioni), assicurazione D&O, whistleblowing, gruppi di società |
 
-**Totale catalogo (5 pilastri base + 10 estensioni)**: 15 guide, 299 lezioni, ~49 ore di video stimate. Tutte le guide sono state ampliate su richiesta esplicita del cliente ("rendi le guide più complete e più lunghe") con nuove lezioni su argomenti non ancora coperti, verificato sommando direttamente le tabelle "Indice riassuntivo dei moduli" di ciascun file .md (non un totale stimato a occhio).
+**Totale catalogo (5 pilastri base + 8 estensioni)**: 13 guide, 272 lezioni, ~45 ore di video stimate. Le guide "Agevolazioni e bandi per le PMI" e "Passaggio generazionale e successione" sono state rimosse dal catalogo su richiesta del cliente. La guida Fisco è stata ulteriormente ampliata su richiesta esplicita del cliente con moduli dedicati e approfonditi su IVA (meccanismo e liquidazione periodica), IRES (incluse le variazioni fiscali in aumento e in diminuzione) e IRAP (base imponibile e deduzioni), più un nuovo modulo sulle altre imposte d'impresa (IMU, TARI, diritto camerale, bollo, tassa sui libri sociali) — passando da 24 a 29 lezioni. Tutte le guide rimaste sono state ampliate su richiesta esplicita del cliente ("rendi le guide più complete e più lunghe") con nuove lezioni su argomenti non ancora coperti, verificato sommando direttamente le tabelle "Indice riassuntivo dei moduli" di ciascun file .md (non un totale stimato a occhio).
 
-**Sito aggiornato**: la homepage (`skilleasy/index.html`) ha una nuova sezione "Catalogo" che presenta tutte e 14 le guide, con nota di trasparenza che il testo è pronto mentre le video lezioni sono in produzione — non promette contenuti che non esistono ancora.
+**Sito aggiornato**: la homepage (`skilleasy/index.html`) ha una nuova sezione "Catalogo" che presenta tutte e 13 le guide, con nota di trasparenza che il testo è pronto mentre le video lezioni sono in produzione — non promette contenuti che non esistono ancora.
 
 **Cosa resta da fare, fuori dalla portata di questa sessione**: girare le video lezioni (~36 ore totali stimate, un impegno di produzione reale da pianificare — non tutto in una volta), e per le 9 guide di estensione valutare se e come inserirle nel catalogo prezzi (§9): probabile che restino incluse nell'abbonamento Accademia come contenuto di approfondimento, mentre i 5 pilastri base restano la base del bundle una tantum (§9.1), per non svalutare il posizionamento "5 pilastri completi" già comunicato.
