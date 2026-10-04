@@ -1,5 +1,5 @@
 # Script Video — Fisco da Zero ad Avanzato
-**Guida sorgente**: fisco-base-avanzato.md · 24 lezioni
+**Guida sorgente**: fisco-base-avanzato.md · 29 lezioni
 
 ---
 
@@ -13,17 +13,17 @@ Prima di partire, voglio presentarti due persone — anzi, un caso di persona fi
 
 [mostra a schermo: "Marco Bruni — grafico freelance, forfettario" e "Verdi Srl — regime ordinario, IRES/IRAP"]
 
-Una cosa importante prima di iniziare, e te lo dico con la massima onestà professionale: le aliquote, le soglie e i coefficienti che userò in questa guida sono quelli in vigore nel 2026, secondo le fonti ufficiali disponibili al momento in cui l'ho registrata. Il fisco cambia ogni anno con la Legge di Bilancio — ne parliamo diffusamente nella Lezione 19 — quindi prima di ogni scadenza reale, verifica sempre i valori aggiornati con il tuo commercialista o sul sito dell'Agenzia delle Entrate. Quello che voglio insegnarti qui è il meccanismo, che cambia raramente. I numeri di un singolo anno sono importanti, ma sono la parte che invecchia più in fretta.
+Una cosa importante prima di iniziare, e te lo dico con la massima onestà professionale: le aliquote, le soglie e i coefficienti che userò in questa guida sono quelli in vigore nel 2026, secondo le fonti ufficiali disponibili al momento in cui l'ho registrata. Il fisco cambia ogni anno con la Legge di Bilancio — ne parliamo diffusamente nella Lezione 24 — quindi prima di ogni scadenza reale, verifica sempre i valori aggiornati con il tuo commercialista o sul sito dell'Agenzia delle Entrate. Quello che voglio insegnarti qui è il meccanismo, che cambia raramente. I numeri di un singolo anno sono importanti, ma sono la parte che invecchia più in fretta.
 
 [pausa breve]
 
 Detto questo, partiamo. Immagina di essere nella posizione di Marco: hai deciso di metterti in proprio, magari fai già qualche lavoretto come freelance e vuoi regolarizzarti. La tentazione, a questo punto, è correre subito a informarsi sul regime fiscale, sul forfettario, sulle aliquote. Ed è un errore comune, perché prima ancora di arrivare a quella domanda, ci sono due scelte iniziali che condizionano tutto il resto, e che vanno fatte con calma.
 
-La prima scelta è la forma giuridica. Se stai iniziando da solo, come Marco, la strada più naturale è aprire una ditta individuale — che significa semplicemente operare come persona fisica — oppure, se fai una professione ordinistica o assimilata, iscriverti come libero professionista. Una società vera e propria, una Srl o una Snc, è un discorso che si valuta più avanti, quando l'attività cresce e ha senso strutturarsi diversamente: ne parliamo con tutti i dettagli nel Livello Avanzato, alla Lezione 15. Per ora tieni a mente solo questo: all'inizio, quasi sempre, si parte da soli.
+La prima scelta è la forma giuridica. Se stai iniziando da solo, come Marco, la strada più naturale è aprire una ditta individuale — che significa semplicemente operare come persona fisica — oppure, se fai una professione ordinistica o assimilata, iscriverti come libero professionista. Una società vera e propria, una Srl o una Snc, è un discorso che si valuta più avanti, quando l'attività cresce e ha senso strutturarsi diversamente: ne parliamo con tutti i dettagli nel Livello Avanzato, alla Lezione 20. Per ora tieni a mente solo questo: all'inizio, quasi sempre, si parte da soli.
 
 [pausa breve]
 
-A questo punto potresti chiederti: ma perché non conviene, fin da subito, aprire direttamente una società? In fondo se un domani servirà, perché non partire già strutturati? Te lo anticipo, perché è un dubbio legittimo e lo approfondiremo con tutti i numeri alla Lezione 15: una società comporta una gestione più complessa e più costosa — bilancio da redigere e depositare, libri sociali da tenere, commercialista con un impegno maggiore — costi che, quando fatturi ancora poco e stai testando la tua attività, spesso non sono ancora giustificati. È come costruire subito una fabbrica quando ancora non sai se il prodotto venderà: prima si testa in piccolo, poi, se funziona, si struttura. La forma giuridica, in altre parole, deve essere proporzionata alla fase in cui si trova davvero la tua attività, non alla fase in cui vorresti che si trovasse.
+A questo punto potresti chiederti: ma perché non conviene, fin da subito, aprire direttamente una società? In fondo se un domani servirà, perché non partire già strutturati? Te lo anticipo, perché è un dubbio legittimo e lo approfondiremo con tutti i numeri alla Lezione 20: una società comporta una gestione più complessa e più costosa — bilancio da redigere e depositare, libri sociali da tenere, commercialista con un impegno maggiore — costi che, quando fatturi ancora poco e stai testando la tua attività, spesso non sono ancora giustificati. È come costruire subito una fabbrica quando ancora non sai se il prodotto venderà: prima si testa in piccolo, poi, se funziona, si struttura. La forma giuridica, in altre parole, deve essere proporzionata alla fase in cui si trova davvero la tua attività, non alla fase in cui vorresti che si trovasse.
 
 La seconda scelta, ed è quella su cui voglio che tu ti fermi davvero a riflettere, è il codice ATECO. Non è un dettaglio burocratico da spuntare in fretta su un modulo. Il codice ATECO è il codice che classifica esattamente la tua attività — per esempio "attività di design specializzate" — e da questo codice dipende direttamente un numero che vedremo nella prossima lezione, il coefficiente di redditività. In pratica, il codice ATECO che scegli oggi determina quanto delle tue fatture verrà tassato domani. Non è un'esagerazione: è proprio così che funziona il meccanismo.
 
@@ -271,7 +271,7 @@ Al posto dell'IVA, sulla fattura compare una dicitura specifica, che è bene tu 
 
 C'è poi un altro dettaglio pratico che vale la pena conoscere: se applicabile, sulla fattura va apposta una marca da bollo da 2 euro, per le fatture sopra i 77,47 euro non soggette a IVA. È un piccolo costo, ma va gestito correttamente — dimenticarlo sistematicamente è un errore che, seppur di lieve entità, un controllo formale può rilevare.
 
-Pensa a questo piccolo dettaglio come a un promemoria di un principio più grande che vale per tutta la guida: anche gli adempimenti più piccoli, quelli che sembrano trascurabili rispetto ai grandi numeri di imposte e contributi di cui parliamo nel resto della guida, fanno parte della correttezza complessiva della tua posizione fiscale. Un controllo formale, come vedremo nella Lezione 16, guarda esattamente a questo tipo di dettagli, non solo ai grandi numeri.
+Pensa a questo piccolo dettaglio come a un promemoria di un principio più grande che vale per tutta la guida: anche gli adempimenti più piccoli, quelli che sembrano trascurabili rispetto ai grandi numeri di imposte e contributi di cui parliamo nel resto della guida, fanno parte della correttezza complessiva della tua posizione fiscale. Un controllo formale, come vedremo nella Lezione 21, guarda esattamente a questo tipo di dettagli, non solo ai grandi numeri.
 
 Il punto chiave di questa lezione è semplice ma va ricordato bene: non pensare che il regime forfettario ti esoneri anche dalla fatturazione elettronica solo perché non applichi l'IVA. Sono due obblighi diversi e indipendenti — uno riguarda l'imposta, l'altro riguarda il canale attraverso cui trasmetti il documento fiscale all'Agenzia delle Entrate — e dal 2024 valgono entrambi, senza eccezioni per dimensione o fatturato.
 
@@ -297,7 +297,7 @@ Il primo appuntamento è a metà giugno — il 16 giugno, salvo proroghe che cap
 
 Il secondo appuntamento è il 30 novembre, in cui si versa il secondo acconto dell'imposta sostitutiva e dei contributi.
 
-Il terzo appuntamento, che in realtà è un adempimento più che un pagamento vero e proprio, riguarda la presentazione della dichiarazione dei redditi — il Modello Redditi Persone Fisiche, che vedremo con più dettaglio nella Lezione 13 — entro la fine di novembre dell'anno successivo a quello a cui si riferisce.
+Il terzo appuntamento, che in realtà è un adempimento più che un pagamento vero e proprio, riguarda la presentazione della dichiarazione dei redditi — il Modello Redditi Persone Fisiche, che vedremo con più dettaglio nella Lezione 17 — entro la fine di novembre dell'anno successivo a quello a cui si riferisce.
 
 Nota come questi tre appuntamenti, messi in fila, raccontano in realtà un'unica storia che si ripete ogni anno: a giugno chiudi i conti con l'anno precedente e inizi ad anticipare quello in corso; a novembre completi l'anticipo dell'anno in corso; e, nel mezzo di questo ciclo, prepari e presenti la dichiarazione che riepiloga formalmente tutto quanto. Guardare il calendario fiscale come un ciclo che si ripete, anno dopo anno, piuttosto che come un elenco di scadenze isolate, aiuta a viverlo con più organizzazione e meno ansia.
 
@@ -355,13 +355,133 @@ Questi due scenari estremi ti mostrano bene i due "poli" tra cui si muove sempre
 
 Quindi il messaggio da portare a casa da questa lezione è: non esiste una risposta valida una volta per tutte. È un calcolo che va sempre rifatto caso per caso, con i numeri reali della tua situazione specifica — non un automatismo che vale per tutti allo stesso modo. Il metodo, però, resta sempre lo stesso: calcola il reddito imponibile in entrambi i regimi, applica le aliquote corrette a ciascuno, e confronta solo il risultato finale — l'imposta effettivamente dovuta, non le percentuali isolate.
 
-Nella prossima lezione vediamo nel dettaglio come funziona l'IRPEF a scaglioni, quella che si applica a chi è in regime ordinario, con la riforma degli scaglioni entrata in vigore nel 2026. Ci vediamo lì.
+Nella prossima lezione affrontiamo la prima vera novità di chi lascia il forfettario: l'IVA. Vediamo insieme come funziona il meccanismo di base, le aliquote in vigore, e la differenza tra IVA a debito e IVA a credito. Ci vediamo lì.
 
 ---
 
-## Lezione 10 — IRPEF: i nuovi scaglioni 2026 (esempio pratico)
+## Lezione 10 — Il meccanismo dell'IVA: operazioni imponibili, aliquote, IVA a debito e a credito
 
-Nella lezione scorsa abbiamo usato l'IRPEF nel nostro confronto numerico senza ancora spiegarla nel dettaglio. È il momento di rimediare, perché l'IRPEF è l'imposta che riguarda chiunque sia in regime ordinario come persona fisica — ditta individuale o libero professionista che sia uscito, o non sia mai entrato, nel forfettario.
+Nella lezione scorsa ti ho lasciato con una domanda aperta su Marco, e con una promessa: capire davvero, con tutti i numeri, se per lui conviene restare forfettario o passare all'ordinario. Ma c'è un pezzo del puzzle che, fino a questo momento, abbiamo lasciato volutamente fuori dal discorso, perché riguarda solo chi è in regime ordinario, non i forfettari come Marco: l'IVA. Ed è proprio da qui che vogliamo partire, perché passare al regime ordinario significa, per la prima volta, dover gestire questa imposta — e il nostro protagonista, in questa lezione, non è più Marco: è Verdi Srl, l'azienda che conosci già se hai seguito la guida sulla Contabilità.
+
+[pausa breve]
+
+Partiamo dalla definizione, perché voglio che tu la capisca bene prima di entrare nel meccanismo vero e proprio. L'IVA, l'Imposta sul Valore Aggiunto, è disciplinata dal DPR 633 del 1972, ed è un'imposta sui consumi. Questo significa una cosa molto precisa: chi la paga, in ultima battuta, è il consumatore finale — la persona che acquista un bene o un servizio per usarlo, non per rivenderlo o trasformarlo in qualcos'altro all'interno della propria attività.
+
+E qui arriva il punto che voglio che tu fissi bene fin da questa prima lezione sull'IVA, perché cambia completamente il modo in cui guarderai questa imposta da ora in avanti: per un'impresa in regime ordinario come Verdi Srl, l'IVA è neutra. Non è un costo dell'azienda, e non è nemmeno un ricavo. Verdi Srl non la tiene per sé: fa semplicemente da "tramite" tra i propri clienti e lo Stato, incassando l'imposta sulle vendite e versandola, al netto di quanto ha già pagato sugli acquisti.
+
+Fermati un attimo a capire perché il legislatore ha costruito un meccanismo così complicato, con tutti questi passaggi, invece di far pagare direttamente l'imposta al consumatore finale in un unico momento. La risposta sta nella parola stessa, "valore aggiunto": l'idea è tassare, a ogni passaggio della catena produttiva e commerciale, solo l'incremento di valore che quel passaggio genera, non l'intero prezzo del bene da capo. Pensa a quanti soggetti diversi intervengono prima che un prodotto arrivi nelle mani del consumatore finale: chi produce la materia prima, chi la trasforma, chi distribuisce, chi vende al dettaglio. Se ogni soggetto pagasse l'imposta sul prezzo intero, la stessa materia prima verrebbe tassata più e più volte, in modo sempre più gonfiato. Il meccanismo dell'IVA, invece, fa in modo che ogni soggetto della catena versi allo Stato solo l'imposta sulla parte di valore che ha effettivamente aggiunto lui, recuperando quella che ha già pagato a monte. Alla fine, il totale che arriva nelle casse dello Stato corrisponde esattamente all'imposta sul prezzo finale pagato dal consumatore — né di più, né di meno.
+
+[mostra a schermo: "IVA → imposta sui consumi, neutra per le imprese"]
+
+Il meccanismo si basa su due flussi distinti, e voglio che tu impari a riconoscerli subito, perché li useremo in continuazione da qui in avanti.
+
+Il primo flusso è l'IVA a debito. È quella che Verdi Srl applica sulle proprie fatture di vendita ai clienti. Attenzione a un punto che genera spesso confusione: quell'importo non è un ricavo dell'azienda. È un importo che Verdi Srl incassa dal cliente per conto dello Stato, e che dovrà poi riversare all'Erario. Verdi Srl, in questo passaggio, si comporta come una specie di "cassiere" temporaneo di quei soldi, non come il loro destinatario finale.
+
+Il secondo flusso è l'IVA a credito. È quella che Verdi Srl paga ai propri fornitori quando acquista materie prime, servizi, o beni strumentali. Anche qui, attenzione: non è un costo dell'azienda in senso stretto — è un importo che Verdi Srl ha già versato al proprio fornitore, e che può "recuperare", scalandolo da quanto dovrà allo Stato. È, in un certo senso, il rovescio della medaglia del primo flusso.
+
+[pausa breve]
+
+Prova a vedere questi due flussi anche con un'altra immagine, perché aiuta molto a fissarli bene in mente, soprattutto la prima volta che li si incontra. Pensa all'IVA a debito come ai soldi che un cassiere incassa dai clienti di un negozio per conto del proprietario del centro commerciale: quei soldi passano dalle mani del cassiere, ma non sono suoi, dovrà restituirli a fine giornata. Pensa invece all'IVA a credito come a una ricevuta che quello stesso cassiere ha già pagato in anticipo per conto del centro commerciale, e che si fa restituire alla fine. Il cassiere, in questa immagine, è esattamente il ruolo che gioca Verdi Srl: incassa da una parte, ha già pagato dall'altra, e alla fine fa i conti tra le due cifre — non tiene per sé né l'una né l'altra.
+
+Prima di passare agli esempi numerici, c'è un altro elemento fondamentale da conoscere: le aliquote. In Italia, attualmente, sono quattro, e voglio che tu le impari bene perché torneranno continuamente da qui in avanti.
+
+[mostra a schermo: le quattro aliquote IVA]
+
+La prima, e più comune, è l'aliquota ordinaria del 22%, che si applica alla maggior parte dei beni e dei servizi, salvo i casi espressamente elencati come eccezioni. La seconda è l'aliquota ridotta del 10%, che riguarda alcuni interventi edilizi di recupero, la somministrazione di alimenti e bevande, e alcuni beni energetici. La terza è l'aliquota ridottissima del 5%, riservata ad alcuni beni e servizi specifici elencati in una tabella apposita del DPR 633. La quarta, la più bassa, è l'aliquota minima del 4%, pensata per i beni di prima necessità — pensa al pane e ad alcuni alimentari di base, ai libri, ad alcuni dispositivi medici, e all'abitazione principale.
+
+Fermati un attimo a capire perché esistono aliquote diverse, invece di un'unica percentuale uguale per tutto. La logica è, ancora una volta, quella della capacità contributiva, ma vista da un'angolazione diversa rispetto all'IRPEF che vedremo più avanti nella guida: tassare meno pesantemente i beni di prima necessità — quelli che tutti, indipendentemente dal reddito, devono comunque acquistare — e tassare normalmente, o anche più severamente in alcuni casi specifici, i beni e i servizi non essenziali. È un modo per rendere l'imposta, che di per sé colpisce tutti allo stesso modo indipendentemente dal reddito, un po' più equa nei suoi effetti pratici.
+
+Fermati un attimo anche su un rischio pratico legato a queste aliquote, perché è un errore che vedo capitare più spesso di quanto si pensi: applicare l'aliquota sbagliata su una fattura non è un dettaglio innocuo. Se Verdi Srl applicasse per errore il 22% a un'operazione che la legge assoggetta al 10%, il cliente pagherebbe più del dovuto, e in caso di controllo l'errore andrebbe corretto, con tutte le complicazioni amministrative che ne derivano — note di variazione, rettifiche, e in alcuni casi anche sanzioni. Per questo motivo, verificare l'aliquota corretta per ogni bene o servizio che l'azienda vende non è un esercizio accademico: è parte integrante della corretta gestione fiscale quotidiana, esattamente come scegliere il codice ATECO corretto di cui abbiamo parlato fin dalla prima lezione di questa guida.
+
+[pausa breve]
+
+Adesso vediamo insieme un esempio concreto con Verdi Srl, per fissare bene il meccanismo dei due flussi di cui parlavamo prima.
+
+[mostra a schermo: il calcolo passo per passo]
+
+Immagina che Verdi Srl venda della merce a un cliente per un importo di 1.000 euro, più IVA al 22%. Calcoliamo insieme l'imposta: 1.000 euro moltiplicati per 22%, cioè per 0,22, fanno 220 euro di IVA. La fattura che Verdi Srl emette al cliente, quindi, è di 1.220 euro in totale — 1.000 euro di merce più 220 euro di IVA. Di questi 1.220 euro, però, solo 1.000 sono davvero ricavo per Verdi Srl: i 220 euro restanti sono IVA a debito, cioè l'importo che Verdi Srl ha incassato dal cliente ma che dovrà riversare allo Stato.
+
+Nello stesso periodo, supponiamo che Verdi Srl acquisti materie prime dal proprio fornitore per 1.500 euro, sempre più IVA al 22%. Facciamo lo stesso calcolo: 1.500 euro moltiplicati per 22%, cioè per 0,22, fanno 330 euro di IVA. Il totale che Verdi Srl paga al proprio fornitore è quindi di 1.830 euro — 1.500 euro di materie prime più 330 euro di IVA. Anche qui, attenzione: non sono 1.830 euro di costo reale per Verdi Srl. Il costo vero è 1.500 euro; i 330 euro restanti sono IVA a credito, cioè un importo che Verdi Srl ha già versato al fornitore e che potrà recuperare.
+
+[mostra a schermo: 220 € di IVA a debito (vendita) contro 330 € di IVA a credito (acquisto)]
+
+Guarda bene questi due numeri messi uno accanto all'altro, perché è esattamente la base su cui si costruisce tutto il resto del discorso sull'IVA che faremo nella prossima lezione: 220 euro di IVA a debito da una parte, 330 euro di IVA a credito dall'altra. In questo esempio specifico, Verdi Srl ha accumulato più IVA a credito che a debito — una situazione che vedremo con tutte le sue conseguenze pratiche nella prossima lezione, quando parleremo della liquidazione periodica.
+
+E qui arriviamo al punto chiave di questa lezione, quello che voglio che tu porti a casa più di ogni altro dettaglio tecnico: l'IVA non compare mai, in nessun momento, nel Conto Economico di Verdi Srl come un costo o come un ricavo dell'azienda. Non è vero per ogni singolo caso — esistono situazioni particolari di IVA indetraibile, pensa ad alcune spese di rappresentanza o ad alcune auto non strumentali, che vedremo più avanti nella guida — ma nella stragrande maggioranza delle operazioni ordinarie, l'IVA è una partita "di giro": passa attraverso due conti patrimoniali distinti, IVA a debito e IVA a credito, in attesa della liquidazione periodica di cui parleremo nella prossima lezione.
+
+Prova a vedere questo concetto anche con un'ultima immagine, perché aiuta a fissarlo bene, soprattutto se stai guardando per la prima volta il bilancio di un'azienda e ti chiedi dove sia finita l'IVA che hai visto scritta su ogni fattura. Pensa all'IVA come all'acqua che scorre in un tubo trasparente che passa attraverso l'azienda, senza mai fermarsi dentro: entra da un lato — quando Verdi Srl paga i suoi fornitori — e esce dall'altro — quando i clienti pagano Verdi Srl, e poi Verdi Srl la riversa allo Stato. L'azienda non "beve" quell'acqua, si limita a farla passare, con un solo aggiustamento: il saldo tra quanta ne è entrata e quanta ne è uscita, che è esattamente il tema della prossima lezione.
+
+Un'ultima precisazione prima di chiudere, perché voglio essere onesto con te sui limiti di quello che abbiamo visto in questa lezione. Quello che ti ho spiegato oggi è il meccanismo di base, valido per la stragrande maggioranza delle operazioni che un'azienda come Verdi Srl affronta ogni giorno. Ma l'IVA ha anche una distinzione più fine, tra operazioni imponibili, non imponibili, esenti ed escluse, che diventa fondamentale soprattutto per chi esporta o lavora con l'estero. Questo livello di approfondimento è talmente importante, per chi ne ha bisogno, che meritava una guida tutta sua: la trovi, dedicata interamente a questi aspetti più avanzati, nella guida "IVA Avanzata" di questo stesso catalogo.
+
+Un'ultima connessione pratica, utile soprattutto se stai seguendo anche la guida sulla Contabilità: quando si registra una fattura di vendita o di acquisto, l'IVA calcolata con queste aliquote è esattamente quella che finisce nei conti patrimoniali di IVA a debito e di IVA a credito di cui abbiamo parlato — non nel Conto Economico, dove invece finiscono i ricavi e i costi veri e propri, al netto dell'imposta. Tenere bene a mente questa distinzione, fin dalla prima registrazione contabile, evita uno degli errori più comuni di chi inizia a gestire la contabilità di un'azienda in regime ordinario: confondere l'importo totale scritto in fattura con il ricavo o il costo reale dell'operazione, quando in realtà una parte di quella cifra, l'IVA, non appartiene né all'uno né all'altro.
+
+Nella prossima lezione completiamo il quadro, vedendo cosa succede concretamente alla fine di ogni periodo: come si calcola l'IVA da versare, con quale frequenza, e cosa succede quando, come nell'esempio di oggi, l'IVA a credito supera quella a debito. Ci vediamo lì.
+
+---
+
+## Lezione 11 — La liquidazione periodica dell'IVA: mensile vs trimestrale, scadenze e credito IVA
+
+Nella lezione scorsa abbiamo lasciato Verdi Srl con due numeri in mano: 220 euro di IVA a debito da una vendita, e 330 euro di IVA a credito da un acquisto. Ti avevo promesso che saremmo tornati su quel confronto, e questa è esattamente la lezione in cui lo facciamo, perché è il momento di capire cosa succede davvero, in pratica, a quei due numeri alla fine di ogni periodo.
+
+[pausa breve]
+
+Il meccanismo si chiama liquidazione IVA, e il principio di base è semplice da enunciare, anche se le conseguenze pratiche, come vedremo, non sono sempre altrettanto semplici da gestire. Alla fine di ogni periodo — che può essere un mese o un trimestre, lo vediamo tra poco — Verdi Srl deve sommare tutta l'IVA a debito accumulata in quel periodo, sommare tutta l'IVA a credito accumulata nello stesso periodo, e versare la differenza.
+
+[mostra a schermo: "IVA da versare = Totale IVA a debito − Totale IVA a credito"]
+
+Fermati un attimo su questa formula, perché è il cuore di tutta la lezione, e tutto il resto che vedremo è semplicemente una conseguenza di questo singolo calcolo. Se il risultato è positivo — cioè se l'IVA a debito supera quella a credito — Verdi Srl deve versare la differenza con il modello F24, lo stesso modello che useremo più avanti nella guida anche per i crediti d'imposta. Se invece il risultato è negativo — cioè se l'IVA a credito supera quella a debito, come era successo nell'esempio della lezione scorsa — non si versa nulla: l'eccedenza si riporta al periodo successivo, diventando quello che si chiama un credito IVA, utilizzabile in compensazione o, in alcuni casi specifici, richiedibile anche a rimborso.
+
+Prova a vedere questo meccanismo con un'immagine che forse ti aiuta a fissarlo meglio: pensa alla liquidazione IVA come al saldo di un conto corrente che si aggiorna periodicamente. Se durante il periodo sono "entrati" più soldi di quanti ne siano "usciti" — più IVA a debito incassata che IVA a credito pagata — il saldo è positivo, e quella differenza va versata allo Stato. Se invece è successo il contrario, il saldo è negativo, ma a differenza di un conto corrente normale, qui il saldo negativo non è un problema: è semplicemente un credito che resta a disposizione dell'azienda per il periodo successivo.
+
+Fermati un attimo anche su un aspetto che vale la pena anticipare, anche se lo riprenderemo con tutti i dettagli più avanti nella guida: rispettare le scadenze di versamento che vedremo tra poco non è un'opzione tra tante, è un obbligo con conseguenze precise in caso di ritardo. Verdi Srl che liquida l'IVA e scopre di aver versato in ritardo, o di aver versato un importo inferiore a quello dovuto, rientra esattamente nella stessa logica del ravvedimento operoso che vedremo più avanti nella guida: prima si corregge l'errore, più la sanzione resta contenuta. Tenerlo a mente fin da questa lezione ti aiuta a capire perché, nella pratica quotidiana di un'azienda, la liquidazione periodica non è solo un calcolo contabile, ma un vero e proprio appuntamento con una scadenza che va rispettata con puntualità.
+
+[pausa breve]
+
+Ora, veniamo a un aspetto che genera spesso domande: con quale frequenza si fa questa liquidazione? La risposta dipende dal volume d'affari dell'azienda nell'anno precedente, e qui ci sono due soglie da conoscere.
+
+[mostra a schermo: liquidazione mensile vs trimestrale — le soglie]
+
+La liquidazione è mensile per chi, nell'anno precedente, ha superato 500.000 euro di volume d'affari se si tratta di prestazioni di servizi o di attività assimilate come arti e professioni, oppure 800.000 euro per le altre attività, per esempio il commercio di beni. Chi resta sotto queste soglie, invece, liquida l'IVA trimestralmente — con una particolarità che vale la pena conoscere: la liquidazione trimestrale comporta una maggiorazione dell'1% a titolo di interesse, proprio perché lo Stato incassa quella somma più tardi rispetto a chi liquida ogni mese.
+
+Fermati un attimo a capire perché esiste questa differenza di periodicità, invece di un'unica scadenza per tutti. La logica è di proporzionalità amministrativa: un'azienda piccola, con un volume d'affari contenuto, avrebbe un carico di adempimenti sproporzionato se dovesse fare dodici liquidazioni all'anno invece di quattro. Un'azienda più grande, invece, movimenta importi IVA tipicamente più significativi, e lo Stato preferisce — ragionevolmente — incassarli con maggiore frequenza, anche per motivi di gestione del proprio flusso di cassa complessivo.
+
+Quanto alle scadenze di versamento, eccole nel dettaglio: per la liquidazione mensile, il versamento va fatto entro il 16 del mese successivo — con un'eccezione pratica da conoscere, se l'importo dovuto non supera 25,82 euro, non si versa nulla e si riporta al mese dopo. Per la liquidazione trimestrale, il versamento va fatto entro il 16 del secondo mese successivo al trimestre di riferimento.
+
+[mostra a schermo: 16 del mese successivo (mensile) / 16 del secondo mese successivo al trimestre (trimestrale)]
+
+A questo si affianca un adempimento distinto dal versamento vero e proprio, che voglio che tu conosca perché è facile confonderlo con la liquidazione stessa: la Comunicazione LIPE, che sta per Liquidazioni Periodiche IVA. È un adempimento di trasmissione dati all'Agenzia delle Entrate, con scadenze fissate ogni anno, di norma entro la fine del secondo mese successivo al trimestre, salvo proroghe. Tieni bene distinti questi due obblighi nella tua testa: una cosa è versare l'imposta dovuta, un'altra cosa è comunicare all'Agenzia i dati di quella liquidazione — sono due adempimenti paralleli, non uno sostitutivo dell'altro.
+
+Fermati un attimo a capire perché esiste un adempimento di comunicazione distinto dal versamento, invece di lasciare che l'Agenzia delle Entrate deduca tutto semplicemente dai bonifici in arrivo. La risposta è che il versamento, da solo, dice allo Stato "quanto" è stato pagato, ma non dice "perché": non racconta come si è arrivati a quella cifra, quali fatture di vendita e di acquisto hanno generato il debito o il credito del periodo. La Comunicazione LIPE fornisce esattamente questo dettaglio, periodo per periodo, ed è uno degli strumenti che permette all'Agenzia di incrociare i dati e individuare, con gli strumenti automatizzati che vedremo più avanti nella guida parlando dei controlli fiscali, eventuali anomalie già prima che si arrivi alla dichiarazione annuale.
+
+[pausa breve]
+
+Vediamo ora un esempio pratico completo, per fissare bene tutto quello che abbiamo visto fin qui.
+
+[mostra a schermo: il calcolo passo per passo]
+
+Immagina che, nel primo trimestre dell'anno, Verdi Srl abbia accumulato 15.000 euro di IVA a debito dalle proprie vendite, e 9.000 euro di IVA a credito dai propri acquisti. Applichiamo la formula che abbiamo visto all'inizio della lezione: IVA da versare uguale IVA a debito meno IVA a credito. Facciamo il calcolo: 15.000 euro meno 9.000 euro fanno 6.000 euro. Questo è l'importo che Verdi Srl deve versare con il modello F24 per quel trimestre.
+
+[mostra a schermo: 15.000 € − 9.000 € = 6.000 € da versare]
+
+Ora guarda cosa succede se cambiamo uno dei due numeri, per vedere l'altro lato della medaglia. Immagina che, nello stesso trimestre, Verdi Srl abbia fatto un investimento importante — l'acquisto di un macchinario nuovo, per esempio — e che l'IVA a credito, invece di 9.000 euro, sia stata di 18.000 euro. Rifacciamo il calcolo con questo nuovo numero: 15.000 euro di IVA a debito meno 18.000 euro di IVA a credito fanno un risultato negativo di 3.000 euro. In questo caso, Verdi Srl non versa nulla: quei 3.000 euro di credito si riportano semplicemente al trimestre successivo.
+
+[mostra a schermo: 15.000 € − 18.000 € = − 3.000 € → credito riportato al trimestre successivo]
+
+Confronta bene questi due scenari, perché raccontano esattamente la stessa logica applicata a due situazioni diverse: nel primo caso, le vendite hanno superato gli acquisti, e Verdi Srl ha dovuto versare la differenza. Nel secondo caso, un investimento importante ha fatto superare gli acquisti rispetto alle vendite, generando un credito invece di un debito.
+
+Ed è proprio su questo secondo scenario che voglio fermarmi con te sul punto chiave di questa lezione. Un'azienda che investe molto in un certo periodo — acquisti di beni strumentali, scorte importanti — genera spesso un credito IVA temporaneo. Non è un problema in sé, ma va pianificato con attenzione nella gestione della liquidità, non lasciato al caso. Nella maggior parte dei casi, quel credito "rientra" naturalmente nei periodi successivi, quando le vendite tornano a superare gli acquisti. Ma se la situazione è strutturale — se Verdi Srl, per esempio, continua ad accumulare credito IVA periodo dopo periodo — si può valutare, con il proprio commercialista, di chiederlo a rimborso oppure di usarlo in compensazione, uno strumento su cui torneremo con tutti i dettagli più avanti nella guida.
+
+Pensa a questa differenza — tra un credito occasionale e un credito strutturale — come alla differenza tra restare per una notte in rosso sul conto corrente dopo una spesa importante, e restarci sistematicamente ogni mese: nel primo caso, basta aspettare che il saldo si riequilibri da solo; nel secondo caso, è il momento di chiedersi se qualcosa, nella struttura stessa dell'attività, non vada rivisto.
+
+Il consiglio pratico con cui voglio chiudere questa lezione è semplice, ma vale la pena ripeterlo con chiarezza: non aspettare la fine del periodo per sapere se ti troverai con un debito o un credito. Tenere sotto controllo, anche solo mensilmente, l'andamento delle due colonne — IVA a debito dalle vendite, IVA a credito dagli acquisti — ti permette di prevedere con buon anticipo se dovrai accantonare liquidità per il versamento, oppure se ti troverai con un credito da gestire. È lo stesso principio di controllo periodico che abbiamo incontrato più volte in questa guida, applicato questa volta non ai ricavi cumulati di un forfettario, ma al saldo IVA di un'azienda in regime ordinario.
+
+Nella prossima lezione lasciamo per un momento l'IVA — hai ormai tutti gli strumenti per gestirla correttamente — e torniamo a un'imposta che riguarda le persone fisiche in regime ordinario: l'IRPEF, con tutti i dettagli degli scaglioni in vigore dal 2026. Ci vediamo lì.
+
+---
+
+## Lezione 12 — IRPEF: i nuovi scaglioni 2026 (esempio pratico)
+
+Nelle due lezioni scorse abbiamo visto come funziona l'IVA per chi è in regime ordinario, dal meccanismo di base alla liquidazione periodica. Ma l'IVA non è l'unica novità per chi lascia il forfettario: c'è anche l'imposta sul reddito, calcolata in un modo completamente diverso rispetto all'imposta sostitutiva. È il momento di vedere come funziona l'IRPEF, l'imposta che riguarda chiunque sia in regime ordinario come persona fisica — ditta individuale o libero professionista che sia uscito, o non sia mai entrato, nel forfettario.
 
 [pausa breve]
 
@@ -397,59 +517,223 @@ Prima di passare all'ultimo dettaglio, vale la pena anche chiederti: cosa succed
 
 Un ultimo dettaglio, importante da conoscere prima di chiudere: a questo calcolo dell'IRPEF si aggiungono le addizionali regionali e comunali, che variano da territorio a territorio, quindi il carico fiscale finale può essere leggermente diverso a seconda di dove vivi. E qui torna utile un confronto con quello che abbiamo visto nel Livello Base: l'imposta sostitutiva del forfettario, quella della Lezione 4, include già tutte queste componenti in un'unica aliquota — 15% o 5% — mentre l'IRPEF ordinaria no: le addizionali sono sempre un pezzo separato da aggiungere al conto finale.
 
-Questo confronto ci riporta, in un certo senso, al ragionamento della lezione precedente: quando confronti forfettario e ordinario, non fermarti mai alla sola aliquota "principale". Nel forfettario, quella percentuale è già tutto quello che paghi come imposta; nell'ordinario, all'IRPEF calcolata a scaglioni vanno sempre sommate le addizionali locali, che — pur essendo tipicamente una percentuale piccola rispetto all'IRPEF stessa — completano il quadro reale di quanto finisce per costare, in totale, essere tassati con il sistema ordinario invece che con l'imposta sostitutiva.
+Questo confronto ci riporta, in un certo senso, al ragionamento della Lezione 9: quando confronti forfettario e ordinario, non fermarti mai alla sola aliquota "principale". Nel forfettario, quella percentuale è già tutto quello che paghi come imposta; nell'ordinario, all'IRPEF calcolata a scaglioni vanno sempre sommate le addizionali locali, che — pur essendo tipicamente una percentuale piccola rispetto all'IRPEF stessa — completano il quadro reale di quanto finisce per costare, in totale, essere tassati con il sistema ordinario invece che con l'imposta sostitutiva.
 
 Facciamo un riepilogo di questa lezione, prima di proseguire: hai imparato che l'IRPEF si applica a scaglioni progressivi, che dal 2026 sono tre — 23% fino a 28.000 euro, 33% fino a 50.000 euro, 43% oltre questa soglia — e che il meccanismo progressivo si applica sempre e solo alla fetta di reddito che rientra in ciascuno scaglione, mai all'intero reddito. Hai anche visto, passo dopo passo, come si costruisce il calcolo completo per un reddito di 35.000 euro, arrivando a un'imposta di 8.750 euro. Questo stesso metodo di calcolo, fetta per fetta, è quello che userai per qualunque reddito imponibile ti troverai davanti in futuro, semplicemente cambiando il numero di partenza.
 
-Nella prossima lezione lasciamo per un momento le persone fisiche e ci spostiamo su Verdi Srl, per vedere come funziona la tassazione di una società di capitali con IRES e IRAP. Ci vediamo lì.
+Nella prossima lezione lasciamo per un momento le persone fisiche e ci spostiamo su Verdi Srl, per vedere come funziona la tassazione di una società di capitali, a partire dall'IRES. Ci vediamo lì.
 
 ---
 
-## Lezione 11 — IRES e IRAP per le società di capitali (esempio Verdi Srl)
+## Lezione 13 — IRES: cos'è, come si calcola, l'aliquota ordinaria e l'IRES premiale
 
-Nella lezione scorsa abbiamo visto l'IRPEF, l'imposta che riguarda le persone fisiche in regime ordinario. Ora cambiamo completamente soggetto, e torniamo a Verdi Srl, l'azienda che conosci già se hai seguito la guida sulla Contabilità. Una società di capitali come Verdi Srl non paga IRPEF — quell'imposta, semplicemente, non la riguarda. Paga altre due imposte, diverse tra loro, ed è fondamentale che tu impari a distinguerle: IRES e IRAP.
-
-[pausa breve]
-
-Partiamo dall'IRES. È l'imposta sul reddito delle società, e si applica con un'aliquota unica, non a scaglioni come l'IRPEF: il 24% sull'utile imponibile. L'utile imponibile parte dall'utile ante imposte che trovi nel Conto Economico, con però alcune variazioni fiscali di cui parliamo tra un momento.
-
-Fermati un attimo a capire perché una società di capitali non paga l'IRPEF come farebbe una persona fisica. La ragione è che l'IRPEF, per definizione, è un'imposta pensata per le persone fisiche — segue la logica della capacità contributiva individuale, con gli scaglioni progressivi che abbiamo visto nella lezione precedente. Una società, invece, è un soggetto giuridico distinto dalle persone che la possiedono: ha un proprio utile, che tassa con un'imposta pensata apposta per i soggetti societari, appunto l'IRES. E non essendo una persona fisica con esigenze di vita da sostenere in modo progressivo, l'aliquota è fissa, uguale per tutte le società, indipendentemente da quanto grande sia il loro utile.
-
-[mostra a schermo: IRES 24% e IRAP 3,9%]
-
-L'altra imposta è l'IRAP, che funziona su basi completamente diverse. L'aliquota ordinaria è del 3,9%, anche se le Regioni hanno il potere di variarla fino a un massimo di 0,92 punti percentuali in più, quindi vale sempre la pena verificare l'aliquota specifica della regione in cui opera l'azienda. Ma la vera differenza rispetto all'IRES non è nell'aliquota: è nella base imponibile. L'IRAP non si calcola sull'utile, ma su quello che si chiama "valore della produzione netto" — che, per semplificare al massimo, puoi pensarlo come qualcosa di simile al valore aggiunto generato dall'azienda, quindi una base che tipicamente è più ampia dell'utile puro.
-
-Fermati un attimo a capire perché esistono due imposte distinte per le società, invece di una sola come nel caso dell'imposta sostitutiva dei forfettari. L'IRES tassa quello che resta all'azienda dopo tutti i costi, compreso il costo del lavoro: è la fotografia della redditività finale dell'impresa. L'IRAP, invece, nasce con una logica diversa, più vicina a quella di un tributo regionale che finanzia anche la sanità: tassa il valore della produzione al lordo di alcune componenti del costo del lavoro, proprio per avere una base più ampia e più stabile nel tempo, meno sensibile alle oscillazioni dell'utile netto da un anno all'altro. Due imposte, due obiettivi, due basi di calcolo: ecco perché a Verdi Srl non basta guardare un solo numero per sapere quanto effettivamente pagherà allo Stato e alla Regione.
+Nella lezione scorsa abbiamo visto l'IRPEF, l'imposta che riguarda le persone fisiche in regime ordinario. Ora cambiamo completamente soggetto, e torniamo a Verdi Srl, l'azienda che conosci già se hai seguito la guida sulla Contabilità e che abbiamo già incontrato parlando di IVA. Una società di capitali come Verdi Srl non paga l'IRPEF — quell'imposta, semplicemente, non la riguarda, perché è pensata per le persone fisiche. Paga invece un'imposta diversa, pensata apposta per i soggetti societari: l'IRES, l'Imposta sul Reddito delle Società.
 
 [pausa breve]
 
-Vediamo insieme un esempio concreto, riprendendo dati coerenti con quelli della guida sulla Contabilità — se ricordi, alla Lezione 17 di quella guida avevamo lavorato sull'utile ante imposte di Verdi Srl. Ipotizziamo, per questo esempio, un utile ante imposte di 40.000 euro e un valore della produzione IRAP di 55.000 euro — due basi imponibili diverse, come abbiamo appena spiegato.
+Partiamo da chi la paga davvero, perché non riguarda solo le Srl come Verdi Srl: pagano l'IRES le società di capitali — Srl, Spa, Sapa — le cooperative, e gli enti commerciali residenti in Italia. È disciplinata dagli articoli 72 e seguenti del TUIR, il Testo Unico delle Imposte sui Redditi, che ritroveremo spesso da qui in avanti.
+
+Il primo numero da fissare bene è l'aliquota: 24%, e soprattutto, 24% fisso. Non è un'aliquota progressiva come l'IRPEF che abbiamo visto nella lezione scorsa — non ci sono scaglioni, non c'è una parte di reddito tassata di più e una tassata di meno. Un euro di reddito in più, per Verdi Srl, paga sempre il 24%, non un centesimo di più in proporzione, indipendentemente da quanto grande sia l'utile complessivo della società.
+
+Fermati un attimo a capire perché l'IRES funziona in modo così diverso dall'IRPEF, perché non è un dettaglio casuale. L'IRPEF, come abbiamo visto, segue il principio costituzionale della capacità contributiva individuale: chi guadagna di più, in proporzione, contribuisce di più. Ma una società di capitali non è una persona fisica con esigenze di vita personale da sostenere in modo progressivo — è un soggetto giuridico distinto dalle persone che la possiedono, con un proprio utile che si tassa secondo una logica diversa. Non essendoci lo stesso bisogno di progressività legato alla persona, il legislatore ha scelto un'aliquota fissa, uguale per tutte le società, indipendentemente dalle loro dimensioni.
+
+[mostra a schermo: "IRES → 24% fisso, non progressivo"]
+
+Prova a vedere questa differenza anche con un confronto diretto rispetto a quello che abbiamo visto nel Livello Base di questa guida, parlando dell'imposta sostitutiva del regime forfettario. Lì, Marco Bruni pagava un'unica aliquota — 15% o 5% nei primi anni — che sostituiva in blocco IRPEF, addizionali e IRAP. Qui, con Verdi Srl, il principio dell'aliquota unica resta, ma cambia completamente il contesto: non è un'agevolazione per le piccole attività individuali, è la regola ordinaria per qualunque società di capitali, grande o piccola che sia. Due aliquote fisse, nate per ragioni opposte — una per semplificare la vita a chi inizia in piccolo, l'altra perché il soggetto stesso, la società, non ha bisogno della progressività pensata per le persone fisiche.
+
+Il periodo d'imposta, per la maggior parte delle piccole e medie imprese, coincide con l'esercizio sociale, che a sua volta coincide tipicamente con l'anno civile — gennaio-dicembre, come il bilancio di cui parla la guida sulla Contabilità.
+
+Ora, c'è un punto su cui voglio che tu sia molto attento, perché è una delle fonti di equivoco più frequenti per chi guarda per la prima volta il bilancio di una società. La base imponibile dell'IRES — cioè la cifra su cui si applica quel 24% — non è semplicemente l'utile che leggi nel Conto Economico del bilancio civilistico. Te lo anticipo chiaramente fin da questa lezione, perché è un tema così importante che gli dedicheremo l'intera prossima lezione: si parte da quell'utile, ma si applicano delle variazioni fiscali previste dal TUIR, che possono spostare la base imponibile in modo anche significativo, in entrambe le direzioni. Per ora, tieni a mente solo questo: utile di bilancio e reddito imponibile IRES non sono, quasi mai, lo stesso identico numero.
+
+[pausa breve]
+
+Prima di arrivare all'esempio numerico, voglio parlarti di una novità del 2026 che vale la pena conoscere, anche se — e te lo dico fin da subito con la massima onestà professionale — è una misura pensata come temporanea, e che quindi va sempre riverificata anno per anno, non data per scontata in nessuna pianificazione di lungo periodo.
+
+[mostra a schermo: "IRES premiale 2026 → 20% invece di 24%, per il periodo d'imposta 2025"]
+
+Si chiama IRES premiale, e per il periodo d'imposta 2025 — quello che si dichiara proprio nel 2026 — prevede un'aliquota ridotta al 20%, invece del 24% ordinario. Non è però un'aliquota automatica: è condizionata al rispetto di requisiti specifici. La società deve destinare a riserva una quota significativa dell'utile del 2024, deve reinvestirla in beni strumentali nuovi — pensa a macchinari, impianti — entro un termine stabilito, e non deve ridurre l'occupazione nel periodo considerato.
+
+Fermati un attimo a capire perché il legislatore ha costruito questa agevolazione proprio con queste tre condizioni insieme, e non con una sola. L'obiettivo non è semplicemente premiare chi ha fatto utili: è premiare chi quegli utili li reinveste nell'azienda, mantenendo al contempo i livelli occupazionali — in altre parole, chi usa la leva fiscale del risparmio d'imposta per far crescere l'impresa, non per distribuire semplicemente più dividendi o per ridurre la propria struttura. È una misura di politica industriale, travestita da aliquota fiscale più bassa.
+
+Prova a vedere questa logica anche con un'immagine che forse ti aiuta a ricordarla meglio: pensa all'IRES premiale come a uno sconto che il negoziante concede solo a chi, con lo sconto in mano, lo reinveste subito nel negozio stesso — nuovi scaffali, nuova merce — invece di metterselo semplicemente in tasca. Lo sconto non è un regalo incondizionato: è legato a un comportamento specifico, verificabile, che il negoziante — in questo caso lo Stato — vuole incentivare davvero, non semplicemente premiare a prescindere.
+
+Ma — e qui voglio essere particolarmente chiaro con te, perché è il punto su cui vedo spesso costruire aspettative sbagliate — questa è una misura temporanea. Non c'è alcuna garanzia che venga confermata per gli anni successivi al 2025. Ogni anno, come vedremo più avanti nella guida parlando di come il fisco cambia con la Legge di Bilancio, questa agevolazione va riverificata da zero, prima di darla per scontata in qualsiasi pianificazione di lungo periodo. Costruire scelte strategiche importanti su un'aliquota pensata esplicitamente come provvisoria sarebbe un errore di pianificazione.
+
+Pensa a questa agevolazione come a una promozione lanciata da un negozio per un periodo limitato, con alcune condizioni da rispettare per ottenerla: ha senso approfittarne se i requisiti si adattano naturalmente a quello che l'azienda avrebbe fatto comunque — reinvestire, mantenere l'occupazione — ma sarebbe un errore ristrutturare l'intera strategia dell'azienda attorno a una promozione che, per sua stessa natura, può non essere rinnovata la stagione successiva.
+
+[pausa breve]
+
+Vediamo ora un esempio pratico, con un numero che ritroveremo identico nella prossima lezione, quando vedremo da dove arriva davvero.
 
 [mostra a schermo: il calcolo passo per passo]
 
-Calcoliamo prima l'IRES, un passaggio alla volta. Partiamo dall'utile ante imposte di Verdi Srl: 40.000 euro. Applichiamo l'aliquota IRES: 24%. Moltiplichiamo 40.000 euro per 24%, cioè per 0,24. Il risultato è 9.600 euro di IRES.
+Immagina che il reddito imponibile IRES di Verdi Srl, dopo tutte le variazioni fiscali che vedremo nel dettaglio nella prossima lezione, sia di 46.100 euro. Applichiamo prima l'aliquota ordinaria: 46.100 euro moltiplicati per 24%, cioè per 0,24. Il risultato è 11.064 euro di IRES.
 
-Ora calcoliamo l'IRAP, con la stessa attenzione, ma su una base diversa. Partiamo dal valore della produzione netto di Verdi Srl: 55.000 euro — nota che è una cifra diversa dall'utile usato per l'IRES, proprio perché la base imponibile è un'altra. Applichiamo l'aliquota ordinaria IRAP: 3,9%. Moltiplichiamo 55.000 euro per 3,9%, cioè per 0,039. Il risultato è 2.145 euro di IRAP.
+[mostra a schermo: 46.100 € × 24% = 11.064 €]
 
-Ultimo passaggio, la somma delle due imposte: 9.600 euro di IRES più 2.145 euro di IRAP fanno un totale di 11.745 euro che Verdi Srl deve versare complessivamente.
+Ora proviamo con l'aliquota premiale, supponendo che Verdi Srl rispetti tutti i requisiti che abbiamo visto: 46.100 euro moltiplicati per 20%, cioè per 0,20. Il risultato è 9.220 euro.
 
-[mostra a schermo: 9.600 € + 2.145 € = 11.745 € totale imposte]
+[mostra a schermo: 46.100 € × 20% = 9.220 €]
 
-Ora, fermati un attimo su un dettaglio che ho citato quasi di sfuggita prima, perché merita un chiarimento più approfondito: le "variazioni fiscali". La base imponibile IRES e l'utile civilistico — cioè l'utile che leggi nel bilancio approvato — spesso non coincidono esattamente. Perché? Perché ci sono costi che, dal punto di vista civilistico, sono perfettamente corretti da inserire in bilancio, ma che il fisco non riconosce come deducibili, o riconosce solo in parte. Pensa, per fare due esempi concreti, a una parte dell'IMU pagata sui capannoni industriali, che non è sempre interamente deducibile, oppure ad alcune spese di rappresentanza che superano determinate soglie previste dalla legge.
+Fai la differenza tra le due cifre: 11.064 euro meno 9.220 euro fa quasi 1.850 euro. È una differenza che vale sicuramente la pena verificare ogni anno con il proprio commercialista, per capire se i requisiti sono rispettati e se l'agevolazione è ancora in vigore — ma, come ti dicevo, senza costruirci sopra scelte di lungo periodo, proprio perché è pensata, per sua stessa natura normativa, come una misura che potrebbe non esserci più l'anno prossimo.
 
-Questo scostamento tra utile civilistico e reddito fiscale non è solo un dettaglio tecnico da addetti ai lavori: è anche l'origine di un fenomeno contabile che, se hai seguito la guida sulla Contabilità, avevi già incontrato — le imposte anticipate e differite, di cui parla il principio contabile OIC 25, alla Lezione 17 di quella guida. In pratica, quando il fisco tassa qualcosa in un anno diverso da quello in cui compare in bilancio, nascono questi meccanismi di aggiustamento temporale.
+Il punto chiave di questa lezione, quello che voglio che tu porti a casa, è questo: l'IRES è un'imposta semplice nella sua aliquota — fissa, non progressiva — ma tutt'altro che semplice nella sua base imponibile, che richiede un lavoro di adattamento fiscale rispetto all'utile di bilancio. E quell'aliquota, per quanto possa sembrare "scritta nella pietra" al 24%, può conoscere eccezioni temporanee come quella che abbiamo visto oggi, che vale sempre la pena verificare, senza però farne il fondamento di una strategia di lungo termine.
 
-Prova a vedere il concetto anche con un'altra immagine, perché aiuta a capire perché queste due grandezze — l'utile di bilancio e la base imponibile IRES — non sono la stessa cosa anche se partono dallo stesso identico punto di partenza. Immagina di avere due lenti diverse attraverso cui guardare lo stesso identico bilancio: la lente civilistica, che segue le regole contabili pensate per rappresentare fedelmente la situazione economica dell'azienda, e la lente fiscale, che segue invece le regole del legislatore tributario, con i suoi obiettivi di gettito e le sue norme specifiche su cosa sia deducibile e in che misura. Le due lenti guardano allo stesso oggetto, il bilancio di Verdi Srl, ma restituiscono immagini leggermente diverse — ed è proprio in quella differenza che si annidano le variazioni fiscali.
+Il consiglio pratico con cui voglio chiudere questa lezione riguarda proprio questo equilibrio tra semplicità e precisione. Se gestisci, o gestirai, una società di capitali come Verdi Srl, puoi tranquillamente ragionare in prima battuta con l'aliquota del 24% per farti un'idea veloce dell'ordine di grandezza dell'imposta — è un numero semplice, fisso, facile da tenere a mente. Ma quando si tratta di calcolare l'imposta effettivamente dovuta, quella da versare con precisione all'Erario, quel 24%, o l'eventuale 20% premiale se i requisiti sono rispettati, va sempre applicato al reddito imponibile corretto, non all'utile di bilancio preso così com'è. È esattamente la differenza tra una stima utile per orientarsi e un calcolo fiscale vero e proprio — una distinzione che diventerà ancora più chiara nella prossima lezione.
 
-Il punto chiave da portare a casa da questa lezione è proprio questo: non aspettarti mai che l'utile di bilancio e la base imponibile IRES siano lo stesso identico numero. Sono collegati, ma non identici — e capire da dove nascono le differenze ti aiuta a leggere il bilancio di una società con occhi molto più consapevoli.
-
-Facciamo un ultimo riepilogo per fissare bene i concetti di questa lezione, perché abbiamo visto diversi pezzi che vale la pena ricomporre. Una società di capitali come Verdi Srl paga due imposte distinte: l'IRES, al 24% fisso sull'utile imponibile, e l'IRAP, al 3,9% ordinario — variabile su base regionale — sul valore della produzione netto, una base più ampia dell'utile. Le due basi imponibili non coincidono tra loro, e nemmeno coincidono perfettamente con l'utile civilistico di bilancio, proprio per via delle variazioni fiscali che abbiamo visto. Tenere separati questi concetti — utile civilistico, base IRES, base IRAP — è la chiave per non confondersi quando, più avanti nella tua carriera o nei tuoi affari, dovrai leggere il bilancio di una società di capitali.
-
-Nella prossima lezione torniamo su un argomento trasversale, valido sia per le persone fisiche che per le società: la differenza pratica, spesso confusa, tra deduzioni e detrazioni. Ci vediamo lì.
+Nella prossima lezione entriamo nel dettaglio di quelle variazioni fiscali che ho più volte anticipato in questa lezione: vedremo esattamente come si passa dall'utile civilistico di Verdi Srl al suo reddito imponibile IRES, con tutti i passaggi, uno per uno. È una lezione un po' più lunga delle altre, perché il tema lo merita — ma alla fine avrai tutti gli strumenti per capire davvero da dove arrivano i numeri che abbiamo appena usato. Ci vediamo lì.
 
 ---
 
-## Lezione 12 — Deduzioni e detrazioni: la differenza pratica
+## Lezione 14 — Le variazioni in aumento e in diminuzione dell'IRES: dall'utile civilistico al reddito imponibile
+
+Nella lezione scorsa ti ho lasciato con una promessa precisa: spiegarti da dove arriva davvero il reddito imponibile IRES di 46.100 euro che abbiamo usato per calcolare l'IRES di Verdi Srl. È il momento di mantenerla, e lo faccio con particolare attenzione, perché questo è uno degli argomenti su cui, nella mia esperienza professionale, vedo nascere più incomprensioni — ed è anche uno degli argomenti su cui vale la pena essere davvero precisi, perché gli errori qui si pagano caro.
+
+[pausa breve]
+
+Il punto di partenza, fissalo bene, è sempre l'utile ante imposte del bilancio civilistico — lo stesso che trovi nel Conto Economico di cui parla diffusamente la guida sulla Contabilità. Questo si chiama, con un termine tecnico che vale la pena conoscere, principio di derivazione, previsto dall'articolo 83 del TUIR: il fisco "parte" dal bilancio che l'azienda ha già redatto secondo le regole civilistiche, ma non lo accetta sempre così com'è.
+
+Fermati un attimo a capire perché il fisco non si limita semplicemente a tassare l'utile di bilancio, invece di costruire tutto questo sistema di aggiustamenti. Il bilancio civilistico ha un obiettivo preciso: rappresentare in modo fedele la situazione economica e patrimoniale dell'azienda, secondo principi contabili pensati per questo scopo. Il fisco, invece, ha un obiettivo diverso: stabilire quanto reddito debba essere effettivamente tassato, secondo regole scritte dal legislatore tributario, che a volte coincidono con la logica civilistica e a volte, per ragioni di gettito, di cautela, o di contrasto a comportamenti elusivi, se ne discostano deliberatamente. Su quell'utile di partenza si applicano quindi due tipi di correzioni: le variazioni in aumento, quando un costo che l'azienda ha contabilizzato in bilancio non è, o non è del tutto, deducibile dal punto di vista fiscale; e le variazioni in diminuzione, quando un ricavo contabilizzato non è, o non è del tutto, imponibile fiscalmente.
+
+[mostra a schermo: "Utile civilistico + variazioni in aumento − variazioni in diminuzione = reddito imponibile IRES"]
+
+Vediamo insieme, una per una, le variazioni in aumento più frequenti per una PMI come Verdi Srl — e voglio che tu le segua con attenzione, perché sono esattamente quelle che useremo tra poco nell'esempio numerico completo.
+
+La prima è legata ai compensi agli amministratori non pagati entro la chiusura dell'esercizio. Qui la regola fiscale si discosta chiaramente da quella civilistica: in bilancio, un compenso deliberato viene contabilizzato "per competenza", cioè nell'anno a cui si riferisce, indipendentemente da quando verrà effettivamente pagato. Il fisco, invece, secondo l'articolo 95 del TUIR, riconosce la deduzione di quel compenso solo nell'anno in cui viene effettivamente versato, "per cassa". Se un compenso è stato deliberato ma non ancora pagato, questo genera una variazione in aumento nell'anno di competenza — il costo esiste in bilancio, ma fiscalmente non è ancora deducibile.
+
+La seconda sono le quote di ammortamento eccedenti le aliquote fiscali massime. Il fisco impone dei coefficienti massimi di ammortamento, fissati dal Decreto Ministeriale del 31 dicembre 1988, che spesso sono più lenti — cioè permettono di dedurre meno, e su un periodo più lungo — rispetto a quelli che l'azienda può legittimamente usare in bilancio secondo le regole civilistiche. Se l'ammortamento civilistico supera quello fiscalmente consentito, la parte eccedente genera una variazione in aumento.
+
+La terza riguarda gli interessi passivi indeducibili oltre il ROL, disciplinati dall'articolo 96 del TUIR. Qui la regola è precisa: gli interessi passivi sono deducibili solo fino al 30% del Risultato Operativo Lordo fiscale, il ROL. La parte che eccede quel limite è indeducibile nell'anno in cui matura — anche se, ed è un dettaglio che vale la pena conoscere, è riportabile agli anni successivi, nei limiti del ROL di quegli anni.
+
+La quarta sono le spese di rappresentanza eccedenti i plafond di deducibilità previsti dalla legge — plafond che seguono percentuali decrescenti calcolate sui ricavi dell'azienda, secondo scaglioni di fatturato. Superata quella soglia, la parte eccedente genera, anche qui, una variazione in aumento.
+
+La quinta riguarda i costi delle auto aziendali non assegnate a un dipendente: sono deducibili solo al 20% — pensa al carburante, all'assicurazione, alla manutenzione, all'ammortamento del veicolo stesso. L'80% resta indeducibile, e genera quindi una variazione in aumento su quella quota.
+
+La sesta sono le spese telefoniche, che sono deducibili all'80%: il restante 20% è indeducibile, per una presunzione di legge di uso promiscuo, cioè in parte personale, del telefono aziendale.
+
+[mostra a schermo: la lista delle variazioni in aumento più comuni]
+
+La settima, e l'ultima tra le più frequenti, riguarda multe, sanzioni e ammende: sono indeducibili al 100%, qualunque sia la loro natura. Qui la logica è diversa da tutte le altre: non è un limite parziale come negli altri casi, è un'esclusione totale, perché il legislatore non vuole che un'azienda possa, in un certo senso, "recuperare fiscalmente" il costo di una propria violazione.
+
+Fermati un attimo a notare qualcosa che forse hai già percepito scorrendo questa lista: le variazioni in aumento che abbiamo appena visto sono sette, mentre le variazioni in diminuzione che vedremo tra un momento sono molte meno. Non è un caso, ed è un pattern che vale la pena riconoscere anche in altri contesti fiscali che incontrerai: il legislatore tende, per prudenza di gettito, a essere più restrittivo nel riconoscere deduzioni — quindi più variazioni in aumento, che limitano quello che l'azienda può dedurre rispetto al bilancio — e più selettivo nel concedere esclusioni dalla base imponibile, che genererebbero invece variazioni in diminuzione. Questo non significa che le variazioni in diminuzione siano meno importanti quando si applicano: come vedremo subito con l'esenzione sui dividendi, possono avere un impatto molto significativo sul conto finale, anche se sono numericamente meno numerose.
+
+[pausa breve]
+
+Passiamo ora alle variazioni in diminuzione, quelle che riducono il reddito imponibile rispetto all'utile civilistico, e che sono altrettanto importanti da conoscere, anche se nella pratica quotidiana di una PMI sono tipicamente meno numerose di quelle in aumento.
+
+La prima, e probabilmente la più frequente per una società come Verdi Srl, riguarda i dividendi ricevuti da altre società di capitali: sono imponibili solo per il 5% del loro importo, con un'esenzione quindi del 95%. Fermati un attimo a capire perché esiste questa esenzione così ampia: lo scopo è evitare che lo stesso utile venga tassato due volte — prima nella società che lo genera, che ha già pagato la sua IRES su quell'utile, e poi di nuovo nella società che lo riceve sotto forma di dividendo. Senza questa esenzione, lo stesso euro di utile verrebbe tassato quasi due volte in sequenza, un risultato che il legislatore ha voluto evitare.
+
+La seconda riguarda l'utilizzo delle perdite fiscali di esercizi precedenti: sono riportabili senza limiti di tempo, ma attenzione, non senza limiti di importo — sono utilizzabili solo nei limiti dell'80% del reddito imponibile di ciascun anno. Questo significa che il restante 20% del reddito imponibile resta comunque tassato, anche se l'azienda ha perdite pregresse sufficienti a coprire tutto il resto.
+
+La terza riguarda i crediti d'imposta non tassabili e altri componenti che la legge esclude espressamente dalla base imponibile.
+
+[mostra a schermo: le variazioni in diminuzione principali]
+
+Ora, con tutti questi elementi in mano, mettiamo insieme un esempio pratico completo, che voglio che tu segua con la stessa attenzione con cui lo seguirei io se fossi seduto al tuo fianco con una calcolatrice.
+
+[mostra a schermo: il calcolo passo per passo]
+
+Partiamo dal punto di partenza: l'utile ante imposte civilistico di Verdi Srl, quello che leggiamo nel Conto Economico, è di 40.000 euro.
+
+Durante l'anno sono successe quattro cose che generano variazioni fiscali. Primo: Verdi Srl ha deliberato, ma non ancora pagato, 5.000 euro di compensi all'amministratore — in bilancio quel costo è già contabilizzato, ma fiscalmente, non essendo stato pagato, genera una variazione in aumento di 5.000 euro. Secondo: gli ammortamenti civilistici di Verdi Srl eccedono di 2.000 euro i coefficienti fiscali massimi — quindi un'altra variazione in aumento di 2.000 euro. Terzo: Verdi Srl ha un'auto aziendale non assegnata a un dipendente, con una spesa totale di 1.250 euro, di cui l'80%, cioè 1.000 euro, è indeducibile — una terza variazione in aumento di 1.000 euro. Quarto: Verdi Srl ha incassato 2.000 euro di dividendi da una società partecipata, di cui il 95%, cioè 1.900 euro, è esente — una variazione in diminuzione di 1.900 euro.
+
+[mostra a schermo: la tabella — utile civilistico e le quattro variazioni]
+
+Mettiamo tutto in fila, voce per voce, come farei su una lavagna. Utile civilistico ante imposte: 40.000 euro. Più compensi amministratore non pagati: più 5.000 euro. Più ammortamenti eccedenti: più 2.000 euro. Più quota indeducibile dell'auto aziendale: più 1.000 euro. Meno dividendi esenti al 95%: meno 1.900 euro. Facciamo la somma finale: 40.000 più 5.000 più 2.000 più 1.000 meno 1.900. Il risultato è 46.100 euro. Questo è il reddito imponibile IRES di Verdi Srl — lo stesso identico numero che abbiamo usato nella lezione scorsa.
+
+[mostra a schermo: 40.000 € + 5.000 € + 2.000 € + 1.000 € − 1.900 € = 46.100 € di reddito imponibile]
+
+Applichiamo ora l'aliquota ordinaria del 24% a questo reddito imponibile: 46.100 euro moltiplicati per 24%, cioè per 0,24. Il risultato, come già sai, è 11.064 euro di IRES.
+
+[pausa breve]
+
+Ma ecco il punto su cui voglio che tu ti fermi con me, perché è il vero punto chiave di questa lezione, forse di tutto il blocco sull'IRES. Guarda cosa sarebbe successo se, invece di fare tutto questo lavoro di variazioni fiscali, qualcuno avesse semplicemente preso l'utile civilistico di 40.000 euro e lo avesse moltiplicato direttamente per il 24%. Il risultato sarebbe stato 9.600 euro.
+
+[mostra a schermo: 40.000 € × 24% = 9.600 € (calcolo sbagliato, senza variazioni)]
+
+Confronta i due numeri: 11.064 euro, calcolato correttamente sul reddito imponibile dopo le variazioni, contro 9.600 euro, calcolato — in modo sbagliato — direttamente sull'utile civilistico. La differenza è di quasi 1.500 euro, e non è affatto un dettaglio trascurabile: su un'imposta di questa entità, è una differenza che sposta in modo significativo la liquidità che Verdi Srl deve accantonare per pagare le tasse.
+
+Questo è esattamente il motivo per cui "guardare l'utile di bilancio" per stimare velocemente quanto si pagherà di tasse è un errore comune, e in alcuni casi un errore costoso. Le variazioni fiscali possono spostare il conto in modo significativo, e — attenzione — non sempre nella stessa direzione: in questo esempio le variazioni in aumento hanno superato quelle in diminuzione, facendo salire il reddito imponibile rispetto all'utile civilistico, ma in altre situazioni, con una combinazione diversa di voci, potrebbe succedere esattamente il contrario, con il reddito imponibile che scende sotto l'utile di bilancio.
+
+Prova a vedere questo scostamento anche con un'altra immagine, perché aiuta a ricordare perché conviene sempre fare il calcolo con precisione, voce per voce, invece di affidarsi a una stima rapida sull'utile di bilancio. È come stimare il peso di una valigia guardando solo la sua taglia esteriore, senza considerare cosa c'è davvero dentro: due valigie della stessa dimensione possono pesare in modo molto diverso a seconda di cosa contengono. Allo stesso modo, due aziende con lo stesso identico utile civilistico di bilancio possono avere basi imponibili IRES molto diverse, a seconda di quali variazioni fiscali, in aumento o in diminuzione, si applicano alla loro specifica situazione.
+
+Un'ultima annotazione, prima di chiudere questa lezione un po' più lunga delle altre — ma, come ti avevo detto, il tema lo merita. Questo scostamento tra utile civilistico e reddito fiscale non è solo un dettaglio tecnico isolato: è anche l'origine di un fenomeno contabile di cui, se hai seguito la guida sulla Contabilità, avrai già sentito parlare — le imposte anticipate e differite, disciplinate dal principio contabile OIC 25. Quando una variazione è solo "temporanea" — pensa proprio all'ammortamento eccedente del nostro esempio, che si riassorbe negli anni successivi quando il bilancio "recupera" quella differenza — il disallineamento tra fisco e bilancio genera una fiscalità differita che si inverte nel tempo, pareggiandosi col passare degli anni. Non tutte le variazioni fiscali sono quindi definitive: alcune sono solo uno spostamento temporale, che il tempo stesso corregge.
+
+Il consiglio pratico con cui voglio chiudere questa lezione è questo: se gestisci, o gestirai, un'azienda in regime ordinario come Verdi Srl, non fare mai l'errore di stimare l'IRES dovuta guardando solo l'ultima riga del Conto Economico. Prendi, voce per voce, le variazioni fiscali che riguardano la tua situazione specifica — gli amministratori non pagati, gli ammortamenti, le auto aziendali, i dividendi, e le altre che abbiamo visto — e costruisci il reddito imponibile con la stessa precisione con cui lo abbiamo fatto insieme in questa lezione. È un lavoro che richiede attenzione, ma è esattamente quello che separa una stima approssimativa da un calcolo fiscale corretto.
+
+Nella prossima lezione restiamo su Verdi Srl, ma cambiamo imposta: vediamo l'IRAP, che a differenza dell'IRES si calcola su una base completamente diversa, e che ha una particolarità che la rende, storicamente, un'imposta molto discussa. Ci vediamo lì.
+
+---
+
+## Lezione 15 — IRAP: cos'è, chi la paga, come si calcola, le deduzioni sul costo del lavoro
+
+Nella lezione scorsa abbiamo visto, con tutta la precisione che il tema richiede, come si passa dall'utile civilistico di Verdi Srl al suo reddito imponibile IRES. Restiamo ancora su Verdi Srl, ma cambiamo completamente imposta, perché c'è un'altra voce che una società di capitali come questa deve calcolare ogni anno, con regole di base imponibile del tutto diverse: l'IRAP.
+
+[pausa breve]
+
+L'IRAP, l'Imposta Regionale sulle Attività Produttive, è disciplinata dal Decreto Legislativo 446 del 1997, ed è — come dice il nome stesso — un'imposta regionale, distinta dall'IRES sia per chi la gestisce sia, come vedremo subito, per come si calcola.
+
+Partiamo da chi la paga davvero, perché qui c'è stato un cambiamento importante che vale la pena conoscere bene. Pagano l'IRAP le società di capitali, le società di persone con attività commerciale, e gli enti in generale. Ma dal 2022 non la pagano più le persone fisiche che esercitano un'attività d'impresa o una professione in forma individuale, se non hanno dipendenti o collaboratori — per loro, l'IRAP è stata semplicemente abolita.
+
+Fermati un attimo a capire perché questa esenzione per i soggetti individuali senza personale ha una sua logica precisa, e non è un'eccezione casuale. Come vedremo tra un momento, la base imponibile dell'IRAP è pensata soprattutto per tassare il valore generato da una struttura organizzativa — capitale, lavoro, organizzazione messi insieme. Un libero professionista o un piccolo imprenditore individuale che lavora da solo, senza una struttura di personale alle spalle, ha una capacità contributiva di questo tipo molto più limitata: da qui la scelta del legislatore di escluderlo dall'imposta, mentre resta dovuta per chi ha una vera struttura organizzativa, con o senza personale, se operante in forma societaria.
+
+[mostra a schermo: "IRAP → società di capitali, società di persone commerciali, enti. NON più le persone fisiche senza dipendenti dal 2022"]
+
+Prova a vedere questa distinzione anche alla luce di quello che abbiamo visto nella lezione scorsa a proposito dell'IRES. Verdi Srl, essendo una società di capitali, paga entrambe le imposte: IRES sul reddito imponibile che abbiamo costruito con tanta precisione, e IRAP sulla base che vedremo tra un momento. Un libero professionista senza dipendenti, invece, non paga nessuna delle due nella forma che abbiamo visto per le società: paga l'IRPEF di cui abbiamo parlato qualche lezione fa, e dal 2022 è semplicemente fuori dal perimetro dell'IRAP. È un'ulteriore conferma di quanto la forma giuridica e la struttura organizzativa — non solo il livello di reddito — incidano sul carico fiscale complessivo di chi fa impresa, un tema su cui torneremo con tutti i dettagli più avanti nella guida.
+
+Ora arriviamo al punto che voglio che tu capisca davvero bene, perché è quello che rende l'IRAP un'imposta diversa da tutte le altre che abbiamo visto fin qui, e anche storicamente la più discussa: la base imponibile. Non è l'utile IRES che abbiamo costruito con tanta attenzione nella lezione scorsa. È quello che si chiama il "valore della produzione netto", e si calcola come la differenza tra i componenti positivi del Conto Economico — i ricavi, la variazione delle rimanenze — e i componenti negativi ammessi — i costi per materie prime e per servizi, gli ammortamenti.
+
+Ma c'è un'esclusione che devi conoscere bene, perché è proprio quella che ha reso questa imposta tanto discussa nel tempo: dal calcolo di questa base imponibile non si deduce il costo del lavoro dipendente. A differenza dell'IRES, dove gli stipendi sono normalmente un costo pienamente deducibile, nell'IRAP quella voce resta, almeno in parte come vedremo tra poco, dentro la base su cui si calcola l'imposta.
+
+[pausa breve]
+
+Fermati un attimo a capire perché, storicamente, questa caratteristica ha reso l'IRAP un'imposta "sul lavoro", molto discussa sia a livello politico sia a livello accademico. Un'azienda che impiega molto personale, a parità di ricavi e di altri costi, si ritrova con una base imponibile IRAP più alta rispetto a un'azienda che, per esempio, esternalizza gran parte delle proprie attività a fornitori esterni — perché i costi verso fornitori, a differenza degli stipendi, restano deducibili. Per anni questo ha fatto discutere, proprio perché sembrava disincentivare, almeno su questo fronte fiscale specifico, le assunzioni a tempo indeterminato.
+
+[mostra a schermo: "valore della produzione netto → NON deduce il costo del lavoro dipendente, a differenza dell'IRES"]
+
+Veniamo ora all'aliquota. L'aliquota ordinaria IRAP è del 3,9%. Ma qui c'è una particolarità regionale da conoscere: le Regioni possono variarla fino a un massimo di 0,92 punti percentuali, in più o in meno, e possono anche differenziarla per settore di attività o per categoria di contribuente. Questo significa, in pratica, che la stessa identica azienda, con la stessa identica base imponibile, può pagare un'IRAP leggermente diversa a seconda della Regione in cui opera — un dettaglio che vale sempre la pena verificare con il proprio commercialista, soprattutto per chi opera in più Regioni contemporaneamente.
+
+Fermati un attimo a capire perché un'imposta che si chiama "regionale" possa avere, almeno in parte, aliquote diverse da Regione a Regione. La ragione sta proprio nel nome: a differenza dell'IRES, che è un'imposta statale con un'unica aliquota su tutto il territorio nazionale, l'IRAP alimenta in parte i bilanci regionali, in particolare il finanziamento della sanità pubblica. Dare alle Regioni un margine di manovra sull'aliquota, entro i limiti fissati dalla legge, permette loro di adattare leggermente il carico fiscale alle proprie esigenze di bilancio — un'autonomia che, per esempio, l'IRES statale semplicemente non prevede.
+
+Ora, proprio per attenuare l'effetto di cui parlavamo prima — quello che rende l'IRAP un'imposta pesante per chi impiega molto personale — la legge prevede delle deduzioni specifiche sul costo del lavoro, comunemente chiamate deduzioni per il "cuneo fiscale". Funzionano così: per ogni dipendente assunto a tempo indeterminato, sono previste deduzioni fisse, organizzate a scaglioni in base al valore della produzione — più alte le deduzioni per le basi imponibili più contenute — a cui si aggiunge la deduzione integrale dei contributi INPS versati per quei dipendenti.
+
+[mostra a schermo: "deduzioni cuneo fiscale → per ogni dipendente a tempo indeterminato"]
+
+Fermati un attimo a capire perché il legislatore ha scelto proprio questa strada — deduzioni specifiche, invece di eliminare del tutto l'esclusione del costo del lavoro dalla base imponibile. La risposta è, ancora una volta, di equilibrio tra esigenze opposte: eliminare del tutto l'effetto "imposta sul lavoro" avrebbe richiesto di ridisegnare l'intera imposta, con un impatto molto più ampio sul gettito regionale complessivo. Le deduzioni per il cuneo fiscale, invece, permettono di attenuare l'effetto proprio dove pesa di più — le assunzioni stabili, a tempo indeterminato — senza stravolgere l'impianto generale dell'imposta.
+
+[pausa breve]
+
+Vediamo ora un esempio pratico con Verdi Srl, per capire bene quanto possano pesare, in concreto, queste deduzioni.
+
+[mostra a schermo: il calcolo passo per passo]
+
+Immagina che Verdi Srl abbia un valore della produzione netto IRAP di 55.000 euro, prima di qualunque deduzione, e che impieghi 2 dipendenti a tempo indeterminato, per i quali spettano deduzioni fisse per un totale di 16.000 euro — semplificando, possiamo pensare a 8.000 euro per ciascun dipendente.
+
+Calcoliamo prima l'IRAP senza applicare alcuna deduzione, solo per vedere il punto di partenza: 55.000 euro moltiplicati per l'aliquota ordinaria del 3,9%, cioè per 0,039. Il risultato è 2.145 euro.
+
+[mostra a schermo: 55.000 € × 3,9% = 2.145 € (senza deduzioni)]
+
+Ora applichiamo le deduzioni per il cuneo fiscale: sottraiamo i 16.000 euro di deduzioni dal valore della produzione netto di partenza. 55.000 euro meno 16.000 euro fanno 39.000 euro di base imponibile, dopo le deduzioni. Applichiamo a questa nuova base la stessa aliquota del 3,9%: 39.000 euro moltiplicati per 0,039. Il risultato è 1.521 euro.
+
+[mostra a schermo: 55.000 € − 16.000 € = 39.000 € di base → 39.000 € × 3,9% = 1.521 €]
+
+Confronta i due risultati: 2.145 euro senza deduzioni, contro 1.521 euro con le deduzioni per i due dipendenti a tempo indeterminato. La differenza, 624 euro, è il beneficio concreto che Verdi Srl ottiene semplicemente per avere, e dichiarare correttamente, quei due rapporti di lavoro stabili.
+
+Ed è proprio su questa parola, "correttamente", che voglio fermarmi per il punto chiave di questa lezione. Le deduzioni sul costo del lavoro non sono automatiche nel senso di "già incluse" nel calcolo: vanno individuate e applicate con attenzione in dichiarazione, dipendente per dipendente, e scaglione per scaglione in base al valore della produzione. Un errore, o una semplice dimenticanza, in questo calcolo si traduce direttamente in un'IRAP più alta del necessario — un costo evitabile, a differenza di molte altre voci di questa guida su cui non c'è alcun margine di scelta.
+
+Pensa a questo meccanismo come a uno sconto fedeltà che il negozio non applica automaticamente alla cassa: se non lo fai valere tu, mostrando la tessera giusta al momento giusto, lo perdi, anche se avresti avuto tutto il diritto di ottenerlo. Le deduzioni per il cuneo fiscale funzionano in modo simile: il diritto c'è, ma va fatto valere correttamente in dichiarazione, voce per voce.
+
+C'è anche una riflessione più ampia, che vale la pena fare prima di chiudere questa lezione. Un'azienda che assume stabilmente, a tempo indeterminato, riduce il proprio carico IRAP in modo diretto e misurabile, come abbiamo appena visto con i numeri di Verdi Srl. È un argomento in più — insieme a quelli fiscali e di costo del lavoro che abbiamo già visto nella guida Gestione Aziendale — a favore di contratti stabili, quando la situazione dell'azienda lo permette: non è solo una scelta organizzativa o di clima aziendale, ha anche un riflesso fiscale concreto e quantificabile.
+
+Pensa anche a un'ultima conseguenza pratica di questo meccanismo: un'azienda che si affida molto a collaboratori esterni o a consulenti con partita IVA propria, invece di assumere direttamente, non beneficia delle deduzioni per il cuneo fiscale su quei costi — perché, semplicemente, non si tratta di dipendenti a tempo indeterminato. Questo non significa che esternalizzare sia sempre una scelta sbagliata, ci sono molte altre ragioni, organizzative e di flessibilità, per farlo — ma è un ulteriore elemento, oltre a quelli fiscali e di costo del lavoro già visti nella guida Gestione Aziendale, che vale la pena pesare quando si decide come costruire la squadra di un'azienda.
+
+Facciamo un ultimo riepilogo, perché l'IRAP è un'imposta che richiede di tenere a mente diversi elementi insieme. La base imponibile non è l'utile IRES, ma il valore della produzione netto, che non deduce il costo del lavoro dipendente — questa è la caratteristica che la rende storicamente un'imposta discussa. L'aliquota di partenza è il 3,9%, ma può variare su base regionale di quasi un punto percentuale in più o in meno. E le deduzioni per il cuneo fiscale, legate ai dipendenti a tempo indeterminato, possono fare una differenza concreta sull'imposta finale, come hai visto con i numeri di Verdi Srl — ma solo se vengono individuate e applicate correttamente, dipendente per dipendente. Tieni insieme questi tre elementi — base imponibile, aliquota regionale, deduzioni sul lavoro — ogni volta che devi stimare, anche solo approssimativamente, quanto peserà l'IRAP su un'azienda.
+
+Nella prossima lezione lasciamo per un momento le grandi imposte — IVA, IRES, IRAP — di cui abbiamo parlato negli ultimi capitoli, e facciamo un elenco pratico di tutte le altre voci fiscali che un'impresa come Verdi Srl paga ogni anno, e che è facile dimenticare quando si fa un budget. Ci vediamo lì.
+
+---
+
+## Lezione 16 — Deduzioni e detrazioni: la differenza pratica
 
 Nelle lezioni precedenti abbiamo usato più volte la parola "deducibile" — parlando di spese reali nel regime ordinario, di variazioni fiscali per Verdi Srl. Adesso mi fermo apposta con te su un punto che, nella mia esperienza professionale, è una delle confusioni più diffuse in assoluto tra chi non è del settore: la differenza tra deduzione e detrazione. Sono due parole che sembrano quasi sinonimi nel linguaggio comune, ma che hanno un effetto molto diverso sul conto finale delle tue tasse.
 
@@ -467,7 +751,7 @@ Facciamo un esempio molto concreto per capire la differenza. Un contributo previ
 
 Ma ecco il punto davvero interessante, quello su cui voglio che ti soffermi con attenzione, perché è controintuitivo per chi non l'ha mai visto spiegato in questo modo. Prendiamo lo stesso identico importo, 1.000 euro, e vediamo quanto vale davvero nei due casi.
 
-Se hai una deduzione di 1.000 euro e la tua aliquota marginale — quella che abbiamo visto nella Lezione 10 — è al 33%, il tuo risparmio d'imposta reale si calcola così: prendi i 1.000 euro di deduzione, e li moltiplichi per la tua aliquota marginale, il 33%, cioè per 0,33. Il risultato, 330 euro, è quanto in meno pagherai di imposta grazie a quella deduzione.
+Se hai una deduzione di 1.000 euro e la tua aliquota marginale — quella che abbiamo visto nella Lezione 12 — è al 33%, il tuo risparmio d'imposta reale si calcola così: prendi i 1.000 euro di deduzione, e li moltiplichi per la tua aliquota marginale, il 33%, cioè per 0,33. Il risultato, 330 euro, è quanto in meno pagherai di imposta grazie a quella deduzione.
 
 Se invece hai una detrazione "secca" di una spesa da 1.000 euro, detraibile al 19%, il calcolo è diverso ma altrettanto semplice: prendi i 1.000 euro di spesa, e li moltiplichi per la percentuale di detrazione fissata dalla legge, il 19%, cioè per 0,19. Il risultato, 190 euro, è quanto risparmi direttamente sull'imposta da pagare — e questo valore non cambia, resta 190 euro, indipendentemente da quale sia l'aliquota marginale del contribuente.
 
@@ -475,7 +759,7 @@ Se invece hai una detrazione "secca" di una spesa da 1.000 euro, detraibile al 1
 
 Fermati su questo confronto, perché è esattamente il punto chiave di questa lezione: a parità di importo, una deduzione vale di più per chi ha un'aliquota marginale alta — perché il risparmio è proporzionale a quell'aliquota — mentre una detrazione vale esattamente lo stesso per tutti, che tu abbia un reddito basso o alto, perché la percentuale di detrazione è fissa per legge.
 
-Pensa a cosa significa in pratica questo meccanismo: due contribuenti, uno con aliquota marginale al 23% e uno al 43%, che sostengono la stessa identica spesa deducibile di 1.000 euro, ottengono un risparmio molto diverso — 230 euro il primo, 430 euro il secondo. Con una detrazione, invece, entrambi risparmierebbero esattamente la stessa cifra. È per questo motivo che il legislatore usa le due leve in modo diverso a seconda dell'obiettivo di politica fiscale che vuole ottenere, e — dal tuo punto di vista di contribuente — è anche per questo che le due leve si usano in modo diverso nella pianificazione fiscale, un tema che riprenderemo con più respiro nella Lezione 18.
+Pensa a cosa significa in pratica questo meccanismo: due contribuenti, uno con aliquota marginale al 23% e uno al 43%, che sostengono la stessa identica spesa deducibile di 1.000 euro, ottengono un risparmio molto diverso — 230 euro il primo, 430 euro il secondo. Con una detrazione, invece, entrambi risparmierebbero esattamente la stessa cifra. È per questo motivo che il legislatore usa le due leve in modo diverso a seconda dell'obiettivo di politica fiscale che vuole ottenere, e — dal tuo punto di vista di contribuente — è anche per questo che le due leve si usano in modo diverso nella pianificazione fiscale, un tema che riprenderemo con più respiro nella Lezione 23.
 
 Prova a vedere la differenza anche con quest'ultima immagine, che forse ti resta più impressa di ogni formula: la deduzione è come uno sconto proporzionale al tuo "prezzo di listino" personale, cioè alla tua aliquota; la detrazione è come un buono sconto di importo fisso, uguale per chiunque lo usi, a prescindere da quanto guadagni. Ricordare questa differenza ti aiuterà, più avanti nella guida, a capire perché certe agevolazioni fiscali vengono costruite come deduzioni e altre come detrazioni, a seconda di chi il legislatore vuole realmente avvantaggiare.
 
@@ -485,7 +769,7 @@ Nella prossima lezione mettiamo insieme tutto quello che abbiamo visto finora ne
 
 ---
 
-## Lezione 13 — La dichiarazione dei redditi: modelli, scadenze, documenti
+## Lezione 17 — La dichiarazione dei redditi: modelli, scadenze, documenti
 
 Nella lezione scorsa abbiamo visto la differenza tra deduzioni e detrazioni, due leve che trovano il loro momento concreto di applicazione proprio nella dichiarazione dei redditi. È il momento di guardare da vicino questo adempimento, che riassume in un unico documento tutto quello che abbiamo visto finora.
 
@@ -521,7 +805,7 @@ Nella prossima lezione vediamo cosa fare se, nonostante tutta questa attenzione,
 
 ---
 
-## Lezione 14 — Ravvedimento operoso: come rimediare a errori e ritardi
+## Lezione 18 — Ravvedimento operoso: come rimediare a errori e ritardi
 
 Nella lezione scorsa ho anticipato che gli errori, anche con la miglior organizzazione, possono comunque capitare. In questa lezione vediamo lo strumento che la legge mette a disposizione per rimediare prima che la situazione peggiori: il ravvedimento operoso.
 
@@ -549,25 +833,87 @@ Pensa a questa situazione come a un semaforo che sta per diventare rosso: finch�
 
 Quindi, il consiglio pratico che chiude questa lezione, e con essa il Livello Intermedio della nostra guida: se ti accorgi di un errore o di un ritardo, non aspettare. Ogni giorno che passa, nella migliore delle ipotesi la sanzione cresce leggermente secondo le fasce del ravvedimento; nella peggiore delle ipotesi, arriva un controllo prima che tu abbia il tempo di regolarizzare, e a quel punto le opzioni più favorevoli non ci sono più.
 
-Con questa lezione chiudiamo il Livello Intermedio: hai visto le imposte sul reddito, sia per le persone fisiche che per le società, e gli strumenti per gestire errori e ritardi. Nella prossima lezione entriamo nel Livello Avanzato, dove affrontiamo le scelte più strategiche: si parte dalla domanda su quale forma giuridica scegliere, pensando anche al fisco. Ci vediamo lì.
+Prima di chiudere il Livello Intermedio, nella prossima lezione facciamo un elenco pratico delle altre imposte che un'impresa come Verdi Srl paga ogni anno — IMU, TARI, diritto camerale, e alcune voci minori che è facile dimenticare nel budget. Poi, nel Livello Avanzato, affrontiamo le scelte più strategiche, a partire dalla domanda su quale forma giuridica scegliere, pensando anche al fisco. Ci vediamo lì.
 
 ---
 
-## Lezione 15 — Scegliere la forma giuridica pensando anche al fisco
+## Lezione 19 — Le altre imposte e tasse che un'impresa paga ogni anno: IMU, TARI, diritto camerale, bollo e libri sociali
+
+Nella lezione scorsa abbiamo visto il ravvedimento operoso, lo strumento per rimediare a errori e ritardi prima che arrivi un controllo. Prima di chiudere il Livello Intermedio e passare alle scelte più strategiche della guida, voglio dedicare questa lezione a un argomento che, nella mia esperienza professionale, viene sistematicamente sottovalutato da chi fa un preventivo o un budget: tutte le imposte "minori" che un'impresa come Verdi Srl paga ogni anno, oltre a IVA, IRES e IRAP di cui abbiamo parlato nelle lezioni precedenti.
+
+[pausa breve]
+
+Dico "minori" tra virgolette, perché voglio che tu capisca subito il senso di questa parola: prese singolarmente, pesano effettivamente poco rispetto a imposte come l'IRES o l'IRAP. Ma messe insieme, come vedremo con l'esempio finale di questa lezione, diventano una cifra che va sempre inclusa nel budget — ed è proprio il motivo per cui dedico loro una lezione intera, invece di lasciarle come una semplice nota a margine.
+
+Fermati un attimo a capire perché queste voci meritano davvero attenzione, prima ancora di vederle una per una. C'è una caratteristica che le distingue profondamente dalle grandi imposte che abbiamo visto fin qui: sono dovute anche in perdita, indipendentemente dal risultato economico dell'azienda. L'IRES, lo ricordi dalla lezione sulle variazioni fiscali, si paga sul reddito imponibile — se l'azienda non ha utile, tipicamente non c'è nemmeno IRES da versare. Le voci che vediamo oggi, invece, sono legate al possesso di un immobile, all'iscrizione a un registro, alla tenuta di un documento: esistono indipendentemente da quanto l'azienda abbia guadagnato quell'anno, e questo le rende particolarmente insidiose per chi pianifica la liquidità guardando solo le imposte "sul reddito".
+
+[mostra a schermo: "imposte minori → dovute anche in perdita, indipendenti dal risultato economico"]
+
+Cominciamo dall'IMU, l'Imposta Municipale Unica, dovuta sugli immobili strumentali di proprietà — pensa al capannone o al negozio di Verdi Srl. L'aliquota è fissata da ogni Comune, tipicamente tra lo 0,76% e l'1,06% del valore catastale, anche se alcuni Comuni arrivano fino all'1,14%. Si versa in due momenti: un acconto il 16 giugno, e il saldo il 16 dicembre. Un dettaglio importante da conoscere: dal 2022, l'IMU sugli immobili strumentali è deducibile al 100% dall'IRES — ma attenzione, non dall'IRAP, dove resta indeducibile.
+
+Fermati un attimo su questa differenza di trattamento tra le due imposte, perché torna utile per collegare quello che abbiamo visto nelle ultime lezioni. L'IRES, come sai, si calcola sul reddito imponibile dopo le variazioni fiscali — e l'IMU, dal 2022, è una di quelle voci che riducono quella base, proprio come un normale costo deducibile. L'IRAP, invece, con la sua base imponibile particolare che non segue le stesse regole dell'IRES, non riconosce questa deduzione: l'IMU pagata resta dentro il valore della produzione netto, aumentando, anche se di poco, il carico IRAP complessivo. È un altro esempio di come le diverse basi imponibili che abbiamo incontrato in questa guida — IRES, IRAP — trattino la stessa identica spesa in modo diverso.
+
+[pausa breve]
+
+La seconda voce è la TARI, la Tassa sui Rifiuti, dovuta sui locali e sulle aree utilizzate per l'attività. A differenza dell'IMU, qui non c'è un'aliquota percentuale fissa su un valore catastale: il singolo Comune la calcola in base alla superficie dei locali e alla tipologia di attività svolta, con criteri che quindi variano molto da territorio a territorio.
+
+La terza voce è il diritto camerale annuale, dovuto da ogni soggetto iscritto al Registro delle Imprese alla Camera di Commercio competente — comprese, attenzione, anche le ditte individuali, non solo le società. Per le società di capitali come Verdi Srl, l'importo cresce a scaglioni in base al fatturato dell'anno precedente: più fattura l'azienda, più alto è il diritto camerale dovuto. E qui c'è una novità da conoscere: per il triennio 2026-2028 è prevista una maggiorazione del 20%, introdotta con un decreto ministeriale del marzo 2026 — un aumento temporaneo che vale la pena tenere a mente per chi sta pianificando i prossimi anni.
+
+[mostra a schermo: "diritto camerale → cresce con il fatturato, +20% nel triennio 2026-2028"]
+
+Fermati un attimo a capire perché anche una ditta individuale, che magari non paga IRAP e ha una gestione molto più semplice di una Srl, è comunque tenuta a versare questo diritto camerale ogni anno. La risposta sta nella natura stessa dell'obbligo: non è legato alla forma giuridica o al regime fiscale scelto, ma alla semplice iscrizione al Registro delle Imprese, che è obbligatoria per chiunque svolga un'attività d'impresa, indipendentemente da come sceglie di tassare il proprio reddito. È quindi un costo trasversale, che accompagna l'attività d'impresa in sé, non una delle scelte fiscali che abbiamo visto nelle lezioni precedenti.
+
+La quarta voce, dovuta solo dalle società di capitali — quindi Srl e Spa, non le ditte individuali — è la tassa di concessione governativa per la bollatura dei libri sociali. È un importo fisso: 309,87 euro se il capitale sociale al primo gennaio non supera 516.456,90 euro, altrimenti 516,46 euro. Si versa entro il 16 marzo di ogni anno, e — dettaglio che vale la pena conoscere — è dovuta indipendentemente dal fatto che i libri sociali siano tenuti in forma cartacea o digitale: non è la modalità di tenuta a determinare l'obbligo, ma la natura stessa della società.
+
+[pausa breve]
+
+La quinta voce è l'imposta di bollo, dovuta in situazioni diverse tra loro. La più comune, per chi segue questa guida, è la misura fissa di 2 euro sulle fatture elettroniche emesse senza applicazione dell'IVA — pensa alle operazioni esenti, escluse, oppure alle fatture dei forfettari di cui abbiamo parlato molto prima in questa guida — quando l'importo supera 77,47 euro. Ma esiste anche una forma di "bollo virtuale", forfettizzato, sui registri contabili tenuti senza vidimazione, oltre al bollo dovuto su alcuni contratti e atti specifici.
+
+La sesta e ultima voce che vale la pena conoscere è l'imposta di registro, dovuta in misura fissa o proporzionale su alcuni atti societari — come la costituzione o gli aumenti di capitale — o su alcuni contratti, per esempio alcuni contratti di locazione commerciale. Qui c'è una differenza importante rispetto a tutte le voci precedenti, e voglio che tu la noti bene: a differenza dell'IMU, della TARI, del diritto camerale e della tassa sui libri sociali, che sono voci ricorrenti ogni anno, l'imposta di registro è tipicamente legata a un evento specifico — non è una tassa annuale, ma un costo che si paga quando quell'evento, per esempio la costituzione della società, effettivamente accade.
+
+[mostra a schermo: le sei voci — IMU, TARI, diritto camerale, libri sociali, bollo, registro]
+
+Prova a vedere queste sei voci anche con un criterio semplice che ti aiuta a ricordarle tutte insieme: quattro di loro — IMU, TARI, diritto camerale, tassa sui libri sociali — sono scadenze fisse, che tornano puntualmente ogni anno, a calendario, indipendentemente da cosa fa l'azienda in quel periodo. Le altre due — bollo e registro — sono invece legate a un evento specifico: emetti una fattura senza IVA, e scatta il bollo; costituisci una società o firmi un certo contratto, e scatta il registro. Tenere in testa questa distinzione — scadenze fisse contro eventi specifici — ti aiuta a capire quali di queste voci vanno sempre messe a calendario fin dall'inizio dell'anno, e quali invece vanno semplicemente verificate ogni volta che capita l'operazione che le fa scattare.
+
+Ora mettiamo insieme un esempio pratico, per vedere quanto possano effettivamente pesare, tutte insieme, queste voci su un'azienda come Verdi Srl.
+
+[mostra a schermo: il calcolo — Verdi Srl, un anno tipico]
+
+Immagina che Verdi Srl, proprietaria del proprio capannone, stimi il proprio carico fiscale "minore" per un anno tipico. IMU: 1.200 euro. TARI: 800 euro. Diritto camerale: 200 euro. Tassa di concessione governativa sui libri sociali: 309,87 euro. Sommiamo tutte queste voci: 1.200 più 800 più 200 più 309,87 fanno circa 2.500 euro all'anno.
+
+[mostra a schermo: 1.200 € + 800 € + 200 € + 309,87 € ≈ 2.500 €/anno]
+
+E questi 2.500 euro, voglio che tu lo tenga bene a mente, sono interamente aggiuntivi rispetto a IVA, IRES e IRAP di cui abbiamo parlato nelle lezioni precedenti — non sono in nessun modo già compresi in quelle cifre.
+
+Fermati un attimo a fare un confronto che forse ti sorprende: 2.500 euro all'anno, su un'azienda come Verdi Srl, possono valere più dell'intera differenza tra l'aliquota IRES ordinaria e quella premiale di cui abbiamo parlato qualche lezione fa — quasi 1.850 euro nell'esempio che avevamo visto. Eppure, mentre quella differenza sull'IRES premiale è il genere di numero su cui ci si sofferma, si discute, si verifica ogni anno con il commercialista, queste imposte minori restano spesso sullo sfondo, quasi invisibili, proprio perché arrivano frammentate in tante piccole scadenze diverse durante l'anno, invece che in un'unica voce ben visibile in dichiarazione.
+
+Ed è esattamente qui che arriviamo al punto chiave di questa lezione. Nessuna di queste voci, presa da sola, cambia gli equilibri di un'azienda nel modo in cui possono farlo l'IRES o l'IRAP. Ma dimenticarle — nel preventivo di chi apre una nuova attività, oppure nel budget annuale di un'impresa già esistente — è un errore comune, che genera piccoli ma costanti scostamenti di cassa, mese dopo mese, anno dopo anno.
+
+C'è anche una seconda ragione, meno evidente ma altrettanto importante, per cui vale la pena conoscere bene queste voci: a differenza di IVA, IRES e IRAP, che in larga parte segui con il tuo commercialista attraverso la contabilità e la dichiarazione annuale, molte di queste imposte minori richiedono un'attenzione quasi "amministrativa" distinta — verificare l'aliquota IMU del proprio Comune, controllare lo scaglione del diritto camerale, ricordarsi della scadenza di marzo per i libri sociali. Sono adempimenti che si incastrano nel calendario fiscale generale di cui abbiamo parlato nel Livello Base di questa guida, ma che hanno logiche e scadenze proprie, spesso gestite da uffici diversi — il Comune, la Camera di Commercio — rispetto all'Agenzia delle Entrate.
+
+Prova a vedere questo effetto con un'immagine che forse ti aiuta a ricordarlo meglio: pensa a queste voci minori come alle piccole commissioni bancarie che si accumulano silenziosamente su un conto corrente — nessuna, da sola, ti farebbe mai notare qualcosa di strano guardando l'estratto conto di un singolo mese. Ma se non le metti mai in conto, a fine anno ti ritrovi con una cifra che, somma dopo somma, è tutt'altro che trascurabile, e che nessuno aveva davvero pianificato.
+
+Il consiglio pratico con cui voglio chiudere questa lezione, e con essa il Livello Intermedio di questa guida, è semplice: quando prepari un budget per la tua attività, che si tratti di un preventivo iniziale o di una pianificazione annuale, non limitarti a stimare IVA, IRES e IRAP. Fai anche l'elenco di queste voci minori, verificane gli importi specifici per la tua situazione — perché, come hai visto, molte dipendono dal Comune, dal capitale sociale, dal fatturato — e includile fin dall'inizio nel conto complessivo. È una piccola attenzione in più, ma è esattamente il tipo di attenzione che distingue un budget realistico da uno che, a consuntivo, si rivela sempre un po' troppo ottimista.
+
+Nella prossima lezione entriamo nel Livello Avanzato di questa guida, dove affrontiamo le scelte più strategiche: si parte dalla domanda su quale forma giuridica scegliere, pensando anche al fisco. Ci vediamo lì.
+
+---
+
+## Lezione 20 — Scegliere la forma giuridica pensando anche al fisco
 
 Bentornato in questo ultimo livello della guida, quello dedicato alle scelte strategiche. Fin dalla Lezione 1 ti ho detto che la forma giuridica, all'inizio, quasi sempre è la più semplice: ditta individuale o libero professionista. Ma cosa succede quando l'attività cresce, e quella scelta iniziale va rimessa in discussione? È la domanda a cui rispondiamo in questa lezione.
 
 [pausa breve]
 
-Quando un'attività cresce oltre le soglie o le esigenze tipiche del regime forfettario, la domanda diventa concreta: resto persona fisica, magari in regime ordinario come abbiamo visto nella Lezione 10, oppure costituisco una società — tipicamente una Srl?
+Quando un'attività cresce oltre le soglie o le esigenze tipiche del regime forfettario, la domanda diventa concreta: resto persona fisica, magari in regime ordinario come abbiamo visto nella Lezione 12, oppure costituisco una società — tipicamente una Srl?
 
-Fermati un attimo a capire perché questa domanda, che all'inizio dell'attività sembrava quasi scontata — "parto da solo, è più semplice" — torna a porsi con forza proprio quando l'attività cresce. Il motivo è che i tre criteri su cui si basa questa scelta, che vedremo tra un momento, pesano in modo molto diverso a seconda delle dimensioni dell'attività. Con un fatturato piccolo, la semplicità gestionale della ditta individuale vince quasi sempre, perché i vantaggi fiscali di una Srl sarebbero minimi rispetto ai costi aggiuntivi di gestione. Ma mano a mano che il reddito cresce, l'aliquota marginale IRPEF sale — fino al 43%, come abbiamo visto nella Lezione 10 — mentre l'aliquota IRES resta fissa al 24%: a un certo punto, il vantaggio fiscale di una struttura societaria può diventare abbastanza grande da giustificare la maggiore complessità.
+Fermati un attimo a capire perché questa domanda, che all'inizio dell'attività sembrava quasi scontata — "parto da solo, è più semplice" — torna a porsi con forza proprio quando l'attività cresce. Il motivo è che i tre criteri su cui si basa questa scelta, che vedremo tra un momento, pesano in modo molto diverso a seconda delle dimensioni dell'attività. Con un fatturato piccolo, la semplicità gestionale della ditta individuale vince quasi sempre, perché i vantaggi fiscali di una Srl sarebbero minimi rispetto ai costi aggiuntivi di gestione. Ma mano a mano che il reddito cresce, l'aliquota marginale IRPEF sale — fino al 43%, come abbiamo visto nella Lezione 12 — mentre l'aliquota IRES resta fissa al 24%: a un certo punto, il vantaggio fiscale di una struttura societaria può diventare abbastanza grande da giustificare la maggiore complessità.
 
 [mostra a schermo: la tabella di confronto persona fisica vs Srl]
 
 Guardiamo insieme i tre criteri principali su cui si basa questa decisione, uno per volta, perché meritano ciascuno un ragionamento a sé.
 
-Il primo è l'imposta sul reddito: da persona fisica paghi l'IRPEF progressiva, che abbiamo visto arrivare fino al 43% nella Lezione 10; con una Srl paghi l'IRES, fissa al 24% come abbiamo visto nella Lezione 11, sull'utile della società — e in più, la tassazione sui dividendi si applica solo quando effettivamente li prelevi, non prima. Questo "non prima" è un dettaglio che vale la pena sottolineare fin da ora: significa che, finché l'utile resta dentro la società e non viene distribuito ai soci, la tassazione personale sui dividendi semplicemente non scatta — un meccanismo di differimento che, come vedremo tra poco, è al centro di tutto il ragionamento sulla convenienza della Srl.
+Il primo è l'imposta sul reddito: da persona fisica paghi l'IRPEF progressiva, che abbiamo visto arrivare fino al 43% nella Lezione 12; con una Srl paghi l'IRES, fissa al 24% come abbiamo visto nella Lezione 13, sull'utile della società — e in più, la tassazione sui dividendi si applica solo quando effettivamente li prelevi, non prima. Questo "non prima" è un dettaglio che vale la pena sottolineare fin da ora: significa che, finché l'utile resta dentro la società e non viene distribuito ai soci, la tassazione personale sui dividendi semplicemente non scatta — un meccanismo di differimento che, come vedremo tra poco, è al centro di tutto il ragionamento sulla convenienza della Srl.
 
 Il secondo criterio è la responsabilità. Da persona fisica, con una ditta individuale, la responsabilità è illimitata: rispondi con il tuo patrimonio personale dei debiti dell'attività — se le cose vanno male, non è solo il capitale investito nell'attività a essere a rischio, ma anche i tuoi risparmi personali, la tua casa, i tuoi beni. Con una Srl, la responsabilità è limitata al capitale sociale, salvo casi particolari — per esempio comportamenti scorretti degli amministratori: il patrimonio personale dei soci resta, nella normalità dei casi, separato e protetto da quello della società.
 
@@ -593,7 +939,7 @@ Riprenderemo esattamente questo tipo di ragionamento nell'ultima lezione della g
 
 ---
 
-## Lezione 16 — Controlli fiscali: tipologie e come comportarsi
+## Lezione 21 — Controlli fiscali: tipologie e come comportarsi
 
 Nella lezione scorsa abbiamo parlato di scelte strategiche di lungo periodo. In questa lezione, invece, affrontiamo un tema che genera spesso ansia immediata: cosa succede quando arriva una comunicazione dall'Agenzia delle Entrate, e come conviene comportarsi.
 
@@ -607,7 +953,7 @@ Fermati un attimo a capire perché esistono livelli diversi di controllo, invece
 
 Il primo tipo è il controllo automatizzato, previsto dall'articolo 36-bis del DPR 600 del 1973. Funziona così: la tua dichiarazione viene incrociata automaticamente, tramite sistemi informatici, con i dati che l'Agenzia già possiede — per esempio dai sostituti d'imposta, dalle banche, da altri enti. Se emerge una discrepanza, arriva quello che si chiama un "avviso bonario", con la possibilità di pagare con una sanzione ridotta rispetto a quella ordinaria. È, in un certo senso, il livello più "leggero" di controllo: non c'è un funzionario che analizza nel dettaglio la tua situazione, è un sistema automatico che confronta numeri con numeri.
 
-Il secondo tipo è il controllo formale, previsto dall'articolo 36-ter. Qui il livello di approfondimento è più alto: è una verifica documentale delle deduzioni e delle detrazioni che hai dichiarato, per controllare che tu abbia davvero i documenti a supporto di quello che hai indicato in dichiarazione. A differenza del controllo automatizzato, qui non basta più che i numeri "tornino" tra loro: serve che tu possa esibire, fisicamente o digitalmente, i documenti che giustificano ogni voce dichiarata — esattamente il motivo per cui, nella Lezione 13, insistevo tanto sull'importanza di archiviare la documentazione in modo ordinato durante tutto l'anno.
+Il secondo tipo è il controllo formale, previsto dall'articolo 36-ter. Qui il livello di approfondimento è più alto: è una verifica documentale delle deduzioni e delle detrazioni che hai dichiarato, per controllare che tu abbia davvero i documenti a supporto di quello che hai indicato in dichiarazione. A differenza del controllo automatizzato, qui non basta più che i numeri "tornino" tra loro: serve che tu possa esibire, fisicamente o digitalmente, i documenti che giustificano ogni voce dichiarata — esattamente il motivo per cui, nella Lezione 17, insistevo tanto sull'importanza di archiviare la documentazione in modo ordinato durante tutto l'anno.
 
 Il terzo tipo, il più impegnativo, è l'accertamento vero e proprio: un'analisi molto più ampia, che può portare a un avviso di accertamento con maggiori imposte richieste, sanzioni, e interessi. Qui l'Agenzia non si limita a verificare singole voci, ma ricostruisce in modo più complessivo la posizione fiscale del contribuente, e può arrivare a conclusioni molto diverse da quanto dichiarato, con conseguenze economiche ben più rilevanti rispetto ai primi due livelli.
 
@@ -631,7 +977,7 @@ Nella prossima lezione vediamo cosa fare quando un debito tributario, magari nat
 
 ---
 
-## Lezione 17 — Rateizzazione dei debiti con l'Agenzia delle Entrate-Riscossione
+## Lezione 22 — Rateizzazione dei debiti con l'Agenzia delle Entrate-Riscossione
 
 Nella lezione scorsa abbiamo visto come comportarsi davanti a un controllo fiscale. Ma cosa succede se, alla fine di quel controllo — o anche indipendentemente da un controllo, semplicemente per una difficoltà di liquidità — ti trovi con un debito tributario che non riesci a pagare tutto insieme? È il tema di questa lezione: la rateizzazione.
 
@@ -653,19 +999,19 @@ Vediamola anche con un'altra immagine, perché aiuta a capire bene la logica di 
 
 Il messaggio pratico, quindi, è questo: la rateizzazione va chiesta solo se sei ragionevolmente certo di riuscire a sostenerla nel tempo, non come un modo per rinviare il problema sperando che si risolva da solo. Prima di chiederla, fai un calcolo realistico della tua liquidità futura, mese per mese, per essere sicuro di potercela fare — perché il rischio di decadenza, con tutto il debito che torna esigibile in blocco, è un rischio che vale la pena evitare fin dall'inizio, valutando bene l'importo delle rate rispetto alle tue reali possibilità.
 
-Un ultimo suggerimento pratico: se durante il piano di rateizzazione la tua situazione economica dovesse peggiorare ulteriormente, non aspettare di saltare le rate per muoverti. Parlane subito con il tuo commercialista: in alcuni casi è possibile rimodulare il piano, allungandolo ulteriormente, proprio per evitare di arrivare al punto di decadenza che abbiamo descritto. Anche qui, come abbiamo visto per il ravvedimento operoso nella Lezione 14, muoversi prima che il problema si manifesti del tutto resta sempre la strategia più efficace.
+Un ultimo suggerimento pratico: se durante il piano di rateizzazione la tua situazione economica dovesse peggiorare ulteriormente, non aspettare di saltare le rate per muoverti. Parlane subito con il tuo commercialista: in alcuni casi è possibile rimodulare il piano, allungandolo ulteriormente, proprio per evitare di arrivare al punto di decadenza che abbiamo descritto. Anche qui, come abbiamo visto per il ravvedimento operoso nella Lezione 18, muoversi prima che il problema si manifesti del tutto resta sempre la strategia più efficace.
 
 Nella prossima lezione affrontiamo un argomento che tocca la parte più delicata, e a volte più fraintesa, del rapporto con il fisco: la differenza tra risparmio fiscale lecito, elusione ed evasione. Ci vediamo lì.
 
 ---
 
-## Lezione 18 — Pianificazione fiscale lecita: risparmio, elusione, evasione — la differenza che conta
+## Lezione 23 — Pianificazione fiscale lecita: risparmio, elusione, evasione — la differenza che conta
 
 Nella lezione scorsa abbiamo parlato di debiti e di come gestirli. In questa lezione voglio invece parlarti di come evitare, fin dall'inizio, di trovarti in situazioni davvero problematiche con il fisco — chiarendo tre concetti che, nel linguaggio comune, vengono spesso confusi tra loro, ma che per la legge sono profondamente diversi, con conseguenze molto diverse.
 
 [pausa breve]
 
-Il primo concetto è il risparmio fiscale lecito. Significa scegliere, tra più opzioni che la legge stessa mette a disposizione, quella fiscalmente più conveniente. Pensa agli esempi che abbiamo già visto insieme in questa guida: la scelta tra ditta individuale e Srl della Lezione 15, oppure l'uso corretto di deduzioni e detrazioni della Lezione 12. Questo è perfettamente legittimo, ed è anzi un comportamento che va incoraggiato: la legge ti offre delle opzioni, e sceglierne una piuttosto che un'altra sulla base della convenienza fiscale non è in nessun modo un illecito.
+Il primo concetto è il risparmio fiscale lecito. Significa scegliere, tra più opzioni che la legge stessa mette a disposizione, quella fiscalmente più conveniente. Pensa agli esempi che abbiamo già visto insieme in questa guida: la scelta tra ditta individuale e Srl della Lezione 20, oppure l'uso corretto di deduzioni e detrazioni della Lezione 16. Questo è perfettamente legittimo, ed è anzi un comportamento che va incoraggiato: la legge ti offre delle opzioni, e sceglierne una piuttosto che un'altra sulla base della convenienza fiscale non è in nessun modo un illecito.
 
 Fermati un attimo a capire perché il risparmio lecito è così pacificamente accettato, anche dallo stesso legislatore che scrive le norme. Quando la legge prevede più alternative — per esempio due forme giuridiche diverse, o due regimi fiscali diversi come il forfettario e l'ordinario — lo fa sapendo che i contribuenti sceglieranno quella più vantaggiosa per la propria situazione: è il sistema stesso a essere costruito con questa logica di scelta consapevole. Non esiste nessuna norma che obblighi un contribuente a scegliere volontariamente l'opzione più onerosa tra quelle che la legge mette a disposizione.
 
@@ -693,13 +1039,13 @@ Nella prossima lezione capiamo perché tutti questi numeri che abbiamo visto —
 
 ---
 
-## Lezione 19 — Perché il fisco cambia ogni anno: la Legge di Bilancio e come restare aggiornati
+## Lezione 24 — Perché il fisco cambia ogni anno: la Legge di Bilancio e come restare aggiornati
 
 Nella lezione scorsa ti ho parlato della linea sottile tra risparmio lecito ed elusione, e di quanto sia importante affidarsi a un professionista per restare sempre dal lato giusto. C'è un altro motivo, altrettanto concreto, per cui quella figura professionale — o una fonte affidabile come questa scuola — resta indispensabile nel tempo: il fisco che hai imparato in questa guida non è fisso. Cambia, ogni anno.
 
 [pausa breve]
 
-Il meccanismo è semplice da capire, anche se spesso viene sottovalutato: ogni fine anno, con la Legge di Bilancio, il Parlamento può modificare aliquote, soglie, deduzioni e detrazioni per l'anno successivo. Non è un'ipotesi teorica: è già successo proprio a uno dei numeri più importanti di questa guida. Gli scaglioni IRPEF che ti ho mostrato nella Lezione 10 sono cambiati con la Legge di Bilancio 2026 rispetto a quelli degli anni precedenti. Le stesse aliquote che oggi ti sembrano "la regola", tra dodici mesi potrebbero essere diverse.
+Il meccanismo è semplice da capire, anche se spesso viene sottovalutato: ogni fine anno, con la Legge di Bilancio, il Parlamento può modificare aliquote, soglie, deduzioni e detrazioni per l'anno successivo. Non è un'ipotesi teorica: è già successo proprio a uno dei numeri più importanti di questa guida. Gli scaglioni IRPEF che ti ho mostrato nella Lezione 12 sono cambiati con la Legge di Bilancio 2026 rispetto a quelli degli anni precedenti. Le stesse aliquote che oggi ti sembrano "la regola", tra dodici mesi potrebbero essere diverse.
 
 Fermati un attimo a capire perché la Legge di Bilancio ha questo potere, e perché viene esercitato praticamente ogni anno. È la legge con cui lo Stato pianifica le proprie entrate e uscite per l'anno successivo: se servono più risorse per una certa politica pubblica, o se si vuole alleggerire il carico su una certa categoria di contribuenti, la leva più diretta per intervenire è proprio la modifica di aliquote, soglie e agevolazioni fiscali. È un meccanismo fisiologico del sistema democratico, non un'anomalia: ogni governo, attraverso il Parlamento, ha facoltà di ridisegnare, entro certi limiti costituzionali, il sistema fiscale secondo le proprie priorità.
 
@@ -723,15 +1069,15 @@ Nella prossima lezione torniamo a uno strumento di controllo specifico, riservat
 
 ---
 
-## Lezione 20 — Il redditometro e gli accertamenti sintetici: come funzionano
+## Lezione 25 — Il redditometro e gli accertamenti sintetici: come funzionano
 
-Nella lezione scorsa abbiamo parlato di come restare aggiornati sui numeri che cambiano ogni anno. In questa lezione torniamo invece sul tema dei controlli, che avevamo già affrontato nella Lezione 16, ma per guardare da vicino uno strumento specifico, riservato solo alle persone fisiche, che funziona con una logica completamente diversa da quella che abbiamo visto finora.
+Nella lezione scorsa abbiamo parlato di come restare aggiornati sui numeri che cambiano ogni anno. In questa lezione torniamo invece sul tema dei controlli, che avevamo già affrontato nella Lezione 21, ma per guardare da vicino uno strumento specifico, riservato solo alle persone fisiche, che funziona con una logica completamente diversa da quella che abbiamo visto finora.
 
 [pausa breve]
 
-Si chiama accertamento sintetico, ma probabilmente lo conosci con il nome con cui viene chiamato comunemente: redditometro. È previsto dall'articolo 38, commi quarto e seguenti, del DPR 600 del 1973. E la logica con cui funziona è, in un certo senso, rovesciata rispetto a tutto quello che abbiamo visto finora. Non parte dalla dichiarazione dei redditi per verificarla, come facevano i controlli della Lezione 16. Parte dalle tue spese.
+Si chiama accertamento sintetico, ma probabilmente lo conosci con il nome con cui viene chiamato comunemente: redditometro. È previsto dall'articolo 38, commi quarto e seguenti, del DPR 600 del 1973. E la logica con cui funziona è, in un certo senso, rovesciata rispetto a tutto quello che abbiamo visto finora. Non parte dalla dichiarazione dei redditi per verificarla, come facevano i controlli della Lezione 21. Parte dalle tue spese.
 
-Fermati un momento a capire perché il legislatore ha sentito il bisogno di uno strumento così diverso dagli altri. I controlli della Lezione 16 funzionano bene quando c'è una dichiarazione da verificare nel dettaglio — incrociando dati, controllando documenti. Ma esiste una categoria di situazioni in cui il problema non è un errore nella dichiarazione, bensì redditi che non vengono dichiarati affatto, magari perché percepiti in modi difficili da tracciare direttamente. In questi casi, verificare la dichiarazione non basta: serve un approccio che parta da un'altra angolazione, quella della capacità di spesa effettiva di una persona, per intercettare proprio quei casi in cui il reddito dichiarato è sistematicamente troppo basso rispetto al tenore di vita osservabile.
+Fermati un momento a capire perché il legislatore ha sentito il bisogno di uno strumento così diverso dagli altri. I controlli della Lezione 21 funzionano bene quando c'è una dichiarazione da verificare nel dettaglio — incrociando dati, controllando documenti. Ma esiste una categoria di situazioni in cui il problema non è un errore nella dichiarazione, bensì redditi che non vengono dichiarati affatto, magari perché percepiti in modi difficili da tracciare direttamente. In questi casi, verificare la dichiarazione non basta: serve un approccio che parta da un'altra angolazione, quella della capacità di spesa effettiva di una persona, per intercettare proprio quei casi in cui il reddito dichiarato è sistematicamente troppo basso rispetto al tenore di vita osservabile.
 
 [mostra a schermo: "redditometro → dalla spesa al reddito presunto, non il contrario"]
 
@@ -755,13 +1101,13 @@ Per questo, conservare la documentazione di ogni fonte di provvista — un'eredi
 
 Pensa a questa documentazione come a una specie di "scatola nera" della tua vita finanziaria: nella stragrande maggioranza dei casi non ti servirà mai, esattamente come la scatola nera di un aereo che vola senza incidenti. Ma se un giorno dovesse servire — se un giorno dovessi davvero giustificare un acquisto importante davanti all'Agenzia delle Entrate — averla pronta, ordinata, facilmente recuperabile, fa tutta la differenza tra risolvere la questione in tempi brevi e trovarsi in difficoltà a ricostruire, magari a distanza di anni, da dove arrivava davvero quel denaro.
 
-Un'ultima precisazione importante prima di chiudere: questo strumento riguarda esclusivamente le persone fisiche. Per le società, come la nostra Verdi Srl, restano applicabili le forme di controllo che abbiamo già visto nella Lezione 16, non il redditometro.
+Un'ultima precisazione importante prima di chiudere: questo strumento riguarda esclusivamente le persone fisiche. Per le società, come la nostra Verdi Srl, restano applicabili le forme di controllo che abbiamo già visto nella Lezione 21, non il redditometro.
 
 Nella prossima lezione cambiamo completamente argomento e parliamo di qualcosa che riguarda soprattutto le imprese: i crediti d'imposta e i limiti da conoscere quando li usi in compensazione. Ci vediamo lì.
 
 ---
 
-## Lezione 21 — I crediti d'imposta e la loro compensazione in F24: attenzione ai limiti annui
+## Lezione 26 — I crediti d'imposta e la loro compensazione in F24: attenzione ai limiti annui
 
 Nella lezione scorsa ci siamo concentrati sulle persone fisiche e sul redditometro. In questa lezione torniamo a un tema che riguarda soprattutto le imprese, come la nostra Verdi Srl: i crediti d'imposta, e un limite pratico che spesso viene sottovalutato proprio da chi pianifica la liquidità aziendale.
 
@@ -795,7 +1141,7 @@ Nella prossima lezione torniamo al regime forfettario di Marco Bruni, per parlar
 
 ---
 
-## Lezione 22 — Il regime forfettario e i limiti sui dipendenti/collaboratori: una causa di esclusione poco conosciuta
+## Lezione 27 — Il regime forfettario e i limiti sui dipendenti/collaboratori: una causa di esclusione poco conosciuta
 
 Nella lezione scorsa abbiamo parlato di crediti d'imposta e plafond di compensazione, un tema tipicamente da impresa strutturata. In questa lezione torniamo invece a Marco Bruni e al suo regime forfettario, per parlare di una causa di esclusione che, nella mia esperienza, quasi nessuno conosce finché non ci finisce dentro per davvero.
 
@@ -823,7 +1169,7 @@ Ora, guarda bene cosa succede confrontando questo totale con la soglia di legge:
 
 Questo ci porta al punto chiave di questa lezione, quello che voglio che tu tenga a mente soprattutto se la tua attività sta crescendo: la crescita di un forfettario che comincia ad assumere collaboratori è spesso il primo segnale concreto che il regime forfettario non è più adatto alla fase in cui si trova l'attività. Non è solo una questione di limite sui costi del personale in sé: è un campanello d'allarme più ampio.
 
-Ed è un motivo in più, insieme al confronto tra i costi reali e il coefficiente forfettario di cui parlavamo alla Lezione 9, per valutare per tempo, con calma, il passaggio al regime ordinario o addirittura a una società — quello che abbiamo visto alla Lezione 15. Il consiglio pratico è semplice: se stai pensando di assumere qualcuno, anche solo un collaboratore part-time, fai prima due conti su questa soglia dei 20.000 euro, invece di scoprire l'esclusione solo a consuntivo, quando ormai è troppo tardi per pianificare il passaggio con calma.
+Ed è un motivo in più, insieme al confronto tra i costi reali e il coefficiente forfettario di cui parlavamo alla Lezione 9, per valutare per tempo, con calma, il passaggio al regime ordinario o addirittura a una società — quello che abbiamo visto alla Lezione 20. Il consiglio pratico è semplice: se stai pensando di assumere qualcuno, anche solo un collaboratore part-time, fai prima due conti su questa soglia dei 20.000 euro, invece di scoprire l'esclusione solo a consuntivo, quando ormai è troppo tardi per pianificare il passaggio con calma.
 
 Ed è anche un buon esempio di come i limiti di un regime agevolato raramente viaggiano su un solo binario. Chi pensa al forfettario guardando esclusivamente il tetto degli 85.000 euro di ricavi rischia di dimenticare che esistono altri "cancelli" che possono far scattare l'uscita dal regime in modo indipendente l'uno dall'altro — e che, proprio perché meno noti, sono quelli più facili da superare senza accorgersene in tempo.
 
@@ -831,7 +1177,7 @@ Nella prossima lezione vediamo uno strumento che ti permette di chiedere un pare
 
 ---
 
-## Lezione 23 — L'interpello e la consulenza giuridica: quando conviene chiedere un parere preventivo all'Agenzia delle Entrate
+## Lezione 28 — L'interpello e la consulenza giuridica: quando conviene chiedere un parere preventivo all'Agenzia delle Entrate
 
 Nella lezione scorsa abbiamo visto una causa di esclusione dal forfettario che nasce da un dubbio che quasi nessuno si pone in anticipo. In questa lezione voglio parlarti proprio dello strumento che la legge mette a disposizione per non trovarti mai in quella situazione: la possibilità di chiedere, prima di agire, un parere preventivo all'Agenzia delle Entrate.
 
@@ -843,7 +1189,7 @@ Fermati un attimo a capire perché questo strumento esiste, e perché è così p
 
 [mostra a schermo: "interpello → risposta scritta e vincolante, prima di agire"]
 
-L'interpello è disciplinato dall'articolo 11 della Legge 212 del 2000, lo Statuto del Contribuente — la stessa legge, ricorderai dalla Lezione 18, che disciplina anche l'abuso del diritto e l'elusione. Con l'interpello ottieni una risposta scritta da parte dell'Agenzia, vincolante per l'Amministrazione sul tuo caso specifico, prima ancora di compiere l'operazione che ti sta a cuore. Esistono diverse tipologie — interpretativo, probatorio, antiabuso, disapplicativo — ognuna pensata per un tipo diverso di dubbio. I termini di risposta sono, in genere, di novanta giorni, che diventano centoventi per i casi più complessi. E qui c'è un dettaglio che vale la pena conoscere: se l'Agenzia non risponde entro quei termini, si forma il cosiddetto silenzio-assenso sulla soluzione che tu stesso hai proposto nell'istanza.
+L'interpello è disciplinato dall'articolo 11 della Legge 212 del 2000, lo Statuto del Contribuente — la stessa legge, ricorderai dalla Lezione 23, che disciplina anche l'abuso del diritto e l'elusione. Con l'interpello ottieni una risposta scritta da parte dell'Agenzia, vincolante per l'Amministrazione sul tuo caso specifico, prima ancora di compiere l'operazione che ti sta a cuore. Esistono diverse tipologie — interpretativo, probatorio, antiabuso, disapplicativo — ognuna pensata per un tipo diverso di dubbio. I termini di risposta sono, in genere, di novanta giorni, che diventano centoventi per i casi più complessi. E qui c'è un dettaglio che vale la pena conoscere: se l'Agenzia non risponde entro quei termini, si forma il cosiddetto silenzio-assenso sulla soluzione che tu stesso hai proposto nell'istanza.
 
 Per le questioni di carattere più generale, non legate a un'operazione specifica già decisa, esiste anche uno strumento più snello, la consulenza giuridica. Non ha lo stesso vincolo formale dell'interpello, ma orienta comunque, nella pratica, il comportamento degli uffici.
 
@@ -855,15 +1201,15 @@ Vediamo un esempio pratico con Verdi Srl. Immagina che Verdi Srl stia valutando 
 
 Prima di procedere con la scissione, il commercialista di Verdi Srl presenta un interpello antiabuso. Se la risposta dell'Agenzia è favorevole, Verdi Srl ottiene una certezza preventiva preziosa: l'ufficio resta vincolato a non contestare, in seguito, proprio quella specifica operazione per quel motivo. È esattamente il contrario di quello che succede quando si agisce prima e si scopre solo dopo, magari con un controllo, se la propria interpretazione era corretta.
 
-Prova a vedere la differenza tra le due strade con un confronto diretto. Se Verdi Srl procedesse con la scissione senza presentare l'interpello, si troverebbe a operare per anni nell'incertezza, senza sapere con sicurezza se, in un futuro controllo come quelli visti nella Lezione 16, l'Agenzia potrebbe contestare quell'operazione sotto il profilo antiabuso. Con l'interpello, invece, quell'incertezza si risolve prima di agire, non dopo: una differenza enorme per chi deve pianificare un'operazione straordinaria e importante come una scissione societaria.
+Prova a vedere la differenza tra le due strade con un confronto diretto. Se Verdi Srl procedesse con la scissione senza presentare l'interpello, si troverebbe a operare per anni nell'incertezza, senza sapere con sicurezza se, in un futuro controllo come quelli visti nella Lezione 21, l'Agenzia potrebbe contestare quell'operazione sotto il profilo antiabuso. Con l'interpello, invece, quell'incertezza si risolve prima di agire, non dopo: una differenza enorme per chi deve pianificare un'operazione straordinaria e importante come una scissione societaria.
 
-Ed è qui che arriviamo al punto chiave di questa lezione, quello su cui voglio che tu non faccia confusione: l'interpello non è uno strumento da usare per "qualsiasi dubbio" ti venga in mente. Ha senso solo davanti a un caso concreto, con condizioni oggettive di incertezza normativa che non sono già state risolte da circolari o da una prassi consolidata. Usarlo per chiedere conferma di regole ormai pacifiche — per esempio l'aliquota IRES fissa al 24% che abbiamo visto alla Lezione 11 — sarebbe un uso improprio dello strumento, oltre che una perdita di tempo, visti i suoi tempi di risposta non certo immediati.
+Ed è qui che arriviamo al punto chiave di questa lezione, quello su cui voglio che tu non faccia confusione: l'interpello non è uno strumento da usare per "qualsiasi dubbio" ti venga in mente. Ha senso solo davanti a un caso concreto, con condizioni oggettive di incertezza normativa che non sono già state risolte da circolari o da una prassi consolidata. Usarlo per chiedere conferma di regole ormai pacifiche — per esempio l'aliquota IRES fissa al 24% che abbiamo visto alla Lezione 13 — sarebbe un uso improprio dello strumento, oltre che una perdita di tempo, visti i suoi tempi di risposta non certo immediati.
 
 Siamo arrivati all'ultima lezione di questa guida. Nella prossima, e conclusiva, mettiamo insieme tutto quello che abbiamo visto, con un caso pratico riassuntivo: proprio Marco Bruni, che dopo anni da forfettario si trova a valutare se aprire una Srl. Ci vediamo lì.
 
 ---
 
-## Lezione 24 — Caso pratico riassuntivo: da Marco Bruni forfettario a una possibile Srl
+## Lezione 29 — Caso pratico riassuntivo: da Marco Bruni forfettario a una possibile Srl
 
 Eccoci all'ultima lezione di questa guida. Nella lezione scorsa abbiamo visto l'interpello come strumento per chiarire i dubbi prima di agire. Ora voglio mettere insieme, con te, tutto quello che abbiamo imparato fin dalla Lezione 1, attraverso il caso di Marco Bruni, che abbiamo seguito passo dopo passo per tutta la guida.
 
@@ -877,21 +1223,21 @@ Fermati un attimo a ripensare al percorso che Marco ha fatto in questi quattro a
 
 A questo punto, Marco si trova davanti a tre domande, e voglio che tu le veda proprio nell'ordine corretto, perché è lo stesso ordine con cui dovresti ragionarci tu, se ti trovassi nella sua stessa situazione.
 
-La prima domanda che Marco si pone è: quanto pagherei in regime ordinario, restando persona fisica? Per rispondere, calcola il reddito imponibile con le spese realmente sostenute — non più con il coefficiente forfettario di cui parlavamo alla Lezione 9 — e applica gli scaglioni IRPEF progressivi che abbiamo visto nella Lezione 10. È lo stesso identico metodo di calcolo che abbiamo visto insieme, passo dopo passo, in quelle lezioni: niente di nuovo da imparare, solo da applicare alla sua situazione specifica.
+La prima domanda che Marco si pone è: quanto pagherei in regime ordinario, restando persona fisica? Per rispondere, calcola il reddito imponibile con le spese realmente sostenute — non più con il coefficiente forfettario di cui parlavamo alla Lezione 9 — e applica gli scaglioni IRPEF progressivi che abbiamo visto nella Lezione 12. È lo stesso identico metodo di calcolo che abbiamo visto insieme, passo dopo passo, in quelle lezioni: niente di nuovo da imparare, solo da applicare alla sua situazione specifica.
 
 [mostra a schermo: passo 1 — imponibile con spese reali, non più coefficiente forfettario]
 
-La seconda domanda è più strategica: ha senso, per Marco, aprire una Srl? Per rispondere, confronta l'aliquota IRES, fissa al 24%, con l'aliquota marginale IRPEF che pagherebbe restando persona fisica — esattamente il ragionamento della Lezione 15. E qui il numero parla chiaro: con un reddito che supera i 50.000 euro, l'aliquota marginale IRPEF di Marco sarebbe già al 43%, molto più alta del 24% fisso dell'IRES.
+La seconda domanda è più strategica: ha senso, per Marco, aprire una Srl? Per rispondere, confronta l'aliquota IRES, fissa al 24%, con l'aliquota marginale IRPEF che pagherebbe restando persona fisica — esattamente il ragionamento della Lezione 20. E qui il numero parla chiaro: con un reddito che supera i 50.000 euro, l'aliquota marginale IRPEF di Marco sarebbe già al 43%, molto più alta del 24% fisso dell'IRES.
 
 [mostra a schermo: passo 2 — 43% di aliquota marginale IRPEF contro 24% di IRES fissa]
 
-La terza domanda, quella davvero decisiva, è: la Srl ha senso solo se reinveste? E qui torniamo esattamente al criterio chiave della Lezione 15. Se Marco vuole assumere un secondo grafico e investire in nuova attrezzatura — quindi lasciare buona parte dell'utile dentro l'azienda invece di prelevarlo — allora la Srl comincia davvero a diventare interessante, perché su quell'utile trattenuto pagherebbe solo il 24% di IRES. Se invece Marco deve comunque prelevare quasi tutto l'utile ogni anno per vivere, il vantaggio della Srl si riduce sensibilmente, esattamente come avevamo visto insieme.
+La terza domanda, quella davvero decisiva, è: la Srl ha senso solo se reinveste? E qui torniamo esattamente al criterio chiave della Lezione 20. Se Marco vuole assumere un secondo grafico e investire in nuova attrezzatura — quindi lasciare buona parte dell'utile dentro l'azienda invece di prelevarlo — allora la Srl comincia davvero a diventare interessante, perché su quell'utile trattenuto pagherebbe solo il 24% di IRES. Se invece Marco deve comunque prelevare quasi tutto l'utile ogni anno per vivere, il vantaggio della Srl si riduce sensibilmente, esattamente come avevamo visto insieme.
 
 [mostra a schermo: "Srl conviene → se Marco reinveste. Meno conveniente → se deve prelevare quasi tutto"]
 
 [pausa breve]
 
-E qui, alla fine di questo intero percorso, arriviamo al vero punto chiave, non solo di questa lezione, ma di tutta la guida: se hai seguito questi ventiquattro capitoli fino in fondo, ormai sai già impostare da solo questo ragionamento, con i numeri giusti al posto giusto. Non ti serve più che qualcuno ti spieghi da zero cos'è un'imposta sostitutiva, o come funziona uno scaglione progressivo: quel meccanismo, ormai, lo conosci.
+E qui, alla fine di questo intero percorso, arriviamo al vero punto chiave, non solo di questa lezione, ma di tutta la guida: se hai seguito questi ventinove capitoli fino in fondo, ormai sai già impostare da solo questo ragionamento, con i numeri giusti al posto giusto. Non ti serve più che qualcuno ti spieghi da zero cos'è un'imposta sostitutiva, o come funziona uno scaglione progressivo: quel meccanismo, ormai, lo conosci.
 
 Ripensa, per un momento, a quante volte in questa guida abbiamo preso un numero e lo abbiamo seguito passo dopo passo: il fatturato di Marco moltiplicato per il coefficiente di redditività, il reddito imponibile moltiplicato per l'aliquota sostitutiva, i contributi calcolati sulla stessa base, gli scaglioni IRPEF applicati fetta per fetta, l'IRES e l'IRAP calcolate su basi diverse per Verdi Srl. Ogni singolo calcolo, preso da solo, è un'operazione semplice — una moltiplicazione, una sottrazione, una somma. Quello che rendeva complicato il fisco, prima di questa guida, non erano i calcoli in sé: era non sapere quale numero moltiplicare per cosa, e in quale ordine. Quello, ormai, lo sai fare.
 
