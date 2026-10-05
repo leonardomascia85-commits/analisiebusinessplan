@@ -42,11 +42,16 @@
   --grigio:#f8fafc;--bordo:#e2e8f0;--testo:#1e293b;--muted:#64748b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#f1f5f9;color:var(--testo);min-height:100vh}
-header{background:linear-gradient(135deg,var(--blu) 0%,#2563eb 100%);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:16px}
-header h1{font-size:1.3rem;font-weight:700}
-header p{font-size:.85rem;opacity:.85}
-.badge-eba{background:rgba(255,255,255,.15);border-radius:6px;padding:4px 10px;font-size:.75rem;font-weight:600;white-space:nowrap}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:#f5f0e8;color:#0a1628;min-height:100vh;padding-top:68px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:68px;background:rgba(250,248,244,.97);backdrop-filter:blur(12px);border-bottom:1px solid #e8e0d0;}
+.nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:17px;color:#0a1628;letter-spacing:-.3px;text-decoration:none;}
+.nav-logo em{font-style:normal;color:#c4a05a;}
+.nav-r{display:flex;align-items:center;gap:8px;}
+.nav-link{padding:8px 14px;border-radius:6px;font-size:14px;font-weight:500;color:#3a3020;transition:color .15s,background .15s;text-decoration:none;}
+.nav-link:hover{color:#0a1628;background:#f5f0e8;}
+.nav-cta{padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;color:#fff;background:#0a1628;text-decoration:none;transition:background .15s;}
+.nav-cta:hover{background:#132040;}
+.badge-eba{background:#e8e0d0;color:#0a1628;border-radius:6px;padding:4px 10px;font-size:.75rem;font-weight:600;white-space:nowrap;border:1px solid #d8cfba;}
 
 .container{max-width:960px;margin:0 auto;padding:28px 20px 60px}
 
@@ -191,17 +196,17 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
 </head>
 <body>
 
-<header>
-  <div>
-    <h1>📊 Business Plan Finanziario</h1>
-    <p>Proiezioni 3 anni · Modello CE+SP+CF integrato</p>
-  </div>
-  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
-    <button onclick="saveProjectBP()" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">💾 Salva</button>
-    <a href="dashboard.html" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:8px 14px;font-size:13px;font-weight:600;text-decoration:none;">📂 Dashboard</a>
+<nav>
+  <a href="index.html" class="nav-logo">Analisi<em>e</em>BusinessPlan</a>
+  <div class="nav-r">
+    <a href="importa-xbrl.html" class="nav-link">Analisi Bilancio</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="auth.html" class="nav-link" id="nav-accedi">Accedi</a>
+    <button onclick="saveProjectBP()" class="nav-cta">💾 Salva</button>
     <span class="badge-eba">EBA/GL/2020/06</span>
   </div>
-</header>
+</nav>
+<script>(function(){try{const u=JSON.parse(localStorage.getItem('abp_user'));if(u&&u.email){const el=document.getElementById('nav-accedi');if(el){el.href='account.html';el.textContent='👤 '+(u.nome||u.email.split('@')[0]);}}}catch(e){}})();</script>
 
 <div class="container">
 
