@@ -41,10 +41,12 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;padding-top:68px;}
     nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:68px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-    .nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;}
-    .nav-logo span{color:var(--blue);}
-    .nav-back{font-size:14px;color:var(--ink3);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s;}
-    .nav-back:hover{color:var(--ink);}
+    .nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:18px;color:#0a1628;text-decoration:none;}
+    .nav-logo em{font-style:normal;color:#c4a05a;}
+    .nav-link{padding:8px 14px;border-radius:6px;font-size:14px;font-weight:500;color:#3a3020;transition:color .15s,background .15s;text-decoration:none;}
+    .nav-link:hover{color:#0a1628;background:#f5f0e8;}
+    .nav-cta{margin-left:10px;padding:9px 22px;border-radius:7px;font-size:14px;font-weight:600;color:#fff;background:#0a1628;text-decoration:none;transition:background .15s;}
+    .nav-cta:hover{background:#132040;}
     .wrap{max-width:860px;margin:0 auto;padding:52px 6%;}
     .page-header{margin-bottom:44px;}
     .page-eyebrow{font-size:12px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
@@ -170,12 +172,17 @@
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nav-logo">Analisi<span>e</span>BusinessPlan</a>
-  <div style="display:flex;gap:8px;align-items:center">
-    <a href="guide.html" class="nav-back" style="opacity:.7">Guide</a>
-    <a href="index.html" class="nav-back">← Home</a>
+  <a href="index.html" class="nav-logo">Analisi<em>e</em>BusinessPlan</a>
+  <div style="display:flex;align-items:center;gap:4px;">
+    <a href="importa-xbrl.html" class="nav-link">Analisi Bilancio</a>
+    <a href="business-plan.html" class="nav-link">Business Plan</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="guide.html" class="nav-link">Guide</a>
+    <a href="auth.html" class="nav-link" id="nav-accedi">Accedi</a>
+    <a href="importa-xbrl.html" class="nav-cta" style="margin-left:10px;padding:9px 22px;border-radius:7px;font-size:14px;font-weight:600;color:#fff;background:#0a1628;text-decoration:none;">Inizia ora →</a>
   </div>
 </nav>
+<script>(function(){try{const u=JSON.parse(localStorage.getItem('abp_user'));if(u&&u.email){const el=document.getElementById('nav-accedi');if(el){el.href='account.html';el.textContent='👤 '+(u.nome||u.email.split('@')[0]);}}}catch(e){}})();</script>
 
 <!-- ═══════════════════════════════════════════════════════════
      SEZIONE INFORMATIVA — Cos'è, Come funziona, Cosa serve

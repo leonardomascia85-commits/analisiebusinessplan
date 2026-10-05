@@ -38,8 +38,8 @@
 </script>
 <style>
 :root{
-  --blu:#0a1628;--blu-light:#2563eb;--verde:#16a34a;--arancio:#ea580c;
-  --grigio:#f8fafc;--bordo:#e2e8f0;--testo:#1e293b;--muted:#64748b;
+  --blu:#0a1628;--blu-light:#c4a05a;--verde:#c4a05a;--arancio:#c4a05a;
+  --grigio:#faf8f4;--bordo:#e8e0d0;--testo:#0a1628;--muted:#7a7060;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',-apple-system,sans-serif;background:#f5f0e8;color:#0a1628;min-height:100vh;padding-top:68px;}
@@ -70,7 +70,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .form-row.cols1{grid-template-columns:1fr}
 label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
 input[type=number],input[type=text],select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--bordo);border-radius:8px;font-size:.95rem;color:var(--testo);transition:.2s;background:#fff}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blu-light);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blu-light);box-shadow:0 0 0 3px rgba(196,160,90,.15)}
 .input-group{position:relative}
 .input-suffix{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
 input.has-suffix{padding-right:36px}
@@ -78,8 +78,8 @@ input.has-suffix{padding-right:36px}
 /* Scenario cards */
 .scenario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
 .scenario-card{border:2px solid var(--bordo);border-radius:10px;padding:16px 12px;text-align:center;cursor:pointer;transition:.2s;background:#fff}
-.scenario-card:hover{border-color:var(--blu-light);background:#eff6ff}
-.scenario-card.selected{border-color:var(--blu-light);background:#eff6ff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.scenario-card:hover{border-color:var(--blu-light);background:#f5ead3}
+.scenario-card.selected{border-color:var(--blu-light);background:#f5ead3;box-shadow:0 0 0 3px rgba(196,160,90,.2)}
 .scenario-icon{font-size:1.8rem;margin-bottom:6px}
 .scenario-name{font-weight:700;font-size:.95rem;color:var(--blu)}
 .scenario-range{font-size:.78rem;color:var(--verde);font-weight:600;margin-top:2px}
@@ -140,10 +140,10 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
 .proj-table td{padding:9px 12px;border-bottom:1px solid var(--bordo);text-align:right}
 .proj-table td:first-child{text-align:left;font-weight:500}
 .proj-table tr.sub td:first-child{padding-left:24px;color:var(--muted);font-weight:400}
-.proj-table tr.total-row td{font-weight:700;background:#f8fafc;border-top:2px solid var(--bordo)}
+.proj-table tr.total-row td{font-weight:700;background:#faf8f4;border-top:2px solid var(--bordo)}
 .proj-table tr.positive td:last-child,.proj-table tr.positive td:nth-child(2),.proj-table tr.positive td:nth-child(3){color:var(--verde)}
 .proj-table tr.negative td:last-child,.proj-table tr.negative td:nth-child(2),.proj-table tr.negative td:nth-child(3){color:#dc2626}
-.proj-table .section-header td{background:#f1f5f9;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.proj-table .section-header td{background:#f5f0e8;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
 
 .be-box{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
 .be-item{background:var(--grigio);border-radius:10px;padding:16px;text-align:center}
@@ -200,10 +200,11 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
   <a href="index.html" class="nav-logo">Analisi<em>e</em>BusinessPlan</a>
   <div class="nav-r">
     <a href="importa-xbrl.html" class="nav-link">Analisi Bilancio</a>
+    <a href="business-plan.html" class="nav-link">Business Plan</a>
     <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="guide.html" class="nav-link">Guide</a>
     <a href="auth.html" class="nav-link" id="nav-accedi">Accedi</a>
-    <button onclick="saveProjectBP()" class="nav-cta">💾 Salva</button>
-    <span class="badge-eba">EBA/GL/2020/06</span>
+    <button onclick="saveProjectBP()" class="nav-cta" style="margin-left:10px;">💾 Salva</button>
   </div>
 </nav>
 <script>(function(){try{const u=JSON.parse(localStorage.getItem('abp_user'));if(u&&u.email){const el=document.getElementById('nav-accedi');if(el){el.href='account.html';el.textContent='👤 '+(u.nome||u.email.split('@')[0]);}}}catch(e){}})();</script>
@@ -452,7 +453,7 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
           </div>
 
           <!-- Analista e note (opzionali) -->
-          <div style="background:#f8fafc;border-radius:10px;padding:16px 18px;border:1px solid var(--bordo);margin-bottom:16px">
+          <div style="background:#faf8f4;border-radius:10px;padding:16px 18px;border:1px solid var(--bordo);margin-bottom:16px">
             <div style="font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:12px">📝 Note opzionali</div>
             <div class="form-row">
               <div>
@@ -1060,7 +1061,7 @@ textarea:focus{border-color:var(--blu-light);outline:none;box-shadow:0 0 0 3px r
 
   <!-- OUTPUT -->
   <div id="output-section">
-    <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 20px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 20px;background:#f5f0e8;border-bottom:1px solid #e2e8f0;flex-wrap:wrap">
       <button class="btn btn-genera" onclick="scaricaReport()">⬇ Scarica Business Plan (HTML)</button>
       <button class="btn btn-scarica" onclick="window.print()">🖨 Stampa / Salva PDF</button>
     </div>
