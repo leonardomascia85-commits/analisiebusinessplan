@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio di registrazione — __COURSE__</title>
+<style>
+:root{--bg:#0B1120;--panel:#0F172A;--line:rgba(255,255,255,.09);--amber:#F59E0B;--text:#F8FAFC;--muted:rgba(248,250,252,.62);--ok:#34D399;--rec:#EF4444}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;height:100vh;display:grid;grid-template-columns:300px 1fr}
+aside{border-right:1px solid var(--line);overflow:auto;padding:16px}
+aside h1{font-size:17px;margin:0 0 4px}
+aside .sub{color:var(--muted);font-size:13px;margin-bottom:14px}
+.lesson{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:14px}
+.lesson:hover{background:rgba(255,255,255,.05)}
+.lesson.active{background:rgba(245,158,11,.14);outline:1px solid rgba(245,158,11,.4)}
+.lesson .prog{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.lesson.done .prog{color:var(--ok)}
+main{display:flex;flex-direction:column;overflow:hidden}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.top .title{font-weight:700}
+.top .title span{color:var(--amber)}
+.stage{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;padding:22px;overflow:auto}
+.slide img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+.slide .segnav{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.dot{width:30px;height:30px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:12px;cursor:pointer}
+.dot.rec{border-color:rgba(52,211,153,.6);color:var(--ok)}
+.dot.cur{outline:2px solid var(--amber);color:var(--text)}
+.prompter{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 30px;font-size:var(--fs,26px);line-height:1.6;overflow:auto}
+.prompter .lbl{font-size:13px;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.bar{display:flex;align-items:center;gap:10px;padding:14px 22px;border-top:1px solid var(--line);flex-wrap:wrap}
+button{font:inherit;font-size:14px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:10px 16px;cursor:pointer}
+button:hover{border-color:rgba(255,255,255,.25)}
+button.primary{background:var(--amber);color:#0B1120;border-color:var(--amber);font-weight:700}
+button.recording{background:var(--rec);border-color:var(--rec);color:#fff}
+button:disabled{opacity:.4;cursor:default}
+.meter{width:140px;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--ok);transition:width .05s}
+.status{color:var(--muted);font-size:13px;margin-left:auto}
+.help{font-size:13px;color:var(--muted)}
+kbd{background:rgba(255,255,255,.08);border-radius:4px;padding:1px 5px;font-size:12px}
+dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;max-width:620px;line-height:1.55}
+dialog h2{margin-top:0}
+</style>
+</head>
+<body>
+<aside>
+  <h1>Studio di registrazione</h1>
+  <div class="sub">__COURSE__</div>
+  <div id="lessons"></div>
+</aside>
+<main>
+  <div class="top">
+    <div class="title" id="ltitle"></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="fsminus" title="Testo più piccolo">A−</button><button id="fsplus" title="Testo più grande">A+</button>
+      <button id="tips">Come registrare</button>
+      <button id="exportL" class="primary">Esporta lezione</button>
+      <button id="exportAll">Esporta tutto</button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="slide"><img id="simg" alt="Slide"><div class="segnav" id="segnav"></div></div>
+    <div class="prompter"><div class="lbl" id="slbl"></div><div id="stext"></div></div>
+  </div>
+  <div class="bar">
+    <button id="rec" class="primary">● Registra</button>
+    <button id="play" disabled>▶ Ascolta</button>
+    <button id="prev">← Slide precedente</button>
+    <button id="next">Slide successiva →</button>
+    <div class="meter"><i id="lvl"></i></div>
+    <span class="help"><kbd>Spazio</kbd> registra/ferma · <kbd>←</kbd><kbd>→</kbd> slide · <kbd>P</kbd> ascolta</span>
+    <span class="status" id="status"></span>
+  </div>
+</main>
+<dialog id="dlg">
+  <h2>Come registrare</h2>
+  <ol>
+    <li>Usa un microfono esterno (USB o ad archetto), a 15-20 cm dalla bocca, leggermente di lato.</li>
+    <li>Stanza silenziosa e "morbida": tende, tappeti e librerie riducono il rimbombo. Spegni ventilatori e notifiche.</li>
+    <li>Ogni slide è una registrazione a sé: premi <b>Spazio</b>, aspetta mezzo secondo, leggi il testo, aspetta mezzo secondo e premi di nuovo <b>Spazio</b>. Se sbagli, riregistra solo quella slide.</li>
+    <li>Il testo è una traccia: puoi riformulare con parole tue, purché il contenuto resti quello.</li>
+    <li>Le registrazioni restano salvate in questo browser anche se chiudi la pagina. A fine lezione premi <b>Esporta lezione</b> e carica il file .zip nella pagina di consegna.</li>
+  </ol>
+  <button id="dlgclose" class="primary">Ho capito</button>
+</dialog>
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const COURSE = DATA.slug;
+let L = 0, S = 0, rec = null, chunks = [], stream = null, analyser = null, playing = null;
+const $ = id => document.getElementById(id);
+
+// --- IndexedDB storage of recordings ---
+const dbp = new Promise((res, rej) => {
+  const r = indexedDB.open('skilleasy-studio', 1);
+  r.onupgradeneeded = () => r.result.createObjectStore('rec');
+  r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+});
+async function idb(mode, fn) {
+  const db = await dbp;
+  return new Promise((res, rej) => {
+    const tx = db.transaction('rec', mode); const st = tx.objectStore('rec');
+    const q = fn(st); tx.oncomplete = () => res(q && q.result); tx.onerror = () => rej(tx.error);
+  });
+}
+const key = (l, s) => `${COURSE}/${DATA.lessons[l].id}/${DATA.lessons[l].segments[s].id}`;
+const getRec = (l, s) => idb('readonly', st => st.get(key(l, s)));
+const putRec = (l, s, blob) => idb('readwrite', st => st.put(blob, key(l, s)));
+let recorded = new Set();
+async function loadIndex() {
+  const keys = await idb('readonly', st => st.getAllKeys());
+  recorded = new Set((keys || []).filter(k => k.startsWith(COURSE + '/')));
+}
+
+// --- UI ---
+function renderLessons() {
+  $('lessons').innerHTML = '';
+  DATA.lessons.forEach((les, i) => {
+    const n = les.segments.filter((_, s) => recorded.has(key(i, s))).length;
+    const d = document.createElement('div');
+    d.className = 'lesson' + (i === L ? ' active' : '') + (n === les.segments.length ? ' done' : '');
+    d.innerHTML = `<span>${les.id} · ${les.title}</span><span class="prog">${n}/${les.segments.length}</span>`;
+    d.onclick = () => { L = i; S = 0; show(); };
+    $('lessons').appendChild(d);
+  });
+}
+function show() {
+  const les = DATA.lessons[L], seg = les.segments[S];
+  $('ltitle').innerHTML = `Lezione ${les.n} — ${les.title} <span>· slide ${S + 1} di ${les.segments.length}</span>`;
+  $('simg').src = seg.thumb;
+  $('slbl').textContent = `Slide ${S + 1}` + (recorded.has(key(L, S)) ? ' · registrata ✓' : ' · da registrare');
+  $('stext').textContent = seg.text;
+  $('play').disabled = !recorded.has(key(L, S));
+  $('segnav').innerHTML = '';
+  les.segments.forEach((_, s) => {
+    const b = document.createElement('button');
+    b.className = 'dot' + (recorded.has(key(L, s)) ? ' rec' : '') + (s === S ? ' cur' : '');
+    b.textContent = s + 1; b.onclick = () => { S = s; show(); };
+    $('segnav').appendChild(b);
+  });
+  renderLessons();
+}
+function go(d) {
+  const les = DATA.lessons[L];
+  S = Math.max(0, Math.min(les.segments.length - 1, S + d)); show();
+}
+
+// --- recording ---
+async function ensureMic() {
+  if (stream) return;
+  stream = await navigator.mediaDevices.getUserMedia({audio: {channelCount: 1, echoCancellation: false, noiseSuppression: true, autoGainControl: false}});
+  const ctx = new AudioContext(); const src = ctx.createMediaStreamSource(stream);
+  analyser = ctx.createAnalyser(); analyser.fftSize = 1024; src.connect(analyser);
+  const buf = new Float32Array(analyser.fftSize);
+  (function meter() {
+    analyser.getFloatTimeDomainData(buf);
+    let peak = 0; for (const v of buf) peak = Math.max(peak, Math.abs(v));
+    $('lvl').style.width = Math.min(100, peak * 140) + '%';
+    $('lvl').style.background = peak > 0.95 ? '#EF4444' : '#34D399';
+    requestAnimationFrame(meter);
+  })();
+}
+async function toggleRec() {
+  if (rec) { rec.stop(); return; }
+  try { await ensureMic(); } catch (e) { $('status').textContent = 'Microfono non disponibile: consenti l\'accesso al microfono nel browser.'; return; }
+  const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : '';
+  rec = new MediaRecorder(stream, mime ? {mimeType: mime, audioBitsPerSecond: 96000} : {});
+  chunks = []; const l = L, s = S;
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  rec.onstop = async () => {
+    const blob = new Blob(chunks, {type: 'audio/webm'});
+    await putRec(l, s, blob); recorded.add(key(l, s)); rec = null;
+    $('rec').textContent = '● Registra'; $('rec').classList.remove('recording');
+    $('status').textContent = `Salvata slide ${s + 1} (${(blob.size / 1024).toFixed(0)} KB)`;
+    if (l === L && s === S && S < DATA.lessons[L].segments.length - 1) S++;
+    show();
+  };
+  rec.start(); $('rec').textContent = '■ Ferma'; $('rec').classList.add('recording');
+  $('status').textContent = 'Registrazione in corso…';
+}
+async function play() {
+  const blob = await getRec(L, S); if (!blob) return;
+  if (playing) playing.pause();
+  playing = new Audio(URL.createObjectURL(blob)); playing.play();
+}
+
+// --- export: uncompressed ZIP (store) ---
+const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(u8) { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function zip(files) {
+  const enc = new TextEncoder(), parts = [], central = []; let off = 0;
+  for (const f of files) {
+    const name = enc.encode(f.name), data = f.data, crc = crc32(data);
+    const h = new DataView(new ArrayBuffer(30));
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(8, 0, true);
+    h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, name.length, true);
+    parts.push(new Uint8Array(h.buffer), name, data);
+    const c = new DataView(new ArrayBuffer(46));
+    c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true);
+    c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true);
+    c.setUint16(28, name.length, true); c.setUint32(42, off, true);
+    central.push(new Uint8Array(c.buffer), name);
+    off += 30 + name.length + data.length;
+  }
+  const csize = central.reduce((a, b) => a + b.length, 0);
+  const e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true);
+  e.setUint32(12, csize, true); e.setUint32(16, off, true);
+  return new Blob([...parts, ...central, new Uint8Array(e.buffer)], {type: 'application/zip'});
+}
+async function exportLessons(idx, fname) {
+  const files = [];
+  for (const l of idx) for (let s = 0; s < DATA.lessons[l].segments.length; s++) {
+    const b = await getRec(l, s);
+    if (b) files.push({name: `${COURSE}/${DATA.lessons[l].id}/${DATA.lessons[l].segments[s].id}.webm`, data: new Uint8Array(await b.arrayBuffer())});
+  }
+  if (!files.length) { $('status').textContent = 'Nessuna registrazione da esportare.'; return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(zip(files)); a.download = fname; a.click();
+  $('status').textContent = `Esportate ${files.length} registrazioni in ${fname}`;
+}
+
+// --- wiring ---
+$('rec').onclick = toggleRec; $('play').onclick = play;
+$('prev').onclick = () => go(-1); $('next').onclick = () => go(1);
+$('exportL').onclick = () => exportLessons([L], `${COURSE}-${DATA.lessons[L].id}.zip`);
+$('exportAll').onclick = () => exportLessons(DATA.lessons.map((_, i) => i), `${COURSE}-tutte.zip`);
+$('tips').onclick = () => $('dlg').showModal(); $('dlgclose').onclick = () => $('dlg').close();
+let fs = 26; const setFs = d => { fs = Math.max(18, Math.min(40, fs + d)); document.documentElement.style.setProperty('--fs', fs + 'px'); };
+$('fsplus').onclick = () => setFs(2); $('fsminus').onclick = () => setFs(-2);
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'BUTTON' && e.code === 'Space') e.preventDefault();
+  if (e.code === 'Space') { e.preventDefault(); toggleRec(); }
+  else if (e.key === 'ArrowRight' && !rec) go(1);
+  else if (e.key === 'ArrowLeft' && !rec) go(-1);
+  else if (e.key.toLowerCase() === 'p' && !rec) play();
+});
+loadIndex().then(show);
+</script>
+</body>
+</html>

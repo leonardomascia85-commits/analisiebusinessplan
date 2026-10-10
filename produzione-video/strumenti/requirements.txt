@@ -1,0 +1,6 @@
+playwright
+edge-tts
+imageio-ffmpeg
+markdown
+pypdf
+pillow
