@@ -93,7 +93,7 @@ Per le vendite a distanza intracomunitarie verso consumatori privati UE (Lezione
 
 📌 **Esempio pratico**: se Verdi Srl aprisse un e-commerce (guida Marketing Digitale) e iniziasse a vendere anche a privati in Francia e Germania, finché il totale di queste vendite resta sotto i 10.000 €/anno applica l'IVA italiana; superata la soglia, tramite il regime OSS applica e versa l'IVA francese o tedesca per le rispettive vendite, dichiarando tutto in un'unica procedura invece di registrarsi separatamente in ogni paese.
 
-📌 **Punto chiave**: dal 2027 sono già previste modifiche tecniche al calcolo di questa soglia — un altro esempio, oltre al fisco ordinario (guida Fisco, Lezione 19), di normativa che richiede aggiornamento costante.
+📌 **Punto chiave**: dal 2027 sono già previste modifiche tecniche al calcolo di questa soglia — un altro esempio, oltre al fisco ordinario (guida Fisco, Lezione 24), di normativa che richiede aggiornamento costante.
 
 ---
 
@@ -119,7 +119,7 @@ Un'azienda che effettua **abitualmente** esportazioni e cessioni intracomunitari
 
 Oltre alle liquidazioni periodiche (mensili o trimestrali, guida Contabilità Lezione 7), ogni anno va presentata la **dichiarazione IVA annuale**, che riepiloga tutte le operazioni dell'anno e determina la posizione IVA definitiva (a debito o a credito) rispetto a quanto già versato periodicamente.
 
-📌 **Punto chiave**: eventuali errori nelle liquidazioni periodiche emergono spesso proprio in fase di dichiarazione annuale — un'ulteriore ragione per tenere una contabilità IVA ordinata durante tutto l'anno (stesso principio della guida Fisco, Lezione 13), non solo negli ultimi mesi.
+📌 **Punto chiave**: eventuali errori nelle liquidazioni periodiche emergono spesso proprio in fase di dichiarazione annuale — un'ulteriore ragione per tenere una contabilità IVA ordinata durante tutto l'anno (stesso principio della guida Fisco, Lezione 17), non solo negli ultimi mesi.
 
 ---
 

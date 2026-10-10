@@ -46,11 +46,11 @@ Questo corso nasce per risolvere esattamente questo problema. Ti accompagna dall
 
 **Cosa trovi dentro**
 
-1. **Livello Base — Le fondamenta.** A cosa serve davvero la contabilità, i sei postulati dell'OIC 11, la partita doppia, il piano dei conti, la registrazione di acquisti e vendite con IVA, la liquidazione IVA, la fattura elettronica e la prima nota di cassa e banca.
+1. **Livello Base — Le fondamenta.** A cosa serve davvero la contabilità, i sette postulati dell'OIC 11, la partita doppia, il piano dei conti, la registrazione di acquisti e vendite con IVA, la liquidazione IVA, la fattura elettronica e la prima nota di cassa e banca.
 2. **Livello Intermedio — Le scritture di fine periodo.** Perché servono gli assestamenti, ratei e risconti, il fondo svalutazione crediti, gli ammortamenti, le rimanenze di magazzino, il TFR, la chiusura e la riapertura dei conti.
 3. **Livello Avanzato — Dal libro giornale al bilancio.** Come si costruiscono Conto Economico e Stato Patrimoniale, i cinque numeri da guardare per primi, la contabilità analitica, gli errori più comuni, il rendiconto finanziario, la nota integrativa, il leasing finanziario, le operazioni in valuta estera, i cenni al bilancio consolidato e un caso pratico riassuntivo: un mese intero di Verdi Srl.
 
-Ogni sezione si chiude con un **quiz di verifica** costruito sugli esempi numerici del corso e con una **dispensa PDF riassuntiva** da scaricare, con i concetti, le formule e le tabelle principali.
+Ogni sezione si chiude con un **quiz di verifica** costruito sugli esempi numerici del corso e con una **dispensa PDF** da scaricare che riprende, lezione per lezione, obiettivi, punti chiave, riferimenti normativi e OIC, errori da evitare e un esercizio con soluzione.
 
 **Alla fine del corso saprai…**
 
@@ -246,38 +246,38 @@ Durata sezione: 128 min
 
 ### Quiz 2 — Verifica Livello Intermedio
 
-**Domanda 1.** Il 1° ottobre Verdi Srl paga un'assicurazione annuale di 1.200 €. Quale risconto attivo deve rilevare al 31 dicembre?
+**Domanda 1.** Il 1° aprile Verdi Srl paga un premio assicurativo annuale di 1.200 €, che copre il magazzino dal 1° aprile al 31 marzo dell'anno successivo. Quale risconto attivo deve rilevare al 31 dicembre?
 
 - A) 300 €, pari ai 3 mesi (gennaio-marzo) di competenza dell'anno successivo
-- B) 900 €, pari ai 9 mesi di competenza dell'anno successivo
+- B) 900 €, pari ai 9 mesi da aprile a dicembre
 - C) 1.200 €, perché il costo va spostato interamente all'anno successivo
 - D) Nessun risconto, perché il premio è già stato pagato
 
 **Risposta corretta: A**
 
-*Spiegazione:* il premio vale 100 € al mese. Ottobre-dicembre (300 €) restano costo dell'anno in corso, ma gennaio-marzo (3 × 100 = 300 €) competono all'anno successivo e vanno rinviati con un risconto attivo.
+*Spiegazione:* il premio vale 100 € al mese. Aprile-dicembre (9 × 100 = 900 €) restano costo dell'anno in corso, mentre gennaio-marzo (3 × 100 = 300 €) competono all'anno successivo e vanno rinviati con un risconto attivo (OIC 18). Il 1° gennaio il risconto si storna e torna a essere costo del nuovo anno.
 
-**Domanda 2.** Verdi Srl ha crediti verso clienti per 50.000 € e stima che il 2% non verrà incassato. Per quale importo i crediti saranno esposti in bilancio?
+**Domanda 2.** A fine anno Verdi Srl ha crediti verso clienti per 46.000 €: 40.000 € non scaduti o scaduti da meno di 90 giorni e 6.000 € scaduti da oltre 90 giorni. Svaluta forfettariamente l'1% della prima fascia e il 10% della seconda. Per quale importo i crediti saranno esposti in bilancio?
 
-- A) 50.000 €, il valore nominale delle fatture
-- B) 51.000 €, perché il fondo si somma ai crediti
-- C) 1.000 €, cioè l'importo del fondo
-- D) 49.000 €, il valore di presumibile realizzo
+- A) 46.000 €, il valore nominale delle fatture
+- B) 47.000 €, perché il fondo si somma ai crediti
+- C) 41.400 €, applicando il 10% a tutti i crediti
+- D) 45.000 €, il valore di presumibile realizzo
 
 **Risposta corretta: D**
 
-*Spiegazione:* l'accantonamento è 50.000 × 2% = 1.000 €. L'OIC 15 richiede di esporre i crediti al valore di presumibile realizzo: 50.000 − 1.000 = 49.000 €.
+*Spiegazione:* il fondo svalutazione è 40.000 × 1% + 6.000 × 10% = 400 + 600 = 1.000 €. L'OIC 15 richiede di esporre i crediti al valore di presumibile realizzo: 46.000 − 1.000 = 45.000 €. Fiscalmente è deducibile solo lo 0,5% del valore nominale (46.000 × 0,5% = 230 €, art. 106 TUIR): i restanti 770 € si riprendono a tassazione, ma il costo in bilancio resta 1.000 €.
 
-**Domanda 3.** Verdi Srl acquista un furgone da 20.000 €, ammortizzato al 20% annuo. Se il furgone entra in funzione a metà anno, qual è la quota di ammortamento del primo esercizio?
+**Domanda 3.** Il furgone di Verdi Srl (costo 20.000 €, ammortamento al 20% annuo) è entrato in funzione all'inizio dell'esercizio precedente. Qual è la quota di ammortamento civilistica dell'esercizio in chiusura e quanto vale il furgone, al netto del fondo, a fine anno?
 
-- A) 4.000 €
-- B) 2.000 €
-- C) 20.000 €
-- D) 1.000 €
+- A) Quota 2.000 €, valore netto 14.000 €
+- B) Quota 4.000 €, valore netto 12.000 €
+- C) Quota 4.000 €, valore netto 16.000 €
+- D) Quota 8.000 €, valore netto 12.000 €
 
 **Risposta corretta: B**
 
-*Spiegazione:* la quota annua a regime è 20.000 × 20% = 4.000 €; per prassi, nel primo esercizio di entrata in funzione l'aliquota si riduce al 50%, quindi 4.000 × 50% = 2.000 €.
+*Spiegazione:* la quota annua è 20.000 × 20% = 4.000 €. È il secondo esercizio di utilizzo: il fondo ammortamento arriva a 8.000 € e il valore netto a 20.000 − 8.000 = 12.000 €. La riduzione alla metà nel primo esercizio è una regola fiscale (art. 102, comma 2, TUIR), non civilistica: per l'OIC 16 l'ammortamento decorre dalla disponibilità all'uso, quindi anche la prima quota era piena (4.000 €), con 2.000 € ripresi a tassazione e recuperati nel sesto esercizio.
 
 **Domanda 4.** Secondo l'OIC 13, come si valutano le rimanenze di magazzino?
 
@@ -362,36 +362,41 @@ Durata sezione: 128 min
 
 ## Materiali scaricabili
 
-> **Da produrre:** le tre dispense PDF non esistono ancora. Vanno impaginate (brand SkillEasy, 2-4 pagine ciascuna) partendo dai contenuti indicati qui sotto. Sono un riassunto per sezione: la guida integrale resta riservata al sito.
+Le tre dispense di sezione sono pronte in PDF: vanno caricate come "risorsa" sull'ultima lezione di ciascuna sezione (Lezioni 10, 17 e 28). Ogni dispensa segue, lezione per lezione, la stessa struttura: **obiettivi**, **punti chiave** da ricordare, **norme, principi e riferimenti** (articoli del Codice Civile, principi OIC, norme fiscali), **errori comuni da evitare** ed **esercizio di verifica con soluzione**, da usare per il ripasso dopo ogni video e prima del quiz. Sono un supporto di studio per sezione: la guida integrale, con spiegazioni ed esempi svolti su Verdi Srl, resta riservata al sito.
 
 ### Dispensa 1 — Le fondamenta della contabilità (Sezione 2)
 
-- I tre scopi della contabilità: obbligo di legge (art. 2214 c.c.), base per le tasse, strumento di controllo
-- I 6 postulati dell'OIC 11 in una riga ciascuno e la mappa "voce di bilancio → principio OIC"
-- Tabella Dare/Avere per le quattro famiglie del piano dei conti (attività, passività, costi, ricavi)
-- Schemi di registrazione di Verdi Srl: acquisto con IVA (1.000 + 220), vendita con IVA (1.500 + 330), incasso da cliente (1.830)
-- Formula della liquidazione IVA (IVA a debito − IVA a credito) con l'esempio 330 − 220 = 110 €
-- Flusso della fattura elettronica tramite SdI in quattro passaggi
+File: `SkillEasy-Contabilita-Dispensa-Sezione-1.pdf` · Lezioni 1-9 della guida
+
+- Le tre funzioni della contabilità, libro giornale e libro degli inventari (artt. 2214-2220 c.c.), contabilità ordinaria e semplificata (soglie 500.000 € / 800.000 €)
+- I sette postulati dell'OIC 11 e la clausola generale della rappresentazione veritiera e corretta; la mappa "voce di bilancio → principio OIC"
+- Partita doppia e regola Dare/Avere per attività, passività, Patrimonio Netto, costi e ricavi; piano dei conti, conti di rettifica e conti transitori IVA
+- Registrazione di acquisti e vendite con IVA, liquidazione mensile o trimestrale (versamento entro il 16, maggiorazione dell'1%, soglia minima di 100 €) e credito IVA da riportare
+- Fattura elettronica e SdI (scarti, termini di 12 giorni e fattura differita), prima nota, riconciliazione bancaria e limite al contante di 5.000 €
+- Esercizi con soluzione, ad esempio: acquisto con spese di trasporto (2.650 + 583 = 3.233 €), vendita con sconto incondizionato, liquidazioni IVA di un trimestre con credito riportato
 
 ### Dispensa 2 — Le scritture di fine periodo (Sezione 3)
 
-- Competenza economica e le cinque scritture di assestamento principali
-- Risconto attivo: esempio dell'assicurazione 1.200 € pagata il 1° ottobre (risconto 300 €)
-- Fondo svalutazione crediti (OIC 15): 50.000 × 2% = 1.000 €, crediti esposti 49.000 €
-- Ammortamento (OIC 16): furgone 20.000 € al 20% = 4.000 €/anno, regola del primo anno al 50%, distinzione tra vita utile civilistica e aliquote fiscali
-- Rimanenze (OIC 13) con i metodi di calcolo del costo; accantonamento TFR (OIC 31) di 2.500 €
-- Chiusura e riapertura: Conto Economico che si azzera, Stato Patrimoniale che prosegue
+File: `SkillEasy-Contabilita-Dispensa-Sezione-2.pdf` · Lezioni 10-16 della guida
+
+- Competenza economica e le cinque famiglie di scritture di assestamento, ciascuna con il suo principio OIC
+- Ratei e risconti (OIC 18): differenza tra rateo passivo e fattura da ricevere, calcolo sull'imponibile, storno al 1° gennaio
+- Fondo svalutazione crediti (OIC 15): metodo analitico e forfettario per fasce di anzianità; deducibilità fiscale dello 0,5% annuo fino al 5% (art. 106 TUIR)
+- Ammortamenti (OIC 16): vita utile civilistica e coefficienti fiscali; la metà nel primo esercizio è una regola fiscale (art. 102 TUIR), non civilistica
+- Rimanenze (OIC 13): costo medio ponderato, FIFO e LIFO, minore tra costo e valore di realizzazione, variazione in B11 per le imprese commerciali
+- TFR (OIC 31): quota annua (retribuzione ÷ 13,5), rivalutazione, contributo dello 0,50% e imposta sostitutiva del 17%; chiusura e riapertura dei conti
+- Esercizi con soluzione su ratei e risconti, fondo svalutazione (crediti netti 75.860 €), piano di ammortamento, rimanenze, TFR ed epilogo dei conti
 
 ### Dispensa 3 — Dal libro giornale al bilancio (Sezione 4)
 
-- Schema scalare del Conto Economico (art. 2425 c.c.) e schema dello Stato Patrimoniale (art. 2424 c.c.)
-- I 5 numeri da guardare per primi in un bilancio
-- Rendiconto finanziario (OIC 10), metodo indiretto: 15.000 + 4.000 − 8.000 = 11.000 €
-- Tabella leasing finanziario vs acquisto diretto (5.200 € vs 4.000 € + interessi) e contenuti chiave della nota integrativa (art. 2427 c.c.)
-- Differenze cambio (OIC 26): esempio 10.000 USD, differenza attiva 476 €; principio di elisione nel consolidato (OIC 17)
-- Il caso pratico di marzo in una tabella: IVA da versare 220 €, utile del mese 200 €
+File: `SkillEasy-Contabilita-Dispensa-Sezione-3.pdf` · Lezioni 17-27 della guida
 
----
+- Conto Economico (art. 2425 c.c.) e Stato Patrimoniale (art. 2424 c.c.) secondo l'OIC 12: dove va ogni costo, fondi rettificativi a riduzione dell'attivo, quadratura
+- I cinque numeri da guardare per primi, contabilità analitica per reparto e i sei errori tipici dei principianti, con la correzione degli errori (OIC 29)
+- Rendiconto finanziario (OIC 10), metodo indiretto: perché l'utile non coincide con la cassa
+- Nota integrativa (art. 2427 c.c.) e limiti dimensionali aggiornati dal D.Lgs. 125/2024; leasing con il metodo patrimoniale e prospetto dell'art. 2427 n. 22
+- Differenze cambio (OIC 26) e riserva non distribuibile; bilancio consolidato, controllo ed elisioni infragruppo (OIC 17)
+- Il caso pratico di un mese di Verdi Srl ed esercizi con soluzione, dal Conto Economico in forma scalare al bilancio di verifica di aprile
 
 ## Immagine del corso (brief per il grafico)
 

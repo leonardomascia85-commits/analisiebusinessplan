@@ -75,7 +75,7 @@ Oltre ai fringe benefit dell'art. 51 comma 3 (Lezione 3), l'art. 51 comma 2 del 
 
 📌 **Esempio pratico numerico**: Verdi Srl vuole dare un beneficio di valore netto equivalente a un dipendente in due modi diversi.
 
-**Opzione A — aumento di stipendio lordo di 1.000 €**: al netto di contributi (~9,19% a carico dipendente, guida Gestione aziendale Lezione 9) e IRPEF (aliquota marginale 33%, guida Fisco Lezione 10), il dipendente riceve netto circa **608 €**. Per l'azienda, il costo totale (con gli oneri contributivi a proprio carico, ~40%, guida Gestione aziendale Lezione 9) sale a circa **1.400 €**.
+**Opzione A — aumento di stipendio lordo di 1.000 €**: al netto di contributi (~9,19% a carico dipendente, guida Gestione aziendale Lezione 9) e IRPEF (aliquota marginale 33%, guida Fisco Lezione 12), il dipendente riceve netto circa **608 €**. Per l'azienda, il costo totale (con gli oneri contributivi a proprio carico, ~40%, guida Gestione aziendale Lezione 9) sale a circa **1.400 €**.
 
 **Opzione B — 1.000 € di fringe benefit**: il dipendente riceve il **valore pieno di 1.000 €** (nessuna tassazione, sotto soglia), e per l'azienda il costo resta **1.000 €** (deducibile, senza oneri contributivi aggiuntivi).
 
@@ -136,7 +136,7 @@ Molte PMI si fermano a un uso "spot" del welfare: un buono spesa a Natale, qualc
 
 ## Lezione 13 — La previdenza complementare aziendale: come funziona e i vantaggi fiscali per azienda e dipendente
 
-La previdenza complementare (fondi pensione negoziali o aperti, PIP) permette al dipendente di destinare parte della propria retribuzione — incluso, in tutto o in parte, il TFR maturando — a un fondo pensione, con la possibilità che l'azienda vi aggiunga un proprio contributo. I contributi versati dal dipendente sono **deducibili** dal suo reddito IRPEF fino a 5.164,57 € l'anno (guida Fisco, Lezione 12, sulla differenza tra deduzioni e detrazioni) — una deduzione tanto più preziosa quanto più alta è l'aliquota marginale del dipendente (guida Fisco, Lezione 10). Anche il contributo versato direttamente dall'azienda a un fondo di previdenza complementare, entro lo stesso limite complessivo, non concorre a formare reddito da lavoro dipendente ed è deducibile per l'azienda come costo del personale (guida Gestione aziendale, Lezione 9).
+La previdenza complementare (fondi pensione negoziali o aperti, PIP) permette al dipendente di destinare parte della propria retribuzione — incluso, in tutto o in parte, il TFR maturando — a un fondo pensione, con la possibilità che l'azienda vi aggiunga un proprio contributo. I contributi versati dal dipendente sono **deducibili** dal suo reddito IRPEF fino a 5.164,57 € l'anno (guida Fisco, Lezione 16, sulla differenza tra deduzioni e detrazioni) — una deduzione tanto più preziosa quanto più alta è l'aliquota marginale del dipendente (guida Fisco, Lezione 12). Anche il contributo versato direttamente dall'azienda a un fondo di previdenza complementare, entro lo stesso limite complessivo, non concorre a formare reddito da lavoro dipendente ed è deducibile per l'azienda come costo del personale (guida Gestione aziendale, Lezione 9).
 
 📌 **Esempio pratico numerico**: se Verdi Srl versasse 1.500 €/anno a un fondo di previdenza complementare per un dipendente, invece che come aumento di stipendio lordo equivalente, otterrebbe lo stesso tipo di risparmio già quantificato nella Lezione 7 per i fringe benefit ordinari — nessun contributo INPS aggiuntivo sulla somma versata al fondo — mentre il dipendente costruisce una pensione integrativa senza pagare IRPEF su quell'importo oggi.
 
@@ -148,7 +148,7 @@ La previdenza complementare (fondi pensione negoziali o aperti, PIP) permette al
 
 ## Lezione 14 — Il welfare per la genitorialità e il work-life balance: cosa prevede la normativa e cosa può fare in più l'azienda
 
-Oltre agli asili nido e ai campus estivi già visti nel welfare allargato (Lezione 6), esistono misure specifiche dedicate alla genitorialità: contributi per rette di asili nido e forme di assistenza ai figli, congedi parentali con una quota di retribuzione a carico dello Stato (variabile secondo la normativa vigente, da riverificare ogni anno come per le soglie fiscali, guida Fisco Lezione 19), ed eventuali esoneri contributivi per le lavoratrici madri previsti dalla Legge di Bilancio dell'anno in corso.
+Oltre agli asili nido e ai campus estivi già visti nel welfare allargato (Lezione 6), esistono misure specifiche dedicate alla genitorialità: contributi per rette di asili nido e forme di assistenza ai figli, congedi parentali con una quota di retribuzione a carico dello Stato (variabile secondo la normativa vigente, da riverificare ogni anno come per le soglie fiscali, guida Fisco Lezione 24), ed eventuali esoneri contributivi per le lavoratrici madri previsti dalla Legge di Bilancio dell'anno in corso.
 
 Oltre al minimo di legge, un'azienda può scegliere di fare di più: integrare la retribuzione durante il congedo parentale oltre quanto previsto, offrire forme di lavoro flessibile (orario flessibile, lavoro agile) nei primi mesi di rientro, o riservare nel piano di welfare (Lezione 12) un plafond dedicato specificamente alle spese per i figli, più ampio di quello ordinario.
 

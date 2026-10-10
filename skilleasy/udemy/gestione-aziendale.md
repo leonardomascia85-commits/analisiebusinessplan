@@ -40,16 +40,16 @@ Questo corso ti insegna a costruire quel sistema, un passo alla volta e nell'ord
 
 - **Un percorso completo, da zero ad avanzato.** 25 lezioni divise in tre livelli, ognuna costruita sopra la precedente. Puoi partire senza alcuna base e arrivare a temi come il piano industriale o il passaggio da PMI familiare a struttura manageriale.
 - **Una sola azienda di esempio, dall'inizio alla fine.** Seguirai Verdi Srl, piccola impresa commerciale di materiali per l'edilizia, mentre passa da 5 persone gestite interamente dal titolare a un'organizzazione con responsabili di reparto, deleghe chiare, contratti scritti e un cruscotto di indicatori.
-- **Numeri veri, non slogan.** Per esempio il costo reale di un dipendente: su una retribuzione lorda di 24.000 € l'azienda sostiene circa 33.600 € l'anno, mentre con un contratto di apprendistato i contributi possono scendere da circa 9.600 € a 2.400 €. Vedrai come cambiano i conti e perché questo è l'errore di budget più comune di chi assume per la prima volta.
-- **Spiegato da un Dottore Commercialista in attività.** Le domande a cui rispondo nel corso sono quelle che gli imprenditori mi fanno ogni giorno in studio. Ogni lezione segue lo stesso schema: spiegazione semplice, esempio concreto, punto chiave.
+- **Numeri veri, non slogan.** Per esempio il costo reale di un dipendente: sopra il lordo l'azienda sostiene oneri che nella pratica si avvicinano al 40%. Su una cifra tonda di 24.000 € lordi, usata per rendere leggibili i calcoli, il costo è di circa 33.600 € l'anno; con il minimo 2026 del III livello del CCNL Commercio (27.774,74 €) sale a circa 38.900 €. E in un'azienda fino a 9 dipendenti l'apprendistato, confrontato voce per voce con la contribuzione ordinaria, fa risparmiare oltre 12.500 € di contributi in tre anni. Vedrai come cambiano i conti e perché confondere lordo e costo aziendale è l'errore di budget più comune di chi assume per la prima volta.
+- **Spiegato da un Dottore Commercialista in attività.** Le domande a cui rispondo nel corso sono quelle che gli imprenditori mi fanno ogni giorno in studio. Ogni lezione segue lo stesso schema: obiettivi, spiegazione, riferimenti normativi, esempio pratico svolto passo per passo, errori comuni da evitare ed esercizio con soluzione.
 
 **Cosa trovi nel corso**
 
 1. **Livello base — Organizzare chi fa cosa.** Cos'è davvero la gestione aziendale, l'organigramma anche per un'azienda di 5 persone, la matrice RACI per assegnare le responsabilità, la delega con soglie chiare, gli obiettivi SMART e le riunioni che portano a decisioni invece di far perdere tempo.
 2. **Livello intermedio — Assumere, inquadrare e misurare.** Le principali forme contrattuali di lavoro, il ruolo del CCNL e i rischi di un inquadramento sbagliato, il costo del lavoro dal lordo al costo aziendale, un processo di selezione e inserimento, i KPI operativi e un cruscotto di 5 indicatori essenziali aggiornabile in poche ore al mese.
-3. **Livello avanzato — Contratti, crescita e struttura.** Gli elementi essenziali di un contratto commerciale, le condizioni generali di vendita e le clausole da non dimenticare (riserva di proprietà, interessi di mora, clausola risolutiva espressa), agenti, distributori e procacciatori, il secondo livello di responsabilità, i processi scritti, gli errori più comuni delle PMI, il piano industriale a 3-5 anni, il vendor rating dei fornitori, lo smart working, la gestione dei conflitti interni e la professionalizzazione del management.
+3. **Livello avanzato — Contratti, crescita e struttura.** Gli elementi essenziali di un contratto commerciale, i termini di pagamento e gli interessi di mora tra imprese (D.Lgs. 231/2002), le condizioni generali di vendita e le clausole da non dimenticare (riserva di proprietà, limitazione di responsabilità, clausola risolutiva espressa), agenti, distributori e procacciatori, il secondo livello di responsabilità, i processi scritti, gli errori più comuni delle PMI, il piano industriale a 3-5 anni, il vendor rating dei fornitori, lo smart working, la gestione dei conflitti interni e la professionalizzazione del management.
 
-Alla fine di ogni sezione trovi un **quiz** per verificare di aver fissato i concetti e una **dispensa PDF** riassuntiva con schemi e modelli pronti da riutilizzare, come la matrice RACI e il cruscotto degli indicatori. L'ultima lezione è un **caso pratico riassuntivo**: la riorganizzazione completa di Verdi Srl, che mette in fila tutti gli strumenti del corso.
+Alla fine di ogni sezione trovi un **quiz** per verificare di aver fissato i concetti e una **dispensa PDF** che riprende, lezione per lezione, obiettivi, punti chiave, riferimenti, errori comuni e un esercizio con soluzione, con gli schemi da riutilizzare come la matrice RACI e il cruscotto degli indicatori. L'ultima lezione è un **caso pratico riassuntivo**: la riorganizzazione completa di Verdi Srl, che mette in fila tutti gli strumenti del corso.
 
 **Alla fine del corso saprai…**
 
@@ -230,16 +230,16 @@ Numerazione progressiva di Udemy: le lezioni da 2 a 26 corrispondono alle lezion
 - C) Circa 33.600 € ✅
 - D) Circa 48.000 €
 
-*Spiegazione:* sopra il lordo si aggiungono INPS a carico azienda (circa 23,81% ordinario), INAIL, TFR e altri oneri, che nella pratica si avvicinano al 40%: 24.000 + 9.600 = circa 33.600 € l'anno. Confondere lordo e costo aziendale è l'errore di budget più comune di chi assume per la prima volta.
+*Spiegazione:* sopra il lordo si aggiungono INPS a carico azienda (circa 23,81% ordinario), INAIL, TFR e altri oneri, che nella pratica si avvicinano al 40%: 24.000 + 9.600 = circa 33.600 € l'anno. Confondere lordo e costo aziendale è l'errore di budget più comune di chi assume per la prima volta. Attenzione: 24.000 € è una cifra tonda didattica, inferiore al minimo 2026 del III livello del CCNL Commercio (27.774,74 € annui); nel budget reale si parte dal minimo del livello effettivo, e con quella base il costo stimato sale a circa 38.885 €.
 
-**Domanda 2.** Se Verdi Srl, che ha meno di 10 dipendenti, assumesse la stessa persona con contratto di apprendistato, a quanto ammonterebbero i contributi secondo l'esempio del corso (aliquota del 10%, dopo il primo anno)?
+**Domanda 2.** Verdi Srl, che ha meno di 10 dipendenti, assume la stessa persona (24.000 € lordi) con contratto di apprendistato. Quanto paga di contributi INPS nel primo anno, considerando l'aliquota agevolata dell'1,5% più l'1,61% di NASpI e formazione continua?
 
-- A) 2.400 € ✅
-- B) 360 €
-- C) 5.700 €
-- D) 9.600 €
+- A) 746,40 € ✅
+- B) 360,00 €
+- C) 2.400,00 €
+- D) 5.714,40 €
 
-*Spiegazione:* per un'azienda fino a 9 dipendenti l'aliquota dell'apprendistato scende al 10% (all'1,5% nel primo anno): 24.000 × 10% = 2.400 € invece di circa 9.600 €. Le aliquote cambiano nel tempo e vanno sempre riverificate per un caso reale.
+*Spiegazione:* 24.000 × (1,5% + 1,61%) = 746,40 €. L'aliquota agevolata sale al 3% nel secondo anno e al 10% dal terzo (sempre più l'1,61%): 1.106,40 € e 2.786,40 €, in tutto 4.639,20 € in tre anni contro 17.143,20 € di sola IVS ordinaria a carico azienda (23,81%), un risparmio di oltre 12.500 €. Il confronto va fatto tra voci omogenee: i 9.600 € di oneri del contratto ordinario comprendono anche il TFR, dovuto pure all'apprendista. Le aliquote cambiano nel tempo e vanno sempre riverificate per un caso reale.
 
 **Domanda 3.** Quale affermazione sul CCNL è corretta?
 
@@ -277,7 +277,7 @@ Numerazione progressiva di Udemy: le lezioni da 2 a 26 corrispondono alle lezion
 - C) Foro competente
 - D) Riserva di proprietà (art. 1523 c.c.) ✅
 
-*Spiegazione:* la riserva di proprietà protegge il venditore soprattutto in caso di insolvenza del cliente. Come tutte le condizioni generali, funziona solo se il cliente la accetta espressamente prima o al momento dell'ordine.
+*Spiegazione:* la riserva di proprietà protegge il venditore soprattutto in caso di insolvenza del cliente, ma solo a certe condizioni: le condizioni generali che la contengono devono essere conosciute dal cliente prima o al momento dell'ordine, per opporla ai creditori del compratore serve un atto scritto con data certa (art. 1524 c.c.) e funziona su beni che restano identificabili (attrezzature, macchinari), non su materiali che si incorporano in un edificio. La clausola risolutiva espressa, invece, scioglie il contratto solo quando la parte interessata dichiara di volersene avvalere.
 
 **Domanda 2.** Qual è la differenza principale tra un agente e un distributore?
 
@@ -319,33 +319,38 @@ Numerazione progressiva di Udemy: le lezioni da 2 a 26 corrispondono alle lezion
 
 ## Materiali scaricabili
 
-> **Da produrre:** le tre dispense PDF non esistono ancora. Vanno impaginate (palette e font SkillEasy) partendo dai contenuti indicati sotto. Sono riassunti di sezione, non la guida integrale, che resta riservata a skilleasy.it.
+> Le tre dispense di sezione sono pronte in PDF (palette e font SkillEasy): SkillEasy-Gestione-Aziendale-Dispensa-Sezione-1.pdf, SkillEasy-Gestione-Aziendale-Dispensa-Sezione-2.pdf e SkillEasy-Gestione-Aziendale-Dispensa-Sezione-3.pdf. Ciascuna ripercorre, lezione per lezione, gli obiettivi, i punti chiave, i riferimenti normativi e di metodo, gli errori comuni e un esercizio con soluzione. Sono materiali di sezione, non la guida integrale, che resta riservata a skilleasy.it.
 
-### Dispensa PDF 1 — "Organizzare chi fa cosa" (Sezione 2, livello base)
+### Dispensa PDF 1 — "Organizzare chi fa cosa" (Sezione 2, livello base) · `SkillEasy-Gestione-Aziendale-Dispensa-Sezione-1.pdf`
 
-- La definizione di gestione aziendale e le tre aree del percorso (organizzazione → persone → struttura)
-- Lo schema di organigramma minimo di Verdi Srl (titolare + amministrazione, vendite, magazzino) come modello da adattare
-- **Modello di matrice RACI** compilabile, con il significato dei quattro ruoli e l'esempio della gestione di un reclamo cliente
-- Checklist della delega: cosa, fino a che limite, con quali informazioni
-- **Scheda obiettivo SMART** con le cinque lettere e l'esempio del reparto attrezzi (+15% entro il 30 giugno)
-- Checklist della riunione efficace: obiettivo dichiarato, persone giuste, decisione con responsabile e scadenza
+Copre le lezioni 2-7 del corso, ciascuna con obiettivi, punti chiave, riferimenti, errori comuni ed esercizio svolto. In particolare:
 
-### Dispensa PDF 2 — "Persone, contratti di lavoro e KPI" (Sezione 3, livello intermedio)
+- La gestione aziendale come sistema e non come comando, le tre aree del percorso (organizzazione → persone → struttura) e il collegamento con gli assetti adeguati (art. 2086 c.c.)
+- L'organigramma minimo di Verdi Srl (titolare + amministrazione, vendite, magazzino) e la ricerca di buchi e sovrapposizioni
+- La matrice RACI: significato dei quattro ruoli, regola del solo Accountable per riga, esempio della gestione di un reclamo cliente
+- La delega in tre elementi (cosa, fino a che limite, con quali informazioni), con la soglia del 5% sugli sconti verificata sui margini
+- L'obiettivo SMART del reparto attrezzi (+15% entro il 30 giugno) e il calcolo delle ore-persona delle riunioni (da 5 a 1,5 a settimana)
 
-- Tabella delle forme contrattuali (tempo indeterminato, tempo determinato, apprendistato, part-time) con la logica di quando si usano
-- Il CCNL in breve: cosa stabilisce e perché l'inquadramento non è a discrezione del titolare
-- **Schema di calcolo del costo aziendale** di un dipendente (esempio 24.000 € lordi → ~33.600 €) e confronto con l'apprendistato, con l'avvertenza di riverificare le aliquote
-- I quattro passi del processo di selezione e inserimento
-- **Modello di cruscotto dei 5 indicatori essenziali** (vendite, marginalità, liquidità, persone, clienti) da replicare in un foglio di calcolo
+### Dispensa PDF 2 — "Persone, contratti di lavoro e KPI" (Sezione 3, livello intermedio) · `SkillEasy-Gestione-Aziendale-Dispensa-Sezione-2.pdf`
 
-### Dispensa PDF 3 — "Contratti, crescita e struttura" (Sezione 4, livello avanzato)
+Copre le lezioni 8-13 del corso, con la stessa struttura per lezione. In particolare:
 
-- Checklist dei 5 elementi di un contratto commerciale e delle clausole delle condizioni generali di vendita (riserva di proprietà, interessi di mora, limitazione di responsabilità)
-- Tabella di confronto agente / distributore / procacciatore d'affari
-- I segnali che la struttura non regge più la crescita e quando introdurre un secondo livello di responsabilità
-- **Modello di vendor rating** su 4 criteri con punteggio da 1 a 5
-- Le 6 regole degli errori comuni delle PMI, come checklist di autovalutazione
-- Lo schema riassuntivo della riorganizzazione di Verdi Srl (caso pratico finale) come piano d'azione in 6 passi
+- Le forme contrattuali (tempo indeterminato, tempo determinato con le regole 2026, apprendistato, part-time) e la scelta in base all'esigenza stabile o temporanea
+- Il CCNL: perché si applica quello dell'attività reale (art. 2070 c.c.) e come si legge la tabella del CCNL Commercio (III livello: 27.774,74 € annui dal 1/11/2025)
+- Lo schema di calcolo del costo aziendale (24.000 € lordi → ~33.600 €, cifra didattica sotto il minimo CCNL; ~38.885 € sul minimo del III livello) e il confronto omogeneo con l'apprendistato sui soli contributi INPS (4.639,20 € contro 17.143,20 € in tre anni)
+- Le quattro fasi della selezione e dell'inserimento, con la griglia di colloquio ponderata
+- KPI collegati a decisioni e cruscotto dei 5 indicatori essenziali (vendite, marginalità, liquidità, persone, clienti) da replicare in un foglio di calcolo
+
+### Dispensa PDF 3 — "Contratti, crescita e struttura" (Sezione 4, livello avanzato) · `SkillEasy-Gestione-Aziendale-Dispensa-Sezione-3.pdf`
+
+Copre le lezioni 14-26 del corso, con la stessa struttura per lezione. In particolare:
+
+- I 5 elementi di un contratto commerciale; termini di pagamento e interessi di mora tra imprese secondo il D.Lgs. 231/2002 (tasso BCE + 8 punti, 10,40% nel secondo semestre 2026, più 40 € di indennizzo); clausola risolutiva espressa, che opera solo con la dichiarazione di volersene avvalere (art. 1456 c.c.), diffida ad adempiere e penale
+- Condizioni generali di vendita: conoscibilità, doppia firma per le clausole vessatorie, riserva di proprietà (data certa, soglia di 1/8 del prezzo, beni identificabili)
+- Agente, distributore e procacciatore a confronto (Enasarco, preavviso, indennità di fine rapporto)
+- Secondo livello di responsabilità, segnali della crescita, processi scritti e i 6 errori comuni delle PMI con l'autodiagnosi da 0 a 12
+- Piano industriale, vendor rating su 4 criteri con punteggio da 1 a 5, accordo scritto di smart working, conflitti interni e management professionale
+- Il caso pratico finale: le sei realizzazioni della riorganizzazione di Verdi Srl, la tabella prima/dopo e il calendario per fasi
 
 ---
 
@@ -361,7 +366,7 @@ Numerazione progressiva di Udemy: le lezioni da 2 a 26 corrispondono alle lezion
 
 ## Video promozionale
 
-*Durata stimata: circa 95-105 secondi (~230 parole parlate, escluse le indicazioni di regia).*
+*Durata stimata: circa 100-110 secondi (~240 parole parlate, escluse le indicazioni di regia).*
 
 [inquadratura su Leonardo, tono diretto]
 
@@ -377,13 +382,13 @@ In questo corso ti mostro come costruire un sistema che funziona anche quando tu
 
 [mostra a schermo: "Organizzazione → Persone → Struttura"]
 
-Poi passiamo alle persone: i contratti di lavoro, il CCNL, e il costo reale di un dipendente. Perché un lordo di ventiquattromila euro, per l'azienda, diventa circa trentatremilaseicento.
+Poi passiamo alle persone: i contratti di lavoro, il CCNL, e il costo reale di un dipendente. Perché un addetto al terzo livello del contratto del commercio costa circa ventisettemilaottocento euro lordi, ma per l'azienda quasi trentottomilanovecento.
 
-[mostra a schermo: "24.000 € lordi → ~33.600 € di costo aziendale"]
+[mostra a schermo: "27.775 € lordi → ~38.885 € di costo aziendale"]
 
 E arriviamo ai temi avanzati: i contratti con clienti e fornitori, il secondo livello di responsabilità, i processi scritti, il piano industriale.
 
-Come lo faccio? Con un'unica azienda di esempio, Verdi Srl, che segui dall'inizio alla fine mentre passa da cinque persone gestite dal titolare a un'impresa organizzata. Ogni lezione ha una spiegazione semplice, un esempio concreto e un punto chiave. E alla fine di ogni sezione trovi un quiz e una dispensa con i modelli pronti da usare.
+Come lo faccio? Con un'unica azienda di esempio, Verdi Srl, che segui dall'inizio alla fine mentre passa da cinque persone gestite dal titolare a un'impresa organizzata. Ogni lezione ha una spiegazione semplice, un esempio svolto passo per passo e un esercizio con la soluzione. E alla fine di ogni sezione trovi un quiz e una dispensa da scaricare.
 
 [mostra a schermo: "25 lezioni · 3 livelli · 1 caso reale"]
 

@@ -38,7 +38,7 @@ Questo corso nasce per risolvere proprio questo problema: farti capire il **mecc
 - **Un percorso completo, da zero ad avanzato.** Non ci fermiamo al regime forfettario: 29 lezioni in tre livelli, dal codice ATECO fino alla pianificazione fiscale lecita, all'interpello e ai controlli.
 - **IVA, IRES e IRAP trattate in profondità.** Moduli dedicati alla liquidazione IVA (mensile o trimestrale, credito IVA), al calcolo dell'IRES con le **variazioni in aumento e in diminuzione** (dall'utile civilistico al reddito imponibile) e all'IRAP con le deduzioni sul costo del lavoro. In più, le imposte "minori" che quasi nessuno mette a budget: IMU, TARI, diritto camerale, bollo e tassa sui libri sociali.
 - **Due esempi che ti accompagnano dall'inizio alla fine.** Marco Bruni, grafico freelance in regime forfettario, e Verdi Srl, piccola impresa commerciale in regime ordinario. Ogni concetto diventa un conto concreto: l'imposta sostitutiva di Marco, i contributi INPS, l'IVA da versare di Verdi Srl, la sua base imponibile IRES.
-- **Numeri veri e riferimenti normativi.** Aliquote e soglie 2026 (scaglioni IRPEF, IRES al 24% e IRES premiale, IRAP al 3,9%), con i riferimenti alle norme: Legge 190/2014, DPR 633/1972, TUIR, D.Lgs. 446/1997, Statuto del Contribuente.
+- **Numeri veri e riferimenti normativi.** Aliquote e soglie 2026 (scaglioni IRPEF 23% / 33% / 43% dopo la Legge di Bilancio 2026, IRES al 24%, IRAP al 3,9%, sanzione del 25% per omesso versamento), più l'IRES premiale al 20%, valida solo per il periodo d'imposta 2025 e non prorogata. Con i riferimenti alle norme: Legge 190/2014, DPR 633/1972, TUIR, D.Lgs. 446/1997, Statuto del Contribuente.
 - **Insegnato da un professionista che lo fa ogni giorno.** Sono Leonardo Mascia, Dottore Commercialista e Revisore Legale dei Conti: le domande a cui rispondo nel corso sono le stesse che ricevo in studio.
 
 **Cosa trovi dentro**
@@ -47,7 +47,7 @@ Questo corso nasce per risolvere proprio questo problema: farti capire il **mecc
 2. **Livello intermedio — Regime ordinario, IVA, IRES e IRAP.** Quando conviene passare all'ordinario, il meccanismo dell'IVA e la liquidazione periodica, gli scaglioni IRPEF, l'IRES con le variazioni fiscali, l'IRAP, deduzioni e detrazioni, dichiarazione dei redditi, ravvedimento operoso e le altre imposte d'impresa.
 3. **Livello avanzato — Scelte strategiche e rapporto con il fisco.** Ditta individuale o Srl, controlli fiscali e redditometro, rateizzazione, risparmio lecito contro elusione ed evasione, crediti d'imposta e compensazione in F24, il limite di 20.000 € sui collaboratori nel forfettario, interpello, e un caso pratico finale che mette insieme tutto.
 
-Ogni sezione si chiude con un **quiz** per verificare cosa hai capito e una **dispensa PDF** riassuntiva con formule, tabelle e concetti chiave.
+Ogni sezione si chiude con un **quiz** per verificare cosa hai capito e una **dispensa PDF** che riprende, lezione per lezione, obiettivi, punti chiave, riferimenti normativi, errori comuni e un esercizio con soluzione.
 
 **Alla fine del corso saprai** calcolare da solo reddito imponibile, imposta sostitutiva e contributi di un forfettario; capire quando il regime ordinario diventa più conveniente; fare una liquidazione IVA e leggere un credito IVA; passare dall'utile di bilancio al reddito imponibile IRES con le variazioni fiscali; stimare l'IRAP tenendo conto delle deduzioni per i dipendenti; prevedere le imposte minori nel budget; e ragionare con metodo sulla scelta tra ditta individuale e Srl. Soprattutto, saprai **parlare alla pari con il tuo commercialista**, facendo le domande giuste al momento giusto.
 
@@ -60,7 +60,7 @@ Ogni sezione si chiude con un **quiz** per verificare cosa hai capito e una **di
 
 Il corso non tratta fiscalità internazionale avanzata o casi molto specialistici (gruppi societari, operazioni straordinarie complesse): per quelli serve una consulenza dedicata.
 
-**Un corso che resta aggiornato.** Il fisco cambia ogni anno con la Legge di Bilancio. Per questo il corso insegna prima di tutto il meccanismo, che cambia raramente, e viene aggiornato quando una modifica normativa rilevante lo rende necessario.
+**Un corso che resta aggiornato.** Il fisco cambia ogni anno con la Legge di Bilancio. Per questo il corso insegna prima di tutto il meccanismo, che cambia raramente, e viene aggiornato quando una modifica normativa rilevante lo rende necessario. Il prossimo passaggio è già noto: il nuovo Testo unico delle imposte sui redditi (D.Lgs. 117/2026), applicabile dal 1° gennaio 2027, rinumera molti articoli, compresi quelli del forfettario; per il 2026 restano valide le norme citate nel corso.
 
 *Nota importante: il corso ha finalità esclusivamente formative e non sostituisce una consulenza professionale personalizzata. Prima di ogni scadenza o decisione reale, verifica sempre i valori aggiornati con il tuo commercialista o sul sito dell'Agenzia delle Entrate.*
 
@@ -235,23 +235,23 @@ Durata sezione: 114 min
 
 ### Quiz 2 — Livello intermedio: IVA, IRPEF, IRES e IRAP
 
-**Domanda 1.** Nel primo trimestre Verdi Srl ha 15.000 € di IVA a debito e 9.000 € di IVA a credito. Quanto deve versare con la liquidazione?
+**Domanda 1.** Verdi Srl liquida l'IVA mensilmente. Nel mese di aprile ha 15.000 € di IVA a debito e 9.000 € di IVA a credito. Quanto deve versare con la liquidazione?
 
 - A) 24.000 €
 - B) 15.000 €
 - C) 6.000 € ✅
 - D) Nulla: l'IVA si versa solo a fine anno
 
-*Spiegazione:* IVA da versare = IVA a debito − IVA a credito = 15.000 € − 9.000 € = 6.000 €, da versare con F24 entro il 16 del secondo mese successivo al trimestre.
+*Spiegazione:* IVA da versare = IVA a debito − IVA a credito = 15.000 € − 9.000 € = 6.000 €, da versare con F24 entro il 16 maggio (nel 2026 il 18, perché il 16 cadeva di sabato). Essendo mensile, Verdi Srl non applica la maggiorazione dell'1% prevista per i contribuenti trimestrali.
 
-**Domanda 2.** Se nello stesso trimestre l'IVA a credito di Verdi Srl fosse stata 18.000 € (per l'acquisto di un macchinario), cosa sarebbe successo?
+**Domanda 2.** Se nello stesso mese l'IVA a credito di Verdi Srl fosse stata 18.000 € (per l'acquisto di un macchinario), cosa sarebbe successo?
 
 - A) Nessun versamento: i 3.000 € di differenza diventano credito IVA riportato al periodo successivo ✅
 - B) Verdi Srl deve versare comunque 3.000 €
 - C) I 3.000 € vengono persi perché il credito non è recuperabile
 - D) Verdi Srl deve versare 18.000 €
 
-*Spiegazione:* se il risultato è negativo, l'eccedenza diventa credito IVA: si riporta al periodo successivo, si può usare in compensazione o, in alcuni casi, chiedere a rimborso. Va pianificato nella liquidità.
+*Spiegazione:* se il risultato è negativo, l'eccedenza diventa credito IVA: si riporta al mese successivo (riducendo il versamento di giugno), si può usare in compensazione o, nei casi previsti dalla legge, chiedere a rimborso. Va pianificato nella liquidità.
 
 **Domanda 3.** Verdi Srl ha un utile civilistico ante imposte di 40.000 €, con queste variazioni: compensi all'amministratore non pagati +5.000 €, ammortamenti eccedenti +2.000 €, quota indeducibile auto +1.000 €, dividendi esenti al 95% su 2.000 € incassati. Qual è il reddito imponibile IRES?
 
@@ -269,16 +269,16 @@ Durata sezione: 114 min
 - C) 8.050 €
 - D) 6.440 €
 
-*Spiegazione:* l'IRPEF è progressiva: (28.000 × 23%) + (7.000 × 33%) = 6.440 + 2.310 = 8.750 €. Applicare il 33% a tutto il reddito (11.550 €) è l'errore tipico.
+*Spiegazione:* l'IRPEF è progressiva: (28.000 × 23%) + (7.000 × 33%) = 6.440 + 2.310 = 8.750 €. Applicare il 33% a tutto il reddito (11.550 €) è l'errore tipico. Gli scaglioni sono tre dal 2024; la Legge di Bilancio 2026 ha ridotto la seconda aliquota dal 35% al 33%, un risparmio di 140 € per questo contribuente.
 
-**Domanda 5.** Verdi Srl ha un valore della produzione netto IRAP di 55.000 € e deduzioni per 2 dipendenti a tempo indeterminato pari a 16.000 €. Con l'aliquota ordinaria del 3,9%, quanto paga di IRAP?
+**Domanda 5.** Verdi Srl ha un valore della produzione netto IRAP di 55.000 € (già al netto della deduzione forfettaria di 8.000 €) e deduzioni per 2 dipendenti a tempo indeterminato pari a 16.000 €. Con l'aliquota ordinaria del 3,9%, quanto paga di IRAP?
 
 - A) 1.521 € ✅
 - B) 2.145 €
 - C) 624 €
 - D) 1.716 €
 
-*Spiegazione:* base imponibile = 55.000 € − 16.000 € = 39.000 €; IRAP = 39.000 € × 3,9% = 1.521 €. Senza le deduzioni sul costo del lavoro avrebbe pagato 2.145 €.
+*Spiegazione:* base imponibile = 55.000 € − 16.000 € = 39.000 €; IRAP = 39.000 € × 3,9% = 1.521 €. Senza le deduzioni sul costo del lavoro avrebbe pagato 2.145 €. L'IRAP riguarda società ed enti: dal 2022 nessuna persona fisica la paga, con o senza dipendenti.
 
 ### Quiz 3 — Livello avanzato: scelte strategiche e controlli
 
@@ -316,16 +316,16 @@ Durata sezione: 114 min
 - C) Sulle variazioni fiscali IRES di una società
 - D) Solo sul fatturato della Partita IVA
 
-*Spiegazione:* il redditometro ricostruisce il reddito presunto delle persone fisiche partendo da spese e capacità contributiva (immobili, auto, viaggi). Prima dell'accertamento c'è un contraddittorio in cui si può giustificare lo scostamento con documenti.
+*Spiegazione:* il redditometro ricostruisce il reddito presunto delle persone fisiche partendo da spese e capacità contributiva (immobili, auto, viaggi). Dal D.Lgs. 108/2024 è ammesso solo se lo scostamento supera sia un quinto del reddito dichiarato sia dieci volte l'assegno sociale annuo (71.011,20 € nel 2026). Prima dell'accertamento c'è un contraddittorio in cui si può giustificare lo scostamento con documenti.
 
-**Domanda 5.** Verdi Srl ha un credito IVA di 30.000 € e un credito d'imposta per investimenti di 20.000 €, ma ha già utilizzato gran parte del plafond annuo di compensazione orizzontale. Cosa succede alla parte che eccede il plafond residuo?
+**Domanda 5.** Verdi Srl ha un credito IVA annuale di 30.000 € e presenta il 30 aprile la dichiarazione IVA munita di visto di conformità. Da quando può usare il credito in compensazione orizzontale in F24?
 
-- A) Si perde definitivamente
-- B) Si può compensare comunque, pagando una sanzione ridotta
-- C) Non si può compensare nell'anno: va riportata all'anno successivo o chiesta a rimborso, se ne ricorrono i presupposti ✅
-- D) Viene trasformata automaticamente in credito IRAP
+- A) Tutto dal 1° gennaio, senza condizioni
+- B) Solo dopo aver ottenuto il rimborso dall'Agenzia delle Entrate
+- C) I primi 5.000 € dal 1° gennaio, i restanti 25.000 € dal 10 maggio, decimo giorno successivo alla presentazione ✅
+- D) Mai, perché il credito supera il plafond annuo di compensazione
 
-*Spiegazione:* il plafond annuo si calcola sommando tutti i crediti compensati nell'anno. Avere un credito non significa avere liquidità subito: l'ordine di utilizzo dei crediti va pianificato in anticipo.
+*Spiegazione:* il credito IVA annuale fino a 5.000 € si compensa dal 1° gennaio; oltre, serve il visto di conformità e si attende il decimo giorno successivo alla dichiarazione. Il plafond annuo (2 milioni di euro) per una PMI come Verdi Srl non è il vincolo che conta, mentre con cartelle scadute oltre 50.000 € la compensazione sarebbe bloccata. Avere un credito non significa avere liquidità subito: il "quando" va pianificato.
 
 *Distribuzione delle risposte corrette: A ×4, B ×4, C ×4, D ×3.*
 
@@ -333,34 +333,40 @@ Durata sezione: 114 min
 
 ## Materiali scaricabili
 
-*Da produrre: le tre dispense PDF non esistono ancora. Vanno impaginate (palette e font del brand) partendo dai contenuti qui sotto. Sono riassunti di sezione: la guida integrale resta riservata al sito.*
+*Le tre dispense di sezione sono pronte in PDF (palette e font del brand): SkillEasy-Fisco-Dispensa-Sezione-1.pdf, SkillEasy-Fisco-Dispensa-Sezione-2.pdf e SkillEasy-Fisco-Dispensa-Sezione-3.pdf. Ciascuna ripercorre, lezione per lezione, gli obiettivi, i punti chiave, i riferimenti normativi, gli errori comuni e un esercizio con soluzione. Sono materiali di sezione: la guida integrale resta riservata al sito.*
 
-### Dispensa 1 — Partita IVA e regime forfettario (Sezione 2)
+### Dispensa 1 — Partita IVA e regime forfettario (Sezione 2) · `SkillEasy-Fisco-Dispensa-Sezione-1.pdf`
 
-- Le due scelte iniziali: forma giuridica e codice ATECO, che deve corrispondere all'attività realmente svolta
-- Requisiti del forfettario: 85.000 € di ricavi (per cassa), uscita immediata oltre 100.000 €, altre cause di esclusione
-- Formula: reddito imponibile = ricavi × coefficiente di redditività; tabella dei coefficienti di legge per categoria (40% commercio e ristorazione, 54% commercio ambulante non alimentare, 62% intermediari del commercio, 67% altre attività, 78% attività professionali, 86% costruzioni e immobiliare)
-- Imposta sostitutiva 15% o 5% per i primi 5 anni, con l'esempio di Marco Bruni (23.400 € → 1.170 € o 3.510 €)
-- Contributi INPS: Gestione Separata 26,07% (24% con altra copertura) contro Artigiani/Commercianti
-- Fattura elettronica dei forfettari (dicitura, bollo da 2 € sopra 77,47 €) e calendario di saldo e acconti (16 giugno, 30 novembre)
+Copre le lezioni 2-9 del corso, ciascuna con obiettivi, punti chiave, riferimenti, errori comuni ed esercizio svolto. In particolare:
 
-### Dispensa 2 — Regime ordinario, IVA, IRES e IRAP (Sezione 3)
+- Forma giuridica e codice ATECO 2025 (per Marco Bruni 74.12.01, ex 74.10.21), che deve corrispondere all'attività realmente svolta; apertura entro 30 giorni (art. 35 DPR 633/1972)
+- Requisiti del forfettario: 85.000 € di ricavi incassati, uscita immediata oltre 100.000 €, 20.000 € di spese per personale, 35.000 € di redditi da lavoro dipendente (soglia confermata per il 2026)
+- Reddito imponibile = ricavi × coefficiente di redditività, con la tabella per categoria (40% commercio e ristorazione, 54% ambulanti non alimentari, 62% intermediari del commercio, 67% altre attività, 78% attività professionali, 86% costruzioni e immobiliare)
+- Imposta sostitutiva 15% o 5% per i primi 5 anni, con l'esempio di Marco Bruni (23.400 € → 1.170 € o 3.510 €) e la deduzione dei contributi versati
+- Contributi INPS 2026: Gestione Separata 26,07% (24% con altra copertura) contro i contributi fissi di Artigiani e Commercianti sul minimale di 18.808 €
+- Fattura elettronica (RF19, N2.2, dicitura, bollo da 2 € sopra 77,47 €, niente ritenuta) e calendario: saldo e primo acconto il 30 giugno, dichiarazione entro il 31 ottobre, secondo acconto il 30 novembre
 
-- Tabella di confronto forfettario contro ordinario con l'esempio di Marco Bruni
-- IVA: le quattro aliquote (22%, 10%, 5%, 4%), formula della liquidazione (IVA a debito − IVA a credito), soglie e scadenze mensili e trimestrali, credito IVA
-- Scaglioni IRPEF 2026 (23% / 33% / 43%) e calcolo progressivo su 35.000 € di reddito
-- IRES al 24% e IRES premiale; schema delle variazioni in aumento e in diminuzione più frequenti e prospetto di Verdi Srl (da 40.000 € di utile a 46.100 € di imponibile)
-- IRAP: valore della produzione netto, aliquota 3,9% (±0,92 punti regionali), deduzioni per i dipendenti a tempo indeterminato e tabella con e senza deduzioni
-- Deduzioni contro detrazioni, ravvedimento operoso (esempio dello "sprint" entro 30 giorni) e checklist delle imposte minori (IMU, TARI, diritto camerale, libri sociali, bollo, registro)
+### Dispensa 2 — Regime ordinario, IVA, IRES e IRAP (Sezione 3) · `SkillEasy-Fisco-Dispensa-Sezione-2.pdf`
 
-### Dispensa 3 — Scelte strategiche e rapporto con il fisco (Sezione 4)
+Copre le lezioni 10-20 del corso, con la stessa struttura per lezione. In particolare:
 
-- Tabella ditta individuale contro Srl: imposte, IRAP, responsabilità, costi di gestione
-- Le tre forme di controllo (art. 36-bis, art. 36-ter, accertamento) e il redditometro, con le regole di comportamento
-- Risparmio lecito, elusione, evasione: definizioni a confronto
-- Crediti d'imposta e plafond di compensazione in F24; il limite di 20.000 € sul personale nel forfettario
-- Interpello e consulenza giuridica: tipologie, tempi di risposta (90/120 giorni), silenzio-assenso
-- Le tre domande del caso pratico finale di Marco Bruni, da usare come traccia di ragionamento
+- Confronto forfettario contro ordinario sul carico totale (imposta più contributi) con l'esempio di Marco Bruni
+- IVA: presupposti, base imponibile, aliquote (22%, 10%, 5%, 4%), IVA indetraibile; liquidazione mensile di Verdi Srl, scadenze dei trimestrali con maggiorazione dell'1%, versamento minimo di 100 €, acconto del 27 dicembre e credito IVA
+- Scaglioni IRPEF 2026 (23% / 33% / 43%, seconda aliquota ridotta dal 35%) e calcolo progressivo su 35.000 € di reddito
+- IRES al 24%; IRES premiale al 20% solo per il periodo d'imposta 2025 (non prorogata, dal 2026 c'è l'iperammortamento); prospetto delle variazioni di Verdi Srl (da 40.000 € di utile a 46.100 € di imponibile)
+- IRAP: valore della produzione netta, aliquota 3,9% (±0,92 punti regionali), deduzioni per il personale e deduzione forfettaria; non dovuta da alcuna persona fisica dal 2022
+- Deduzioni contro detrazioni, dichiarazione dei redditi, ravvedimento operoso con sanzione di partenza del 25% (D.Lgs. 87/2024: 1,25% entro 30 giorni) e imposte minori (IMU, TARI, diritto camerale, libri sociali, bollo, registro)
+
+### Dispensa 3 — Scelte strategiche e rapporto con il fisco (Sezione 4) · `SkillEasy-Fisco-Dispensa-Sezione-3.pdf`
+
+Copre le lezioni 21-30 del corso, con la stessa struttura per lezione. In particolare:
+
+- Ditta individuale contro Srl: IRPEF, IRES più ritenuta del 26% sui dividendi, IRAP, responsabilità e costi di struttura, con i tre scenari su 60.000 € di reddito
+- Controlli (art. 36-bis, art. 36-ter, accertamento), avviso bonario a 60 giorni, contraddittorio preventivo; rateizzazione fino a 84 rate per le richieste 2025-2026
+- Risparmio lecito, elusione (art. 10-bis dello Statuto) ed evasione a confronto; perché il fisco cambia ogni anno, con il nuovo TUIR (D.Lgs. 117/2026) applicabile dal 2027
+- Redditometro con la doppia soglia del D.Lgs. 108/2024; compensazione in F24 (visto oltre 5.000 €, blocco con ruoli scaduti oltre 50.000 €); limite di 20.000 € sul personale nel forfettario
+- Interpello: 90 giorni di risposta per tutte le tipologie, sospensione ad agosto, silenzio-assenso; consultazione semplificata e consulenza giuridica
+- Il caso pratico finale di Marco Bruni, dal forfettario all'ordinario fino al confronto al margine con una Srl
 
 ---
 

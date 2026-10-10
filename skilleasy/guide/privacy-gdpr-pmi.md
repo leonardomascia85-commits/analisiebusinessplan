@@ -49,7 +49,7 @@ Ogni trattamento di dati deve poggiare su almeno una di queste basi giuridiche:
 - **Obbligo di legge** (es. i dati necessari per gli adempimenti fiscali, guida Fisco).
 - **Legittimo interesse** del titolare, bilanciato con i diritti dell'interessato.
 
-📌 **Esempio pratico**: Verdi Srl tratta i dati di fatturazione dei clienti sulla base dell'**esecuzione del contratto** (e dell'obbligo di legge per la conservazione fiscale, guida Fisco Lezione 13) — non ha bisogno del consenso per questo. Per inviare newsletter promozionali, invece, serve un **consenso** specifico e distinto.
+📌 **Esempio pratico**: Verdi Srl tratta i dati di fatturazione dei clienti sulla base dell'**esecuzione del contratto** (e dell'obbligo di legge per la conservazione fiscale, guida Fisco Lezione 17) — non ha bisogno del consenso per questo. Per inviare newsletter promozionali, invece, serve un **consenso** specifico e distinto.
 
 📌 **Punto chiave**: confondere "esecuzione del contratto" con "posso usare i dati per qualunque cosa" è uno degli errori più comuni — ogni finalità diversa richiede la propria base giuridica autonoma.
 

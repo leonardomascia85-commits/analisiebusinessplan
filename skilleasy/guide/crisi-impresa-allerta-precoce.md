@@ -26,7 +26,7 @@ Il Codice della Crisi d'Impresa e dell'Insolvenza (D.Lgs. 14/2019) definisce la 
 
 L'art. 2086, comma 2, del Codice Civile impone a ogni imprenditore che operi in forma societaria di dotarsi di un **assetto organizzativo, amministrativo e contabile adeguato** alla natura e alle dimensioni dell'impresa, anche in funzione della **rilevazione tempestiva della crisi** e della perdita di continuità aziendale.
 
-📌 **Esempio pratico**: per Verdi Srl, "assetto adeguato" significa avere — non in astratto, ma davvero funzionanti — la contabilità aggiornata mensilmente (guida Contabilità), un cruscotto di controllo di gestione (guida Controllo di gestione, Lezione 20) e un monitoraggio periodico degli indici di bancabilità (guida Programmazione e Finanza).
+📌 **Esempio pratico**: per Verdi Srl, "assetto adeguato" significa avere — non in astratto, ma davvero funzionanti — la contabilità aggiornata mensilmente (guida Contabilità), un cruscotto di controllo di gestione (guida Controllo di gestione, Lezione 25) e un monitoraggio periodico degli indici di bancabilità (guida Programmazione e Finanza).
 
 📌 **Punto chiave**: non è un consiglio di buona gestione — è un **obbligo giuridico**, la cui violazione può essere valutata da un giudice in un eventuale giudizio di responsabilità, con conseguenze che possono estendersi al patrimonio personale degli amministratori (approfondito nella Lezione 12).
 
@@ -50,7 +50,7 @@ Il legislatore stesso individua alcuni segnali quantitativi specifici a cui gli 
 
 Il DSCR, già visto nella guida Programmazione e Finanza (Lezione 3) come indice che una banca guarda in fase di istruttoria, diventa qui uno **strumento di autodiagnosi periodica**: la legge chiede agli amministratori di calcolarlo con cadenza almeno trimestrale, non solo una volta l'anno in vista di un finanziamento.
 
-📌 **Esempio pratico**: Verdi Srl, DSCR 1,67 nell'ultimo bilancio (guida Programmazione e Finanza), lo ricalcola ogni trimestre nel proprio cruscotto (guida Controllo di gestione, Lezione 20) per accorgersi subito se scende sotto la soglia di sicurezza, non solo a consuntivo d'anno.
+📌 **Esempio pratico**: Verdi Srl, DSCR 1,67 nell'ultimo bilancio (guida Programmazione e Finanza), lo ricalcola ogni trimestre nel proprio cruscotto (guida Controllo di gestione, Lezione 25) per accorgersi subito se scende sotto la soglia di sicurezza, non solo a consuntivo d'anno.
 
 📌 **Punto chiave**: un DSCR calcolato solo una volta l'anno, quando ormai il bilancio è chiuso, non serve a **prevenire** nulla — serve solo a fotografare un problema già avvenuto. La cadenza trimestrale è quello che trasforma l'indice da fotografia a strumento di allerta reale.
 
@@ -132,7 +132,7 @@ Un amministratore che ignora gli indicatori di allerta (Lezione 3) o non si dota
 
 ## Lezione 13 — Costruire un cruscotto di allerta interno
 
-Il modo più concreto per rispettare l'art. 2086 (Lezione 2) è integrare gli indicatori di questa guida nel cruscotto già visto nella guida Controllo di gestione (Lezione 20):
+Il modo più concreto per rispettare l'art. 2086 (Lezione 2) è integrare gli indicatori di questa guida nel cruscotto già visto nella guida Controllo di gestione (Lezione 25):
 
 | Indicatore | Soglia di attenzione | Fonte |
 |---|---|---|
@@ -167,7 +167,7 @@ Se un indicatore segnala un peggioramento (Lezione 13), il momento peggiore per 
 
 Gli indicatori quantitativi della Lezione 3 e il DSCR trimestrale della Lezione 4 sono soglie **uguali per tutte le imprese**, indipendentemente dal settore in cui operano. Il CNDCEC (Consiglio Nazionale dei Dottori Commercialisti e degli Esperti Contabili) ha elaborato, ad affiancamento di quegli indicatori, un sistema di **cinque indici di allerta con soglie differenziate per settore ATECO**: sostenibilità degli oneri finanziari, adeguatezza patrimoniale, ritorno liquido dell'attivo, liquidità e indebitamento previdenziale e tributario.
 
-L'idea alla base è semplice: un'azienda commerciale come Verdi Srl, che ruota il magazzino rapidamente (guida Controllo di gestione, Lezione 15), ha fisiologicamente un indice di liquidità diverso da quello di un'impresa di costruzioni, che per la natura del proprio ciclo produttivo incassa più lentamente dai propri clienti (guida settoriale Edilizia, Lezione 10). Applicare a entrambe la stessa soglia rischierebbe di generare un falso allarme per l'una, o di non intercettare un problema reale per l'altra.
+L'idea alla base è semplice: un'azienda commerciale come Verdi Srl, che ruota il magazzino rapidamente (guida Controllo di gestione, Lezione 14), ha fisiologicamente un indice di liquidità diverso da quello di un'impresa di costruzioni, che per la natura del proprio ciclo produttivo incassa più lentamente dai propri clienti (guida settoriale Edilizia, Lezione 10). Applicare a entrambe la stessa soglia rischierebbe di generare un falso allarme per l'una, o di non intercettare un problema reale per l'altra.
 
 📌 **Esempio pratico**: nel cruscotto di allerta di Verdi Srl (Lezione 13), l'indice di liquidità viene confrontato non con una soglia generica, ma con la soglia pubblicata dal CNDCEC per il settore commercio in cui opera l'azienda — più stringente di quella che si applicherebbe, a parità di numero, a un'impresa edile.
 
@@ -205,7 +205,7 @@ Quando la composizione negoziata (Lezione 8) viene avviata in buona fede ma l'es
 
 Tra i debiti che aggravano la crisi di un'impresa (Lezione 3) ci sono spesso anche i debiti verso l'Erario (IVA, ritenute) e verso gli enti previdenziali (contributi INPS). All'interno di un concordato preventivo o di un accordo di ristrutturazione dei debiti (Lezione 10), la legge consente di negoziare anche questi debiti attraverso la **transazione fiscale e contributiva** (artt. 63 e 88 CCII): una proposta di pagamento parziale (falcidia) e/o dilazionato del debito tributario e contributivo, inserita nel piano complessivo.
 
-A differenza della rateizzazione ordinaria dei debiti con l'Agenzia delle Entrate-Riscossione (guida Fisco, Lezione 17) — che lascia il debito intero, solo diluito nel tempo — la transazione fiscale può prevedere una **riduzione** dell'importo dovuto, a condizione di dimostrare che l'Erario e gli enti previdenziali ricevono, con questo piano, un soddisfacimento non inferiore a quello che otterrebbero da una liquidazione giudiziale immediata. In alcuni casi, se l'Erario non si esprime o vota contro senza giustificazione, il tribunale può comunque omologare il piano (il cosiddetto **cram-down fiscale**), quando la proposta è più conveniente per lo Stato rispetto all'alternativa liquidatoria.
+A differenza della rateizzazione ordinaria dei debiti con l'Agenzia delle Entrate-Riscossione (guida Fisco, Lezione 22) — che lascia il debito intero, solo diluito nel tempo — la transazione fiscale può prevedere una **riduzione** dell'importo dovuto, a condizione di dimostrare che l'Erario e gli enti previdenziali ricevono, con questo piano, un soddisfacimento non inferiore a quello che otterrebbero da una liquidazione giudiziale immediata. In alcuni casi, se l'Erario non si esprime o vota contro senza giustificazione, il tribunale può comunque omologare il piano (il cosiddetto **cram-down fiscale**), quando la proposta è più conveniente per lo Stato rispetto all'alternativa liquidatoria.
 
 📌 **Esempio pratico**: nel piano di concordato preventivo predisposto da Rossi Srl (Lezione 10), oltre ai debiti verso banche e fornitori, viene inserita una proposta di transazione fiscale per il debito IVA scaduto — pagamento del 40% dell'importo dovuto, dilazionato in 5 anni — accompagnata da una perizia che dimostra come questo scenario garantisca all'Erario un recupero superiore a quello ottenibile liquidando subito l'azienda.
 

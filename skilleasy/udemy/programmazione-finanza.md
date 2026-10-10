@@ -35,17 +35,17 @@ Molti imprenditori entrano in banca per chiedere un finanziamento senza sapere c
 
 - **Un percorso completo, dalla base all'avanzato**: si parte dagli indici di bancabilità, si passa alla costruzione del business plan a 3 anni e si arriva alle forme di finanziamento, alla valutazione d'azienda e alla tesoreria.
 - **Un'unica azienda di esempio dall'inizio alla fine**: Verdi Srl, con numeri di bilancio coerenti in ogni lezione. Lo stesso Reddito Operativo, lo stesso Patrimonio Netto, gli stessi Ricavi tornano lezione dopo lezione, fino al caso pratico finale.
-- **Numeri veri, calcolati passo per passo**: il DSCR di Verdi Srl (1,67), il rapporto PFN/EBITDA (2,5), l'Altman Z'-Score (1,97, zona grigia) e un rating stimato sulla scala A-E.
-- **Riferimenti normativi aggiornati**: le Linee Guida EBA/GL/2020/06 sulla concessione del credito, le nuove regole sui criteri ESG applicabili dall'11 gennaio 2026, le percentuali di copertura del Fondo di Garanzia PMI per il 2026.
+- **Numeri veri, calcolati passo per passo**: il DSCR storico di Verdi Srl (1,67) e quello prospettico del business plan (1,39, 1,32 e 1,36), il rapporto PFN/EBITDA (2,5), l'Altman Z'-Score (1,97, zona grigia) e un rating stimato sulla scala didattica A-E usata nel corso.
+- **Riferimenti normativi aggiornati**: le Linee Guida EBA/GL/2020/06 sulla concessione del credito, le nuove Linee Guida EBA sui rischi ESG (EBA/GL/2025/01), applicabili dall'11 gennaio 2026 e, per le banche piccole e non complesse, al più tardi dall'11 gennaio 2027, le percentuali di copertura del Fondo di Garanzia PMI per il 2026.
 - **Un docente che lo fa per mestiere**: il corso è tenuto da un Dottore Commercialista e Revisore Legale dei Conti che affianca ogni giorno imprese e professionisti, anche nei rapporti con le banche.
 
 **Cosa trovi nel corso**
 
-1. **Gli indici che guarda la banca** — perché la finanza aziendale serve anche quando non chiedi un prestito, il DSCR, il rapporto PFN/EBITDA, l'Altman Z'-Score e come questi indici si combinano in un rating di bancabilità da A a E.
+1. **Gli indici che guarda la banca** — perché la finanza aziendale serve anche quando non chiedi un prestito, il DSCR, il rapporto PFN/EBITDA, l'Altman Z'-Score e come questi indici si combinano in un rating di bancabilità, letto su una scala didattica da A a E.
 2. **Costruire un business plan che regge** — a cosa serve davvero un business plan, le sezioni che non possono mancare in un piano bancabile, come giustificare le ipotesi di crescita senza inventare numeri, e le proiezioni a 3 anni di Conto Economico, Stato Patrimoniale e Cash Flow.
 3. **Finanziarsi e presentarsi in banca** — mutuo, fido, leasing e factoring; il Fondo di Garanzia PMI; la leva finanziaria; cosa valuta un'istruttoria oltre ai numeri, compresa la Centrale dei Rischi; gli errori che fanno saltare una richiesta; i criteri ESG; crowdfunding, mini-bond, private equity e venture capital; i metodi di valutazione d'azienda; la tesoreria e il cash pooling. Si chiude con il **caso pratico completo**: la richiesta di finanziamento di Verdi Srl per un nuovo punto vendita.
 
-Ogni sezione si conclude con un **quiz** per verificare di aver capito i concetti e i calcoli, e con una **dispensa PDF** riassuntiva con le formule e gli schemi principali.
+Ogni sezione si conclude con un **quiz** per verificare di aver capito i concetti e i calcoli, e con una **dispensa PDF** che riprende, lezione per lezione, obiettivi, punti chiave, riferimenti normativi, errori da evitare e un esercizio con soluzione.
 
 **Alla fine del corso saprai…**
 
@@ -71,7 +71,7 @@ Se vuoi smettere di andare in banca "a sensazione" e iniziare a parlare con il t
 - Calcolare il DSCR della tua azienda e capire se il flusso di cassa copre le rate di debito con un margine di sicurezza adeguato
 - Misurare l'indebitamento reale con PFN ed EBITDA e leggere il rapporto PFN/EBITDA rispetto alle soglie usate dalle banche
 - Calcolare e interpretare l'Altman Z'-Score per le aziende non quotate, distinguendo zona sicura, zona grigia e zona di allerta
-- Leggere un insieme di indici come fa una banca e capire come si arriva a un rating di bancabilità sulla scala A-E
+- Leggere un insieme di indici come fa una banca e capire come si arriva a un rating di bancabilità sulla scala didattica A-E
 - Costruire un business plan bancabile a 3 anni con CE, SP e Cash Flow previsionali coerenti e ipotesi di crescita giustificate
 - Scegliere tra mutuo, fido, leasing, factoring e Fondo di Garanzia PMI in base alla natura reale del fabbisogno finanziario
 - Valutare quando la leva finanziaria conviene e quando alternative come mini-bond o private equity hanno senso per una PMI
@@ -132,7 +132,7 @@ Nota: le etichette italiane di categorie e argomenti vanno confermate nel menu a
 - Lezione 6 — L'Altman Z'-Score: il segnale d'allarme che pochi guardano (14 min) · guida L5
 - Lezione 7 — Il rating di bancabilità A-E: come si mettono insieme gli indici (12 min) · guida L6
 - Quiz 1 — Gli indici che guarda la banca (5 domande)
-- Risorsa: Dispensa PDF "Formulario degli indici bancari"
+- Risorsa: Dispensa PDF "Gli indici che guarda la banca"
 
 Durata sezione: 64 min
 
@@ -145,7 +145,7 @@ Durata sezione: 64 min
 - Lezione 12 — Lo Stato Patrimoniale previsionale: da dove arrivano i soldi (12 min) · guida L11
 - Lezione 13 — Il Cash Flow previsionale: la sezione che convince o smaschera (12 min) · guida L12
 - Quiz 2 — Costruire un business plan che regge (5 domande)
-- Risorsa: Dispensa PDF "Checklist del business plan bancabile"
+- Risorsa: Dispensa PDF "Costruire un business plan che regge"
 
 Durata sezione: 64 min
 
@@ -225,7 +225,7 @@ Durata sezione: 134 min
 - C) E, perché lo Z' è in zona grigia
 - D) Nessuno: la banca decide guardando solo il DSCR
 
-*Spiegazione*: la banca non guarda mai un solo indice, ma li combina. Un profilo buono su capacità di rimborso e indebitamento, ma migliorabile sulla solidità patrimoniale, porta a un rating intermedio come C, lontano dagli estremi A ed E.
+*Spiegazione*: la banca non guarda mai un solo indice, ma li combina. Con la griglia didattica del corso (DSCR 30%, PFN/EBITDA 20%, Z' 20%, autonomia 15%, Current Ratio 15%) Verdi Srl ottiene 3,50 punti, classe C: buona capacità di rimborso, solidità patrimoniale da rafforzare. La scala A-E è uno strumento didattico: ogni banca usa un proprio modello interno.
 
 ### Quiz 2 — Costruire un business plan che regge
 
@@ -240,12 +240,12 @@ Durata sezione: 134 min
 
 **Domanda 2.** Quale di queste è la giustificazione corretta per un'ipotesi di crescita del +15% legata a un nuovo punto vendita?
 
-- A) Il nuovo negozio, comparabile per superficie e zona a quello esistente, raggiunge in via prudenziale il 60% del fatturato storico nel primo anno ✅
+- A) Il nuovo negozio, comparabile per superficie e zona a quello esistente, raggiunge in via prudenziale il 60% delle vendite del negozio storico (62.500 €), cioè 37.500 € nel primo anno ✅
 - B) Ci aspettiamo di crescere perché il mercato è in espansione
 - C) Il +15% è la crescita media che molte aziende inseriscono nei business plan
 - D) È l'obiettivo commerciale fissato dai soci per il prossimo anno
 
-*Spiegazione*: ogni ipotesi deve rispondere alla domanda "da dove viene, esattamente, questo numero?". Un'ipotesi prudente e spiegata con dati comparabili convince più di un numero ambizioso ma non giustificato.
+*Spiegazione*: ogni ipotesi deve rispondere alla domanda "da dove viene, esattamente, questo numero?". I 37.500 € del nuovo negozio sono il 15% dei 250.000 € di ricavi totali, che derivano per il 75% dalle forniture ai cantieri. Un'ipotesi prudente e spiegata con un driver verificabile convince più di un numero ambizioso ma non giustificato.
 
 **Domanda 3.** Quale sezione di un business plan bancabile viene trattata peggio nella maggior parte dei piani fatti "in casa"?
 
@@ -256,23 +256,23 @@ Durata sezione: 134 min
 
 *Spiegazione*: molti piani proiettano solo i numeri di bilancio grezzi e non gli indici. Ma la banca vuole vedere come evolveranno DSCR, PFN/EBITDA e Z' negli anni del piano, non solo i loro valori storici.
 
-**Domanda 4.** Il nuovo punto vendita richiede 50.000 €: 35.000 € con un nuovo mutuo e 15.000 € con mezzi propri. I debiti verso banche esistenti sono 80.000 €. Quale debito verso banche deve mostrare lo Stato Patrimoniale previsionale dell'anno 1?
+**Domanda 4.** Il nuovo punto vendita richiede 50.000 €: 35.000 € con un nuovo mutuo (6%, 5 anni, rata annua 8.309 €, quota capitale del primo anno 6.209 €) e 15.000 € con mezzi propri. Il mutuo esistente di 80.000 € rimborsa 10.000 € di quota capitale nell'anno. Quale debito verso banche deve mostrare lo Stato Patrimoniale previsionale a fine Anno 1?
 
-- A) 130.000 €
-- B) 115.000 € ✅
+- A) 115.000 €
+- B) 98.791 € ✅
 - C) 95.000 €
 - D) 80.000 €, perché il mutuo compare solo nel Conto Economico
 
-*Spiegazione*: 80.000 + 35.000 = 115.000 €. Se il Conto Economico prevede crescita, lo Stato Patrimoniale deve mostrare da dove arrivano i soldi per finanziarla, altrimenti il piano non è coerente.
+*Spiegazione*: subito dopo l'erogazione l'esposizione è di 80.000 + 35.000 = 115.000 €, ma a fine anno vanno tolte le quote capitale rimborsate: 70.000 € residui sul mutuo esistente + 28.791 € sul nuovo = 98.791 €. Se il Conto Economico prevede crescita, lo Stato Patrimoniale deve mostrare da dove arrivano i soldi per finanziarla e come il debito si riduce con le rate, altrimenti il piano non è coerente.
 
-**Domanda 5.** Nell'anno 1 Verdi Srl prevede un utile positivo, ma anche più crediti verso clienti e più rimanenze per il nuovo negozio. Il Cash Flow previsionale mostra un DSCR proiettato sotto 1. Cosa significa?
+**Domanda 5.** Nello scenario base il DSCR prospettico di Verdi Srl è 1,39 nell'Anno 1. In uno scenario di stress, in cui i clienti pagano a 80 giorni invece che a 66, crediti più alti assorbono cassa e il DSCR dell'Anno 1 scende a 0,84, pur restando l'utile positivo. Cosa significa?
 
 - A) Il piano segnala, correttamente, un rischio di tensione di liquidità nel primo anno ✅
 - B) C'è un errore di calcolo, perché con un utile positivo il DSCR è sempre sopra 1
 - C) Il dato è irrilevante, perché la banca guarda solo l'utile previsto
 - D) L'azienda è in perdita
 
-*Spiegazione*: l'aumento di crediti e rimanenze assorbe cassa anche quando c'è utile. È proprio nel Cash Flow previsionale che si vede se il DSCR proiettato regge.
+*Spiegazione*: l'aumento di crediti e rimanenze assorbe cassa anche quando c'è utile. È proprio nel Cash Flow previsionale che si vede se il DSCR proiettato regge: in questo scenario la cassa andrebbe sotto zero, e il piano deve indicare in anticipo le contromisure (incassi più rigorosi, fido di cassa negoziato prima, factoring).
 
 ### Quiz 3 — Finanziarsi e presentarsi in banca
 
@@ -283,7 +283,7 @@ Durata sezione: 134 min
 - C) 7.000 € (20%)
 - D) 28.000 € (80%) ✅
 
-*Spiegazione*: per i finanziamenti a scopo di investimento la copertura è dell'80%, quindi 35.000 × 80% = 28.000 €. Il 50% vale per i finanziamenti a scopo di liquidità. La garanzia riduce il rischio della banca, ma non sostituisce un business plan solido.
+*Spiegazione*: per i finanziamenti a scopo di investimento la copertura è dell'80%, quindi 35.000 × 80% = 28.000 € e alla banca restano 7.000 € di rischio. Il 50% vale per i finanziamenti a scopo di liquidità. La garanzia riduce il rischio della banca, ma non sostituisce un business plan solido.
 
 **Domanda 2.** Verdi Srl ha un ROI del 14,7% e il mutuo costa il 6% di interessi. Come agisce la leva finanziaria?
 
@@ -319,37 +319,46 @@ Durata sezione: 134 min
 - C) 120.000 €
 - D) 220.000 €, perché il metodo reddituale prevale sempre
 
-*Spiegazione*: (100.000 + 220.000) ÷ 2 = 160.000 €. Nessun metodo è "giusto" in assoluto: il misto è il più diffuso nella prassi italiana perché bilancia i limiti dei due metodi puri, e le ipotesi vanno sempre dichiarate.
+*Spiegazione*: (100.000 + 220.000) ÷ 2 = 160.000 €. Nessun metodo è "giusto" in assoluto: il misto è il più diffuso nella prassi italiana perché bilancia i limiti dei due metodi puri, e le ipotesi vanno sempre dichiarate. La media semplice è una scorciatoia didattica: mescola un valore lato soci (patrimoniale) con un valore dell'intera azienda (reddituale), per questo il corso la confronta anche con il metodo misto UEC.
 
 ---
 
 ## Materiali scaricabili
 
-> **Da produrre**: le tre dispense PDF non esistono ancora. Vanno impaginate con la grafica SkillEasy (stessa palette del corso) e caricate come "risorsa" sull'ultima lezione di ciascuna sezione. Sono riassunti di 2-4 pagine, non la guida integrale, che resta riservata al sito.
+Le tre dispense di sezione sono pronte in PDF: vanno caricate come "risorsa" sull'ultima lezione di ciascuna sezione (Lezioni 7, 13 e 26). Ogni dispensa segue, lezione per lezione, la stessa struttura: **obiettivi**, **punti chiave** da ricordare, **norme, principi e riferimenti** (Linee Guida EBA, Codice Civile, Codice della crisi, principi OIC, disciplina del Fondo di Garanzia), **errori comuni da evitare** ed **esercizio di verifica con soluzione**, da usare per il ripasso dopo ogni video e prima del quiz. Sono un supporto di studio per sezione: la guida integrale, con gli esempi svolti su Verdi Srl, resta riservata al sito.
 
-### Dispensa 1 — Formulario degli indici bancari (Sezione 2)
+### Dispensa 1 — Gli indici che guarda la banca (Sezione 2)
 
-- Formula del DSCR, esempio Verdi Srl (1,67) e soglie di lettura (sopra 1,2-1,25 salute, sotto 1 allarme)
-- Formule di PFN ed EBITDA, rapporto PFN/EBITDA (2,5) e fasce orientative (sotto 3, tra 3 e 4-5, oltre)
-- Formula dell'Altman Z'-Score con i cinque rapporti X1-X5 e le tre fasce (sopra 2,9 / 1,23-2,9 / sotto 1,23)
-- Tabella del profilo di Verdi Srl (DSCR, PFN/EBITDA, Z', Autonomia finanziaria, Current Ratio) e lettura del rating stimato C sulla scala A-E
+File: `SkillEasy-Programmazione-e-Finanza-Dispensa-Sezione-1.pdf` · Lezioni 1-6 della guida
 
-### Dispensa 2 — Checklist del business plan bancabile (Sezione 3)
+- Le tre domande del finanziatore (rimborso, indebitamento, solidità) e la scheda dati di Verdi Srl con gli indici di base
+- DSCR = flusso di cassa disponibile ÷ rata (capitale + interessi): soglie di prassi (sopra 1,2-1,25 salute, sotto 1 allarme), Verdi Srl 1,67 e tenuta in scenario avverso
+- PFN ed EBITDA, rapporto PFN/EBITDA (Verdi Srl 2,5) e fasce orientative (sotto 3, tra 3 e 4-5, oltre)
+- Altman Z'-Score con le cinque variabili X1-X5 e le tre fasce (sopra 2,9 / 1,23-2,9 / sotto 1,23), Verdi Srl 1,97 in zona grigia, verifica con lo Z''
+- Rating sulla scala didattica A-E del corso (griglia a pesi): Verdi Srl 3,50 punti, classe C
+- Esercizi con soluzione sul confronto con Alfa Srl: indici di base, DSCR, PFN/EBITDA, Z' e rating
 
-- Le 7 sezioni da non dimenticare, in forma di checklist: dall'executive summary alla struttura del finanziamento richiesto
-- Le domande di controllo per ogni ipotesi di crescita ("da dove viene, esattamente, questo numero?")
-- Schema delle proiezioni a 3 anni di Verdi Srl (ricavi +15% poi +5%, Reddito Operativo al ROS dell'8,8%)
-- I tre controlli di coerenza: CE e SP collegati, fonti di finanziamento della crescita, DSCR proiettato nel Cash Flow
+### Dispensa 2 — Costruire un business plan che regge (Sezione 3)
+
+File: `SkillEasy-Programmazione-e-Finanza-Dispensa-Sezione-2.pdf` · Lezioni 7-12 della guida
+
+- Il business plan come strumento di verifica preventiva e le sette sezioni di un piano bancabile, con la tabella fonti-impieghi
+- Ipotesi di crescita legate a un driver (nuovo negozio al 60% delle vendite del negozio storico = +15%, poi +5% l'anno) e scenario prudenziale
+- Conto Economico previsionale con ROS all'8,8%, ammortamenti del nuovo allestimento e interessi dai piani di rimborso
+- Stato Patrimoniale previsionale coerente: debito di 115.000 € all'erogazione, 98.791 € a fine Anno 1; Patrimonio Netto che cresce con gli utili trattenuti
+- Cash Flow previsionale e DSCR prospettico 1,39 / 1,32 / 1,36, con la rettifica delle scorte iniziali dichiarata e lo stress test (DSO a 80 giorni, DSCR 0,84)
+- Esercizi con soluzione su scostamenti del piano, fonti-impieghi, scenari di crescita e di margine, distribuzione di utili e stress di cassa
 
 ### Dispensa 3 — Mappa dei finanziamenti e caso Verdi Srl (Sezione 4)
 
-- Tabella delle forme di finanziamento (mutuo, fido, leasing, factoring) e del fabbisogno a cui corrisponde ciascuna
-- Percentuali di copertura del Fondo di Garanzia PMI 2026 (50% liquidità, 80% investimento e imprese con meno di 3 anni, 80% Nuova Sabatini, importi ridotti e microcredito), con la nota di riverificarle prima dell'uso
-- Regola della leva finanziaria (ROI contro costo del debito) e confronto tra le alternative: factoring pro solvendo e pro soluto, crowdfunding, mini-bond, private equity e venture capital
-- Checklist per il colloquio in banca: errori da evitare e cosa valuta l'istruttoria oltre ai numeri (documentazione, situazione fiscale, Centrale dei Rischi)
-- Schema in 5 punti della richiesta di finanziamento di Verdi Srl (caso pratico finale)
+File: `SkillEasy-Programmazione-e-Finanza-Dispensa-Sezione-3.pdf` · Lezioni 13-25 della guida
 
----
+- Forme di finanziamento (mutuo, fido, leasing, factoring) e coerenza con la natura del fabbisogno
+- Fondo di Garanzia PMI per il 2026 (proroga del D.L. 200/2025): 50% per la liquidità, 80% per gli investimenti, 80% per start-up e PMI attive da non più di 3 anni solo se non valutabili con il modello; imprese in fascia 5 non ammissibili; percentuali da riverificare a ogni operazione
+- Leva finanziaria (ROI contro costo del debito), istruttoria oltre i numeri e Centrale dei Rischi, errori che fanno saltare una richiesta
+- Criteri ESG: Linee Guida EBA/GL/2025/01 dall'11 gennaio 2026 (banche piccole e non complesse al più tardi dall'11 gennaio 2027) e standard volontario VSME
+- Factoring pro solvendo e pro soluto, crowdfunding e mini-bond, valutazione d'azienda, private equity e venture capital, tesoreria e cash pooling
+- Caso pratico finale: mutuo di 35.000 € con rata di 8.309 €, garanzia all'80% (28.000 €), indici prospettici e stress test, con esercizi svolti per ogni lezione
 
 ## Immagine del corso (brief per il grafico)
 

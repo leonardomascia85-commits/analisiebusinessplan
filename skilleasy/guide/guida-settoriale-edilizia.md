@@ -160,7 +160,7 @@ Mettendo insieme tutta la guida: Verdi Srl riceve un ordine da un'impresa edile 
 2. **Distingue in fattura** la vendita di materiali (IVA ordinaria) dal servizio di posa in opera (reverse charge, Lezione 5).
 3. **Informa il cliente finale** (tramite l'impresa edile) sullo stato aggiornato dei bonus edilizi disponibili per la sua ristrutturazione (Lezioni 3-4).
 4. **Verifica il PSC del cantiere** prima di autorizzare la consegna diretta in loco (Lezione 7).
-5. **Monitora il computo metrico e i SAL** del cantiere insieme al proprio controllo di gestione (Lezione 14) e il **DSO specifico** di questo cliente nel proprio cruscotto (Lezione 10, guida Controllo di gestione Lezione 20).
+5. **Monitora il computo metrico e i SAL** del cantiere insieme al proprio controllo di gestione (Lezione 14) e il **DSO specifico** di questo cliente nel proprio cruscotto (Lezione 10, guida Controllo di gestione Lezione 25).
 
 📌 **Se hai seguito tutto il catalogo SkillEasy fino a qui**: questa guida mostra come i 5 pilastri base e le altre guide di approfondimento non sono compartimenti separati — in un caso reale come questo, contabilità, fisco, gestione, controllo, finanza e diritto del lavoro si intrecciano sempre insieme, esattamente come nella gestione quotidiana di un'azienda vera.
 

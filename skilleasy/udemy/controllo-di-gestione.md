@@ -42,7 +42,7 @@ La tua azienda chiude l'anno in utile, eppure non sai dire con certezza **quale 
 2. **Indici di bilancio e budget** — indici di redditività (ROE, ROI, ROS), di liquidità (Current Ratio e Quick Ratio) e di indebitamento (autonomia finanziaria e leva), la costruzione del budget annuale, l'analisi degli scostamenti tra budget e consuntivo e il perché "utile" non è "cassa".
 3. **Decidere con i numeri** — il rendiconto finanziario, i KPI finanziari mensili (DSO, DPO, rotazione di magazzino), le decisioni di make or buy, la fissazione del prezzo di vendita, la valutazione di un investimento con payback e cenni di VAN, il reporting direzionale, full costing e direct costing, Activity Based Costing, Balanced Scorecard, scostamenti di prezzo e di quantità, il controllo per commessa e, per chiudere, il cruscotto completo di Verdi Srl.
 
-Ogni sezione si chiude con un **quiz** di verifica e una **dispensa PDF** con le formule e gli schemi principali, da tenere a portata di mano.
+Ogni sezione si chiude con un **quiz** di verifica e una **dispensa PDF** da tenere a portata di mano, che riprende lezione per lezione obiettivi, punti chiave, riferimenti, errori da evitare e un esercizio con soluzione.
 
 **Alla fine del corso saprai**
 
@@ -140,7 +140,7 @@ Durata video della sezione: 62 min
 - Lezione 11 — Budget vs consuntivo: capire il perché degli scostamenti (12 min)
 - Lezione 12 — Cash flow: perché "utile" non vuol dire "cassa" (10 min)
 - Quiz — Indici e budget (5 domande)
-- Risorsa scaricabile — Dispensa 2: "Formulario degli indici e schema di budget" (PDF)
+- Risorsa scaricabile — Dispensa 2: "Indici di bilancio e budget" (PDF)
 
 Durata video della sezione: 68 min
 
@@ -321,7 +321,7 @@ Durata video della sezione: 146 min
 **Risposta corretta: D**
 *Spiegazione:* Con l'ABC il costo segue l'attività che lo genera: 160 ÷ 200 resi = 80%, cioè 8.000 €. Ripartendo per fatturato (28%) al reparto B andrebbero solo 2.800 €, nascondendo parte del problema.
 
-**Domanda 5.** Il reparto A aveva a budget 200 pezzi a 100 € e ha venduto 180 pezzi a un prezzo medio di 94,4 €. Qual è lo scostamento di quantità?
+**Domanda 5.** A marzo il reparto A aveva a budget 200 pezzi a 100 € (20.000 €) e ha venduto 180 pezzi per 17.000 €, cioè a un prezzo medio di circa 94,44 €. Qual è lo scostamento di quantità?
 
 - A) −1.000 €
 - B) −3.000 €
@@ -329,40 +329,46 @@ Durata video della sezione: 146 min
 - D) −1.888 €
 
 **Risposta corretta: C**
-*Spiegazione:* Scostamento di quantità = (180 − 200) × 100 = −2.000 €. Lo scostamento di prezzo è (94,4 − 100) × 180 ≈ −1.000 €: il volume pesa per due terzi dello scostamento totale di −3.000 €.
+*Spiegazione:* Scostamento di quantità = (Quantità effettiva − Quantità a budget) × Prezzo a budget = (180 − 200) × 100 = −2.000 €. Lo scostamento di prezzo, calcolato senza arrotondamenti, è 17.000 − 180 × 100 = −1.000 €: sui ricavi il volume pesa per due terzi dello scostamento totale di −3.000 €. Sul margine, però, il rapporto si inverte, perché ogni euro di sconto è margine perso per intero.
 
 ---
 
 ## Materiali scaricabili
 
-*Da produrre: i tre PDF qui sotto non esistono ancora e vanno impaginati (formato A4, palette del brand) prima del caricamento. Sono dispense riassuntive di sezione, non la guida integrale, che resta riservata al sito.*
+Le tre dispense di sezione sono pronte in PDF: vanno caricate come "risorsa" sull'ultima lezione di ciascuna sezione (Lezioni 6, 12 e 25). Ogni dispensa segue, lezione per lezione, la stessa struttura: **obiettivi**, **punti chiave** da ricordare, **norme, principi e riferimenti** (Codice Civile, Codice della crisi, principi OIC, metodi di contabilità direzionale), **errori comuni da evitare** ed **esercizio di verifica con soluzione**, da usare per il ripasso dopo ogni video e prima del quiz. Sono un supporto di studio per sezione: la guida integrale, con gli esempi svolti su Verdi Srl, resta riservata al sito.
 
 ### Dispensa 1 — "Le basi del controllo di gestione" (Sezione 2)
 
-- Contabilità generale e controllo di gestione a confronto: cosa fa ciascuna (scomporre il risultato, guardare avanti)
-- Schema di contabilità analitica per reparto: ricavi, costi diretti, costi comuni ripartiti, risultato di reparto (tabella Verdi Srl)
-- Costi fissi e costi variabili: definizioni ed esempi tipici
-- Formule: Break-even (in valore) = Costi fissi ÷ (1 − Costi variabili / Ricavi); Margine di contribuzione = Ricavi − Costi variabili; MdC % = MdC ÷ Ricavi
-- Le tre famiglie di indici di bilancio: redditività, liquidità, indebitamento
+File: `SkillEasy-Controllo-di-Gestione-Dispensa-Sezione-1.pdf` · Lezioni 1-6 della guida
 
-### Dispensa 2 — "Formulario degli indici e schema di budget" (Sezione 3)
+- Contabilità generale e controllo di gestione a confronto, il ciclo programmare-misurare-correggere e l'obbligo di assetti adeguati (art. 2086 c.c.)
+- Contabilità analitica per reparto: costi diretti e comuni, criterio di ripartizione dichiarato e costante, quadratura con l'utile (Verdi Srl: A +25.000 €, B −10.000 €)
+- Costi fissi, variabili, misti e a gradini; scomposizione dei costi misti con il metodo dei punti estremi
+- Break-even = Costi fissi ÷ (1 − Costi variabili / Ricavi), margine di sicurezza e fatturato per un utile obiettivo (reparto B: pareggio a 105.000 € contro 70.000 € di ricavi)
+- Margine di contribuzione di primo e secondo livello (A 30,6%, B 28,6%) e le tre famiglie di indici di bilancio
+- Esercizi con soluzione: ripartizione per ore di lavoro, classificazione dei costi, break-even del reparto A e dell'azienda, scelta della linea da promuovere, ROE a confronto
 
-- Formulario degli indici: ROE, ROI, ROS, Current Ratio, Quick Ratio, Autonomia finanziaria, Leva finanziaria, con formula e significato
-- Tabella di esempio con i valori di Verdi Srl (25% / 14,7% / 8,8% / 1,36 / 1,07 / 28,6%)
-- Le 4 fasi del budget annuale: consuntivo di partenza, ipotesi di variazione, budget per reparto, verifica di coerenza con la liquidità
-- Scostamento di volume e scostamento di prezzo: cosa segnalano e quale azione correttiva suggeriscono
-- Le tre cause per cui utile ≠ cassa: crediti in crescita, magazzino che si gonfia, investimenti
+### Dispensa 2 — "Indici di bilancio e budget" (Sezione 3)
+
+File: `SkillEasy-Controllo-di-Gestione-Dispensa-Sezione-2.pdf` · Lezioni 7-12 della guida
+
+- ROE, ROI e ROS con la scomposizione del ROE (modello DuPont); Current Ratio, Quick Ratio, capitale circolante netto e margine di tesoreria
+- Autonomia finanziaria, leva, rapporto di indebitamento, margine e quoziente di struttura (Verdi Srl: ROE 25%, ROI 14,7%, ROS 8,8%, Current Ratio 1,36, Quick Ratio 1,07, autonomia 28,6%)
+- Budget annuale in quattro fasi, dal consuntivo alla verifica di coerenza con la liquidità, e sua mensilizzazione
+- Budget vs consuntivo: budget flessibile, scostamento di volume e di prezzo, effetto sul margine di contribuzione
+- Utile e cassa: crediti in crescita, magazzino che si gonfia, investimenti pagati subito
+- Esercizi con soluzione su redditività, liquidità e "vetrina" di fine anno, struttura finanziaria, scenari di budget, scostamenti e flussi di cassa
 
 ### Dispensa 3 — "Strumenti decisionali e cruscotto mensile" (Sezione 4)
 
-- Schema del rendiconto finanziario (gestione operativa, investimenti, finanziamento) e calcolo del flusso operativo
-- KPI finanziari mensili: DSO, DPO, rotazione di magazzino, con formula e lettura
-- Formule decisionali: prezzo cost-plus = costo pieno ÷ (1 − margine desiderato); payback period = investimento ÷ flusso di cassa annuo; scostamento di quantità e di prezzo
-- Quando usare full costing e quando direct costing; regola del make or buy (costo variabile interno vs costo esterno)
-- Le quattro prospettive della Balanced Scorecard e il controllo per commessa (costi sostenuti vs avanzamento)
-- Modello del cruscotto mensile di Verdi Srl, pronto da adattare alla propria azienda
+File: `SkillEasy-Controllo-di-Gestione-Dispensa-Sezione-3.pdf` · Lezioni 13-25 della guida
 
----
+- Rendiconto finanziario con il metodo indiretto (OIC 10) e KPI mensili: DSO, DPO, rotazione e giorni di giacenza, ciclo di conversione della cassa, termini del D.Lgs. 231/2002
+- Make or buy sui soli costi rilevanti (variabili e fissi evitabili), prezzo cost-plus e value-based, sconti e volume necessario (art. 17-bis Codice del consumo)
+- Investimenti: payback semplice e attualizzato, VAN e cenni di TIR; reporting direzionale ed errori comuni delle PMI
+- Full costing e direct costing, Activity Based Costing, Balanced Scorecard, formule degli scostamenti di quantità e di prezzo
+- Controllo per commessa (avanzamento fisico, indice di efficienza dei costi, stima a finire, OIC 23) e cruscotto completo di Verdi Srl con soglie, frequenze e decisioni
+- Esercizi con soluzione per ogni lezione, fino al cruscotto di un distributore con due linee
 
 ## Immagine del corso (brief per il grafico)
 
