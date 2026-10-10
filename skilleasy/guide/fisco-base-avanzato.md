@@ -50,7 +50,7 @@ Il **regime forfettario** (Legge 190/2014 e successive modifiche) è il regime f
 
 Nel regime forfettario non si deducono le spese una per una come nel regime ordinario: si applica un **coefficiente di redditività fisso**, stabilito per legge in base al codice ATECO, che rappresenta una percentuale "forfettaria" di costi già riconosciuta a priori.
 
-Coefficienti più comuni (variano da categoria a categoria): **40%** (commercio), **54%** (professioni intellettuali, es. grafici, consulenti), **62%**, **67%**, **78%**, **86%** (attività con meno costi tipici, es. alcune attività di servizio).
+Coefficienti previsti dalla legge (variano da categoria a categoria): **40%** (commercio all'ingrosso e al dettaglio, alloggio e ristorazione, industrie alimentari), **54%** (commercio ambulante di prodotti non alimentari), **62%** (intermediari del commercio), **67%** (altre attività economiche), **78%** (attività professionali, scientifiche, tecniche, sanitarie, di istruzione, servizi finanziari e assicurativi — es. grafici, consulenti), **86%** (costruzioni e attività immobiliari).
 
 📌 **Esempio pratico**: Marco Bruni (codice ATECO da libero professionista, coefficiente 78%) fattura nell'anno 30.000 €.
 

@@ -101,7 +101,7 @@ Fermati un attimo a capire perché il legislatore ha scelto proprio questa strad
 
 [mostra a schermo: tabella dei coefficienti di redditività per categoria]
 
-I coefficienti più comuni che troverai variano parecchio da categoria a categoria. Ci sono attività di commercio che hanno un coefficiente del 40%, ci sono professioni intellettuali — pensa a grafici, consulenti, e attività simili a quella di Marco — che hanno un coefficiente del 54%, e poi ci sono fasce intermedie al 62%, al 67%, al 78%, fino ad arrivare all'86% per alcune attività di servizio che tipicamente hanno pochissimi costi tipici da sostenere.
+I coefficienti previsti dalla legge variano parecchio da categoria a categoria. Il commercio, la ristorazione e le industrie alimentari hanno un coefficiente del 40%; il commercio ambulante di prodotti non alimentari il 54%; gli intermediari del commercio il 62%; le altre attività economiche il 67%. Le attività professionali — pensa a grafici, consulenti, e attività simili a quella di Marco — hanno un coefficiente del 78%, e si arriva fino all'86% per le costruzioni e le attività immobiliari.
 
 Fermati un attimo su questo numero, perché è controintuitivo se non l'hai mai visto prima: più alto è il coefficiente, più alto è il reddito imponibile su cui pagherai le tasse. Un coefficiente dell'86% vuol dire che il legislatore ti riconosce solo il 14% di costi forfettari — quindi per un'attività che si presume abbia pochissime spese vere. Un coefficiente del 40%, al contrario, riconosce il 60% di costi — pensato per attività, tipicamente commerciali, dove l'acquisto della merce pesa molto sul fatturato.
 
