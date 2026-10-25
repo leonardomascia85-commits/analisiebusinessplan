@@ -61,6 +61,10 @@ Iscriviti e inizia dalla prima lezione: in poche ore avrai lo stesso set di stru
 
 ---
 
+**Nota sulla voce.** I contenuti, le slide e i testi sono opera del Dr. Leonardo Mascia. La narrazione dei video è realizzata con una versione sintetica della sua voce, generata con tecnologia di intelligenza artificiale a partire da una sua registrazione e con il suo consenso.
+
+---
+
 ## Cosa imparerai
 
 - Scomporre l'utile aziendale per reparto con la contabilità analitica e ripartire i costi comuni con un criterio dichiarato e coerente nel tempo

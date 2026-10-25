@@ -66,6 +66,10 @@ Se vuoi smettere di andare in banca "a sensazione" e iniziare a parlare con il t
 
 ---
 
+**Nota sulla voce.** I contenuti, le slide e i testi sono opera del Dr. Leonardo Mascia. La narrazione dei video è realizzata con una versione sintetica della sua voce, generata con tecnologia di intelligenza artificiale a partire da una sua registrazione e con il suo consenso.
+
+---
+
 ## Cosa imparerai
 
 - Calcolare il DSCR della tua azienda e capire se il flusso di cassa copre le rate di debito con un margine di sicurezza adeguato

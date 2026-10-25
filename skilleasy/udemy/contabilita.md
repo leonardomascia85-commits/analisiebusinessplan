@@ -71,6 +71,10 @@ Iscriviti, guarda la prima lezione e segui Verdi Srl dalla prima fattura fino al
 
 ---
 
+**Nota sulla voce.** I contenuti, le slide e i testi sono opera del Dr. Leonardo Mascia. La narrazione dei video è realizzata con una versione sintetica della sua voce, generata con tecnologia di intelligenza artificiale a partire da una sua registrazione e con il suo consenso.
+
+---
+
 ## Cosa imparerai
 
 - Registrare in partita doppia acquisti, vendite, incassi e pagamenti, scegliendo con sicurezza tra Dare e Avere

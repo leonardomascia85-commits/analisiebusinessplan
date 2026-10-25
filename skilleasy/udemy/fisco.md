@@ -68,6 +68,10 @@ Se vuoi smettere di subire il fisco e iniziare a capirlo, iscriviti e parti dall
 
 ---
 
+**Nota sulla voce.** I contenuti, le slide e i testi sono opera del Dr. Leonardo Mascia. La narrazione dei video è realizzata con una versione sintetica della sua voce, generata con tecnologia di intelligenza artificiale a partire da una sua registrazione e con il suo consenso.
+
+---
+
 ## Cosa imparerai
 
 - Calcolare reddito imponibile, imposta sostitutiva (15% o 5%) e contributi INPS di una Partita IVA in regime forfettario

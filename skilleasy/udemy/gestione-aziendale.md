@@ -67,6 +67,10 @@ Se vuoi che la tua azienda smetta di dipendere da una sola persona, iscriviti e 
 
 ---
 
+**Nota sulla voce.** I contenuti, le slide e i testi sono opera del Dr. Leonardo Mascia. La narrazione dei video è realizzata con una versione sintetica della sua voce, generata con tecnologia di intelligenza artificiale a partire da una sua registrazione e con il suo consenso.
+
+---
+
 ## Cosa imparerai
 
 - Disegnare un organigramma esplicito e una matrice RACI che assegna un solo responsabile finale a ogni attività critica
