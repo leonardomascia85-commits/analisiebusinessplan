@@ -16,14 +16,11 @@ Questa cartella contiene tutto quello che serve per produrre le video lezioni de
 
 Numeri complessivi: 131 lezioni, circa 1.660 slide, circa 197.000 parole di copione (circa 23 ore di video).
 
-## Come registrare (una lezione alla volta)
+## Voce dei video
 
-1. **Prova tecnica**: prima di tutto registra la Lezione 1 di Fisco e caricala su Udemy come "test video" gratuito: il loro team ti dice se audio e qualità vanno bene.
-2. **Attrezzatura**: microfono esterno (USB o ad archetto), stanza silenziosa e non rimbombante (tende, tappeti, libreria), notifiche spente.
-3. **Apri lo studio** del corso in Google Chrome (doppio clic sul file `.html`; al primo avvio Chrome chiede il permesso di usare il microfono).
-4. **Registra slide per slide**: scegli la lezione a sinistra, premi **Spazio**, leggi il testo, premi di nuovo **Spazio**. Lo studio passa da solo alla slide successiva. Se sbagli, torna sulla slide e riregistra solo quella. Con **P** riascolti. Il testo è una traccia: puoi dirlo con parole tue, purché numeri ed esempi restino quelli.
-5. Le registrazioni restano salvate nel browser anche se chiudi la pagina. A fine lezione premi **Esporta lezione**: scarichi uno `.zip` (circa 5-10 MB a lezione).
-6. **Consegna**: carica gli `.zip` nella cartella `registrazioni/` di questo repository dal sito di GitHub (*Add file → Upload files*), oppure mandameli in chat. Io monto i video finali.
+I video vengono prodotti con la voce del Dr. Mascia clonata con ElevenLabs a partire da un campione registrato da lui (caricato tramite la pagina dedicata). Non serve registrare le lezioni: lo studio di registrazione (`studio-registrazione-<corso>.html`) resta come alternativa facoltativa.
+
+Su Udemy la voce sintetica va dichiarata: la frase è già nella descrizione di ciascun corso (`skilleasy/udemy/<corso>.md`, "Nota sulla voce"). La chiave API sta nell'ambiente come `ELEVENLABS_API_KEY`, mai nel repository.
 
 ## Come vengono montati i video finali
 
