@@ -8,6 +8,7 @@ Writes <output>.mp4 and <output>.srt.
 """
 import asyncio, json, re, subprocess, sys, wave, pathlib
 import edge_tts, imageio_ffmpeg
+import lexicon
 
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 FADE = 0.5
@@ -84,7 +85,17 @@ def build(manifest_path):
             cues = []
         else:
             mp3 = work / f"s{i:03}.mp3"
-            cues = asyncio.run(tts(clean(seg["text"]), voice, rate, mp3))
+            shown = clean(seg["text"])
+            for attempt in range(4):
+                try:
+                    cues = asyncio.run(tts(lexicon.speak(shown), voice, rate, mp3))
+                    break
+                except Exception:
+                    if attempt == 3:
+                        raise
+            sents = [x for x in re.split(r"(?<=[.!?…])\s+", shown) if x]
+            if len(sents) == len(cues):  # sottotitoli con il testo originale, non quello adattato alla pronuncia
+                cues = [(s, e, o) for (s, e, _), o in zip(cues, sents)]
             run("-i", str(mp3), "-ac", "1", "-ar", "48000", "-af", "apad=pad_dur=%.2f" % GAP, str(wav))
         d = wav_seconds(wav)
         if not cues:
@@ -115,9 +126,9 @@ def build(manifest_path):
     for i, (seg, d) in enumerate(zip(m["segments"], seg_durs)):
         clip = work / f"v{i:03}.mp4"
         fo = max(0.0, d - FADE / 2)
-        run("-loop", "1", "-framerate", "30", "-t", f"{d:.3f}", "-i", str(base / seg["slide"]),
+        run("-loop", "1", "-framerate", "15", "-t", f"{d:.3f}", "-i", str(base / seg["slide"]),
             "-vf", f"fade=t=in:st=0:d={FADE/2},fade=t=out:st={fo:.3f}:d={FADE/2},format=yuv420p",
-            "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-crf", "22", "-r", "30", str(clip))
+            "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-crf", "22", "-r", "15", str(clip))
         clips.append(clip)
     vlist = work / "video.txt"
     vlist.write_text("".join(f"file '{c.name}'\n" for c in clips))

@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 FONTS = ROOT / "fonts"
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium-1243/chrome-linux64/chrome"
 
 CSS = """
 @page { size: A4; margin: 22mm 20mm 24mm 20mm; }

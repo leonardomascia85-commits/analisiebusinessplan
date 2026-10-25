@@ -3,7 +3,7 @@ import sys, os, pathlib
 from playwright.sync_api import sync_playwright
 
 FONTS = pathlib.Path(__file__).resolve().parent.parent / "fonts"
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium-1243/chrome-linux64/chrome"
 
 BASE_CSS = """
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
