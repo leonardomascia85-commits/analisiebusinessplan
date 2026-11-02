@@ -425,6 +425,16 @@
         <div class="rb-row"><span class="rb-lbl">Current Ratio</span><span class="rb-val" id="rb-cr">—</span></div>
         <div class="rb-row"><span class="rb-lbl">PFN</span><span class="rb-val" id="rb-pfn">—</span></div>
       </div>
+      <div class="rb-col">
+        <div class="rb-col-title">Analisi Personale</div>
+        <div class="rb-row"><span class="rb-lbl">Valore aggiunto</span><span class="rb-val" id="rb-va">—</span></div>
+        <div class="rb-row"><span class="rb-lbl">% Personale / Ricavi</span><span class="rb-val" id="rb-perc-pers">—</span></div>
+        <div class="rb-row"><span class="rb-lbl">% Personale / VA</span><span class="rb-val" id="rb-perc-pers-va">—</span></div>
+        <div class="rb-row"><span class="rb-lbl">Ricavi per dip.</span><span class="rb-val" id="rb-ricavi-dip">—</span></div>
+        <div class="rb-row"><span class="rb-lbl">Costo per dip.</span><span class="rb-val" id="rb-costo-dip">—</span></div>
+        <div class="rb-row"><span class="rb-lbl">EBITDA per dip.</span><span class="rb-val" id="rb-ebitda-dip">—</span></div>
+        <div class="rb-row"><span class="rb-lbl">VA per dip.</span><span class="rb-val" id="rb-va-dip">—</span></div>
+      </div>
     </div>
     <div class="rb-footer">
       <button class="btn-primary" onclick="window.location.href='bilancio-multianno.html'">Vai all'analisi completa →</button>
@@ -906,6 +916,8 @@
     const ebitda=d.tot_vp-(d.mat_prime+d.servizi+(d.godimento||0)+d.personale);
     const ebit=ebitda-(d.ammort||0);
     const dbt_bt=(d.deb_b_bt||0)+(d.deb_for||0)+(d.deb_trib||0);
+    const va=d.tot_vp-(d.mat_prime||0)-(d.servizi||0)-(d.godimento||0);
+    const nd=d.n_dip>0?d.n_dip:NaN;
     return{
       ebitda,ebit,
       roe:d.tot_pn>0?d.utile_es/d.tot_pn*100:NaN,
@@ -913,6 +925,13 @@
       cr:dbt_bt>0?d.tot_circ/dbt_bt:NaN,
       pfn:(d.deb_b_bt+d.deb_b_lt)-d.liquidita,
       aut:d.tot_att>0?d.tot_pn/d.tot_att*100:NaN,
+      va,
+      perc_personale:d.tot_vp>0?d.personale/d.tot_vp*100:NaN,
+      perc_personale_va:va>0?d.personale/va*100:NaN,
+      ricavi_dip:d.tot_vp/nd,
+      costo_dip:d.personale/nd,
+      ebitda_dip:ebitda/nd,
+      va_dip:va/nd,
     };
   }
 
@@ -1111,6 +1130,11 @@
     se('rb-vp',fmt(d.tot_vp));se('rb-ebitda',fmt(d.ebitda));
     se('rb-utile',fmt(d.utile_es||d.utile_n));se('rb-of',fmt(d.oneri_f));
     se('rb-roe',fp(d.roe));se('rb-roi',fp(d.roi));se('rb-cr',fx(d.cr));se('rb-pfn',fmt(d.pfn));
+    se('rb-va',fmt(d.va));se('rb-perc-pers',fp(d.perc_personale));se('rb-perc-pers-va',fp(d.perc_personale_va));
+    se('rb-ricavi-dip',isNaN(d.ricavi_dip)?'n.d.':fmt(d.ricavi_dip));
+    se('rb-costo-dip',isNaN(d.costo_dip)?'n.d.':fmt(d.costo_dip));
+    se('rb-ebitda-dip',isNaN(d.ebitda_dip)?'n.d.':fmt(d.ebitda_dip));
+    se('rb-va-dip',isNaN(d.va_dip)?'n.d.':fmt(d.va_dip));
     se('rb-title','✅ '+(d.nome||'Bilancio')+' — '+(d._annoEsercizio||[0,1,2].map(i=>String(new Date().getFullYear()-i))[selectedAnno]));
 
     // Mostra pannello bilancio abbreviato se rilevato

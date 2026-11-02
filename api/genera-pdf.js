@@ -57,7 +57,15 @@ function calcIndici(d) {
   const costsForDpo = (d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0);
   const dpo = debForDpo > 0 && costsForDpo > 0 ? debForDpo / costsForDpo * 365 : NaN;
   const ccn_giorni = (!isNaN(dsi) && !isNaN(dso) && !isNaN(dpo)) ? dsi + dso - dpo : NaN;
-  return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, dscr_formula, servizio, dsi, dso, dpo, ccn_giorni };
+  const va = (d.tot_vp||0) - (d.mat_prime||0) - (d.servizi||0) - (d.godimento||0);
+  const nd = (d.n_dip||0) > 0 ? d.n_dip : NaN;
+  const perc_personale = d.tot_vp > 0 ? (d.personale||0) / d.tot_vp * 100 : NaN;
+  const perc_personale_va = va > 0 ? (d.personale||0) / va * 100 : NaN;
+  const ricavi_dip = (d.tot_vp||0) / nd;
+  const costo_dip = (d.personale||0) / nd;
+  const ebitda_dip = ebitda / nd;
+  const va_dip = va / nd;
+  return { ebitda, ebit, pfn, roe, roi, ros, cr, acid, leva, aut, ebitda_pct, pfn_ebitda, icr, dscr, dscr_formula, servizio, dsi, dso, dpo, ccn_giorni, va, perc_personale, perc_personale_va, ricavi_dip, costo_dip, ebitda_dip, va_dip };
 }
 
 // ── CALCOLA RATING IBRIDO ──
@@ -1006,10 +1014,73 @@ ${hasRF ? `
   <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. 8</span></div>
 </div>` : ''}
 
+<!-- PAG PERSONALE -->
+<div class="page">
+  <div class="ph">
+    <div><div class="ph-ey">Sezione ${hasRF?'7':'6'}</div><div class="ph-ti">Analisi del Personale</div></div>
+    <div class="ph-az">${nome}<br/>${anno}</div>
+  </div>
+  <div class="ind-intro">Il costo del personale rappresenta spesso la voce più rilevante del conto economico. Questi indici misurano la produttività e l'incidenza del personale sui risultati aziendali, evidenziando margini di efficienza e benchmark rispetto al settore.</div>
+  <div class="ind-hd">👥 Incidenza del Costo del Personale</div>
+  <div class="ind-cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="ind-card">
+      <div class="ind-name">Valore Aggiunto</div><div class="ind-acro">VA</div>
+      <div class="ind-val">${fmt(c.va)}</div>
+      <div class="ind-formula">Ricavi − Mat.prime − Servizi − Godimento</div>
+      <div class="ind-desc">Ricchezza generata internamente dopo aver remunerato i fornitori esterni. Dal VA si remunerano dipendenti, finanziatori, fisco e soci.</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Incidenza Personale su Ricavi</div><div class="ind-acro">% Pers/VP</div>
+      <div class="ind-val" style="color:${isNaN(c.perc_personale)?'#94A3B8':c.perc_personale<=35?'#059669':c.perc_personale<=50?'#D97706':'#DC2626'}">${fp(c.perc_personale)}</div>
+      <span class="ind-badge ${isNaN(c.perc_personale)?'ib-a':c.perc_personale<=35?'ib-g':c.perc_personale<=50?'ib-a':'ib-r'}">${isNaN(c.perc_personale)?'n.d.':c.perc_personale<=35?'✓ Efficiente':c.perc_personale<=50?'⚠ Nella norma':'✗ Elevata'}</span>
+      <div class="ind-formula">Costo personale / Valore della produzione × 100</div>
+      <div class="ind-bench">Servizi: <span>40–55%</span> · Manifattura: <span>20–35%</span></div>
+      <div class="ind-interp">${isNaN(c.perc_personale)?'n.d.':c.perc_personale<=35?`Efficiente (${fp(c.perc_personale)}): buon controllo del costo del lavoro rispetto ai ricavi.`:c.perc_personale<=50?`Nella norma (${fp(c.perc_personale)}): da monitorare. Verificare tendenza nel tempo.`:`Elevata (${fp(c.perc_personale)}): il personale assorbe una quota rilevante dei ricavi.`}</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Incidenza Personale su VA</div><div class="ind-acro">% Pers/VA</div>
+      <div class="ind-val" style="color:${isNaN(c.perc_personale_va)?'#94A3B8':c.perc_personale_va<=65?'#059669':c.perc_personale_va<=80?'#D97706':'#DC2626'}">${fp(c.perc_personale_va)}</div>
+      <span class="ind-badge ${isNaN(c.perc_personale_va)?'ib-a':c.perc_personale_va<=65?'ib-g':c.perc_personale_va<=80?'ib-a':'ib-r'}">${isNaN(c.perc_personale_va)?'n.d.':c.perc_personale_va<=65?'✓ Equilibrato':c.perc_personale_va<=80?'⚠ Attenzione':'✗ Critico'}</span>
+      <div class="ind-formula">Costo personale / Valore Aggiunto × 100</div>
+      <div class="ind-bench">Equilibrato: <span>&lt;65%</span> · Critico: <span>&gt;80%</span></div>
+      <div class="ind-interp">${isNaN(c.perc_personale_va)?'n.d.':c.perc_personale_va<=65?`Equilibrato (${fp(c.perc_personale_va)}): il VA remunera adeguatamente personale, finanza e soci.`:c.perc_personale_va<=80?`Attenzione (${fp(c.perc_personale_va)}): oltre il 65% del VA va al personale. Poco spazio per oneri finanziari e utili.`:`Critico (${fp(c.perc_personale_va)}): il personale assorbe quasi tutto il VA. Rischio di perdita strutturale.`}</div>
+    </div>
+  </div>
+  ${!isNaN(c.ricavi_dip) ? `
+  <div class="ind-hd" style="margin-top:14px">📊 Produttività per Dipendente${d.n_dip?' ('+d.n_dip+' dipendenti)':''}</div>
+  <div class="ind-cards" style="grid-template-columns:repeat(4,1fr)">
+    <div class="ind-card">
+      <div class="ind-name">Ricavi per Dipendente</div>
+      <div class="ind-val">${fmt(c.ricavi_dip)}</div>
+      <div class="ind-formula">Valore produzione / N° dipendenti</div>
+      <div class="ind-desc">Ricavi generati mediamente da ogni dipendente. PMI italiane: 100–250K€/dip.</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Costo per Dipendente</div>
+      <div class="ind-val">${fmt(c.costo_dip)}</div>
+      <div class="ind-formula">Costo personale / N° dipendenti</div>
+      <div class="ind-desc">Costo medio annuo per dipendente (inclusi oneri). Media PMI: 35–55K€.</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">VA per Dipendente</div>
+      <div class="ind-val">${fmt(c.va_dip)}</div>
+      <div class="ind-formula">Valore Aggiunto / N° dipendenti</div>
+      <div class="ind-desc">Valore aggiunto creato da ogni dipendente. Benchmark: >40K€.</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">EBITDA per Dipendente</div>
+      <div class="ind-val" style="color:${c.ebitda_dip>0?'#059669':'#DC2626'}">${fmt(c.ebitda_dip)}</div>
+      <div class="ind-formula">EBITDA / N° dipendenti</div>
+      <div class="ind-desc">Margine operativo generato per ogni dipendente. Più è alto, più ogni risorsa contribuisce alla redditività.</div>
+    </div>
+  </div>` : `<div style="margin-top:14px;padding:14px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:10px;color:#64748B;">ℹ️ Gli indici di produttività per dipendente non sono disponibili: il dato sul numero di dipendenti non è presente nel file XBRL. Inserirlo manualmente nell'analisi per abilitare questi indicatori.</div>`}
+  <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. ${hasRF?'9':'8'}</span></div>
+</div>
+
 <!-- PAG RATING FINALE -->
 <div class="page">
   <div class="ph">
-    <div><div class="ph-ey">Sezione ${hasRF?'7':'6'}</div><div class="ph-ti">Rating Sintetico di Bancabilità</div></div>
+    <div><div class="ph-ey">Sezione ${hasRF?'8':'7'}</div><div class="ph-ti">Rating Sintetico di Bancabilità</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px;">
