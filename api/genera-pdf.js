@@ -1020,60 +1020,70 @@ ${hasRF ? `
     <div><div class="ph-ey">Sezione ${hasRF?'7':'6'}</div><div class="ph-ti">Analisi del Personale</div></div>
     <div class="ph-az">${nome}<br/>${anno}</div>
   </div>
-  <div class="ind-intro">Il costo del personale rappresenta spesso la voce più rilevante del conto economico. Questi indici misurano la produttività e l'incidenza del personale sui risultati aziendali, evidenziando margini di efficienza e benchmark rispetto al settore.</div>
+  <div class="ind-intro">Il costo del personale è spesso la voce più rilevante del conto economico e incide direttamente su EBITDA, margini e bancabilità. Questi indici misurano quanto il lavoro pesa sui risultati dell'azienda e con quale efficienza ogni risorsa contribuisce alla creazione di valore. Sono utilizzati da revisori, consulenti del lavoro e banche per valutare la sostenibilità del modello occupazionale e individuare spazi di ottimizzazione.</div>
   <div class="ind-hd">👥 Incidenza del Costo del Personale</div>
   <div class="ind-cards" style="grid-template-columns:repeat(3,1fr)">
     <div class="ind-card">
       <div class="ind-name">Valore Aggiunto</div><div class="ind-acro">VA</div>
       <div class="ind-val">${fmt(c.va)}</div>
-      <div class="ind-formula">Ricavi − Mat.prime − Servizi − Godimento</div>
-      <div class="ind-desc">Ricchezza generata internamente dopo aver remunerato i fornitori esterni. Dal VA si remunerano dipendenti, finanziatori, fisco e soci.</div>
+      <div class="ind-formula">Ricavi − Materie prime − Servizi − Godimento beni terzi</div>
+      <div class="ind-desc">Il Valore Aggiunto (VA) misura la ricchezza creata internamente dall'azienda dopo aver pagato tutti i fornitori esterni di beni e servizi. È la "torta" che dovrà essere distribuita tra le quattro componenti che rendono possibile l'attività: <strong>lavoro</strong> (dipendenti), <strong>capitale di credito</strong> (banche e obbligazionisti), <strong>Stato</strong> (imposte) e <strong>capitale di rischio</strong> (utile ai soci). Un VA elevato rispetto ai ricavi indica un modello con alta trasformazione interna; un VA basso segnala forte dipendenza dall'esterno (subfornitura, outsourcing).</div>
+      <div class="ind-action">💡 <strong>Come leggerlo:</strong> confronta il VA con il costo del personale: se il personale assorbe oltre il 70–80% del VA, restano poche risorse per banche e soci. Monitorare l'evoluzione nel tempo è più importante del dato puntuale.</div>
     </div>
     <div class="ind-card">
       <div class="ind-name">Incidenza Personale su Ricavi</div><div class="ind-acro">% Pers/VP</div>
       <div class="ind-val" style="color:${isNaN(c.perc_personale)?'#94A3B8':c.perc_personale<=35?'#059669':c.perc_personale<=50?'#D97706':'#DC2626'}">${fp(c.perc_personale)}</div>
       <span class="ind-badge ${isNaN(c.perc_personale)?'ib-a':c.perc_personale<=35?'ib-g':c.perc_personale<=50?'ib-a':'ib-r'}">${isNaN(c.perc_personale)?'n.d.':c.perc_personale<=35?'✓ Efficiente':c.perc_personale<=50?'⚠ Nella norma':'✗ Elevata'}</span>
-      <div class="ind-formula">Costo personale / Valore della produzione × 100</div>
-      <div class="ind-bench">Servizi: <span>40–55%</span> · Manifattura: <span>20–35%</span></div>
-      <div class="ind-interp">${isNaN(c.perc_personale)?'n.d.':c.perc_personale<=35?`Efficiente (${fp(c.perc_personale)}): buon controllo del costo del lavoro rispetto ai ricavi.`:c.perc_personale<=50?`Nella norma (${fp(c.perc_personale)}): da monitorare. Verificare tendenza nel tempo.`:`Elevata (${fp(c.perc_personale)}): il personale assorbe una quota rilevante dei ricavi.`}</div>
+      <div class="ind-formula">Costo del personale / Valore della produzione × 100</div>
+      <div class="ind-bench">Servizi professionali: <span>45–60%</span> · Commercio: <span>15–25%</span> · Manifattura: <span>20–35%</span> · Ristorazione/Turismo: <span>30–45%</span></div>
+      <div class="ind-desc">Indica quanti centesimi di ogni euro di ricavi vengono assorbiti dal costo del lavoro (retribuzioni + contributi + TFR). È l'indice più immediato per valutare la sostenibilità occupazionale: se supera il 50–55% nei settori non labour-intensive, il margine residuo per coprire affitti, ammortamenti, oneri finanziari e imposte diventa critico. Va sempre letto in relazione al settore: un'agenzia di consulenza al 55% può essere sana, una società di distribuzione al 40% è in difficoltà.</div>
+      <div class="ind-interp">${isNaN(c.perc_personale)?'Dati non disponibili.':c.perc_personale<=35?`Efficiente (${fp(c.perc_personale)}): il costo del lavoro è ben controllato rispetto ai ricavi. L'azienda ha ampio margine per coprire altri costi fissi e generare EBITDA positivo.`:c.perc_personale<=50?`Nella norma (${fp(c.perc_personale)}): nella media delle PMI italiane per settori a media intensità di lavoro. Monitorare il trend: un incremento costante è un segnale di allarme precoce.`:`Elevata (${fp(c.perc_personale)}): il personale assorbe più della metà dei ricavi. Verificare se è strutturale (settore labour-intensive) o dovuto a inefficienze organizzative o a ricavi insufficienti rispetto alla struttura di costo.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${isNaN(c.perc_personale)?'Verificare la disponibilità dei dati nel file XBRL.':c.perc_personale<=35?'Buona efficienza. Valutare se investire in formazione o assunzioni per sostenere la crescita senza compromettere i margini.':c.perc_personale<=50?'Analizzare l\'evoluzione storica. Se in aumento, anticipare con una revisione della struttura organizzativa o una politica di crescita dei ricavi.':'Analisi urgente: mappare le ore per processo, valutare esternalizzazioni non critiche, rivedere i turni. Crescita dei ricavi è più efficace di tagli lineari.'}</div>
     </div>
     <div class="ind-card">
       <div class="ind-name">Incidenza Personale su VA</div><div class="ind-acro">% Pers/VA</div>
       <div class="ind-val" style="color:${isNaN(c.perc_personale_va)?'#94A3B8':c.perc_personale_va<=65?'#059669':c.perc_personale_va<=80?'#D97706':'#DC2626'}">${fp(c.perc_personale_va)}</div>
       <span class="ind-badge ${isNaN(c.perc_personale_va)?'ib-a':c.perc_personale_va<=65?'ib-g':c.perc_personale_va<=80?'ib-a':'ib-r'}">${isNaN(c.perc_personale_va)?'n.d.':c.perc_personale_va<=65?'✓ Equilibrato':c.perc_personale_va<=80?'⚠ Attenzione':'✗ Critico'}</span>
-      <div class="ind-formula">Costo personale / Valore Aggiunto × 100</div>
-      <div class="ind-bench">Equilibrato: <span>&lt;65%</span> · Critico: <span>&gt;80%</span></div>
-      <div class="ind-interp">${isNaN(c.perc_personale_va)?'n.d.':c.perc_personale_va<=65?`Equilibrato (${fp(c.perc_personale_va)}): il VA remunera adeguatamente personale, finanza e soci.`:c.perc_personale_va<=80?`Attenzione (${fp(c.perc_personale_va)}): oltre il 65% del VA va al personale. Poco spazio per oneri finanziari e utili.`:`Critico (${fp(c.perc_personale_va)}): il personale assorbe quasi tutto il VA. Rischio di perdita strutturale.`}</div>
+      <div class="ind-formula">Costo del personale / Valore Aggiunto × 100</div>
+      <div class="ind-bench">Equilibrato: <span>&lt;65%</span> · Da monitorare: <span>65–80%</span> · Critico: <span>&gt;80%</span></div>
+      <div class="ind-desc">È l'indice più preciso per misurare quanto del valore creato dall'azienda viene destinato al lavoro. A differenza dell'incidenza sui ricavi, confronta il costo del personale solo con la ricchezza generata internamente (VA), escludendo i costi pagati all'esterno. Valori superiori all'80% significano che quasi tutto il VA finisce ai dipendenti, lasciando meno del 20% per banche, fisco e soci: in presenza di debiti, questo porta quasi inevitabilmente a perdite. In Europa il rapporto % Pers/VA nelle PMI manifatturiere si attesta mediamente attorno al 55–65%.</div>
+      <div class="ind-interp">${isNaN(c.perc_personale_va)?'Dati non disponibili.':c.perc_personale_va<=65?`Equilibrato (${fp(c.perc_personale_va)}): il VA distribuisce adeguatamente la ricchezza tra lavoro, finanza e soci. La struttura è sostenibile.`:c.perc_personale_va<=80?`Attenzione (${fp(c.perc_personale_va)}): oltre il 65% del VA va al personale. Il margine residuo per interessi, imposte e utili è ristretto. Qualsiasi aumento del costo del lavoro (contratti, rinnovi) o calo dei ricavi può portare in perdita.`:`Critico (${fp(c.perc_personale_va)}): il personale assorbe la quasi totalità del VA. Non resta sufficiente margine per remunerare il capitale e pagare le tasse. Senza interventi strutturali il rischio di perdita continuativa è elevato.`}</div>
+      <div class="ind-action">💡 <strong>Cosa fare:</strong> ${isNaN(c.perc_personale_va)?'Verificare la disponibilità dei dati.':c.perc_personale_va<=65?'Struttura equilibrata. Mantenere il controllo sui costi del personale in fase di crescita per non erodere il margine.':c.perc_personale_va<=80?'Lavorare su due leve: aumentare il VA (ricavi o riduzione acquisti esterni) e contenere la crescita del costo del personale (produttività, turn-over).':'Intervento strutturale necessario. Verificare se il modello di business regge con la dimensione attuale dell\'organico o se è necessaria una ristrutturazione.'}</div>
     </div>
   </div>
   ${!isNaN(c.ricavi_dip) ? `
-  <div class="ind-hd" style="margin-top:14px">📊 Produttività per Dipendente${d.n_dip?' ('+d.n_dip+' dipendenti)':''}</div>
+  <div class="ind-hd" style="margin-top:14px">📊 Produttività per Dipendente${d.n_dip?' — '+d.n_dip+' dipendenti':''}</div>
+  <div class="ind-intro" style="margin-bottom:10px">Gli indici per dipendente permettono di confrontare l'azienda con benchmark di settore indipendentemente dalla dimensione. Consentono di rispondere alla domanda: <em>"ogni risorsa quanto valore produce?"</em>. Sono strumenti chiave per negoziare con le banche, strutturare piani di assunzione e valutare investimenti in automazione o formazione.</div>
   <div class="ind-cards" style="grid-template-columns:repeat(4,1fr)">
     <div class="ind-card">
       <div class="ind-name">Ricavi per Dipendente</div>
       <div class="ind-val">${fmt(c.ricavi_dip)}</div>
-      <div class="ind-formula">Valore produzione / N° dipendenti</div>
-      <div class="ind-desc">Ricavi generati mediamente da ogni dipendente. PMI italiane: 100–250K€/dip.</div>
+      <div class="ind-formula">Valore della produzione / N° dipendenti</div>
+      <div class="ind-desc">Ricavi medi generati da ogni dipendente. Misura la produttività commerciale e l'efficienza della forza lavoro nel portare valore. È fortemente dipendente dal settore: un'azienda di software può superare i 300K€/dip., un'impresa di pulizie può attestarsi a 50K€/dip. <strong>Media PMI italiane manifatturiere: 150–300K€. Servizi: 80–180K€.</strong></div>
+      <div class="ind-action">💡 Se inferiore alla media di settore, verificare se dipende da bassa produttività operativa, prezzi di vendita insufficienti o organico sovradimensionato rispetto ai volumi.</div>
     </div>
     <div class="ind-card">
       <div class="ind-name">Costo per Dipendente</div>
       <div class="ind-val">${fmt(c.costo_dip)}</div>
-      <div class="ind-formula">Costo personale / N° dipendenti</div>
-      <div class="ind-desc">Costo medio annuo per dipendente (inclusi oneri). Media PMI: 35–55K€.</div>
+      <div class="ind-formula">Costo del personale / N° dipendenti</div>
+      <div class="ind-desc">Costo medio annuo complessivo per ogni dipendente, comprensivo di retribuzione lorda, contributi previdenziali INPS a carico azienda, TFR accantonato e altri oneri. <strong>Media PMI italiane: 35–55K€ (operai/impiegati). Quadri/manager: 60–90K€.</strong> Un valore molto basso rispetto al mercato può indicare alto turn-over o ricorso a contratti atipici.</div>
+      <div class="ind-action">💡 Confrontare con i rinnovi contrattuali previsti: un aumento del 4–5% del costo per dipendente moltiplicato per l'organico può erodere significativamente l'EBITDA.</div>
     </div>
     <div class="ind-card">
-      <div class="ind-name">VA per Dipendente</div>
+      <div class="ind-name">Valore Aggiunto per Dipendente</div>
       <div class="ind-val">${fmt(c.va_dip)}</div>
       <div class="ind-formula">Valore Aggiunto / N° dipendenti</div>
-      <div class="ind-desc">Valore aggiunto creato da ogni dipendente. Benchmark: >40K€.</div>
+      <div class="ind-desc">Ricchezza media creata da ogni dipendente al netto degli acquisti esterni. È l'indice di produttività più robusto perché non dipende dal grado di integrazione verticale dell'azienda. <strong>Benchmark europei PMI: 40–80K€/dip. Soglia minima di sostenibilità: >35K€.</strong> Se il VA/dip. è inferiore al costo/dip., ogni dipendente costa più di quanto rende.</div>
+      <div class="ind-action">💡 Se VA/dip. < costo/dip. l'azienda erode valore con ogni nuovo assunto. Priorità: aumentare il VA prima di ampliare l'organico.</div>
     </div>
     <div class="ind-card">
       <div class="ind-name">EBITDA per Dipendente</div>
       <div class="ind-val" style="color:${c.ebitda_dip>0?'#059669':'#DC2626'}">${fmt(c.ebitda_dip)}</div>
       <div class="ind-formula">EBITDA / N° dipendenti</div>
-      <div class="ind-desc">Margine operativo generato per ogni dipendente. Più è alto, più ogni risorsa contribuisce alla redditività.</div>
+      <div class="ind-desc">Margine operativo lordo generato mediamente da ogni dipendente. Misura la redditività operativa per unità di lavoro ed è strettamente correlato alla capacità di rimborso del debito bancario. <strong>Benchmark PMI industriali italiane: 8–25K€/dip.</strong> Un EBITDA/dip. negativo segnala che l'organico attuale non è sostenibile con i ricavi correnti.</div>
+      <div class="ind-action">💡 Usare questo indice per valutare nuove assunzioni: ogni nuovo dipendente deve generare almeno il proprio EBITDA/dip. attuale per non diluire la redditività complessiva.</div>
     </div>
-  </div>` : `<div style="margin-top:14px;padding:14px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:10px;color:#64748B;">ℹ️ Gli indici di produttività per dipendente non sono disponibili: il dato sul numero di dipendenti non è presente nel file XBRL. Inserirlo manualmente nell'analisi per abilitare questi indicatori.</div>`}
+  </div>` : `<div style="margin-top:14px;padding:16px 18px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:10px;color:#475569;line-height:1.6;"><strong>ℹ️ Indici per dipendente non disponibili</strong><br/>Il numero di dipendenti non è presente nel file XBRL caricato (campo <em>n_dip</em> assente o pari a zero). Questi dati non sono obbligatori nella tassonomia XBRL italiana per le PMI. Per abilitare gli indici di produttività per dipendente (ricavi/dip., costo/dip., VA/dip., EBITDA/dip.) inserire manualmente il numero di dipendenti nell'analisi su importa-xbrl.html.</div>`}
   <div class="pf"><span>AnalisiEBusinessPlan.com</span><span>${nome} — ${anno}</span><span>Pag. ${hasRF?'9':'8'}</span></div>
 </div>
 
