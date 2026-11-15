@@ -3,3 +3,5 @@ package-lock.json
 srv.js
 .claude/
 produzione-video/strumenti/fonts/_page_*.html
+produzione-video/strumenti/fonts/_body.html
+produzione-video/strumenti/fonts/_cover.html
