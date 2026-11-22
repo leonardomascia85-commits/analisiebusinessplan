@@ -19,15 +19,18 @@ function calcIndici(d) {
   const ebitda = (d.tot_vp || 0) - ((d.mat_prime || 0) + (d.servizi || 0) + (d.godimento || 0) + (d.personale || 0) + (d.var_mat || 0) + (d.oneri_div || 0));
   const ebit = ebitda - (d.ammort || 0);
   const dbt_bt = (d.deb_b_bt || 0) + (d.deb_for || 0) + (d.deb_trib || 0) + (d.alt_deb || 0);
+  const dbt_cr = dbt_bt > 0 ? dbt_bt : (d.tot_deb || 0); // fallback schema abbreviato
   const hasPfnData = (d.pfn_bt || 0) + (d.pfn_lt || 0) + (d.pfn_liq || 0) + (d.pfn_tit || 0) > 0;
   const pfn = hasPfnData
     ? ((d.pfn_bt || 0) + (d.pfn_lt || 0)) - ((d.pfn_liq || 0) + (d.pfn_tit || 0))
     : ((d.deb_b_bt || 0) + (d.deb_b_lt || 0) + (d.alt_deb || 0)) - (d.liquidita || 0);
+  // tot_circ fallback: somma componenti se tag aggregato mancante
+  const tot_circ_eff = (d.tot_circ || 0) > 0 ? d.tot_circ : ((d.rimanenze || 0) + (d.cred_cl || 0) + (d.alt_cr || 0) + (d.liquidita || 0));
   const roe = d.tot_pn > 0 ? (d.utile_es || 0) / d.tot_pn * 100 : NaN;
   const roi = d.tot_att > 0 ? ebitda / d.tot_att * 100 : NaN;
   const ros = d.tot_vp > 0 ? ebitda / d.tot_vp * 100 : NaN;
-  const cr  = dbt_bt > 0 ? (d.tot_circ || 0) / dbt_bt : NaN;
-  const acid = dbt_bt > 0 ? ((d.tot_circ || 0) - (d.rimanenze || 0)) / dbt_bt : NaN;
+  const cr  = dbt_cr > 0 ? tot_circ_eff / dbt_cr : NaN;
+  const acid = dbt_cr > 0 ? (tot_circ_eff - (d.rimanenze || 0)) / dbt_cr : NaN;
   const leva = d.tot_pn > 0 ? (d.tot_deb || 0) / d.tot_pn : NaN;
   const aut  = d.tot_att > 0 ? (d.tot_pn || 0) / d.tot_att * 100 : NaN;
   const ebitda_pct = d.tot_vp > 0 ? ebitda / d.tot_vp * 100 : NaN;
