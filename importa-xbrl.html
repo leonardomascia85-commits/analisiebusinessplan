@@ -719,7 +719,9 @@
       d.liquidita=get(['TotaleDisponibilitaLiquide','DisponibilitaLiquideTotale',
         'DisponibilitaLiquide'],ctxI);
       d.tot_circ=get(['TotaleAttivoCircolante','AttivoCircolanteTotale'],ctxI)
-        ||getKw('TotaleAttivoCircolante',ctxI);
+        ||getKw('TotaleAttivoCircolante',ctxI)
+        // Fallback: somma componenti (schema abbreviato senza tag aggregato)
+        ||(()=>{const s=(d.rimanenze||0)+(d.cred_cl||0)+(d.alt_cr||0)+(d.liquidita||0);return s>0?s:0;})();
       // Ratei e risconti attivi — il tag varia moltissimo tra software
       d.ratei_att=get(['AttivoRateiRisconti','RateiRiscontiAttivi',
         'TotaleRateiRiscontiAttivi','RateiRiscontiAttiviTotale',
@@ -935,13 +937,15 @@
     const ebitda=d.tot_vp-(d.mat_prime+d.servizi+(d.godimento||0)+d.personale);
     const ebit=ebitda-(d.ammort||0);
     const dbt_bt=(d.deb_b_bt||0)+(d.deb_for||0)+(d.deb_trib||0);
+    // Fallback CR: se debiti granulari = 0 ma tot_deb > 0 (schema abbreviato), usa tot_deb
+    const dbt_cr=dbt_bt>0?dbt_bt:(d.tot_deb||0);
     const va=d.tot_vp-(d.mat_prime||0)-(d.servizi||0)-(d.godimento||0);
     const nd=d.n_dip>0?d.n_dip:NaN;
     return{
       ebitda,ebit,
       roe:d.tot_pn>0?d.utile_es/d.tot_pn*100:NaN,
       roi:d.tot_att>0?ebit/d.tot_att*100:NaN,
-      cr:dbt_bt>0?d.tot_circ/dbt_bt:NaN,
+      cr:dbt_cr>0?d.tot_circ/dbt_cr:NaN,
       pfn:(d.deb_b_bt+d.deb_b_lt)-d.liquidita,
       aut:d.tot_att>0?d.tot_pn/d.tot_att*100:NaN,
       va,
