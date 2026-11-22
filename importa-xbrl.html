@@ -754,10 +754,12 @@
       // ── DEBITI ────────────────────────────────────────────────
       d.deb_b_bt=get(['DebitiDebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',
         'DebitiVersoBancheEsigibiliEntroEsercizioSuccessivo',
-        'DebitiVersoBancheBreveTermine','DebitiVersoBancheEntro'],ctxI);
+        'DebitiVersoBancheBreveTermine','DebitiVersoBancheEntro',
+        'DebitiEsigibiliEntroEsercizioSuccessivo'],ctxI); // fallback schema MICRO
       d.deb_b_lt=get(['DebitiDebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',
         'DebitiVersoBancheEsigibiliOltreEsercizioSuccessivo',
-        'DebitiVersoBancheLungoTermine','DebitiVersoBancheOltre'],ctxI);
+        'DebitiVersoBancheLungoTermine','DebitiVersoBancheOltre',
+        'DebitiEsigibiliOltreEsercizioSuccessivo'],ctxI); // fallback schema MICRO
       d.deb_for=get(['DebitiDebitiVersoFornitoriTotaleDebitiVersoFornitori',
         'DebitiVersoFornitoriTotaleDebitiVersoFornitori',
         'DebitiVersoFornitoriTotale','DebitiVersoFornitori'],ctxI);
@@ -811,6 +813,7 @@
         'VariazioniLavoriInCorso','LavoriInCorsoVariazioni'],ctxD);
       // A4 – Incrementi immobilizzazioni per lavori interni
       d.incr_imm=get(['ValoreProduzioneIncrementoImmobilizzazioniPerLavoriInterni',
+        'ValoreProduzioneIncrementiImmobilizzazioniLavoriInterni',
         'IncrementoImmobilizzazioniLavoriInterni','IncrementoImmobilizzazioni'],ctxD);
       d.alt_ric=get(['ValoreProduzioneAltriRicaviProventiTotaleAltriRicaviProventi',
         'AltriRicaviProventiTotale','AltriRicaviEProventi'],ctxD);
@@ -934,7 +937,7 @@
   }
 
   function computeIndici(d){
-    const ebitda=d.tot_vp-(d.mat_prime+d.servizi+(d.godimento||0)+d.personale);
+    const ebitda=d.tot_vp-(d.mat_prime+d.servizi+(d.godimento||0)+d.personale+(d.var_mat||0)+(d.oneri_div||0));
     const ebit=ebitda-(d.ammort||0);
     const dbt_bt=(d.deb_b_bt||0)+(d.deb_for||0)+(d.deb_trib||0);
     // Fallback CR: se debiti granulari = 0 ma tot_deb > 0 (schema abbreviato), usa tot_deb
