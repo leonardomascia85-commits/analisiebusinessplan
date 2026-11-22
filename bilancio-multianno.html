@@ -1138,10 +1138,12 @@ function updateYearLabel(y){
 
 function initYears(){
   const cy=new Date().getFullYear();
+  // L'anno di default è cy-1: i bilanci vengono depositati con un anno di ritardo
+  const refYear=cy-1;
   [0,1,2].forEach(i=>{
     const sel=document.getElementById(`ysel-${i}`);
     if(!sel)return;
-    const base=cy-i;
+    const base=refYear-i;
     let html='';
     for(let y=cy+1;y>=cy-6;y--){
       html+=`<option value="${y}"${y===base?' selected':''}>${y}</option>`;
